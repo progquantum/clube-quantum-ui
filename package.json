@@ -16,8 +16,7 @@
   },
   "lint-staged": {
     "./src/**/*.{ts,js,jsx,tsx}": [
-      "yarn lint-code-style --fix",
-      "yarn lint-check-types"
+      "yarn lint-code-style --fix"
     ]
   },
   "dependencies": {
@@ -33,7 +32,7 @@
     "@testing-library/user-event": "^14.2.0",
     "@types/jest": "^27.5.1",
     "@types/node": "16.11.11",
-    "@types/react": "17.0.37",
+    "@types/react": "^18.0.9",
     "@typescript-eslint/eslint-plugin": "^4.29.1",
     "@typescript-eslint/parser": "^4.29.1",
     "babel-eslint": "^10.1.0",
