@@ -14,8 +14,8 @@
   },
   "lint-staged": {
     "./src/**/*.{ts,js,jsx,tsx}": [
-      "yarn lint --fix",
-      "yarn format"
+      "yarn lint-code-style --fix",
+      "yarn lint-check-types"
     ]
   },
   "dependencies": {
