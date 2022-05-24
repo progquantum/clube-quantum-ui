@@ -5,9 +5,18 @@
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "lint": "next lint",
+    "lint-code-style": "eslint --ignore-path .gitignore \"src/**/*.+(ts|js|tsx)\"",
+    "lint-check-types": "tsc --noemit",
+    "lint-unused-exports": "./node_modules/.bin/ts-unused-exports tsconfig.json --allowUnusedTypes --excludePathsFromReport=pages",
+    "linter": "yarn lint-code-style && yarn lint-check-types",
     "postinstall": "husky install",
     "prepare": "husky install"
+  },
+  "lint-staged": {
+    "./src/**/*.{ts,js,jsx,tsx}": [
+      "yarn lint --fix",
+      "yarn format"
+    ]
   },
   "dependencies": {
     "next": "12.0.4",
