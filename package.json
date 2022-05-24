@@ -10,7 +10,9 @@
     "lint-unused-exports": "./node_modules/.bin/ts-unused-exports tsconfig.json --allowUnusedTypes --excludePathsFromReport=pages",
     "linter": "yarn lint-code-style && yarn lint-check-types",
     "postinstall": "husky install",
-    "prepare": "husky install"
+    "prepare": "husky install",
+    "test": "jest",
+    "test:watch": "yarn test --watch"
   },
   "lint-staged": {
     "./src/**/*.{ts,js,jsx,tsx}": [
@@ -28,6 +30,8 @@
     "@commitlint/config-conventional": "^17.0.0",
     "@testing-library/jest-dom": "^5.16.4",
     "@testing-library/react": "^13.2.0",
+    "@testing-library/user-event": "^14.2.0",
+    "@types/jest": "^27.5.1",
     "@types/node": "16.11.11",
     "@types/react": "17.0.37",
     "@typescript-eslint/eslint-plugin": "^4.29.1",
@@ -46,6 +50,7 @@
     "eslint-plugin-react-hooks": "^4.0.8",
     "husky": "^8.0.0",
     "jest": "^28.1.0",
+    "jest-environment-jsdom": "^28.1.0",
     "lint-staged": "^12.4.2",
     "ts-node": "^10.8.0",
     "ts-unused-exports": "^8.0.0",
