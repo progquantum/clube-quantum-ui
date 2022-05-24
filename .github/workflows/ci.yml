@@ -1,0 +1,40 @@
+name: CI/CD
+
+on: [pull_request]
+
+jobs:
+  build:
+    env:
+      GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v3
+        with:
+          fetch-depth: 0
+
+      - name: Set up Node
+        uses: actions/setup-node@v3
+        with:
+          node-version: 14
+
+      - name: Install dependencies (with cache)
+        uses: bahmutov/npm-install@HEAD
+
+      - name: Lint Check Types
+        run: yarn lint-check-types
+
+      - name: lint Unused Exports
+        run: yarn lint-unused-exports
+
+      - name: Lint Code styles
+        run: yarn lint-code-style
+
+      - name: Check commits messages
+        uses: wagoid/commitlint-github-action@v4
+
+      - name: Build
+        run: yarn build
+
