@@ -7,7 +7,7 @@ describe('Home page', () => {
     const { getByRole } = render(<Home />)
 
     const heading = getByRole('heading', {
-      name: /welcome to next\.js!/i
+      name: /home/i
     })
 
     expect(heading).toBeInTheDocument()
