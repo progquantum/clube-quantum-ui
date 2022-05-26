@@ -8,9 +8,14 @@ export default createGlobalStyle`
   }
 
   body {
-    font-family: sans-serif;
-    font-size: ${({ theme }) => theme.fonts.sizes.base};
+    font-family: 'Montserrat', -apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Oxygen,
+    Ubuntu, Cantarell, Fira Sans, Droid Sans, Helvetica Neue, sans-serif;
+    font-size: ${({ theme }) => theme.fontSizes.base};
     font-weight: 400;
+  }
+
+  button, input, textarea {
+    font-family: 'Montserrat', sans-serif;
   }
 
   input,
@@ -22,6 +27,10 @@ export default createGlobalStyle`
     border: 0;
     outline: 0;
     cursor: pointer;
+  }
+
+  a {
+    text-decoration: none;
   }
 
   ul {

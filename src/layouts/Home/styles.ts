@@ -1,15 +1,48 @@
 import styled from 'styled-components'
 
 export const Container = styled.main`
-  width: 100%;
-  height: 100%;
   background: linear-gradient(180deg, #001F80 0%, #0C61FF 100%);
+`
 
+export const CashBack = styled.div`
+  height: 726.18px;
   display: flex;
   flex-direction: column;
   align-items: center;
+  padding: 0px;
+  gap: 170px;
+`
 
-  font-family: ${props => props.theme.fonts.montserrat};
+export const CashBackWrap = styled.div`
+  height: 533.18px;
+  display: flex;
+  justify-content: center;
+  gap: 2.5rem;
+`
+
+export const CashBackContent = styled.div`
+  width: 456px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: flex-start;
+  gap: 2.5rem;
+
+  .heading {
+    font-weight: 900;
+    color: ${({ theme }) => theme.colors.light};
+
+    &.title {
+      line-height: 3rem;
+      font-size: ${({ theme }) => theme.fontSizes['2xl']};
+
+    }
+
+    &.description {
+      line-height: 3rem;
+      font-size: ${({ theme }) => theme.fontSizes.lg};
+    }
+  }
 `
 
 export const FirstSection = styled.section`

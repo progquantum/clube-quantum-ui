@@ -1,7 +1,9 @@
 import Head from 'next/head'
-import NextLink from 'next/link'
+import Image from 'next/image'
 
-import { Header } from './components/Header'
+import { Button } from 'components/Button'
+
+import { Header } from './Header'
 
 import * as S from './styles'
 
@@ -15,28 +17,43 @@ export function HomePage () {
       <Header />
 
       <S.Container>
-        <S.FirstSection>
-          <div>
-            <h1>
-              Ganhe cash back <br /> todo dia!
-            </h1>
-            <h6>Seja um membro Clube Quantum</h6>
-            <NextLink href='/register/personal'>
-              <button> Criar minha conta</button>
-            </NextLink>
-          </div>
-          <img src='/assets/cashback.svg' alt='Cashback' />
-        </S.FirstSection>
+        <S.CashBack>
+          <S.CashBackWrap>
+            <S.CashBackContent>
+              <h1 className='heading title'>
+                Ganhe cash back todo dia!
+              </h1>
 
-        <div>
-          <img src='/assets/arrow-down.svg' alt='Arrow down icon' />
-        </div>
+              <h6 className='heading description'>Seja um membro Clube Quantum</h6>
+
+              <Button>
+                Criar minha conta
+              </Button>
+
+            </S.CashBackContent>
+
+            <Image
+              src='/images/cashback.svg'
+              alt='Ilustração do CashBack' width={618}
+              height={533}
+              objectFit='contain'
+            />
+          </S.CashBackWrap>
+
+          <Image
+            src='/images/arrow-down.svg'
+            width={42}
+            height={23}
+            objectFit='contain'
+          />
+        </S.CashBack>
 
         <S.SecondSection>
           <img
-            src='/assets/girl-on-mobile.png'
+            src='/images/girl-on-mobile.png'
             alt='Girl on mobile'
           />
+
           <div>
             <div>
               <h1>
@@ -64,14 +81,16 @@ export function HomePage () {
               fazer é o pré cadastro!
             </p>
           </div>
+
           <img
-            src='/assets/girl-taking-photo.png'
+            src='/images/girl-taking-photo.png'
             alt='Girl taking photo'
           />
         </S.ThirdSection>
 
         <S.FaqContents>
           <h1>F.A.Q.</h1>
+
           <div>
             <div>
               <S.Box>
@@ -92,9 +111,11 @@ export function HomePage () {
                   optio cumque consectetur sapiente ullam, culpa aut?
                 </p>
               </S.Box>
-              <button>Veja mais Dúvidas</button>
+
+              <Button>Veja mais Dúvidas</Button>
             </div>
-            <img src='/assets/questions.svg' alt='Questions' />
+
+            <img src='/images/questions.svg' alt='Questions' />
           </div>
         </S.FaqContents>
       </S.Container>

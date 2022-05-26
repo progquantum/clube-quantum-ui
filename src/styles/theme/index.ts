@@ -1,7 +1,9 @@
 import { colors } from './colors'
-import { fonts } from './fonts'
+import { fontSizes } from './fonts'
+import { gradients } from './gradients'
 
 export const theme = {
   colors,
-  fonts
+  fontSizes,
+  gradients
 }
