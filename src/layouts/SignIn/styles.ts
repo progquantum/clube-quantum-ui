@@ -5,6 +5,10 @@ export const LoginWrapper = styled.main`
   background-color: ${(props) => props.theme.colors.white};
   margin-top: 2.375rem;
   padding: 0 1.5rem;
+
+  * {
+    color: ${(props) => props.theme.colors.gray[700]};
+  }
 `
 
 export const Form = styled.div`
