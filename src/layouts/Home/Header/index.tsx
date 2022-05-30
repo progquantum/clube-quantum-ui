@@ -19,7 +19,7 @@ export function Header () {
         <S.UserIcon />
 
         <p>
-          Olá, faça seu <Link href='/login'>Login</Link>
+          Olá, faça seu <Link href='/signin'>Login</Link>
           <br />
           ou <Link href='/register/personal' passHref>Cadastre-se </Link>
         </p>

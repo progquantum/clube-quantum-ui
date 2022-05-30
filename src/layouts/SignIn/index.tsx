@@ -7,7 +7,7 @@ import { Button } from 'components/Button'
 
 import * as S from './styles'
 
-export function LoginPage () {
+export function SignInPage () {
   const {
     control,
     formState: { errors, dirtyFields },
