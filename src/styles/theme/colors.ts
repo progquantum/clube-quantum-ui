@@ -3,6 +3,7 @@ export const colors = {
   midnightBlue: '#001F80',
   mediumslateBlue: '#0C61FF',
   royalblue: '#0E5AE4',
+  lightsteelblue: '#B2C5FF',
   darkslategray: '#373435',
   white: '#ffffff',
   gray: {
