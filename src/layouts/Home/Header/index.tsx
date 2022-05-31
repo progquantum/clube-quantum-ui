@@ -21,7 +21,7 @@ export function Header () {
         <p>
           Olá, faça seu <Link href='/signin'>Login</Link>
           <br />
-          ou <Link href='/register/personal' passHref>Cadastre-se </Link>
+          ou <Link href='/signup/personal' passHref>Cadastre-se </Link>
         </p>
       </S.Box>
     </S.Container>
