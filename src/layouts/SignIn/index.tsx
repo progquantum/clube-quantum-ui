@@ -1,10 +1,10 @@
 import { Controller, useForm } from 'react-hook-form'
-import NextLink from 'next/link'
+import Link from 'next/link'
+import Head from 'next/head'
 
 import { Header } from 'components/Header'
 import { Input } from 'components/Input'
 import { Button } from 'components/Button'
-
 import { Footer } from 'components/Footer'
 
 import * as S from './styles'
@@ -23,11 +23,16 @@ export function SignInPage () {
 
   return (
     <>
+      <Head>
+        <title>Acessar sua conta Clube Quantum</title>
+      </Head>
+
       <Header />
 
       <S.LoginWrapper>
         <S.Form>
           <h1>Login</h1>
+
           <Controller
             control={control}
             name='login'
@@ -41,6 +46,7 @@ export function SignInPage () {
               />
             )}
           />
+
           <Input
             type='password'
             label='Senha'
@@ -54,9 +60,10 @@ export function SignInPage () {
               <input type='checkbox' id='remember' />
               <label htmlFor='remember'>Lembre meu login</label>
             </span>
-            <NextLink href='/'>
+
+            <Link href='/'>
               Esqueceu a sua senha?
-            </NextLink>
+            </Link>
           </S.LoginAbout>
 
           <S.LoginButton>
@@ -68,11 +75,11 @@ export function SignInPage () {
       <S.CreateAccountButtonWrapper>
         <div>
           <h2>Ainda não é um membro do Quantum Clube?</h2>
-          <NextLink href='/register/personal'>
+          <Link href='/register/personal'>
             <Button>
               Criar Conta
             </Button>
-          </NextLink>
+          </Link>
         </div>
       </S.CreateAccountButtonWrapper>
 
