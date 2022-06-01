@@ -5,6 +5,8 @@ import { Header } from 'components/Header'
 import { Steper } from 'components/Steper'
 import { Footer } from 'components/Footer'
 
+import { ImageLoader } from './ImageLoader'
+
 import * as Step from './Steps'
 
 import * as S from './styles'
@@ -32,22 +34,22 @@ export function BusinessSignUpPage () {
 
           <S.Contents>
             {step === 0 && (
-              <Image width={385} height={373} src='/images/business-one-step.png' alt='' />
+              <ImageLoader src='/images/business-one-step.png' alt='' />
             )}
             {step === 1 && (
-              <Image width={385} height={373} src='/images/business-two-step.png' alt='' />
+              <ImageLoader src='/images/business-two-step.png' alt='' />
             )}
             {step === 2 && (
-              <Image width={385} height={373} src='/images/business-two-step.png' alt='' />
+              <ImageLoader src='/images/business-two-step.png' alt='' />
             )}
             {step === 3 && (
-              <Image width={385} height={373} src='/images/business-four-step.png' alt='' />
+              <ImageLoader src='/images/business-four-step.png' alt='' />
             )}
             {step === 4 && (
-              <Image width={385} height={373} src='/images/business-five-step.png' alt='' />
+              <ImageLoader src='/images/business-five-step.png' alt='' />
             )}
             {step === 5 && (
-              <Image width={385} height={373} src='/images/business-six-step.png' alt='' />
+              <ImageLoader src='/images/business-six-step.png' alt='' />
             )}
             {step === 7 && (
               <Image width={291} height={322} src='/images/successful-signup.png' alt='' />
