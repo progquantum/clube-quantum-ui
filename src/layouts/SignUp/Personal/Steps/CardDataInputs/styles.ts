@@ -33,14 +33,14 @@ export const Form = styled.form`
   align-items: flex-end;
 
   input::placeholder {
-    color: ${(props) => props.theme.colors.gray[200]};
+    color: ${({ theme }) => theme.colors.gray[200]};
   }
 
   button {
     width: 3.125rem;
     height: 3.125rem;
     border-radius: 100%;
-    background-color: ${(props) => props.theme.colors.midnightBlue};
+    background-color: ${({ theme }) => theme.colors.midnightBlue};
     margin-top: 5rem;
 
     display: flex;
@@ -49,7 +49,7 @@ export const Form = styled.form`
 
     svg {
       font-size: 1.5rem;
-      color: ${(props) => props.theme.colors.white};
+      color: ${({ theme }) => theme.colors.white};
     }
   }
 
@@ -79,9 +79,9 @@ export const ButtonGroup = styled.div`
   button:first-of-type {
     max-width: 12.5rem;
     width: 100%;
-    background-color: ${(props) => props.theme.colors.lightsteelblue};
+    background-color: ${({ theme }) => theme.colors.lightsteelblue};
     border-radius: 2rem;
-    color: ${(props) => props.theme.colors.midnightBlue};
+    color: ${({ theme }) => theme.colors.midnightBlue};
     font-weight: 600;
     font-size: 1rem;
   }

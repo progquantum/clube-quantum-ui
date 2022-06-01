@@ -10,7 +10,7 @@ export const Container = styled.div`
     flex-direction: column;
     align-items: flex-start;
     gap: 2rem;
-    color: ${(props) => props.theme.colors.gray[700]};
+    color: ${({ theme }) => theme.colors.gray[700]};
 
     p {
       margin-top: -1.5rem;
@@ -26,9 +26,9 @@ export const Container = styled.div`
     button {
       width: 10.5rem;
       height: 2.75rem;
-      background-color: ${(props) => props.theme.colors.midnightBlue};
+      background-color: ${({ theme }) => theme.colors.midnightBlue};
       border-radius: 2.5rem;
-      color: ${(props) => props.theme.colors.white};
+      color: ${({ theme }) => theme.colors.white};
       font-weight: 600;
 
       display: flex;

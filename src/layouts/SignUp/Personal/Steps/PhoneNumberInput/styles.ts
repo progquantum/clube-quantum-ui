@@ -12,14 +12,14 @@ export const Container = styled.div`
     align-items: flex-end;
 
     input::placeholder {
-      color: ${(props) => props.theme.colors.gray[200]};
+      color: ${({ theme }) => theme.colors.gray[200]};
     }
 
     button {
       width: 3.125rem;
       height: 3.125rem;
       border-radius: 100%;
-      background-color: ${(props) => props.theme.colors.midnightBlue};
+      background-color: ${({ theme }) => theme.colors.midnightBlue};
       margin-top: 6.25rem;
 
       display: flex;
@@ -28,7 +28,7 @@ export const Container = styled.div`
 
       svg {
         font-size: 1.5rem;
-        color: ${(props) => props.theme.colors.white};
+        color: ${({ theme }) => theme.colors.white};
       }
     }
   }
