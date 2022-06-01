@@ -1,4 +1,5 @@
 import { useState } from 'react'
+import Image from 'next/image'
 
 import { Header } from 'components/Header'
 import { Steper } from 'components/Steper'
@@ -31,13 +32,13 @@ export function PersonalSignUpPage () {
 
           <S.Contents>
             {step <= 4 && (
-              <img src='/images/girl-on-ladder.png' alt='' />
+              <Image width={386} height={373} src='/images/girl-on-ladder.png' alt='' />
             )}
             {step === 5 && (
-              <img src='/images/six-step-image.png' alt='' />
+              <Image width={401} height={634} src='/images/six-step-image.png' alt='' />
             )}
             {step === 7 && (
-              <img src='/images/successful-signup.png' alt='' />
+              <Image width={291} height={322} src='/images/successful-signup.png' alt='' />
             )}
 
             {step === 0 && (

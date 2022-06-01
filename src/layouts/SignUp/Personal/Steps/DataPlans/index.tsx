@@ -1,4 +1,5 @@
 import { useState } from 'react'
+import Image from 'next/image'
 
 import { DataPlansProps } from './types'
 import * as S from './styles'
@@ -15,7 +16,7 @@ export function DataPlans ({ onUpdateFormStep }: DataPlansProps) {
   return (
     <S.Container>
       <section>
-        <img src='/images/know-plans.png' alt='' />
+        <Image width={450} height={350} src='/images/know-plans.png' alt='' />
         <S.Plans>
           <div>
             <h4

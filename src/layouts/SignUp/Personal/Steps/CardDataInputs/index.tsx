@@ -1,4 +1,5 @@
 import { useForm } from 'react-hook-form'
+import Image from 'next/image'
 
 import { FaAngleRight } from 'react-icons/fa'
 
@@ -66,7 +67,7 @@ export function CardDataInputs ({ onUpdateFormStep }: CardDataInputsProps) {
             onFocus={({ target }) => (target.placeholder = '0000 0000 0000 0000')}
             onBlur={({ target }) => (target.placeholder = '')}
           />
-          <img src='/images/visa-card.png' alt='Mastercard' />
+          <Image width={110} height={76} src='/images/visa-card.png' alt='Mastercard' />
         </div>
 
         <Input

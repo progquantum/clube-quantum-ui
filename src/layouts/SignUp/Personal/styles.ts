@@ -29,8 +29,8 @@ export const Contents = styled.div`
   @media(max-width: 900px) {
     padding: 0 1.875rem;
 
-    > img {
-      display: none;
+    > span {
+      display: none !important;
     }
   }
 `

@@ -1,11 +1,12 @@
 import Link from 'next/link'
+import Image from 'next/image'
 
 import { Container } from './styles'
 
 export function SuccessfulSignUp () {
   return (
     <Container>
-      <img src='/images/check-icon.png' alt='' />
+      <Image width={61} height={60} src='/images/check-icon.png' alt='' />
       <h3>Tudo certo!</h3>
       <p>
         Seu cadastro foi finalizado com sucesso!
