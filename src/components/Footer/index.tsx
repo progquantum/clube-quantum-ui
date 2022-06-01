@@ -1,74 +1,61 @@
-import NextLink from 'next/link'
+import Link from 'next/link'
 
 import * as S from './styles'
 
-export const Footer = () => {
+export function Footer () {
   return (
     <S.Container>
       <S.About>
-        <div>
+        <S.Wrap>
           <h3>Institucional</h3>
-          <ul>
-            <li>
-              <NextLink href=''>
-                Quem somos
-              </NextLink>
-            </li>
-            <li>
-              <NextLink href=''>
-                Trabalhe conosco
-              </NextLink>
-            </li>
-            <li>
-              <NextLink href=''>
-                Fale conosco
-              </NextLink>
-            </li>
-            <li>
-              <NextLink href=''>
-                Parceiros
-              </NextLink>
-            </li>
-          </ul>
-        </div>
-        <div>
+
+          <S.Nav>
+            <Link href=''>
+              Quem somos
+            </Link>
+
+            <Link href=''>
+              Trabalhe conosco
+            </Link>
+
+            <Link href=''>
+              Fale conosco
+            </Link>
+
+            <Link href=''>
+              Parceiros
+            </Link>
+          </S.Nav>
+        </S.Wrap>
+
+        <S.Wrap>
           <h3>Deixe-nos lhe ajudar</h3>
-          <ul>
-            <li>
-              <NextLink href=''>
-                Sua conta
-              </NextLink>
-            </li>
-            <li>
-              <NextLink href=''>
-                Frete e prazo de entrega
-              </NextLink>
-            </li>
-            <li>
-              <NextLink href=''>
-                Devoluções e reembolsos
-              </NextLink>
-            </li>
-            <li>
-              <NextLink href=''>
-                Ajuda
-              </NextLink>
-            </li>
-          </ul>
-        </div>
+
+          <S.Nav>
+            <Link href=''>
+              Sua conta
+            </Link>
+
+            <Link href=''>
+              Frete e prazo de entrega
+            </Link>
+
+            <Link href=''>
+              Devoluções e reembolsos
+            </Link>
+
+            <Link href=''>
+              Ajuda
+            </Link>
+          </S.Nav>
+        </S.Wrap>
       </S.About>
 
       <S.Contact>
         <S.SocialNetworks>
-          <NextLink href=''>
-            <img src='/images/instagram-icon.png' alt='Instagram icon' />
-          </NextLink>
-          <NextLink href=''>
-            <img src='/images/facebook-icon.png' alt='Facebook icon' />
-          </NextLink>
-          <NextLink href=''>
-            <img src='/images/twitter-icon.png' alt='Twitter icon' />
-          </NextLink>
+          <S.Instagram />
+          <S.Facebook />
+          <S.Twitter />
         </S.SocialNetworks>
 
         <h4>Nossa central de atendimento</h4>

@@ -1,4 +1,6 @@
-import styled from 'styled-components'
+import { AiOutlineInstagram, AiOutlineTwitter } from 'react-icons/ai'
+import { RiFacebookFill } from 'react-icons/ri'
+import styled, { css } from 'styled-components'
 
 export const Container = styled.footer`
   max-width: 1640px;
@@ -11,7 +13,7 @@ export const Container = styled.footer`
   justify-content: space-between;
 
   * {
-    color: ${(props) => props.theme.colors.gray[700]};
+    color: ${({ theme }) => theme.colors.gray[700]};
   }
 
   @media(max-width: 1090px) {
@@ -29,28 +31,22 @@ export const About = styled.div`
   display: flex;
   gap: 5.9375rem;
 
-  div {
-    h3 {
-      margin-bottom: 0.625rem;
-    }
-
-    li {
-      & + li {
-        margin-top: 0.625rem;
-      }
-    }
-  }
-
   @media(max-width: 860px) {
     flex-direction: column;
+    align-items: flex-start;
     gap: 2.25rem;
-    align-items: center;
+  }
+`
 
-    div {
-      h3, li {
-        text-align: center;
-      }
-    }
+export const Nav = styled.nav`
+  display: flex;
+  flex-direction: column;
+  gap: 0.625rem;
+`
+
+export const Wrap = styled.div`
+  h3 {
+    margin-bottom: 0.625rem;
   }
 `
 
@@ -65,8 +61,22 @@ export const SocialNetworks = styled.div`
   display: flex;
   gap: 2.1875rem;
   margin-bottom: 0.625rem;
+`
 
-  img {
-    cursor: pointer;
-  }
+const icons = css`
+  width: 26px;
+  height: 26px;
+  cursor: pointer;
+`
+
+export const Instagram = styled(AiOutlineInstagram)`
+  ${icons}
+`
+
+export const Twitter = styled(AiOutlineTwitter)`
+  ${icons}
+`
+
+export const Facebook = styled(RiFacebookFill)`
+  ${icons}
 `
