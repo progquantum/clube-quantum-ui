@@ -3,7 +3,7 @@ import { FormEvent, useState } from 'react'
 import { PinCodeGrid } from 'components/PinCodeGrid'
 
 import { PinCodeProps } from './types'
-import { Container } from './styles'
+import * as S from './styles'
 
 export function PinCodeInput ({ onNextFormStep, onPreviousFormStep }: PinCodeProps) {
   const PIN_LENGTH = 5
@@ -24,8 +24,8 @@ export function PinCodeInput ({ onNextFormStep, onPreviousFormStep }: PinCodePro
   }
 
   return (
-    <Container>
-      <form onSubmit={(event) => onSubmit(event)}>
+    <S.Container>
+      <S.Form onSubmit={(event) => onSubmit(event)}>
         <h3>
           Para continuar, insira o código de 5 dígitos
           enviado por SMS para o número que você digitou
@@ -36,14 +36,14 @@ export function PinCodeInput ({ onNextFormStep, onPreviousFormStep }: PinCodePro
           pinLength={PIN_LENGTH}
         />
         <h3>Não recebeu?</h3>
-        <p>
+        <S.Paragraph>
           Clique aqui para <span>receber outro código</span> ou {' '}
           <span onClick={onPreviousFormStep}>
             digite outro número
           </span>
-        </p>
-        <button>Confirmar</button>
-      </form>
-    </Container>
+        </S.Paragraph>
+        <S.Button>Confirmar</S.Button>
+      </S.Form>
+    </S.Container>
   )
 }
