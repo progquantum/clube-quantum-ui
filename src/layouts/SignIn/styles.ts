@@ -117,11 +117,13 @@ export const CreateAccountButtonWrapper = styled.div`
       text-align: center;
     }
 
-    button {
+    a {
       background-color: ${({ theme }) => theme.colors.white};
       padding: 1rem 3rem;
       color: ${({ theme }) => theme.colors.midnightBlue};
       font-weight: 600;
+      border-radius: 2.5rem;
+      text-decoration: none;
     }
   }
 `
