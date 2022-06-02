@@ -3,6 +3,8 @@ import { FaAngleRight } from 'react-icons/fa'
 
 import { Input } from 'components/Input'
 
+import { NextStepButton } from '../../../NextStepButton'
+
 import * as S from './styles'
 
 import { AddressDataInputsProps } from './types'
@@ -90,9 +92,9 @@ export function AddressDataInputs ({ onUpdateFormStep }: AddressDataInputsProps)
           isDirty={dirtyFields.country}
           errors={errors.country}
         />
-        <S.Button>
+        <NextStepButton>
           <FaAngleRight />
-        </S.Button>
+        </NextStepButton>
       </S.Form>
     </S.Container>
   )

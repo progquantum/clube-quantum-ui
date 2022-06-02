@@ -16,20 +16,3 @@ export const Form = styled.form`
     color: ${({ theme }) => theme.colors.gray[200]};
   }
 `
-
-export const Button = styled.button`
-  width: 3.125rem;
-  height: 3.125rem;
-  border-radius: 100%;
-  background-color: ${({ theme }) => theme.colors.midnightBlue};
-  margin-top: 6.25rem;
-
-  display: flex;
-  align-items: center;
-  justify-content: center;
-
-  svg {
-    font-size: 1.5rem;
-    color: ${({ theme }) => theme.colors.white};
-  }
-`

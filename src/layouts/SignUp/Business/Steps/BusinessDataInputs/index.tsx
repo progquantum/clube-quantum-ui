@@ -4,6 +4,8 @@ import { FaAngleRight } from 'react-icons/fa'
 
 import { Input } from 'components/Input'
 
+import { NextStepButton } from '../../../NextStepButton'
+
 import * as S from './styles'
 import { BusinessDataInputsProps } from './types'
 
@@ -65,9 +67,9 @@ export function BusinessDataInputs ({
           isDirty={dirtyFields.password_confirmation}
           errors={errors.password_confirmation}
         />
-        <S.Button>
+        <NextStepButton>
           <FaAngleRight />
-        </S.Button>
+        </NextStepButton>
       </S.Form>
     </S.Container>
   )

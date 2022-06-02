@@ -64,6 +64,10 @@ export const ButtonGroup = styled.section`
 
   display: flex;
   justify-content: space-between;
+
+  button:last-of-type {
+    margin: 0;
+  }
 `
 
 export const JumpStepButton = styled.button`
@@ -75,20 +79,4 @@ export const JumpStepButton = styled.button`
   color: ${({ theme }) => theme.colors.midnightBlue};
   font-weight: 600;
   font-size: 1rem;
-`
-
-export const NextStepButton = styled.button`
-  width: 3.125rem;
-  height: 3.125rem;
-  border-radius: 100%;
-  background-color: ${({ theme }) => theme.colors.midnightBlue};
-
-  display: flex;
-  align-items: center;
-  justify-content: center;
-
-  svg {
-    font-size: 1.5rem;
-    color: ${({ theme }) => theme.colors.white};
-  }
 `

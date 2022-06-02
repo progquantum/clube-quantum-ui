@@ -3,6 +3,8 @@ import { useForm, Controller } from 'react-hook-form'
 
 import { Input } from 'components/Input'
 
+import { NextStepButton } from '../../../NextStepButton'
+
 import { CpfInputProps } from './types'
 import * as S from './styles'
 
@@ -35,9 +37,9 @@ export function CpfInput ({ onUpdateFormStep }: CpfInputProps) {
           )}
         />
 
-        <S.Button>
+        <NextStepButton>
           <FaAngleRight />
-        </S.Button>
+        </NextStepButton>
       </S.Form>
     </S.Container>
   )

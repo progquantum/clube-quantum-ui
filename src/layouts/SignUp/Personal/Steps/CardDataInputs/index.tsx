@@ -5,6 +5,8 @@ import { FaAngleRight } from 'react-icons/fa'
 
 import { Input } from 'components/Input'
 
+import { NextStepButton } from '../../../NextStepButton'
+
 import * as S from './styles'
 import { CardDataInputsProps } from './types'
 
@@ -94,9 +96,9 @@ export function CardDataInputs ({ onUpdateFormStep }: CardDataInputsProps) {
 
         <S.ButtonGroup>
           <S.JumpStepButton onClick={onUpdateFormStep}>Pular esta etapa</S.JumpStepButton>
-          <S.NextStepButton>
+          <NextStepButton>
             <FaAngleRight />
-          </S.NextStepButton>
+          </NextStepButton>
         </S.ButtonGroup>
       </S.Form>
     </S.Container>
