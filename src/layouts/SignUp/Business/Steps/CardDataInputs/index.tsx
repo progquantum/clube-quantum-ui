@@ -5,7 +5,7 @@ import { FaAngleRight } from 'react-icons/fa'
 
 import { Input } from 'components/Input'
 
-import { Container, Form, ButtonGroup } from './styles'
+import * as S from './styles'
 import { CardDataInputsProps } from './types'
 
 export function CardDataInputs ({ onUpdateFormStep }: CardDataInputsProps) {
@@ -28,19 +28,19 @@ export function CardDataInputs ({ onUpdateFormStep }: CardDataInputsProps) {
   }
 
   return (
-    <Container>
-      <section>
-        <div>
+    <S.Container>
+      <S.DataBank>
+        <S.DataWrapper>
           <h4>Cod. Banco</h4>
           <h4>396 - Banco Um</h4>
-        </div>
-        <div>
+        </S.DataWrapper>
+        <S.DataWrapper>
           <h4>Agência</h4>
           <h4>0001</h4>
-        </div>
-      </section>
+        </S.DataWrapper>
+      </S.DataBank>
 
-      <Form onSubmit={handleSubmit(onSubmit)}>
+      <S.Form onSubmit={handleSubmit(onSubmit)}>
         <Input
           label='Conta Corrente'
           {...register('account')}
@@ -58,7 +58,7 @@ export function CardDataInputs ({ onUpdateFormStep }: CardDataInputsProps) {
           onBlur={({ target }) => (target.placeholder = '')}
         />
 
-        <div>
+        <S.Wrapper>
           <Input
             label='Número do cartão'
             {...register('card_number')}
@@ -68,7 +68,7 @@ export function CardDataInputs ({ onUpdateFormStep }: CardDataInputsProps) {
             onBlur={({ target }) => (target.placeholder = '')}
           />
           <Image width={110} height={76} src='/images/visa-card.png' alt='Mastercard' />
-        </div>
+        </S.Wrapper>
 
         <Input
           label='Data de vencimento'
@@ -92,13 +92,13 @@ export function CardDataInputs ({ onUpdateFormStep }: CardDataInputsProps) {
           qual o CPF, informado anteriormente, está vinculado.
         </p>
 
-        <ButtonGroup>
-          <button onClick={onUpdateFormStep}>Pular esta etapa</button>
-          <button>
+        <S.ButtonGroup>
+          <S.JumpStepButton onClick={onUpdateFormStep}>Pular esta etapa</S.JumpStepButton>
+          <S.NextStepButton>
             <FaAngleRight />
-          </button>
-        </ButtonGroup>
-      </Form>
-    </Container>
+          </S.NextStepButton>
+        </S.ButtonGroup>
+      </S.Form>
+    </S.Container>
   )
 }
