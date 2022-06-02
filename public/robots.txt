@@ -1,0 +1,2 @@
+User-agent: *
+Sitemap: https://clube-quantum.com/sitemap.xml
