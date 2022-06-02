@@ -3,9 +3,7 @@ import { FaAngleRight } from 'react-icons/fa'
 
 import { Input } from 'components/Input'
 
-import { NextStepButton } from '../../../NextStepButton'
-
-import * as S from './styles'
+import { Container, Form, NextStepButton } from 'layouts/SignUp/components'
 
 import { AddressDataInputsProps } from './types'
 
@@ -33,8 +31,8 @@ export function AddressDataInputs ({ onUpdateFormStep }: AddressDataInputsProps)
   }
 
   return (
-    <S.Container>
-      <S.Form onSubmit={handleSubmit(onSubmit)}>
+    <Container>
+      <Form onSubmit={handleSubmit(onSubmit)}>
         <Controller
           control={control}
           name='cep'
@@ -95,7 +93,7 @@ export function AddressDataInputs ({ onUpdateFormStep }: AddressDataInputsProps)
         <NextStepButton>
           <FaAngleRight />
         </NextStepButton>
-      </S.Form>
-    </S.Container>
+      </Form>
+    </Container>
   )
 }

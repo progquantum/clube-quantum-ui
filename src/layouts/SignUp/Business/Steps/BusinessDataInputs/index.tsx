@@ -4,9 +4,8 @@ import { FaAngleRight } from 'react-icons/fa'
 
 import { Input } from 'components/Input'
 
-import { NextStepButton } from '../../../NextStepButton'
+import { Container, Form, NextStepButton } from '../../../components'
 
-import * as S from './styles'
 import { BusinessDataInputsProps } from './types'
 
 export function BusinessDataInputs ({
@@ -31,8 +30,8 @@ export function BusinessDataInputs ({
   }
 
   return (
-    <S.Container>
-      <S.Form onSubmit={handleSubmit(onSubmit)}>
+    <Container>
+      <Form onSubmit={handleSubmit(onSubmit)}>
         <Input
           label='Razão Social'
           {...register('corporateName')}
@@ -70,7 +69,7 @@ export function BusinessDataInputs ({
         <NextStepButton>
           <FaAngleRight />
         </NextStepButton>
-      </S.Form>
-    </S.Container>
+      </Form>
+    </Container>
   )
 }

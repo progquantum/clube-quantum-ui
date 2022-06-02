@@ -3,10 +3,9 @@ import { useForm, Controller } from 'react-hook-form'
 
 import { Input } from 'components/Input'
 
-import { NextStepButton } from '../../../NextStepButton'
+import { Container, Form, NextStepButton } from '../../../components'
 
 import { CpfInputProps } from './types'
-import * as S from './styles'
 
 export function CnpjInput ({ onUpdateFormStep }: CpfInputProps) {
   const { handleSubmit, control } = useForm({
@@ -20,8 +19,8 @@ export function CnpjInput ({ onUpdateFormStep }: CpfInputProps) {
   }
 
   return (
-    <S.Container>
-      <S.Form onSubmit={handleSubmit(onSubmitCpf)}>
+    <Container>
+      <Form onSubmit={handleSubmit(onSubmitCpf)}>
         <Controller
           control={control}
           name='cnpj'
@@ -40,7 +39,7 @@ export function CnpjInput ({ onUpdateFormStep }: CpfInputProps) {
         <NextStepButton>
           <FaAngleRight />
         </NextStepButton>
-      </S.Form>
-    </S.Container>
+      </Form>
+    </Container>
   )
 }

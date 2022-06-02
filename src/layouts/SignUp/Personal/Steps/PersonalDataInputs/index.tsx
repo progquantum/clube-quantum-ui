@@ -4,9 +4,8 @@ import { FaAngleRight } from 'react-icons/fa'
 
 import { Input } from 'components/Input'
 
-import { NextStepButton } from '../../../NextStepButton'
+import { Container, Form, NextStepButton } from '../../../components'
 
-import * as S from './styles'
 import { PersonalDataInputsProps } from './types'
 
 export function PersonalDataInputs ({
@@ -33,8 +32,8 @@ export function PersonalDataInputs ({
   }
 
   return (
-    <S.Container>
-      <S.Form onSubmit={handleSubmit(onSubmit)}>
+    <Container>
+      <Form onSubmit={handleSubmit(onSubmit)}>
         <Input
           label='Nome Completo'
           {...register('name')}
@@ -87,7 +86,7 @@ export function PersonalDataInputs ({
         <NextStepButton>
           <FaAngleRight />
         </NextStepButton>
-      </S.Form>
-    </S.Container>
+      </Form>
+    </Container>
   )
 }

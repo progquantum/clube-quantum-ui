@@ -5,7 +5,7 @@ import { FaAngleRight } from 'react-icons/fa'
 
 import { Input } from 'components/Input'
 
-import { NextStepButton } from '../../../NextStepButton'
+import { Container, NextStepButton } from '../../../components'
 
 import * as S from './styles'
 import { CardDataInputsProps } from './types'
@@ -30,7 +30,7 @@ export function CardDataInputs ({ onUpdateFormStep }: CardDataInputsProps) {
   }
 
   return (
-    <S.Container>
+    <Container>
       <S.DataBank>
         <S.DataWrapper>
           <h4>Cod. Banco</h4>
@@ -101,6 +101,6 @@ export function CardDataInputs ({ onUpdateFormStep }: CardDataInputsProps) {
           </NextStepButton>
         </S.ButtonGroup>
       </S.Form>
-    </S.Container>
+    </Container>
   )
 }

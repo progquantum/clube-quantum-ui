@@ -1,9 +1,6 @@
 import styled from 'styled-components'
 
-export const Container = styled.div`
-  max-width: 23rem;
-  width: 100%;
-`
+import { Form as FormComponent } from 'layouts/SignUp/components'
 
 export const DataBank = styled.section`
   width: 100%;
@@ -27,17 +24,7 @@ export const DataWrapper = styled.div`
   }
 `
 
-export const Form = styled.form`
-  width: 100%;
-
-  display: flex;
-  flex-direction: column;
-  align-items: flex-end;
-
-  input::placeholder {
-    color: ${({ theme }) => theme.colors.gray[200]};
-  }
-
+export const Form = styled(FormComponent)`
   p {
     margin-top: 2rem;
     font-weight: 500;
