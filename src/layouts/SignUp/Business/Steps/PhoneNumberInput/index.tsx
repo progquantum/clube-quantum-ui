@@ -4,7 +4,7 @@ import { useForm, Controller } from 'react-hook-form'
 import { Input } from 'components/Input'
 
 import { PhoneNumberProps } from './types'
-import { Container } from './styles'
+import * as S from './styles'
 
 export function PhoneNumberInput ({ onUpdateFormStep }: PhoneNumberProps) {
   const { handleSubmit, control } = useForm({
@@ -18,8 +18,8 @@ export function PhoneNumberInput ({ onUpdateFormStep }: PhoneNumberProps) {
   }
 
   return (
-    <Container>
-      <form onSubmit={handleSubmit(onSubmitCpf)}>
+    <S.Container>
+      <S.Form onSubmit={handleSubmit(onSubmitCpf)}>
         <Controller
           control={control}
           name='phoneNumber'
@@ -35,10 +35,10 @@ export function PhoneNumberInput ({ onUpdateFormStep }: PhoneNumberProps) {
           )}
         />
 
-        <button>
+        <S.Button>
           <FaAngleRight />
-        </button>
-      </form>
-    </Container>
+        </S.Button>
+      </S.Form>
+    </S.Container>
   )
 }
