@@ -11,7 +11,6 @@
     "linter": "yarn lint-code-style && yarn lint-check-types",
     "postinstall": "husky install",
     "prepare": "husky install",
-    "postbuild": "node ./scripts/generate-sitemap.mjs",
     "test": "jest",
     "test:watch": "yarn test --watch"
   },
