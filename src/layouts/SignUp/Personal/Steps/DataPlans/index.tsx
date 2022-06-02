@@ -15,48 +15,48 @@ export function DataPlans ({ onUpdateFormStep }: DataPlansProps) {
 
   return (
     <S.Container>
-      <section>
+      <S.Wrapper>
         <Image width={450} height={350} src='/images/know-plans.png' alt='' />
         <S.Plans>
-          <div>
-            <h4
+          <S.PlansWrapper>
+            <S.PlanType
               className={
                 selectedPlan === 'monthly' ? 'selected-plan' : ''
               }
               onClick={() => handleChoosePlan('monthly')}
             >
               Plano <br /> Mensal
-            </h4>
-            <h4
+            </S.PlanType>
+            <S.PlanType
               className={
                 selectedPlan === 'semiannual' ? 'selected-plan' : ''
               }
               onClick={() => handleChoosePlan('semiannual')}
             >
               Plano <br /> Semestral
-            </h4>
-            <h4
+            </S.PlanType>
+            <S.PlanType
               className={
                 selectedPlan === 'yearly' ? 'selected-plan' : ''
               }
               onClick={() => handleChoosePlan('yearly')}
             >
               Plano <br /> Anual
-            </h4>
-          </div>
+            </S.PlanType>
+          </S.PlansWrapper>
           <p>Renovação feita de forma automática</p>
         </S.Plans>
-      </section>
+      </S.Wrapper>
 
       <S.PlansContents>
-        <div>
+        <S.PlanContentsWrapper>
           <h3>Quantum Free</h3>
           <p>
             It is a long established fact that a reader will be distracted.
           </p>
           <h2>R$ 0,00</h2>
           <S.Button>Escolher este plano</S.Button>
-          <ul>
+          <S.PlanItemsList>
             <li>
               <span>
                 <S.CheckedCheckBox />
@@ -93,17 +93,17 @@ export function DataPlans ({ onUpdateFormStep }: DataPlansProps) {
               </span>
               Comissões
             </li>
-          </ul>
-        </div>
+          </S.PlanItemsList>
+        </S.PlanContentsWrapper>
 
-        <div>
+        <S.PlanContentsWrapper>
           <h3>Quantum Start</h3>
           <p>
             It is a long established fact that a reader will be distracted.
           </p>
           <h2>R$ 109,90</h2>
           <S.Button>Escolher este plano</S.Button>
-          <ul>
+          <S.PlanItemsList>
             <li>
               <span>
                 <S.CheckedCheckBox />
@@ -140,17 +140,17 @@ export function DataPlans ({ onUpdateFormStep }: DataPlansProps) {
               </span>
               Comissões
             </li>
-          </ul>
-        </div>
+          </S.PlanItemsList>
+        </S.PlanContentsWrapper>
 
-        <div>
+        <S.PlanContentsWrapper>
           <h3>Quantum Select</h3>
           <p>
             It is a long established fact that a reader will be distracted.
           </p>
           <h2>R$ 269,90</h2>
           <S.Button>Escolher este plano</S.Button>
-          <ul>
+          <S.PlanItemsList>
             <li>
               <span>
                 <S.CheckedCheckBox />
@@ -187,8 +187,8 @@ export function DataPlans ({ onUpdateFormStep }: DataPlansProps) {
               </span>
               Comissões
             </li>
-          </ul>
-        </div>
+          </S.PlanItemsList>
+        </S.PlanContentsWrapper>
       </S.PlansContents>
 
       <section>
