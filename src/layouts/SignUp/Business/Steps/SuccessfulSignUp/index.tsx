@@ -1,21 +1,30 @@
 import Link from 'next/link'
 import Image from 'next/image'
 
-import { Container } from './styles'
+import * as S from './styles'
 
 export function SuccessfulSignUp () {
   return (
-    <Container>
+    <S.Container>
       <Image width={61} height={60} src='/images/check-icon.png' alt='' />
-      <h3>Tudo certo!</h3>
-      <p>
+      <S.TextTitle
+        fontWeight={900}
+        margin='1.875rem 0 3rem'
+      >
+        Tudo certo!
+      </S.TextTitle>
+      <S.Paragraph>
         Seu cadastro foi finalizado com sucesso!
         Aproveite as ofertas e Cashback no Clube Quantum!
-      </p>
-      <h3>Seja bem vindo!</h3>
+      </S.Paragraph>
+      <S.TextTitle
+        fontWeight={700}
+      >
+        Seja bem vindo!
+      </S.TextTitle>
       <Link href='/signin'>
-        <button>Retornar para minha conta</button>
+        <S.Button>Retornar para minha conta</S.Button>
       </Link>
-    </Container>
+    </S.Container>
   )
 }
