@@ -3,7 +3,7 @@ import { FaAngleRight } from 'react-icons/fa'
 
 import { Input } from 'components/Input'
 
-import { Container } from './styles'
+import * as S from './styles'
 
 import { AddressDataInputsProps } from './types'
 
@@ -31,8 +31,8 @@ export function AddressDataInputs ({ onUpdateFormStep }: AddressDataInputsProps)
   }
 
   return (
-    <Container>
-      <form onSubmit={handleSubmit(onSubmit)}>
+    <S.Container>
+      <S.Form onSubmit={handleSubmit(onSubmit)}>
         <Controller
           control={control}
           name='cep'
@@ -90,10 +90,10 @@ export function AddressDataInputs ({ onUpdateFormStep }: AddressDataInputsProps)
           isDirty={dirtyFields.country}
           errors={errors.country}
         />
-        <button>
+        <S.Button>
           <FaAngleRight />
-        </button>
-      </form>
-    </Container>
+        </S.Button>
+      </S.Form>
+    </S.Container>
   )
 }
