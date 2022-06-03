@@ -4,7 +4,6 @@ import Head from 'next/head'
 
 import { Header } from 'components/Header'
 import { Input } from 'components/Input'
-import { Button } from 'components/Button'
 import { Footer } from 'components/Footer'
 
 import * as S from './styles'
@@ -75,10 +74,8 @@ export function SignInPage () {
       <S.CreateAccountButtonWrapper>
         <div>
           <h2>Ainda não é um membro do Quantum Clube?</h2>
-          <Link href='/register/personal'>
-            <Button>
-              Criar Conta
-            </Button>
+          <Link href='/signup/personal'>
+            Criar Conta
           </Link>
         </div>
       </S.CreateAccountButtonWrapper>

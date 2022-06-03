@@ -1,13 +1,13 @@
-import { Error, Exclamation, StyledInput } from './styles'
+import * as S from './styles'
 import { InputProps } from './types'
 
 export function Input ({
-  label, errors, isDirty, secondary, ...props
+  label, errors, isDirty, ...props
 }: InputProps) {
-  const icon = errors?.type === 'required' ? <Exclamation /> : <Error />
+  const icon = errors?.type === 'required' ? <S.Exclamation /> : <S.Error />
 
   return (
-    <StyledInput isDirty={isDirty} errors={errors} secondary={secondary}>
+    <S.StyledInput isDirty={isDirty} errors={errors}>
       <input {...props} />
       <label htmlFor={props.id}>{label}</label>
       {errors && (
@@ -16,6 +16,6 @@ export function Input ({
           {icon}
         </span>
       )}
-    </StyledInput>
+    </S.StyledInput>
   )
 }

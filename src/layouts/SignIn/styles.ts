@@ -2,12 +2,12 @@ import styled from 'styled-components'
 
 export const LoginWrapper = styled.main`
   width: 100%;
-  background-color: ${(props) => props.theme.colors.white};
+  background-color: ${({ theme }) => theme.colors.white};
   margin-top: 2.375rem;
   padding: 0 1.5rem;
 
   * {
-    color: ${(props) => props.theme.colors.gray[700]};
+    color: ${({ theme }) => theme.colors.gray[700]};
   }
 `
 
@@ -16,7 +16,7 @@ export const Form = styled.div`
   width: 100%;
   margin: 2rem auto 0;
   padding: 0 2rem;
-  background-color: ${props => props.theme.colors.white};
+  background-color: ${({ theme }) => theme.colors.white};
   border-radius: 20px 20px 50px 0;
   border-top: 1px solid rgba(0, 0, 0, 0.1);
 
@@ -43,7 +43,7 @@ export const Form = styled.div`
   h1 {
     font-size: 1.5rem;
     font-weight: 900;
-    color: ${(props) => props.theme.colors.gray[700]};
+    color: ${({ theme }) => theme.colors.gray[700]};
     text-align: center;
     margin: 2.5625rem 0 3.375rem;
   }
@@ -75,10 +75,10 @@ export const LoginAbout = styled.div`
 `
 
 export const LoginButton = styled.button`
-  background-color: ${(props) => props.theme.colors.midnightBlue};
+  background-color: ${({ theme }) => theme.colors.midnightBlue};
   padding: 1rem 3rem;
   border-radius: 2.5rem;
-  color: ${(props) => props.theme.colors.white};
+  color: ${({ theme }) => theme.colors.white};
   font-weight: 600;
   font-size: 1rem;
   margin-bottom: 2.7rem;
@@ -94,8 +94,8 @@ export const CreateAccountButtonWrapper = styled.div`
     height: 23.9375rem;
     margin: 0 auto 1.3125rem;
     padding: 0 2rem;
-    background-color: ${props => props.theme.colors.midnightBlue};
-    color: ${props => props.theme.colors.white};
+    background-color: ${({ theme }) => theme.colors.midnightBlue};
+    color: ${({ theme }) => theme.colors.white};
     border-radius: 0 0 20px 20px;
 
     display: flex;
@@ -113,15 +113,17 @@ export const CreateAccountButtonWrapper = styled.div`
 
       font-weight: 700;
       font-size: 1.75rem;
-      color: ${(props) => props.theme.colors.white};
+      color: ${({ theme }) => theme.colors.white};
       text-align: center;
     }
 
-    button {
-      background-color: ${(props) => props.theme.colors.white};
+    a {
+      background-color: ${({ theme }) => theme.colors.white};
       padding: 1rem 3rem;
-      color: ${(props) => props.theme.colors.midnightBlue};
+      color: ${({ theme }) => theme.colors.midnightBlue};
       font-weight: 600;
+      border-radius: 2.5rem;
+      text-decoration: none;
     }
   }
 `

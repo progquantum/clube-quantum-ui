@@ -33,7 +33,8 @@ export const About = styled.div`
 
   @media(max-width: 860px) {
     flex-direction: column;
-    align-items: flex-start;
+    align-items: center;
+    text-align: center;
     gap: 2.25rem;
   }
 `
@@ -47,6 +48,7 @@ export const Nav = styled.nav`
 export const Wrap = styled.div`
   h3 {
     margin-bottom: 0.625rem;
+    font-size: 1.125rem;
   }
 `
 
@@ -55,6 +57,14 @@ export const Contact = styled.div`
   flex-direction: column;
   align-items: center;
   gap: 0.625rem;
+
+  h4 {
+    font-size: 1rem;
+  }
+
+  h2 {
+    font-size: 1.25rem;
+  }
 `
 
 export const SocialNetworks = styled.div`
