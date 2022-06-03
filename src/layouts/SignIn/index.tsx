@@ -60,7 +60,7 @@ export function SignInPage () {
               <label htmlFor='remember'>Lembre meu login</label>
             </span>
 
-            <Link href='/'>
+            <Link href='/forgot-password'>
               Esqueceu a sua senha?
             </Link>
           </S.LoginAbout>
