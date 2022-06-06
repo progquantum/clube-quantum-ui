@@ -77,7 +77,7 @@ export const RightWrapper = styled.div`
   a {
     width: 140px;
     background-color: ${({ theme }) => theme.colors.mediumaquamarine};
-    color: #100037;
+    color: ${({ theme }) => theme.colors.stratos};
     font-weight: 700;
     align-self: center;
   }
