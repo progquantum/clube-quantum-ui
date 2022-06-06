@@ -1,3 +1,3 @@
-export interface PersonalDataInputsProps {
+export type PersonalDataInputsProps = {
   onUpdateFormStep: () => void
 }

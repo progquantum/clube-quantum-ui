@@ -1,3 +1,3 @@
-export interface AddressDataInputsProps {
+export type AddressDataInputsProps = {
   onUpdateFormStep: () => void;
 }

@@ -13,7 +13,6 @@ export function NotFoundPage () {
       <Header />
 
       <S.Container>
-
         <S.Wrapper>
           <S.Info>
             <h1>404</h1>

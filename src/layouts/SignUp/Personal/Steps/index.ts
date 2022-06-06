@@ -1,4 +1,4 @@
-export { CpfInput } from './CpfInput'
+export { CpfInput } from './CPFInput'
 export { PhoneNumberInput } from './PhoneNumberInput'
 export { PinCodeInput } from './PinCodeInput'
 export { PersonalDataInputs } from './PersonalDataInputs'

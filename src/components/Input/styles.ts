@@ -3,7 +3,7 @@ import { FaExclamation } from 'react-icons/fa'
 import { RiCloseLine } from 'react-icons/ri'
 import { FieldError } from 'react-hook-form'
 
-interface StyledInputProps {
+type StyledInputProps = {
   errors?: FieldError
   isDirty?: boolean
   secondary?: boolean

@@ -5,32 +5,32 @@ import { Input } from 'components/Input'
 
 import { Container, Form, NextStepButton } from '../../../components'
 
-import { CpfInputProps } from './types'
+import { CNPJInputProps } from './types'
 
-export function CpfInput ({ onUpdateFormStep }: CpfInputProps) {
+export function CNPJInput ({ onUpdateFormStep }: CNPJInputProps) {
   const { handleSubmit, control } = useForm({
     defaultValues: {
-      cpf: ''
+      cnpj: ''
     }
   })
 
-  function onSubmitCpf () {
+  function onSubmitCNPJ () {
     onUpdateFormStep()
   }
 
   return (
     <Container>
-      <Form onSubmit={handleSubmit(onSubmitCpf)}>
+      <Form onSubmit={handleSubmit(onSubmitCNPJ)}>
         <Controller
           control={control}
-          name='cpf'
+          name='cnpj'
           render={({ field, fieldState }) => (
             <Input
-              label='CPF'
+              label='CPNJ'
               {...field}
               errors={fieldState.error}
               isDirty={fieldState.isDirty}
-              onFocus={e => (e.target.placeholder = '000.000.000-00')}
+              onFocus={e => (e.target.placeholder = '00.000.000/0000-00')}
               onBlur={e => (e.target.placeholder = '')}
             />
           )}

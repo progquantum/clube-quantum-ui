@@ -1,3 +1,5 @@
-export interface DataPlansProps {
+export type DataPlansProps = {
   onUpdateFormStep: () => void;
 }
+
+export type Plans = 'monthly' | 'semiannual' | 'yearly'

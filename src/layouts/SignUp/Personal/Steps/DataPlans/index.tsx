@@ -1,10 +1,9 @@
 import { useState } from 'react'
 import Image from 'next/image'
 
-import { DataPlansProps } from './types'
-import * as S from './styles'
+import { DataPlansProps, Plans } from './types'
 
-type Plans = 'monthly' | 'semiannual' | 'yearly'
+import * as S from './styles'
 
 export function DataPlans ({ onUpdateFormStep }: DataPlansProps) {
   const [selectedPlan, setSelectedPlan] = useState<Plans>('semiannual')

@@ -7,8 +7,9 @@ import { Input } from 'components/Input'
 
 import { Container, NextStepButton } from '../../../components'
 
-import * as S from './styles'
 import { CardDataInputsProps } from './types'
+
+import * as S from './styles'
 
 export function CardDataInputs ({ onUpdateFormStep }: CardDataInputsProps) {
   const {
