@@ -5,7 +5,7 @@ export function makeServer ({ environment = 'test' } = {}) {
     environment,
 
     routes () {
-      this.urlPrefix = 'http://localhost:3000'
+      this.urlPrefix = 'http://localhost:3333'
     }
   })
 

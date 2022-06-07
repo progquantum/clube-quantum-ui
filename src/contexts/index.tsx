@@ -1,9 +1,17 @@
-import { PropsWithChildren } from 'react'
+import { PropsWithChildren, useState } from 'react'
+import { QueryClient, QueryClientProvider } from 'react-query'
 
+import { AuthProvider } from './auth/AuthProvider'
 import { StyledProvider } from './styles'
 
 export function AppProvider ({ children }: PropsWithChildren<unknown>) {
+  const [queryClient] = useState(() => new QueryClient())
+
   return (
-    <StyledProvider>{children}</StyledProvider>
+    <QueryClientProvider client={queryClient}>
+      <AuthProvider>
+        <StyledProvider>{children}</StyledProvider>
+      </AuthProvider>
+    </QueryClientProvider>
   )
 }
