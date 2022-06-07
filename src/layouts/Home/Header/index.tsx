@@ -1,4 +1,5 @@
 import Link from 'next/link'
+import Image from 'next/image'
 
 import * as S from './styles'
 
@@ -6,7 +7,7 @@ export function Header () {
   return (
     <S.Container>
       <Link href='/'>
-        <img src='/images/quantum-logo.svg' alt='Club Quantum logo' />
+        <Image width={53} height={70} src='/images/quantum-logo.svg' alt='Club Quantum logo' />
       </Link>
 
       <S.Nav>
@@ -21,7 +22,7 @@ export function Header () {
         <p>
           Olá, faça seu <Link href='/signin'>Login</Link>
           <br />
-          ou <Link href='/register/personal' passHref>Cadastre-se </Link>
+          ou <Link href='/signup/personal' passHref>Cadastre-se </Link>
         </p>
       </S.Box>
     </S.Container>

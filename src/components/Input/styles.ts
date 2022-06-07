@@ -28,15 +28,8 @@ export const StyledInput = styled.div<StyledInputProps>`
     background-color: inherit;
     font-size: 1rem;
     transition: all 0.5s ease;
-    border-bottom: 2.5px solid
-      ${props =>
-        props.secondary
-          ? props.theme.colors.white
-          : props.theme.colors.gray[700]};
-    color: ${props =>
-      props.secondary
-        ? props.theme.colors.white
-        : props.theme.colors.gray[700]};
+    border-bottom: 2.5px solid ${({ theme }) => theme.colors.gray[700]};
+    color: ${({ theme }) => theme.colors.gray[700]};
 
     ${props =>
       props.isDirty &&
@@ -68,10 +61,7 @@ export const StyledInput = styled.div<StyledInputProps>`
     user-select: none;
     transition: all 0.5s ease;
     font-weight: 600;
-    color: ${props =>
-      props.secondary
-        ? props.theme.colors.white
-        : props.theme.colors.gray[700]};
+    color: ${({ theme }) => theme.colors.gray[700]};
 
     ${props =>
       props.isDirty &&
@@ -88,17 +78,7 @@ export const StyledInput = styled.div<StyledInputProps>`
     bottom: 1.8rem;
     left: 0.1rem;
     font-size: 0.8rem;
-    color: ${props => props.theme.colors.danger};
-
-    ${props =>
-      props.secondary &&
-      css`
-        padding: 0.2rem;
-        padding-left: 0.8rem;
-        width: 100%;
-        border-radius: 4px;
-        background-color: white;
-      `}
+    color: ${({ theme }) => theme.colors.danger};
   }
 `
 
@@ -106,7 +86,7 @@ export const Exclamation = styled(FaExclamation)`
   position: absolute;
   right: 0.2rem;
   top: 0.9rem;
-  color: ${props => props.theme.colors.danger};
+  color: ${({ theme }) => theme.colors.danger};
 `
 
 export const Error = styled(RiCloseLine)`
@@ -115,5 +95,5 @@ export const Error = styled(RiCloseLine)`
   top: 0.7rem;
   font-weight: 900;
   font-size: 1.4rem;
-  color: ${props => props.theme.colors.danger};
+  color: ${({ theme }) => theme.colors.danger};
 `

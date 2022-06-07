@@ -1,5 +1,8 @@
 import { PropsWithChildren, useState } from 'react'
 import { QueryClient, QueryClientProvider } from 'react-query'
+import { DefaultSeo } from 'next-seo'
+
+import SEO from '../../next-seo.config'
 
 import { AuthProvider } from './auth/AuthProvider'
 import { StyledProvider } from './styles'
@@ -8,10 +11,13 @@ export function AppProvider ({ children }: PropsWithChildren<unknown>) {
   const [queryClient] = useState(() => new QueryClient())
 
   return (
-    <QueryClientProvider client={queryClient}>
-      <AuthProvider>
-        <StyledProvider>{children}</StyledProvider>
-      </AuthProvider>
-    </QueryClientProvider>
+    <>
+      <DefaultSeo {...SEO} />
+      <QueryClientProvider client={queryClient}>
+        <AuthProvider>
+          <StyledProvider>{children}</StyledProvider>
+        </AuthProvider>
+      </QueryClientProvider>
+    </>
   )
 }
