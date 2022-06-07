@@ -26,9 +26,6 @@ jobs:
       - name: Lint Check Types
         run: yarn lint-check-types
 
-      - name: lint Unused Exports
-        run: yarn lint-unused-exports
-
       - name: Lint Code styles
         run: yarn lint-code-style
 
