@@ -11,6 +11,7 @@ module.exports = {
   ],
   plugins: ['react-hooks', 'jsx-a11y', 'import'],
   rules: {
+    camelcase: 'off',
     'react/react-in-jsx-scope': 'off',
     '@typescript-eslint/explicit-module-boundary-types': 'off',
     '@typescript-eslint/explicit-function-return-type': 'off',
