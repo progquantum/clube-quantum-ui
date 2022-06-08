@@ -1,4 +1,6 @@
-import { Controller, useForm } from 'react-hook-form'
+import { Controller, SubmitHandler, useForm } from 'react-hook-form'
+import { yupResolver } from '@hookform/resolvers/yup'
+import { useRouter } from 'next/router'
 import Link from 'next/link'
 import Head from 'next/head'
 
@@ -6,19 +8,39 @@ import { Header } from 'components/Header'
 import { Input } from 'components/Input'
 import { Footer } from 'components/Footer'
 
+import { useAuthDispatch, useAuthState } from 'contexts/auth/AuthContext'
+
+import { schema } from 'schemas/signIn'
+
+import { SignInFormValues } from './types'
+
 import * as S from './styles'
 
 export function SignInPage () {
   const {
     control,
     formState: { errors, dirtyFields },
-    register
+    register,
+    handleSubmit
   } = useForm({
     defaultValues: {
       login: '',
       password: ''
-    }
+    },
+    resolver: yupResolver(schema)
   })
+
+  const router = useRouter()
+
+  const { signIn } = useAuthDispatch()
+
+  const { loading } = useAuthState()
+
+  const onSubmit: SubmitHandler<SignInFormValues> = (data) => {
+    signIn(data)
+
+    router.push('/dashboard')
+  }
 
   return (
     <>
@@ -29,7 +51,7 @@ export function SignInPage () {
       <Header />
 
       <S.LoginWrapper>
-        <S.Form>
+        <S.Form onSubmit={handleSubmit(onSubmit)}>
           <h1>Login</h1>
 
           <Controller
@@ -65,7 +87,7 @@ export function SignInPage () {
             </Link>
           </S.LoginAbout>
 
-          <S.LoginButton>
+          <S.LoginButton disabled={loading}>
             Login
           </S.LoginButton>
         </S.Form>
