@@ -1,6 +1,6 @@
 import styled from 'styled-components'
 
-export const Container = styled.main`
+export const BlueBackground = styled.main`
   width: 100vw;
   height: 100vh;
   background-color: ${({ theme }) => theme.colors.royalblue};
@@ -46,5 +46,10 @@ export const AnimationWrapper = styled.div`
     100% {
       opacity: 1;
     }
+  }
+
+  object {
+    width: 100%;
+    height: 100%;
   }
 `

@@ -1,27 +1,29 @@
 import { useEffect } from 'react'
+import { setCookie } from 'nookies'
 
-import { useSplashScreen } from 'hooks/useSplashScreen'
-
+import { SplashscreenProps } from './types'
 import * as S from './styles'
 
-export function Splashscreen () {
-  const { setVisualizedSplashScreen } = useSplashScreen()
-
+export function Splashscreen ({ setSplashScreen }: SplashscreenProps) {
   useEffect(() => {
     const timeoutId = setTimeout(() => {
-      setVisualizedSplashScreen()
-    }, 1000)
+      setSplashScreen()
+
+      setCookie(null, '@Quantum:isVisualizedSplashScreen', 'true', {
+        path: '/'
+      })
+    }, 4000)
 
     return () => clearTimeout(timeoutId)
   }, [])
 
   return (
     <>
-      <S.Container />
       <S.AnimationWrapper>
-        xxxxxxxxx
+        <object data='/images/splash-screen-animation.svg' type='image/svg+xml'>
+          <img src='/images/splash-screen-animation.svg' alt='' />
+        </object>
       </S.AnimationWrapper>
-      {/*       <img src='quantum-logo-splash-screen' alt='' /> */}
     </>
   )
 }
