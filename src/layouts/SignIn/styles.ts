@@ -1,5 +1,7 @@
 import styled from 'styled-components'
 
+import { Button } from 'components/Button'
+
 export const LoginWrapper = styled.main`
   width: 100%;
   background-color: ${({ theme }) => theme.colors.white};
@@ -11,7 +13,7 @@ export const LoginWrapper = styled.main`
   }
 `
 
-export const Form = styled.div`
+export const Form = styled.form`
   max-width: 37.5rem;
   width: 100%;
   margin: 2rem auto 0;
@@ -74,7 +76,7 @@ export const LoginAbout = styled.div`
   }
 `
 
-export const LoginButton = styled.button`
+export const LoginButton = styled(Button)`
   background-color: ${({ theme }) => theme.colors.midnightBlue};
   padding: 1rem 3rem;
   border-radius: 2.5rem;
