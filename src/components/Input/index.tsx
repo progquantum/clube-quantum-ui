@@ -10,6 +10,7 @@ export function Input ({
     <S.StyledInput isDirty={isDirty} errors={errors}>
       <input {...props} />
       <label htmlFor={props.id}>{label}</label>
+
       {errors && (
         <span>
           {errors.message}
