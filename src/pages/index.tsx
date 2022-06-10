@@ -8,14 +8,14 @@ import { Splashscreen } from 'layouts/Splashscreen'
 export default function Home ({ splashScreenState }) {
   const [showSplashScreen, setShowSplashScreen] = useState(!splashScreenState)
 
-  const setSplashScreen = () => {
+  const handleShowSplashScreen = () => {
     setShowSplashScreen(false)
   }
 
   if (showSplashScreen) {
     return (
       <Splashscreen
-        setSplashScreen={setSplashScreen}
+        onRequestSplashScreen={handleShowSplashScreen}
       />
     )
   }

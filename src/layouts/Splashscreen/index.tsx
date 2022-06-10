@@ -4,10 +4,10 @@ import { setCookie } from 'nookies'
 import { SplashscreenProps } from './types'
 import * as S from './styles'
 
-export function Splashscreen ({ setSplashScreen }: SplashscreenProps) {
+export function Splashscreen ({ onRequestSplashScreen }: SplashscreenProps) {
   useEffect(() => {
     const timeoutId = setTimeout(() => {
-      setSplashScreen()
+      onRequestSplashScreen()
 
       setCookie(null, '@Quantum:isVisualizedSplashScreen', 'true', {
         path: '/'
