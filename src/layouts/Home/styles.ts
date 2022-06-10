@@ -34,6 +34,7 @@ export const CashBackWrapper = styled.section`
 
   @media(max-width: 730px) {
     padding-top: 3rem;
+    text-align: center;
 
     > span {
       display: none !important;
@@ -88,6 +89,10 @@ export const Wrapper = styled.section`
   max-width: 1920px;
   width: 100%;
   margin: 0 auto;
+
+  @media(max-width: 870px) {
+    margin-bottom: 5rem;
+  }
 `
 
 export const Content = styled.div`
@@ -103,6 +108,17 @@ export const Content = styled.div`
       width: 50%;
       margin-left: 0;
       margin-right: 50px;
+    }
+  }
+
+  @media(max-width: 870px) {
+    &, &.second-content {
+      flex-direction: column-reverse;
+
+      div {
+        width: 100%;
+        margin: 0;
+      }
     }
   }
 `
@@ -126,6 +142,12 @@ export const TextContent = styled.div`
   h6 {
     font-weight: 500;
     font-size: 1.25rem;
+  }
+
+  @media(max-width: 870px) {
+    width: 100%;
+    text-align: center;
+    margin-bottom: 3rem !important;
   }
 `
 
@@ -161,7 +183,7 @@ export const FaqContent = styled.div`
 
 export const Box = styled.div`
   width: 100%;
-  max-height: 290px;
+  min-height: 290px;
   padding: 50px;
   border-radius: 30px;
   border: 3px solid ${({ theme }) => theme.colors.white};
