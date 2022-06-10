@@ -20,9 +20,7 @@ export function Splashscreen ({ onRequestSplashScreen }: SplashscreenProps) {
   return (
     <>
       <S.AnimationWrapper>
-        <object data='/images/splash-screen-animation.svg' type='image/svg+xml'>
-          <img src='/images/splash-screen-animation.svg' alt='' />
-        </object>
+        <object data='/images/splash-screen-animation.svg' type='image/svg+xml' />
       </S.AnimationWrapper>
     </>
   )
