@@ -12,6 +12,20 @@ export const Container = styled.header`
     line-height: 1.3rem;
     color: ${({ theme }) => theme.colors.gray[700]};
   }
+
+  animation: show 0.3s ease-in forwards;
+
+  @keyframes show {
+    0% {
+      opacity: 0;
+    }
+    50% {
+      opacity: 0.5;
+    }
+    100% {
+      opacity: 1;
+    }
+  }
 `
 
 export const Nav = styled.nav`

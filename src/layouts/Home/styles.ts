@@ -2,6 +2,20 @@ import styled from 'styled-components'
 
 export const Container = styled.main`
   background: linear-gradient(180deg, #001F80 0%, #0C61FF 100%);
+
+  animation: show 0.3s ease-in forwards;
+
+  @keyframes show {
+    0% {
+      opacity: 0;
+    }
+    50% {
+      opacity: 0.5;
+    }
+    100% {
+      opacity: 1;
+    }
+  }
 `
 
 export const CashBack = styled.div`
