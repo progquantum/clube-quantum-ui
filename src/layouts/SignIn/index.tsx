@@ -1,6 +1,5 @@
 import { Controller, SubmitHandler, useForm } from 'react-hook-form'
 import { yupResolver } from '@hookform/resolvers/yup'
-import { useRouter } from 'next/router'
 import Link from 'next/link'
 import Head from 'next/head'
 
@@ -19,8 +18,6 @@ import * as S from './styles'
 export function SignInPage () {
   const {
     control,
-    formState: { errors, dirtyFields },
-    register,
     handleSubmit
   } = useForm({
     defaultValues: {
@@ -30,16 +27,12 @@ export function SignInPage () {
     resolver: yupResolver(schema)
   })
 
-  const router = useRouter()
-
   const { signIn } = useAuthDispatch()
 
   const { loading } = useAuthState()
 
   const onSubmit: SubmitHandler<SignInFormValues> = (data) => {
     signIn(data)
-
-    router.push('/dashboard')
   }
 
   return (
@@ -68,12 +61,18 @@ export function SignInPage () {
             )}
           />
 
-          <Input
-            type='password'
-            label='Senha'
-            {...register('password')}
-            isDirty={dirtyFields.password}
-            errors={errors.password}
+          <Controller
+            control={control}
+            name='password'
+            render={({ field, fieldState }) => (
+              <Input
+                type='password'
+                label='Senha'
+                {...field}
+                errors={fieldState.error}
+                isDirty={fieldState.isDirty}
+              />
+            )}
           />
 
           <S.LoginAbout>
@@ -87,7 +86,7 @@ export function SignInPage () {
             </Link>
           </S.LoginAbout>
 
-          <S.LoginButton disabled={loading}>
+          <S.LoginButton type='submit' loading={loading} disabled={loading}>
             Login
           </S.LoginButton>
         </S.Form>

@@ -1,8 +1,11 @@
 import { useMemo, useCallback, PropsWithChildren } from 'react'
+import { useRouter } from 'next/router'
 import { useLocalStorage } from '@rehooks/local-storage'
 
 import { User } from 'shared/apiSchema'
+
 import { USER_STORAGE_KEY, TOKEN_STORAGE_KEY, REFRESH_TOKEN_STORAGE_KEY } from 'constants/storage'
+
 import { useSignIn } from 'hook/auth/useSignIn'
 
 import { AuthStateProvider, AuthDispatchProvider } from './AuthContext'
@@ -26,20 +29,16 @@ export function AuthProvider ({ children }: PropsWithChildren<unknown>) {
     ''
   )
 
+  const router = useRouter()
+
   const handleSignIn = useCallback(({ login, password }: SignInCredentials) => {
     signIn({ login, password }, {
       onSuccess: (data) => {
-        if (
-          !data?.user ||
-          !data?.token ||
-          !data?.refresh_token
-        ) {
-          return
-        }
-
         setUser(data.user)
         setToken(data.token)
         setRefreshToken(data.refresh_token)
+
+        router.push('/dashboard')
       }
     })
   },

@@ -5,6 +5,10 @@ export const colors = {
   royalblue: '#0E5AE4',
   lightsteelblue: '#B2C5FF',
   darkslategray: '#373435',
+  mediumaquamarine: '#3CD2A2',
+  paleturquoise: '#B1FFE8',
+  stratos: '#100037',
+  cherryPie: '#190252',
   white: '#ffffff',
   gray: {
     50: '#E6E6E6',
