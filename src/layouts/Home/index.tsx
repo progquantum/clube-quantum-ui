@@ -10,6 +10,13 @@ import { Header } from './Header'
 import * as S from './styles'
 
 export function HomePage () {
+  const handleScroll = () => {
+    window.scroll({
+      top: 650,
+      behavior: 'smooth'
+    })
+  }
+
   return (
     <>
       <Head>
@@ -39,6 +46,7 @@ export function HomePage () {
             src='/images/arrow-down.svg'
             width={42}
             height={23}
+            onClick={handleScroll}
           />
         </S.ArrowDownWrapper>
 

@@ -85,6 +85,10 @@ export const ArrowDownWrapper = styled.div`
 
   display: flex;
   justify-content: center;
+
+  > span {
+    cursor: pointer;
+  }
 `
 
 export const Wrapper = styled.section`
