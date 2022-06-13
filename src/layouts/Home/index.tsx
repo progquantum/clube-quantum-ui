@@ -27,8 +27,8 @@ export function HomePage () {
           </S.CashBackContent>
 
           <Image
-            width={684}
-            height={617}
+            width={534}
+            height={477}
             src='/images/cashback.svg'
             alt='Ilustração do CashBask'
           />
@@ -104,8 +104,8 @@ export function HomePage () {
           </S.FaqContent>
 
           <Image
-            width={687}
-            height={547}
+            width={587}
+            height={447}
             src='/images/questions.svg'
           />
         </S.FaqWrapper>

@@ -2,7 +2,7 @@ import styled, { css } from 'styled-components'
 
 export const Container = styled.main`
   background: linear-gradient(180deg, #001F80 0%, #0C61FF 100%);
-  padding: 0 1rem;
+  padding: 1rem 1rem 0;
 
   animation: show 0.3s ease-in forwards;
 
@@ -20,7 +20,7 @@ export const Container = styled.main`
 `
 
 const wrapper = css`
-  max-width: 1600px;
+  max-width: 1200px;
   width: 100%;
   margin: 0 auto;
 
