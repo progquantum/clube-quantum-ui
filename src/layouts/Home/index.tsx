@@ -79,35 +79,37 @@ export function HomePage () {
         </S.Wrapper>
 
         <S.FaqWrapper>
-          <S.FaqContent>
-            <h1>F.A.Q</h1>
+          <div>
+            <S.FaqContent>
+              <h1>F.A.Q</h1>
 
-            <S.Box>
-              <h2>O que é o Clube Quantum?</h2>
-              <p>
-                Lorem ipsum dolor sit amet consectetur adipisicing elit.
-                Adipisci tenetur eaque repellendus. Dolorum ullam error
-                est, necessitatibus dolorem qui quam commodi corrupti atque
-                nulla aliquid quae, porro cum, minima id?
-              </p>
-            </S.Box>
+              <S.Box>
+                <h2>O que é o Clube Quantum?</h2>
+                <p>
+                  Lorem ipsum dolor sit amet consectetur adipisicing elit.
+                  Adipisci tenetur eaque repellendus. Dolorum ullam error
+                  est, necessitatibus dolorem qui quam commodi corrupti atque
+                  nulla aliquid quae, porro cum, minima id?
+                </p>
+              </S.Box>
 
-            <S.Box>
-              <h2>O que é o Clube Quantum?</h2>
-              <p>
-                Lorem ipsum dolor sit amet consectetur adipisicing elit.
-                Adipisci tenetur eaque repellendus. Dolorum ullam error
-                est, necessitatibus dolorem qui quam commodi corrupti atque
-                nulla aliquid quae, porro cum, minima id?
-              </p>
-            </S.Box>
-          </S.FaqContent>
+              <S.Box>
+                <h2>O que é o Clube Quantum?</h2>
+                <p>
+                  Lorem ipsum dolor sit amet consectetur adipisicing elit.
+                  Adipisci tenetur eaque repellendus. Dolorum ullam error
+                  est, necessitatibus dolorem qui quam commodi corrupti atque
+                  nulla aliquid quae, porro cum, minima id?
+                </p>
+              </S.Box>
+            </S.FaqContent>
 
-          <Image
-            width={587}
-            height={447}
-            src='/images/questions.svg'
-          />
+            <Image
+              width={587}
+              height={447}
+              src='/images/questions.svg'
+            />
+          </div>
         </S.FaqWrapper>
       </S.Container>
 

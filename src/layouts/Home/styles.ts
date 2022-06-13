@@ -2,7 +2,7 @@ import styled, { css } from 'styled-components'
 
 export const Container = styled.main`
   background: linear-gradient(180deg, #001F80 0%, #0C61FF 100%);
-  padding: 1rem 1rem 0;
+  padding-top: 1rem;
 
   animation: show 0.3s ease-in forwards;
 
@@ -31,6 +31,8 @@ const wrapper = css`
 
 export const CashBackWrapper = styled.section`
   ${wrapper}
+
+  padding: 0 1rem;
 
   @media(max-width: 730px) {
     padding-top: 3rem;
@@ -89,6 +91,7 @@ export const Wrapper = styled.section`
   max-width: 1920px;
   width: 100%;
   margin: 0 auto;
+  padding: 0 1rem;
 
   @media(max-width: 870px) {
     margin-bottom: 5rem;
@@ -152,15 +155,21 @@ export const TextContent = styled.div`
 `
 
 export const FaqWrapper = styled.section`
-  ${wrapper}
-  margin: 5rem auto 2rem;
-  padding-bottom: 7rem;
+  max-width: 100%;
+  background: linear-gradient(180deg, #001F80 0%, #0C61FF 100%);
 
-  @media(max-width: 1000px) {
-    justify-content: center;
+  > div {
+    ${wrapper}
 
-    > span {
-      display: none !important;
+    margin: 0 auto 2rem;
+    padding: 7rem 1rem;
+
+    @media(max-width: 1000px) {
+      justify-content: center;
+
+      > span {
+        display: none !important;
+      }
     }
   }
 `
