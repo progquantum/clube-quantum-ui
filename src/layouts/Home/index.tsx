@@ -1,15 +1,19 @@
 import Head from 'next/head'
 import Image from 'next/image'
 
-import { Button } from 'components/Button'
+import { useShowSideBar } from 'hooks/sidebar/useShowSideBar'
 
+import { Button } from 'components/Button'
 import { Footer } from 'components/Footer'
 
 import { Header } from './Header'
+import { SideBar } from './SideBar'
 
 import * as S from './styles'
 
 export function HomePage () {
+  const isShowSideBar = useShowSideBar()
+
   const handleScroll = () => {
     window.scroll({
       top: 650,
@@ -23,7 +27,7 @@ export function HomePage () {
         <title>Clube Quantum</title>
       </Head>
 
-      <Header />
+      {!isShowSideBar ? <Header /> : <SideBar />}
 
       <S.Container>
         <S.CashBackWrapper>
