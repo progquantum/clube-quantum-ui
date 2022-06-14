@@ -1,6 +1,7 @@
 import { useMemo, useCallback, PropsWithChildren } from 'react'
 import { useRouter } from 'next/router'
 import { useLocalStorage } from '@rehooks/local-storage'
+import { setCookie, destroyCookie } from 'nookies'
 
 import { User } from 'shared/apiSchema'
 
@@ -19,24 +20,22 @@ export function AuthProvider ({ children }: PropsWithChildren<unknown>) {
     {} as User
   )
 
-  const [token, setToken, deleteToken] = useLocalStorage(
-    TOKEN_STORAGE_KEY,
-    ''
-  )
-
-  const [, setRefreshToken, deleteRefreshToken] = useLocalStorage(
-    REFRESH_TOKEN_STORAGE_KEY,
-    ''
-  )
-
   const router = useRouter()
 
   const handleSignIn = useCallback(({ login, password }: SignInCredentials) => {
     signIn({ login, password }, {
       onSuccess: (data) => {
+        setCookie(undefined, TOKEN_STORAGE_KEY, data.token, {
+          maxAge: 60 * 60 * 24 * 30,
+          path: '/'
+        })
+
+        setCookie(undefined, REFRESH_TOKEN_STORAGE_KEY, data.refresh_token, {
+          maxAge: 60 * 60 * 24 * 30,
+          path: '/'
+        })
+
         setUser(data.user)
-        setToken(data.token)
-        setRefreshToken(data.refresh_token)
 
         router.push('/dashboard')
       }
@@ -44,30 +43,24 @@ export function AuthProvider ({ children }: PropsWithChildren<unknown>) {
   },
   [
     signIn,
-    setUser,
-    setToken,
-    setRefreshToken
-  ]
-  )
+    setUser
+  ])
 
   const signOut = useCallback(() => {
     deleteUser()
-    deleteToken()
-    deleteRefreshToken()
-  }, [
-    deleteUser,
-    deleteToken,
-    deleteRefreshToken
+    destroyCookie(undefined, TOKEN_STORAGE_KEY)
+    destroyCookie(undefined, REFRESH_TOKEN_STORAGE_KEY)
+  },
+  [
+    deleteUser
   ])
 
   const authState = useMemo(
     () => ({
       user,
-      token,
       loading
     }),
     [
-      token,
       user,
       loading
     ]

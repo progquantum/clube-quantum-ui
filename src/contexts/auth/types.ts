@@ -7,7 +7,6 @@ export type SignInCredentials = {
 
 export type AuthStateContextData = {
   user: User;
-  token: string | null;
   loading: boolean;
 }
 
