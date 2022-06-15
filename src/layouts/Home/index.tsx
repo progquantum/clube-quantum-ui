@@ -1,124 +1,131 @@
 import Head from 'next/head'
 import Image from 'next/image'
 
+import { useShowSideBar } from 'hooks/sidebar/useShowSideBar'
+
 import { Button } from 'components/Button'
+import { Footer } from 'components/Footer'
 
 import { Header } from './Header'
+import { SideBar } from './SideBar'
 
 import * as S from './styles'
 
 export function HomePage () {
+  const isShowSideBar = useShowSideBar()
+
+  const handleScroll = () => {
+    window.scroll({
+      top: 650,
+      behavior: 'smooth'
+    })
+  }
+
   return (
     <>
       <Head>
         <title>Clube Quantum</title>
       </Head>
 
-      <Header />
+      {!isShowSideBar ? <Header /> : <SideBar />}
 
       <S.Container>
-        <S.CashBack>
-          <S.CashBackWrap>
-            <S.CashBackContent>
-              <h1 className='heading title'>
-                Ganhe cash back todo dia!
-              </h1>
+        <S.CashBackWrapper>
+          <S.CashBackContent>
+            <h1>Ganhe cash back todo dia!</h1>
+            <h6>Seja um membro Clube Quantum</h6>
+            <Button>Criar minha conta</Button>
+          </S.CashBackContent>
 
-              <h6 className='heading description'>Seja um membro Clube Quantum</h6>
+          <Image
+            width={534}
+            height={477}
+            src='/images/cashback.svg'
+            alt='Ilustração do CashBask'
+          />
+        </S.CashBackWrapper>
 
-              <Button>
-                Criar minha conta
-              </Button>
-
-            </S.CashBackContent>
-
-            <Image
-              src='/images/cashback.svg'
-              alt='Ilustração do CashBack' width={618}
-              height={533}
-              objectFit='contain'
-            />
-          </S.CashBackWrap>
-
+        <S.ArrowDownWrapper>
           <Image
             src='/images/arrow-down.svg'
             width={42}
             height={23}
-            objectFit='contain'
+            onClick={handleScroll}
           />
-        </S.CashBack>
+        </S.ArrowDownWrapper>
 
-        <S.SecondSection>
-          <img
-            src='/images/girl-on-mobile.png'
-            alt='Girl on mobile'
-          />
+        <S.Wrapper>
+          <S.Content>
+            <Image
+              width={510}
+              height={650}
+              src='/images/girl-on-mobile.jpg'
+            />
 
-          <div>
-            <div>
-              <h1>
-                E não é só todo dia! <br />É toda hora!
-              </h1>
-              <p>
-                Se você já possui um conta Banco Um, tudo o que você precisa
-                fazer é o pré cadastro!
-              </p>
-            </div>
-            <div>
+            <S.TextContent>
+              <h1>E não é só todo dia! É toda hora!</h1>
+              <h6>Se você já possui uma conta Banco Um, tudo o que você precisa fazer é o pré cadastro!</h6>
+
               <h1>Não fique de fora</h1>
-              <p>
-                Sendo um membro do clube quantum você só tem a ganhar!
-              </p>
-            </div>
-          </div>
-        </S.SecondSection>
+              <h6>Sendo um membro do clube quantum você só tem a ganhar!</h6>
+            </S.TextContent>
+          </S.Content>
+        </S.Wrapper>
 
-        <S.ThirdSection>
+        <S.Wrapper>
+          <S.Content className='second-content'>
+            <Image
+              width={510}
+              height={650}
+              src='/images/man-on-a-train.jpg'
+            />
+
+            <S.TextContent>
+              <h1>E não é só todo dia! É toda hora!</h1>
+              <h6>Se você já possui uma conta Banco Um, tudo o que você precisa fazer é o pré cadastro!</h6>
+
+              <h1>Não fique de fora</h1>
+              <h6>Sendo um membro do clube quantum você só tem a ganhar!</h6>
+            </S.TextContent>
+          </S.Content>
+        </S.Wrapper>
+
+        <S.FaqWrapper>
           <div>
-            <h1>Não tem segredo!</h1>
-            <p>
-              Se você já possui um conta Banco Um, tudo o que você precisa
-              fazer é o pré cadastro!
-            </p>
-          </div>
+            <S.FaqContent>
+              <h1>F.A.Q</h1>
 
-          <img
-            src='/images/girl-taking-photo.png'
-            alt='Girl taking photo'
-          />
-        </S.ThirdSection>
-
-        <S.FaqContents>
-          <h1>F.A.Q.</h1>
-
-          <div>
-            <div>
               <S.Box>
-                <h3>O que é o Clube Quantum?</h3>
+                <h2>O que é o Clube Quantum?</h2>
                 <p>
-                  Lorem, ipsum dolor sit amet consectetur adipisicing elit.
-                  Commodi, laborum? Praesentium expedita consequatur iste ipsa
-                  ipsum quaerat est dolorem tempore magni dolore repudiandae
-                  optio cumque consectetur sapiente ullam, culpa aut?
-                </p>
-              </S.Box>
-              <S.Box>
-                <h3>O que é o Clube Quantum?</h3>
-                <p>
-                  Lorem, ipsum dolor sit amet consectetur adipisicing elit.
-                  Commodi, laborum? Praesentium expedita consequatur iste ipsa
-                  ipsum quaerat est dolorem tempore magni dolore repudiandae
-                  optio cumque consectetur sapiente ullam, culpa aut?
+                  Lorem ipsum dolor sit amet consectetur adipisicing elit.
+                  Adipisci tenetur eaque repellendus. Dolorum ullam error
+                  est, necessitatibus dolorem qui quam commodi corrupti atque
+                  nulla aliquid quae, porro cum, minima id?
                 </p>
               </S.Box>
 
-              <Button>Veja mais Dúvidas</Button>
-            </div>
+              <S.Box>
+                <h2>O que é o Clube Quantum?</h2>
+                <p>
+                  Lorem ipsum dolor sit amet consectetur adipisicing elit.
+                  Adipisci tenetur eaque repellendus. Dolorum ullam error
+                  est, necessitatibus dolorem qui quam commodi corrupti atque
+                  nulla aliquid quae, porro cum, minima id?
+                </p>
+              </S.Box>
+            </S.FaqContent>
 
-            <img src='/images/questions.svg' alt='Questions' />
+            <Image
+              width={587}
+              height={447}
+              src='/images/questions.svg'
+            />
           </div>
-        </S.FaqContents>
+        </S.FaqWrapper>
       </S.Container>
+
+      <Footer />
     </>
   )
 }
