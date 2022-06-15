@@ -1,63 +1,68 @@
 import styled from 'styled-components'
 
-export const Container = styled.main`
-  width: 100%;
-  margin-bottom: 6.25rem;
+import { Button } from 'components/Button'
+import { Input } from 'components/Input'
+
+export const Container = styled.section`
+  width:100%;
+  height: 100vh;
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
 `
 
-export const Wrapper = styled.div`
-  max-width: 1640px;
-  width: 100%;
-  margin: 5rem auto 0;
-
+export const Box = styled.div`
+  width: 725.6px;
+  height: 305px;
   display: flex;
-  align-items: center;
-  justify-content: center;
-  gap: 10rem;
+  flex-direction: row;
+  gap: 40px;
 
-  @media(max-width: 950px) {
-    gap: 3rem;
+  /* Mobile devices */
+  @media (min-width: 280px) and (max-width: 767px) {
+    flex-direction: column;
+    align-items: center;
   }
 
-  @media(max-width: 820px) {
-    > span {
-      display: none !important;
-    }
-  }
 `
 
 export const Form = styled.form`
-  width: 350px;
-  background-color: ${({ theme }) => theme.colors.white};
-  padding: 3.75rem 2.1875rem;
-  filter: drop-shadow(0px 18px 6px rgba(0, 0, 0, 0.22));
-  border-top: 1px solid rgba(0, 0, 0, 0.1);
+  width: 300px;
+  height: 305px;
+  display: flex;
+  box-shadow: 0px 0px 20px rgba(0, 0, 0, 0.15);
   border-radius: 20px;
-  color: ${({ theme }) => theme.colors.gray[700]};
-  font-weight: 700;
-
   display: flex;
   flex-direction: column;
+  justify-content: center;
   align-items: center;
+  padding: 60px 24px;
+  gap: 24px;
+  flex: none;
+  order: 0;
+  flex-grow: 0;
 
-  h4 {
-    font-size: 1.3rem;
-    margin-bottom: 1.5rem;
+  h1 {
+    padding-right: 83px;
+    font-weight: 700;
+    font-size: 16px;
+    line-height: 20px;
+    color: ${({ theme }) => theme.colors.gray[700]};
+    align-items: baseline;
   }
+`
 
-  h6 {
-    font-size: 0.9rem;
-  }
+// export const InputForm = styled(Input)``
 
-  input {
-    margin-bottom: 1.5rem;
-  }
-
-  button {
-    width: 115px;
-    background-color: ${({ theme }) => theme.colors.midnightBlue};
-    color: ${({ theme }) => theme.colors.white};
-    font-size: 1rem;
-    font-weight: 600;
-  }
+export const FormBtn = styled(Button)`
+  width: 115px;
+  height: 44px;
+  background-color: ${({ theme }) => theme.colors.midnightBlue};
+  color: ${({ theme }) => theme.colors.light};
+  font-style: normal;
+  font-weight: 900;
+  font-size: 12px;
+  line-height: 15px;
+  padding: 16px 30px;
 `
