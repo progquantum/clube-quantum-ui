@@ -5,6 +5,7 @@ import { useForm } from 'react-hook-form'
 import { Input } from 'components/Input'
 import { Header } from 'components/Header'
 import { Button } from 'components/Button'
+import { Footer } from 'components/Footer'
 
 import * as S from './styles'
 
@@ -23,22 +24,23 @@ export function ForgotPasswordPage () {
       <Header />
 
       <S.Container>
-        <S.Wrapper>
+        <S.Box>
           <S.Form>
-            <h4>Alteração de senha</h4>
-            <h6>E-mail da conta cadastrada</h6>
+            <h1>Alteração de senha</h1>
             <Input
               type='email'
-              label=''
+              label='E-mail da conta cadastrada'
               {...register('email')}
               isDirty={dirtyFields.email}
               errors={errors.email}
             />
-            <Button>Avançar</Button>
+            <S.FormBtn>Avançar</S.FormBtn>
           </S.Form>
-          <Image width={385} height={382} src='/images/404-not-found.png' />
-        </S.Wrapper>
+          <Image width={385} height={382} src='/images/main-forgot-password.svg' />
+        </S.Box>
       </S.Container>
+
+      <Footer />
     </>
   )
 }
