@@ -47,32 +47,18 @@ export function SignInPage () {
         <S.Form onSubmit={handleSubmit(onSubmit)}>
           <h1>Login</h1>
 
-          <Controller
-            control={control}
+          <Input
+            type='text'
+            label='CPF/CNPJ'
             name='login'
-            render={({ field, fieldState }) => (
-              <Input
-                type='text'
-                label='CPF/CNPJ'
-                {...field}
-                errors={fieldState.error}
-                isDirty={fieldState.isDirty}
-              />
-            )}
+            control={control}
           />
 
-          <Controller
-            control={control}
+          <Input
+            type='password'
+            label='Senha'
             name='password'
-            render={({ field, fieldState }) => (
-              <Input
-                type='password'
-                label='Senha'
-                {...field}
-                errors={fieldState.error}
-                isDirty={fieldState.isDirty}
-              />
-            )}
+            control={control}
           />
 
           <S.LoginAbout>
