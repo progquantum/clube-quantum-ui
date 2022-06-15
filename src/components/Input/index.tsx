@@ -1,15 +1,11 @@
 import { Controller } from 'react-hook-form'
-import { forwardRef, ForwardRefRenderFunction } from 'react'
 
 import { Error } from 'components/Error'
 
 import * as S from './styles'
 import { InputProps } from './types'
 
-const ImperativeInput: ForwardRefRenderFunction<HTMLInputElement, InputProps> = (
-  { label, control, name, ...rest },
-  ref
-) => {
+export function Input ({ label, control, name, ...rest }: InputProps) {
   return (
     <Controller
       control={control}
@@ -22,7 +18,6 @@ const ImperativeInput: ForwardRefRenderFunction<HTMLInputElement, InputProps> = 
           <S.Input
             isDirty={isDirty}
             error={error}
-            ref={ref}
             {...rest}
             {...field}
           />
@@ -39,5 +34,3 @@ const ImperativeInput: ForwardRefRenderFunction<HTMLInputElement, InputProps> = 
     />
   )
 }
-
-export const Input = forwardRef(ImperativeInput)
