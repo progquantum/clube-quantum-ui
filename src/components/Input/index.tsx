@@ -1,22 +1,43 @@
+import { Controller } from 'react-hook-form'
+import { forwardRef, ForwardRefRenderFunction } from 'react'
+
+import { Error } from 'components/Error'
+
 import * as S from './styles'
 import { InputProps } from './types'
 
-export function Input ({
-  label, errors, isDirty, ...props
-}: InputProps) {
-  const icon = errors?.type === 'required' ? <S.Exclamation /> : <S.Error />
-
+const ImperativeInput: ForwardRefRenderFunction<HTMLInputElement, InputProps> = (
+  { label, control, name, ...rest },
+  ref
+) => {
   return (
-    <S.StyledInput isDirty={isDirty} errors={errors}>
-      <input {...props} />
-      <label htmlFor={props.id}>{label}</label>
+    <Controller
+      control={control}
+      name={name}
+      render={({
+        field,
+        fieldState: { error, isDirty }
+      }) => (
+        <S.Container>
+          <S.Input
+            isDirty={isDirty}
+            error={error}
+            ref={ref}
+            {...rest}
+            {...field}
+          />
+          <S.Label
+            isDirty={isDirty}
+          >
+            {label}
+          </S.Label>
 
-      {errors && (
-        <span>
-          {errors.message}
-          {icon}
-        </span>
+          {error &&
+            <Error error={error.message} />}
+        </S.Container>
       )}
-    </S.StyledInput>
+    />
   )
 }
+
+export const Input = forwardRef(ImperativeInput)
