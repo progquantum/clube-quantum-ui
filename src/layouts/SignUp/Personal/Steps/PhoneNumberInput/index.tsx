@@ -31,7 +31,7 @@ export function PhoneNumberInput ({ onUpdateFormStep }: PhoneNumberProps) {
         <Input
           type='text'
           label='Telefone'
-          name='phoneNumber'
+          name='phone'
           control={control}
         />
 
