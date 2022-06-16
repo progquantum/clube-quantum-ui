@@ -1,4 +1,4 @@
-import { useForm, Controller } from 'react-hook-form'
+import { useForm } from 'react-hook-form'
 import { FaAngleRight } from 'react-icons/fa'
 
 import { Input } from 'components/Input'
@@ -8,12 +8,7 @@ import { Container, Form, NextStepButton } from '../../../components'
 import { AddressDataInputsProps } from './types'
 
 export function AddressDataInputs ({ onUpdateFormStep }: AddressDataInputsProps) {
-  const {
-    register,
-    formState: { errors, dirtyFields },
-    handleSubmit,
-    control
-  } = useForm({
+  const { handleSubmit, control } = useForm({
     defaultValues: {
       cep: '',
       street: '',
@@ -33,63 +28,62 @@ export function AddressDataInputs ({ onUpdateFormStep }: AddressDataInputsProps)
   return (
     <Container>
       <Form onSubmit={handleSubmit(onSubmit)}>
-        <Controller
-          control={control}
+        <Input
+          type='text'
+          label='CEP'
           name='cep'
-          render={({ field, fieldState }) => (
-            <Input
-              label='CEP'
-              {...field}
-              onChange={e => field.onChange(e.target.value)}
-              errors={fieldState.error}
-              isDirty={fieldState.isDirty}
-              onFocus={e => (e.target.placeholder = '00000-000')}
-              onBlur={e => (e.target.placeholder = '')}
-            />
-          )}
+          control={control}
         />
+
         <Input
+          type='text'
           label='Logradouro'
-          {...register('street')}
-          isDirty={dirtyFields.street}
-          errors={errors.street}
+          name='street'
+          control={control}
         />
+
         <Input
+          type='text'
           label='Bairro'
-          {...register('neighborhood')}
-          isDirty={dirtyFields.neighborhood}
-          errors={errors.neighborhood}
+          name='neighborhood'
+          control={control}
         />
+
         <Input
+          type='text'
           label='Número'
-          {...register('number')}
-          isDirty={dirtyFields.number}
-          errors={errors.number}
+          name='number'
+          control={control}
         />
+
         <Input
+          type='text'
           label='Complemento'
-          {...register('complement')}
-          isDirty={dirtyFields.complement}
-          errors={errors.complement}
+          name='complement'
+          control={control}
         />
+
         <Input
+          type='text'
           label='Cidade'
-          {...register('city')}
-          isDirty={dirtyFields.city}
-          errors={errors.city}
+          name='city'
+          control={control}
         />
+
         <Input
+          type='text'
           label='Estado'
-          {...register('state')}
-          isDirty={dirtyFields.state}
-          errors={errors.state}
+          name='state'
+          control={control}
         />
+
         <Input
+          type='text'
           label='País'
-          {...register('country')}
-          isDirty={dirtyFields.country}
-          errors={errors.country}
+          name='country'
+          control={control}
         />
+
         <NextStepButton>
           <FaAngleRight />
         </NextStepButton>

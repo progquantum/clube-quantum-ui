@@ -9,10 +9,7 @@ import { Button } from 'components/Button'
 import * as S from './styles'
 
 export function ForgotPasswordPage () {
-  const {
-    formState: { errors, dirtyFields },
-    register
-  } = useForm({
+  const { control } = useForm({
     defaultValues: {
       email: ''
     }
@@ -30,9 +27,8 @@ export function ForgotPasswordPage () {
             <Input
               type='email'
               label=''
-              {...register('email')}
-              isDirty={dirtyFields.email}
-              errors={errors.email}
+              name='email'
+              control={control}
             />
             <Button>Avançar</Button>
           </S.Form>

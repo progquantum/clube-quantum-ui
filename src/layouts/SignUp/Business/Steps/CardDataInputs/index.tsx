@@ -11,11 +11,7 @@ import * as S from './styles'
 import { CardDataInputsProps } from './types'
 
 export function CardDataInputs ({ onUpdateFormStep }: CardDataInputsProps) {
-  const {
-    register,
-    formState: { errors, dirtyFields },
-    handleSubmit
-  } = useForm({
+  const { control, handleSubmit } = useForm({
     defaultValues: {
       account: '',
       card_name: '',
@@ -44,49 +40,49 @@ export function CardDataInputs ({ onUpdateFormStep }: CardDataInputsProps) {
 
       <S.Form onSubmit={handleSubmit(onSubmit)}>
         <Input
+          type='text'
           label='Conta Corrente'
-          {...register('account')}
-          isDirty={dirtyFields.account}
-          errors={errors.account}
-          onFocus={({ target }) => (target.placeholder = 'Sua conta corrente Banco Um')}
-          onBlur={({ target }) => (target.placeholder = '')}
+          name='account'
+          control={control}
         />
+
         <Input
+          type='text'
           label='Nome do cartão'
-          {...register('card_name')}
-          isDirty={dirtyFields.card_name}
-          errors={errors.card_name}
-          onFocus={({ target }) => (target.placeholder = 'Nome impresso no cartão')}
-          onBlur={({ target }) => (target.placeholder = '')}
+          name='card_name'
+          control={control}
+        />
+
+        <Input
+          type='text'
+          label='Nome do cartão'
+          name='card_name'
+          control={control}
         />
 
         <S.Wrapper>
           <Input
+            type='text'
             label='Número do cartão'
-            {...register('card_number')}
-            isDirty={dirtyFields.card_number}
-            errors={errors.card_number}
-            onFocus={({ target }) => (target.placeholder = '0000 0000 0000 0000')}
-            onBlur={({ target }) => (target.placeholder = '')}
+            name='card_number'
+            control={control}
           />
+
           <Image width={110} height={76} src='/images/visa-card.png' alt='Mastercard' />
         </S.Wrapper>
 
         <Input
+          type='text'
           label='Data de vencimento'
-          {...register('card_validate')}
-          isDirty={dirtyFields.card_validate}
-          errors={errors.card_validate}
-          onFocus={({ target }) => (target.placeholder = '00/00')}
-          onBlur={({ target }) => (target.placeholder = '')}
+          name='card_validate'
+          control={control}
         />
+
         <Input
+          type='text'
           label='CVC'
-          {...register('card_code')}
-          isDirty={dirtyFields.card_code}
-          errors={errors.card_code}
-          onFocus={({ target }) => (target.placeholder = '000')}
-          onBlur={({ target }) => (target.placeholder = '')}
+          name='card_code'
+          control={control}
         />
 
         <p>
