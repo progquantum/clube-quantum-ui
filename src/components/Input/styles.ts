@@ -1,5 +1,6 @@
 import styled, { css } from 'styled-components'
-import { FieldError } from 'react-hook-form'
+
+import { InputComponentProps, LabelProps } from './types'
 
 export const Container = styled.div`
   width: 100%;
@@ -10,10 +11,6 @@ export const Container = styled.div`
   margin-bottom: 1rem;
   margin-top: 2rem;
 `
-
-type LabelProps = {
-  isDirty: boolean
-}
 
 export const Label = styled.label<LabelProps>`
   position: absolute;
@@ -35,12 +32,7 @@ export const Label = styled.label<LabelProps>`
   }
 `
 
-type InputProps = {
-  error: FieldError
-  isDirty: boolean
-}
-
-export const Input = styled.input<InputProps>`
+export const Input = styled.input<InputComponentProps>`
   width: 100%;
   display: block;
   padding: 0.8rem;
