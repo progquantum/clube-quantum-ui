@@ -1,5 +1,3 @@
-import axios from 'axios'
+import { setupAPIClient } from 'settings/api'
 
-export const api = axios.create({
-  baseURL: process.env.NEXT_PUBLIC_API_HOST
-})
+export const api = setupAPIClient()

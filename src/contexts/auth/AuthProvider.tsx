@@ -1,4 +1,4 @@
-import { useMemo, useCallback, PropsWithChildren } from 'react'
+import { useMemo, useCallback, PropsWithChildren, useEffect } from 'react'
 import { useRouter } from 'next/router'
 import { useLocalStorage } from '@rehooks/local-storage'
 import { setCookie, destroyCookie } from 'nookies'
@@ -9,8 +9,14 @@ import { USER_STORAGE_KEY, TOKEN_STORAGE_KEY, REFRESH_TOKEN_STORAGE_KEY } from '
 
 import { useSignIn } from 'hook/auth/useSignIn'
 
+import { api } from 'config/client'
+
+import { logOut } from 'helpers/auth/logOut'
+
 import { AuthStateProvider, AuthDispatchProvider } from './AuthContext'
 import { SignInCredentials } from './types'
+
+let authChannel: BroadcastChannel
 
 export function AuthProvider ({ children }: PropsWithChildren<unknown>) {
   const { mutate: signIn, isLoading: loading } = useSignIn()
@@ -20,22 +26,40 @@ export function AuthProvider ({ children }: PropsWithChildren<unknown>) {
     {} as User
   )
 
+  useEffect(() => {
+    authChannel = new BroadcastChannel('auth')
+
+    authChannel.onmessage = (message) => {
+      switch (message.data) {
+        case 'logOut':
+          logOut()
+          break
+        default:
+          break
+      }
+    }
+  }, [])
+
   const router = useRouter()
 
   const handleSignIn = useCallback(({ login, password }: SignInCredentials) => {
     signIn({ login, password }, {
       onSuccess: (data) => {
-        setCookie(undefined, TOKEN_STORAGE_KEY, data.token, {
+        const { token, refresh_token, user } = data
+
+        setCookie(undefined, TOKEN_STORAGE_KEY, token, {
           maxAge: 60 * 60 * 24 * 30,
           path: '/'
         })
 
-        setCookie(undefined, REFRESH_TOKEN_STORAGE_KEY, data.refresh_token, {
+        setCookie(undefined, REFRESH_TOKEN_STORAGE_KEY, refresh_token, {
           maxAge: 60 * 60 * 24 * 30,
           path: '/'
         })
 
-        setUser(data.user)
+        setUser(user)
+
+        api.defaults.headers.common.Authorization = `Bearer ${token}`
 
         router.push('/dashboard')
       }
