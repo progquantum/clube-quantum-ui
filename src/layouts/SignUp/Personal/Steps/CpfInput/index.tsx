@@ -1,5 +1,5 @@
 import { FaAngleRight } from 'react-icons/fa'
-import { useForm, Controller } from 'react-hook-form'
+import { useForm } from 'react-hook-form'
 
 import { Input } from 'components/Input'
 
@@ -21,19 +21,11 @@ export function CpfInput ({ onUpdateFormStep }: CpfInputProps) {
   return (
     <Container>
       <Form onSubmit={handleSubmit(onSubmitCpf)}>
-        <Controller
-          control={control}
+        <Input
+          type='text'
+          label='CPF'
           name='cpf'
-          render={({ field, fieldState }) => (
-            <Input
-              label='CPF'
-              {...field}
-              errors={fieldState.error}
-              isDirty={fieldState.isDirty}
-              onFocus={e => (e.target.placeholder = '000.000.000-00')}
-              onBlur={e => (e.target.placeholder = '')}
-            />
-          )}
+          control={control}
         />
 
         <NextStepButton>
