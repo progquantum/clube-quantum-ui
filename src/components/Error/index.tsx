@@ -1,10 +1,9 @@
-import { FC } from 'react'
 import { FiAlertCircle } from 'react-icons/fi'
 
 import { ErrorProps } from './types'
 import * as S from './styles'
 
-export const Error: FC<ErrorProps> = ({ error, icon }) => {
+export function Error ({ error, icon }: ErrorProps) {
   return (
     <S.Container>
       <>
