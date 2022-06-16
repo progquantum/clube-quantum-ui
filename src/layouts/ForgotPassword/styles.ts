@@ -1,7 +1,6 @@
 import styled from 'styled-components'
 
 import { Button } from 'components/Button'
-import { Input } from 'components/Input'
 
 export const Container = styled.section`
   width:100%;
@@ -20,7 +19,7 @@ export const Box = styled.div`
   gap: 40px;
 
   /* Mobile devices */
-  @media (min-width: 280px) and (max-width: 767px) {
+  @media (max-width: 767px) {
     flex-direction: column;
     align-items: center;
   }
