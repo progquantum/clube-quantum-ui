@@ -1,15 +1,18 @@
 import { useEffect } from 'react'
 import { setCookie } from 'nookies'
 
+import { SPLASH_SCREEN_STORAGE_KEY } from 'constants/storage'
+
 import { SplashscreenProps } from './types'
+
 import * as S from './styles'
 
-export function Splashscreen ({ onRequestSplashScreen }: SplashscreenProps) {
+export function SplashScreen ({ onRequestSplashScreen }: SplashscreenProps) {
   useEffect(() => {
     const timeoutId = setTimeout(() => {
       onRequestSplashScreen()
 
-      setCookie(null, '@Quantum:isVisualizedSplashScreen', 'true', {
+      setCookie(null, SPLASH_SCREEN_STORAGE_KEY, 'true', {
         path: '/'
       })
     }, 4000)
@@ -19,9 +22,9 @@ export function Splashscreen ({ onRequestSplashScreen }: SplashscreenProps) {
 
   return (
     <>
-      <S.AnimationWrapper>
-        <object data='/images/splash-screen-animation.svg' type='image/svg+xml' />
-      </S.AnimationWrapper>
+      <S.Container>
+        <S.Animation data='/images/splash-screen-animation.svg' type='image/svg+xml' />
+      </S.Container>
     </>
   )
 }

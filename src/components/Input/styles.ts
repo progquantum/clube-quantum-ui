@@ -22,14 +22,12 @@ export const Label = styled.label<LabelProps>`
   font-weight: 600;
   color: ${({ theme }) => theme.colors.gray[700]};
 
-  ${props => props.isDirty &&
-  css`
-      top: -1.2rem;
-      left: 0.1rem;
-      font-size: 0.9rem;
-      font-weight: 700;
-    `
-  }
+  ${({ isDirty }) => isDirty && css`
+    top: -1.2rem;
+    left: 0.1rem;
+    font-size: 0.9rem;
+    font-weight: 700;
+  `}
 `
 
 export const Input = styled.input<InputComponentProps>`
@@ -45,11 +43,9 @@ export const Input = styled.input<InputComponentProps>`
   border-bottom: 2.5px solid ${({ theme }) => theme.colors.gray[700]};
   color: ${({ theme }) => theme.colors.gray[700]};
 
-  ${props =>
-    props.isDirty &&
-    css`
-      border-bottom: 2.5px solid #9A97FA;
-    `}
+  ${({ isDirty }) => isDirty && css`
+    border-bottom: 2.5px solid #9A97FA;
+  `}
 
   &:focus ~ label {
     top: -1.2rem;

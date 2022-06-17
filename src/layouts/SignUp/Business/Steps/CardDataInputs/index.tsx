@@ -1,14 +1,14 @@
 import { useForm } from 'react-hook-form'
-import Image from 'next/image'
-
 import { FaAngleRight } from 'react-icons/fa'
+import Image from 'next/image'
 
 import { Input } from 'components/Input'
 
 import { Container, NextStepButton } from '../../../components'
 
-import * as S from './styles'
 import { CardDataInputsProps } from './types'
+
+import * as S from './styles'
 
 export function CardDataInputs ({ onUpdateFormStep }: CardDataInputsProps) {
   const { control, handleSubmit } = useForm({

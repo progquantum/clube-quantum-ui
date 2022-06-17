@@ -1,4 +1,4 @@
-export interface SteperProps {
+export type SteperProps = {
   stepsNumber: number;
   currentStep: number;
 }

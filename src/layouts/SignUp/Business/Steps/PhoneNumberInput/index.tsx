@@ -14,13 +14,13 @@ export function PhoneNumberInput ({ onUpdateFormStep }: PhoneNumberProps) {
     }
   })
 
-  function onSubmitCpf () {
+  function onSubmitCPF () {
     onUpdateFormStep()
   }
 
   return (
     <Container>
-      <Form onSubmit={handleSubmit(onSubmitCpf)}>
+      <Form onSubmit={handleSubmit(onSubmitCPF)}>
         <Input
           type='text'
           label='Telefone'

@@ -1,5 +1,3 @@
-import axios from 'axios'
+import { setupAPIClient } from 'settings/api'
 
-export const api = axios.create({
-  baseURL: 'https://homolog-api.quantum.com.vc/'
-})
+export const api = setupAPIClient()

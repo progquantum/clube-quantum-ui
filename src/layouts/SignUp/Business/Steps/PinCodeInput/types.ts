@@ -1,4 +1,4 @@
-export interface PinCodeProps {
+export type PinCodeProps = {
   onNextFormStep: () => void;
   onPreviousFormStep: () => void;
 }

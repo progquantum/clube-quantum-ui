@@ -1,3 +1,3 @@
-export interface CardDataInputsProps {
+export type CardDataInputsProps = {
   onUpdateFormStep: () => void;
 }

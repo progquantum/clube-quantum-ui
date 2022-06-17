@@ -1,4 +1,4 @@
-import { User } from 'shared/apiSchema'
+import { User } from 'shared/types/apiSchema'
 
 export type SignInCredentials = {
   login: string;
@@ -7,7 +7,6 @@ export type SignInCredentials = {
 
 export type AuthStateContextData = {
   user: User;
-  token: string | null;
   loading: boolean;
 }
 

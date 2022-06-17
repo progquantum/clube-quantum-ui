@@ -1,6 +1,6 @@
+import { useState } from 'react'
 import Link from 'next/link'
 import Image from 'next/image'
-import { useState } from 'react'
 
 import * as S from './styles'
 
@@ -10,6 +10,7 @@ export function SideBar () {
 
   const handleOpenMenu = () => {
     setIsOpenSideBar(true)
+
     setTimeout(() => {
       setIsShowContent(true)
     }, 300)
@@ -25,6 +26,7 @@ export function SideBar () {
         <Link href='/'>
           <Image width={38} height={55} src='/images/quantum-logo.svg' alt='Club Quantum logo' />
         </Link>
+
         {!isOpenSideBar
           ? (
             <Image

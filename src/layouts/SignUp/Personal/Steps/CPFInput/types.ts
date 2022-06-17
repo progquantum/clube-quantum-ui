@@ -1,3 +1,3 @@
-export interface CpfInputProps {
+export type CPFInputProps = {
   onUpdateFormStep: () => void;
 }

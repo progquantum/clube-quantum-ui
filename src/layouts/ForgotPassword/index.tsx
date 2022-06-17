@@ -1,5 +1,4 @@
 import Image from 'next/image'
-
 import { useForm } from 'react-hook-form'
 
 import { Input } from 'components/Input'
@@ -24,14 +23,17 @@ export function ForgotPasswordPage () {
           <S.Form>
             <h4>Alteração de senha</h4>
             <h6>E-mail da conta cadastrada</h6>
+
             <Input
               type='email'
               label=''
               name='email'
               control={control}
             />
+
             <Button>Avançar</Button>
           </S.Form>
+
           <Image width={385} height={382} src='/images/404-not-found.png' />
         </S.Wrapper>
       </S.Container>

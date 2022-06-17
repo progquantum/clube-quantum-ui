@@ -5,22 +5,22 @@ import { Input } from 'components/Input'
 
 import { Container, Form, NextStepButton } from '../../../components'
 
-import { CpfInputProps } from './types'
+import { CPFInputProps } from './types'
 
-export function CpfInput ({ onUpdateFormStep }: CpfInputProps) {
+export function CpfInput ({ onUpdateFormStep }: CPFInputProps) {
   const { handleSubmit, control } = useForm({
     defaultValues: {
       cpf: ''
     }
   })
 
-  function onSubmitCpf () {
+  function onSubmit () {
     onUpdateFormStep()
   }
 
   return (
     <Container>
-      <Form onSubmit={handleSubmit(onSubmitCpf)}>
+      <Form onSubmit={handleSubmit(onSubmit)}>
         <Input
           type='text'
           label='CPF'

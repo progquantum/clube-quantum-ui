@@ -1,3 +1,3 @@
-export interface PhoneNumberProps {
+export type PhoneNumberProps = {
   onUpdateFormStep: () => void;
 }

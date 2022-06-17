@@ -1,3 +1,3 @@
-export interface ContentsWrapperProps {
+export type ContentsWrapperProps = {
   width: number;
 }

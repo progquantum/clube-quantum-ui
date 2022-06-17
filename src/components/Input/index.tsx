@@ -2,8 +2,9 @@ import { Controller } from 'react-hook-form'
 
 import { Error } from 'components/Error'
 
-import * as S from './styles'
 import { InputProps } from './types'
+
+import * as S from './styles'
 
 export function Input ({ label, control, name, ...rest }: InputProps) {
   return (
@@ -21,6 +22,7 @@ export function Input ({ label, control, name, ...rest }: InputProps) {
             {...rest}
             {...field}
           />
+
           <S.Label
             isDirty={isDirty}
           >

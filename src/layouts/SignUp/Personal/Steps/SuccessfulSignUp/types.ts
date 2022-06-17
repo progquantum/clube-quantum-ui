@@ -1,4 +1,4 @@
-export interface TextTitleProps {
+export type TextTitleProps = {
   fontWeight: number;
   margin?: string;
 }

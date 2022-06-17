@@ -56,7 +56,7 @@ export function BusinessSignUpPage () {
             )}
 
             {step === 0 && (
-              <Step.CnpjInput onUpdateFormStep={() => nextStep()} />
+              <Step.CNPJInput onUpdateFormStep={() => nextStep()} />
             )}
             {step === 1 && (
               <Step.PhoneNumberInput onUpdateFormStep={() => nextStep()} />

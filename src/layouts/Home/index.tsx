@@ -1,7 +1,7 @@
 import Head from 'next/head'
 import Image from 'next/image'
 
-import { useShowSideBar } from 'hooks/sidebar/useShowSideBar'
+import { useShowSideBar } from 'hooks/useShowSideBar'
 
 import { Button } from 'components/Button'
 import { Footer } from 'components/Footer'
@@ -12,7 +12,7 @@ import { SideBar } from './SideBar'
 import * as S from './styles'
 
 export function HomePage () {
-  const isShowSideBar = useShowSideBar()
+  const sidebarIsVisible = useShowSideBar()
 
   const handleScroll = () => {
     window.scroll({
@@ -27,12 +27,12 @@ export function HomePage () {
         <title>Clube Quantum</title>
       </Head>
 
-      {!isShowSideBar ? <Header /> : <SideBar />}
+      {!sidebarIsVisible ? <Header /> : <SideBar />}
 
       <S.Container>
         <S.CashBackWrapper>
           <S.CashBackContent>
-            <h1>Ganhe cash back todo dia!</h1>
+            <h1>Ganhe cashback todo dia!</h1>
             <h6>Seja um membro Clube Quantum</h6>
             <Button>Criar minha conta</Button>
           </S.CashBackContent>
