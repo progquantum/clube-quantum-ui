@@ -3,14 +3,10 @@ import { useRouter } from 'next/router'
 import { useLocalStorage } from '@rehooks/local-storage'
 import { setCookie, destroyCookie } from 'nookies'
 
-import { User } from 'shared/apiSchema'
-
+import { User } from 'shared/types/apiSchema'
 import { USER_STORAGE_KEY, TOKEN_STORAGE_KEY, REFRESH_TOKEN_STORAGE_KEY } from 'constants/storage'
-
 import { useSignIn } from 'hook/auth/useSignIn'
-
 import { api } from 'config/client'
-
 import { logOut } from 'helpers/auth/logOut'
 
 import { AuthStateProvider, AuthDispatchProvider } from './AuthContext'

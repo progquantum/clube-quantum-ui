@@ -1,7 +1,6 @@
 import { useMutation } from 'react-query'
 
-import { Session } from 'shared/apiSchema'
-
+import { Session } from 'shared/types/apiSchema'
 import { api } from 'config/client'
 
 import { SignInCredentials } from './types'
