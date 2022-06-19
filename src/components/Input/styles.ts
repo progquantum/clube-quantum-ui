@@ -30,7 +30,7 @@ export const Label = styled.label<LabelProps>`
   `}
 `
 
-export const InputChildren = styled.input<StyledInputProps>`
+export const Input = styled.input<StyledInputProps>`
   width: 100%;
   padding: 0.8rem;
   box-shadow: none;
@@ -51,10 +51,6 @@ export const InputChildren = styled.input<StyledInputProps>`
     left: 0.1rem;
     font-size: 0.9rem;
     font-weight: 700;
-  }
-
-  &:focus {
-    border-bottom: 2.5px solid ${({ theme }) => theme.colors.royalblue};
   }
 
   &::placeholder {

@@ -10,7 +10,7 @@ export function Input ({ label, control, name, ...rest }: InputProps) {
 
   return (
     <S.Container>
-      <S.InputChildren
+      <S.Input
         isDirty={fieldState.isDirty}
         hasError={fieldState.error}
         ref={field.ref}
