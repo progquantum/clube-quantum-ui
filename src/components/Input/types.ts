@@ -7,11 +7,11 @@ export type InputProps = InputHTMLAttributes<HTMLInputElement> & {
   name: string
 }
 
-export type LabelProps = {
+export type StyledInputProps = {
+  hasError: FieldError
   isDirty: boolean
 }
 
-export type InputComponentProps = {
-  error: FieldError
+export type LabelProps = {
   isDirty: boolean
 }

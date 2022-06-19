@@ -1,6 +1,6 @@
 import styled, { css } from 'styled-components'
 
-import { InputComponentProps, LabelProps } from './types'
+import { StyledInputProps, LabelProps } from './types'
 
 export const Container = styled.div`
   width: 100%;
@@ -30,9 +30,8 @@ export const Label = styled.label<LabelProps>`
   `}
 `
 
-export const Input = styled.input<InputComponentProps>`
+export const InputChildren = styled.input<StyledInputProps>`
   width: 100%;
-  display: block;
   padding: 0.8rem;
   box-shadow: none;
   outline: none;
@@ -43,8 +42,8 @@ export const Input = styled.input<InputComponentProps>`
   border-bottom: 2.5px solid ${({ theme }) => theme.colors.gray[700]};
   color: ${({ theme }) => theme.colors.gray[700]};
 
-  ${({ isDirty }) => isDirty && css`
-    border-bottom: 2.5px solid #9A97FA;
+  ${({ isDirty, theme }) => isDirty && css`
+    border-bottom: 2.5px solid ${theme.colors.royalblue};
   `}
 
   &:focus ~ label {
@@ -55,10 +54,15 @@ export const Input = styled.input<InputComponentProps>`
   }
 
   &:focus {
-    border-bottom: 2.5px solid #9A97FA;
+    border-bottom: 2.5px solid ${({ theme }) => theme.colors.royalblue};
   }
 
   &::placeholder {
-    color: #9A97FA;
+    color: ${({ theme }) => theme.colors.royalblue};
   }
+
+  ${({ hasError, theme }) => hasError &&
+    css`
+      border-bottom: 2px solid ${theme.colors.danger};
+    `};
 `

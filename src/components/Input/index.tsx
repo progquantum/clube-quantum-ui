@@ -1,38 +1,30 @@
-import { Controller } from 'react-hook-form'
+import { useController } from 'react-hook-form'
 
 import { Error } from 'components/Error'
 
 import { InputProps } from './types'
-
 import * as S from './styles'
 
 export function Input ({ label, control, name, ...rest }: InputProps) {
+  const { field, fieldState } = useController({ control, name })
+
   return (
-    <Controller
-      control={control}
-      name={name}
-      render={({
-        field,
-        fieldState: { error, isDirty }
-      }) => (
-        <S.Container>
-          <S.Input
-            isDirty={isDirty}
-            error={error}
-            {...rest}
-            {...field}
-          />
+    <S.Container>
+      <S.InputChildren
+        isDirty={fieldState.isDirty}
+        hasError={fieldState.error}
+        ref={field.ref}
+        {...field}
+        {...rest}
+      />
 
-          <S.Label
-            isDirty={isDirty}
-          >
-            {label}
-          </S.Label>
+      <S.Label
+        isDirty={fieldState.isDirty}
+      >
+        {label}
+      </S.Label>
 
-          {error &&
-            <Error error={error.message} />}
-        </S.Container>
-      )}
-    />
+      {fieldState.error && <Error error={fieldState.error.message} />}
+    </S.Container>
   )
 }
