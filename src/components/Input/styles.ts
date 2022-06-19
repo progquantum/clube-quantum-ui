@@ -62,3 +62,7 @@ export const Input = styled.input<StyledInputProps>`
       border-bottom: 2px solid ${theme.colors.danger};
     `};
 `
+
+export const Error = styled.p`
+  color: ${({ theme }) => theme.colors.danger};
+`
