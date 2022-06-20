@@ -3,16 +3,15 @@ import { yupResolver } from '@hookform/resolvers/yup'
 import Link from 'next/link'
 import Head from 'next/head'
 
-import { Header } from 'components/Header'
 import { Input } from 'components/Input'
 import { Footer } from 'components/Footer'
+import { Button } from 'components/Button'
 
 import { useAuthDispatch, useAuthState } from 'contexts/auth/AuthContext'
 
 import { schema } from 'schemas/signIn'
 
 import { SignInFormValues } from './types'
-
 import * as S from './styles'
 
 export function SignInPage () {
@@ -41,9 +40,7 @@ export function SignInPage () {
         <title>Acessar sua conta Clube Quantum</title>
       </Head>
 
-      <Header />
-
-      <S.LoginWrapper>
+      <S.Wrapper>
         <S.Form onSubmit={handleSubmit(onSubmit)}>
           <h1>Login</h1>
 
@@ -72,20 +69,19 @@ export function SignInPage () {
             </Link>
           </S.LoginAbout>
 
-          <S.LoginButton type='submit' loading={loading} disabled={loading}>
+          <Button type='submit' loading={loading} disabled={loading}>
             Login
-          </S.LoginButton>
+          </Button>
         </S.Form>
-      </S.LoginWrapper>
 
-      <S.CreateAccountButtonWrapper>
-        <div>
-          <h2>Ainda não é um membro do Quantum Clube?</h2>
+        <S.CreateAccountButtonWrapper>
+          <h1>Ainda não é um membro do Quantum Clube?</h1>
+
           <Link href='/signup/personal'>
             Criar Conta
           </Link>
-        </div>
-      </S.CreateAccountButtonWrapper>
+        </S.CreateAccountButtonWrapper>
+      </S.Wrapper>
 
       <Footer />
     </>

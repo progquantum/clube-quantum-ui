@@ -3,7 +3,6 @@ import Image from 'next/image'
 
 import { useShowSideBar } from 'hooks/useShowSideBar'
 
-import { Button } from 'components/Button'
 import { Footer } from 'components/Footer'
 
 import { Header } from './Header'
@@ -34,7 +33,7 @@ export function HomePage () {
           <S.CashBackContent>
             <h1>Ganhe cashback todo dia!</h1>
             <h6>Seja um membro Clube Quantum</h6>
-            <Button>Criar minha conta</Button>
+            <button>Criar minha conta</button>
           </S.CashBackContent>
 
           <Image

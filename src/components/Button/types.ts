@@ -1,5 +1,10 @@
 import { ButtonHTMLAttributes } from 'react'
 
+export type ButtonVariants = 'secondary' | 'transparent';
+
 export type ButtonProps = ButtonHTMLAttributes<HTMLButtonElement> & {
-  loading?: boolean;
+  variant?: ButtonVariants
+  background?: string
+  color?: string
+  loading?: boolean
 };

@@ -70,6 +70,8 @@ export function AuthProvider ({ children }: PropsWithChildren<unknown>) {
     deleteUser()
     destroyCookie(undefined, TOKEN_STORAGE_KEY)
     destroyCookie(undefined, REFRESH_TOKEN_STORAGE_KEY)
+
+    router.push('/signin')
   },
   [
     deleteUser

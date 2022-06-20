@@ -1,7 +1,45 @@
-import styled from 'styled-components'
+import styled, { css } from 'styled-components'
 
-export const Container = styled.button`
-  display: flex;
-  justify-content: center;
-  align-items: center;
+import { ButtonProps } from './types'
+
+const variants = {
+  secondary: css`
+    background: transparent;
+    color: ${({ theme }) => theme.colors.midnightBlue};
+    border: 0.1rem solid ${({ theme }) => theme.colors.midnightBlue};
+
+    :hover {
+      background: ${({ theme }) => theme.colors.midnightBlue};
+      color: ${({ theme }) => theme.colors.white};
+    }
+  `,
+
+  transparent: css`
+    background: transparent;
+  `
+}
+
+export const Container = styled.button<ButtonProps>`
+  ${({ theme, variant, color, background }) => css`
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background: ${background || theme.colors.midnightBlue};
+    border: 0;
+    padding: 0.8rem 2.4rem;
+    border-radius: ${theme.radiis.small};
+    color: ${color || theme.colors.white};
+    transition: ${theme.transitions.default};
+
+    * {
+      transition: ${theme.transitions.default};
+    }
+
+    ${variant && variants[variant]};
+
+    :disabled {
+      cursor: not-allowed;
+      opacity: 0.6;
+    }
+  `}
 `

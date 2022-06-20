@@ -1,8 +1,6 @@
 import Image from 'next/image'
 import Link from 'next/link'
 
-import { Header } from 'components/Header'
-
 import { Footer } from 'components/Footer'
 
 import * as S from './styles'
@@ -10,8 +8,6 @@ import * as S from './styles'
 export function NotFoundPage () {
   return (
     <>
-      <Header />
-
       <S.Container>
         <S.Wrapper>
           <S.Info>

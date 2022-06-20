@@ -1,7 +1,6 @@
 import { useState } from 'react'
 import Image from 'next/image'
 
-import { Header } from 'components/Header'
 import { Steper } from 'components/Steper'
 import { Footer } from 'components/Footer'
 
@@ -25,8 +24,6 @@ export function BusinessSignUpPage () {
   return (
     <>
       <S.Container>
-        <Header />
-
         <S.ContentsWrapper width={step <= 6 ? 5 : 0}>
           {step <= 6 && (
             <Steper currentStep={step} stepsNumber={7} />

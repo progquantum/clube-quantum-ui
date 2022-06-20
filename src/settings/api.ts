@@ -28,14 +28,15 @@ export function setupAPIClient (ctx = undefined) {
       if (error.response.status === 401) {
         cookies = parseCookies(ctx)
 
-        const { REFRESH_TOKEN_STORAGE_KEY: refresh_token } = cookies
+        const { TOKEN_STORAGE_KEY: token, REFRESH_TOKEN_STORAGE_KEY: refresh_token } = cookies
         const originalConfig = error.config
 
         if (!isRefreshing) {
           isRefreshing = true
 
           api.post('/auth/refresh-tokens', {
-            refresh_token
+            refresh_token,
+            token
           }).then((response) => {
             const { token, refresh_token } = response.data
 

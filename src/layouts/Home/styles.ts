@@ -68,6 +68,8 @@ export const CashBackContent = styled.div`
 
   button {
     max-width: 250px;
+    height: 44px;
+    border-radius: 2.5rem;
     width: 100%;
     color: ${({ theme }) => theme.colors.midnightBlue};
     font-weight: 900;

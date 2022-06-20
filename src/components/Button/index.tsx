@@ -10,10 +10,12 @@ import * as S from './styles'
 export function Button ({
   children,
   loading,
+  type,
+  variant,
   ...rest
 }: PropsWithChildren<ButtonProps>) {
   return (
-    <S.Container {...rest}>
+    <S.Container type={type || 'button'} variant={variant} {...rest}>
       {loading
         ? (
           <Loading icon={PulseLoader} color='var(--shape)' size={10} />
