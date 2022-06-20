@@ -1,5 +1,5 @@
 import { FaAngleRight } from 'react-icons/fa'
-import { useForm, Controller } from 'react-hook-form'
+import { useForm } from 'react-hook-form'
 import { yupResolver } from '@hookform/resolvers/yup'
 
 import { useSignUpDispatch } from 'contexts/signup/SignUpContext'

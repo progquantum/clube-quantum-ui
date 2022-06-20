@@ -1,16 +1,21 @@
 import { useForm } from 'react-hook-form'
-
 import { FaAngleRight } from 'react-icons/fa'
+import { yupResolver } from '@hookform/resolvers/yup'
+
+import { useSignUpDispatch } from 'contexts/signup/SignUpContext'
 
 import { Input } from 'components/Input'
+import { personalDataSchema } from 'schemas/signUp'
 
 import { Container, Form, NextStepButton } from '../../../components'
 
-import { PersonalDataInputsProps } from './types'
+import { PersonalDataInputsProps, FormData } from './types'
 
 export function PersonalDataInputs ({
   onUpdateFormStep
 }: PersonalDataInputsProps) {
+  const { saveData } = useSignUpDispatch()
+
   const { handleSubmit, control } = useForm({
     defaultValues: {
       name: '',
@@ -19,10 +24,12 @@ export function PersonalDataInputs ({
       email_confirmation: '',
       password: '',
       password_confirmation: ''
-    }
+    },
+    resolver: yupResolver(personalDataSchema)
   })
 
-  async function onSubmit () {
+  async function onSubmit (data: FormData) {
+    saveData(data)
     onUpdateFormStep()
   }
 
