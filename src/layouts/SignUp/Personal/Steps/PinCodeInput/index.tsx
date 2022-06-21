@@ -2,7 +2,7 @@ import { FormEvent, useState } from 'react'
 import { useMutation } from 'react-query'
 
 import { validatePinCodeService } from 'services/client-side/signUpServices/validatePinCodeService'
-
+import { sendCodeService } from 'services/client-side/signUpServices/sendCodeService'
 import { useSignUpState } from 'contexts/signup/SignUpContext'
 
 import { PinCodeGrid } from 'components/PinCodeGrid'
@@ -16,6 +16,9 @@ export function PinCodeInput ({ onNextFormStep, onPreviousFormStep }: PinCodePro
   const { mutateAsync: validatePinCode } = useMutation(validatePinCodeService, {
     onSuccess: () => alert('Success'),
     onError: (error: any) => alert(error.response.data.message)
+  })
+  const { mutateAsync: sendCode } = useMutation(sendCodeService, {
+    onSuccess: () => alert('Outro código enviado')
   })
 
   const [pinCode, setPinCode] = useState<Array<number | undefined>>(
@@ -42,6 +45,11 @@ export function PinCodeInput ({ onNextFormStep, onPreviousFormStep }: PinCodePro
     onNextFormStep()
   }
 
+  async function sendAnotherCode () {
+    const { phone } = data
+    await sendCode({ phoneNumber: `+55 ${phone}` })
+  }
+
   return (
     <S.Container>
       <S.Form onSubmit={(event) => onSubmit(event)}>
@@ -56,7 +64,7 @@ export function PinCodeInput ({ onNextFormStep, onPreviousFormStep }: PinCodePro
         />
         <h3>Não recebeu?</h3>
         <S.Paragraph>
-          Clique aqui para <span>receber outro código</span> ou {' '}
+          Clique aqui para <span onClick={() => sendAnotherCode()}>receber outro código</span> ou {' '}
           <span onClick={onPreviousFormStep}>
             digite outro número
           </span>
