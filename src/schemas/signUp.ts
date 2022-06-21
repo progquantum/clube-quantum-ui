@@ -5,7 +5,7 @@ export const cpfSchema = yup.object().shape({
 })
 
 export const phoneNumberSchema = yup.object().shape({
-  phone: yup.string().required()
+  phone: yup.string().trim().required()
 })
 
 export const personalDataSchema = yup.object().shape({

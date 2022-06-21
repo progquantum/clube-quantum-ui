@@ -1,4 +1,9 @@
 import { FormEvent, useState } from 'react'
+import { useMutation } from 'react-query'
+
+import { validatePinCodeService } from 'services/client-side/signUpServices/validatePinCodeService'
+
+import { useSignUpState } from 'contexts/signup/SignUpContext'
 
 import { PinCodeGrid } from 'components/PinCodeGrid'
 
@@ -6,7 +11,12 @@ import { PinCodeProps } from './types'
 import * as S from './styles'
 
 export function PinCodeInput ({ onNextFormStep, onPreviousFormStep }: PinCodeProps) {
-  const PIN_LENGTH = 5
+  const PIN_LENGTH = 6
+  const { data } = useSignUpState()
+  const { mutateAsync: validatePinCode } = useMutation(validatePinCodeService, {
+    onSuccess: () => alert('Success'),
+    onError: (error: any) => alert(error.response.data.message)
+  })
 
   const [pinCode, setPinCode] = useState<Array<number | undefined>>(
     new Array(PIN_LENGTH)
@@ -20,6 +30,15 @@ export function PinCodeInput ({ onNextFormStep, onPreviousFormStep }: PinCodePro
 
   async function onSubmit (event: FormEvent) {
     event.preventDefault()
+
+    const code = pinCode.join('')
+    const { phone } = data
+
+    await validatePinCode({
+      phoneNumber: `+55 ${phone}`,
+      validationCode: code
+    })
+
     onNextFormStep()
   }
 

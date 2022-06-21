@@ -5,22 +5,22 @@ import { Input } from 'components/Input'
 
 import { Container, Form, NextStepButton } from '../../../components'
 
-import { CpfInputProps } from './types'
+import { CNPJInputProps } from './types'
 
-export function CnpjInput ({ onUpdateFormStep }: CpfInputProps) {
+export function CnpjInput ({ onUpdateFormStep }: CNPJInputProps) {
   const { handleSubmit, control } = useForm({
     defaultValues: {
       cnpj: ''
     }
   })
 
-  function onSubmitCpf () {
+  function onSubmitCNPJ () {
     onUpdateFormStep()
   }
 
   return (
     <Container>
-      <Form onSubmit={handleSubmit(onSubmitCpf)}>
+      <Form onSubmit={handleSubmit(onSubmitCNPJ)}>
         <Input
           type='text'
           label='CPNJ'
