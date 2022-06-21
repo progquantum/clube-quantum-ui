@@ -38,7 +38,6 @@ export function PhoneNumberInput ({ onUpdateFormStep }: PhoneNumberProps) {
         <Input
           type='text'
           label='Telefone'
-          name='phone'
           control={control}
           {...register('phone', {
             onChange: (e) => {
