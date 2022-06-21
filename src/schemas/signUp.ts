@@ -1,7 +1,15 @@
 import * as yup from 'yup'
+import * as validator from 'cpf-cnpj-validator'
 
 export const cpfSchema = yup.object().shape({
-  cpf: yup.string().required()
+  cpf: yup
+    .string()
+    .required('O campo é obrigatório')
+    .test(
+      'test-invalid-cpf',
+      'CPF inválido',
+      (cpf) => validator.cpf.isValid(cpf)
+    )
 })
 
 export const phoneNumberSchema = yup.object().shape({
