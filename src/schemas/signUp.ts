@@ -5,7 +5,12 @@ export const cpfSchema = yup.object().shape({
 })
 
 export const phoneNumberSchema = yup.object().shape({
-  phone: yup.string().trim().required()
+  phone: yup
+    .string()
+    .trim()
+    .required('O campo é obrigatório')
+    .min(15, 'O campo deve ter 11 caracteres')
+    .max(15, 'O campo deve ter 11 caracteres')
 })
 
 export const personalDataSchema = yup.object().shape({
