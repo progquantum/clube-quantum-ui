@@ -7,13 +7,16 @@ import { useSignUpDispatch } from 'contexts/signup/SignUpContext'
 import { addressDataSchema } from 'schemas/signUp'
 import { Input } from 'components/Input'
 
+import { formatCEP } from 'utils/formatters/formatCEP'
+import { formatAddressNumber } from 'utils/formatters/formatAddressNumber'
+
 import { Container, Form, NextStepButton } from '../../../components'
 import { AddressDataInputsProps, FormData } from './types'
 
 export function AddressDataInputs ({ onUpdateFormStep }: AddressDataInputsProps) {
   const { saveData } = useSignUpDispatch()
 
-  const { handleSubmit, control } = useForm({
+  const { handleSubmit, control, register, setValue } = useForm({
     defaultValues: {
       cep: '',
       street: '',
@@ -38,8 +41,12 @@ export function AddressDataInputs ({ onUpdateFormStep }: AddressDataInputsProps)
         <Input
           type='text'
           label='CEP'
-          name='cep'
           control={control}
+          {...register('cep', {
+            onChange: (e) => {
+              setValue('cep', formatCEP(e.target.value))
+            }
+          })}
         />
 
         <Input
@@ -59,8 +66,12 @@ export function AddressDataInputs ({ onUpdateFormStep }: AddressDataInputsProps)
         <Input
           type='text'
           label='Número'
-          name='number'
           control={control}
+          {...register('number', {
+            onChange: (e) => {
+              setValue('number', formatAddressNumber(e.target.value))
+            }
+          })}
         />
 
         <Input

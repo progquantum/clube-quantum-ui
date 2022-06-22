@@ -44,12 +44,28 @@ export const personalDataSchema = yup.object().shape({
 })
 
 export const addressDataSchema = yup.object().shape({
-  cep: yup.string().required(),
-  street: yup.string().required(),
-  neighborhood: yup.string().required(),
-  number: yup.string().required(),
-  complement: yup.string().required(),
-  city: yup.string().required(),
-  state: yup.string().required(),
-  country: yup.string().required()
+  cep: yup
+    .string()
+    .required('O campo é obrigatório'),
+  street: yup
+    .string()
+    .required('O campo é obrigatório'),
+  neighborhood: yup
+    .string()
+    .required('O campo é obrigatório'),
+  number: yup
+    .string()
+    .required('O campo é obrigatório'),
+  complement: yup
+    .string()
+    .required('O campo é obrigatório'),
+  city: yup
+    .string()
+    .required('O campo é obrigatório'),
+  state: yup
+    .string()
+    .required('O campo é obrigatório'),
+  country: yup
+    .string()
+    .required('O campo é obrigatório')
 })
