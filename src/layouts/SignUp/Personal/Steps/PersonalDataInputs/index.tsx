@@ -7,6 +7,8 @@ import { useSignUpDispatch } from 'contexts/signup/SignUpContext'
 import { Input } from 'components/Input'
 import { personalDataSchema } from 'schemas/signUp'
 
+import { formatBirthDate } from 'utils/formatters/formatBirthDate'
+
 import { Container, Form, NextStepButton } from '../../../components'
 
 import { PersonalDataInputsProps, FormData } from './types'
@@ -16,10 +18,10 @@ export function PersonalDataInputs ({
 }: PersonalDataInputsProps) {
   const { saveData } = useSignUpDispatch()
 
-  const { handleSubmit, control } = useForm({
+  const { handleSubmit, control, register, setValue } = useForm({
     defaultValues: {
       name: '',
-      birthDate: '',
+      birth_date: '',
       email: '',
       email_confirmation: '',
       password: '',
@@ -28,8 +30,22 @@ export function PersonalDataInputs ({
     resolver: yupResolver(personalDataSchema)
   })
 
+  function formatFormData (data: FormData) {
+    const { birth_date } = data
+    const formattedBirthDate = birth_date.split('/').reverse().join('-')
+
+    const formData = {
+      ...data,
+      birth_date: formattedBirthDate
+    }
+
+    return formData
+  }
+
   async function onSubmit (data: FormData) {
-    saveData(data)
+    const formData = formatFormData(data)
+
+    saveData(formData)
     onUpdateFormStep()
   }
 
@@ -46,8 +62,12 @@ export function PersonalDataInputs ({
         <Input
           type='text'
           label='Data de nascimento'
-          name='birthDate'
           control={control}
+          {...register('birth_date', {
+            onChange: (e) => {
+              setValue('birth_date', formatBirthDate(e.target.value))
+            }
+          })}
         />
 
         <Input

@@ -4,7 +4,7 @@ export type PersonalDataInputsProps = {
 
 export type FormData = {
   name: string,
-  birthDate: string,
+  birth_date: string,
   email: string,
   email_confirmation: string,
   password: string,

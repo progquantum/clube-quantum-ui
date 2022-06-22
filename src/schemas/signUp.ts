@@ -21,12 +21,26 @@ export const phoneNumberSchema = yup.object().shape({
 })
 
 export const personalDataSchema = yup.object().shape({
-  name: yup.string().required(),
-  birthDate: yup.string().required(),
-  email: yup.string().required(),
-  email_confirmation: yup.string().required(),
-  password: yup.string().required(),
-  password_confirmation: yup.string().required()
+  name: yup
+    .string()
+    .required('O campo é obrigatório'),
+  birth_date: yup
+    .string()
+    .required('O campo é obrigatório'),
+  email: yup
+    .string()
+    .required('O campo é obrigatório'),
+  email_confirmation: yup
+    .string()
+    .required('O campo é obrigatório')
+    .oneOf([null, yup.ref('email')], 'Os e-mails precisam ser iguais'),
+  password: yup
+    .string()
+    .required('O campo é obrigatório'),
+  password_confirmation: yup
+    .string()
+    .required('O campo é obrigatório')
+    .oneOf([null, yup.ref('password')], 'As senhas precisam ser iguais')
 })
 
 export const addressDataSchema = yup.object().shape({
