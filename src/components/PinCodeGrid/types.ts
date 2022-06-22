@@ -1,5 +1,5 @@
 export interface PinCodeGridProps {
-  pinCode: Array<number | undefined>
-  onPinChange: (pinEntry: number | undefined, index: number) => void
+  pinCode: Array<string>
+  onPinChange: (pinEntry: string, index: number) => void
   pinLength: number
 }

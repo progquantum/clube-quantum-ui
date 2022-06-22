@@ -13,6 +13,7 @@ import * as S from './styles'
 export function PinCodeInput ({ onNextFormStep, onPreviousFormStep }: PinCodeProps) {
   const PIN_LENGTH = 6
   const { data } = useSignUpState()
+
   const { mutateAsync: validatePinCode } = useMutation(validatePinCodeService, {
     onSuccess: () => alert('Success'),
     onError: (error: any) => alert(error.response.data.message)
@@ -21,13 +22,13 @@ export function PinCodeInput ({ onNextFormStep, onPreviousFormStep }: PinCodePro
     onSuccess: () => alert('Outro código enviado')
   })
 
-  const [pinCode, setPinCode] = useState<Array<number | undefined>>(
-    new Array(PIN_LENGTH)
+  const [pinCode, setPinCode] = useState<Array<string>>(
+    new Array(PIN_LENGTH).fill('')
   )
 
-  const onPinChange = (pinEntry: number | undefined, index: number) => {
+  const onPinChange = (pinEntry: string, index: number) => {
     const pinsCode = [...pinCode]
-    pinsCode[index] = pinEntry
+    pinsCode[index] = pinEntry ?? ''
     setPinCode(pinsCode)
   }
 

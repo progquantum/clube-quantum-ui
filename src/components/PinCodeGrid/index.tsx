@@ -23,9 +23,9 @@ export function PinCodeGrid ({
     index: number
   ) {
     const { value } = target
-    const pinCodeNumber = Number(value.trim())
+    const pinCodeNumber = value.trim()
 
-    if (isNaN(pinCodeNumber) || !value.length) {
+    if (!value.length) {
       return
     }
 
