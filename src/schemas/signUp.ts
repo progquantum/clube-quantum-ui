@@ -44,7 +44,7 @@ export const personalDataSchema = yup.object().shape({
 })
 
 export const addressDataSchema = yup.object().shape({
-  cep: yup
+  zipCode: yup
     .string()
     .required('O campo é obrigatório'),
   street: yup

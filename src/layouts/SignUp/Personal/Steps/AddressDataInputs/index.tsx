@@ -1,8 +1,12 @@
 import { useForm } from 'react-hook-form'
 import { FaAngleRight } from 'react-icons/fa'
 import { yupResolver } from '@hookform/resolvers/yup'
+import { useMutation } from 'react-query'
 
-import { useSignUpDispatch } from 'contexts/signup/SignUpContext'
+import { useSignUpDispatch, useSignUpState } from 'contexts/signup/SignUpContext'
+import {
+  createPersonalAccountService
+} from 'services/client-side/signUpServices/createPersonalAccountService'
 
 import { addressDataSchema } from 'schemas/signUp'
 import { Input } from 'components/Input'
@@ -15,10 +19,18 @@ import { AddressDataInputsProps, FormData } from './types'
 
 export function AddressDataInputs ({ onUpdateFormStep }: AddressDataInputsProps) {
   const { saveData } = useSignUpDispatch()
+  const { data } = useSignUpState()
+  const {
+    mutateAsync: createPersonalAccount
+  } = useMutation(createPersonalAccountService, {
+    onSuccess: ({ token }) => saveData({ token }),
+    // eslint-disable-next-line no-console
+    onError: (error) => console.log(error)
+  })
 
   const { handleSubmit, control, register, setValue } = useForm({
     defaultValues: {
-      cep: '',
+      zipCode: '',
       street: '',
       neighborhood: '',
       number: '',
@@ -30,8 +42,28 @@ export function AddressDataInputs ({ onUpdateFormStep }: AddressDataInputsProps)
     resolver: yupResolver(addressDataSchema)
   })
 
-  function onSubmit (data: FormData) {
-    saveData(data)
+  async function onSubmit (info: FormData) {
+    const { zipCode, city, country, neighborhood, number, state, street } = info
+
+    await createPersonalAccount({
+      name: data.name as string,
+      email: data.email as string,
+      phone: data.phone as string,
+      cpf: data.cpf as string,
+      password: data.password as string,
+      invitedBy: null,
+      birthDate: data.birth_date as string,
+      address: {
+        city,
+        country,
+        neighborhood,
+        number,
+        state,
+        street,
+        zipCode
+      }
+    })
+
     onUpdateFormStep()
   }
 
@@ -42,9 +74,9 @@ export function AddressDataInputs ({ onUpdateFormStep }: AddressDataInputsProps)
           type='text'
           label='CEP'
           control={control}
-          {...register('cep', {
+          {...register('zipCode', {
             onChange: (e) => {
-              setValue('cep', formatCEP(e.target.value))
+              setValue('zipCode', formatCEP(e.target.value))
             }
           })}
         />

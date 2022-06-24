@@ -3,12 +3,12 @@ export type AddressDataInputsProps = {
 }
 
 export type FormData = {
-  cep: string,
+  zipCode: string,
   street: string,
   neighborhood: string,
   number: string,
   complement: string,
   city: string,
   state: string,
-  country: string
+  country: string,
 }

@@ -39,7 +39,7 @@ export function PinCodeInput ({ onNextFormStep, onPreviousFormStep }: PinCodePro
     const { phone } = data
 
     await validatePinCode({
-      phoneNumber: `+55 ${phone}`,
+      phoneNumber: phone as string,
       validationCode: code
     })
 

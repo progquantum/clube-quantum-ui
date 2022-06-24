@@ -20,6 +20,10 @@ export function PersonalSignUpPage () {
     setStep((prevState) => prevState - 1)
   }
 
+  function navigateToSuccessfullSignUp () {
+    setStep((prevState) => prevState + 2)
+  }
+
   return (
     <>
       <S.Container>
@@ -60,7 +64,10 @@ export function PersonalSignUpPage () {
               <Step.AddressDataInputs onUpdateFormStep={() => nextStep()} />
             )}
             {step === 5 && (
-              <Step.CardDataInputs onUpdateFormStep={() => nextStep()} />
+              <Step.CardDataInputs
+                onUpdateFormStep={() => nextStep()}
+                onNavigateToSuccessfulSignUp={() => navigateToSuccessfullSignUp()}
+              />
             )}
             {step === 6 && (
               <Step.DataPlans onUpdateFormStep={() => nextStep()} />

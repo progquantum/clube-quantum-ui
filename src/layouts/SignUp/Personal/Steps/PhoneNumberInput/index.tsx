@@ -27,8 +27,9 @@ export function PhoneNumberInput ({ onUpdateFormStep }: PhoneNumberProps) {
   })
 
   async function onSubmitPhoneNumber (data: FormData) {
-    await sendCode({ phoneNumber: `+55 ${data.phone}` })
-    saveData(data)
+    const phone = `+55 ${data.phone}`
+    await sendCode({ phoneNumber: phone })
+    saveData({ phone })
     onUpdateFormStep()
   }
 
