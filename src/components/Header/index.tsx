@@ -1,4 +1,3 @@
-import { useRouter } from 'next/router'
 import Image from 'next/image'
 
 import { useAuthDispatch } from 'contexts/auth/AuthContext'
@@ -13,14 +12,6 @@ import * as S from './styles'
 export function Header () {
   const { signOut } = useAuthDispatch()
 
-  const router = useRouter()
-
-  const handleSignOut = () => {
-    signOut()
-
-    router.push('/signin')
-  }
-
   return (
     <S.AnimatedContainer
       variants={CONTAINER_ANIMATION}
@@ -30,7 +21,7 @@ export function Header () {
     >
       <S.Wrapper>
         <S.AnimatedLeftNav variants={NAVS_ANIMATION}>
-          <Image src='/images/quantum-logo.svg' width={60} height={60} onClick={handleSignOut} />
+          <Image src='/images/quantum-logo.svg' width={60} height={60} onClick={signOut} />
         </S.AnimatedLeftNav>
 
         <S.AnimatedRightNav variants={NAVS_ANIMATION}>

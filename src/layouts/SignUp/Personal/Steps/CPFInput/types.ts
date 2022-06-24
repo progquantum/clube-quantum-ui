@@ -1,3 +1,7 @@
 export type CPFInputProps = {
-  onUpdateFormStep: () => void;
+  onUpdateFormStep: () => void
+}
+
+export type FormData = {
+  cpf: string
 }

@@ -1,20 +1,29 @@
 import { FaAngleRight } from 'react-icons/fa'
 import { useForm } from 'react-hook-form'
+import { yupResolver } from '@hookform/resolvers/yup'
 
+import { useSignUpDispatch } from 'contexts/signup/SignUpContext'
 import { Input } from 'components/Input'
+import { cpfSchema } from 'schemas/signUp'
+
+import { formatCPF } from 'utils/formatters/formatCPF'
 
 import { Container, Form, NextStepButton } from '../../../components'
 
-import { CPFInputProps } from './types'
+import { CPFInputProps, FormData } from './types'
 
-export function CpfInput ({ onUpdateFormStep }: CPFInputProps) {
-  const { handleSubmit, control } = useForm({
+export function CPFInput ({ onUpdateFormStep }: CPFInputProps) {
+  const { saveData } = useSignUpDispatch()
+
+  const { handleSubmit, control, register, setValue } = useForm({
     defaultValues: {
       cpf: ''
-    }
+    },
+    resolver: yupResolver(cpfSchema)
   })
 
-  function onSubmit () {
+  function onSubmit (data: FormData) {
+    saveData(data)
     onUpdateFormStep()
   }
 
@@ -24,8 +33,12 @@ export function CpfInput ({ onUpdateFormStep }: CPFInputProps) {
         <Input
           type='text'
           label='CPF'
-          name='cpf'
           control={control}
+          {...register('cpf', {
+            onChange: (e) => {
+              setValue('cpf', formatCPF(e.target.value))
+            }
+          })}
         />
 
         <NextStepButton>

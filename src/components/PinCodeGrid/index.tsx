@@ -10,7 +10,7 @@ export function PinCodeGrid ({
 }: PinCodeGridProps) {
   const inputRef = useRef<HTMLInputElement[]>([])
 
-  function changeInputFocus (pinCodeIndex: number) {
+  function handleChangeInputFocus (pinCodeIndex: number) {
     const input = inputRef.current[pinCodeIndex]
 
     if (input) {
@@ -18,25 +18,25 @@ export function PinCodeGrid ({
     }
   }
 
-  function onChange (
+  function handleOnChange (
     { target }: ChangeEvent<HTMLInputElement>,
     index: number
   ) {
     const { value } = target
-    const pinCodeNumber = Number(value.trim())
+    const pinCodeNumber = value.trim()
 
-    if (isNaN(pinCodeNumber) || !value.length) {
+    if (!value.length) {
       return
     }
 
     onPinChange(pinCodeNumber, index)
 
     if (index < pinLength - 1) {
-      changeInputFocus(index + 1)
+      handleChangeInputFocus(index + 1)
     }
   }
 
-  const onKeyDown = (
+  const handleOnKeyDown = (
     { nativeEvent }: React.KeyboardEvent<HTMLInputElement>,
     index: number
   ) => {
@@ -47,7 +47,7 @@ export function PinCodeGrid ({
     }
 
     if (!pinCode[index]) {
-      changeInputFocus(index - 1)
+      handleChangeInputFocus(index - 1)
       return
     }
 
@@ -58,12 +58,12 @@ export function PinCodeGrid ({
     <div>
       {Array.from({ length: pinLength }, (_, index) => (
         <StyledPinInput
-          onKeyDown={(event) => onKeyDown(event, index)}
+          onKeyDown={(event) => handleOnKeyDown(event, index)}
           key={index}
           ref={(element) => {
             inputRef.current[index] = element || undefined
           }}
-          onChange={(event) => onChange(event, index)}
+          onChange={(event) => handleOnChange(event, index)}
           value={pinCode[index]}
         />
       ))}

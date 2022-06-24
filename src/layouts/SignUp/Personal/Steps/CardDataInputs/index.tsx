@@ -10,7 +10,10 @@ import { Container, NextStepButton } from '../../../components'
 import * as S from './styles'
 import { CardDataInputsProps } from './types'
 
-export function CardDataInputs ({ onUpdateFormStep }: CardDataInputsProps) {
+export function CardDataInputs ({
+  onUpdateFormStep,
+  onNavigateToSuccessfulSignUp
+}: CardDataInputsProps) {
   const { control, handleSubmit } = useForm({
     defaultValues: {
       account: '',
@@ -84,7 +87,9 @@ export function CardDataInputs ({ onUpdateFormStep }: CardDataInputsProps) {
         </p>
 
         <S.ButtonGroup>
-          <S.JumpStepButton onClick={onUpdateFormStep}>Pular esta etapa</S.JumpStepButton>
+          <S.JumpStepButton onClick={onNavigateToSuccessfulSignUp}>
+            Pular esta etapa
+          </S.JumpStepButton>
           <NextStepButton>
             <FaAngleRight />
           </NextStepButton>

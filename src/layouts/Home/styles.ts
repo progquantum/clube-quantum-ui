@@ -1,5 +1,7 @@
 import styled, { css } from 'styled-components'
 
+import { Button } from 'components/Button'
+
 export const Container = styled.main`
   background: linear-gradient(180deg, #001F80 0%, #0C61FF 100%);
   padding-top: 1rem;
@@ -66,19 +68,14 @@ export const CashBackContent = styled.div`
     margin-bottom: 2.5rem;
   }
 
-  button {
-    max-width: 250px;
-    height: 44px;
-    border-radius: 2.5rem;
-    width: 100%;
-    color: ${({ theme }) => theme.colors.midnightBlue};
-    font-weight: 900;
-    font-size: 1rem;
-  }
-
   @media(max-width: 730px) {
     align-items: center;
   }
+`
+
+export const CashBackButton = styled(Button)`
+  background: ${({ theme }) => theme.colors.white};
+  color: ${({ theme }) => theme.colors.midnightBlue};
 `
 
 export const ArrowDownWrapper = styled.div`

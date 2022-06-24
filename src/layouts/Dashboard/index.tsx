@@ -5,6 +5,8 @@ const Header = dynamic(() => import('components/Header').then((mod) => mod.Heade
 export function DashboardPage () {
   return (
     <>
+      <title>Dashboard - Clube Quantum</title>
+
       <Header />
     </>
   )

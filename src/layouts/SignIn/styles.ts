@@ -1,5 +1,7 @@
 import styled from 'styled-components'
 
+import { Button } from 'components/Button'
+
 export const Wrapper = styled.main`
   padding-top: 2rem;
 `
@@ -43,6 +45,10 @@ export const Form = styled.form`
     max-width: 25.5rem;
     width: 100%;
   }
+`
+
+export const SignInButton = styled(Button)`
+  margin-bottom: 2rem;
 `
 
 export const LoginAbout = styled.div`

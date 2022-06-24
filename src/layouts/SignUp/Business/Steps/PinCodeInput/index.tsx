@@ -5,14 +5,14 @@ import { PinCodeGrid } from 'components/PinCodeGrid'
 import { PinCodeProps } from './types'
 import * as S from './styles'
 
-export function PinCodeInput ({ onNextFormStep, onPreviousFormStep }: PinCodeProps) {
-  const PIN_LENGTH = 5
+const PIN_LENGTH = 5
 
-  const [pinCode, setPinCode] = useState<Array<number | undefined>>(
+export function PinCodeInput ({ onNextFormStep, onPreviousFormStep }: PinCodeProps) {
+  const [pinCode, setPinCode] = useState<string[]>(
     new Array(PIN_LENGTH)
   )
 
-  const onPinChange = (pinEntry: number | undefined, index: number) => {
+  const onPinChange = (pinEntry: string, index: number) => {
     const pinsCode = [...pinCode]
     pinsCode[index] = pinEntry
     setPinCode(pinsCode)

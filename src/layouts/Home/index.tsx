@@ -33,7 +33,7 @@ export function HomePage () {
           <S.CashBackContent>
             <h1>Ganhe cashback todo dia!</h1>
             <h6>Seja um membro Clube Quantum</h6>
-            <button>Criar minha conta</button>
+            <S.CashBackButton>Criar minha conta</S.CashBackButton>
           </S.CashBackContent>
 
           <Image

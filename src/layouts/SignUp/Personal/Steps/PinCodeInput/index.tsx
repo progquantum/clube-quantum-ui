@@ -1,4 +1,9 @@
 import { FormEvent, useState } from 'react'
+import { useMutation } from 'react-query'
+
+import { validatePinCodeService } from 'services/client-side/signUpServices/validatePinCodeService'
+import { sendCodeService } from 'services/client-side/signUpServices/sendCodeService'
+import { useSignUpState } from 'contexts/signup/SignUpContext'
 
 import { PinCodeGrid } from 'components/PinCodeGrid'
 
@@ -6,21 +11,44 @@ import { PinCodeProps } from './types'
 import * as S from './styles'
 
 export function PinCodeInput ({ onNextFormStep, onPreviousFormStep }: PinCodeProps) {
-  const PIN_LENGTH = 5
+  const PIN_LENGTH = 6
+  const { data } = useSignUpState()
 
-  const [pinCode, setPinCode] = useState<Array<number | undefined>>(
-    new Array(PIN_LENGTH)
+  const { mutateAsync: validatePinCode } = useMutation(validatePinCodeService, {
+    onSuccess: () => alert('Success'),
+    onError: (error: any) => alert(error.response.data.message)
+  })
+  const { mutateAsync: sendCode } = useMutation(sendCodeService, {
+    onSuccess: () => alert('Outro código enviado')
+  })
+
+  const [pinCode, setPinCode] = useState<Array<string>>(
+    new Array(PIN_LENGTH).fill('')
   )
 
-  const onPinChange = (pinEntry: number | undefined, index: number) => {
+  const onPinChange = (pinEntry: string, index: number) => {
     const pinsCode = [...pinCode]
-    pinsCode[index] = pinEntry
+    pinsCode[index] = pinEntry ?? ''
     setPinCode(pinsCode)
   }
 
   async function onSubmit (event: FormEvent) {
     event.preventDefault()
+
+    const code = pinCode.join('')
+    const { phone } = data
+
+    await validatePinCode({
+      phoneNumber: phone as string,
+      validationCode: code
+    })
+
     onNextFormStep()
+  }
+
+  async function sendAnotherCode () {
+    const { phone } = data
+    await sendCode({ phoneNumber: `+55 ${phone}` })
   }
 
   return (
@@ -37,7 +65,7 @@ export function PinCodeInput ({ onNextFormStep, onPreviousFormStep }: PinCodePro
         />
         <h3>Não recebeu?</h3>
         <S.Paragraph>
-          Clique aqui para <span>receber outro código</span> ou {' '}
+          Clique aqui para <span onClick={() => sendAnotherCode()}>receber outro código</span> ou {' '}
           <span onClick={onPreviousFormStep}>
             digite outro número
           </span>

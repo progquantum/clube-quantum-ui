@@ -3,13 +3,16 @@ import { yupResolver } from '@hookform/resolvers/yup'
 import Link from 'next/link'
 import Head from 'next/head'
 
+import { ChangeEvent } from 'react'
+
 import { Input } from 'components/Input'
 import { Footer } from 'components/Footer'
-import { Button } from 'components/Button'
 
 import { useAuthDispatch, useAuthState } from 'contexts/auth/AuthContext'
 
 import { schema } from 'schemas/signIn'
+
+import { formatCPF } from 'utils/formatters/formatCPF'
 
 import { SignInFormValues } from './types'
 import * as S from './styles'
@@ -17,7 +20,9 @@ import * as S from './styles'
 export function SignInPage () {
   const {
     control,
-    handleSubmit
+    handleSubmit,
+    register,
+    setValue
   } = useForm({
     defaultValues: {
       login: '',
@@ -34,10 +39,16 @@ export function SignInPage () {
     signIn(data)
   }
 
+  const handleInputChange = (e: ChangeEvent<HTMLInputElement>) => {
+    const valueFormatted = formatCPF(e.target.value)
+
+    setValue('login', valueFormatted)
+  }
+
   return (
     <>
       <Head>
-        <title>Acessar sua conta Clube Quantum</title>
+        <title>Acesse sua conta - Clube Quantum</title>
       </Head>
 
       <S.Wrapper>
@@ -49,6 +60,9 @@ export function SignInPage () {
             label='CPF/CNPJ'
             name='login'
             control={control}
+            {...register('login', {
+              onChange: (e) => handleInputChange(e)
+            })}
           />
 
           <Input
@@ -69,9 +83,9 @@ export function SignInPage () {
             </Link>
           </S.LoginAbout>
 
-          <Button type='submit' loading={loading} disabled={loading}>
+          <S.SignInButton type='submit' loading={loading} disabled={loading}>
             Login
-          </Button>
+          </S.SignInButton>
         </S.Form>
 
         <S.CreateAccountButtonWrapper>

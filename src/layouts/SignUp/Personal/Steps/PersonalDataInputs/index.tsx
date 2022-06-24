@@ -1,28 +1,51 @@
 import { useForm } from 'react-hook-form'
-
 import { FaAngleRight } from 'react-icons/fa'
+import { yupResolver } from '@hookform/resolvers/yup'
+
+import { useSignUpDispatch } from 'contexts/signup/SignUpContext'
 
 import { Input } from 'components/Input'
+import { personalDataSchema } from 'schemas/signUp'
+
+import { formatBirthDate } from 'utils/formatters/formatBirthDate'
 
 import { Container, Form, NextStepButton } from '../../../components'
 
-import { PersonalDataInputsProps } from './types'
+import { PersonalDataInputsProps, FormData } from './types'
 
 export function PersonalDataInputs ({
   onUpdateFormStep
 }: PersonalDataInputsProps) {
-  const { handleSubmit, control } = useForm({
+  const { saveData } = useSignUpDispatch()
+
+  const { handleSubmit, control, register, setValue } = useForm({
     defaultValues: {
       name: '',
-      birthDate: '',
+      birth_date: '',
       email: '',
       email_confirmation: '',
       password: '',
       password_confirmation: ''
-    }
+    },
+    resolver: yupResolver(personalDataSchema)
   })
 
-  async function onSubmit () {
+  function formatFormData (data: FormData) {
+    const { birth_date } = data
+    const formattedBirthDate = birth_date.split('/').reverse().join('-')
+
+    const formData = {
+      ...data,
+      birth_date: formattedBirthDate
+    }
+
+    return formData
+  }
+
+  async function onSubmit (data: FormData) {
+    const formData = formatFormData(data)
+
+    saveData(formData)
     onUpdateFormStep()
   }
 
@@ -39,8 +62,12 @@ export function PersonalDataInputs ({
         <Input
           type='text'
           label='Data de nascimento'
-          name='birthDate'
           control={control}
+          {...register('birth_date', {
+            onChange: (e) => {
+              setValue('birth_date', formatBirthDate(e.target.value))
+            }
+          })}
         />
 
         <Input

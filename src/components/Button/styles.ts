@@ -26,8 +26,8 @@ export const Container = styled.button<ButtonProps>`
     align-items: center;
     background: ${background || theme.colors.midnightBlue};
     border: 0;
-    padding: 0.8rem 2.4rem;
-    border-radius: ${theme.radiis.small};
+    padding: 0.5rem 1.5rem;
+    border-radius: 2.5rem;
     color: ${color || theme.colors.white};
     transition: ${theme.transitions.default};
 
@@ -36,10 +36,5 @@ export const Container = styled.button<ButtonProps>`
     }
 
     ${variant && variants[variant]};
-
-    :disabled {
-      cursor: not-allowed;
-      opacity: 0.6;
-    }
   `}
 `
