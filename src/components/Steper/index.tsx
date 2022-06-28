@@ -1,4 +1,3 @@
-// eslint-disable-next-line import/no-unresolved
 import 'rsuite/dist/rsuite.css'
 import { Steps } from 'rsuite'
 

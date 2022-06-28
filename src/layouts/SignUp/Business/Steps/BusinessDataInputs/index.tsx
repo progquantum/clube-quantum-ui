@@ -11,11 +11,7 @@ import { BusinessDataInputsProps } from './types'
 export function BusinessDataInputs ({
   onUpdateFormStep
 }: BusinessDataInputsProps) {
-  const {
-    register,
-    formState: { errors, dirtyFields },
-    handleSubmit
-  } = useForm({
+  const { control, handleSubmit } = useForm({
     defaultValues: {
       corporateName: '',
       email: '',
@@ -33,39 +29,40 @@ export function BusinessDataInputs ({
     <Container>
       <Form onSubmit={handleSubmit(onSubmit)}>
         <Input
+          type='text'
           label='Razão Social'
-          {...register('corporateName')}
-          isDirty={dirtyFields.corporateName}
-          errors={errors.corporateName}
+          name='corporateName'
+          control={control}
         />
+
         <Input
-          label='Email'
           type='email'
-          {...register('email')}
-          isDirty={dirtyFields.email}
-          errors={errors.email}
+          label='E-mail'
+          name='email'
+          control={control}
         />
+
         <Input
-          label='Confirmar Email'
           type='email'
-          {...register('email_confirmation')}
-          isDirty={dirtyFields.email_confirmation}
-          errors={errors.email_confirmation}
+          label='Confirmar e-mail'
+          name='email_confirmation'
+          control={control}
         />
+
         <Input
-          label='Criar Senha'
           type='password'
-          {...register('password')}
-          isDirty={dirtyFields.password}
-          errors={errors.password}
+          label='Criar senha'
+          name='password'
+          control={control}
         />
+
         <Input
+          type='password'
           label='Confirmar Senha'
-          type='password'
-          {...register('password_confirmation')}
-          isDirty={dirtyFields.password_confirmation}
-          errors={errors.password_confirmation}
+          name='password_confirmation'
+          control={control}
         />
+
         <NextStepButton>
           <FaAngleRight />
         </NextStepButton>

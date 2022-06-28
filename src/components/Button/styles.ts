@@ -1,9 +1,40 @@
-import styled from 'styled-components'
+import styled, { css } from 'styled-components'
 
-export const Container = styled.button`
-  width: 15.6rem;
-  height: 2.75rem;
-  background: ${({ theme }) => theme.colors.light};
-  color: ${({ theme }) => theme.colors.midnightBlue};
-  border-radius: 40px;
+import { ButtonProps } from './types'
+
+const variants = {
+  secondary: css`
+    background: transparent;
+    color: ${({ theme }) => theme.colors.midnightBlue};
+    border: 0.1rem solid ${({ theme }) => theme.colors.midnightBlue};
+
+    :hover {
+      background: ${({ theme }) => theme.colors.midnightBlue};
+      color: ${({ theme }) => theme.colors.white};
+    }
+  `,
+
+  transparent: css`
+    background: transparent;
+  `
+}
+
+export const Container = styled.button<ButtonProps>`
+  ${({ theme, variant, color, background }) => css`
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background: ${background || theme.colors.midnightBlue};
+    border: 0;
+    padding: 0.5rem 1.5rem;
+    border-radius: 2.5rem;
+    color: ${color || theme.colors.white};
+    transition: ${theme.transitions.default};
+
+    * {
+      transition: ${theme.transitions.default};
+    }
+
+    ${variant && variants[variant]};
+  `}
 `

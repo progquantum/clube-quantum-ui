@@ -1,12 +1,48 @@
 import styled from 'styled-components'
+import { motion } from 'framer-motion'
 
-export const Container = styled.header`
-  width: 100%;
-  height: 7.1875rem;
-  background-color: ${({ theme }) => theme.colors.white};
-  box-shadow: 2px 4px 15px rgba(0, 0, 0, 0.15);
-
+export const AnimatedContainer = styled(motion.header)`
   display: flex;
-  align-items: center;
+  flex-direction: column;
   justify-content: center;
+  align-items: center;
+  width: 100%;
+  background: ${({ theme }) => theme.colors.background};
+  position: relative;
+`
+
+export const Wrapper = styled.div`
+  max-width: 70.625rem;
+  padding: 0 1rem;
+  width: 100%;
+  height: 6.5rem;
+  display: flex;
+  justify-content: space-between;
+`
+
+export const AnimatedLeftNav = styled(motion.div)`
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  justify-content: center;
+
+  > svg {
+    cursor: pointer;
+    max-width: 11.2rem;
+    height: auto;
+    margin: 0 2.4rem 0.4rem -0.4rem;
+  }
+`
+
+export const AnimatedRightNav = styled(motion.div)`
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+  flex: 1;
+
+  @media (max-width: 470px) {
+    > button {
+      display: none;
+    }
+  }
 `

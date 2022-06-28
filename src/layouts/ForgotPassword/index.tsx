@@ -1,8 +1,6 @@
 import Image from 'next/image'
-
 import { useForm } from 'react-hook-form'
 
-import { Header } from 'components/Header'
 import { Input } from 'components/Input'
 import { Footer } from 'components/Footer'
 
@@ -10,28 +8,31 @@ import * as S from './styles'
 
 export function ForgotPasswordPage () {
   const {
-    formState: { errors, dirtyFields },
-    register
+    control,
+    handleSubmit
   } = useForm({
     defaultValues: {
-      email: ''
+      login: '',
+      password: ''
     }
   })
 
+  const handleRecoveryPassword = (data) => {
+    // eslint-disable-next-line no-console
+    console.log(data)
+  }
+
   return (
     <>
-      <Header />
-
       <S.Container>
         <S.Box>
-          <S.Form>
+          <S.Form onSubmit={handleSubmit(handleRecoveryPassword)}>
             <h1>Alteração de senha</h1>
             <Input
               type='email'
-              label='E-mail da conta cadastrada'
-              {...register('email')}
-              isDirty={dirtyFields.email}
-              errors={errors.email}
+              label='Email'
+              name='email'
+              control={control}
             />
             <S.FormBtn>Avançar</S.FormBtn>
           </S.Form>

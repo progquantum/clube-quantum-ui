@@ -1,39 +1,50 @@
 import { FaAngleRight } from 'react-icons/fa'
-import { useForm, Controller } from 'react-hook-form'
+import { useForm } from 'react-hook-form'
+import { yupResolver } from '@hookform/resolvers/yup'
+import { useMutation } from 'react-query'
 
+import { sendCodeService } from 'services/client-side/signUpServices/sendCodeService'
+
+import { useSignUpDispatch } from 'contexts/signup/SignUpContext'
+
+import { phoneNumberSchema } from 'schemas/signUp'
 import { Input } from 'components/Input'
 
-import { Container, Form, NextStepButton } from '../../../components'
+import { formatPhoneNumber } from 'utils/formatters/formatPhoneNumber'
 
-import { PhoneNumberProps } from './types'
+import { Container, Form, NextStepButton } from '../../../components'
+import { PhoneNumberProps, FormData } from './types'
 
 export function PhoneNumberInput ({ onUpdateFormStep }: PhoneNumberProps) {
-  const { handleSubmit, control } = useForm({
+  const { saveData } = useSignUpDispatch()
+  const { mutateAsync: sendCode } = useMutation(sendCodeService)
+
+  const { handleSubmit, control, register, setValue } = useForm({
     defaultValues: {
-      phoneNumber: ''
-    }
+      phone: ''
+    },
+    resolver: yupResolver(phoneNumberSchema)
   })
 
-  function onSubmitCpf () {
+  async function onSubmitPhoneNumber (data: FormData) {
+    const phone = `+55 ${data.phone}`
+    await sendCode({ phoneNumber: phone })
+    saveData({ phone })
     onUpdateFormStep()
   }
 
   return (
     <Container>
-      <Form onSubmit={handleSubmit(onSubmitCpf)}>
-        <Controller
+      <Form onSubmit={handleSubmit(onSubmitPhoneNumber)}>
+        <Input
+          type='text'
+          label='Telefone'
           control={control}
-          name='phoneNumber'
-          render={({ field, fieldState }) => (
-            <Input
-              label='Telefone'
-              {...field}
-              errors={fieldState.error}
-              isDirty={fieldState.isDirty}
-              onFocus={e => (e.target.placeholder = '(00) 0 0000-0000')}
-              onBlur={e => (e.target.placeholder = '')}
-            />
-          )}
+          {...register('phone', {
+            onChange: (e) => {
+              setValue('phone', formatPhoneNumber(e.target.value))
+            }
+          })}
         />
 
         <NextStepButton>

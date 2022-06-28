@@ -1,33 +1,51 @@
-import { Controller, useForm } from 'react-hook-form'
-
+import { useForm } from 'react-hook-form'
 import { FaAngleRight } from 'react-icons/fa'
+import { yupResolver } from '@hookform/resolvers/yup'
+
+import { useSignUpDispatch } from 'contexts/signup/SignUpContext'
 
 import { Input } from 'components/Input'
+import { personalDataSchema } from 'schemas/signUp'
+
+import { formatBirthDate } from 'utils/formatters/formatBirthDate'
 
 import { Container, Form, NextStepButton } from '../../../components'
 
-import { PersonalDataInputsProps } from './types'
+import { PersonalDataInputsProps, FormData } from './types'
 
 export function PersonalDataInputs ({
   onUpdateFormStep
 }: PersonalDataInputsProps) {
-  const {
-    register,
-    formState: { errors, dirtyFields },
-    handleSubmit,
-    control
-  } = useForm({
+  const { saveData } = useSignUpDispatch()
+
+  const { handleSubmit, control, register, setValue } = useForm({
     defaultValues: {
       name: '',
-      birthDate: '',
+      birth_date: '',
       email: '',
       email_confirmation: '',
       password: '',
       password_confirmation: ''
-    }
+    },
+    resolver: yupResolver(personalDataSchema)
   })
 
-  async function onSubmit () {
+  function formatFormData (data: FormData) {
+    const { birth_date } = data
+    const formattedBirthDate = birth_date.split('/').reverse().join('-')
+
+    const formData = {
+      ...data,
+      birth_date: formattedBirthDate
+    }
+
+    return formData
+  }
+
+  async function onSubmit (data: FormData) {
+    const formData = formatFormData(data)
+
+    saveData(formData)
     onUpdateFormStep()
   }
 
@@ -35,54 +53,51 @@ export function PersonalDataInputs ({
     <Container>
       <Form onSubmit={handleSubmit(onSubmit)}>
         <Input
+          type='text'
           label='Nome Completo'
-          {...register('name')}
-          isDirty={dirtyFields.name}
-          errors={errors.name}
-        />
-        <Controller
+          name='name'
           control={control}
-          name='birthDate'
-          render={({ field, fieldState }) => (
-            <Input
-              label='Data de nascimento'
-              {...field}
-              onChange={e => field.onChange(e.target.value)}
-              errors={fieldState.error}
-              isDirty={fieldState.isDirty}
-              onFocus={e => (e.target.placeholder = '99/99/9999')}
-              onBlur={e => (e.target.placeholder = '')}
-            />
-          )}
         />
+
         <Input
-          label='Email'
+          type='text'
+          label='Data de nascimento'
+          control={control}
+          {...register('birth_date', {
+            onChange: (e) => {
+              setValue('birth_date', formatBirthDate(e.target.value))
+            }
+          })}
+        />
+
+        <Input
           type='email'
-          {...register('email')}
-          isDirty={dirtyFields.email}
-          errors={errors.email}
+          label='E-mail'
+          name='email'
+          control={control}
         />
+
         <Input
-          label='Confirmar Email'
           type='email'
-          {...register('email_confirmation')}
-          isDirty={dirtyFields.email_confirmation}
-          errors={errors.email_confirmation}
+          label='Confimar e-mail'
+          name='email_confirmation'
+          control={control}
         />
+
         <Input
-          label='Criar Senha'
           type='password'
-          {...register('password')}
-          isDirty={dirtyFields.password}
-          errors={errors.password}
+          label='Criar senha'
+          name='password'
+          control={control}
         />
+
         <Input
+          type='password'
           label='Confirmar Senha'
-          type='password'
-          {...register('password_confirmation')}
-          isDirty={dirtyFields.password_confirmation}
-          errors={errors.password_confirmation}
+          name='password_confirmation'
+          control={control}
         />
+
         <NextStepButton>
           <FaAngleRight />
         </NextStepButton>

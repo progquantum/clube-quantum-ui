@@ -2,21 +2,14 @@ import styled from 'styled-components'
 
 import { Button } from 'components/Button'
 
-export const LoginWrapper = styled.main`
-  width: 100%;
-  background-color: ${({ theme }) => theme.colors.white};
-  margin-top: 2.375rem;
-  padding: 0 1.5rem;
-
-  * {
-    color: ${({ theme }) => theme.colors.gray[700]};
-  }
+export const Wrapper = styled.main`
+  padding-top: 2rem;
 `
 
 export const Form = styled.form`
-  max-width: 37.5rem;
+  max-width: 30rem;
   width: 100%;
-  margin: 2rem auto 0;
+  margin: 0 auto;
   padding: 0 2rem;
   background-color: ${({ theme }) => theme.colors.white};
   border-radius: 20px 20px 50px 0;
@@ -43,17 +36,19 @@ export const Form = styled.form`
   }
 
   h1 {
-    font-size: 1.5rem;
-    font-weight: 900;
     color: ${({ theme }) => theme.colors.gray[700]};
     text-align: center;
-    margin: 2.5625rem 0 3.375rem;
+    margin-top: 1rem;
   }
 
   > div {
     max-width: 25.5rem;
     width: 100%;
   }
+`
+
+export const SignInButton = styled(Button)`
+  margin-bottom: 2rem;
 `
 
 export const LoginAbout = styled.div`
@@ -76,56 +71,41 @@ export const LoginAbout = styled.div`
   }
 `
 
-export const LoginButton = styled(Button)`
-  background-color: ${({ theme }) => theme.colors.midnightBlue};
-  padding: 1rem 3rem;
-  border-radius: 2.5rem;
-  color: ${({ theme }) => theme.colors.white};
-  font-weight: 600;
-  font-size: 1rem;
-  margin-bottom: 2.7rem;
-`
-
 export const CreateAccountButtonWrapper = styled.div`
+  max-width: 30rem;
   width: 100%;
-  padding: 0 1.5rem;
+  height: 23.9375rem;
+  margin: 0 auto 1.3125rem;
+  padding: 0 2rem;
+  background-color: ${({ theme }) => theme.colors.midnightBlue};
+  color: ${({ theme }) => theme.colors.white};
+  border-radius: 0 0 20px 20px;
 
-  div {
-    max-width: 37.5rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 2rem;
+
+  transform: translateY(-40px);
+
+  h1 {
+    max-width: 31.875rem;
     width: 100%;
-    height: 23.9375rem;
-    margin: 0 auto 1.3125rem;
-    padding: 0 2rem;
-    background-color: ${({ theme }) => theme.colors.midnightBlue};
+    margin-bottom: 1.5rem;
+
+    font-weight: 700;
+    font-size: 1.75rem;
     color: ${({ theme }) => theme.colors.white};
-    border-radius: 0 0 20px 20px;
+    text-align: center;
+  }
 
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    gap: 2rem;
-
-    transform: translateY(-40px);
-
-    h2 {
-      max-width: 31.875rem;
-      width: 100%;
-      margin-bottom: 1.5rem;
-
-      font-weight: 700;
-      font-size: 1.75rem;
-      color: ${({ theme }) => theme.colors.white};
-      text-align: center;
-    }
-
-    a {
-      background-color: ${({ theme }) => theme.colors.white};
-      padding: 1rem 3rem;
-      color: ${({ theme }) => theme.colors.midnightBlue};
-      font-weight: 600;
-      border-radius: 2.5rem;
-      text-decoration: none;
-    }
+  a {
+    background-color: ${({ theme }) => theme.colors.white};
+    padding: 1rem 3rem;
+    color: ${({ theme }) => theme.colors.midnightBlue};
+    font-weight: 600;
+    border-radius: 2.5rem;
+    text-decoration: none;
   }
 `

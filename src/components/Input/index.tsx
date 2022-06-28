@@ -1,22 +1,32 @@
-import * as S from './styles'
-import { InputProps } from './types'
+import { useController } from 'react-hook-form'
 
-export function Input ({
-  label, errors, isDirty, ...props
-}: InputProps) {
-  const icon = errors?.type === 'required' ? <S.Exclamation /> : <S.Error />
+import { InputProps } from './types'
+import * as S from './styles'
+
+export function Input ({ label, control, name, ...rest }: InputProps) {
+  const { field, fieldState } = useController({ control, name })
 
   return (
-    <S.StyledInput isDirty={isDirty} errors={errors}>
-      <input {...props} />
-      <label htmlFor={props.id}>{label}</label>
+    <>
+      <S.Container>
+        <S.Input
+          isDirty={fieldState.isDirty}
+          hasError={fieldState.error}
+          ref={field.ref}
+          {...field}
+          {...rest}
+        />
 
-      {errors && (
-        <span>
-          {errors.message}
-          {icon}
-        </span>
-      )}
-    </S.StyledInput>
+        <S.Label
+          isDirty={fieldState.isDirty}
+        >
+          {label}
+        </S.Label>
+      </S.Container>
+
+      <div>
+        <S.Error>{fieldState.error?.message}</S.Error>
+      </div>
+    </>
   )
 }

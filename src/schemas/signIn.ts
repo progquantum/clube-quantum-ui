@@ -1,6 +1,6 @@
-import * as yup from 'yup'
+import Yup from 'config/yup'
 
-export const schema = yup.object().shape({
-  login: yup.string().required(),
-  password: yup.string().required()
+export const schema = Yup.object().shape({
+  login: Yup.string().required(),
+  password: Yup.string().required()
 })

@@ -1,7 +1,6 @@
 import Image from 'next/image'
 import Link from 'next/link'
 
-import { Header } from 'components/Header'
 import { Footer } from 'components/Footer'
 
 import * as S from './styles'
@@ -9,8 +8,6 @@ import * as S from './styles'
 export function GuestPage () {
   return (
     <>
-      <Header />
-
       <S.Container>
         <S.LeftWrapper>
           <h2>Você foi convidado para fazer parte do clube quantum.</h2>

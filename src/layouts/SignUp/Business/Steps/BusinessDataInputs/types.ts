@@ -1,3 +1,3 @@
-export interface BusinessDataInputsProps {
+export type BusinessDataInputsProps = {
   onUpdateFormStep: () => void
 }

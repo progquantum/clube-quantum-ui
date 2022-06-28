@@ -1,9 +1,10 @@
-import { Controller, SubmitHandler, useForm } from 'react-hook-form'
+import { SubmitHandler, useForm } from 'react-hook-form'
 import { yupResolver } from '@hookform/resolvers/yup'
 import Link from 'next/link'
 import Head from 'next/head'
 
-import { Header } from 'components/Header'
+import { ChangeEvent } from 'react'
+
 import { Input } from 'components/Input'
 import { Footer } from 'components/Footer'
 
@@ -11,14 +12,17 @@ import { useAuthDispatch, useAuthState } from 'contexts/auth/AuthContext'
 
 import { schema } from 'schemas/signIn'
 
-import { SignInFormValues } from './types'
+import { formatCPF } from 'utils/formatters/formatCPF'
 
+import { SignInFormValues } from './types'
 import * as S from './styles'
 
 export function SignInPage () {
   const {
     control,
-    handleSubmit
+    handleSubmit,
+    register,
+    setValue
   } = useForm({
     defaultValues: {
       login: '',
@@ -35,44 +39,37 @@ export function SignInPage () {
     signIn(data)
   }
 
+  const handleInputChange = (e: ChangeEvent<HTMLInputElement>) => {
+    const valueFormatted = formatCPF(e.target.value)
+
+    setValue('login', valueFormatted)
+  }
+
   return (
     <>
       <Head>
-        <title>Acessar sua conta Clube Quantum</title>
+        <title>Acesse sua conta - Clube Quantum</title>
       </Head>
 
-      <Header />
-
-      <S.LoginWrapper>
+      <S.Wrapper>
         <S.Form onSubmit={handleSubmit(onSubmit)}>
           <h1>Login</h1>
 
-          <Controller
-            control={control}
+          <Input
+            type='text'
+            label='CPF/CNPJ'
             name='login'
-            render={({ field, fieldState }) => (
-              <Input
-                type='text'
-                label='CPF/CNPJ'
-                {...field}
-                errors={fieldState.error}
-                isDirty={fieldState.isDirty}
-              />
-            )}
+            control={control}
+            {...register('login', {
+              onChange: (e) => handleInputChange(e)
+            })}
           />
 
-          <Controller
-            control={control}
+          <Input
+            type='password'
+            label='Senha'
             name='password'
-            render={({ field, fieldState }) => (
-              <Input
-                type='password'
-                label='Senha'
-                {...field}
-                errors={fieldState.error}
-                isDirty={fieldState.isDirty}
-              />
-            )}
+            control={control}
           />
 
           <S.LoginAbout>
@@ -86,20 +83,19 @@ export function SignInPage () {
             </Link>
           </S.LoginAbout>
 
-          <S.LoginButton type='submit' loading={loading} disabled={loading}>
+          <S.SignInButton type='submit' loading={loading} disabled={loading}>
             Login
-          </S.LoginButton>
+          </S.SignInButton>
         </S.Form>
-      </S.LoginWrapper>
 
-      <S.CreateAccountButtonWrapper>
-        <div>
-          <h2>Ainda não é um membro do Quantum Clube?</h2>
+        <S.CreateAccountButtonWrapper>
+          <h1>Ainda não é um membro do Quantum Clube?</h1>
+
           <Link href='/signup/personal'>
             Criar Conta
           </Link>
-        </div>
-      </S.CreateAccountButtonWrapper>
+        </S.CreateAccountButtonWrapper>
+      </S.Wrapper>
 
       <Footer />
     </>

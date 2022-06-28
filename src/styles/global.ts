@@ -18,14 +18,35 @@ export default createGlobalStyle`
   }
 
   body {
-    font-family: 'Montserrat', -apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Oxygen,
-    Ubuntu, Cantarell, Fira Sans, Droid Sans, Helvetica Neue, sans-serif;
+    height: auto;
     font-size: ${({ theme }) => theme.fontSizes.base};
-    font-weight: 400;
+    color: ${({ theme }) => theme.colors.gray[700]};
+    text-rendering: optimizeLegibility !important;
+    -webkit-font-smoothing: antialiased !important;
+    -moz-osx-font-smoothing: grayscale;
   }
 
-  button, input, textarea {
-    font-family: 'Montserrat', sans-serif;
+  body, #next {
+    min-height: 100vh;
+    position: relative;
+    display: flex;
+    flex-direction: column;
+  }
+
+  a {
+    text-decoration: none;
+    background: none;
+    cursor: pointer;
+    border: 0;
+    transition: 180ms ease-in-out;
+  }
+
+  #next {
+    height: 100%;
+  }
+
+  body, input, button {
+    font: 1rem 'Montserrat', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";
   }
 
   input,
@@ -56,9 +77,6 @@ export default createGlobalStyle`
     font-weight: 400;
   }
 
-  a {
-    text-decoration: none;
-  }
 
   ul {
     list-style-type: none;

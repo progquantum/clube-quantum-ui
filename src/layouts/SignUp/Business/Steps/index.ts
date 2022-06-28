@@ -1,4 +1,4 @@
-export { CnpjInput } from './CnpjInput'
+export { CNPJInput } from './CNPJInput'
 export { PhoneNumberInput } from './PhoneNumberInput'
 export { PinCodeInput } from './PinCodeInput'
 export { BusinessDataInputs } from './BusinessDataInputs'

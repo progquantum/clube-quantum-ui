@@ -1,21 +1,35 @@
-import { useForm, Controller } from 'react-hook-form'
+import { useForm } from 'react-hook-form'
 import { FaAngleRight } from 'react-icons/fa'
+import { yupResolver } from '@hookform/resolvers/yup'
+import { useMutation } from 'react-query'
 
+import { useSignUpDispatch, useSignUpState } from 'contexts/signup/SignUpContext'
+import {
+  createPersonalAccountService
+} from 'services/client-side/signUpServices/createPersonalAccountService'
+
+import { addressDataSchema } from 'schemas/signUp'
 import { Input } from 'components/Input'
 
-import { Container, Form, NextStepButton } from '../../../components'
+import { formatCEP } from 'utils/formatters/formatCEP'
+import { formatAddressNumber } from 'utils/formatters/formatAddressNumber'
 
-import { AddressDataInputsProps } from './types'
+import { Container, Form, NextStepButton } from '../../../components'
+import { AddressDataInputsProps, FormData } from './types'
 
 export function AddressDataInputs ({ onUpdateFormStep }: AddressDataInputsProps) {
+  const { saveData } = useSignUpDispatch()
+  const { data } = useSignUpState()
   const {
-    register,
-    formState: { errors, dirtyFields },
-    handleSubmit,
-    control
-  } = useForm({
+    mutateAsync: createPersonalAccount
+  } = useMutation(createPersonalAccountService, {
+    onSuccess: ({ token }) => saveData({ token }),
+    onError: (error) => console.error(error)
+  })
+
+  const { handleSubmit, control, register, setValue } = useForm({
     defaultValues: {
-      cep: '',
+      zipCode: '',
       street: '',
       neighborhood: '',
       number: '',
@@ -23,73 +37,102 @@ export function AddressDataInputs ({ onUpdateFormStep }: AddressDataInputsProps)
       city: '',
       state: '',
       country: ''
-    }
+    },
+    resolver: yupResolver(addressDataSchema)
   })
 
-  function onSubmit () {
+  async function onSubmit (info: FormData) {
+    const { zipCode, city, country, neighborhood, number, state, street } = info
+
+    await createPersonalAccount({
+      name: data.name as string,
+      email: data.email as string,
+      phone: data.phone as string,
+      cpf: data.cpf as string,
+      password: data.password as string,
+      invitedBy: null,
+      birthDate: data.birth_date as string,
+      address: {
+        city,
+        country,
+        neighborhood,
+        number,
+        state,
+        street,
+        zipCode
+      }
+    })
+
     onUpdateFormStep()
   }
 
   return (
     <Container>
       <Form onSubmit={handleSubmit(onSubmit)}>
-        <Controller
+        <Input
+          type='text'
+          label='CEP'
           control={control}
-          name='cep'
-          render={({ field, fieldState }) => (
-            <Input
-              label='CEP'
-              {...field}
-              onChange={e => field.onChange(e.target.value)}
-              errors={fieldState.error}
-              isDirty={fieldState.isDirty}
-              onFocus={e => (e.target.placeholder = '00000-000')}
-              onBlur={e => (e.target.placeholder = '')}
-            />
-          )}
+          {...register('zipCode', {
+            onChange: (e) => {
+              setValue('zipCode', formatCEP(e.target.value))
+            }
+          })}
         />
+
         <Input
+          type='text'
           label='Logradouro'
-          {...register('street')}
-          isDirty={dirtyFields.street}
-          errors={errors.street}
+          name='street'
+          control={control}
         />
+
         <Input
+          type='text'
           label='Bairro'
-          {...register('neighborhood')}
-          isDirty={dirtyFields.neighborhood}
-          errors={errors.neighborhood}
+          name='neighborhood'
+          control={control}
         />
+
         <Input
+          type='text'
           label='Número'
-          {...register('number')}
-          isDirty={dirtyFields.number}
-          errors={errors.number}
+          control={control}
+          {...register('number', {
+            onChange: (e) => {
+              setValue('number', formatAddressNumber(e.target.value))
+            }
+          })}
         />
+
         <Input
+          type='text'
           label='Complemento'
-          {...register('complement')}
-          isDirty={dirtyFields.complement}
-          errors={errors.complement}
+          name='complement'
+          control={control}
         />
+
         <Input
+          type='text'
           label='Cidade'
-          {...register('city')}
-          isDirty={dirtyFields.city}
-          errors={errors.city}
+          name='city'
+          control={control}
         />
+
         <Input
+          type='text'
           label='Estado'
-          {...register('state')}
-          isDirty={dirtyFields.state}
-          errors={errors.state}
+          name='state'
+          control={control}
         />
+
         <Input
+          type='text'
           label='País'
-          {...register('country')}
-          isDirty={dirtyFields.country}
-          errors={errors.country}
+          name='country'
+          control={control}
         />
+
         <NextStepButton>
           <FaAngleRight />
         </NextStepButton>

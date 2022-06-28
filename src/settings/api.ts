@@ -1,48 +1,90 @@
-import { AxiosPromise, AxiosRequestConfig } from 'axios'
+import axios, { AxiosError } from 'axios'
+import { parseCookies, setCookie } from 'nookies'
 
 import { REFRESH_TOKEN_STORAGE_KEY, TOKEN_STORAGE_KEY } from 'constants/storage'
 
-import { api } from 'config/client'
+import { logOut } from 'helpers/auth/logOut'
 
-let failedRequestsQueue: any[] = []
+let isRefreshing = false
+let failedRequestsQueue = []
 
-api.interceptors.request.use((config): AxiosRequestConfig => {
-  const token = localStorage?.getItem(TOKEN_STORAGE_KEY)
+export function setupAPIClient (ctx = undefined) {
+  let cookies = parseCookies(ctx)
 
-  config.headers.Authorization = `Bearer ${token}`
+  const token = cookies[TOKEN_STORAGE_KEY]
 
-  return config
-}, error => {
-  Promise.reject(error)
-})
+  const api = axios.create({
+    baseURL: process.env.NEXT_PUBLIC_API_HOST,
+    headers: {
+      Authorization: `Bearer ${token}`
+    }
+  })
 
-api.interceptors.response.use((response) => response, error => {
-  const originalRequestConfig = error?.config
+  api.interceptors.response.use(
+    (response) => {
+      return response
+    },
+    (error: AxiosError) => {
+      if (error.response.status === 401) {
+        cookies = parseCookies(ctx)
 
-  if (error.response.status === 403 && !originalRequestConfig._retry) {
-    originalRequestConfig._retry = true
+        const { TOKEN_STORAGE_KEY: token, REFRESH_TOKEN_STORAGE_KEY: refresh_token } = cookies
+        const originalConfig = error.config
 
-    return api.post('/auth/refresh-tokens', {
-      refresh_token: localStorage?.getItem(REFRESH_TOKEN_STORAGE_KEY)
-    }).then((postResponse): AxiosPromise<AxiosRequestConfig> | undefined => {
-      const newToken = postResponse?.data?.token
-      const newRefreshToken = postResponse?.data?.refresh_token
+        if (!isRefreshing) {
+          isRefreshing = true
 
-      localStorage.setItem(TOKEN_STORAGE_KEY, newToken)
-      localStorage.setItem(REFRESH_TOKEN_STORAGE_KEY, newRefreshToken)
+          api.post('/auth/refresh-tokens', {
+            refresh_token,
+            token
+          }).then((response) => {
+            const { token, refresh_token } = response.data
 
-      api.defaults.headers.common.Authorization = `Bearer ${newToken}`
+            setCookie(ctx, TOKEN_STORAGE_KEY, token, {
+              maxAge: 60 * 60 * 24 * 30,
+              path: '/'
+            })
 
-      failedRequestsQueue.forEach(request => request.onSuccess(newToken))
+            setCookie(ctx, REFRESH_TOKEN_STORAGE_KEY, refresh_token, {
+              maxAge: 60 * 60 * 24 * 30,
+              path: '/'
+            })
 
-      failedRequestsQueue = []
+            api.defaults.headers.common.Authorization = `Bearer ${token}`
 
-      return api(originalRequestConfig)
-    }).catch(error => {
-      failedRequestsQueue.forEach(request => request.onFailure(error))
-      failedRequestsQueue = []
-    })
-  }
+            failedRequestsQueue.forEach((request) => request.onSuccess(token))
+            failedRequestsQueue = []
+          }).catch((error: AxiosError) => {
+            isRefreshing = false
 
-  return Promise.reject(error)
-})
+            failedRequestsQueue.forEach((request) => request.onFailure(error))
+            failedRequestsQueue = []
+
+            if (process.browser) {
+              logOut()
+            }
+          }).finally(() => {
+            isRefreshing = false
+          })
+        }
+
+        return new Promise((resolve, reject) => {
+          failedRequestsQueue.push({
+            onSuccess: (token: string) => {
+              originalConfig.headers.Authorization = `Bearer ${token}`
+
+              resolve(api(originalConfig))
+            },
+            onFailure: (error: AxiosError) => {
+              reject(error)
+            }
+          })
+        })
+      }
+
+      return Promise.reject(error)
+    }
+  )
+
+  return api
+}

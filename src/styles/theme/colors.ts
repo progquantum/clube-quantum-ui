@@ -1,4 +1,5 @@
 export const colors = {
+  background: '#fff',
   light: '#eeeeee',
   midnightBlue: '#001F80',
   mediumslateBlue: '#0C61FF',
@@ -10,6 +11,7 @@ export const colors = {
   stratos: '#100037',
   cherryPie: '#190252',
   white: '#ffffff',
+  ghostwhite: '#F5F6FA',
   gray: {
     50: '#E6E6E6',
     100: '#DBDBDB',
