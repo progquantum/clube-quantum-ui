@@ -2,7 +2,8 @@ import * as Yup from 'yup'
 
 const locale = {
   mixed: {
-    required: 'Este campo é obrigatório'
+    required: 'Este campo é obrigatório',
+    email: 'E-mail inválido'
   }
 }
 

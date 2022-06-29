@@ -1,9 +1,8 @@
+import { ChangeEvent } from 'react'
 import { SubmitHandler, useForm } from 'react-hook-form'
 import { yupResolver } from '@hookform/resolvers/yup'
 import Link from 'next/link'
 import Head from 'next/head'
-
-import { ChangeEvent } from 'react'
 
 import { Input } from 'components/Input'
 import { Footer } from 'components/Footer'
