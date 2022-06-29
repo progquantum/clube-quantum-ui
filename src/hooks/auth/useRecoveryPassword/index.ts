@@ -7,7 +7,7 @@ import { RecoveryPasswordRequestData } from './types'
 const sendRecoveryPasswordRequestMutation = (
   data: RecoveryPasswordRequestData
 ): Promise<unknown> => (
-  api.post<unknown>('/password-recoveries', data)
+  api.post<unknown>('/passwords/recovery-request', data)
 )
 
 export function useRecoveryPassword () {
