@@ -4,7 +4,6 @@ import { useForm } from 'react-hook-form'
 import { Input } from 'components/Input'
 
 import { Container, Form, NextStepButton } from '../../../components'
-
 import { PhoneNumberProps } from './types'
 
 export function PhoneNumberInput ({ onUpdateFormStep }: PhoneNumberProps) {
@@ -14,13 +13,13 @@ export function PhoneNumberInput ({ onUpdateFormStep }: PhoneNumberProps) {
     }
   })
 
-  function onSubmitCPF () {
+  function onSubmit () {
     onUpdateFormStep()
   }
 
   return (
     <Container>
-      <Form onSubmit={handleSubmit(onSubmitCPF)}>
+      <Form onSubmit={handleSubmit(onSubmit)}>
         <Input
           type='text'
           label='Telefone'

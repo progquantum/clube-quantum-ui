@@ -1,8 +1,9 @@
 import { useState } from 'react'
 import Image from 'next/image'
 
-import { DataPlansProps, Plans } from './types'
+import { Button } from 'components/Button'
 
+import { DataPlansProps, Plans } from './types'
 import * as S from './styles'
 
 export function DataPlans ({ onUpdateFormStep }: DataPlansProps) {
@@ -191,7 +192,7 @@ export function DataPlans ({ onUpdateFormStep }: DataPlansProps) {
       </S.PlansContents>
 
       <section>
-        <S.Button onClick={onUpdateFormStep}>Finalizar cadastro</S.Button>
+        <Button onClick={onUpdateFormStep}>Finalizar cadastro</Button>
       </section>
     </S.Container>
   )

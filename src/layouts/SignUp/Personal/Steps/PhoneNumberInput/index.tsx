@@ -1,24 +1,18 @@
 import { FaAngleRight } from 'react-icons/fa'
 import { useForm } from 'react-hook-form'
 import { yupResolver } from '@hookform/resolvers/yup'
-import { useMutation } from 'react-query'
 
-import { sendCodeService } from 'services/client-side/signUpServices/sendCodeService'
-
-import { useSignUpDispatch } from 'contexts/signup/SignUpContext'
-
+import { useAuthDispatch } from 'contexts/auth/AuthContext'
 import { phoneNumberSchema } from 'schemas/signUp'
 import { Input } from 'components/Input'
-
+import { Button } from 'components/Button'
 import { formatPhoneNumber } from 'utils/formatters/formatPhoneNumber'
+import { useSendPhoneCode } from 'hooks/useSendPhoneCode'
 
-import { Container, Form, NextStepButton } from '../../../components'
+import { Container, Form } from '../../../components'
 import { PhoneNumberProps, FormData } from './types'
 
 export function PhoneNumberInput ({ onUpdateFormStep }: PhoneNumberProps) {
-  const { saveData } = useSignUpDispatch()
-  const { mutateAsync: sendCode } = useMutation(sendCodeService)
-
   const { handleSubmit, control, register, setValue } = useForm({
     defaultValues: {
       phone: ''
@@ -26,10 +20,14 @@ export function PhoneNumberInput ({ onUpdateFormStep }: PhoneNumberProps) {
     resolver: yupResolver(phoneNumberSchema)
   })
 
-  async function onSubmitPhoneNumber (data: FormData) {
+  const { signUp } = useAuthDispatch()
+  const { mutate, isLoading } = useSendPhoneCode()
+
+  function onSubmitPhoneNumber (data: FormData) {
     const phone = `+55 ${data.phone}`
-    await sendCode({ phoneNumber: phone })
-    saveData({ phone })
+
+    mutate({ phone })
+    signUp({ phone })
     onUpdateFormStep()
   }
 
@@ -47,9 +45,14 @@ export function PhoneNumberInput ({ onUpdateFormStep }: PhoneNumberProps) {
           })}
         />
 
-        <NextStepButton>
-          <FaAngleRight />
-        </NextStepButton>
+        <Button
+          type='submit'
+          variant='rounded'
+          loading={isLoading}
+          disabled={isLoading}
+        >
+          <FaAngleRight size={24} />
+        </Button>
       </Form>
     </Container>
   )

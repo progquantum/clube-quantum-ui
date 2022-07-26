@@ -5,15 +5,13 @@ import { Steper } from 'components/Steper'
 import { Footer } from 'components/Footer'
 
 import { ImageLoader } from './ImageLoader'
-
 import * as Step from './Steps'
-
 import * as S from './styles'
 
 export function BusinessSignUpPage () {
   const [step, setStep] = useState(0)
 
-  function nextStep () {
+  function handleNextStep () {
     setStep((prevState) => prevState + 1)
   }
 
@@ -53,28 +51,28 @@ export function BusinessSignUpPage () {
             )}
 
             {step === 0 && (
-              <Step.CNPJInput onUpdateFormStep={() => nextStep()} />
+              <Step.CNPJInput onUpdateFormStep={() => handleNextStep()} />
             )}
             {step === 1 && (
-              <Step.PhoneNumberInput onUpdateFormStep={() => nextStep()} />
+              <Step.PhoneNumberInput onUpdateFormStep={() => handleNextStep()} />
             )}
             {step === 2 && (
               <Step.PinCodeInput
-                onNextFormStep={() => nextStep()}
+                onNextFormStep={() => handleNextStep()}
                 onPreviousFormStep={() => previousStep()}
               />
             )}
             {step === 3 && (
-              <Step.BusinessDataInputs onUpdateFormStep={() => nextStep()} />
+              <Step.BusinessDataInputs onUpdateFormStep={() => handleNextStep()} />
             )}
             {step === 4 && (
-              <Step.AddressDataInputs onUpdateFormStep={() => nextStep()} />
+              <Step.AddressDataInputs onUpdateFormStep={() => handleNextStep()} />
             )}
             {step === 5 && (
-              <Step.CardDataInputs onUpdateFormStep={() => nextStep()} />
+              <Step.CardDataInputs onUpdateFormStep={() => handleNextStep()} />
             )}
             {step === 6 && (
-              <Step.DataPlans onUpdateFormStep={() => nextStep()} />
+              <Step.DataPlans onUpdateFormStep={() => handleNextStep()} />
             )}
             {step === 7 && (
               <Step.SuccessfulSignUp />

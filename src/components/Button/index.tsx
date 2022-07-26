@@ -16,13 +16,15 @@ export function Button ({
 }: PropsWithChildren<ButtonProps>) {
   return (
     <S.Container type={type || 'button'} variant={variant} {...rest}>
-      {loading
-        ? (
-          <Loading icon={PulseLoader} color='var(--shape)' size={10} />
-          )
-        : (
-            children
-          )}
+      {
+       loading
+         ? (
+           <Loading icon={PulseLoader} color='var(--shape)' size={10} />
+           )
+         : (
+             children
+           )
+      }
     </S.Container>
   )
 }
