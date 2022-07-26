@@ -1,14 +1,14 @@
 import { useForm } from 'react-hook-form'
+import { FaAngleRight } from 'react-icons/fa'
 import Image from 'next/image'
 
-import { FaAngleRight } from 'react-icons/fa'
-
 import { Input } from 'components/Input'
+import { Button } from 'components/Button'
 
-import { Container, NextStepButton } from '../../../components'
+import { Container } from '../../../components'
 
-import * as S from './styles'
 import { CardDataInputsProps } from './types'
+import * as S from './styles'
 
 export function CardDataInputs ({
   onUpdateFormStep,
@@ -90,9 +90,10 @@ export function CardDataInputs ({
           <S.JumpStepButton onClick={onNavigateToSuccessfulSignUp}>
             Pular esta etapa
           </S.JumpStepButton>
-          <NextStepButton>
-            <FaAngleRight />
-          </NextStepButton>
+
+          <Button variant='rounded'>
+            <FaAngleRight size={24} />
+          </Button>
         </S.ButtonGroup>
       </S.Form>
     </Container>

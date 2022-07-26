@@ -1,71 +1,71 @@
-import * as yup from 'yup'
 import * as validator from 'cpf-cnpj-validator'
 
-export const cpfSchema = yup.object().shape({
-  cpf: yup
+import Yup from 'config/yup'
+
+export const cpfSchema = Yup.object().shape({
+  cpf: Yup
     .string()
-    .required('O campo é obrigatório')
+    .required()
     .test(
       'test-invalid-cpf',
-      'CPF inválido',
       (cpf) => validator.cpf.isValid(cpf)
     )
 })
 
-export const phoneNumberSchema = yup.object().shape({
-  phone: yup
+export const phoneNumberSchema = Yup.object().shape({
+  phone: Yup
     .string()
     .trim()
-    .required('O campo é obrigatório')
-    .min(15, 'O campo deve ter 11 caracteres')
+    .required()
+    .min(15)
 })
 
-export const personalDataSchema = yup.object().shape({
-  name: yup
+export const personalDataSchema = Yup.object().shape({
+  name: Yup
     .string()
-    .required('O campo é obrigatório'),
-  birth_date: yup
+    .required(),
+  birth_date: Yup
     .string()
-    .required('O campo é obrigatório'),
-  email: yup
+    .required(),
+  email: Yup
     .string()
-    .required('O campo é obrigatório'),
-  email_confirmation: yup
+    .required(),
+  email_confirmation: Yup
     .string()
-    .required('O campo é obrigatório')
-    .oneOf([null, yup.ref('email')], 'Os e-mails precisam ser iguais'),
-  password: yup
+    .required()
+    .oneOf([null, Yup.ref('email')]),
+  password: Yup
     .string()
-    .required('O campo é obrigatório'),
-  password_confirmation: yup
+    .required(),
+  password_confirmation: Yup
     .string()
-    .required('O campo é obrigatório')
-    .oneOf([null, yup.ref('password')], 'As senhas precisam ser iguais')
+    .required()
+    .oneOf([null, Yup.ref('password')])
 })
 
-export const addressDataSchema = yup.object().shape({
-  zipCode: yup
+export const addressDataSchema = Yup.object().shape({
+  zipCode: Yup
     .string()
-    .required('O campo é obrigatório'),
-  street: yup
+    .required(),
+  street: Yup
     .string()
-    .required('O campo é obrigatório'),
-  neighborhood: yup
+    .required(),
+  neighborhood: Yup
     .string()
-    .required('O campo é obrigatório'),
-  number: yup
+    .required(),
+  number: Yup
     .string()
-    .required('O campo é obrigatório'),
-  complement: yup
+    .required(),
+  complement: Yup
     .string()
-    .required('O campo é obrigatório'),
-  city: yup
+    .required(),
+  city: Yup
     .string()
-    .required('O campo é obrigatório'),
-  state: yup
+    .required(),
+  state: Yup
     .string()
-    .required('O campo é obrigatório'),
-  country: yup
+    .required(),
+  country: Yup
     .string()
-    .required('O campo é obrigatório')
+    .required()
 })

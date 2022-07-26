@@ -14,6 +14,13 @@ const variants = {
     }
   `,
 
+  rounded: css`
+    width: 3.125rem;
+    height: 3.125rem;
+    border-radius: 100%;
+    padding: 0;
+  `,
+
   transparent: css`
     background: transparent;
   `
@@ -34,6 +41,7 @@ export const Container = styled.button<ButtonProps>`
     * {
       transition: ${theme.transitions.default};
     }
+
 
     ${variant && variants[variant]};
   `}

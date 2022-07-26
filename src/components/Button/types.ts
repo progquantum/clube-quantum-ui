@@ -1,6 +1,6 @@
 import { ButtonHTMLAttributes } from 'react'
 
-export type ButtonVariants = 'secondary' | 'transparent';
+export type ButtonVariants = 'secondary' | 'transparent' | 'rounded';
 
 export type ButtonProps = ButtonHTMLAttributes<HTMLButtonElement> & {
   variant?: ButtonVariants

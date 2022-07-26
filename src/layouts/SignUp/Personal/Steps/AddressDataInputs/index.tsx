@@ -1,32 +1,19 @@
 import { useForm } from 'react-hook-form'
 import { FaAngleRight } from 'react-icons/fa'
 import { yupResolver } from '@hookform/resolvers/yup'
-import { useMutation } from 'react-query'
-
-import { useSignUpDispatch, useSignUpState } from 'contexts/signup/SignUpContext'
-import {
-  createPersonalAccountService
-} from 'services/client-side/signUpServices/createPersonalAccountService'
 
 import { addressDataSchema } from 'schemas/signUp'
 import { Input } from 'components/Input'
-
+import { Button } from 'components/Button'
 import { formatCEP } from 'utils/formatters/formatCEP'
 import { formatAddressNumber } from 'utils/formatters/formatAddressNumber'
+import { useIndividualPersonSignUp } from 'hooks/auth/useIndividualPersonSignUp'
+import { useAuthState } from 'contexts/auth/AuthContext'
 
-import { Container, Form, NextStepButton } from '../../../components'
+import { Container, Form } from '../../../components'
 import { AddressDataInputsProps, FormData } from './types'
 
 export function AddressDataInputs ({ onUpdateFormStep }: AddressDataInputsProps) {
-  const { saveData } = useSignUpDispatch()
-  const { data } = useSignUpState()
-  const {
-    mutateAsync: createPersonalAccount
-  } = useMutation(createPersonalAccountService, {
-    onSuccess: ({ token }) => saveData({ token }),
-    onError: (error) => console.error(error)
-  })
-
   const { handleSubmit, control, register, setValue } = useForm({
     defaultValues: {
       zipCode: '',
@@ -41,25 +28,29 @@ export function AddressDataInputs ({ onUpdateFormStep }: AddressDataInputsProps)
     resolver: yupResolver(addressDataSchema)
   })
 
-  async function onSubmit (info: FormData) {
-    const { zipCode, city, country, neighborhood, number, state, street } = info
+  const { registerUser } = useAuthState()
 
-    await createPersonalAccount({
-      name: data.name as string,
-      email: data.email as string,
-      phone: data.phone as string,
-      cpf: data.cpf as string,
-      password: data.password as string,
-      invitedBy: null,
-      birthDate: data.birth_date as string,
+  const {
+    mutate: singUpIndividualPersonMutation, isLoading
+  } = useIndividualPersonSignUp()
+
+  function onSubmit (data: FormData) {
+    singUpIndividualPersonMutation({
+      name: registerUser.name,
+      phone: registerUser.phone,
+      cpf: registerUser.cpf,
+      email: registerUser.email,
+      password: registerUser.password,
+      invited_by: registerUser.invited_by,
+      birth_date: registerUser.birth_date,
       address: {
-        city,
-        country,
-        neighborhood,
-        number,
-        state,
-        street,
-        zipCode
+        street: data.street,
+        number: data.number,
+        neighborhood: data.neighborhood,
+        zip_code: data.zipCode,
+        city: data.city,
+        state: data.state,
+        country: data.country
       }
     })
 
@@ -133,9 +124,9 @@ export function AddressDataInputs ({ onUpdateFormStep }: AddressDataInputsProps)
           control={control}
         />
 
-        <NextStepButton>
-          <FaAngleRight />
-        </NextStepButton>
+        <Button type='submit' variant='rounded' loading={isLoading} disabled={isLoading}>
+          <FaAngleRight size={24} />
+        </Button>
       </Form>
     </Container>
   )

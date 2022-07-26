@@ -12,3 +12,13 @@ export type Session = {
   token: string
   refresh_token: string
 }
+
+export type Address = {
+  street: string,
+  number: string,
+  neighborhood: string,
+  zip_code: string,
+  city: string,
+  state: string,
+  country: string
+}
