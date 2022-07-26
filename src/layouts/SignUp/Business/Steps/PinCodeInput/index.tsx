@@ -12,27 +12,27 @@ export function PinCodeInput ({ onNextFormStep, onPreviousFormStep }: PinCodePro
     new Array(PIN_LENGTH)
   )
 
-  const onPinChange = (pinEntry: string, index: number) => {
+  const handlePinChange = (pinEntry: string, index: number) => {
     const pinsCode = [...pinCode]
     pinsCode[index] = pinEntry
     setPinCode(pinsCode)
   }
 
-  async function onSubmit (event: FormEvent) {
+  function onSubmit (event: FormEvent) {
     event.preventDefault()
     onNextFormStep()
   }
 
   return (
     <S.Container>
-      <S.Form onSubmit={(event) => onSubmit(event)}>
+      <S.Form onSubmit={(e) => onSubmit(e)}>
         <h3>
           Para continuar, insira o código de 5 dígitos
           enviado por SMS para o número que você digitou
         </h3>
         <PinCodeGrid
           pinCode={pinCode}
-          onPinChange={onPinChange}
+          onPinChange={handlePinChange}
           pinLength={PIN_LENGTH}
         />
         <h3>Não recebeu?</h3>

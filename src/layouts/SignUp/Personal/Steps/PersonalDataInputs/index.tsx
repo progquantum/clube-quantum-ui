@@ -2,22 +2,19 @@ import { useForm } from 'react-hook-form'
 import { FaAngleRight } from 'react-icons/fa'
 import { yupResolver } from '@hookform/resolvers/yup'
 
-import { useSignUpDispatch } from 'contexts/signup/SignUpContext'
-
+import { useAuthDispatch } from 'contexts/auth/AuthContext'
 import { Input } from 'components/Input'
 import { personalDataSchema } from 'schemas/signUp'
-
 import { formatBirthDate } from 'utils/formatters/formatBirthDate'
 
-import { Container, Form, NextStepButton } from '../../../components'
+import { Button } from 'components/Button'
 
+import { Container, Form } from '../../../components'
 import { PersonalDataInputsProps, FormData } from './types'
 
 export function PersonalDataInputs ({
   onUpdateFormStep
 }: PersonalDataInputsProps) {
-  const { saveData } = useSignUpDispatch()
-
   const { handleSubmit, control, register, setValue } = useForm({
     defaultValues: {
       name: '',
@@ -30,7 +27,9 @@ export function PersonalDataInputs ({
     resolver: yupResolver(personalDataSchema)
   })
 
-  function formatFormData (data: FormData) {
+  const { signUp } = useAuthDispatch()
+
+  function handleFormatFormData (data: FormData) {
     const { birth_date } = data
     const formattedBirthDate = birth_date.split('/').reverse().join('-')
 
@@ -43,9 +42,9 @@ export function PersonalDataInputs ({
   }
 
   async function onSubmit (data: FormData) {
-    const formData = formatFormData(data)
+    const formData = handleFormatFormData(data)
 
-    saveData(formData)
+    signUp(formData)
     onUpdateFormStep()
   }
 
@@ -98,9 +97,9 @@ export function PersonalDataInputs ({
           control={control}
         />
 
-        <NextStepButton>
-          <FaAngleRight />
-        </NextStepButton>
+        <Button type='submit' variant='rounded'>
+          <FaAngleRight size={24} />
+        </Button>
       </Form>
     </Container>
   )

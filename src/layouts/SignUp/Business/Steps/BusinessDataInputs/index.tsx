@@ -21,7 +21,7 @@ export function BusinessDataInputs ({
     }
   })
 
-  async function onSubmit () {
+  function onSubmit () {
     onUpdateFormStep()
   }
 

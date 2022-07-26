@@ -1,4 +1,4 @@
-import { useMemo, useCallback, PropsWithChildren, useEffect } from 'react'
+import { useMemo, useCallback, PropsWithChildren, useEffect, useState } from 'react'
 import { useRouter } from 'next/router'
 import { useLocalStorage } from '@rehooks/local-storage'
 import { setCookie, destroyCookie } from 'nookies'
@@ -10,12 +10,16 @@ import { api } from 'config/client'
 import { logOut } from 'helpers/auth/logOut'
 
 import { AuthStateProvider, AuthDispatchProvider } from './AuthContext'
-import { SignInCredentials } from './types'
+import { SignInCredentials, SignUpData } from './types'
 
 let authChannel: BroadcastChannel
 
 export function AuthProvider ({ children }: PropsWithChildren<unknown>) {
   const { mutate: signIn, isLoading: loading } = useSignIn()
+  const [registerUser, setRegisterUser] = useState<SignUpData>(null)
+
+  // eslint-disable-next-line no-console
+  console.log(registerUser)
 
   const [user, setUser, deleteUser] = useLocalStorage<User>(
     USER_STORAGE_KEY,
@@ -66,6 +70,13 @@ export function AuthProvider ({ children }: PropsWithChildren<unknown>) {
     setUser
   ])
 
+  const handleSignUp = useCallback((updateRegisterUser: SignUpData) => {
+    setRegisterUser({
+      ...registerUser,
+      ...updateRegisterUser
+    })
+  }, [registerUser])
+
   const signOut = useCallback(() => {
     deleteUser()
     destroyCookie(undefined, TOKEN_STORAGE_KEY)
@@ -80,21 +91,25 @@ export function AuthProvider ({ children }: PropsWithChildren<unknown>) {
   const authState = useMemo(
     () => ({
       user,
-      loading
+      loading,
+      registerUser
     }),
     [
       user,
-      loading
+      loading,
+      registerUser
     ]
   )
 
   const authDispatch = useMemo(
     () => ({
       signIn: handleSignIn,
+      signUp: handleSignUp,
       signOut
     }),
     [
       handleSignIn,
+      handleSignUp,
       signOut
     ]
   )
