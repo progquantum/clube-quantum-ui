@@ -1,13 +1,13 @@
 import styled from 'styled-components'
 
 export const Container = styled.main`
-width: 100%;
-max-width: 70.625rem;
- margin: 0 auto;
-display: flex;
-align-items: center;
-justify-content: space-around;
-margin-block: 5rem;
+  width: 100%;
+  max-width: 70.625rem;
+  margin: 0 auto;
+  display: flex;
+  align-items: center;
+  justify-content: space-around;
+  margin-block: 5rem;
 
 h1 {
   font-weight: 900;
@@ -32,7 +32,7 @@ export const ContainerContent = styled.div`
   margin-inline: 2.5rem;
 }
 
-/* Medium devices (tablets, 768px and up) */
+
 @media (min-width: 768px) and (max-width: 992px) {
   margin-inline: 2.5rem;
   margin-bottom: 1rem;
