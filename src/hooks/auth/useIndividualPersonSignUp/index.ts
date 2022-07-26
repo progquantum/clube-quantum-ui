@@ -1,8 +1,9 @@
 import { useMutation } from 'react-query'
 
 import { api } from 'config/client'
+import { Session } from 'shared/types/apiSchema'
 
-import { IndividualPersonSingRequest, Session } from 'shared/types/apiSchema'
+import { IndividualPersonSingRequest } from './types'
 
 const individualPersonSingUpResquest = ({
   name, cpf, email, invited_by, password, phone, address, birth_date

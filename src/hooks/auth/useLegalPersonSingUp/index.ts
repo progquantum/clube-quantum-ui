@@ -1,9 +1,9 @@
-import { Session } from 'inspector'
-
 import { useMutation } from 'react-query'
 
 import { api } from 'config/client'
-import { LegalPersonSingRequest } from 'shared/types/apiSchema'
+import { Session } from 'shared/types/apiSchema'
+
+import { LegalPersonSingRequest } from './types'
 
 const legalPersonSingUpResquest = ({
   company_name, cnpj, email, invited_by, password, phone, address

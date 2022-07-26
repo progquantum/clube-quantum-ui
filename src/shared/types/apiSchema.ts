@@ -13,7 +13,7 @@ export type Session = {
   refresh_token: string
 }
 
-type Address = {
+export type Address = {
   street: string,
   number: string,
   neighborhood: string,
@@ -21,25 +21,4 @@ type Address = {
   city: string,
   state: string,
   country: string
-}
-
-export type IndividualPersonSingRequest = {
-  name: string,
-  phone: string,
-  cpf: string,
-  invited_by?: string,
-  email: string,
-  password: string,
-  birth_date: string,
-  address: Address
-}
-
-export type LegalPersonSingRequest = {
-  company_name: string,
-  phone: string,
-  cnpj: string,
-  invited_by?: string,
-  email: string,
-  password: string,
-  address: Address
 }
