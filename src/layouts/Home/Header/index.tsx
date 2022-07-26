@@ -1,6 +1,8 @@
 import Link from 'next/link'
 import Image from 'next/image'
 
+import { SIGN_IN_PAGE, SIGN_UP_PAGE } from 'constants/routesPath'
+
 import * as S from './styles'
 
 export function Header () {
@@ -20,9 +22,9 @@ export function Header () {
         <S.UserIcon />
 
         <p>
-          Olá, faça seu <Link href='/signin'>Login</Link>
+          Olá, faça seu <Link href={SIGN_IN_PAGE}>Login</Link>
           <br />
-          ou <Link href='/signup/personal' passHref>Cadastre-se </Link>
+          ou <Link href={SIGN_UP_PAGE} passHref>Cadastre-se </Link>
         </p>
       </S.Box>
     </S.Container>

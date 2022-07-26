@@ -2,6 +2,7 @@ import { GetServerSideProps, GetServerSidePropsContext, GetServerSidePropsResult
 import { parseCookies } from 'nookies'
 
 import { TOKEN_STORAGE_KEY } from 'constants/storage'
+import { DASHBOARD_PAGE } from 'constants/routesPath'
 
 export function withSSRGuest<T> (fn: GetServerSideProps<T>) {
   return async (ctx: GetServerSidePropsContext): Promise<GetServerSidePropsResult<T>> => {
@@ -12,7 +13,7 @@ export function withSSRGuest<T> (fn: GetServerSideProps<T>) {
     if (token) {
       return {
         redirect: {
-          destination: '/dashboard',
+          destination: DASHBOARD_PAGE,
           permanent: false
         }
       }

@@ -4,10 +4,8 @@ import { SubmitHandler, useForm } from 'react-hook-form'
 import { yupResolver } from '@hookform/resolvers/yup'
 
 import { schema } from 'schemas/resetPassword'
-
 import { Input } from 'components/Input'
 import { Footer } from 'components/Footer'
-
 import { useResetPassword } from 'hooks/auth/useResetPassword'
 
 import { ResetPasswordFormValues } from './types'
@@ -62,7 +60,7 @@ export function ResetPasswordPage () {
             control={control}
           />
 
-          <S.FormBtn disabled={isLoading}>Avançar</S.FormBtn>
+          <S.FormBtn type='submit' disabled={isLoading}>Avançar</S.FormBtn>
         </S.Form>
 
         <Image width={385} height={382} src='/images/main-forgot-password.svg' />

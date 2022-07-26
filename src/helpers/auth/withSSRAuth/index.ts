@@ -2,6 +2,7 @@ import { GetServerSideProps, GetServerSidePropsContext, GetServerSidePropsResult
 import { destroyCookie, parseCookies } from 'nookies'
 
 import { TOKEN_STORAGE_KEY, REFRESH_TOKEN_STORAGE_KEY } from 'constants/storage'
+import { SIGN_IN_PAGE } from 'constants/routesPath'
 
 export function withSSRAuth<P> (fn: GetServerSideProps<P>) {
   return async (ctx: GetServerSidePropsContext): Promise<GetServerSidePropsResult<P>> => {
@@ -12,7 +13,7 @@ export function withSSRAuth<P> (fn: GetServerSideProps<P>) {
     if (!token) {
       return {
         redirect: {
-          destination: '/',
+          destination: SIGN_IN_PAGE,
           permanent: false
         }
       }
@@ -26,7 +27,7 @@ export function withSSRAuth<P> (fn: GetServerSideProps<P>) {
 
       return {
         redirect: {
-          destination: '/',
+          destination: SIGN_IN_PAGE,
           permanent: false
         }
       }

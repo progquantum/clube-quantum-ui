@@ -13,6 +13,8 @@ import { schema } from 'schemas/signIn'
 
 import { formatCPF } from 'utils/formatters/formatCPF'
 
+import { RESET_PASSWORD_PAGE, SIGN_UP_PAGE } from 'constants/routesPath'
+
 import { SignInFormValues } from './types'
 import * as S from './styles'
 
@@ -77,7 +79,7 @@ export function SignInPage () {
               <label htmlFor='remember'>Lembre meu login</label>
             </span>
 
-            <Link href='/forgot-password'>
+            <Link href={RESET_PASSWORD_PAGE}>
               Esqueceu a sua senha?
             </Link>
           </S.LoginAbout>
@@ -90,7 +92,7 @@ export function SignInPage () {
         <S.CreateAccountButtonWrapper>
           <h1>Ainda não é um membro do Quantum Clube?</h1>
 
-          <Link href='/signup/personal'>
+          <Link href={SIGN_UP_PAGE}>
             Criar Conta
           </Link>
         </S.CreateAccountButtonWrapper>
