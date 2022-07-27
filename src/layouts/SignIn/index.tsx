@@ -13,7 +13,7 @@ import { schema } from 'schemas/signIn'
 
 import { formatCPF } from 'utils/formatters/formatCPF'
 
-import { RESET_PASSWORD_PAGE, SIGN_UP_PAGE } from 'constants/routesPath'
+import { FORGOT_PASSWORD_PAGE, RESET_PASSWORD_PAGE, SIGN_UP_PAGE } from 'constants/routesPath'
 
 import { SignInFormValues } from './types'
 import * as S from './styles'
@@ -79,7 +79,7 @@ export function SignInPage () {
               <label htmlFor='remember'>Lembre meu login</label>
             </span>
 
-            <Link href={RESET_PASSWORD_PAGE}>
+            <Link href={FORGOT_PASSWORD_PAGE}>
               Esqueceu a sua senha?
             </Link>
           </S.LoginAbout>
