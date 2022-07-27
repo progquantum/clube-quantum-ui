@@ -25,6 +25,7 @@
     "axios": "^0.27.2",
     "cpf-cnpj-validator": "^1.0.3",
     "framer-motion": "^6.3.13",
+    "lodash.noop": "^3.0.1",
     "next": "^12.1.6",
     "next-seo": "^5.4.0",
     "nookies": "^2.5.2",
