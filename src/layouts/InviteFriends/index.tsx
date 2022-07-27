@@ -9,6 +9,8 @@ import * as S from './styles'
 export function InviteFriendsPage () {
   return (
     <>
+      <title>Convidar Amigos</title>
+
       <Header />
       <S.Container>
         <S.ContainerContent>
