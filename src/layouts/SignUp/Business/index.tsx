@@ -11,7 +11,7 @@ import * as S from './styles'
 export function BusinessSignUpPage () {
   const [step, setStep] = useState(0)
 
-  function handleNextStep () {
+  function nextStep () {
     setStep((prevState) => prevState + 1)
   }
 
@@ -19,8 +19,14 @@ export function BusinessSignUpPage () {
     setStep((prevState) => prevState - 1)
   }
 
+  function navigateToSuccessfullSignUp () {
+    setStep((prevState) => prevState + 2)
+  }
+
   return (
     <>
+      <title>Cadastre-se - Clube Quantum</title>
+
       <S.Container>
         <S.ContentsWrapper width={step <= 6 ? 5 : 0}>
           {step <= 6 && (
@@ -51,37 +57,38 @@ export function BusinessSignUpPage () {
             )}
 
             {step === 0 && (
-              <Step.CNPJInput onUpdateFormStep={() => handleNextStep()} />
+              <Step.CNPJInput onUpdateFormStep={() => nextStep()} />
             )}
             {step === 1 && (
-              <Step.PhoneNumberInput onUpdateFormStep={() => handleNextStep()} />
+              <Step.PhoneNumberInput onUpdateFormStep={() => nextStep()} />
             )}
             {step === 2 && (
               <Step.PinCodeInput
-                onNextFormStep={() => handleNextStep()}
+                onNextFormStep={() => nextStep()}
                 onPreviousFormStep={() => previousStep()}
               />
             )}
             {step === 3 && (
-              <Step.BusinessDataInputs onUpdateFormStep={() => handleNextStep()} />
+              <Step.BusinessDataInputs onUpdateFormStep={() => nextStep()} />
             )}
             {step === 4 && (
-              <Step.AddressDataInputs onUpdateFormStep={() => handleNextStep()} />
+              <Step.AddressDataInputs onUpdateFormStep={() => nextStep()} />
             )}
             {step === 5 && (
-              <Step.CardDataInputs onUpdateFormStep={() => handleNextStep()} />
+              <Step.CardDataInputs
+                onUpdateFormStep={() => nextStep()}
+                onNavigateToSuccessfulSignUp={() => navigateToSuccessfullSignUp()}
+              />
             )}
             {step === 6 && (
-              <Step.DataPlans onUpdateFormStep={() => handleNextStep()} />
+              <Step.DataPlans onUpdateFormStep={() => nextStep()} />
             )}
             {step === 7 && (
               <Step.SuccessfulSignUp />
             )}
           </S.Contents>
         </S.ContentsWrapper>
-
       </S.Container>
-
       <Footer />
     </>
   )

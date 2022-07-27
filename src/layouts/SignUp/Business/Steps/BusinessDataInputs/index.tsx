@@ -1,27 +1,34 @@
 import { useForm } from 'react-hook-form'
-
 import { FaAngleRight } from 'react-icons/fa'
+import { yupResolver } from '@hookform/resolvers/yup'
 
+import { useAuthDispatch } from 'contexts/auth/AuthContext'
 import { Input } from 'components/Input'
+import { legalPersonDataSchema } from 'schemas/signUp'
 
-import { Container, Form, NextStepButton } from '../../../components'
+import { Button } from 'components/Button'
 
-import { BusinessDataInputsProps } from './types'
+import { Container, Form } from '../../../components'
+import { BusinessDataInputsProps, FormData } from './types'
 
 export function BusinessDataInputs ({
   onUpdateFormStep
 }: BusinessDataInputsProps) {
   const { control, handleSubmit } = useForm({
     defaultValues: {
-      corporateName: '',
+      company_name: '',
       email: '',
       email_confirmation: '',
       password: '',
       password_confirmation: ''
-    }
+    },
+    resolver: yupResolver(legalPersonDataSchema)
   })
 
-  function onSubmit () {
+  const { signUp } = useAuthDispatch()
+
+  function onSubmit (data: FormData) {
+    signUp(data)
     onUpdateFormStep()
   }
 
@@ -31,7 +38,7 @@ export function BusinessDataInputs ({
         <Input
           type='text'
           label='Razão Social'
-          name='corporateName'
+          name='company_name'
           control={control}
         />
 
@@ -63,9 +70,9 @@ export function BusinessDataInputs ({
           control={control}
         />
 
-        <NextStepButton>
-          <FaAngleRight />
-        </NextStepButton>
+        <Button type='submit' variant='rounded'>
+          <FaAngleRight size={24} />
+        </Button>
       </Form>
     </Container>
   )

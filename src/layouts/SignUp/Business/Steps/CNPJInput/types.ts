@@ -3,5 +3,5 @@ export type CNPJInputProps = {
 }
 
 export type FormData = {
-  cpf: string;
+  cnpj: string;
 }

@@ -3,14 +3,17 @@ import { FaAngleRight } from 'react-icons/fa'
 import Image from 'next/image'
 
 import { Input } from 'components/Input'
+import { Button } from 'components/Button'
 
-import { Container, NextStepButton } from '../../../components'
+import { Container } from '../../../components'
 
 import { CardDataInputsProps } from './types'
-
 import * as S from './styles'
 
-export function CardDataInputs ({ onUpdateFormStep }: CardDataInputsProps) {
+export function CardDataInputs ({
+  onUpdateFormStep,
+  onNavigateToSuccessfulSignUp
+}: CardDataInputsProps) {
   const { control, handleSubmit } = useForm({
     defaultValues: {
       account: '',
@@ -87,14 +90,17 @@ export function CardDataInputs ({ onUpdateFormStep }: CardDataInputsProps) {
 
         <p>
           A conta a ser cadastrada deve ser a conta Banco Um na
-          qual o CPF, informado anteriormente, está vinculado.
+          qual o CNPJ, informado anteriormente, está vinculado.
         </p>
 
         <S.ButtonGroup>
-          <S.JumpStepButton onClick={onUpdateFormStep}>Pular esta etapa</S.JumpStepButton>
-          <NextStepButton>
-            <FaAngleRight />
-          </NextStepButton>
+          <S.JumpStepButton onClick={onNavigateToSuccessfulSignUp}>
+            Pular esta etapa
+          </S.JumpStepButton>
+
+          <Button variant='rounded'>
+            <FaAngleRight size={24} />
+          </Button>
         </S.ButtonGroup>
       </S.Form>
     </Container>

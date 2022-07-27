@@ -1,35 +1,59 @@
 import { FaAngleRight } from 'react-icons/fa'
 import { useForm } from 'react-hook-form'
+import { yupResolver } from '@hookform/resolvers/yup'
 
+import { useAuthDispatch } from 'contexts/auth/AuthContext'
+import { phoneNumberSchema } from 'schemas/signUp'
 import { Input } from 'components/Input'
+import { Button } from 'components/Button'
+import { formatPhoneNumber } from 'utils/formatters/formatPhoneNumber'
+import { useSendPhoneCode } from 'hooks/useSendPhoneCode'
 
-import { Container, Form, NextStepButton } from '../../../components'
-import { PhoneNumberProps } from './types'
+import { Container, Form } from '../../../components'
+import { PhoneNumberProps, FormData } from './types'
 
 export function PhoneNumberInput ({ onUpdateFormStep }: PhoneNumberProps) {
-  const { handleSubmit, control } = useForm({
+  const { handleSubmit, control, register, setValue } = useForm({
     defaultValues: {
-      phoneNumber: ''
-    }
+      phone: ''
+    },
+    resolver: yupResolver(phoneNumberSchema)
   })
 
-  function onSubmit () {
+  const { signUp } = useAuthDispatch()
+  const { mutate, isLoading } = useSendPhoneCode()
+
+  function onSubmitPhoneNumber (data: FormData) {
+    const phone = `+55 ${data.phone}`
+
+    mutate({ phone })
+    signUp({ phone })
     onUpdateFormStep()
   }
 
   return (
     <Container>
-      <Form onSubmit={handleSubmit(onSubmit)}>
+      <Form onSubmit={handleSubmit(onSubmitPhoneNumber)}>
         <Input
           type='text'
           label='Telefone'
           name='phoneNumber'
           control={control}
+          {...register('phone', {
+            onChange: (e) => {
+              setValue('phone', formatPhoneNumber(e.target.value))
+            }
+          })}
         />
 
-        <NextStepButton>
-          <FaAngleRight />
-        </NextStepButton>
+        <Button
+          type='submit'
+          variant='rounded'
+          loading={isLoading}
+          disabled={isLoading}
+        >
+          <FaAngleRight size={24} />
+        </Button>
       </Form>
     </Container>
   )
