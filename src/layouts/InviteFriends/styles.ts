@@ -15,6 +15,10 @@ export const Container = styled.main`
   justify-content: center;
   gap: 4.5rem;
   padding: 5rem 2rem;
+
+  @media (min-width: 280px) and (max-width: 767px) {
+    margin-inline: 1rem 3rem;
+  }
 `
 
 export const Heading = styled.h1`
@@ -40,6 +44,13 @@ export const LinkButton = styled(Button)`
   line-height: 1.5;
   border: 2px solid ${({ theme }) => theme.colors.midnightBlue};
   border-radius: .625rem;
+
+  @media (min-width: 280px) and (max-width: 767px) {
+    padding: .5rem;
+    width: 100%;
+    max-width: 33ch;
+  }
+
 `
 const iconStyles = css`
   background-color: ${({ theme }) => theme.colors.midnightBlue};
@@ -66,6 +77,9 @@ export const Link = styled(HiOutlineLink)`
   ${iconStyles};
 `
 export const Wrap = styled.div`
+  @media (min-width: 280px) and (max-width: 767px) {
+    margin: 1rem 3rem;
+  }
 `
 
 export const ImageDiv = styled.div`
@@ -77,7 +91,7 @@ export const ImageDiv = styled.div`
 export const ContainerSpan = styled.div`
   padding: 1rem 1.875rem;
   margin-bottom: 2.25rem;
-  
+
   border: 2px solid ${({ theme }) => theme.colors.midnightBlue};
   border-radius: .625rem;
 
