@@ -6,8 +6,6 @@ import { Header } from 'components/Header'
 import { useFindMe } from 'hooks/useFindMe'
 import { useShare } from 'hooks/useShare'
 
-import { Button } from 'components/Button'
-
 import * as S from './styles'
 
 export function InviteFriendsPage () {
