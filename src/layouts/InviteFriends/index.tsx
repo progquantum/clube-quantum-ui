@@ -20,7 +20,7 @@ export function InviteFriendsPage () {
 
   const shouldShowInviteCode = isLoading && !inviteCode
 
-  const shouldNotShowInviteFriends = !isLoading && inviteCode === undefined
+  const shouldNotShowInviteFriends = !isLoading && !inviteCode
 
   const share = useShare()
 
