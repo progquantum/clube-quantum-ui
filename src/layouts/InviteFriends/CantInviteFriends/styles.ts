@@ -11,10 +11,6 @@ export const Container = styled.main`
   justify-content: center;
   gap: 4.5rem;
   padding: 5rem 2rem;
-
-  @media (min-width: 280px) and (max-width: 767px) {
-    margin-inline: 1rem 3rem;
-  }
 `
 
 export const Heading = styled.h1`
@@ -33,9 +29,6 @@ export const Content = styled.p`
 `
 
 export const Wrap = styled.div`
-  @media (min-width: 280px) and (max-width: 767px) {
-    margin: 1rem 3rem;
-  }
 `
 
 export const ImageDiv = styled.div`
