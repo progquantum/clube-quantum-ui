@@ -1,8 +1,9 @@
 import Image from 'next/image'
+import Link from 'next/link'
 
 import { useAuthDispatch } from 'contexts/auth/AuthContext'
-
 import { Button } from 'components/Button'
+import { INVITE_FRIENDS_PAGE } from 'constants/routesPath'
 
 import { AccountDropdown } from './AccountDropdown'
 import { Gradient } from './Gradient'
@@ -25,7 +26,11 @@ export function Header () {
         </S.AnimatedLeftNav>
 
         <S.AnimatedRightNav variants={NAVS_ANIMATION}>
-          <Button variant='secondary'>Convidar Amigos</Button>
+          <Link href={INVITE_FRIENDS_PAGE}>
+            <Button variant='secondary'>
+              Convidar Amigos
+            </Button>
+          </Link>
           <AccountDropdown />
         </S.AnimatedRightNav>
       </S.Wrapper>

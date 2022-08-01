@@ -7,7 +7,6 @@ export const Container = styled.footer`
   width: 100%;
   padding: 0 9.375rem 3.125rem;
   margin: 0 auto;
-
   display: flex;
   align-items: center;
   justify-content: space-between;
