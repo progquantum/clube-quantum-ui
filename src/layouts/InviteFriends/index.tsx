@@ -14,7 +14,7 @@ import { CantInviteFriends } from './CantInviteFriends'
 export function InviteFriendsPage () {
   const { data, isLoading } = useFindMe()
 
-  const linkCode = `http://localhost:3000/signup/${data?.invite_code}`
+  const linkCode = `http://localhost:3000/signup?invite-code=${data?.invite_code}`
 
   const inviteCode = data?.invite_code
 
@@ -48,10 +48,10 @@ export function InviteFriendsPage () {
           <S.LinkButton variant='secondary' onClick={handleShare}>
             Seu link de convite é: {shouldShowInviteCode
             ? (
-              <Skeleton width={304} height={24} />
+              <Skeleton width={256} height={24} />
               )
             : (
-              <strong>{linkCode}</strong>
+              <S.InviteCode>{linkCode}</S.InviteCode>
               )}
           </S.LinkButton>
 

@@ -44,14 +44,15 @@ export const LinkButton = styled(Button)`
   line-height: 1.5;
   border: 2px solid ${({ theme }) => theme.colors.midnightBlue};
   border-radius: .625rem;
-
-  @media (min-width: 280px) and (max-width: 767px) {
-    padding: .5rem;
-    width: 100%;
-    max-width: 33ch;
-  }
-
+  max-width: 19rem;
 `
+export const InviteCode = styled.strong`
+  width: 100%;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  overflow: hidden; 
+`
+
 const iconStyles = css`
   background-color: ${({ theme }) => theme.colors.midnightBlue};
   color: ${({ theme }) => theme.colors.white};
