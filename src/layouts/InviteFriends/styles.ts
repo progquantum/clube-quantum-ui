@@ -1,5 +1,4 @@
 import styled, { css } from 'styled-components'
-
 import { FaInstagram, FaWhatsapp } from 'react-icons/fa'
 import { HiOutlineMail, HiOutlineLink } from 'react-icons/hi'
 import { FiFacebook } from 'react-icons/fi'
@@ -18,6 +17,12 @@ export const Container = styled.main`
 
   @media (min-width: 280px) and (max-width: 767px) {
     margin-inline: 1rem 3rem;
+  }
+`
+
+export const Wrap = styled.div`
+  @media (min-width: 280px) and (max-width: 767px) {
+    margin: 1rem 3rem;
   }
 `
 
@@ -46,6 +51,7 @@ export const LinkButton = styled(Button)`
   border-radius: .625rem;
   max-width: 19rem;
 `
+
 export const InviteCode = styled.strong`
   width: 100%;
   text-overflow: ellipsis;
@@ -61,12 +67,15 @@ const iconStyles = css`
   padding: .3rem;
   border-radius: 50%;
 `
+
 export const Instagram = styled(FaInstagram)`
   ${iconStyles};
 `
+
 export const Facebook = styled(FiFacebook)`
   ${iconStyles};
 `
+
 export const WhatsApp = styled(FaWhatsapp)`
   ${iconStyles};
 `
@@ -74,13 +83,9 @@ export const WhatsApp = styled(FaWhatsapp)`
 export const Mail = styled(HiOutlineMail)`
   ${iconStyles};
 `
+
 export const Link = styled(HiOutlineLink)`
   ${iconStyles};
-`
-export const Wrap = styled.div`
-  @media (min-width: 280px) and (max-width: 767px) {
-    margin: 1rem 3rem;
-  }
 `
 
 export const ImageDiv = styled.div`
@@ -104,6 +109,7 @@ export const ContainerSpan = styled.div`
     color: ${({ theme }) => theme.colors.midnightBlue};
 }
 `
+
 export const ContainerLinks = styled.div`
   display: flex;
   flex-direction: column;
@@ -120,6 +126,7 @@ export const InviteButton = styled(Button)`
   color: ${({ theme }) => theme.colors.gray[700]};
   background-color: transparent;
 `
+
 export const ButtonPlan = styled.div`
   display: flex;
   flex-direction: column;
@@ -131,6 +138,7 @@ export const HeadingInfo = styled.h2`
   line-height: 1.3;
   font-weight: 900;
 `
+
 export const InfoButton = styled(Button)`
   font-weight: 600;
   padding: .7rem 0;
