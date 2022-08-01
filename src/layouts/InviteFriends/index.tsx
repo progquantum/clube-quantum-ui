@@ -12,7 +12,7 @@ import * as S from './styles'
 export function InviteFriendsPage () {
   const { data, isLoading } = useFindMe()
 
-  const linkCode = `http://localhost:3000/signup?invite-code=${data?.invite_code}`
+  const linkCode = `http://localhost:3000/signup?invite=${data?.invite_code}`
 
   const hasInviteCode = data?.invite_code
 

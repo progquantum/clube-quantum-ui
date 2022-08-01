@@ -24,10 +24,12 @@ export function ForgotPasswordPage () {
 
   const { mutate: sendRecoveryPassword, isLoading } = useRecoveryPassword()
 
-  const handleRecoveryPassword: SubmitHandler<RecoveryPasswordFormValues> = (
-    data
-  ) => {
-    sendRecoveryPassword(data)
+  const handleRecoveryPassword: SubmitHandler<RecoveryPasswordFormValues> = ({
+    email
+  }) => {
+    sendRecoveryPassword({
+      email
+    })
   }
 
   return (
@@ -45,7 +47,7 @@ export function ForgotPasswordPage () {
             control={control}
           />
 
-          <S.FormBtn disabled={isLoading}>Avançar</S.FormBtn>
+          <S.FormBtn type='submit' disabled={isLoading} loading={isLoading}>Avançar</S.FormBtn>
         </S.Form>
 
         <Image width={385} height={382} src='/images/main-forgot-password.svg' />

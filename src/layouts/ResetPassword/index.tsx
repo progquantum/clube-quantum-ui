@@ -27,14 +27,14 @@ export function ResetPasswordPage () {
 
   const router = useRouter()
 
-  const code = router.query
+  const inviteCode = router.query.code
 
-  const handleResetPassword: SubmitHandler<ResetPasswordFormValues> = (
-    data
-  ) => {
+  const handleResetPassword: SubmitHandler<ResetPasswordFormValues> = ({
+    password
+  }) => {
     resetPassword({
-      code: code,
-      password: data.password
+      code: inviteCode,
+      password
     })
   }
 
@@ -54,13 +54,13 @@ export function ResetPasswordPage () {
           />
 
           <Input
-            type='confirm_password'
+            type='password'
             label='Confirma nova senha'
             name='confirm_password'
             control={control}
           />
 
-          <S.FormBtn type='submit' disabled={isLoading}>Avançar</S.FormBtn>
+          <S.FormBtn type='submit' disabled={isLoading} loading={isLoading}>Avançar</S.FormBtn>
         </S.Form>
 
         <Image width={385} height={382} src='/images/main-forgot-password.svg' />
