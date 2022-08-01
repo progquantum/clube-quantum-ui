@@ -1,6 +1,4 @@
-import { ParsedUrlQuery } from 'querystring'
-
 export type ResetPasswordRequestData = {
-  code: ParsedUrlQuery
+  code: string | string[]
   password: string
 }

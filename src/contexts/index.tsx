@@ -1,5 +1,6 @@
 import { PropsWithChildren, useState } from 'react'
 import { QueryClient, QueryClientProvider } from 'react-query'
+import { ToastContainer } from 'react-toastify'
 import { DefaultSeo } from 'next-seo'
 
 import SEO from '../../next-seo.config'
@@ -15,7 +16,20 @@ export function AppProvider ({ children }: PropsWithChildren<unknown>) {
       <DefaultSeo {...SEO} />
       <QueryClientProvider client={queryClient}>
         <AuthProvider>
-          <StyledProvider>{children}</StyledProvider>
+          <StyledProvider>
+            <ToastContainer
+              position='top-right'
+              autoClose={5000}
+              hideProgressBar={false}
+              newestOnTop={false}
+              closeOnClick
+              rtl={false}
+              pauseOnFocusLoss
+              draggable
+              pauseOnHover
+            />
+            {children}
+          </StyledProvider>
         </AuthProvider>
       </QueryClientProvider>
     </>

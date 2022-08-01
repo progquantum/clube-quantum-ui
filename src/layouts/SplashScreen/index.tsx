@@ -4,7 +4,6 @@ import { setCookie } from 'nookies'
 import { SPLASH_SCREEN_STORAGE_KEY } from 'constants/storage'
 
 import { SplashscreenProps } from './types'
-
 import * as S from './styles'
 
 export function SplashScreen ({ onRequestSplashScreen }: SplashscreenProps) {
