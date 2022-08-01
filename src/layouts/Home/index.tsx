@@ -1,5 +1,6 @@
 import Head from 'next/head'
 import Image from 'next/image'
+import Link from 'next/link'
 
 import { useShowSideBar } from 'hooks/useShowSideBar'
 
@@ -33,7 +34,11 @@ export function HomePage () {
           <S.CashBackContent>
             <h1>Ganhe cashback todo dia!</h1>
             <h6>Seja um membro Clube Quantum</h6>
-            <S.CashBackButton>Criar minha conta</S.CashBackButton>
+            <S.CashBackButton>
+              <Link href='/signup' passHref>
+                Criar minha conta
+              </Link>
+            </S.CashBackButton>
           </S.CashBackContent>
 
           <Image
