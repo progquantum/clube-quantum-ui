@@ -30,7 +30,13 @@ const variants = {
   height: 3.125rem;
   border-radius: 0.625rem;
   margin: 1.5rem 0;
-  background: ${({ theme }) => theme.colors.danger};`
+  background: ${({ theme }) => theme.colors.danger};`,
+
+  disabledmarket: css`
+    background: ${({ theme }) => theme.colors.lightsteelblueice};
+    color: ${({ theme }) => theme.colors.cornflowerblue};
+    height: 2.3125rem;
+  `
 
 }
 
