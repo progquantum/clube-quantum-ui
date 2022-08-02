@@ -3,7 +3,7 @@ import * as S from './styles'
 export function Skeleton () {
   return (
     <S.Container>
-      <S.Wrap>
+      <div>
         <S.HeadingSkeleton />
         <S.ContentSkeleton />
         <S.ButtonSkeleton />
@@ -11,7 +11,7 @@ export function Skeleton () {
         <S.ContainerLinks>
           <S.LinkSkeleton count={5} />
         </S.ContainerLinks>
-      </S.Wrap>
+      </div>
 
       <S.ImageSkeleton />
     </S.Container>

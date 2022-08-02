@@ -12,13 +12,7 @@ export const Container = styled.main`
   padding: 5rem 2rem;
 
   @media (min-width: 280px) and (max-width: 767px) {
-    margin-inline: 1rem 3rem;
-  }
-`
-
-export const Wrap = styled.div`
-  @media (min-width: 280px) and (max-width: 767px) {
-    margin: 1rem 3rem;
+    gap: 0rem;
   }
 `
 
@@ -33,6 +27,12 @@ export const HeadingSkeleton = styled(Skeleton)`
   width: 23rem;
   height: 5.563rem;
   margin-bottom: 2rem;
+
+  @media (min-width: 280px) and (max-width: 767px) {
+    align-self: center;
+    width: 18rem;
+    height: 5rem;
+  }
 `
 
 export const ButtonSkeleton = styled(Skeleton)`
@@ -41,11 +41,23 @@ export const ButtonSkeleton = styled(Skeleton)`
   padding: 1rem 1.875rem;
   margin-block: 2.2rem;
   border-radius: .625rem;
+
+  @media (min-width: 280px) and (max-width: 767px) {
+    align-self: center;
+    width: 19rem;
+    height: 5.25rem;
+  }
 `
 
 export const ContentSkeleton = styled(Skeleton)`
   width: 24.8rem;
   height: 4.8rem;
+
+  @media (min-width: 280px) and (max-width: 767px) {
+    align-self: center;
+    width: 19rem;
+    height: 4.8rem;
+  }
 `
 
 export const LinkSkeleton = styled(Skeleton)`
@@ -53,10 +65,20 @@ export const LinkSkeleton = styled(Skeleton)`
   width: 17.4rem;
   height: 1.8rem;
   gap: 0.9rem;
+
+  @media (min-width: 280px) and (max-width: 767px) {
+    align-self: center;
+    width: 17rem;
+    height: 1.8rem;
+  }
 `
 
 export const ImageSkeleton = styled(Skeleton)`
   width: 19.4rem; 
   height: 23.125rem;
   clip-path: polygon(70% 0, 4% 66%, 100% 95%);
+  
+  @media (min-width: 280px) and (max-width: 767px) {
+    display: none;
+  }
 `
