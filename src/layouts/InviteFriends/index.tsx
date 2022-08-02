@@ -38,38 +38,46 @@ export function InviteFriendsPage () {
         {hasInviteCode
           ? (
             <>
-              <S.Wrap>
+              <div>
                 <S.Heading>Nós damos valor às amizades</S.Heading>
+
                 <S.Content>
                   E recompensamos você, para cada Amigo convidado que se cadastrar no Clube Quantum.
                 </S.Content>
+
                 <S.LinkButton variant='secondary' onClick={handleShare}>
                   Seu link de convite é:
                   <S.InviteCode>{linkCode}</S.InviteCode>
                 </S.LinkButton>
+
                 <S.ContainerLinks>
                   <S.InviteButton>
                     <S.Instagram />
                     Convidar via Instagram
                   </S.InviteButton>
+
                   <S.InviteButton>
                     <S.Facebook />
                     Convidar via Facebook
                   </S.InviteButton>
+
                   <S.InviteButton>
                     <S.WhatsApp />
                     Convidar via WhatsApp
                   </S.InviteButton>
+
                   <S.InviteButton>
                     <S.Mail />
                     Convidar via E-Mail
                   </S.InviteButton>
+
                   <S.InviteButton onClick={handleShare}>
                     <S.Link />
                     Copiar o link do convite
                   </S.InviteButton>
                 </S.ContainerLinks>
-              </S.Wrap>
+              </div>
+
               <S.ImageDiv>
                 <Image className='image' width={385} height={467} src='/images/friends.svg' alt='' />
               </S.ImageDiv>
@@ -77,18 +85,23 @@ export function InviteFriendsPage () {
             )
           : (
             <>
-              <S.Wrap>
+              <div>
                 <S.Heading>Oops, você ainda não pode convidar amigos!</S.Heading>
+
                 <S.Content>
                   Conheça os planos disponíveis no Clube Quantum, e clique abaixo para acessar e começar usufruir dos benefícios.
                 </S.Content>
+
                 <S.ButtonPlan>
                   <S.HeadingInfo>
                     Conheça os planos disponíveis no clube quantum, e clique abaixo para acessar e começar usufruir dos benefícios.
                   </S.HeadingInfo>
+
                   <S.InfoButton>Comece agora</S.InfoButton>
+
                 </S.ButtonPlan>
-              </S.Wrap>
+              </div>
+
               <S.ImageDiv>
                 <Image className='image' width={385} height={467} src='/images/friends-error.svg' alt='' />
               </S.ImageDiv>
