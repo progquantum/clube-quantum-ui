@@ -8,6 +8,9 @@ export const Container = styled.div`
   gap: 0.625rem;
   width: 100%;
   background-color: ${({ theme }) => theme.colors.background};
+  @media (max-width: 414px){
+    gap: 1.5rem;
+  }
 
 `
 
@@ -22,7 +25,7 @@ export const DivItem = styled.div`
   width: 10.7269rem;
   height: 4.375rem;
   @media (max-width: 1024px){
-    width: 10rem;
+    width: 8.5625rem;
   }
 
   @media (max-width: 414px){

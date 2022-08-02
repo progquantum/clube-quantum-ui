@@ -7,6 +7,8 @@ import { Menu } from 'components/Menu'
 
 import { TopMenu } from 'components/TopMenu'
 
+import { Button } from 'components/Button'
+
 import * as S from './styles'
 
 const Header = dynamic(() => import('components/Header').then((mod) => mod.Header), { ssr: false })
@@ -29,10 +31,10 @@ export function DashboardPage () {
             <S.DivBalance>
               <S.Content>
                 <S.ContentHeader>
-                  <Image width={11.18} height={19.87} src='/images/icon-dollar.svg' alt='Icone dollar' />
+                  <Image width={11.18} height={19.87} src='/images/icon-dollar.svg' alt='icone dollar' />
                   <S.Title>Saldo em conta</S.Title>
                 </S.ContentHeader>
-                <Image width={22} height={16} src='/images/icon-show-balance.svg' alt='icon mostrar saldo' />
+                <Image width={22} height={16} src='/images/icon-show-balance.svg' alt='icone mostrar saldo' />
               </S.Content>
               <S.TextValue>R$ 1.200,00</S.TextValue>
               <S.Subtitle>Será transferido em 15/xx/xxxx</S.Subtitle>
@@ -41,14 +43,75 @@ export function DashboardPage () {
             <S.DivRelease>
               <S.Content>
                 <S.ContentHeader>
-                  <Image width={11.18} height={19.87} src='/images/icon-dollar.svg' alt='Icone dollar' />
+                  <Image width={11.18} height={19.87} src='/images/icon-dollar.svg' alt='icone dollar' />
                   <S.Title>Aguardando liberação</S.Title>
                 </S.ContentHeader>
-                <Image width={22} height={16} src='/images/icon-show-balance.svg' alt='icon mostrar saldo' />
+                <Image width={22} height={16} src='/images/icon-show-balance.svg' alt='icone mostrar saldo' />
               </S.Content>
               <S.TextValue>R$ 200,00</S.TextValue>
               <S.Subtitle>Disponível em 01/xx/xxxx</S.Subtitle>
             </S.DivRelease>
+
+            <S.DivMarketplace>
+              <S.ComingSoon>
+                Em breve
+              </S.ComingSoon>
+              <S.AccessMarket>
+                <S.HeaderAccessMarket>
+                  <Image width={15.03} height={17.18} src='/images/icon-marketplace.svg' alt='icone marketplace' />
+                  <S.MarketText>Marketplace Quantum</S.MarketText>
+                </S.HeaderAccessMarket>
+                <Button variant='disabledmarket'>
+                  Acessar o marketplace
+                </Button>
+              </S.AccessMarket>
+              <S.ItemMarket>
+                <Image width={40} height={40} src='/images/icon-partner-web.svg' alt='icon sites parceiros' />
+                <S.MarketText>Sites parceiros</S.MarketText>
+              </S.ItemMarket>
+              <S.ItemMarket>
+                <Image width={40} height={40} src='/images/icon-shopping-bag.svg' alt='icon sites parceiros' />
+                <S.MarketText>Lojas próximas</S.MarketText>
+              </S.ItemMarket>
+              <S.ItemMarket>
+                <Image width={40} height={40} src='/images/icon-click.svg' alt='icon sites parceiros' />
+                <S.MarketText>Serviços</S.MarketText>
+              </S.ItemMarket>
+              <S.ItemMarket>
+                <Image width={40} height={40} src='/images/icon-dollar-market.svg' alt='icon sites parceiros' />
+                <S.MarketText>Ofertas</S.MarketText>
+              </S.ItemMarket>
+              <S.ItemMarket>
+                <Image width={40} height={40} src='/images/icon-earphone.svg' alt='icon sites parceiros' />
+                <S.MarketText>Eletrônicos</S.MarketText>
+              </S.ItemMarket>
+            </S.DivMarketplace>
+
+            <S.DivSelectPlan>
+              <S.HeaderSelectPlan>
+                <Image width={17.89} height={19.87} src='/images/icon-plan.svg' alt='icone plano' />
+                <S.TitlePlan>Seu plano</S.TitlePlan>
+              </S.HeaderSelectPlan>
+              <S.DivStatusPlan>
+                <S.TitleStatusPlan>Select</S.TitleStatusPlan>
+                <S.StatusPlan>Ativo</S.StatusPlan>
+              </S.DivStatusPlan>
+              <S.ManageButton>Gerenciar planos</S.ManageButton>
+              <S.Deadline>
+                <S.TextDeadline>Sua assinatura será renovada em 15/xx/xxxx</S.TextDeadline>
+                <S.ButtonCancel>Cancelar</S.ButtonCancel>
+              </S.Deadline>
+            </S.DivSelectPlan>
+
+            <S.DivInviteFriends>
+              <S.HeaderInviteFriends>
+                <Image width={17.89} height={19.87} src='/images/icon-invite-friends.svg' alt='Icone convidar amigos' />
+                <S.TitleFriends>Convidar amigos</S.TitleFriends>
+              </S.HeaderInviteFriends>
+              <S.TitleInviteFriends>Não fique sozinho nessa!</S.TitleInviteFriends>
+              <S.TextInviteFriends>Convide seus amigos e ganhe cashback junto com eles!!!</S.TextInviteFriends>
+              <S.ButtonInviteFriends>Convidar amigos</S.ButtonInviteFriends>
+            </S.DivInviteFriends>
 
           </S.MenuGrid>
         </S.RightWrapper>

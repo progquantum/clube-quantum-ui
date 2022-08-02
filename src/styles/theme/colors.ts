@@ -5,6 +5,9 @@ export const colors = {
   mediumslateBlue: '#0C61FF',
   royalblue: '#0E5AE4',
   lightsteelblue: '#B2C5FF',
+  lightsteelblueice: '#C5D9FF',
+  cornflowerblue: '#649AFF',
+  mediumslateblue: '#0C61FF66',
   darkslategray: '#373435',
   mediumaquamarine: '#3CD2A2',
   paleturquoise: '#B1FFE8',
@@ -23,5 +26,6 @@ export const colors = {
   yellow: '#FFCA28',
   warning: '#FFC107',
   danger: '#E12B2B',
-  success: '#00C851'
+  success: '#00C851',
+  successlight: '#8FC93A'
 }
