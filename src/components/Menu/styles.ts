@@ -23,7 +23,10 @@ export const ItemContainer = styled.div`
   height: 5rem;
   border-bottom: 1px solid ${({ theme }) => theme.colors.gray[100]};
   width: 15.625rem;
-
+`
+export const ItemContainerDisabled = styled(ItemContainer)`
+  cursor: default;
+  color: ${({ theme }) => theme.colors.gray[100]};
 `
 
 export const Content = styled.div`
@@ -34,7 +37,7 @@ export const Content = styled.div`
 `
 
 export const DivImage = styled.div`
-  width: 1.563rem;
+  width: 25.008px;
   display: flex;
   justify-content: center;
   align-items: center;

@@ -3,7 +3,11 @@ import Link from 'next/link'
 
 import * as S from './styles'
 
-export function Menu () {
+type Props = {
+  isHasPlan: boolean;
+}
+
+export function Menu ({ isHasPlan }: Props) {
   return (
     <S.Container>
 
@@ -28,39 +32,75 @@ export function Menu () {
           </S.Content>
         </S.ItemContainer>
       </Link>
-
-      <Link href='/'>
-        <S.ItemContainer>
-          <S.Content>
-            <S.DivImage>
-              <Image width={13.5} height={24} src='/images/icon-bank-statement.svg' alt='Icone Extratos' />
-            </S.DivImage>
-            <S.Text>Extratos</S.Text>
-          </S.Content>
-        </S.ItemContainer>
-      </Link>
-
-      <Link href='/'>
-        <S.ItemContainer>
-          <S.Content>
-            <S.DivImage>
-              <Image width={24} height={24} src='/images/icon-my-friends.svg' alt='Icone Meus Amigos' />
-            </S.DivImage>
-            <S.Text>Meus Amigos</S.Text>
-          </S.Content>
-        </S.ItemContainer>
-      </Link>
-
-      <Link href='/'>
-        <S.ItemContainer>
-          <S.Content>
-            <S.DivImage>
-              <Image width={21.18} height={24} src='/images/icon-my-orders.svg' alt='Icone Meus Pedidos' />
-            </S.DivImage>
-            <S.Text>Meus Pedidos</S.Text>
-          </S.Content>
-        </S.ItemContainer>
-      </Link>
+      {isHasPlan
+        ? (
+          <Link href='/'>
+            <S.ItemContainer>
+              <S.Content>
+                <S.DivImage>
+                  <Image width={13.5} height={24} src='/images/icon-bank-statement.svg' alt='Icone Extratos' />
+                </S.DivImage>
+                <S.Text>Extratos</S.Text>
+              </S.Content>
+            </S.ItemContainer>
+          </Link>
+          )
+        : (
+          <S.ItemContainerDisabled>
+            <S.Content>
+              <S.DivImage>
+                <Image width={13.5} height={24} src='/images/icon-dollar.svg' alt='Icone Extratos' />
+              </S.DivImage>
+              <S.Text>Extratos</S.Text>
+            </S.Content>
+          </S.ItemContainerDisabled>
+          )}
+      {isHasPlan
+        ? (
+          <Link href='/'>
+            <S.ItemContainer>
+              <S.Content>
+                <S.DivImage>
+                  <Image width={24} height={24} src='/images/icon-my-friends.svg' alt='Icone Meus Amigos' />
+                </S.DivImage>
+                <S.Text>Meus Amigos</S.Text>
+              </S.Content>
+            </S.ItemContainer>
+          </Link>
+          )
+        : (
+          <S.ItemContainerDisabled>
+            <S.Content>
+              <S.DivImage>
+                <Image width={24} height={24} src='/images/icon-my-friends-disable.svg' alt='Icone Meus Amigos' />
+              </S.DivImage>
+              <S.Text>Meus Amigos</S.Text>
+            </S.Content>
+          </S.ItemContainerDisabled>
+          )}
+      {isHasPlan
+        ? (
+          <Link href='/'>
+            <S.ItemContainer>
+              <S.Content>
+                <S.DivImage>
+                  <Image width={21.18} height={24} src='/images/icon-my-orders.svg' alt='Icone Meus Pedidos' />
+                </S.DivImage>
+                <S.Text>Meus Pedidos</S.Text>
+              </S.Content>
+            </S.ItemContainer>
+          </Link>
+          )
+        : (
+          <S.ItemContainerDisabled>
+            <S.Content>
+              <S.DivImage>
+                <Image width={21.18} height={24} src='/images/icon-my-orders-disable.svg' alt='Icone Meus Pedidos' />
+              </S.DivImage>
+              <S.Text>Meus Pedidos</S.Text>
+            </S.Content>
+          </S.ItemContainerDisabled>
+          )}
 
       <Link href='/'>
         <S.ItemContainer>
