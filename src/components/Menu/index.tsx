@@ -1,8 +1,6 @@
 import Image from 'next/image'
 import Link from 'next/link'
 
-import { Button } from 'components/Button'
-
 import * as S from './styles'
 
 export function Menu () {
@@ -97,10 +95,10 @@ export function Menu () {
         </S.ItemContainer>
       </Link>
 
-      <Button variant='danger'>
+      <S.DangerButton>
         <S.Text>Sair</S.Text>
         <Image width={16} height={16} src='/images/icon-logout.svg' alt='Icone Sair' />
-      </Button>
+      </S.DangerButton>
 
     </S.Container>
   )

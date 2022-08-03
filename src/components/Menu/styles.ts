@@ -1,5 +1,7 @@
 import styled from 'styled-components'
 
+import { Button } from 'components/Button'
+
 export const Container = styled.nav`
   display: flex;
   flex-direction: column;
@@ -44,3 +46,11 @@ export const Text = styled.p`
   font-size: 1rem;
 
 `
+export const DangerButton = styled(Button)`
+  justify-content: space-between;
+  width: 14.563rem;
+  height: 3.125rem;
+  border-radius: 0.625rem;
+  margin: 1.5rem 0;
+  background: ${({ theme }) => theme.colors.danger};
+  `
