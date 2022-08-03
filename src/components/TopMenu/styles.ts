@@ -24,6 +24,7 @@ export const DivItem = styled.div`
   border-radius: 0.313rem;
   width: 10.7269rem;
   height: 4.375rem;
+  cursor: pointer;
   @media (max-width: 1024px){
     width: 8.5625rem;
   }
@@ -41,6 +42,7 @@ export const Text = styled.p`
 export const DivDisabled = styled(DivItem)`
   background-color: ${({ theme }) => theme.colors.gray[100]};
   color: ${({ theme }) => theme.colors.gray[400]};
+  cursor: default;
   @media (max-width: 1024px){
     display: none;
   }

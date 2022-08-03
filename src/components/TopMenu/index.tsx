@@ -1,6 +1,9 @@
+import Link from 'next/link'
+
 import Image from 'next/image'
 
 import * as S from './styles'
+import { INVITE_FRIENDS_PAGE } from '../../constants/routesPath'
 
 export function TopMenu () {
   return (
@@ -17,10 +20,12 @@ export function TopMenu () {
         <S.Text>Dados de Pagamento</S.Text>
       </S.DivItem>
 
-      <S.DivItem>
-        <Image width={25} height={25} src='/images/icon-invited-friends.svg' alt='Icon convidar amigos' />
-        <S.Text>Convidar amigos</S.Text>
-      </S.DivItem>
+      <Link href={INVITE_FRIENDS_PAGE}>
+        <S.DivItem>
+          <Image width={25} height={25} src='/images/icon-invited-friends.svg' alt='Icon convidar amigos' />
+          <S.Text>Convidar amigos</S.Text>
+        </S.DivItem>
+      </Link>
 
       <S.DivDisabled>
         <Image width={25} height={25} src='/images/icon-disabled-marketplace.svg' alt='Icon marketplace' />
