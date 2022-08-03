@@ -1,22 +1,36 @@
 import dynamic from 'next/dynamic'
 import Image from 'next/image'
+import Link from 'next/link'
+import { faker } from '@faker-js/faker'
 
 import { Footer } from 'components/Footer'
-
 import { Menu } from 'components/Menu'
-
 import { TopMenu } from 'components/TopMenu'
 
-import { Button } from 'components/Button'
+import { useDisclosure } from 'hooks/useDisclosure'
 
+import { NoPlan } from './NoPlan'
 import * as S from './styles'
+import { INVITE_FRIENDS_PAGE } from '../../constants/routesPath'
 
 const Header = dynamic(() => import('components/Header').then((mod) => mod.Header), { ssr: false })
 
 export function DashboardPage () {
+  const balance = faker.finance.amount()
+  const balanceWaiting = faker.finance.amount()
+
+  const {
+    isShow: isShowBalance,
+    toggle: toggleShowBalance
+  } = useDisclosure()
+
+  const {
+    isShow: isShowBalanceWaiting,
+    toggle: toggleShowBalanceWaiting
+  } = useDisclosure()
+
   return (
     <>
-
       <title>Dashboard - Clube Quantum</title>
 
       <Header />
@@ -34,9 +48,15 @@ export function DashboardPage () {
                   <Image width={11.18} height={19.87} src='/images/icon-dollar.svg' alt='icone dollar' />
                   <S.Title>Saldo em conta</S.Title>
                 </S.ContentHeader>
-                <Image width={22} height={16} src='/images/icon-show-balance.svg' alt='icone mostrar saldo' />
+                {isShowBalance
+                  ? (<S.ButtonShowBalance width={22} height={16} src='/images/icon-show-balance.svg' alt='icone mostrar saldo' onClick={toggleShowBalance} />)
+                  : (<S.ButtonHiddenBalance width={22} height={16} src='/images/icon-hidden-eye.svg' alt='icone mostrar saldo' onClick={toggleShowBalance} />)}
               </S.Content>
-              <S.TextValue>R$ 1.200,00</S.TextValue>
+              <S.TextValue>
+                {isShowBalance
+                  ? (`${balance}`)
+                  : ('.....')}
+              </S.TextValue>
               <S.Subtitle>Será transferido em 15/xx/xxxx</S.Subtitle>
             </S.DivBalance>
 
@@ -46,9 +66,15 @@ export function DashboardPage () {
                   <Image width={11.18} height={19.87} src='/images/icon-dollar.svg' alt='icone dollar' />
                   <S.Title>Aguardando liberação</S.Title>
                 </S.ContentHeader>
-                <Image width={22} height={16} src='/images/icon-show-balance.svg' alt='icone mostrar saldo' />
+                {isShowBalanceWaiting
+                  ? (<S.ButtonShowBalance width={22} height={16} src='/images/icon-show-balance.svg' alt='icone mostrar saldo' onClick={toggleShowBalanceWaiting} />)
+                  : (<S.ButtonHiddenBalance width={22} height={16} src='/images/icon-hidden-eye.svg' alt='icone mostrar saldo' onClick={toggleShowBalanceWaiting} />)}
               </S.Content>
-              <S.TextValue>R$ 200,00</S.TextValue>
+              <S.TextValue>
+                {isShowBalanceWaiting
+                  ? (`${balanceWaiting}`)
+                  : ('.....')}
+              </S.TextValue>
               <S.Subtitle>Disponível em 01/xx/xxxx</S.Subtitle>
             </S.DivRelease>
 
@@ -61,9 +87,9 @@ export function DashboardPage () {
                   <Image width={15.03} height={17.18} src='/images/icon-marketplace.svg' alt='icone marketplace' />
                   <S.MarketText>Marketplace Quantum</S.MarketText>
                 </S.HeaderAccessMarket>
-                <Button variant='disabledmarket'>
+                <S.ButtonDisabled>
                   Acessar o marketplace
-                </Button>
+                </S.ButtonDisabled>
               </S.AccessMarket>
               <S.ItemMarket>
                 <Image width={40} height={40} src='/images/icon-partner-web.svg' alt='icon sites parceiros' />
@@ -110,10 +136,13 @@ export function DashboardPage () {
               </S.HeaderInviteFriends>
               <S.TitleInviteFriends>Não fique sozinho nessa!</S.TitleInviteFriends>
               <S.TextInviteFriends>Convide seus amigos e ganhe cashback junto com eles!!!</S.TextInviteFriends>
-              <S.ButtonInviteFriends>Convidar amigos</S.ButtonInviteFriends>
+              <Link href={INVITE_FRIENDS_PAGE}>
+                <S.ButtonInviteFriends>Convidar amigos</S.ButtonInviteFriends>
+              </Link>
             </S.DivInviteFriends>
 
           </S.MenuGrid>
+          {/* <NoPlan /> */}
         </S.RightWrapper>
 
       </S.Container>

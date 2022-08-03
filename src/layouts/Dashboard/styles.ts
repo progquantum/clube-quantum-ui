@@ -1,4 +1,5 @@
 import styled from 'styled-components'
+import Image from 'next/image'
 
 import { Button } from 'components/Button'
 
@@ -16,6 +17,9 @@ export const Container = styled.main`
 export const RightWrapper = styled.div`
   display: flex;
   flex-direction: column;
+  @media (max-width: 414px){
+    align-items: center;
+  }
 `
 export const MenuGrid = styled.div`
   width: 100%;
@@ -93,6 +97,12 @@ export const Subtitle = styled.p`
   line-height: .9375rem;
   color: ${({ theme }) => theme.colors.gray[300]};
 `
+export const ButtonShowBalance = styled(Image)`
+cursor: pointer;
+`
+export const ButtonHiddenBalance = styled(Image)`
+cursor: pointer;
+`
 
 /* Styled DivMarketplace */
 export const DivMarketplace = styled.div`
@@ -157,6 +167,13 @@ export const ComingSoon = styled.span`
   @media (max-width: 414px){
     left: -12px;
   }
+`
+export const ButtonDisabled = styled(Button)`
+  background: ${({ theme }) => theme.colors.lightsteelblueice};
+  color: ${({ theme }) => theme.colors.cornflowerblue};
+  height: 2.3125rem;
+  cursor: default;
+
 `
 /* Styled DivSelectPlan */
 export const DivSelectPlan = styled.div`
