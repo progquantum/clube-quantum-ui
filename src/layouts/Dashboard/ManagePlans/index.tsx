@@ -2,7 +2,7 @@ import Image from 'next/image'
 
 import * as S from './styles'
 
-export function NoPlan () {
+export function ManagePlans () {
   return (
     <S.Container>
       <S.Content>
