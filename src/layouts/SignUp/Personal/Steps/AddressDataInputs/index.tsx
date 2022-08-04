@@ -2,6 +2,8 @@ import { useForm } from 'react-hook-form'
 import { FaAngleRight } from 'react-icons/fa'
 import { yupResolver } from '@hookform/resolvers/yup'
 
+import { toast } from 'react-toastify'
+
 import { addressDataSchema } from 'schemas/signUp'
 import { Input } from 'components/Input'
 import { Button } from 'components/Button'
@@ -52,9 +54,14 @@ export function AddressDataInputs ({ onUpdateFormStep }: AddressDataInputsProps)
         state: data.state,
         country: data.country
       }
+    }, {
+      onSuccess: () => {
+        onUpdateFormStep()
+      },
+      onError: () => {
+        toast.error('Encontramos um erro por aqui, tente novamente mais tarde!')
+      }
     })
-
-    onUpdateFormStep()
   }
 
   return (

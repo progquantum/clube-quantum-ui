@@ -1,12 +1,16 @@
 import Image from 'next/image'
 import { SubmitHandler, useForm } from 'react-hook-form'
 import { yupResolver } from '@hookform/resolvers/yup'
+import { toast } from 'react-toastify'
+import { useRouter } from 'next/router'
 
 import { Input } from 'components/Input'
 import { Footer } from 'components/Footer'
 
 import { schema } from 'schemas/recoveryPassword'
 import { useRecoveryPassword } from 'hooks/auth/useRecoveryPassword'
+
+import { SIGN_IN_PAGE } from 'constants/routesPath'
 
 import { RecoveryPasswordFormValues } from './types'
 import * as S from './styles'
@@ -22,13 +26,21 @@ export function ForgotPasswordPage () {
     resolver: yupResolver(schema)
   })
 
-  const { mutate: sendRecoveryPassword, isLoading } = useRecoveryPassword()
+  const router = useRouter()
+
+  const { mutate: sendRecoveryPasswordRequest, isLoading } = useRecoveryPassword()
 
   const handleRecoveryPassword: SubmitHandler<RecoveryPasswordFormValues> = ({
     email
   }) => {
-    sendRecoveryPassword({
+    sendRecoveryPasswordRequest({
       email
+    }, {
+      onSuccess: (_, variables) => {
+        toast.success(`Enviado e-mail para ${variables.email}`)
+
+        router.push(SIGN_IN_PAGE)
+      }
     })
   }
 

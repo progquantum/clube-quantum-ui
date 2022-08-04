@@ -1,6 +1,7 @@
 import { FaAngleRight } from 'react-icons/fa'
 import { useForm } from 'react-hook-form'
 import { yupResolver } from '@hookform/resolvers/yup'
+import { toast } from 'react-toastify'
 
 import { useAuthDispatch } from 'contexts/auth/AuthContext'
 import { phoneNumberSchema } from 'schemas/signUp'
@@ -21,14 +22,21 @@ export function PhoneNumberInput ({ onUpdateFormStep }: PhoneNumberProps) {
   })
 
   const { signUp } = useAuthDispatch()
-  const { mutate, isLoading } = useSendPhoneCode()
+  const { mutate: sendPhoneCodeRequest, isLoading } = useSendPhoneCode()
 
   function onSubmitPhoneNumber (data: FormData) {
     const phone = `+55 ${data.phone}`
 
-    mutate({ phone })
-    signUp({ phone })
-    onUpdateFormStep()
+    sendPhoneCodeRequest({ phone }, {
+      onSuccess: (_, variables) => {
+        toast.success(`Codigo enviado para o numero ${variables.phone}`)
+        signUp({ phone })
+        onUpdateFormStep()
+      },
+      onError: () => {
+        toast.error('Número de telefone inválido!')
+      }
+    })
   }
 
   return (

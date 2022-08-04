@@ -4,12 +4,10 @@ import { api } from 'config/client'
 
 import { SendPhoneCodeData } from './types'
 
-const sendPhoneCode = ({ phone }: SendPhoneCodeData) => (
-  api.post('/phones/create-code', {
-    phone
-  })
+const sendPhoneCodeRequest = (data: SendPhoneCodeData) => (
+  api.post('/phones/create-code', data)
 )
 
 export function useSendPhoneCode () {
-  return useMutation(sendPhoneCode)
+  return useMutation(sendPhoneCodeRequest)
 }

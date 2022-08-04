@@ -4,12 +4,10 @@ import { api } from 'config/client'
 
 import { RegisterSubscriptionData } from './types'
 
-export const registerSubscription = ({ plan, bank_account, credit_card }: RegisterSubscriptionData) => (
-  api.post('/subscriptions', {
-    plan,
-    bank_account,
-    credit_card
-  })
+export const registerSubscription = (
+  data: RegisterSubscriptionData
+) => (
+  api.post('/subscriptions', data)
 )
 
 export function useRegisterSubscription () {

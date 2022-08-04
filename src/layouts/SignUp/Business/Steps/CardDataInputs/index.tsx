@@ -5,9 +5,7 @@ import Image from 'next/image'
 import { Input } from 'components/Input'
 
 import { Container, NextStepButton } from '../../../components'
-
 import { CardDataInputsProps } from './types'
-
 import * as S from './styles'
 
 export function CardDataInputs ({ onUpdateFormStep }: CardDataInputsProps) {

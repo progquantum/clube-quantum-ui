@@ -64,7 +64,12 @@ export function CardDataInputs ({
             control={control}
           />
 
-          <Image width={110} height={76} src='/images/visa-card.png' alt='Mastercard' />
+          <Image
+            width={110}
+            height={76}
+            src='/images/visa-card.png'
+            alt='Mastercard'
+          />
         </S.Wrapper>
 
         <Input

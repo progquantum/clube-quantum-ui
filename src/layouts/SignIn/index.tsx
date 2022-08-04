@@ -6,14 +6,10 @@ import Head from 'next/head'
 
 import { Input } from 'components/Input'
 import { Footer } from 'components/Footer'
-
 import { useAuthDispatch, useAuthState } from 'contexts/auth/AuthContext'
-
 import { schema } from 'schemas/signIn'
-
 import { formatCPF } from 'utils/formatters/formatCPF'
-
-import { FORGOT_PASSWORD_PAGE, RESET_PASSWORD_PAGE, SIGN_UP_PAGE } from 'constants/routesPath'
+import { FORGOT_PASSWORD_PAGE, SIGN_UP_PAGE } from 'constants/routesPath'
 
 import { SignInFormValues } from './types'
 import * as S from './styles'
@@ -31,9 +27,7 @@ export function SignInPage () {
     },
     resolver: yupResolver(schema)
   })
-
   const { signIn } = useAuthDispatch()
-
   const { loading } = useAuthState()
 
   const onSubmit: SubmitHandler<SignInFormValues> = (data) => {

@@ -1,4 +1,5 @@
 import { FormEvent, useState } from 'react'
+import { toast } from 'react-toastify'
 
 import { useAuthState } from 'contexts/auth/AuthContext'
 import { PinCodeGrid } from 'components/PinCodeGrid'
@@ -12,7 +13,7 @@ import * as S from './styles'
 const PIN_LENGTH = 6
 
 export function PinCodeInput ({ onNextFormStep, onPreviousFormStep }: PinCodeProps) {
-  const { mutate: requestCheckPhoneCode, isLoading: isCheckingPhone } = useCheckPhoneCode()
+  const { mutateAsync: requestCheckPhoneCode, isLoading: isCheckingPhone } = useCheckPhoneCode()
   const { mutate: requestSendPhoneCode, isLoading: isSendingPhoneCode } = useSendPhoneCode()
   const { registerUser } = useAuthState()
 
@@ -38,7 +39,12 @@ export function PinCodeInput ({ onNextFormStep, onPreviousFormStep }: PinCodePro
       phone,
       code
     }, {
-      onSuccess: () => onNextFormStep()
+      onSuccess: () => {
+        onNextFormStep()
+      },
+      onError: () => {
+        toast.error('Código inválido!')
+      }
     })
   }
 

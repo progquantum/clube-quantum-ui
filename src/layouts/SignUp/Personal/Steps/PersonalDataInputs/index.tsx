@@ -4,10 +4,9 @@ import { yupResolver } from '@hookform/resolvers/yup'
 
 import { useAuthDispatch } from 'contexts/auth/AuthContext'
 import { Input } from 'components/Input'
+import { Button } from 'components/Button'
 import { personalDataSchema } from 'schemas/signUp'
 import { formatBirthDate } from 'utils/formatters/formatBirthDate'
-
-import { Button } from 'components/Button'
 
 import { Container, Form } from '../../../components'
 import { PersonalDataInputsProps, FormData } from './types'
