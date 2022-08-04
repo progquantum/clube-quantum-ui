@@ -1,21 +1,22 @@
 import Image from 'next/image'
 import Link from 'next/link'
 
+import { SideBarProps } from './types'
 import * as S from './styles'
 
-type Props = {
-  isHasPlan: boolean;
-}
-
-export function Menu ({ isHasPlan }: Props) {
+export function SideBar ({ hasPlan = true }: SideBarProps) {
   return (
     <S.Container>
-
       <Link href='/'>
         <S.ItemContainer>
           <S.Content>
             <S.DivImage>
-              <Image width={19.15} height={24} src='/images/icon-my-account.svg' alt='Icone Minha Conta' />
+              <Image
+                width={19.15}
+                height={24}
+                src='/images/icon-my-account.svg'
+                alt='Icone Minha Conta'
+              />
             </S.DivImage>
             <S.Text>Minha Conta</S.Text>
           </S.Content>
@@ -26,19 +27,29 @@ export function Menu ({ isHasPlan }: Props) {
         <S.ItemContainer>
           <S.Content>
             <S.DivImage>
-              <Image width={24} height={24} src='/images/icon-update-user.svg' alt='Icone Atualizar Cadastro' />
+              <Image
+                width={24}
+                height={24}
+                src='/images/icon-update-user.svg'
+                alt='Icone Atualizar Cadastro'
+              />
             </S.DivImage>
             <S.Text>Atualizar Cadastro</S.Text>
           </S.Content>
         </S.ItemContainer>
       </Link>
-      {isHasPlan
+      {hasPlan
         ? (
           <Link href='/'>
             <S.ItemContainer>
               <S.Content>
                 <S.DivImage>
-                  <Image width={13.5} height={24} src='/images/icon-bank-statement.svg' alt='Icone Extratos' />
+                  <Image
+                    width={13.5}
+                    height={24}
+                    src='/images/icon-bank-statement.svg'
+                    alt='Icone Extratos'
+                  />
                 </S.DivImage>
                 <S.Text>Extratos</S.Text>
               </S.Content>
@@ -49,19 +60,29 @@ export function Menu ({ isHasPlan }: Props) {
           <S.ItemContainerDisabled>
             <S.Content>
               <S.DivImage>
-                <Image width={13.5} height={24} src='/images/icon-dollar.svg' alt='Icone Extratos' />
+                <Image
+                  width={13.5}
+                  height={24}
+                  src='/images/icon-dollar.svg'
+                  alt='Icone Extratos'
+                />
               </S.DivImage>
               <S.Text>Extratos</S.Text>
             </S.Content>
           </S.ItemContainerDisabled>
           )}
-      {isHasPlan
+      {hasPlan
         ? (
           <Link href='/'>
             <S.ItemContainer>
               <S.Content>
                 <S.DivImage>
-                  <Image width={24} height={24} src='/images/icon-my-friends.svg' alt='Icone Meus Amigos' />
+                  <Image
+                    width={24}
+                    height={24}
+                    src='/images/icon-my-friends.svg'
+                    alt='Icone Meus Amigos'
+                  />
                 </S.DivImage>
                 <S.Text>Meus Amigos</S.Text>
               </S.Content>
@@ -72,19 +93,29 @@ export function Menu ({ isHasPlan }: Props) {
           <S.ItemContainerDisabled>
             <S.Content>
               <S.DivImage>
-                <Image width={24} height={24} src='/images/icon-my-friends-disable.svg' alt='Icone Meus Amigos' />
+                <Image
+                  width={24}
+                  height={24}
+                  src='/images/icon-my-friends-disable.svg'
+                  alt='Icone Meus Amigos'
+                />
               </S.DivImage>
               <S.Text>Meus Amigos</S.Text>
             </S.Content>
           </S.ItemContainerDisabled>
           )}
-      {isHasPlan
+      {hasPlan
         ? (
           <Link href='/'>
             <S.ItemContainer>
               <S.Content>
                 <S.DivImage>
-                  <Image width={21.18} height={24} src='/images/icon-my-orders.svg' alt='Icone Meus Pedidos' />
+                  <Image
+                    width={21.18}
+                    height={24}
+                    src='/images/icon-my-orders.svg'
+                    alt='Icone Meus Pedidos'
+                  />
                 </S.DivImage>
                 <S.Text>Meus Pedidos</S.Text>
               </S.Content>
@@ -95,7 +126,12 @@ export function Menu ({ isHasPlan }: Props) {
           <S.ItemContainerDisabled>
             <S.Content>
               <S.DivImage>
-                <Image width={21.18} height={24} src='/images/icon-my-orders-disable.svg' alt='Icone Meus Pedidos' />
+                <Image
+                  width={21.18}
+                  height={24}
+                  src='/images/icon-my-orders-disable.svg'
+                  alt='Icone Meus Pedidos'
+                />
               </S.DivImage>
               <S.Text>Meus Pedidos</S.Text>
             </S.Content>
@@ -106,7 +142,12 @@ export function Menu ({ isHasPlan }: Props) {
         <S.ItemContainer>
           <S.Content>
             <S.DivImage>
-              <Image width={21.6} height={24} src='/images/icon-plans.svg' alt='Icone Planos' />
+              <Image
+                width={21.6}
+                height={24}
+                src='/images/icon-plans.svg'
+                alt='Icone Planos'
+              />
             </S.DivImage>
             <S.Text>Planos</S.Text>
           </S.Content>
@@ -117,7 +158,12 @@ export function Menu ({ isHasPlan }: Props) {
         <S.ItemContainer>
           <S.Content>
             <S.DivImage>
-              <Image width={21.6} height={24} src='/images/icon-licenses.svg' alt='Icone Lincenças' />
+              <Image
+                width={21.6}
+                height={24}
+                src='/images/icon-licenses.svg'
+                alt='Icone Lincenças'
+              />
             </S.DivImage>
             <S.Text>Lincenças</S.Text>
           </S.Content>
@@ -128,7 +174,12 @@ export function Menu ({ isHasPlan }: Props) {
         <S.ItemContainer>
           <S.Content>
             <S.DivImage>
-              <Image width={18.46} height={24} src='/images/icon-privacy-center.svg' alt='Icone Central de Privacidade' />
+              <Image
+                width={18.46}
+                height={24}
+                src='/images/icon-privacy-center.svg'
+                alt='Icone Central de Privacidade'
+              />
             </S.DivImage>
             <S.Text>Central de Privacidade</S.Text>
           </S.Content>
@@ -137,7 +188,12 @@ export function Menu ({ isHasPlan }: Props) {
 
       <S.DangerButton>
         <S.Text>Sair</S.Text>
-        <Image width={16} height={16} src='/images/icon-logout.svg' alt='Icone Sair' />
+        <Image
+          width={16}
+          height={16}
+          src='/images/icon-logout.svg'
+          alt='Icone Sair'
+        />
       </S.DangerButton>
 
     </S.Container>
