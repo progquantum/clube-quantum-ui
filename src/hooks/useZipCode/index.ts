@@ -4,7 +4,7 @@ import { api } from 'config/client'
 
 import { ZipCodePayload } from './types'
 
-const zipCodeMutation = (zipCode: string): Promise<ZipCodePayload> => (
+const zipCodeMutation = (zipCode: string) => (
   api.get<ZipCodePayload>(`/zips-code/${zipCode}`)
     .then(response => response.data)
 )

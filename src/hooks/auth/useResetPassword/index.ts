@@ -6,8 +6,8 @@ import { ResetPasswordRequestData } from './types'
 
 const resetPasswordMutation = (
   data: ResetPasswordRequestData
-): Promise<unknown> => (
-  api.put<unknown>('/passwords/reset', data)
+) => (
+  api.patch<unknown>('/passwords/reset', data)
 )
 
 export function useResetPassword () {

@@ -2,6 +2,8 @@ import { useState } from 'react'
 import Link from 'next/link'
 import Image from 'next/image'
 
+import { SIGN_IN_PAGE, SIGN_UP_PAGE } from 'constants/routesPath'
+
 import * as S from './styles'
 
 export function SideBar () {
@@ -59,8 +61,8 @@ export function SideBar () {
 
             <S.Box>
               <p>
-                Olá, faça seu <Link href='/signin'>Login</Link>{' '}
-                ou <Link href='/signup/personal' passHref>Cadastre-se </Link>
+                Olá, faça seu <Link href={SIGN_IN_PAGE}>Login</Link>{' '}
+                ou <Link href={SIGN_UP_PAGE} passHref>Cadastre-se </Link>
               </p>
             </S.Box>
           </>

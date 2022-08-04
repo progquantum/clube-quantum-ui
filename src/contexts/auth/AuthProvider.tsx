@@ -5,6 +5,7 @@ import { setCookie, destroyCookie } from 'nookies'
 
 import { User } from 'shared/types/apiSchema'
 import { USER_STORAGE_KEY, TOKEN_STORAGE_KEY, REFRESH_TOKEN_STORAGE_KEY } from 'constants/storage'
+import { DASHBOARD_PAGE, SIGN_IN_PAGE } from 'constants/routesPath'
 import { useSignIn } from 'hooks/auth/useSignIn'
 import { api } from 'config/client'
 import { logOut } from 'helpers/auth/logOut'
@@ -16,10 +17,8 @@ let authChannel: BroadcastChannel
 
 export function AuthProvider ({ children }: PropsWithChildren<unknown>) {
   const { mutate: signIn, isLoading: loading } = useSignIn()
-  const [registerUser, setRegisterUser] = useState<SignUpData>(null)
 
-  // eslint-disable-next-line no-console
-  console.log(registerUser)
+  const [registerUser, setRegisterUser] = useState<SignUpData>(null)
 
   const [user, setUser, deleteUser] = useLocalStorage<User>(
     USER_STORAGE_KEY,
@@ -61,7 +60,7 @@ export function AuthProvider ({ children }: PropsWithChildren<unknown>) {
 
         api.defaults.headers.common.Authorization = `Bearer ${token}`
 
-        router.push('/dashboard')
+        router.push(DASHBOARD_PAGE)
       }
     })
   },
@@ -82,7 +81,7 @@ export function AuthProvider ({ children }: PropsWithChildren<unknown>) {
     destroyCookie(undefined, TOKEN_STORAGE_KEY)
     destroyCookie(undefined, REFRESH_TOKEN_STORAGE_KEY)
 
-    router.push('/signin')
+    router.push(SIGN_IN_PAGE)
   },
   [
     deleteUser

@@ -97,8 +97,9 @@ export const addressDataSchema = Yup.object().shape({
   state: Yup
     .string()
     .required()
-    .min(2),
+    .matches(/[A-Z]{2,}/g),
   country: Yup
     .string()
     .required()
+    .matches(/[A-Za-z]/g)
 })
