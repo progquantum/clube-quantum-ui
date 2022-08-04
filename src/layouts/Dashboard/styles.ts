@@ -154,7 +154,7 @@ export const StatusPlan = styled.span`
   font-weight: 500;
   font-size: 14px;
   line-height: 17px;
-  color: ${({ theme }) => theme.colors.successlight};
+  color: ${({ theme }) => theme.colors.success};
 `
 
 export const ManageButton = styled(Button)`

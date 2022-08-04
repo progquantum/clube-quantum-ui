@@ -26,6 +26,5 @@ export const colors = {
   yellow: '#FFCA28',
   warning: '#FFC107',
   danger: '#E12B2B',
-  success: '#00C851',
-  successlight: '#8FC93A'
+  success: '#00C851'
 }
