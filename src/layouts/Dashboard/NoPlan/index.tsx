@@ -14,7 +14,6 @@ export function NoPlan () {
         Para tirar o máximo de proveito dos benefícios do clube quantum, você precisa aderir a um plano.
       </S.Text>
       <S.ButtonManagePlans>Gerenciar planos</S.ButtonManagePlans>
-
     </S.Container>
   )
 }
