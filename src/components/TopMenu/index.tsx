@@ -4,8 +4,12 @@ import Image from 'next/image'
 
 import * as S from './styles'
 import { INVITE_FRIENDS_PAGE } from '../../constants/routesPath'
+import { TopMenuProps } from './types'
+import { Skeleton } from './Skeleton'
 
-export function TopMenu () {
+export function TopMenu ({ loading }: TopMenuProps) {
+  if (loading) return <Skeleton />
+
   return (
 
     <S.Container>
