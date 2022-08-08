@@ -3,10 +3,13 @@ import Link from 'next/link'
 
 import { INVITE_FRIENDS_PAGE } from 'constants/routesPath'
 
+import { Skeleton } from './Skeleton'
 import { SideBarProps } from './types'
 import * as S from './styles'
 
-export function SideBar ({ isDisabled = false }: SideBarProps) {
+export function SideBar ({ loading, isDisabled = false }: SideBarProps) {
+  if (loading) return <Skeleton />
+
   return (
     <S.Container>
       <S.NavButton>
