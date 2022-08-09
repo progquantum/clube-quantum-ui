@@ -6,15 +6,15 @@ import { INVITE_FRIENDS_PAGE } from 'constants/routesPath'
 
 import { AccountBalance } from '../AccountBalance'
 
+import { MainContentProps } from './types'
 import * as S from './styles'
-import { MenuGridProps } from './types'
 
-export function MenuGrid ({ data }: MenuGridProps) {
+export function MainContent ({ data }: MainContentProps) {
   const balance = faker.finance.amount()
   const balanceInComing = faker.finance.amount()
 
   return (
-    <S.MenuGrid>
+    <S.Container>
       <AccountBalance
         title='Saldo em conta'
         description='Será transferido em 15/xx/xxxx'
@@ -129,6 +129,6 @@ export function MenuGrid ({ data }: MenuGridProps) {
           <S.ButtonInviteFriends>Convidar amigos</S.ButtonInviteFriends>
         </Link>
       </S.DivInviteFriends>
-    </S.MenuGrid>
+    </S.Container>
   )
 }

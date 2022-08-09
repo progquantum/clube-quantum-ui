@@ -1,6 +1,6 @@
 import { Subscription } from 'shared/types/apiSchema'
 
-export type MenuGridProps = {
+export type MainContentProps = {
   data: {
     subscription?: Subscription
   }
