@@ -1,6 +1,10 @@
 import { useState, useRef } from 'react'
 import { AnimatePresence } from 'framer-motion'
-import { FiLogOut, FiUser } from 'react-icons/fi'
+import { FiLogOut, FiUser, FiUsers, FiUserCheck } from 'react-icons/fi'
+import { BsCurrencyDollar } from 'react-icons/bs'
+import { FaShoppingBag } from 'react-icons/fa'
+import { MdAssignmentInd, MdAssignmentTurnedIn } from 'react-icons/md'
+import { IoMdDocument } from 'react-icons/io'
 import Link from 'next/link'
 
 import { useAuthDispatch, useAuthState } from 'contexts/auth/AuthContext'
@@ -45,6 +49,41 @@ export function AccountDropdown () {
                   Perfil
                 </S.NavButton>
               </Link>
+
+              <S.NavButton>
+                <FiUserCheck />
+                Cadastro
+              </S.NavButton>
+
+              <S.NavButton>
+                <BsCurrencyDollar />
+                Extratos
+              </S.NavButton>
+
+              <S.NavButton>
+                <FiUsers />
+                Amigos
+              </S.NavButton>
+
+              <S.NavButton>
+                <FaShoppingBag />
+                Pedidos
+              </S.NavButton>
+
+              <S.NavButton>
+                <MdAssignmentInd />
+                Planos
+              </S.NavButton>
+
+              <S.NavButton>
+                <MdAssignmentTurnedIn />
+                Licenças
+              </S.NavButton>
+
+              <S.NavButton>
+                <IoMdDocument />
+                Privacidade
+              </S.NavButton>
 
               <S.NavButton onClick={signOut}>
                 <FiLogOut />

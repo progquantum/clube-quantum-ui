@@ -58,6 +58,10 @@ export const NavButton = styled(Button)`
       border-radius: ${theme.radiis.smallTop};
     }
 
+    :nth-child(n+2):nth-child(-n+8) {
+      border-radius: 0px;
+    }
+
     :last-child {
       border-radius: ${theme.radiis.smallBottom};
     }
