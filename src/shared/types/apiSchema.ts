@@ -10,6 +10,7 @@ export type User = {
     city: string
     state: string
   }
+  invite_code?: string
 }
 
 export type Session = {
