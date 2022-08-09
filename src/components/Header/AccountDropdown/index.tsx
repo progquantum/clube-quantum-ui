@@ -8,7 +8,6 @@ import { IoMdDocument } from 'react-icons/io'
 import Link from 'next/link'
 
 import { useAuthDispatch, useAuthState } from 'contexts/auth/AuthContext'
-
 import { DASHBOARD_PAGE } from 'constants/routesPath'
 
 import { DROP_DOWN_ANIMATION } from './animations'
@@ -28,7 +27,7 @@ export function AccountDropdown () {
 
   return (
     <S.Container onClick={handleDropdownVisibility}>
-      <img
+      <S.AccountDropdown
         src={`https://ui-avatars.com/api/?rounded=true&format=svg&background=F5F6FA&color=0E5AE4&name=${user.name}`}
         alt={`Conta de ${user.name}`}
       />
@@ -87,7 +86,7 @@ export function AccountDropdown () {
 
               <S.NavButton onClick={signOut}>
                 <FiLogOut />
-                Sair da Conta
+                Sair
               </S.NavButton>
             </ul>
           </S.AnimatedDropdown>

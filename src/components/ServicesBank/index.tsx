@@ -4,10 +4,10 @@ import Image from 'next/image'
 
 import * as S from './styles'
 import { INVITE_FRIENDS_PAGE } from '../../constants/routesPath'
-import { TopMenuProps } from './types'
+import { ServicesBankProps } from './types'
 import { Skeleton } from './Skeleton'
 
-export function TopMenu ({ loading }: TopMenuProps) {
+export function ServicesBank ({ loading }: ServicesBankProps) {
   if (loading) return <Skeleton />
 
   return (

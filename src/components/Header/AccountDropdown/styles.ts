@@ -10,11 +10,11 @@ export const Container = styled.div`
   margin-left: 1.5rem;
   position: relative;
   cursor: pointer;
+`
 
-  > img {
-    width: 3rem;
-    height: 3rem;
-  }
+export const AccountDropdown = styled.img`
+  width: 3rem;
+  height: 3rem;
 `
 
 export const AnimatedDropdown = styled(motion.nav)`
@@ -28,7 +28,7 @@ export const AnimatedDropdown = styled(motion.nav)`
     background: ${theme.colors.ghostwhite};
     box-shadow: 0 0.6rem 0.6rem rgba(0, 0, 0, 0.12);
 
-    ::before {
+    &::before {
       content: '';
       display: block;
       position: absolute;
@@ -50,19 +50,19 @@ export const NavButton = styled(Button)`
     background: ${theme.colors.ghostwhite};
     color: ${theme.colors.midnightBlue};
 
-    :hover {
+    &:hover {
       background: ${theme.colors.background};
     }
 
-    :first-child {
+    &:first-child {
       border-radius: ${theme.radiis.smallTop};
     }
 
-    :nth-child(n+2):nth-child(-n+8) {
+    &:nth-child(n+2):nth-child(-n+8) {
       border-radius: 0px;
     }
 
-    :last-child {
+    &:last-child {
       border-radius: ${theme.radiis.smallBottom};
     }
   `}
