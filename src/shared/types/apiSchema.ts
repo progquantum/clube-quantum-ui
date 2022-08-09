@@ -1,6 +1,11 @@
+export type Subscription = {
+  plan_name: string
+  is_active: boolean
+}
+
 export type User = {
   name: string
-  subscription: string
+  subscription?: Subscription
   address: {
     city: string
     state: string

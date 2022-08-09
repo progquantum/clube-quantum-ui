@@ -1,5 +1,7 @@
-import { User } from 'shared/types/apiSchema'
+import { Subscription } from 'shared/types/apiSchema'
 
 export type MenuGridProps = {
-  data: User
+  data: {
+    subscription?: Subscription
+  }
 }

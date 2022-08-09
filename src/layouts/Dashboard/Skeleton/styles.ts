@@ -3,7 +3,7 @@ import styled from 'styled-components'
 
 export const MenuGrid = styled.div`
 width: 100%;
-margin: 2rem 0;
+margin: 1rem 0;
 gap: 1rem;
 display: flex;
 flex-direction: column;
@@ -17,6 +17,7 @@ export const AccountCotainer = styled.div`
   gap: 0rem 2rem;
   @media (max-width: 1024px){
     flex-direction: column;
+    gap: 1rem 0;
   }
 `
 
@@ -36,7 +37,7 @@ export const AccountBalance = styled(Skeleton)`
     height: 8.3125rem;
   }
 
-  @media (max-width: 414px){
+  @media (max-width: 460px){
     width: 20.625rem;
 
   }
@@ -58,7 +59,7 @@ export const AccountBalanceIncoming = styled(Skeleton)`
     height: 8.3125rem;
   }
 
-  @media (max-width: 414px){
+  @media (max-width: 460px){
     width: 20.625rem;
 
   }
@@ -78,10 +79,11 @@ border-radius: .9375rem;
 
 @media (max-width: 1024px){
   width: 27.0625rem;
+  height: 13.6981rem;
 
 }
 
-@media (max-width: 414px){
+@media (max-width: 460px){
   width: 20.625rem;
   height: 19.0106rem;
 }
@@ -94,6 +96,7 @@ export const CotainerPlan = styled.div`
   gap: 0rem 2rem;
   @media (max-width: 1024px){
     flex-direction: column;
+    gap: 1rem 0;
   }
 `
 
@@ -112,7 +115,7 @@ border-radius: .9375rem;
 @media (max-width:1024px ){
   width: 27.0625rem;
 }
-@media (max-width: 414px){
+@media (max-width: 460px){
   width: 20.625rem;
 }
 
@@ -133,7 +136,7 @@ border-radius: .9375rem;
 @media (max-width:1024px ){
   width: 27.0625rem;
 }
-@media (max-width: 414px){
+@media (max-width: 460px){
   width: 20.625rem;
 }
 `

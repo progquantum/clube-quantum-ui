@@ -100,11 +100,11 @@ export function MenuGrid ({ data }: MenuGridProps) {
             src='/images/icon-plan.svg'
             alt='icone plano'
           />
-          <S.TitlePlan>{data.subscription.plan_name}</S.TitlePlan>
+          <S.TitlePlan>{data.subscription?.plan_name}</S.TitlePlan>
         </S.HeaderSelectPlan>
         <S.DivStatusPlan>
-          <S.TitleStatusPlan>{data.subscription.plan_name}</S.TitleStatusPlan>
-          <S.StatusPlan>{data.subscription.is_active ? 'Ativo' : 'Inativo'}</S.StatusPlan>
+          <S.TitleStatusPlan>{data.subscription?.plan_name}</S.TitleStatusPlan>
+          <S.StatusPlan>{data.subscription?.is_active ? 'Ativo' : 'Inativo'}</S.StatusPlan>
         </S.DivStatusPlan>
         <S.ManageButton>Gerenciar planos</S.ManageButton>
         <S.Deadline>

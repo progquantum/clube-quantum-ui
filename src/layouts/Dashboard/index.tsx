@@ -16,15 +16,28 @@ const Header = dynamic(() => import('components/Header').then((mod) => mod.Heade
 export function DashboardPage () {
   const { data, isLoading } = useFindMe()
 
+  const hasPlan = !data?.subscription
+
+  const fullName = data?.name ? data.name : ''
+  const myArray = fullName.split(' ')
+  const fisrtNameUpper = myArray[0]
+  const firstName = fisrtNameUpper.charAt(0).toLocaleUpperCase() + fisrtNameUpper.slice(1).toLocaleLowerCase()
+
   return (
     <>
       <title>Dashboard - Clube Quantum</title>
 
       <Header />
       <S.Container>
-        <SideBar loading={isLoading} />
+        <SideBar
+          isDisabled={hasPlan}
+          loading={isLoading}
+        />
         <S.RightWrapper>
-          <TopMenu loading={isLoading} />
+          <TopMenu
+            name={firstName}
+            loading={isLoading}
+          />
           {isLoading
             ? (<Skeleton />)
             : (data?.subscription

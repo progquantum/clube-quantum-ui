@@ -40,7 +40,7 @@ border-radius: .9375rem;
   gap: 1.25rem;
 }
 
-@media (max-width: 414px){
+@media (max-width: 460px){
   width: 20.625rem;
 }
 `
@@ -81,7 +81,7 @@ border-radius: 50px;
 @media (max-width: 1024px){
   left: -22px;
 }
-@media (max-width: 414px){
+@media (max-width: 460px){
   left: -12px;
 }
 `
@@ -108,7 +108,7 @@ background-color: ${({ theme }) => theme.colors.white};
 @media (max-width:1024px ){
   width: 27.0625rem;
 }
-@media (max-width: 414px){
+@media (max-width: 460px){
   width: 20.625rem;
 }
 
@@ -188,7 +188,7 @@ border-radius: .9375rem;
 @media (max-width:1024px ){
   width: 27.0625rem;
 }
-@media (max-width: 414px){
+@media (max-width: 460px){
   width: 20.625rem;
 }
 `
@@ -207,5 +207,12 @@ color: ${({ theme }) => theme.colors.white};
 export const ButtonInviteFriends = styled(Button)`
 background-color: ${({ theme }) => theme.colors.white};
 color: ${({ theme }) => theme.colors.midnightBlue};
+border: 2px solid ${({ theme }) => theme.colors.white};
 width: 100%;
+
+:hover {
+  background: ${({ theme }) => theme.gradients.midnightBlueToMediumsLateBlue} ;
+  color: ${({ theme }) => theme.colors.white};
+  border: 2px solid ${({ theme }) => theme.colors.white};
+}
 `
