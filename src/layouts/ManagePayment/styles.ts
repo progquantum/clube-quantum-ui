@@ -14,7 +14,7 @@ export const Container = styled.main`
 export const RightWrapper = styled.div`
   display: flex;
   flex-direction: column;
-  @media (max-width: 414px){
+  @media (max-width: 460px){
     align-items: center;
   }
 `
@@ -26,4 +26,13 @@ export const MenuGrid = styled.div`
   grid-template-columns: 1fr 1fr;
   grid-template-rows: 1fr 1fr 2fr;
 
+`
+
+export const CardsContainer = styled.div`
+  display: flex;
+  gap: 1.25rem;
+
+  @media (max-width: 1024px){
+    flex-direction: column;
+  }
 `
