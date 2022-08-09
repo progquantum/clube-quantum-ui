@@ -1,13 +1,10 @@
 import Image from 'next/image'
-import Link from 'next/link'
-
-import { INVITE_FRIENDS_PAGE } from 'constants/routesPath'
 
 import { Skeleton } from './Skeleton'
 import { SideBarProps } from './types'
 import * as S from './styles'
 
-export function SideBar ({ loading, isDisabled = false }: SideBarProps) {
+export function SideBar ({ loading, isDisabled }: SideBarProps) {
   if (loading) return <Skeleton />
 
   return (
@@ -48,19 +45,17 @@ export function SideBar ({ loading, isDisabled = false }: SideBarProps) {
         Extratos
       </S.NavButton>
 
-      <Link href={INVITE_FRIENDS_PAGE}>
-        <S.NavButton disabled={isDisabled}>
-          <S.WrapImage>
-            <Image
-              width={24}
-              height={24}
-              src='/images/icon-my-friends.svg'
-              alt='Icone Meus Amigos'
-            />
-          </S.WrapImage>
-          Meus Amigos
-        </S.NavButton>
-      </Link>
+      <S.NavButton disabled={isDisabled}>
+        <S.WrapImage>
+          <Image
+            width={24}
+            height={24}
+            src='/images/icon-my-friends.svg'
+            alt='Icone Meus Amigos'
+          />
+        </S.WrapImage>
+        Meus Amigos
+      </S.NavButton>
 
       <S.NavButton disabled={isDisabled}>
         <S.WrapImage>
