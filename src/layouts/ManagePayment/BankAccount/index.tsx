@@ -39,7 +39,7 @@ export function BankAccount () {
                 </S.BankingAccount>
 
                 <S.BankingAccount>
-                  <S.TitleContent>Banco</S.TitleContent>
+                  <S.TitleContent>Conta</S.TitleContent>
                   <S.TextContent>0000-1</S.TextContent>
                 </S.BankingAccount>
 
@@ -58,7 +58,7 @@ export function BankAccount () {
                 <S.ContentTitle>Sua conta Banco Um</S.ContentTitle>
               </S.YourAccount>
               <S.TextContent>Nenhuma conta Banco Um registrada, gostaria de adicionar uma nova conta?</S.TextContent>
-              <S.BankAccountButton>Cadastrar uma conta bancária</S.BankAccountButton>
+              <S.BankAccountButton>Cadastrar conta bancária</S.BankAccountButton>
             </>
             )}
       </S.Content>

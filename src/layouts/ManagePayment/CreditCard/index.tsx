@@ -41,8 +41,8 @@ export function CreditCard () {
                 <Image src='/images/credit-card.svg' width={22} height={16} />
                 <S.ContentTitle>Seu cartão cadastrado</S.ContentTitle>
               </S.YourAccount>
-              <S.TextContent>Para poder tirar o máximo de proveito dos benefícios da plataforma, você precisa adicionar um cartão.</S.TextContent>
-              <Button>Cadastrar cartão</Button>
+              <S.TextContent>Para cadastrar um cartão de crédito e aproveitar os benefícios clube quantum é necessário realizar uma assinatura.</S.TextContent>
+              <Button>Continuar</Button>
             </>
             )}
       </S.Content>
