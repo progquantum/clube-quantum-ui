@@ -7,7 +7,7 @@ import { INVITE_FRIENDS_PAGE } from '../../constants/routesPath'
 import { TopMenuProps } from './types'
 import { Skeleton } from './Skeleton'
 
-export function TopMenu ({ loading, name }: TopMenuProps) {
+export function TopMenu ({ loading }: TopMenuProps) {
   if (loading) return <Skeleton />
 
   return (
@@ -16,7 +16,7 @@ export function TopMenu ({ loading, name }: TopMenuProps) {
 
       <S.DivItem>
         <Image width={25} height={25} src='/images/icon-my-account.svg' alt='Icon Usuário' />
-        <S.Text>Olá, {name}</S.Text>
+        <S.Text>Atualizar Cadastro</S.Text>
       </S.DivItem>
 
       <S.DivItem>

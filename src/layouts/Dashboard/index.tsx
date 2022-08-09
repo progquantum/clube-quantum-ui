@@ -18,11 +18,6 @@ export function DashboardPage () {
 
   const hasPlan = !data?.subscription
 
-  const fullName = data?.name ? data.name : ''
-  const myArray = fullName.split(' ')
-  const fisrtNameUpper = myArray[0]
-  const firstName = fisrtNameUpper.charAt(0).toLocaleUpperCase() + fisrtNameUpper.slice(1).toLocaleLowerCase()
-
   return (
     <>
       <title>Dashboard - Clube Quantum</title>
@@ -35,7 +30,6 @@ export function DashboardPage () {
         />
         <S.RightWrapper>
           <TopMenu
-            name={firstName}
             loading={isLoading}
           />
           {isLoading

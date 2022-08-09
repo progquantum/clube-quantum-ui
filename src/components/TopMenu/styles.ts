@@ -42,7 +42,7 @@ export const Text = styled.p`
 export const DivDisabled = styled(DivItem)`
   background-color: ${({ theme }) => theme.colors.gray[100]};
   color: ${({ theme }) => theme.colors.gray[400]};
-  cursor: default;
+  cursor: not-allowed;
   @media (max-width: 1024px){
     display: none;
   }
