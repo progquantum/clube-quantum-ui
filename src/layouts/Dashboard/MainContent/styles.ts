@@ -50,6 +50,7 @@ export const ItemMarket = styled.div`
   align-items: center;
   justify-content: center;
   gap: .625rem;
+  cursor: not-allowed;
 `
 export const AccessMarket = styled.div`
   display: flex;
@@ -85,11 +86,15 @@ export const ComingSoon = styled.span`
     left: -12px;
   }
 `
-export const ButtonDisabled = styled(Button)`
+export const ButtonMarketplace = styled(Button)`
   background: ${({ theme }) => theme.colors.lightsteelblueice};
   color: ${({ theme }) => theme.colors.cornflowerblue};
   height: 2.3125rem;
-  cursor: default;
+
+  &:disabled {
+    cursor: not-allowed;
+  }
+
 `
 
 export const DivSelectPlan = styled.div`
@@ -144,6 +149,12 @@ export const ManageButton = styled(Button)`
   font-size: .875rem;
   line-height: 1.0625rem;
   font-weight: 500;
+
+  &:disabled {
+    opacity: 0.6;
+    cursor: not-allowed;
+  }
+
 `
 
 export const Deadline = styled.div`
@@ -171,10 +182,15 @@ export const ButtonCancel = styled(Button)`
   height: 37px;
   width: 135.75px;
 
-  &:hover {
+  &:disabled {
+    opacity: 0.6;
+    cursor: not-allowed;
+  }
+
+  /* &:hover {
     background: ${({ theme }) => theme.colors.danger};
     color: ${({ theme }) => theme.colors.white};
-  }
+  } */
 `
 
 export const DivInviteFriends = styled.div`

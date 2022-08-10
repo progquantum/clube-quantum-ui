@@ -41,9 +41,9 @@ export function MainContent ({ data }: MainContentProps) {
             />
             <S.MarketText>Marketplace Quantum</S.MarketText>
           </S.HeaderAccessMarket>
-          <S.ButtonDisabled>
+          <S.ButtonMarketplace disabled>
             Acessar o marketplace
-          </S.ButtonDisabled>
+          </S.ButtonMarketplace>
         </S.AccessMarket>
         <S.ItemMarket>
           <Image
@@ -106,10 +106,10 @@ export function MainContent ({ data }: MainContentProps) {
           <S.TitleStatusPlan>{data.subscription?.plan_name}</S.TitleStatusPlan>
           <S.StatusPlan>{data.subscription?.is_active ? 'Ativo' : 'Inativo'}</S.StatusPlan>
         </S.DivStatusPlan>
-        <S.ManageButton>Gerenciar planos</S.ManageButton>
+        <S.ManageButton disabled>Gerenciar planos</S.ManageButton>
         <S.Deadline>
           <S.TextDeadline>Sua assinatura será renovada em 15/xx/xxxx</S.TextDeadline>
-          <S.ButtonCancel>Cancelar</S.ButtonCancel>
+          <S.ButtonCancel disabled>Cancelar</S.ButtonCancel>
         </S.Deadline>
       </S.DivSelectPlan>
 
