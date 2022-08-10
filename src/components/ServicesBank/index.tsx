@@ -14,27 +14,27 @@ export function ServicesBank ({ loading }: ServicesBankProps) {
 
     <S.Container>
 
-      <S.DivItem>
+      <S.ButtonItem>
         <Image width={25} height={25} src='/images/icon-my-account.svg' alt='Icon Usuário' />
         <S.Text>Atualizar Cadastro</S.Text>
-      </S.DivItem>
+      </S.ButtonItem>
 
-      <S.DivItem>
+      <S.ButtonItem>
         <Image width={25} height={25} src='/images/icon-payment.svg' alt='Icon dados pagamento' />
         <S.Text>Dados de Pagamento</S.Text>
-      </S.DivItem>
+      </S.ButtonItem>
 
       <Link href={INVITE_FRIENDS_PAGE}>
-        <S.DivItem>
+        <S.ButtonItem>
           <Image width={25} height={25} src='/images/icon-invited-friends.svg' alt='Icon convidar amigos' />
           <S.Text>Convidar amigos</S.Text>
-        </S.DivItem>
+        </S.ButtonItem>
       </Link>
 
-      <S.DivDisabled>
+      <S.ButtonMarketplace disabled>
         <Image width={25} height={25} src='/images/icon-disabled-marketplace.svg' alt='Icon marketplace' />
         <S.Text>Marketplace</S.Text>
-      </S.DivDisabled>
+      </S.ButtonMarketplace>
 
     </S.Container>
 

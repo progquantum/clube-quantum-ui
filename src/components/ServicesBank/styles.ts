@@ -14,12 +14,13 @@ export const Container = styled.div`
 
 `
 
-export const DivItem = styled.div`
+export const ButtonItem = styled.button`
   display: flex;
   justify-content: center;
   align-items: center;
   flex-direction: column;
   gap: .625rem;
+  background-color: ${({ theme }) => theme.colors.background};
   box-shadow: 0 0 1.25rem rgba(0, 0, 0, 0.1);
   border-radius: 0.313rem;
   width: 10.7269rem;
@@ -32,6 +33,12 @@ export const DivItem = styled.div`
   @media (max-width: 460px){
     width: 9.563rem;
   }
+
+  &:disabled {
+    background-color: ${({ theme }) => theme.colors.gray[100]};
+    color: ${({ theme }) => theme.colors.gray[400]};
+    cursor: not-allowed;
+  }
 `
 
 export const Text = styled.p`
@@ -39,10 +46,7 @@ export const Text = styled.p`
   font-size: 0.75rem;
   line-height: 0.938rem;
 `
-export const DivDisabled = styled(DivItem)`
-  background-color: ${({ theme }) => theme.colors.gray[100]};
-  color: ${({ theme }) => theme.colors.gray[400]};
-  cursor: not-allowed;
+export const ButtonMarketplace = styled(ButtonItem)`
   @media (max-width: 1024px){
     display: none;
   }
