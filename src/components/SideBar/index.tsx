@@ -1,27 +1,37 @@
 import Image from 'next/image'
 
+import Link from 'next/link'
+
+import { DASHBOARD_PAGE } from 'constants/routesPath'
+
+import { useAuthDispatch } from 'contexts/auth/AuthContext'
+
 import { Skeleton } from './Skeleton'
 import { SideBarProps } from './types'
 import * as S from './styles'
 
 export function SideBar ({ loading, isDisabled }: SideBarProps) {
+  const { signOut } = useAuthDispatch()
+
   if (loading) return <Skeleton />
 
   return (
     <S.Container>
-      <S.NavButton>
-        <S.WrapImage>
-          <Image
-            width={19.15}
-            height={24}
-            src='/images/icon-my-account.svg'
-            alt='Icone Minha Conta'
-          />
-        </S.WrapImage>
-        Minha Conta
-      </S.NavButton>
+      <Link href={DASHBOARD_PAGE}>
+        <S.NavButton>
+          <S.WrapImage>
+            <Image
+              width={19.15}
+              height={24}
+              src='/images/icon-my-account.svg'
+              alt='Icone Minha Conta'
+            />
+          </S.WrapImage>
+          Minha Conta
+        </S.NavButton>
+      </Link>
 
-      <S.NavButton>
+      <S.NavButton disabled>
         <S.WrapImage>
           <Image
             width={24}
@@ -33,7 +43,7 @@ export function SideBar ({ loading, isDisabled }: SideBarProps) {
         Atualizar Cadastro
       </S.NavButton>
 
-      <S.NavButton disabled={isDisabled}>
+      <S.NavButton disabled>
         <S.WrapImage>
           <Image
             width={13.5}
@@ -45,7 +55,7 @@ export function SideBar ({ loading, isDisabled }: SideBarProps) {
         Extratos
       </S.NavButton>
 
-      <S.NavButton disabled={isDisabled}>
+      <S.NavButton disabled>
         <S.WrapImage>
           <Image
             width={24}
@@ -57,7 +67,7 @@ export function SideBar ({ loading, isDisabled }: SideBarProps) {
         Meus Amigos
       </S.NavButton>
 
-      <S.NavButton disabled={isDisabled}>
+      <S.NavButton disabled>
         <S.WrapImage>
           <Image
             width={21.18}
@@ -69,7 +79,7 @@ export function SideBar ({ loading, isDisabled }: SideBarProps) {
         Meus Pedidos
       </S.NavButton>
 
-      <S.NavButton>
+      <S.NavButton disabled>
         <S.WrapImage>
           <Image
             width={21.6}
@@ -81,7 +91,7 @@ export function SideBar ({ loading, isDisabled }: SideBarProps) {
         Planos
       </S.NavButton>
 
-      <S.NavButton>
+      <S.NavButton disabled>
         <S.WrapImage>
           <Image
             width={21.6}
@@ -93,7 +103,7 @@ export function SideBar ({ loading, isDisabled }: SideBarProps) {
         Lincenças
       </S.NavButton>
 
-      <S.NavButton>
+      <S.NavButton disabled>
         <S.WrapImage>
           <Image
             width={18.46}
@@ -105,7 +115,7 @@ export function SideBar ({ loading, isDisabled }: SideBarProps) {
         Central de Privacidade
       </S.NavButton>
 
-      <S.SignOutButton>
+      <S.SignOutButton onClick={signOut}>
         Sair
         <Image
           width={16}
