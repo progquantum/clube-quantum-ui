@@ -8,6 +8,9 @@ export type FindBilling = {
     bank_code: string,
     bank_name: string,
     agency: string,
-    holder_name: string
+    holder_name: string,
+    current_account: string,
+    current_account_check_number: string
   },
+
 }
