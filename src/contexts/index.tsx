@@ -17,17 +17,7 @@ export function AppProvider ({ children }: PropsWithChildren<unknown>) {
       <QueryClientProvider client={queryClient}>
         <AuthProvider>
           <StyledProvider>
-            <ToastContainer
-              position='top-right'
-              autoClose={5000}
-              hideProgressBar={false}
-              newestOnTop={false}
-              closeOnClick
-              rtl={false}
-              pauseOnFocusLoss
-              draggable
-              pauseOnHover
-            />
+            <ToastContainer />
             {children}
           </StyledProvider>
         </AuthProvider>

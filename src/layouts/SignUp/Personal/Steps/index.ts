@@ -1,8 +1,0 @@
-export { CPFInput } from './CPFInput'
-export { PhoneNumberInput } from './PhoneNumberInput'
-export { PinCodeInput } from './PinCodeInput'
-export { PersonalDataInputs } from './PersonalDataInputs'
-export { AddressDataInputs } from './AddressDataInputs'
-export { CardDataInputs } from './CardDataInputs'
-export { DataPlans } from './DataPlans'
-export { SuccessfulSignUp } from './SuccessfulSignUp'

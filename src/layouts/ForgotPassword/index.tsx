@@ -1,6 +1,8 @@
 import Image from 'next/image'
 import { SubmitHandler, useForm } from 'react-hook-form'
 import { yupResolver } from '@hookform/resolvers/yup'
+import { toast } from 'react-toastify'
+import { useRouter } from 'next/router'
 
 import { Input } from 'components/Input'
 import { Footer } from 'components/Footer'
@@ -8,13 +10,16 @@ import { Footer } from 'components/Footer'
 import { schema } from 'schemas/recoveryPassword'
 import { useRecoveryPassword } from 'hooks/auth/useRecoveryPassword'
 
+import { SIGN_IN_PAGE } from 'constants/routesPath'
+
 import { RecoveryPasswordFormValues } from './types'
 import * as S from './styles'
 
 export function ForgotPasswordPage () {
   const {
     control,
-    handleSubmit
+    handleSubmit,
+    formState
   } = useForm({
     defaultValues: {
       email: ''
@@ -22,13 +27,27 @@ export function ForgotPasswordPage () {
     resolver: yupResolver(schema)
   })
 
-  const { mutate: sendRecoveryPassword, isLoading } = useRecoveryPassword()
+  const router = useRouter()
+
+  const {
+    mutate: sendRecoveryPasswordRequest,
+    isLoading
+  } = useRecoveryPassword()
+
+  const { isDirty, isSubmitting } = formState
+  const isButtonDisabled = !isDirty || isSubmitting || isLoading
 
   const handleRecoveryPassword: SubmitHandler<RecoveryPasswordFormValues> = ({
     email
   }) => {
-    sendRecoveryPassword({
+    sendRecoveryPasswordRequest({
       email
+    }, {
+      onSuccess: (_, variables) => {
+        toast.success(`Enviado e-mail para ${variables.email}`)
+
+        router.push(SIGN_IN_PAGE)
+      }
     })
   }
 
@@ -47,7 +66,13 @@ export function ForgotPasswordPage () {
             control={control}
           />
 
-          <S.FormBtn type='submit' disabled={isLoading} loading={isLoading}>Avançar</S.FormBtn>
+          <S.FormBtn
+            type='submit'
+            disabled={isButtonDisabled}
+            loading={isLoading}
+          >
+            Avançar
+          </S.FormBtn>
         </S.Form>
 
         <Image width={385} height={382} src='/images/main-forgot-password.svg' />

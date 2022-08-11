@@ -17,10 +17,8 @@ let authChannel: BroadcastChannel
 
 export function AuthProvider ({ children }: PropsWithChildren<unknown>) {
   const { mutate: signIn, isLoading: loading } = useSignIn()
-  const [registerUser, setRegisterUser] = useState<SignUpData>(null)
 
-  // eslint-disable-next-line no-console
-  console.log(registerUser)
+  const [registerUser, setRegisterUser] = useState<SignUpData>(null)
 
   const [user, setUser, deleteUser] = useLocalStorage<User>(
     USER_STORAGE_KEY,

@@ -4,12 +4,12 @@ import { api } from 'config/client'
 
 import { RecoveryPasswordRequestData } from './types'
 
-const sendRecoveryPasswordRequestMutation = ({
-  email
-}: RecoveryPasswordRequestData): Promise<unknown> => (
-  api.post<unknown>('/passwords/recovery-request', { email })
+const sendRecoveryPasswordRequest = (
+  data: RecoveryPasswordRequestData
+) => (
+  api.post<unknown>('/passwords/recovery-request', data)
 )
 
 export function useRecoveryPassword () {
-  return useMutation(sendRecoveryPasswordRequestMutation)
+  return useMutation(sendRecoveryPasswordRequest)
 }
