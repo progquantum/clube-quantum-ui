@@ -5,6 +5,7 @@ import { Button } from 'components/Button'
 export const Content = styled.div`
   box-shadow: 0px 0px 20px 0px #0000001A;
   width: 21.844rem;
+  height: 13.625rem;
   padding: 1.25rem 1.5rem;
   display: flex;
   flex-direction: column;
