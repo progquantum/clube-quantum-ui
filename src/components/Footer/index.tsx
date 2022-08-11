@@ -6,8 +6,8 @@ export function Footer () {
   return (
     <S.Container>
       <S.About>
-        <S.Wrap>
-          <h3>Institucional</h3>
+        <div>
+          <S.Heading>Institucional</S.Heading>
 
           <S.Nav>
             <Link href=''>
@@ -26,10 +26,10 @@ export function Footer () {
               Parceiros
             </Link>
           </S.Nav>
-        </S.Wrap>
+        </div>
 
-        <S.Wrap>
-          <h3>Deixe-nos lhe ajudar</h3>
+        <div>
+          <S.Heading>Deixe-nos lhe ajudar</S.Heading>
 
           <S.Nav>
             <Link href=''>
@@ -48,7 +48,7 @@ export function Footer () {
               Ajuda
             </Link>
           </S.Nav>
-        </S.Wrap>
+        </div>
       </S.About>
 
       <S.Contact>
@@ -58,8 +58,8 @@ export function Footer () {
           <S.Twitter />
         </S.SocialNetworks>
 
-        <h4>Nossa central de atendimento</h4>
-        <h2>0800 000 0000</h2>
+        <S.HeadingContact>Nossa central de atendimento</S.HeadingContact>
+        <S.HeadingNumber>0800 000 0000</S.HeadingNumber>
       </S.Contact>
     </S.Container>
   )

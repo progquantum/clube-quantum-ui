@@ -9,6 +9,7 @@ import { Footer } from 'components/Footer'
 import { useAuthDispatch, useAuthState } from 'contexts/auth/AuthContext'
 import { schema } from 'schemas/signIn'
 import { formatCPF } from 'utils/formatters/formatCPF'
+
 import { FORGOT_PASSWORD_PAGE, SIGN_UP_PAGE } from 'constants/routesPath'
 
 import { SignInFormValues } from './types'
