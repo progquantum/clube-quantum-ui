@@ -109,9 +109,11 @@ export const DivSelectPlan = styled.div`
   border-radius: .9375rem;
   box-shadow: 0rem 0rem 1.25rem rgba(0, 0, 0, 0.1);
   background-color: ${({ theme }) => theme.colors.white};
+
   @media (max-width:1024px ){
     width: 27.0625rem;
   }
+  
   @media (max-width: 460px){
     width: 20.625rem;
   }
@@ -186,11 +188,6 @@ export const ButtonCancel = styled(Button)`
     opacity: 0.6;
     cursor: not-allowed;
   }
-
-  /* &:hover {
-    background: ${({ theme }) => theme.colors.danger};
-    color: ${({ theme }) => theme.colors.white};
-  } */
 `
 
 export const DivInviteFriends = styled.div`

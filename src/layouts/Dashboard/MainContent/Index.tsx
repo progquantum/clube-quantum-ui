@@ -50,7 +50,7 @@ export function MainContent ({ data }: MainContentProps) {
             width={40}
             height={40}
             src='/images/icon-partner-web.svg'
-            alt='icon sites parceiros'
+            alt='Icone sites parceiros'
           />
           <S.MarketText>Sites parceiros</S.MarketText>
         </S.ItemMarket>
@@ -59,7 +59,7 @@ export function MainContent ({ data }: MainContentProps) {
             width={40}
             height={40}
             src='/images/icon-shopping-bag.svg'
-            alt='icon sites parceiros'
+            alt='Icone sites parceiros'
           />
           <S.MarketText>Lojas próximas</S.MarketText>
         </S.ItemMarket>
@@ -68,7 +68,7 @@ export function MainContent ({ data }: MainContentProps) {
             width={40}
             height={40}
             src='/images/icon-click.svg'
-            alt='icon sites parceiros'
+            alt='Icone sites parceiros'
           />
           <S.MarketText>Serviços</S.MarketText>
         </S.ItemMarket>
@@ -77,7 +77,7 @@ export function MainContent ({ data }: MainContentProps) {
             width={40}
             height={40}
             src='/images/icon-dollar-market.svg'
-            alt='icon sites parceiros'
+            alt='Icone sites parceiros'
           />
           <S.MarketText>Ofertas</S.MarketText>
         </S.ItemMarket>
@@ -86,7 +86,7 @@ export function MainContent ({ data }: MainContentProps) {
             width={40}
             height={40}
             src='/images/icon-earphone.svg'
-            alt='icon sites parceiros'
+            alt='Icone sites parceiros'
           />
           <S.MarketText>Eletrônicos</S.MarketText>
         </S.ItemMarket>
@@ -98,7 +98,7 @@ export function MainContent ({ data }: MainContentProps) {
             width={17.89}
             height={19.87}
             src='/images/icon-plan.svg'
-            alt='icone plano'
+            alt='Icone plano'
           />
           <S.TitlePlan>{data.subscription?.plan_name}</S.TitlePlan>
         </S.HeaderSelectPlan>

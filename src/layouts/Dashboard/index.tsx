@@ -16,8 +16,6 @@ const Header = dynamic(() => import('components/Header').then((mod) => mod.Heade
 export function DashboardPage () {
   const { data, isLoading } = useFindMe()
 
-  const hasPlan = !data?.subscription
-
   return (
     <>
       <title>Dashboard - Clube Quantum</title>
@@ -25,7 +23,6 @@ export function DashboardPage () {
       <Header />
       <S.Container>
         <SideBar
-          isDisabled={hasPlan}
           loading={isLoading}
         />
         <S.RightWrapper>

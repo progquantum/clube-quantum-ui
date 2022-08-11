@@ -1,16 +1,14 @@
 import Image from 'next/image'
-
 import Link from 'next/link'
 
 import { DASHBOARD_PAGE } from 'constants/routesPath'
-
 import { useAuthDispatch } from 'contexts/auth/AuthContext'
 
 import { Skeleton } from './Skeleton'
 import { SideBarProps } from './types'
 import * as S from './styles'
 
-export function SideBar ({ loading, isDisabled }: SideBarProps) {
+export function SideBar ({ loading }: SideBarProps) {
   const { signOut } = useAuthDispatch()
 
   if (loading) return <Skeleton />
