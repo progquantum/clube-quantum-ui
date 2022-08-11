@@ -9,6 +9,10 @@ export const BankAccountSkeleton = styled(Skeleton)`
   @media (max-width: 1024px){
     width: 26.688rem;
   }
+
+  @media (max-width: 460px){
+    width: 20.665rem;
+  }
 `
 
 export const CreditCardSkeleton = styled(Skeleton)`
@@ -18,6 +22,10 @@ export const CreditCardSkeleton = styled(Skeleton)`
 
   @media (max-width: 1024px){
     width: 26.688rem;
+  }
+
+  @media (max-width: 460px){
+    width: 20.665rem;
   }
 `
 
