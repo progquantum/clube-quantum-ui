@@ -4,7 +4,9 @@ import { api } from 'config/client'
 
 import { RequestCheckPhoneCode } from './types'
 
-const requestCheckPhoneCode = (data: RequestCheckPhoneCode) => (
+const requestCheckPhoneCode = (
+  data: RequestCheckPhoneCode
+) => (
   api.put('/phones/check-code/', data)
 )
 

@@ -14,7 +14,8 @@ import * as S from './styles'
 export function ResetPasswordPage () {
   const {
     control,
-    handleSubmit
+    handleSubmit,
+    formState
   } = useForm({
     defaultValues: {
       password: '',
@@ -24,6 +25,9 @@ export function ResetPasswordPage () {
   })
 
   const { mutate: resetPassword, isLoading } = useResetPassword()
+
+  const { isDirty, isSubmitting } = formState
+  const isButtonDisabled = !isDirty || isSubmitting || isLoading
 
   const router = useRouter()
 
@@ -60,7 +64,13 @@ export function ResetPasswordPage () {
             control={control}
           />
 
-          <S.FormBtn type='submit' disabled={isLoading} loading={isLoading}>Avançar</S.FormBtn>
+          <S.FormBtn
+            type='submit'
+            disabled={isButtonDisabled}
+            loading={isLoading}
+          >
+            Avançar
+          </S.FormBtn>
         </S.Form>
 
         <Image width={385} height={382} src='/images/main-forgot-password.svg' />

@@ -6,11 +6,8 @@ import Head from 'next/head'
 
 import { Input } from 'components/Input'
 import { Footer } from 'components/Footer'
-
 import { useAuthDispatch, useAuthState } from 'contexts/auth/AuthContext'
-
 import { schema } from 'schemas/signIn'
-
 import { formatCPF } from 'utils/formatters/formatCPF'
 
 import { FORGOT_PASSWORD_PAGE, SIGN_UP_PAGE } from 'constants/routesPath'
@@ -23,7 +20,8 @@ export function SignInPage () {
     control,
     handleSubmit,
     register,
-    setValue
+    setValue,
+    formState
   } = useForm({
     defaultValues: {
       login: '',
@@ -31,10 +29,11 @@ export function SignInPage () {
     },
     resolver: yupResolver(schema)
   })
-
   const { signIn } = useAuthDispatch()
-
   const { loading } = useAuthState()
+
+  const { isDirty, isSubmitting } = formState
+  const isButtonDisabled = !isDirty || isSubmitting || loading
 
   const onSubmit: SubmitHandler<SignInFormValues> = (data) => {
     signIn(data)
@@ -84,7 +83,11 @@ export function SignInPage () {
             </Link>
           </S.LoginAbout>
 
-          <S.SignInButton type='submit' loading={loading} disabled={loading}>
+          <S.SignInButton
+            type='submit'
+            loading={loading}
+            disabled={isButtonDisabled}
+          >
             Login
           </S.SignInButton>
         </S.Form>
