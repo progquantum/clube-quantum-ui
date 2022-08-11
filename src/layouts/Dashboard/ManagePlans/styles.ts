@@ -16,12 +16,12 @@ export const Container = styled.div`
   border-radius: 15px;
 
   width: 44.9375rem;
-  
+
   @media (max-width: 1024px){
     width: 27.0625rem;
   }
 
-  @media (max-width: 414px){
+  @media (max-width: 460px){
     width: 330px;
   }
 `

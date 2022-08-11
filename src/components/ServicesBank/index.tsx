@@ -4,33 +4,37 @@ import Image from 'next/image'
 
 import * as S from './styles'
 import { INVITE_FRIENDS_PAGE } from '../../constants/routesPath'
+import { ServicesBankProps } from './types'
+import { Skeleton } from './Skeleton'
 
-export function TopMenu () {
+export function ServicesBank ({ loading }: ServicesBankProps) {
+  if (loading) return <Skeleton />
+
   return (
 
     <S.Container>
 
-      <S.DivItem>
+      <S.ButtonItem disabled>
         <Image width={25} height={25} src='/images/icon-my-account.svg' alt='Icon Usuário' />
-        <S.Text>Olá, usuario</S.Text>
-      </S.DivItem>
+        <S.Text>Atualizar Cadastro</S.Text>
+      </S.ButtonItem>
 
-      <S.DivItem>
+      <S.ButtonItem>
         <Image width={25} height={25} src='/images/icon-payment.svg' alt='Icon dados pagamento' />
         <S.Text>Dados de Pagamento</S.Text>
-      </S.DivItem>
+      </S.ButtonItem>
 
       <Link href={INVITE_FRIENDS_PAGE}>
-        <S.DivItem>
+        <S.ButtonItem>
           <Image width={25} height={25} src='/images/icon-invited-friends.svg' alt='Icon convidar amigos' />
           <S.Text>Convidar amigos</S.Text>
-        </S.DivItem>
+        </S.ButtonItem>
       </Link>
 
-      <S.DivDisabled>
-        <Image width={25} height={25} src='/images/icon-disabled-marketplace.svg' alt='Icon marketplace' />
+      <S.ButtonMarketplace disabled>
+        <Image width={25} height={25} src='/images/icon-my-orders.svg' alt='Icon marketplace' />
         <S.Text>Marketplace</S.Text>
-      </S.DivDisabled>
+      </S.ButtonMarketplace>
 
     </S.Container>
 
