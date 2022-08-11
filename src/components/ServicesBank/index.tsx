@@ -14,7 +14,7 @@ export function ServicesBank ({ loading }: ServicesBankProps) {
 
     <S.Container>
 
-      <S.ButtonItem>
+      <S.ButtonItem disabled>
         <Image width={25} height={25} src='/images/icon-my-account.svg' alt='Icon Usuário' />
         <S.Text>Atualizar Cadastro</S.Text>
       </S.ButtonItem>
@@ -32,7 +32,7 @@ export function ServicesBank ({ loading }: ServicesBankProps) {
       </Link>
 
       <S.ButtonMarketplace disabled>
-        <Image width={25} height={25} src='/images/icon-disabled-marketplace.svg' alt='Icon marketplace' />
+        <Image width={25} height={25} src='/images/icon-my-orders.svg' alt='Icon marketplace' />
         <S.Text>Marketplace</S.Text>
       </S.ButtonMarketplace>
 
