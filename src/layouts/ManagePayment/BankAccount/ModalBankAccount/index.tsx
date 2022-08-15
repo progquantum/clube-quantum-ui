@@ -1,31 +1,31 @@
-import Image from 'next/image'
-
-import { useForm } from 'react-hook-form'
+import { ChangeEvent, useCallback, useState } from 'react'
+import { useForm, SubmitHandler } from 'react-hook-form'
 import { yupResolver } from '@hookform/resolvers/yup'
 
-import { ChangeEvent, useState } from 'react'
-
 import { Input } from 'components/Input'
-
 import { formatBankAccount } from 'utils/formatters/formatBankAccount'
-
 import { useRegisterBankAccount } from 'hooks/useRegisterBankAccount'
 
-import { schema } from '../../../../schemas/insertBankAccount'
+import { BancoUm } from 'components/Illustrations/BancoUm'
 
+import { colors } from 'styles/theme/colors'
+
+import { schema } from '../../../../schemas/insertBankAccount'
 import { ModalBankAccountProps, ModalBankAccountFormProps } from './types'
 import * as S from './styles'
 
 export function ModalBankAccount ({ close }:ModalBankAccountProps) {
   const [isInConfirmModal, setIsInConfirmModal] = useState(false)
-  const { mutate, isLoading } = useRegisterBankAccount()
+
+  const { mutate } = useRegisterBankAccount()
+
   const {
     control,
     handleSubmit,
     getValues,
     register,
     setValue
-  } = useForm<ModalBankAccountFormProps>({
+  } = useForm({
     defaultValues: {
       current_account: '',
       holder_name: ''
@@ -33,21 +33,23 @@ export function ModalBankAccount ({ close }:ModalBankAccountProps) {
     resolver: yupResolver(schema)
   })
 
-  function handleBankAccount (event: ModalBankAccountFormProps) {
+  function handleBankAccount () {
     setIsInConfirmModal(true)
   }
 
-  function handleInputAccountFormat (e: ChangeEvent<HTMLInputElement>) {
+  const handleInputAccountFormat = (e: ChangeEvent<HTMLInputElement>) => {
     const accountFormatted = formatBankAccount(e.target.value)
     setValue('current_account', accountFormatted)
   }
 
-  function postAccountBank (data: ModalBankAccountFormProps) {
-    const current_account = data.current_account.substr(0, data.current_account.length - 2)
+  const handleCreateAccountBank: SubmitHandler<ModalBankAccountFormProps> = useCallback((data) => {
+    const current_account = data.current_account.slice(0, -2)
     const current_account_check_number = data.current_account.slice(-1)
     const holder_name = data.holder_name
+
     mutate({ current_account, current_account_check_number, holder_name })
-  }
+    close()
+  }, [])
 
   return (
     <>
@@ -55,7 +57,7 @@ export function ModalBankAccount ({ close }:ModalBankAccountProps) {
         ? (
           <>
             <S.YourAccount>
-              <Image src='/images/umbanco.svg' width={10} height={15} />
+              <BancoUm color={colors.gray[200]} width='22' height='16' />
               <S.ContentTitle>Sua conta Banco Um</S.ContentTitle>
             </S.YourAccount>
             <S.BankingData>
@@ -100,7 +102,7 @@ export function ModalBankAccount ({ close }:ModalBankAccountProps) {
         : (
           <>
             <S.YourConfirmAccount>
-              <Image src='/images/bancoum-blue.svg' width={10} height={15} />
+              <BancoUm color={colors.mediumslateBlue} width='22' height='16' />
               <S.ContentConfirmAccount>Sua conta Banco Um</S.ContentConfirmAccount>
             </S.YourConfirmAccount>
             <S.BankingConfirmData>
@@ -138,7 +140,7 @@ export function ModalBankAccount ({ close }:ModalBankAccountProps) {
                 </S.TextConfirmAccount>
               </S.BankingConfirmAccount>
             </S.BankingConfirmData>
-            <S.ButtonContinue onClick={() => postAccountBank(getValues())}>Finalizar</S.ButtonContinue>
+            <S.ButtonContinue onClick={() => handleCreateAccountBank(getValues())}>Finalizar</S.ButtonContinue>
             <S.ButtonCancel onClick={() => setIsInConfirmModal(false)}>Voltar</S.ButtonCancel>
           </>
           )}

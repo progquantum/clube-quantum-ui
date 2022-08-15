@@ -1,28 +1,29 @@
-import Image from 'next/image'
+import { useTheme } from 'styled-components'
 
-import { useFindBilling } from 'hooks/useFindBilling'
-
+import { useModal } from 'hooks/useModal'
 import { Modal } from 'components/Modal'
+import { BancoUm } from 'components/Illustrations/BancoUm'
 
-import useModal from 'hooks/useModal'
-
-import * as S from './styles'
+import { BankAccountProps } from './types'
 import { ModalBankAccount } from './ModalBankAccount'
+import * as S from './styles'
+import { Skeleton } from './Skeleton'
 
-export function BankAccount () {
-  const { data } = useFindBilling()
-
+export function BankAccount ({ user, isLoading }: BankAccountProps) {
+  const { colors } = useTheme()
   const {
     modalOpen: modalOpenBank,
     open: openBank,
     close: closeBank
   } = useModal()
 
-  const holderName = data?.bank_account.holder_name
-  const currentAccount = data?.bank_account.current_account
-  const lastDigits = data?.bank_account.current_account_check_number
+  const holderName = user?.bank_account.holder_name
+  const currentAccount = user?.bank_account.current_account
+  const lastDigits = user?.bank_account.current_account_check_number
 
-  const hasBankAccount = data?.bank_account.holder_name
+  const hasBankAccount = user?.bank_account.holder_name
+
+  if (isLoading) return <Skeleton />
 
   return (
     <S.Content>
@@ -30,7 +31,7 @@ export function BankAccount () {
         ? (
           <>
             <S.YourAccount>
-              <Image src='/images/umbanco.svg' width={10} height={15} />
+              <BancoUm color={colors.gray[200]} width='22' height='16' />
               <S.ContentTitle>Sua conta Banco Um</S.ContentTitle>
             </S.YourAccount>
 
@@ -66,7 +67,7 @@ export function BankAccount () {
         : (
           <>
             <S.YourAccount>
-              <Image src='/images/umbanco.svg' width={10} height={15} />
+              <BancoUm color={colors.gray[200]} width='22' height='22' />
               <S.ContentTitle>Sua conta Banco Um</S.ContentTitle>
             </S.YourAccount>
             <S.TextContent>Nenhuma conta Banco Um registrada, gostaria de adicionar uma nova conta?</S.TextContent>
