@@ -1,17 +1,18 @@
 import Image from 'next/image'
 
 import { Button } from 'components/Button'
-import { useFindBilling } from 'hooks/useFindBilling'
 
+import { CreditCardProps } from './types'
 import * as S from './styles'
+import { Skeleton } from './Skeleton'
 
-export function CreditCard () {
-  const { data } = useFindBilling()
+export function CreditCard ({ user, isLoading }: CreditCardProps) {
+  const cardLastDigits = user?.credit_card.last_digits
+  const cardExpirationDate = user?.credit_card.expiration_date
 
-  const cardLastDigits = data?.credit_card.last_digits
-  const cardExpirationDate = data?.credit_card.expiration_date
+  const hasCreditCard = user?.credit_card.last_digits
 
-  const hasCreditCard = data?.credit_card.last_digits
+  if (isLoading) return <Skeleton />
 
   return (
     <>
