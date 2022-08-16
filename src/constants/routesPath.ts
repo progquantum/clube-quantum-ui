@@ -1,6 +1,7 @@
 export const INVITE_FRIENDS_PAGE = '/invite-friends'
 export const DASHBOARD_PAGE = '/dashboard'
 export const SIGN_IN_PAGE = '/signin'
+export const PLANS_PAGE = '/plans'
 
 export const HOMEPAGE_PAGE = '/'
 export const ADVANTAGES_PAGE = '/advantages'

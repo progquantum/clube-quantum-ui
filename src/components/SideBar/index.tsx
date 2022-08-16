@@ -1,7 +1,7 @@
 import Image from 'next/image'
 import Link from 'next/link'
 
-import { DASHBOARD_PAGE } from 'constants/routesPath'
+import { DASHBOARD_PAGE, PLANS_PAGE } from 'constants/routesPath'
 import { useAuthDispatch } from 'contexts/auth/AuthContext'
 
 import { Skeleton } from './Skeleton'
@@ -77,17 +77,19 @@ export function SideBar ({ loading }: SideBarProps) {
         Meus Pedidos
       </S.NavButton>
 
-      <S.NavButton disabled>
-        <S.WrapImage>
-          <Image
-            width={21.6}
-            height={24}
-            src='/images/icon-plans.svg'
-            alt='Icone Planos'
-          />
-        </S.WrapImage>
-        Planos
-      </S.NavButton>
+      <Link href={PLANS_PAGE}>
+        <S.NavButton>
+          <S.WrapImage>
+            <Image
+              width={21.6}
+              height={24}
+              src='/images/icon-plans.svg'
+              alt='Icone Planos'
+            />
+          </S.WrapImage>
+          Planos
+        </S.NavButton>
+      </Link>
 
       <S.NavButton disabled>
         <S.WrapImage>
