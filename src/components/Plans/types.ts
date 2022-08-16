@@ -1,5 +1,10 @@
+import { ReactNode } from 'react'
+
 export type PlansProps = {
-  onUpdateFormStep: () => void;
+  onUpdateFormStep?: () => void;
+  titleButton?: string;
+  children?: ReactNode;
 }
 
-export type Plans = 'monthly' | 'semiannual' | 'yearly'
+export type Periods = 'monthly' | 'semiannual' | 'yearly'
+export type Plans = 'free' | 'start' | 'select'
