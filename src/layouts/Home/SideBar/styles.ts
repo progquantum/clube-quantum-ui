@@ -1,12 +1,19 @@
 import styled, { css } from 'styled-components'
 
+import { Button } from 'components/Button'
+
 export const Container = styled.header`
   width: 100%;
-  padding: 0.4rem 1rem;
+  padding: 1rem 1rem;
 
   display: flex;
   align-items: center;
   justify-content: space-between;
+  position: relative;
+
+  @media(max-width: 720px) {
+    padding: 1rem 1.5rem;
+  }
 `
 
 interface MenuProps {
@@ -15,7 +22,7 @@ interface MenuProps {
 
 const responsiveFontSize = css`
   @media(max-width: 720px) {
-    font-size: 1.5rem;
+    font-size: 1rem;
   }
 `
 
@@ -24,23 +31,26 @@ export const Menu = styled.div<MenuProps>`
   background-color: ${({ theme }) => theme.colors.white};
 
   position: absolute;
-  top: 67px;
-  z-index: 1;
+  top: 68px;
+  right: 0;
+  z-index: 10;
 
   display: flex;
   flex-direction: column;
-  align-items: center;
   justify-content: flex-start;
+  padding: 0 1.5rem;
 
-  transition: all 0.5s ease;
+  transition: .5s all;
 
   ${({ isOpenedSideBar }) => isOpenedSideBar
     ? css`
-      height: 450px;
-      padding-top: 2rem;
+      width: 260px;
+      height: 700px;
+      padding-top: 1.8rem;
+      border-radius: 0 0 0 10px;
 
       @media(max-width: 720px) {
-        height: 400px;
+        height: 450px;
       }
     `
     : css`
@@ -50,8 +60,8 @@ export const Menu = styled.div<MenuProps>`
 
   a {
     font-weight: 600;
-    font-size: 2rem;
-    color: ${({ theme }) => theme.colors.gray[700]};
+    font-size: 1.2rem;
+    color: ${({ theme }) => theme.colors.midnightBlue};
 
     ${responsiveFontSize}
   }
@@ -60,21 +70,20 @@ export const Menu = styled.div<MenuProps>`
 export const Nav = styled.nav`
   display: flex;
   flex-direction: column;
-  align-items: center;
-  justify-content: space-between;
+  align-items: flex-start;
   gap: 3rem;
 `
 
-export const Box = styled.div`
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  margin-top: 4rem;
+export const LoginButton = styled(Button)`
+  background: linear-gradient(267.68deg, #001F80 -86.29%, #0C61FF 106.13%);
+  padding: 0.5rem 1.8rem;
+  font-weight: 500;
+  width: 100%;
+`
 
-  p {
-    font-size: 2rem;
-    text-align: center;
-
-    ${responsiveFontSize}
-  }
+export const Line = styled.hr`
+  height: 2px;
+  width: 100%;
+  border: none;
+  background: transparent url(/images/line.svg) center no-repeat;
 `
