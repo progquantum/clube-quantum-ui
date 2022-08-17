@@ -23,6 +23,18 @@ const variants = {
 
   transparent: css`
     background: transparent;
+  `,
+
+  danger: css`
+    background: ${({ theme }) => theme.colors.white};
+    color: ${({ theme }) => theme.colors.danger};
+    border: 1px solid ${({ theme }) => theme.colors.danger};
+   
+    :hover {
+      background-color: ${({ theme }) => theme.colors.danger} ;
+      border: 1px solid ${({ theme }) => theme.colors.danger};
+      color: ${({ theme }) => theme.colors.white};
+    }
   `
 }
 
