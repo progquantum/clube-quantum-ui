@@ -6,7 +6,8 @@ import { ServicesBank } from 'components/ServicesBank'
 
 import { useFindMe } from 'hooks/useFindMe'
 
-import { ManagePlans } from './ManagePlans'
+import { ManagePlans } from 'components/ManagePlans'
+
 import { MainContent } from './MainContent/Index'
 import { Skeleton } from './Skeleton'
 import * as S from './styles'
@@ -31,7 +32,7 @@ export function DashboardPage () {
           />
           {isLoading
             ? (<Skeleton />)
-            : (data?.subscription ? (<MainContent data={data} />) : (<ManagePlans />))}
+            : (data?.subscription ? (<MainContent data={data} />) : (<ManagePlans> <S.ButtonManagePlans>Gerenciar planos</S.ButtonManagePlans></ManagePlans>))}
         </S.RightWrapper>
       </S.Container>
       <Footer />
