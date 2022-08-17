@@ -1,5 +1,7 @@
 import { PropsWithChildren, useState } from 'react'
 import { QueryClient, QueryClientProvider } from 'react-query'
+
+import { ReactQueryDevtools } from 'react-query/devtools'
 import { ToastContainer } from 'react-toastify'
 import { DefaultSeo } from 'next-seo'
 
@@ -31,6 +33,7 @@ export function AppProvider ({ children }: PropsWithChildren<unknown>) {
             {children}
           </StyledProvider>
         </AuthProvider>
+        <ReactQueryDevtools initialIsOpen={false} />
       </QueryClientProvider>
     </>
   )
