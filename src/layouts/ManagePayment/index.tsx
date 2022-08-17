@@ -1,9 +1,8 @@
+import { useFindBilling } from 'hooks/useFindBilling'
 import { Footer } from 'components/Footer'
 import { Header } from 'components/Header'
 import { SideBar } from 'components/SideBar'
 import { TopMenu } from 'components/TopMenu'
-
-import { useFindBilling } from 'hooks/useFindBilling'
 
 import { BankAccount } from './BankAccount'
 import { CreditCard } from './CreditCard'
@@ -11,7 +10,9 @@ import { CreditCard } from './CreditCard'
 import * as S from './styles'
 
 export function ManagePaymentPage () {
-  const { data, isLoading } = useFindBilling()
+  const { data, isLoading } = useFindBilling({
+    refetchOnWindowFocus: false
+  })
 
   return (
     <>
@@ -24,8 +25,8 @@ export function ManagePaymentPage () {
           <TopMenu />
           <S.MenuGrid />
           <S.CardsContainer>
-            <BankAccount user={data} isLoading={isLoading} />
-            <CreditCard user={data} isLoading={isLoading} />
+            <BankAccount user={data} loading={isLoading} />
+            <CreditCard user={data} loading={isLoading} />
           </S.CardsContainer>
         </S.RightWrapper>
       </S.Container>
