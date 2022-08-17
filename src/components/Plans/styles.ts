@@ -105,15 +105,14 @@ export const PlansContents = styled.section`
   gap: 1.5rem;
   width: 100%;
   margin-top: 3rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 
   @media(max-width: 910px) {
     flex-direction: column;
-    max-width: 60%; 
   }
 
-  @media(max-width: 520px) {   
-    transform: translateX(0%);
-  }
 `
 
 export const PlanContentsWrapper = styled.div`
@@ -133,6 +132,14 @@ export const PlanContentsWrapper = styled.div`
     color: ${({ theme }) => theme.colors.midnightBlue};
   }
 
+  @media(max-width: 910px) {
+    width: 23.12rem;
+  }
+
+  @media(max-width: 460px ){
+    width: 330px;
+  }
+
   &.selected-plan {
     box-shadow: 2px 4px 20px rgba(0, 31, 128, 0.25);
     transform: scale(1.1);
@@ -141,8 +148,9 @@ export const PlanContentsWrapper = styled.div`
     @media(max-width: 910px) {   
       transform: scale(1.05, 1);
       margin: 1.25rem 0;
+    }
   }
-  }
+  
 `
 export const TitlePlan = styled.h3` 
   font-weight: 900;

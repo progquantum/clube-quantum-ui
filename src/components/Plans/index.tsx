@@ -1,9 +1,10 @@
 import { useState } from 'react'
-import Image from 'next/image'
 
 import { Button } from 'components/Button'
 
-import { Periods, Plans, PlansProps } from './types'
+import { usePlans } from 'hooks/usePlans'
+
+import { Periods, Plans, PlansData, PlansProps } from './types'
 import * as S from './styles'
 
 export function Plans ({ children, onUpdateFormStep, titleButton = 'Finalizar cadastro' }: PlansProps) {
@@ -16,6 +17,15 @@ export function Plans ({ children, onUpdateFormStep, titleButton = 'Finalizar ca
 
   const handleChoosePeriod = (period: Periods) => {
     setSelectedPeriod(period)
+  }
+
+  const { data } = usePlans()
+  const planFree:PlansData = data ? data[0] : []
+  const planStart:PlansData = data ? data[1] : []
+  const planSelect:PlansData = data ? data[2] : []
+
+  const handlePrice = (price = '') => {
+    return `R$ ${price.replace('.', ',')}0`
   }
 
   return (
@@ -51,7 +61,7 @@ export function Plans ({ children, onUpdateFormStep, titleButton = 'Finalizar ca
           className={selectedPlan === 'free' ? 'selected-plan' : ''}
           onClick={() => handleChoosePlan('free')}
         >
-          <S.TitlePlan>Quantum Free</S.TitlePlan>
+          <S.TitlePlan>{planFree.name}</S.TitlePlan>
           <S.Text>
             Plano com um custo acessível e que te dá mais benefícios.
           </S.Text>
@@ -133,11 +143,11 @@ export function Plans ({ children, onUpdateFormStep, titleButton = 'Finalizar ca
           className={selectedPlan === 'start' ? 'selected-plan' : ''}
           onClick={() => handleChoosePlan('start')}
         >
-          <S.TitlePlan>Quantum Start</S.TitlePlan>
+          <S.TitlePlan>{planStart.name}</S.TitlePlan>
           <S.Text>
             Plano com um custo acessível e que te dá mais benefícios.
           </S.Text>
-          <h2>{selectedPeriod === 'semiannual' ? 'R$ 119,99' : (selectedPeriod === 'monthly' ? 'R$ 19,99' : 'R$ 199,99')}</h2>
+          <h2>{selectedPeriod === 'semiannual' ? handlePrice(planStart.semiannual_price) : (selectedPeriod === 'monthly' ? handlePrice(planStart.monthly_price) : handlePrice(planStart.annual_price))}</h2>
           <S.Button className={selectedPlan === 'start' ? 'selected-plan' : ''}>
             {selectedPlan === 'start' ? 'Plano Escolhido' : 'Escolher este plano'}
           </S.Button>
@@ -215,9 +225,9 @@ export function Plans ({ children, onUpdateFormStep, titleButton = 'Finalizar ca
           className={selectedPlan === 'select' ? 'selected-plan' : ''}
           onClick={() => handleChoosePlan('select')}
         >
-          <S.TitlePlan>Quantum Select</S.TitlePlan>
+          <S.TitlePlan>{planSelect.name}</S.TitlePlan>
           <S.Text>Plano para que você aproveite o máximo do Quantum.</S.Text>
-          <h2>{selectedPeriod === 'semiannual' ? 'R$ 299,90' : (selectedPeriod === 'monthly' ? 'R$ 49,90' : 'R$ 499,90')}</h2>
+          <h2>{selectedPeriod === 'semiannual' ? handlePrice(planSelect.semiannual_price) : (selectedPeriod === 'monthly' ? handlePrice(planSelect.monthly_price) : handlePrice(planSelect.annual_price))}</h2>
           <S.Button className={selectedPlan === 'select' ? 'selected-plan' : ''}>
             {selectedPlan === 'select' ? 'Plano Escolhido' : 'Escolher este plano'}
           </S.Button>
