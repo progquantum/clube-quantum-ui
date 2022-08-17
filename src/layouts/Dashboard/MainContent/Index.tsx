@@ -2,7 +2,7 @@ import Image from 'next/image'
 import Link from 'next/link'
 import { faker } from '@faker-js/faker'
 
-import { INVITE_FRIENDS_PAGE } from 'constants/routesPath'
+import { INVITE_FRIENDS_PAGE, PLANS_PAGE } from 'constants/routesPath'
 
 import { AccountBalance } from '../AccountBalance'
 
@@ -104,12 +104,14 @@ export function MainContent ({ data }: MainContentProps) {
         </S.HeaderSelectPlan>
         <S.DivStatusPlan>
           <S.TitleStatusPlan>{data.subscription?.plan_name}</S.TitleStatusPlan>
-          <S.StatusPlan>{data.subscription?.is_active ? 'Ativo' : 'Inativo'}</S.StatusPlan>
+          <S.StatusPlan>{data.subscription?.is_active ? 'Ativo' : 'Cancelado'}</S.StatusPlan>
         </S.DivStatusPlan>
-        <S.ManageButton disabled>Gerenciar planos</S.ManageButton>
+        <Link href={PLANS_PAGE}>
+          <S.ManageButton>Gerenciar planos</S.ManageButton>
+        </Link>
         <S.Deadline>
           <S.TextDeadline>Sua assinatura será renovada em 15/xx/xxxx</S.TextDeadline>
-          <S.ButtonCancel disabled>Cancelar</S.ButtonCancel>
+          <S.ButtonCancel>Cancelar</S.ButtonCancel>
         </S.Deadline>
       </S.DivSelectPlan>
 

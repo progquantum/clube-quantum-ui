@@ -157,6 +157,12 @@ export const ManageButton = styled(Button)`
     cursor: not-allowed;
   }
 
+  &:hover{
+    color: ${({ theme }) => theme.colors.white};
+    background: ${({ theme }) => theme.colors.mediumslateBlue};
+    
+  }
+
 `
 
 export const Deadline = styled.div`
@@ -187,6 +193,12 @@ export const ButtonCancel = styled(Button)`
   &:disabled {
     opacity: 0.6;
     cursor: not-allowed;
+  }
+
+  &:hover {
+    background-color: ${({ theme }) => theme.colors.danger};
+    color: ${({ theme }) => theme.colors.white};
+    border: 1px solid ${({ theme }) => theme.colors.danger};
   }
 `
 
