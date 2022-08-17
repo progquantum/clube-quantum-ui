@@ -9,8 +9,9 @@ import { ModalBankAccount } from './ModalBankAccount'
 import * as S from './styles'
 import { Skeleton } from './Skeleton'
 
-export function BankAccount ({ user, isLoading }: BankAccountProps) {
+export function BankAccount ({ user, loading }: BankAccountProps) {
   const { colors } = useTheme()
+
   const {
     modalOpen: modalOpenBank,
     open: openBank,
@@ -20,10 +21,9 @@ export function BankAccount ({ user, isLoading }: BankAccountProps) {
   const holderName = user?.bank_account.holder_name
   const currentAccount = user?.bank_account.current_account
   const lastDigits = user?.bank_account.current_account_check_number
-
   const hasBankAccount = user?.bank_account.holder_name
 
-  if (isLoading) return <Skeleton />
+  if (loading) return <Skeleton />
 
   return (
     <S.Content>
@@ -74,8 +74,9 @@ export function BankAccount ({ user, isLoading }: BankAccountProps) {
             <S.BankAccountButton onClick={openBank}>Cadastrar conta bancária</S.BankAccountButton>
           </>
           )}
+
       <Modal width={339} isActive={modalOpenBank} close={closeBank}>
-        <ModalBankAccount close={closeBank} />
+        <ModalBankAccount onClose={closeBank} />
       </Modal>
     </S.Content>
   )

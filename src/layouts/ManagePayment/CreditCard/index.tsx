@@ -6,13 +6,13 @@ import { CreditCardProps } from './types'
 import * as S from './styles'
 import { Skeleton } from './Skeleton'
 
-export function CreditCard ({ user, isLoading }: CreditCardProps) {
+export function CreditCard ({ user, loading }: CreditCardProps) {
   const cardLastDigits = user?.credit_card.last_digits
   const cardExpirationDate = user?.credit_card.expiration_date
 
   const hasCreditCard = user?.credit_card.last_digits
 
-  if (isLoading) return <Skeleton />
+  if (loading) return <Skeleton />
 
   return (
     <>
