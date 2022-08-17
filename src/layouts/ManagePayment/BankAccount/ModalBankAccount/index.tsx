@@ -1,23 +1,24 @@
-import { ChangeEvent, useCallback, useState } from 'react'
+import { ChangeEvent, useState } from 'react'
 import { useForm, SubmitHandler } from 'react-hook-form'
 import { yupResolver } from '@hookform/resolvers/yup'
+import { useQueryClient } from 'react-query'
 
 import { Input } from 'components/Input'
 import { formatBankAccount } from 'utils/formatters/formatBankAccount'
 import { useRegisterBankAccount } from 'hooks/useRegisterBankAccount'
-
 import { BancoUm } from 'components/Illustrations/BancoUm'
-
 import { colors } from 'styles/theme/colors'
+import { QUERY_KEY_FIND_BILLING } from 'hooks/useFindBilling'
 
 import { schema } from '../../../../schemas/insertBankAccount'
 import { ModalBankAccountProps, ModalBankAccountFormProps } from './types'
 import * as S from './styles'
 
-export function ModalBankAccount ({ close }:ModalBankAccountProps) {
-  const [isInConfirmModal, setIsInConfirmModal] = useState(false)
+export function ModalBankAccount ({ onClose }: ModalBankAccountProps) {
+  const [isModalOpen, setIsModalOpen] = useState(false)
 
-  const { mutate } = useRegisterBankAccount()
+  const { mutateAsync: createBankAccount, isLoading } = useRegisterBankAccount()
+  const queryClient = useQueryClient()
 
   const {
     control,
@@ -33,8 +34,8 @@ export function ModalBankAccount ({ close }:ModalBankAccountProps) {
     resolver: yupResolver(schema)
   })
 
-  function handleBankAccount () {
-    setIsInConfirmModal(true)
+  function handleCloseBankAccountModal () {
+    setIsModalOpen(true)
   }
 
   const handleInputAccountFormat = (e: ChangeEvent<HTMLInputElement>) => {
@@ -42,18 +43,27 @@ export function ModalBankAccount ({ close }:ModalBankAccountProps) {
     setValue('current_account', accountFormatted)
   }
 
-  const handleCreateAccountBank: SubmitHandler<ModalBankAccountFormProps> = useCallback((data) => {
+  const handleCreateAccountBank: SubmitHandler<ModalBankAccountFormProps> = async (data) => {
     const current_account = data.current_account.slice(0, -2)
     const current_account_check_number = data.current_account.slice(-1)
     const holder_name = data.holder_name
 
-    mutate({ current_account, current_account_check_number, holder_name })
-    close()
-  }, [])
+    await createBankAccount({
+      current_account,
+      current_account_check_number,
+      holder_name
+    },
+    {
+      onSuccess: () => {
+        queryClient.invalidateQueries(QUERY_KEY_FIND_BILLING)
+        onClose()
+      }
+    })
+  }
 
   return (
     <>
-      {!isInConfirmModal
+      {!isModalOpen
         ? (
           <>
             <S.YourAccount>
@@ -76,7 +86,7 @@ export function ModalBankAccount ({ close }:ModalBankAccountProps) {
                 <S.TextContent>0001</S.TextContent>
               </S.BankingAccount>
             </S.BankingData>
-            <S.BankingAccountForm onSubmit={handleSubmit(handleBankAccount)}>
+            <S.BankingAccountForm onSubmit={handleSubmit(handleCloseBankAccountModal)}>
               <Input
                 maxLength={10}
                 type='text'
@@ -95,7 +105,7 @@ export function ModalBankAccount ({ close }:ModalBankAccountProps) {
               />
               <S.InfoText>A conta do Banco Um deve estar vinculada ao mesmo CPF cadastrado no Clube Quantum.</S.InfoText>
               <S.ButtonContinue type='submit'>Confirmar</S.ButtonContinue>
-              <S.ButtonCancel onClick={close}>Cancelar</S.ButtonCancel>
+              <S.ButtonCancel onClick={onClose}>Cancelar</S.ButtonCancel>
             </S.BankingAccountForm>
           </>
           )
@@ -140,8 +150,13 @@ export function ModalBankAccount ({ close }:ModalBankAccountProps) {
                 </S.TextConfirmAccount>
               </S.BankingConfirmAccount>
             </S.BankingConfirmData>
-            <S.ButtonContinue onClick={() => handleCreateAccountBank(getValues())}>Finalizar</S.ButtonContinue>
-            <S.ButtonCancel onClick={() => setIsInConfirmModal(false)}>Voltar</S.ButtonCancel>
+            <S.ButtonContinue
+              onClick={() => handleCreateAccountBank(getValues())}
+              loading={isLoading}
+            >
+              Finalizar
+            </S.ButtonContinue>
+            <S.ButtonCancel onClick={() => setIsModalOpen(false)}>Voltar</S.ButtonCancel>
           </>
           )}
     </>

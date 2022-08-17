@@ -1,5 +1,6 @@
 export type ModalBankAccountProps = {
-    close: () => void,
+    onClose: () => void,
+    onRefetch?: () => void
 }
 
 export type ModalBankAccountFormProps = {
