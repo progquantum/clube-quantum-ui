@@ -1,5 +1,7 @@
 import styled from 'styled-components'
 
+import { Button } from 'components/Button'
+
 export const Content = styled.div`
   box-shadow: 0px 0px 20px 0px #0000001A;
   width: 21.844rem;
@@ -58,4 +60,7 @@ export const TextContent = styled.p`
 @media (max-width: 460px){
   font-size: .8rem;
 }
+`
+export const ButtonPlan = styled(Button)`
+  font-size: .9rem;
 `

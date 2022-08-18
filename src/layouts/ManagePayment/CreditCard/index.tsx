@@ -43,7 +43,7 @@ export function CreditCard ({ user, loading }: CreditCardProps) {
                 <S.ContentTitle>Seu cartão cadastrado</S.ContentTitle>
               </S.YourAccount>
               <S.TextContent>Para cadastrar um cartão de crédito e aproveitar os benefícios clube quantum é necessário realizar uma assinatura.</S.TextContent>
-              <Button>Continuar</Button>
+              <S.ButtonPlan>Prosseguir para a escolha do plano</S.ButtonPlan>
             </>
             )}
       </S.Content>
