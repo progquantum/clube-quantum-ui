@@ -2,7 +2,7 @@ import React from 'react'
 
 export type ModalProps = {
     isActive: boolean,
-    close: () => void,
+    onClose: () => void,
     children: React.ReactNode,
     width: number,
 }

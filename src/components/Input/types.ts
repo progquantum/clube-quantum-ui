@@ -2,7 +2,7 @@ import { InputHTMLAttributes } from 'react'
 import { Control, FieldError } from 'react-hook-form'
 
 export type InputProps = InputHTMLAttributes<HTMLInputElement> & {
-  label: string
+  label?: string
   control: Control<any, any>
   name: string
 }

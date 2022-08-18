@@ -25,7 +25,7 @@ export const ModalBox = styled.div<ModalSizeProps>`
     position: absolute;
     left: 0;
     right: 0;
-    top: 60%;
+    top: 50%;
     margin: 0 auto;
     z-index: 1000;
 `
