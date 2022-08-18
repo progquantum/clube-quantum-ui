@@ -2,6 +2,10 @@ import Image from 'next/image'
 
 import { Button } from 'components/Button'
 
+import { colors } from 'styles/theme/colors'
+
+import CreditCardIcon from 'components/Illustrations/CreditCard'
+
 import { CreditCardProps } from './types'
 import * as S from './styles'
 import { Skeleton } from './Skeleton'
@@ -21,7 +25,7 @@ export function CreditCard ({ user, loading }: CreditCardProps) {
           ? (
             <>
               <S.YourAccount>
-                <Image src='/images/credit-card.svg' width={22} height={16} />
+                <CreditCardIcon color={colors.gray[100]} width='20' height='14' />
                 <S.ContentTitle>Seu cartão cadastrado</S.ContentTitle>
               </S.YourAccount>
               <S.CardDetails>
@@ -39,7 +43,7 @@ export function CreditCard ({ user, loading }: CreditCardProps) {
           : (
             <>
               <S.YourAccount>
-                <Image src='/images/credit-card.svg' width={22} height={16} />
+                <CreditCardIcon color={colors.gray[100]} width='20' height='14' />
                 <S.ContentTitle>Seu cartão cadastrado</S.ContentTitle>
               </S.YourAccount>
               <S.TextContent>Para cadastrar um cartão de crédito e aproveitar os benefícios clube quantum é necessário realizar uma assinatura.</S.TextContent>
