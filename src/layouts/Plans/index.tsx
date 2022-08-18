@@ -10,6 +10,8 @@ import { Modal } from 'components/Modal'
 
 import { useModal } from 'hooks/useModal'
 
+import { Successful } from 'components/Successful'
+
 import * as S from './styles'
 import { SelectPlan } from './SelectPlan'
 import { ModalCVC } from './ModalCVC'
@@ -22,17 +24,32 @@ export function PlansPage () {
     close: closeCVC
   } = useModal()
 
+  const {
+    modalOpen: successful,
+    open: onOpenSucessful,
+    close: onCloseSucessful
+  } = useModal()
   return (
     <>
       <Header />
       <S.Main>
-        <SideBar />
-        <Plans titleButton='Continuar' onUpdateFormStep={openCVC}>
-          {data?.subscription ? (<SelectPlan data={data} />) : (<ManagePlans width='370' />)}
-        </Plans>
-        <Modal width={433} isActive={modalOpenCVC} close={closeCVC}>
-          <ModalCVC close={closeCVC} />
-        </Modal>
+        {!successful
+          ? (
+            <>
+              <SideBar />
+              <Plans titleButton='Continuar' onUpdateFormStep={openCVC}>
+                {data?.subscription ? (<SelectPlan data={data} />) : (<ManagePlans width='370' />)}
+              </Plans>
+              <Modal width={433} isActive={modalOpenCVC} onClose={closeCVC}>
+                <ModalCVC onOpenSucessful={onOpenSucessful} onCloseCVC={closeCVC} />
+              </Modal>
+            </>
+            )
+          : (<Successful
+              paragraph='Seu plano foi alterado com sucesso! Aproveite as ofertas e Cashback no Clube Quantum!'
+              textTitle='Agradecemos!'
+             />)}
+
       </S.Main>
       <Footer />
 
