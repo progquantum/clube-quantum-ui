@@ -3,6 +3,17 @@ import styled, { css } from 'styled-components'
 import { ButtonProps } from './types'
 
 const variants = {
+  primary: css`
+    color: ${({ theme }) => theme.colors.white};
+    background: ${({ theme }) => theme.colors.midnightBlue};
+
+
+    :hover {
+      background: ${({ theme }) => theme.colors.mediumslateBlue};
+      color: ${({ theme }) => theme.colors.white};
+    }
+  `,
+
   secondary: css`
     background: transparent;
     color: ${({ theme }) => theme.colors.midnightBlue};
@@ -25,11 +36,11 @@ const variants = {
     background: transparent;
   `,
 
-  danger: css`
+  danger_outline: css`
     background: ${({ theme }) => theme.colors.white};
     color: ${({ theme }) => theme.colors.danger};
     border: 1px solid ${({ theme }) => theme.colors.danger};
-   
+
     :hover {
       background-color: ${({ theme }) => theme.colors.danger} ;
       border: 1px solid ${({ theme }) => theme.colors.danger};
