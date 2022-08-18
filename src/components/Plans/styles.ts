@@ -5,7 +5,7 @@ import { BiInfoCircle } from 'react-icons/bi'
 
 export const Container = styled.div`
   width: 100%;
-  max-width: 59.375rem;  
+  max-width: 59.375rem;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -13,7 +13,7 @@ export const Container = styled.div`
 
   section {
     width: 100%;
-    display: flex;    
+    display: flex;
 
     &:last-of-type {
       justify-content: center;
@@ -121,6 +121,7 @@ export const PlanContentsWrapper = styled.div`
   background: #FFFFFF;
   box-shadow: 2px 4px 20px rgba(0, 0, 0, 0.15);
   border-radius: 15px;
+  cursor: pointer;
 
   display: flex;
   flex-direction: column;
@@ -145,14 +146,14 @@ export const PlanContentsWrapper = styled.div`
     transform: scale(1.1);
     margin: 0 1.25rem;
 
-    @media(max-width: 910px) {   
+    @media(max-width: 910px) {
       transform: scale(1.05, 1);
       margin: 1.25rem 0;
     }
   }
-  
+
 `
-export const TitlePlan = styled.h3` 
+export const TitlePlan = styled.h3`
   font-weight: 900;
   font-size: 1.25rem;
   line-height: 1.5rem;
