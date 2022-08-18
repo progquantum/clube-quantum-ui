@@ -1,9 +1,12 @@
 import Link from 'next/link'
 import Image from 'next/image'
 
-import * as S from './styles'
+import { DASHBOARD_PAGE } from 'constants/routesPath'
 
-export function Successful () {
+import * as S from './styles'
+import { SuccessfulProps } from './types'
+
+export function Successful ({ paragraph, textTitle }:SuccessfulProps) {
   return (
     <S.Container>
       <Image width={61} height={60} src='/images/check-icon.png' alt='' />
@@ -14,15 +17,15 @@ export function Successful () {
         Tudo certo!
       </S.TextTitle>
       <S.Paragraph>
-        Seu cadastro foi finalizado com sucesso!
-        Aproveite as ofertas e Cashback no Clube Quantum!
+        {paragraph || (`Seu cadastro foi finalizado com sucesso!
+        Aproveite as ofertas e Cashback no Clube Quantum!`)}
       </S.Paragraph>
       <S.TextTitle
         fontWeight={700}
       >
-        Seja bem vindo!
+        {textTitle || 'Seja bem vindo!'}
       </S.TextTitle>
-      <Link href='/signin'>
+      <Link href={DASHBOARD_PAGE}>
         <S.Button>Retornar para minha conta</S.Button>
       </Link>
     </S.Container>
