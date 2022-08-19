@@ -15,6 +15,13 @@ export const DivSelectPlan = styled.div`
   box-shadow: 0rem 0rem 1.25rem rgba(0, 0, 0, 0.1);
   background-color: ${({ theme }) => theme.colors.white};
   margin: 48px 0;
+  @media(max-width: 910px) {
+    margin: 48px 0 0 0;
+  }
+
+  @media(max-width: 460px ){
+    width: 330px;
+  }
 `
 
 export const HeaderSelectPlan = styled.div`
