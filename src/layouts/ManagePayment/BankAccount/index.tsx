@@ -70,7 +70,7 @@ export function BankAccount ({ user, loading }: BankAccountProps) {
               <BancoUm color={colors.gray[200]} width='22' height='22' />
               <S.ContentTitle>Sua conta Banco Um</S.ContentTitle>
             </S.YourAccount>
-            <S.TextContent>Nenhuma conta Banco Um registrada, gostaria de adicionar uma nova conta?</S.TextContent>
+            <S.Text>Nenhuma conta Banco Um registrada, gostaria de adicionar uma nova conta?</S.Text>
             <S.BankAccountButton onClick={openBank}>Cadastrar conta bancária</S.BankAccountButton>
           </>
           )}

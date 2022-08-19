@@ -54,11 +54,21 @@ export const TitleContent = styled.strong`
     font-size: .8rem;
   }
 `
-
 export const TextContent = styled.p`
   color: ${({ theme }) => theme.colors.gray[400]};
   font-weight: 500;
   font-size: .9rem;
+
+  @media (max-width: 460px){
+    font-size: .8rem;
+  }
+`
+
+export const Text = styled.p`
+  color: ${({ theme }) => theme.colors.gray[400]};
+  font-weight: 500;
+  font-size: .9rem;
+  margin: .690rem 0;
 
   @media (max-width: 460px){
     font-size: .8rem;
@@ -72,5 +82,8 @@ export const BankingOwner = styled.div`
 `
 
 export const BankAccountButton = styled(Button)`
-  margin: 1.3rem 0 1.7rem 0;
+  font-size: .9rem;
+ :hover {
+  background-color:  ${({ theme }) => theme.colors.mediumslateBlue};
+ }
 `

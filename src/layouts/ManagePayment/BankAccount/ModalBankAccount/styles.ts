@@ -48,16 +48,25 @@ export const InfoText = styled.p`
 `
 
 export const ButtonContinue = styled(Button)`
-      width: 100%;
-      border: 2px solid transparent;
+  width: 100%;
+  border: 2px solid transparent;
+
+  :hover {
+    background-color: ${({ theme }) => theme.colors.mediumslateBlue};
+ }
 `
 
 export const ButtonCancel = styled(Button)`
-    width: 100%;
-    background-color: transparent;
-    border: 2px solid ${({ theme }) => theme.colors.danger};
-    color: ${({ theme }) => theme.colors.danger};
-    margin-top: 1rem;
+  width: 100%;
+  background-color: transparent;
+  border: 2px solid ${({ theme }) => theme.colors.danger};
+  color: ${({ theme }) => theme.colors.danger};
+  margin-top: 1rem;
+
+  :hover {
+    background-color: ${({ theme }) => theme.colors.danger};
+    color: ${({ theme }) => theme.colors.white};
+  }
 `
 
 export const YourConfirmAccount = styled.div`
