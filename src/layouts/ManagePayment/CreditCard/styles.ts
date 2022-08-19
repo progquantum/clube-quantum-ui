@@ -44,7 +44,7 @@ export const CardNumber = styled.div`
   flex-direction: column;
   gap: 1rem;
   color: ${({ theme }) => theme.colors.gray[400]};
-  margin: .5rem 0;
+  margin: .115rem 0;
 `
 
 export const LastDigits = styled.strong`
@@ -63,4 +63,7 @@ export const TextContent = styled.p`
 `
 export const ButtonPlan = styled(Button)`
   font-size: .9rem;
+  :hover {
+  background-color:  ${({ theme }) => theme.colors.mediumslateBlue};
+ }
 `
