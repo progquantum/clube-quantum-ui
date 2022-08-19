@@ -1,23 +1,26 @@
 import { useState } from 'react'
 
 import { Button } from 'components/Button'
-
 import { usePlans } from 'hooks/usePlans'
+import { usePlansDispatch } from 'contexts/plans/PlansContext'
+import { formatPrice } from 'utils/formatters/formatPrice'
 
 import { Periods, Plans, PlansData, PlansProps } from './types'
 import * as S from './styles'
+import { Skeleton } from './Skeleton'
 
 export function Plans ({ children, onUpdateFormStep, titleButton = 'Finalizar cadastro' }: PlansProps) {
   const [selectedPeriod, setSelectedPeriod] = useState<Periods>('semiannual')
   const [selectedPlan, setSelectedPlan] = useState<Plans>('start')
 
-  const { data } = usePlans()
+  const { data, isLoading } = usePlans()
 
   const planFree: PlansData = data ? data[0] : []
   const planStart: PlansData = data ? data[1] : []
   const planSelect: PlansData = data ? data[2] : []
   const [planDuration, setPlanDuration] = useState(6)
   const [planId, setPlanId] = useState(planStart.id)
+  const { setPlan } = usePlansDispatch()
 
   const handleChoosePlan = (plan: Plans) => {
     setSelectedPlan(plan)
@@ -40,9 +43,6 @@ export function Plans ({ children, onUpdateFormStep, titleButton = 'Finalizar ca
       setPlanDuration(12)
     }
   }
-  const handlePrice = (price = '') => {
-    return `R$ ${price.replace('.', ',')}0`
-  }
 
   const handleFormatTextUpperCase = (text: string) => {
     return text?.toLowerCase()
@@ -52,6 +52,15 @@ export function Plans ({ children, onUpdateFormStep, titleButton = 'Finalizar ca
       }).join(' ')
   }
 
+  const handleClick = () => {
+    setPlan({
+      plan_id: planId,
+      plan_duration: planDuration
+    })
+    onUpdateFormStep()
+  }
+
+  if (isLoading) return (<Skeleton />)
   return (
     <S.Container>
       <S.Wrapper>
@@ -171,7 +180,7 @@ export function Plans ({ children, onUpdateFormStep, titleButton = 'Finalizar ca
           <S.Text>
             Plano com um custo acessível e que te dá mais benefícios.
           </S.Text>
-          <h2>{selectedPeriod === 'semiannual' ? handlePrice(planStart.semiannual_price) : (selectedPeriod === 'monthly' ? handlePrice(planStart.monthly_price) : handlePrice(planStart.annual_price))}</h2>
+          <h2>{selectedPeriod === 'semiannual' ? formatPrice(planStart.semiannual_price) : (selectedPeriod === 'monthly' ? formatPrice(planStart.monthly_price) : formatPrice(planStart.annual_price))}</h2>
           <S.Button className={selectedPlan === 'start' ? 'selected-plan' : ''}>
             {selectedPlan === 'start' ? 'Plano Escolhido' : 'Escolher este plano'}
           </S.Button>
@@ -251,7 +260,7 @@ export function Plans ({ children, onUpdateFormStep, titleButton = 'Finalizar ca
         >
           <S.TitlePlan>{handleFormatTextUpperCase(planSelect.name)}</S.TitlePlan>
           <S.Text>Plano para que você aproveite o máximo do Quantum.</S.Text>
-          <h2>{selectedPeriod === 'semiannual' ? handlePrice(planSelect.semiannual_price) : (selectedPeriod === 'monthly' ? handlePrice(planSelect.monthly_price) : handlePrice(planSelect.annual_price))}</h2>
+          <h2>{selectedPeriod === 'semiannual' ? formatPrice(planSelect.semiannual_price) : (selectedPeriod === 'monthly' ? formatPrice(planSelect.monthly_price) : formatPrice(planSelect.annual_price))}</h2>
           <S.Button className={selectedPlan === 'select' ? 'selected-plan' : ''}>
             {selectedPlan === 'select' ? 'Plano Escolhido' : 'Escolher este plano'}
           </S.Button>
@@ -328,7 +337,7 @@ export function Plans ({ children, onUpdateFormStep, titleButton = 'Finalizar ca
 
       <section>
         <Button
-          onClick={onUpdateFormStep}
+          onClick={handleClick}
         >
           {titleButton}
         </Button>

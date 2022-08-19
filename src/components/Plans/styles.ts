@@ -134,7 +134,7 @@ export const PlanContentsWrapper = styled.div`
   }
 
   @media(max-width: 910px) {
-    width: 23.12rem;
+    width: 350px;
   }
 
   @media(max-width: 460px ){
