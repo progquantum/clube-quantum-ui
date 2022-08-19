@@ -7,6 +7,7 @@ import SEO from '../../next-seo.config'
 
 import { AuthProvider } from './auth/AuthProvider'
 import { StyledProvider } from './styles'
+import { PlansProvider } from './plans/PlansProvider'
 
 export function AppProvider ({ children }: PropsWithChildren<unknown>) {
   const [queryClient] = useState(() => new QueryClient())
@@ -16,10 +17,12 @@ export function AppProvider ({ children }: PropsWithChildren<unknown>) {
       <DefaultSeo {...SEO} />
       <QueryClientProvider client={queryClient}>
         <AuthProvider>
-          <StyledProvider>
-            <ToastContainer />
-            {children}
-          </StyledProvider>
+          <PlansProvider>
+            <StyledProvider>
+              <ToastContainer />
+              {children}
+            </StyledProvider>
+          </PlansProvider>
         </AuthProvider>
       </QueryClientProvider>
     </>
