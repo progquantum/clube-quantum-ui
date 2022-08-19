@@ -41,17 +41,23 @@ export const CardDataTitle = styled.p`
 `
 export const DivInput = styled.div`
   display: flex;
-  align-items: center;
-  justify-content: center;
-  width: 6.25rem;
+  flex-direction: column;
+  width: 225px;
   > div {
     margin: 0;
+    display: flex;
+    justify-content: flex-end;
   }
+
 `
 export const InputCVC = styled(Input)`
+  display: flex;
   border: 2px solid ${({ theme }) => theme.colors.gray[700]};
   border-radius: .625rem;
+  width: 100px;
   height: 3.4375rem;
+
+
   ::placeholder {
     color: ${({ theme }) => theme.colors.gray[400]};
 }

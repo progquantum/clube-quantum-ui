@@ -22,15 +22,12 @@ export function ModalCVC ({ onCloseCVC, onOpenSucessful }: ModalCVCProps) {
   const { data } = useBilling()
   const {
     modalOpen: modalConfirm,
-    open: onOpenModalConfirm,
-    close: onCloseModalConfirm
+    open: onOpenModalConfirm
   } = useModal()
 
   const {
     control,
-    handleSubmit,
-    register,
-    setValue
+    handleSubmit
   } = useForm({
     defaultValues: {
       cvc: ''
@@ -38,9 +35,9 @@ export function ModalCVC ({ onCloseCVC, onOpenSucessful }: ModalCVCProps) {
     resolver: yupResolver(cvcSchema)
   })
 
-  const onSubmit: SubmitHandler<CVCFormValues> = ({ cvc }) => {
-    setCvc(cvc)
-    onCloseCVC()
+  const onSubmit: SubmitHandler<CVCFormValues> = (data) => {
+    setCvc(data.cvc)
+    onOpenModalConfirm()
   }
 
   return (
@@ -62,8 +59,8 @@ export function ModalCVC ({ onCloseCVC, onOpenSucessful }: ModalCVCProps) {
               <S.CardDataTitle>Confirmar CVC</S.CardDataTitle>
               <S.DivInput>
                 <S.InputCVC
-                  type='text'
                   name='cvc'
+                  type='text'
                   control={control}
                   placeholder='000'
 
@@ -79,8 +76,6 @@ export function ModalCVC ({ onCloseCVC, onOpenSucessful }: ModalCVCProps) {
             <S.ButtonCVC
               variant='primary'
               type='submit'
-              onClick={onOpenModalConfirm}
-
             >
               Continuar
             </S.ButtonCVC>
@@ -93,7 +88,7 @@ export function ModalCVC ({ onCloseCVC, onOpenSucessful }: ModalCVCProps) {
             </S.ButtonCVC>
           </S.CVCform>
           )
-        : (<ModalConfirm onOpenSucessful={onOpenSucessful} cvc={cvc} onCloseCVC={onCloseCVC} data={data} />)}
+        : (<ModalConfirm onOpenSucessful={onOpenSucessful} cvc={cvc} onCloseCVC={onCloseCVC} dataBilling={data} />)}
 
     </>
   )
