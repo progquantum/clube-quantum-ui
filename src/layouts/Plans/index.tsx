@@ -17,7 +17,7 @@ import { SelectPlan } from './SelectPlan'
 import { ModalCVC } from './ModalCVC'
 
 export function PlansPage () {
-  const { data } = useFindMe()
+  const { data, isLoading } = useFindMe()
   const {
     modalOpen: modalOpenCVC,
     open: openCVC,
@@ -26,8 +26,7 @@ export function PlansPage () {
 
   const {
     modalOpen: successful,
-    open: onOpenSucessful,
-    close: onCloseSucessful
+    open: onOpenSucessful
   } = useModal()
   return (
     <>
@@ -36,7 +35,7 @@ export function PlansPage () {
         {!successful
           ? (
             <>
-              <SideBar />
+              <SideBar loading={isLoading} />
               <Plans titleButton='Continuar' onUpdateFormStep={openCVC}>
                 {data?.subscription ? (<SelectPlan data={data} />) : (<ManagePlans width='370' />)}
               </Plans>
