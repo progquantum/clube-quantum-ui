@@ -6,11 +6,13 @@ const variants = {
   primary: css`
     color: ${({ theme }) => theme.colors.white};
     background: ${({ theme }) => theme.colors.midnightBlue};
+    border: 0.1rem solid ${({ theme }) => theme.colors.midnightBlue};
 
 
     :hover {
       background: ${({ theme }) => theme.colors.mediumslateBlue};
       color: ${({ theme }) => theme.colors.white};
+      border: 0.1rem solid ${({ theme }) => theme.colors.mediumslateBlue};
     }
   `,
 
@@ -22,6 +24,7 @@ const variants = {
     :hover {
       background: ${({ theme }) => theme.colors.midnightBlue};
       color: ${({ theme }) => theme.colors.white};
+      border: 0.1rem solid ${({ theme }) => theme.colors.midnightBlue};
     }
   `,
 
