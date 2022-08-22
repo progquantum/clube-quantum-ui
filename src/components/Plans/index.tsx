@@ -1,9 +1,11 @@
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 
 import { Button } from 'components/Button'
 import { usePlans } from 'hooks/usePlans'
 import { usePlansDispatch } from 'contexts/plans/PlansContext'
 import { formatPrice } from 'utils/formatters/formatPrice'
+
+import { formatFirstLetterToUppercase } from 'utils/formatters/formatFirstLetterToUppercase'
 
 import { Periods, Plans, PlansData, PlansProps } from './types'
 import * as S from './styles'
@@ -20,6 +22,8 @@ export function Plans ({ children, onUpdateFormStep, titleButton = 'Finalizar ca
   const planSelect: PlansData = data ? data[2] : []
   const [planDuration, setPlanDuration] = useState(6)
   const [planId, setPlanId] = useState(planStart.id)
+  const [price, setPrice] = useState('')
+  const [planName, setPlanName] = useState('')
   const { setPlan } = usePlansDispatch()
 
   const handleChoosePlan = (plan: Plans) => {
@@ -44,19 +48,45 @@ export function Plans ({ children, onUpdateFormStep, titleButton = 'Finalizar ca
     }
   }
 
-  const handleFormatTextUpperCase = (text: string) => {
-    return text?.toLowerCase()
-      .split(' ')
-      .map((word) => {
-        return word[0].toUpperCase() + word.slice(1)
-      }).join(' ')
-  }
+  useEffect(() => {
+    if (planId === planFree.id) {
+      setPlanName(planFree.name)
+      if (planDuration === 1) {
+        setPrice(`0,${planFree.monthly_price}`)
+      } else if (planDuration === 6) {
+        setPrice(`0,${planFree.semiannual_price}`)
+      } else {
+        setPrice(`0,${planFree.annual_price}`)
+      }
+    } else if (planId === planStart.id) {
+      setPlanName(planStart.name)
+      if (planDuration === 1) {
+        setPrice(planStart.monthly_price)
+      } else if (planDuration === 6) {
+        setPrice(planStart.semiannual_price)
+      } else {
+        setPrice(planStart.annual_price)
+      }
+    } else {
+      setPlanName(planSelect.name)
+      if (planDuration === 1) {
+        setPrice(planSelect.monthly_price)
+      } else if (planDuration === 6) {
+        setPrice(planSelect.semiannual_price)
+      } else {
+        setPrice(planSelect.annual_price)
+      }
+    }
+  }, [planId, planDuration])
 
   const handleClick = () => {
     setPlan({
       plan_id: planId,
-      plan_duration: planDuration
+      plan_duration: planDuration,
+      price: price,
+      plan_name: planName
     })
+
     onUpdateFormStep()
   }
 
@@ -94,7 +124,7 @@ export function Plans ({ children, onUpdateFormStep, titleButton = 'Finalizar ca
           className={selectedPlan === 'free' ? 'selected-plan' : ''}
           onClick={() => handleChoosePlan('free')}
         >
-          <S.TitlePlan>{handleFormatTextUpperCase(planFree.name)}</S.TitlePlan>
+          <S.TitlePlan>{formatFirstLetterToUppercase(planFree.name)}</S.TitlePlan>
           <S.Text>
             Plano com um custo acessível e que te dá mais benefícios.
           </S.Text>
@@ -176,7 +206,7 @@ export function Plans ({ children, onUpdateFormStep, titleButton = 'Finalizar ca
           className={selectedPlan === 'start' ? 'selected-plan' : ''}
           onClick={() => handleChoosePlan('start')}
         >
-          <S.TitlePlan>{handleFormatTextUpperCase(planStart.name)}</S.TitlePlan>
+          <S.TitlePlan>{formatFirstLetterToUppercase(planStart.name)}</S.TitlePlan>
           <S.Text>
             Plano com um custo acessível e que te dá mais benefícios.
           </S.Text>
@@ -258,7 +288,7 @@ export function Plans ({ children, onUpdateFormStep, titleButton = 'Finalizar ca
           className={selectedPlan === 'select' ? 'selected-plan' : ''}
           onClick={() => handleChoosePlan('select')}
         >
-          <S.TitlePlan>{handleFormatTextUpperCase(planSelect.name)}</S.TitlePlan>
+          <S.TitlePlan>{formatFirstLetterToUppercase(planSelect.name)}</S.TitlePlan>
           <S.Text>Plano para que você aproveite o máximo do Quantum.</S.Text>
           <h2>{selectedPeriod === 'semiannual' ? formatPrice(planSelect.semiannual_price) : (selectedPeriod === 'monthly' ? formatPrice(planSelect.monthly_price) : formatPrice(planSelect.annual_price))}</h2>
           <S.Button className={selectedPlan === 'select' ? 'selected-plan' : ''}>
