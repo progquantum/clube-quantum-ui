@@ -5,7 +5,7 @@ import { SideBar } from 'components/SideBar'
 import { useFindMe } from 'hooks/useFindMe'
 
 import { ManagePlans } from 'components/ManagePlans'
-
+import { Error } from 'components/Error'
 import { Modal } from 'components/Modal'
 
 import { useModal } from 'hooks/useModal'
@@ -28,26 +28,49 @@ export function PlansPage () {
     modalOpen: successful,
     open: onOpenSucessful
   } = useModal()
+
+  const {
+    modalOpen: error,
+    open: onOpenError,
+    close: onCloseError
+  } = useModal()
   return (
     <>
+      <title>Gerenciamento de plano - Clube Quantum</title>
       <Header />
       <S.Main>
-        {!successful
+        {!error
           ? (
             <>
-              <SideBar loading={isLoading} />
-              <Plans titleButton='Continuar' onUpdateFormStep={openCVC}>
-                {data?.subscription ? (<SelectPlan data={data} />) : (<ManagePlans width='370' />)}
-              </Plans>
-              <Modal width={433} isActive={modalOpenCVC} onClose={closeCVC}>
-                <ModalCVC onOpenSucessful={onOpenSucessful} onCloseCVC={closeCVC} />
-              </Modal>
+              {!successful
+                ? (
+                  <>
+                    <SideBar loading={isLoading} />
+                    <Plans titleButton='Continuar' onUpdateFormStep={openCVC}>
+                      {data?.subscription
+                        ? (
+                          <>
+                            <SelectPlan data={data} />
+                            <Modal width={433} isActive={modalOpenCVC} onClose={closeCVC}>
+                              <ModalCVC
+                                onOpenSucessful={onOpenSucessful}
+                                onCloseCVC={closeCVC}
+                                onOpenError={onOpenError}
+                              />
+                            </Modal>
+                          </>)
+                        : (<ManagePlans width='370' />)}
+                    </Plans>
+
+                  </>
+                  )
+                : (<Successful
+                    paragraph='Seu plano foi alterado com sucesso! Aproveite as ofertas e Cashback no Clube Quantum!'
+                    textTitle='Agradecemos!'
+                   />)}
             </>
             )
-          : (<Successful
-              paragraph='Seu plano foi alterado com sucesso! Aproveite as ofertas e Cashback no Clube Quantum!'
-              textTitle='Agradecemos!'
-             />)}
+          : (<Error onCloseError={onCloseError} />)}
 
       </S.Main>
       <Footer />
