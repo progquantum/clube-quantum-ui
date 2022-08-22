@@ -1,5 +1,7 @@
 import Image from 'next/image'
 
+import { formatFirstLetterToUppercase } from 'utils/formatters/formatFirstLetterToUppercase'
+
 import * as S from './styles'
 import { SelectPlanProps } from './types'
 
@@ -14,10 +16,10 @@ export function SelectPlan ({ data }:SelectPlanProps) {
           src='/images/icon-plan.svg'
           alt='Icone plano'
         />
-        <S.TitlePlan>{data?.subscription?.plan_name}</S.TitlePlan>
+        <S.TitlePlan>Seu plano</S.TitlePlan>
       </S.HeaderSelectPlan>
       <S.DivStatusPlan>
-        <S.TitleStatusPlan>{data?.subscription?.plan_name}</S.TitleStatusPlan>
+        <S.TitleStatusPlan>{formatFirstLetterToUppercase(data?.subscription?.plan_name)}</S.TitleStatusPlan>
         <S.StatusPlan>{data?.subscription?.is_active ? 'Ativo' : 'Cancelado'}</S.StatusPlan>
       </S.DivStatusPlan>
       <S.Deadline>
