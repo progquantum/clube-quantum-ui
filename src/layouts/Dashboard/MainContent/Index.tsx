@@ -4,6 +4,8 @@ import { faker } from '@faker-js/faker'
 
 import { INVITE_FRIENDS_PAGE, PLANS_PAGE } from 'constants/routesPath'
 
+import { formatFirstLetterToUppercase } from 'utils/formatters/formatFirstLetterToUppercase'
+
 import { AccountBalance } from '../AccountBalance'
 
 import { MainContentProps } from './types'
@@ -100,10 +102,10 @@ export function MainContent ({ data }: MainContentProps) {
             src='/images/icon-plan.svg'
             alt='Icone plano'
           />
-          <S.TitlePlan>{data.subscription?.plan_name}</S.TitlePlan>
+          <S.TitlePlan>Seu plano</S.TitlePlan>
         </S.HeaderSelectPlan>
         <S.DivStatusPlan>
-          <S.TitleStatusPlan>{data.subscription?.plan_name}</S.TitleStatusPlan>
+          <S.TitleStatusPlan>{formatFirstLetterToUppercase(data.subscription?.plan_name)}</S.TitleStatusPlan>
           <S.StatusPlan>{data.subscription?.is_active ? 'Ativo' : 'Cancelado'}</S.StatusPlan>
         </S.DivStatusPlan>
         <Link href={PLANS_PAGE}>
