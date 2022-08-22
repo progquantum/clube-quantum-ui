@@ -1,70 +1,73 @@
 import { BsCreditCardFill } from 'react-icons/bs'
 import { MdAssignmentInd } from 'react-icons/md'
 
-import { useEffect, useState } from 'react'
+import { useForm } from 'react-hook-form'
 
 import { usePlansState } from 'contexts/plans/PlansContext'
 import { theme } from 'styles/theme'
-import { usePlans } from 'hooks/usePlans'
 import { formatPrice } from 'utils/formatters/formatPrice'
 
-import { ModalConfirmProps, PlansData } from './types'
+import { formatFirstLetterToUppercase } from 'utils/formatters/formatFirstLetterToUppercase'
+
+import { usePlanUpdate } from 'hooks/usePlanUpdate'
+
+import { ModalConfirmProps } from './types'
 import * as S from './styles'
 
-export function ModalConfirm ({ onOpenSucessful, cvc, onCloseCVC, dataBilling }: ModalConfirmProps) {
-  const { plan } = usePlansState()
-  const { data } = usePlans()
-  const [price, setPrice] = useState('')
-
-  const planFree: PlansData = data ? data[0] : []
-  const planStart: PlansData = data ? data[1] : []
-  const planSelect: PlansData = data ? data[2] : []
-
-  useEffect(() => {
-    if (plan.plan_id === planFree.id) {
-      if (plan.plan_duration === 1) {
-        setPrice(planFree.monthly_price)
-      } else if (plan.plan_duration === 6) {
-        setPrice(planFree.semiannual_price)
-      } else {
-        setPrice(planFree.annual_price)
-      }
-    } else if (plan.plan_id === planStart.id) {
-      if (plan.plan_duration === 1) {
-        setPrice(planStart.monthly_price)
-      } else if (plan.plan_duration === 6) {
-        setPrice(planStart.semiannual_price)
-      } else {
-        setPrice(planStart.annual_price)
-      }
-    } else {
-      if (plan.plan_duration === 1) {
-        setPrice(planSelect.monthly_price)
-      } else if (plan.plan_duration === 6) {
-        setPrice(planSelect.semiannual_price)
-      } else {
-        setPrice(planSelect.annual_price)
-      }
+export function ModalConfirm ({ onOpenError, onOpenSucessful, cvc, onCloseCVC, dataBilling }: ModalConfirmProps) {
+  const {
+    handleSubmit,
+    formState
+  } = useForm({
+    defaultValues: {
+      plan: {
+        plan_id: '',
+        plan_duration: ''
+      },
+      cvc: ''
     }
-  }, [price])
+  })
+  const {
+    mutate: updatePlan,
+    isLoading: isUpdating
+  } = usePlanUpdate()
+
+  const { isSubmitting } = formState
+  const isButtonDisabled = isSubmitting || isUpdating
+
+  const { plan } = usePlansState()
+
+  function onSubmit () {
+    updatePlan({
+      plan: {
+        plan_id: plan.plan_id,
+        plan_duration: plan.plan_duration
+      },
+      cvc: cvc
+    },
+    {
+      onSuccess: () => onOpenSucessful(),
+      onError: () => onOpenError()
+    })
+  }
 
   return (
     <>
-      <S.Form>
+      <S.Form onSubmit={handleSubmit(onSubmit)}>
 
         <S.Plan>
           <S.Title>
             <MdAssignmentInd size={19.87} color={theme.colors.mediumslateBlue} />
             Seu plano escolhido
           </S.Title>
-          <S.TitlePlan>Quantum Start</S.TitlePlan>
+          <S.TitlePlan>{formatFirstLetterToUppercase(plan?.plan_name)}</S.TitlePlan>
           <S.CardDataContainer>
             <S.CardDataTitle>Período de Cobrança</S.CardDataTitle>
             <S.CardDataText>{plan.plan_duration === 6 ? 'Semestral' : (plan.plan_duration === 1 ? 'Mensal' : 'Anual')}</S.CardDataText>
           </S.CardDataContainer>
           <S.CardDataContainer>
             <S.CardDataTitle>Total</S.CardDataTitle>
-            <S.CardDataText>{formatPrice(price)}</S.CardDataText>
+            <S.CardDataText>{formatPrice(plan.price)}</S.CardDataText>
           </S.CardDataContainer>
         </S.Plan>
 
@@ -90,7 +93,8 @@ export function ModalConfirm ({ onOpenSucessful, cvc, onCloseCVC, dataBilling }:
         <S.ButtonConfirm
           variant='primary'
           type='submit'
-          onClick={onOpenSucessful}
+          loading={isUpdating}
+          disabled={isButtonDisabled}
 
         >
           Finalizar

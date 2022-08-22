@@ -5,6 +5,7 @@ export type ModalConfirmProps = {
   onCloseCVC: () => void
   cvc: string
   onOpenSucessful: () => void
+  onOpenError: () => void
 
 }
 
