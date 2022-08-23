@@ -4,6 +4,5 @@ export type TextTitleProps = {
 }
 
 export type ErrorProps = {
-  paragraph?: string
-  onCloseError: () => void
+  paragraph?: string;
 }

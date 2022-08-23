@@ -6,7 +6,7 @@ import { DASHBOARD_PAGE } from 'constants/routesPath'
 import * as S from './styles'
 import { ErrorProps } from './types'
 
-export function Error ({ paragraph, onCloseError }:ErrorProps) {
+export function Error ({ paragraph }:ErrorProps) {
   return (
     <S.Container>
       <S.LeftWrapper>
@@ -27,7 +27,6 @@ export function Error ({ paragraph, onCloseError }:ErrorProps) {
         <S.Button_
           type='button'
           variant='primary'
-          onClick={onCloseError}
         >
           Revisar meus dados bancários
         </S.Button_>
