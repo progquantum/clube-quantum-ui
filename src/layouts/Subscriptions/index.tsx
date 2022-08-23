@@ -1,6 +1,5 @@
 import { Footer } from 'components/Footer'
 import { Header } from 'components/Header'
-import { Plans } from 'components/Plans'
 import { SideBar } from 'components/SideBar'
 import { useFindMe } from 'hooks/useFindMe'
 
@@ -9,14 +8,16 @@ import { Error } from 'components/Error'
 import { Modal } from 'components/Modal'
 
 import { useModal } from 'hooks/useModal'
-
 import { Successful } from 'components/Successful'
+import { Plans } from 'components/Plans'
+
+import { BANK_ACCOUNT_PAGE } from 'constants/routesPath'
 
 import * as S from './styles'
 import { SelectPlan } from './SelectPlan'
 import { ModalCVC } from './ModalCVC'
 
-export function PlansPage () {
+export function SubscriptionsPage () {
   const { data, isLoading } = useFindMe()
   const {
     modalOpen: modalOpenCVC,
@@ -31,8 +32,7 @@ export function PlansPage () {
 
   const {
     modalOpen: error,
-    open: onOpenError,
-    close: onCloseError
+    open: onOpenError
   } = useModal()
   return (
     <>
@@ -46,7 +46,7 @@ export function PlansPage () {
                 ? (
                   <>
                     <SideBar loading={isLoading} />
-                    <Plans titleButton='Continuar' onUpdateFormStep={openCVC}>
+                    <Plans titleButton='Continuar' onClick={openCVC} redirectTo={BANK_ACCOUNT_PAGE}>
                       {data?.subscription
                         ? (
                           <>
@@ -70,7 +70,7 @@ export function PlansPage () {
                    />)}
             </>
             )
-          : (<Error onCloseError={onCloseError} />)}
+          : (<Error />)}
 
       </S.Main>
       <Footer />

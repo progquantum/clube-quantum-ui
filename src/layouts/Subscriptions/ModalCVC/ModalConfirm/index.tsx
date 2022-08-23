@@ -3,7 +3,7 @@ import { MdAssignmentInd } from 'react-icons/md'
 
 import { useForm } from 'react-hook-form'
 
-import { usePlansState } from 'contexts/plans/PlansContext'
+import { useSubscriptionsState } from 'contexts/subscriptions/SubscriptionsContext'
 import { theme } from 'styles/theme'
 import { formatPrice } from 'utils/formatters/formatPrice'
 
@@ -35,7 +35,7 @@ export function ModalConfirm ({ onOpenError, onOpenSucessful, cvc, onCloseCVC, d
   const { isSubmitting } = formState
   const isButtonDisabled = isSubmitting || isUpdating
 
-  const { plan } = usePlansState()
+  const { plan } = useSubscriptionsState()
 
   function onSubmit () {
     updatePlan({

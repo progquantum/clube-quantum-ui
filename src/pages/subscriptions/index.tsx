@@ -1,6 +1,6 @@
 import { GetServerSideProps } from 'next'
 
-import { PlansPage } from 'layouts/Plans'
+import { SubscriptionsPage } from 'layouts/Subscriptions'
 
 import { withSSRAuth } from 'helpers/auth/withSSRAuth'
 
@@ -10,6 +10,6 @@ export const getServerSideProps: GetServerSideProps = withSSRAuth(async () => {
   }
 })
 
-export default function Plans () {
-  return <PlansPage />
+export default function Subscriptions () {
+  return <SubscriptionsPage />
 }
