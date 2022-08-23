@@ -2,7 +2,7 @@ import Image from 'next/image'
 import Link from 'next/link'
 import { faker } from '@faker-js/faker'
 
-import { INVITE_FRIENDS_PAGE, PLANS_PAGE } from 'constants/routesPath'
+import { INVITE_FRIENDS_PAGE, SUBSCRIPTIONS_PAGE } from 'constants/routesPath'
 
 import { formatFirstLetterToUppercase } from 'utils/formatters/formatFirstLetterToUppercase'
 
@@ -108,7 +108,7 @@ export function MainContent ({ data }: MainContentProps) {
           <S.TitleStatusPlan>{formatFirstLetterToUppercase(data.subscription?.plan_name)}</S.TitleStatusPlan>
           <S.StatusPlan>{data.subscription?.is_active ? 'Ativo' : 'Cancelado'}</S.StatusPlan>
         </S.DivStatusPlan>
-        <Link href={PLANS_PAGE}>
+        <Link href={SUBSCRIPTIONS_PAGE}>
           <S.ManageButton>Gerenciar planos</S.ManageButton>
         </Link>
         <S.Deadline>

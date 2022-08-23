@@ -1,7 +1,7 @@
 import Image from 'next/image'
 import Link from 'next/link'
 
-import { DASHBOARD_PAGE, PLANS_PAGE } from 'constants/routesPath'
+import { DASHBOARD_PAGE, SUBSCRIPTIONS_PAGE } from 'constants/routesPath'
 import { useAuthDispatch } from 'contexts/auth/AuthContext'
 
 import { Skeleton } from './Skeleton'
@@ -77,7 +77,7 @@ export function SideBar ({ loading }: SideBarProps) {
         Meus Pedidos
       </S.NavButton>
 
-      <Link href={PLANS_PAGE}>
+      <Link href={SUBSCRIPTIONS_PAGE}>
         <S.NavButton>
           <S.WrapImage>
             <Image
