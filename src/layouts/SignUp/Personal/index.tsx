@@ -84,7 +84,7 @@ export function PersonalSignUpPage () {
             )}
 
             {step === 6 && (
-              <Plans onUpdateFormStep={() => nextStep()} />
+              <Plans onClick={() => nextStep()} />
             )}
 
             {step === 7 && (

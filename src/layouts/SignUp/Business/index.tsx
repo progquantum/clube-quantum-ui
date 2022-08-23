@@ -123,7 +123,7 @@ export function BusinessSignUpPage () {
               />
             )}
             {step === 6 && (
-              <Plans onUpdateFormStep={() => nextStep()} />
+              <Plans onClick={() => nextStep()} />
             )}
             {step === 7 && (
               <Successful />
