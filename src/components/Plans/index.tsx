@@ -1,17 +1,21 @@
 import { useEffect, useState } from 'react'
 
+import Link from 'next/link'
+
 import { Button } from 'components/Button'
 import { usePlans } from 'hooks/usePlans'
-import { usePlansDispatch } from 'contexts/plans/PlansContext'
+import { useSubscriptionsDispatch, useSubscriptionsState } from 'contexts/subscriptions/SubscriptionsContext'
 import { formatPrice } from 'utils/formatters/formatPrice'
 
 import { formatFirstLetterToUppercase } from 'utils/formatters/formatFirstLetterToUppercase'
+
+import { DASHBOARD_PAGE } from 'constants/routesPath'
 
 import { Periods, Plans, PlansData, PlansProps } from './types'
 import * as S from './styles'
 import { Skeleton } from './Skeleton'
 
-export function Plans ({ children, onUpdateFormStep, titleButton = 'Finalizar cadastro' }: PlansProps) {
+export function Plans ({ children, onClick, redirectTo, titleButton = 'Finalizar cadastro' }: PlansProps) {
   const [selectedPeriod, setSelectedPeriod] = useState<Periods>('semiannual')
   const [selectedPlan, setSelectedPlan] = useState<Plans>('start')
 
@@ -24,7 +28,7 @@ export function Plans ({ children, onUpdateFormStep, titleButton = 'Finalizar ca
   const [planId, setPlanId] = useState(planStart.id)
   const [price, setPrice] = useState('')
   const [planName, setPlanName] = useState('')
-  const { setPlan } = usePlansDispatch()
+  const { setPlan } = useSubscriptionsDispatch()
 
   const handleChoosePlan = (plan: Plans) => {
     setSelectedPlan(plan)
@@ -87,7 +91,7 @@ export function Plans ({ children, onUpdateFormStep, titleButton = 'Finalizar ca
       plan_name: planName
     })
 
-    onUpdateFormStep()
+    onClick()
   }
 
   if (isLoading) return (<Skeleton />)
@@ -366,11 +370,23 @@ export function Plans ({ children, onUpdateFormStep, titleButton = 'Finalizar ca
       </S.PlansContents>
 
       <section>
-        <Button
-          onClick={handleClick}
-        >
-          {titleButton}
-        </Button>
+        {redirectTo
+          ? (
+            <Link href={redirectTo}>
+              <Button
+                onClick={handleClick}
+              >
+                {titleButton}
+              </Button>
+            </Link>
+            )
+          : (
+            <Button
+              onClick={handleClick}
+            >
+              {titleButton}
+            </Button>
+            )}
       </section>
     </S.Container>
   )

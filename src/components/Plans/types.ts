@@ -1,9 +1,10 @@
 import { ReactNode } from 'react'
 
 export type PlansProps = {
-  onUpdateFormStep?: () => void;
+  onClick?: () => void;
   titleButton?: string;
   children?: ReactNode;
+  redirectTo?: string
 }
 
 export type Periods = 'monthly' | 'semiannual' | 'yearly'
