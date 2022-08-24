@@ -8,7 +8,7 @@ import { IoMdDocument } from 'react-icons/io'
 import Link from 'next/link'
 
 import { useAuthDispatch, useAuthState } from 'contexts/auth/AuthContext'
-import { DASHBOARD_PAGE } from 'constants/routesPath'
+import { DASHBOARD_PAGE, SUBSCRIPTIONS_PAGE } from 'constants/routesPath'
 
 import { DROP_DOWN_ANIMATION } from './animations'
 import * as S from './styles'
@@ -68,11 +68,12 @@ export function AccountDropdown () {
                 <FaShoppingBag />
                 Pedidos
               </S.NavButton>
-
-              <S.NavButton>
-                <MdAssignmentInd />
-                Planos
-              </S.NavButton>
+              <Link href={SUBSCRIPTIONS_PAGE}>
+                <S.NavButton>
+                  <MdAssignmentInd />
+                  Planos
+                </S.NavButton>
+              </Link>
 
               <S.NavButton>
                 <MdAssignmentTurnedIn />
