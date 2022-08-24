@@ -1,11 +1,7 @@
-import { BillingData } from 'hooks/useBilling/types'
-
 export type ModalConfirmProps = {
-  dataBilling: BillingData
   onCloseCVC: () => void
-  cvc: string
-  onOpenSucessful: () => void
-  onOpenError: () => void
+  onSucessful: () => void
+  onError: () => void
 
 }
 

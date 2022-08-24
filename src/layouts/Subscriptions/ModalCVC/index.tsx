@@ -3,8 +3,6 @@ import { BsCreditCardFill } from 'react-icons/bs'
 import { SubmitHandler, useForm } from 'react-hook-form'
 import { yupResolver } from '@hookform/resolvers/yup'
 
-import { useState } from 'react'
-
 import { theme } from 'styles/theme'
 
 import { cvcSchema } from 'schemas/updatePlan'
@@ -13,12 +11,13 @@ import { useModal } from 'hooks/useModal'
 
 import { useBilling } from 'hooks/useBilling'
 
+import { useSubscriptionsDispatch } from 'contexts/subscriptions/SubscriptionsContext'
+
 import * as S from './styles'
 import { CVCFormValues, ModalCVCProps } from './types'
 import { ModalConfirm } from './ModalConfirm'
 
-export function ModalCVC ({ onCloseCVC, onOpenSucessful, onOpenError }: ModalCVCProps) {
-  const [cvc, setCvc] = useState('')
+export function ModalCVC ({ onCloseCVC, onSucessful, onError }: ModalCVCProps) {
   const { data } = useBilling()
   const {
     modalOpen: modalConfirm,
@@ -38,8 +37,10 @@ export function ModalCVC ({ onCloseCVC, onOpenSucessful, onOpenError }: ModalCVC
   const { isDirty, isSubmitting } = formState
   const isButtonDisabled = !isDirty || isSubmitting
 
+  const { setCreditCard } = useSubscriptionsDispatch()
+
   const onSubmit: SubmitHandler<CVCFormValues> = (data) => {
-    setCvc(data.cvc)
+    setCreditCard({ cvc: data.cvc })
     onOpenModalConfirm()
   }
 
@@ -94,11 +95,9 @@ export function ModalCVC ({ onCloseCVC, onOpenSucessful, onOpenError }: ModalCVC
           </S.CVCform>
           )
         : (<ModalConfirm
-            onOpenError={onOpenError}
-            onOpenSucessful={onOpenSucessful}
-            cvc={cvc}
+            onError={onError}
+            onSucessful={onSucessful}
             onCloseCVC={onCloseCVC}
-            dataBilling={data}
            />)}
 
     </>
