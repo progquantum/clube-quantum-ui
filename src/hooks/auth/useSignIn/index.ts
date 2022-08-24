@@ -5,8 +5,10 @@ import { api } from 'config/client'
 
 import { SignInCredentials } from './types'
 
-const signInMutation = (credentials: SignInCredentials): Promise<Session> => (
-  api.post<Session, { data: Session }>('/login', credentials)
+const signInMutation = (
+  credentials: SignInCredentials
+) => (
+  api.post<Session>('/sessions', credentials)
     .then(response => response.data)
 )
 

@@ -1,21 +1,24 @@
-import { useMemo, useCallback, PropsWithChildren, useEffect } from 'react'
+import { useMemo, useCallback, PropsWithChildren, useEffect, useState } from 'react'
 import { useRouter } from 'next/router'
 import { useLocalStorage } from '@rehooks/local-storage'
 import { setCookie, destroyCookie } from 'nookies'
 
 import { User } from 'shared/types/apiSchema'
 import { USER_STORAGE_KEY, TOKEN_STORAGE_KEY, REFRESH_TOKEN_STORAGE_KEY } from 'constants/storage'
+import { DASHBOARD_PAGE, SIGN_IN_PAGE } from 'constants/routesPath'
 import { useSignIn } from 'hooks/auth/useSignIn'
 import { api } from 'config/client'
 import { logOut } from 'helpers/auth/logOut'
 
 import { AuthStateProvider, AuthDispatchProvider } from './AuthContext'
-import { SignInCredentials } from './types'
+import { SignInCredentials, SignUpData } from './types'
 
 let authChannel: BroadcastChannel
 
 export function AuthProvider ({ children }: PropsWithChildren<unknown>) {
   const { mutate: signIn, isLoading: loading } = useSignIn()
+
+  const [registerUser, setRegisterUser] = useState<SignUpData>(null)
 
   const [user, setUser, deleteUser] = useLocalStorage<User>(
     USER_STORAGE_KEY,
@@ -57,7 +60,7 @@ export function AuthProvider ({ children }: PropsWithChildren<unknown>) {
 
         api.defaults.headers.common.Authorization = `Bearer ${token}`
 
-        router.push('/dashboard')
+        router.push(DASHBOARD_PAGE)
       }
     })
   },
@@ -66,12 +69,19 @@ export function AuthProvider ({ children }: PropsWithChildren<unknown>) {
     setUser
   ])
 
+  const handleSignUp = useCallback((updateRegisterUser: SignUpData) => {
+    setRegisterUser({
+      ...registerUser,
+      ...updateRegisterUser
+    })
+  }, [registerUser])
+
   const signOut = useCallback(() => {
     deleteUser()
     destroyCookie(undefined, TOKEN_STORAGE_KEY)
     destroyCookie(undefined, REFRESH_TOKEN_STORAGE_KEY)
 
-    router.push('/signin')
+    router.push(SIGN_IN_PAGE)
   },
   [
     deleteUser
@@ -80,21 +90,25 @@ export function AuthProvider ({ children }: PropsWithChildren<unknown>) {
   const authState = useMemo(
     () => ({
       user,
-      loading
+      loading,
+      registerUser
     }),
     [
       user,
-      loading
+      loading,
+      registerUser
     ]
   )
 
   const authDispatch = useMemo(
     () => ({
       signIn: handleSignIn,
+      signUp: handleSignUp,
       signOut
     }),
     [
       handleSignIn,
+      handleSignUp,
       signOut
     ]
   )

@@ -1,8 +1,0 @@
-export { CNPJInput } from './CNPJInput'
-export { PhoneNumberInput } from './PhoneNumberInput'
-export { PinCodeInput } from './PinCodeInput'
-export { BusinessDataInputs } from './BusinessDataInputs'
-export { AddressDataInputs } from './AddressDataInputs'
-export { CardDataInputs } from './CardDataInputs'
-export { DataPlans } from './DataPlans'
-export { SuccessfulSignUp } from './SuccessfulSignUp'

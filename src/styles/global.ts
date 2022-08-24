@@ -1,4 +1,6 @@
 import { createGlobalStyle } from 'styled-components'
+import 'react-toastify/dist/ReactToastify.css'
+import 'react-loading-skeleton/dist/skeleton.css'
 
 export default createGlobalStyle`
   * {

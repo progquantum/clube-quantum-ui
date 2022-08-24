@@ -2,6 +2,8 @@ import { useState } from 'react'
 import Link from 'next/link'
 import Image from 'next/image'
 
+import { SIGN_IN_PAGE } from 'constants/routesPath'
+
 import * as S from './styles'
 
 export function SideBar () {
@@ -32,7 +34,7 @@ export function SideBar () {
             <Image
               width={28}
               height={20}
-              src='/images/open-sidebar.png'
+              src='/images/open-menu.svg'
               alt='Abrir sidebar'
               onClick={handleOpenMenu}
             />
@@ -41,7 +43,7 @@ export function SideBar () {
             <Image
               width={21}
               height={21}
-              src='/images/close-sidebar.png'
+              src='/images/close-menu.svg'
               alt='Abrir sidebar'
               onClick={handleCloseMenu}
             />
@@ -53,16 +55,16 @@ export function SideBar () {
           <>
             <S.Nav>
               <Link href='/'>Saiba Mais</Link>
+              <S.Line />
               <Link href='/'>Seja um parceiro</Link>
+              <S.Line />
               <Link href='/'>Central de dúvidas</Link>
+              <S.Line />
+              <Link href={SIGN_IN_PAGE}>
+                <S.LoginButton>Fazer Login</S.LoginButton>
+              </Link>
             </S.Nav>
 
-            <S.Box>
-              <p>
-                Olá, faça seu <Link href='/signin'>Login</Link>{' '}
-                ou <Link href='/signup/personal' passHref>Cadastre-se </Link>
-              </p>
-            </S.Box>
           </>
         )}
       </S.Menu>

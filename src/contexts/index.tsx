@@ -1,11 +1,11 @@
 import { PropsWithChildren, useState } from 'react'
 import { QueryClient, QueryClientProvider } from 'react-query'
+import { ToastContainer } from 'react-toastify'
 import { DefaultSeo } from 'next-seo'
 
 import SEO from '../../next-seo.config'
 
 import { AuthProvider } from './auth/AuthProvider'
-import { SignUpProvider } from './signup/SignUpProvider'
 import { StyledProvider } from './styles'
 
 export function AppProvider ({ children }: PropsWithChildren<unknown>) {
@@ -15,11 +15,12 @@ export function AppProvider ({ children }: PropsWithChildren<unknown>) {
     <>
       <DefaultSeo {...SEO} />
       <QueryClientProvider client={queryClient}>
-        <SignUpProvider>
-          <AuthProvider>
-            <StyledProvider>{children}</StyledProvider>
-          </AuthProvider>
-        </SignUpProvider>
+        <AuthProvider>
+          <StyledProvider>
+            <ToastContainer />
+            {children}
+          </StyledProvider>
+        </AuthProvider>
       </QueryClientProvider>
     </>
   )

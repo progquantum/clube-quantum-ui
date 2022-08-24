@@ -1,10 +1,16 @@
+export type Subscription = {
+  plan_name: string
+  is_active: boolean
+}
+
 export type User = {
   name: string
-  subscription: string
+  subscription?: Subscription
   address: {
     city: string
     state: string
   }
+  invite_code?: string
 }
 
 export type Session = {
@@ -12,3 +18,17 @@ export type Session = {
   token: string
   refresh_token: string
 }
+
+export type Address = {
+  street: string,
+  number: string,
+  neighborhood: string,
+  zip_code: string,
+  city: string,
+  state: string,
+  country: string
+}
+
+export type InviteCodePayload = {
+  is_valid: boolean
+ }

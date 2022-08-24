@@ -3,11 +3,15 @@ import Image from 'next/image'
 
 import { Steper } from 'components/Steper'
 import { Footer } from 'components/Footer'
+import { Plans } from 'components/Plans'
+import { Successful } from 'components/Successful'
 
-import { ImageLoader } from './ImageLoader'
-
-import * as Step from './Steps'
-
+import { CNPJ } from '../Forms/CNPJ'
+import { Phone } from '../Forms/Phone'
+import { PinCode } from '../Forms/PinCode'
+import { LegalPerson } from '../Forms/LegalPerson'
+import { BusinessAddress } from '../Forms/BusinessAddress'
+import { BankCard } from '../Forms/BankCard'
 import * as S from './styles'
 
 export function BusinessSignUpPage () {
@@ -21,8 +25,14 @@ export function BusinessSignUpPage () {
     setStep((prevState) => prevState - 1)
   }
 
+  function navigateToSuccessfullSignUp () {
+    setStep((prevState) => prevState + 2)
+  }
+
   return (
     <>
+      <title>Cadastre-se - Clube Quantum</title>
+
       <S.Container>
         <S.ContentsWrapper width={step <= 6 ? 5 : 0}>
           {step <= 6 && (
@@ -31,59 +41,96 @@ export function BusinessSignUpPage () {
 
           <S.Contents>
             {step === 0 && (
-              <ImageLoader src='/images/business-one-step.png' alt='' />
+              <Image
+                width={385}
+                height={373}
+                src='/images/business-one-step.png'
+                alt=''
+              />
             )}
             {step === 1 && (
-              <ImageLoader src='/images/business-two-step.png' alt='' />
+              <Image
+                width={385}
+                height={373}
+                src='/images/business-two-step.png'
+                alt=''
+              />
             )}
             {step === 2 && (
-              <ImageLoader src='/images/business-two-step.png' alt='' />
+              <Image
+                width={385}
+                height={373}
+                src='/images/business-two-step.png'
+                alt=''
+              />
             )}
             {step === 3 && (
-              <ImageLoader src='/images/business-four-step.png' alt='' />
+              <Image
+                width={385}
+                height={373}
+                src='/images/business-four-step.png'
+                alt=''
+              />
             )}
             {step === 4 && (
-              <ImageLoader src='/images/business-five-step.png' alt='' />
+              <Image
+                width={385}
+                height={373}
+                src='/images/business-five-step.png'
+                alt=''
+              />
             )}
             {step === 5 && (
-              <ImageLoader src='/images/business-six-step.png' alt='' />
+              <Image
+                width={385}
+                height={373}
+                src='/images/business-six-step.png'
+                alt=''
+              />
             )}
             {step === 7 && (
-              <Image width={291} height={322} src='/images/successful-signup.png' alt='' />
+              <Image
+                width={291}
+                height={322}
+                src='/images/successful-signup.png'
+                alt=''
+              />
             )}
 
             {step === 0 && (
-              <Step.CNPJInput onUpdateFormStep={() => nextStep()} />
+              // eslint-disable-next-line react/jsx-pascal-case
+              <CNPJ onUpdateFormStep={() => nextStep()} />
             )}
             {step === 1 && (
-              <Step.PhoneNumberInput onUpdateFormStep={() => nextStep()} />
+              <Phone onUpdateFormStep={() => nextStep()} />
             )}
             {step === 2 && (
-              <Step.PinCodeInput
+              <PinCode
                 onNextFormStep={() => nextStep()}
                 onPreviousFormStep={() => previousStep()}
               />
             )}
             {step === 3 && (
-              <Step.BusinessDataInputs onUpdateFormStep={() => nextStep()} />
+              <LegalPerson onUpdateFormStep={() => nextStep()} />
             )}
             {step === 4 && (
-              <Step.AddressDataInputs onUpdateFormStep={() => nextStep()} />
+              <BusinessAddress onUpdateFormStep={() => nextStep()} />
             )}
             {step === 5 && (
-              <Step.CardDataInputs onUpdateFormStep={() => nextStep()} />
+              <BankCard
+                onUpdateFormStep={() => nextStep()}
+                onNavigateToSuccessfulSignUp={() => navigateToSuccessfullSignUp()}
+              />
             )}
             {step === 6 && (
-              <Step.DataPlans onUpdateFormStep={() => nextStep()} />
+              <Plans onUpdateFormStep={() => nextStep()} />
             )}
             {step === 7 && (
-              <Step.SuccessfulSignUp />
+              <Successful />
             )}
           </S.Contents>
         </S.ContentsWrapper>
-
       </S.Container>
-
       <Footer />
     </>
   )

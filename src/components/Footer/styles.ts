@@ -3,27 +3,27 @@ import { RiFacebookFill } from 'react-icons/ri'
 import styled, { css } from 'styled-components'
 
 export const Container = styled.footer`
-  max-width: 1640px;
   width: 100%;
-  padding: 0 9.375rem 3.125rem;
-  margin: 0 auto;
-
   display: flex;
   align-items: center;
-  justify-content: space-between;
+  justify-content: center;
+  gap: 26rem;
+  box-shadow: 0 -2px 20px 0px #00000012;
+  padding: 3.125rem 0;
 
   * {
     color: ${({ theme }) => theme.colors.gray[700]};
   }
 
   @media(max-width: 1090px) {
-    padding: 0 3.375rem 3.125rem;
+    gap: 10rem;
   }
 
   @media(max-width: 860px) {
     flex-direction: column;
+    align-items: flex-start;
     gap: 3.75rem;
-    padding: 0 1.375rem 3.125rem;
+    padding: 3.125rem 2rem;
   }
 `
 
@@ -33,8 +33,6 @@ export const About = styled.div`
 
   @media(max-width: 860px) {
     flex-direction: column;
-    align-items: center;
-    text-align: center;
     gap: 2.25rem;
   }
 `
@@ -45,26 +43,23 @@ export const Nav = styled.nav`
   gap: 0.625rem;
 `
 
-export const Wrap = styled.div`
-  h3 {
-    margin-bottom: 0.625rem;
-    font-size: 1.125rem;
-  }
-`
-
 export const Contact = styled.div`
   display: flex;
   flex-direction: column;
-  align-items: center;
   gap: 0.625rem;
+`
 
-  h4 {
-    font-size: 1rem;
-  }
+export const Heading = styled.h3`
+  margin-bottom: 0.625rem;
+  font-size: 1.125rem;
+`
 
-  h2 {
-    font-size: 1.25rem;
-  }
+export const HeadingContact = styled.h4`
+  font-size: 1rem;
+`
+
+export const HeadingNumber = styled.h2`
+  font-size: 1.25rem;
 `
 
 export const SocialNetworks = styled.div`
