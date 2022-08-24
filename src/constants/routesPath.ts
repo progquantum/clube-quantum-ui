@@ -4,7 +4,7 @@ export const SIGN_IN_PAGE = '/signin'
 export const SUBSCRIPTIONS_PAGE = '/subscriptions'
 export const BANK_ACCOUNT_PAGE = '/subscriptions/bank-account'
 export const CREDIT_CARD_PAGE = '/subscriptions/credit-card'
-export const FINISHED_SUBSCRIPTION = '/subscriptions/finished-subscription'
+export const FINISHED_SUBSCRIPTION = '/subscriptions/finished'
 
 export const HOMEPAGE_PAGE = '/'
 export const ADVANTAGES_PAGE = '/advantages'
