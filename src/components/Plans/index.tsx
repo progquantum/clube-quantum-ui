@@ -4,22 +4,26 @@ import Link from 'next/link'
 
 import { Button } from 'components/Button'
 import { usePlans } from 'hooks/usePlans'
-import { useSubscriptionsDispatch, useSubscriptionsState } from 'contexts/subscriptions/SubscriptionsContext'
+import { useSubscriptionsDispatch } from 'contexts/subscriptions/SubscriptionsContext'
 import { formatPrice } from 'utils/formatters/formatPrice'
 
 import { formatFirstLetterToUppercase } from 'utils/formatters/formatFirstLetterToUppercase'
 
-import { DASHBOARD_PAGE } from 'constants/routesPath'
+import { BANK_ACCOUNT_PAGE } from 'constants/routesPath'
+
+import { useFindMe } from 'hooks/useFindMe'
 
 import { Periods, Plans, PlansData, PlansProps } from './types'
 import * as S from './styles'
 import { Skeleton } from './Skeleton'
 
-export function Plans ({ children, onClick, redirectTo, titleButton = 'Finalizar cadastro' }: PlansProps) {
+export function Plans ({ children, onClick, titleButton = 'Finalizar cadastro' }: PlansProps) {
   const [selectedPeriod, setSelectedPeriod] = useState<Periods>('semiannual')
   const [selectedPlan, setSelectedPlan] = useState<Plans>('start')
 
   const { data, isLoading } = usePlans()
+  const plans = useFindMe()
+  const userHasPlan = plans.data?.subscription?.is_active
 
   const planFree: PlansData = data ? data[0] : []
   const planStart: PlansData = data ? data[1] : []
@@ -91,7 +95,7 @@ export function Plans ({ children, onClick, redirectTo, titleButton = 'Finalizar
       plan_name: planName
     })
 
-    onClick()
+    userHasPlan && onClick()
   }
 
   if (isLoading) return (<Skeleton />)
@@ -370,9 +374,9 @@ export function Plans ({ children, onClick, redirectTo, titleButton = 'Finalizar
       </S.PlansContents>
 
       <section>
-        {redirectTo
+        {!userHasPlan
           ? (
-            <Link href={redirectTo}>
+            <Link href={BANK_ACCOUNT_PAGE}>
               <Button
                 onClick={handleClick}
               >

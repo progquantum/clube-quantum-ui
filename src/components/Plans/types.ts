@@ -1,10 +1,11 @@
 import { ReactNode } from 'react'
 
+import { Subscription } from 'shared/types/apiSchema'
+
 export type PlansProps = {
   onClick?: () => void;
   titleButton?: string;
   children?: ReactNode;
-  redirectTo?: string
 }
 
 export type Periods = 'monthly' | 'semiannual' | 'yearly'
