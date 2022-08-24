@@ -27,6 +27,19 @@ const variants = {
       border: 0.1rem solid ${({ theme }) => theme.colors.midnightBlue};
     }
   `,
+  secondary_degrade: css`
+    color: ${({ theme }) => theme.colors.white};
+    background: ${({ theme }) => theme.gradients.midnightBlueToMediumsLateBlue};
+
+
+
+    :hover {
+      color: ${({ theme }) => theme.colors.white};
+      background: ${({ theme }) => theme.gradients.royalblueToMidnightblue};
+
+
+    }
+  `,
 
   rounded: css`
     width: 3.125rem;
