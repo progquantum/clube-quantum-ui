@@ -1,24 +1,23 @@
-import { Footer } from 'components/Footer'
-import { Header } from 'components/Header'
-import { SideBar } from 'components/SideBar'
 import { useFindMe } from 'hooks/useFindMe'
+import { useModal } from 'hooks/useModal'
 
 import { ManagePlans } from 'components/ManagePlans'
 import { Error } from 'components/Error'
 import { Modal } from 'components/Modal'
-
-import { useModal } from 'hooks/useModal'
+import { Footer } from 'components/Footer'
+import { Header } from 'components/Header'
+import { SideBar } from 'components/SideBar'
 import { Successful } from 'components/Successful'
 import { Plans } from 'components/Plans'
 
-import { BANK_ACCOUNT_PAGE } from 'constants/routesPath'
-
-import * as S from './styles'
 import { SelectPlan } from './SelectPlan'
 import { ModalCVC } from './ModalCVC'
+import * as S from './styles'
 
 export function SubscriptionsPage () {
   const { data, isLoading } = useFindMe()
+  const hasPlan = data?.subscription?.is_active
+
   const {
     modalOpen: modalOpenCVC,
     open: openCVC,
@@ -27,12 +26,12 @@ export function SubscriptionsPage () {
 
   const {
     modalOpen: successful,
-    open: onOpenSucessful
+    open: onSucessful
   } = useModal()
 
   const {
     modalOpen: error,
-    open: onOpenError
+    open: onError
   } = useModal()
   return (
     <>
@@ -46,22 +45,25 @@ export function SubscriptionsPage () {
                 ? (
                   <>
                     <SideBar />
-                    <Plans titleButton='Continuar' onClick={openCVC} redirectTo={BANK_ACCOUNT_PAGE}>
-                      {data?.subscription
-                        ? (
-                          <>
-                            <SelectPlan data={data} />
-                            <Modal width={433} isActive={modalOpenCVC} onClose={closeCVC}>
-                              <ModalCVC
-                                onOpenSucessful={onOpenSucessful}
-                                onCloseCVC={closeCVC}
-                                onOpenError={onOpenError}
-                              />
-                            </Modal>
-                          </>)
-                        : (<ManagePlans width='370' />)}
-                    </Plans>
+                    {hasPlan
+                      ? (
+                        <Plans titleButton='Continuar' onClick={openCVC}>
+                          <SelectPlan data={data} />
+                          <Modal width={433} isActive={modalOpenCVC} onClose={closeCVC}>
+                            <ModalCVC
+                              onCloseCVC={closeCVC}
+                              onSucessful={onSucessful}
+                              onError={onError}
+                            />
+                          </Modal>
+                        </Plans>
+                        )
 
+                      : (
+                        <Plans titleButton='Continuar'>
+                          <ManagePlans width='370' />
+                        </Plans>
+                        )}
                   </>
                   )
                 : (<Successful
