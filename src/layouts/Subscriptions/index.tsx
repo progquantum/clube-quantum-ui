@@ -45,7 +45,7 @@ export function SubscriptionsPage () {
               {!successful
                 ? (
                   <>
-                    <SideBar loading={isLoading} />
+                    <SideBar />
                     <Plans titleButton='Continuar' onClick={openCVC} redirectTo={BANK_ACCOUNT_PAGE}>
                       {data?.subscription
                         ? (
