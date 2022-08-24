@@ -15,7 +15,8 @@ export const Container = styled.div<ContainerProps>`
   width: ${props => props.width ? `${props.width}px` : '44.9375rem'};
 
   @media (max-width: 1024px){
-    width: 27.0625rem;
+    width: ${props => props.width ? `${props.width}px` : '27.0625rem'};
+
   }
 
   @media (max-width: 460px){
