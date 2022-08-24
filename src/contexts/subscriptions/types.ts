@@ -14,9 +14,9 @@ export type BankAccount = {
 }
 
 export type CreditCard = {
-  card_name: string,
-  card_number: string,
-  expiration_date: string,
+  card_name?: string,
+  card_number?: string,
+  expiration_date?: string,
   cvc: string
 }
 

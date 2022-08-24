@@ -1,7 +1,7 @@
 export type RegisterSubscriptionData = {
   plan: {
     plan_id: string,
-    plan_duration: 1
+    plan_duration: number
   },
   bank_account: {
       current_account: string,
@@ -12,6 +12,6 @@ export type RegisterSubscriptionData = {
       card_name: string,
       card_number: string,
       expiration_date: string,
-      cvc: 990
+      cvc: string
   }
 }
