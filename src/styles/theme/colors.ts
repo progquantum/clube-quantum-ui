@@ -23,6 +23,7 @@ export const colors = {
     400: '#878787',
     700: '#3D3D3D'
   },
+  black: '#000000',
   yellow: '#FFCA28',
   warning: '#FFC107',
   danger: '#E12B2B',
