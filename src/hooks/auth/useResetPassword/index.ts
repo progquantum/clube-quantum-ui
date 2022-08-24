@@ -4,10 +4,10 @@ import { api } from 'config/client'
 
 import { ResetPasswordRequestData } from './types'
 
-const resetPasswordMutation = ({
-  code, password
-}: ResetPasswordRequestData): Promise<unknown> => (
-  api.patch<unknown>('/passwords/reset', { code, password })
+const resetPasswordMutation = (
+  data: ResetPasswordRequestData
+) => (
+  api.patch<unknown>('/passwords/reset', data)
 )
 
 export function useResetPassword () {

@@ -3,8 +3,15 @@ import Image from 'next/image'
 
 import { Steper } from 'components/Steper'
 import { Footer } from 'components/Footer'
+import { Plans } from 'components/Plans'
+import { Successful } from 'components/Successful'
 
-import * as Step from './Steps'
+import { BankCard } from '../Forms/BankCard'
+import { PersonalAddress } from '../Forms/PersonalAddress'
+import { IndividualPerson } from '../Forms/IndividualPerson'
+import { PinCode } from '../Forms/PinCode'
+import { Phone } from '../Forms/Phone'
+import { CPF } from '../Forms/CPF'
 import * as S from './styles'
 
 export function PersonalSignUpPage () {
@@ -46,41 +53,42 @@ export function PersonalSignUpPage () {
             )}
 
             {step === 0 && (
-              <Step.CPFInput onUpdateFormStep={() => nextStep()} />
+              // eslint-disable-next-line react/jsx-pascal-case
+              <CPF onUpdateFormStep={() => nextStep()} />
             )}
 
             {step === 1 && (
-              <Step.PhoneNumberInput onUpdateFormStep={() => nextStep()} />
+              <Phone onUpdateFormStep={() => nextStep()} />
             )}
 
             {step === 2 && (
-              <Step.PinCodeInput
+              <PinCode
                 onNextFormStep={() => nextStep()}
                 onPreviousFormStep={() => previousStep()}
               />
             )}
 
             {step === 3 && (
-              <Step.PersonalDataInputs onUpdateFormStep={() => nextStep()} />
+              <IndividualPerson onUpdateFormStep={() => nextStep()} />
             )}
 
             {step === 4 && (
-              <Step.AddressDataInputs onUpdateFormStep={() => nextStep()} />
+              <PersonalAddress onUpdateFormStep={() => nextStep()} />
             )}
 
             {step === 5 && (
-              <Step.CardDataInputs
+              <BankCard
                 onUpdateFormStep={() => nextStep()}
                 onNavigateToSuccessfulSignUp={() => navigateToSuccessfullSignUp()}
               />
             )}
 
             {step === 6 && (
-              <Step.DataPlans onUpdateFormStep={() => nextStep()} />
+              <Plans onUpdateFormStep={() => nextStep()} />
             )}
 
             {step === 7 && (
-              <Step.SuccessfulSignUp />
+              <Successful />
             )}
           </S.Contents>
         </S.ContentsWrapper>

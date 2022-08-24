@@ -2,7 +2,7 @@ import { useFindBilling } from 'hooks/useFindBilling'
 import { Footer } from 'components/Footer'
 import { Header } from 'components/Header'
 import { SideBar } from 'components/SideBar'
-import { TopMenu } from 'components/TopMenu'
+import { ServicesBank } from 'components/ServicesBank'
 
 import { BankAccount } from './BankAccount'
 import { CreditCard } from './CreditCard'
@@ -22,7 +22,7 @@ export function ManagePaymentPage () {
       <S.Container>
         <SideBar />
         <S.RightWrapper>
-          <TopMenu />
+          <ServicesBank />
           <S.MenuGrid />
           <S.CardsContainer>
             <BankAccount user={data} loading={isLoading} />

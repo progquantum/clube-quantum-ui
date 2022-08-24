@@ -1,8 +1,8 @@
 import axios, { AxiosError } from 'axios'
 import { parseCookies, setCookie } from 'nookies'
+import { toast } from 'react-toastify'
 
 import { REFRESH_TOKEN_STORAGE_KEY, TOKEN_STORAGE_KEY } from 'constants/storage'
-
 import { logOut } from 'helpers/auth/logOut'
 
 let isRefreshing = false
@@ -25,18 +25,23 @@ export function setupAPIClient (ctx = undefined) {
       return response
     },
     (error: AxiosError) => {
+      const expectedError = error.response && error.response.status >= 400 && error.response.status < 500
+
+      if (!expectedError) {
+        toast.error('Encontramos um problema por aqui.')
+      }
+
       if (error.response.status === 401) {
         cookies = parseCookies(ctx)
 
-        const { TOKEN_STORAGE_KEY: token, REFRESH_TOKEN_STORAGE_KEY: refresh_token } = cookies
+        const { '@ClubeQuantum:refresh_token': refresh_token } = cookies
         const originalConfig = error.config
 
         if (!isRefreshing) {
           isRefreshing = true
 
-          api.post('/auth/refresh-tokens', {
-            refresh_token,
-            token
+          api.put('/refresh-tokens', {
+            refresh_token
           }).then((response) => {
             const { token, refresh_token } = response.data
 
