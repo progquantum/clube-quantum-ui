@@ -5,11 +5,15 @@ import { SubscriptionsDispatchProvider, SubscriptionsStateProvider } from './Sub
 import { BankAccount, CreditCard, Plans } from './types'
 
 export function SubscriptionsProvider ({ children }: PropsWithChildren<unknown>) {
-  const [plan, setPlan] = useState<Plans>()
+  const [plan, setPlan] = useState<Plans>({} as Plans)
   const [bankAccount, setBankAccount] = useState<BankAccount>()
   const [creditCard, setCreditCard] = useState<CreditCard>()
 
-  const authState = useMemo(
+  const handleRegisterPlan = (data: Plans) => {
+    setPlan(data)
+  }
+
+  const subscriptionsState = useMemo(
     () => ({
       plan,
       bankAccount,
@@ -22,22 +26,22 @@ export function SubscriptionsProvider ({ children }: PropsWithChildren<unknown>)
     ]
   )
 
-  const authDispatch = useMemo(
+  const subscriptionsDispatch = useMemo(
     () => ({
-      setPlan,
-      setBankAccount,
-      setCreditCard
+      registerPlan: handleRegisterPlan,
+      registerBankAccount: setBankAccount,
+      registerCreditCard: setCreditCard
     }),
     [
-      setPlan,
+      handleRegisterPlan,
       setBankAccount,
       setCreditCard
     ]
   )
 
   return (
-    <SubscriptionsStateProvider value={authState}>
-      <SubscriptionsDispatchProvider value={authDispatch}>
+    <SubscriptionsStateProvider value={subscriptionsState}>
+      <SubscriptionsDispatchProvider value={subscriptionsDispatch}>
         {children}
       </SubscriptionsDispatchProvider>
     </SubscriptionsStateProvider>
