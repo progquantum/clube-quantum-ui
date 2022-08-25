@@ -7,5 +7,4 @@ export const Main = styled.main`
   margin: 5rem auto;
   width: 100%;
   gap: 1.87rem;
-  
 `

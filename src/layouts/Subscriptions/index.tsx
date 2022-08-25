@@ -44,10 +44,10 @@ export function SubscriptionsPage () {
               {!successful
                 ? (
                   <>
-                    <SideBar />
+                    <SideBar loading={isLoading} />
                     {hasPlan
                       ? (
-                        <Plans titleButton='Continuar' onClick={openCVC}>
+                        <Plans titleButton='Continuar' onOpenModalCvcRequest={openCVC}>
                           <SelectPlan data={data} />
                           <Modal width={433} isActive={modalOpenCVC} onClose={closeCVC}>
                             <ModalCVC
@@ -67,7 +67,8 @@ export function SubscriptionsPage () {
                   </>
                   )
                 : (<Successful
-                    paragraph='Seu plano foi alterado com sucesso! Aproveite as ofertas e Cashback no Clube Quantum!'
+                    paragraph='Seu plano foi alterado com sucesso!
+                    Aproveite as ofertas e Cashback no Clube Quantum!'
                     textTitle='Agradecemos!'
                    />)}
             </>
