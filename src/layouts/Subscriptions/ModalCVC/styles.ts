@@ -10,23 +10,18 @@ export const CVCform = styled.form`
   flex-direction: column;
   gap: 1.25rem;
   background: ${({ theme }) => theme.colors.white};
-
 `
-
 export const Title = styled.p`
   display: flex;
   gap: .625rem;
   font-weight: 700;
   font-size: 1rem;
   line-height: 1.25rem;
-
 `
-
 export const Text = styled.p`
   font-size: 1rem;
   line-height: 1.25rem;
 `
-
 export const CardDataContainer = styled.div`
   display: flex;
   width: 100%;
@@ -34,7 +29,6 @@ export const CardDataContainer = styled.div`
   align-items: center;
   justify-content: space-between;
 `
-
 export const CardDataTitle = styled.p`
   font-weight: 700;
   font-size: 1.125rem;
@@ -48,7 +42,6 @@ export const DivInput = styled.div`
     display: flex;
     justify-content: flex-end;
   }
-
 `
 export const InputCVC = styled(Input)`
   display: flex;
@@ -56,7 +49,6 @@ export const InputCVC = styled(Input)`
   border-radius: .625rem;
   width: 100px;
   height: 3.4375rem;
-
 
   ::placeholder {
     color: ${({ theme }) => theme.colors.gray[400]};

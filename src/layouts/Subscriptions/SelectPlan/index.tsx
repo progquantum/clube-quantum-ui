@@ -19,8 +19,12 @@ export function SelectPlan ({ data }:SelectPlanProps) {
         <S.TitlePlan>Seu plano</S.TitlePlan>
       </S.HeaderSelectPlan>
       <S.DivStatusPlan>
-        <S.TitleStatusPlan>{formatFirstLetterToUppercase(data?.subscription?.plan_name)}</S.TitleStatusPlan>
-        <S.StatusPlan>{data?.subscription?.is_active ? 'Ativo' : 'Cancelado'}</S.StatusPlan>
+        <S.TitleStatusPlan>
+          {formatFirstLetterToUppercase(data?.subscription?.plan_name)}
+        </S.TitleStatusPlan>
+        <S.StatusPlan>
+          {data?.subscription?.is_active ? 'Ativo' : 'Cancelado'}
+        </S.StatusPlan>
       </S.DivStatusPlan>
       <S.Deadline>
         <S.TextDeadline>Sua assinatura será renovada em 15/xx/xxxx</S.TextDeadline>

@@ -29,7 +29,6 @@ export const HeaderSelectPlan = styled.div`
   flex-direction: row;
   gap: .625rem;
 `
-
 export const TitlePlan = styled.span`
   font-weight: 500;
   font-size: .625rem;
@@ -40,7 +39,6 @@ export const DivStatusPlan = styled.div`
   justify-content: space-between;
   width: 100%;
 `
-
 export const TitleStatusPlan = styled.h3`
   font-weight: 700;
   font-size: 1rem;
@@ -53,14 +51,12 @@ export const StatusPlan = styled.span`
   line-height: 17px;
   color: ${({ theme }) => theme.colors.success};
 `
-
 export const Deadline = styled.div`
   display: flex;
   align-items: center;
   justify-content: space-between;
   width: 100%;
 `
-
 export const TextDeadline = styled.p`
   font-weight: 500;
   font-size: .75rem;
@@ -69,7 +65,6 @@ export const TextDeadline = styled.p`
   line-height: 1.25rem;
   width: 135.75px;
 `
-
 export const ButtonCancel = styled(Button)`
   background: transparent;
   border: 1px solid ${({ theme }) => theme.colors.danger};

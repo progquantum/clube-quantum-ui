@@ -53,7 +53,6 @@ export function ModalConfirm ({ onError, onSucessful, onCloseCVC }: ModalConfirm
   return (
 
     <S.Form onSubmit={handleSubmit(onSubmit)}>
-
       <S.Plan>
         <S.Title>
           <MdAssignmentInd size={19.87} color={theme.colors.mediumslateBlue} />
@@ -69,7 +68,6 @@ export function ModalConfirm ({ onError, onSucessful, onCloseCVC }: ModalConfirm
           <S.CardDataText>{formatPrice(plan.price)}</S.CardDataText>
         </S.CardDataContainer>
       </S.Plan>
-
       <S.ButtonConfirm
         variant='primary'
         type='submit'
@@ -86,6 +84,5 @@ export function ModalConfirm ({ onError, onSucessful, onCloseCVC }: ModalConfirm
         Cancelar
       </S.ButtonConfirm>
     </S.Form>
-
   )
 }
