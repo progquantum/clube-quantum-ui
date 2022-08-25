@@ -27,7 +27,7 @@ export type SubscriptionsStateContextData = {
 }
 
 export type SubscriptionsDispatchContextData = {
-  setPlan: Dispatch<SetStateAction<Plans>>,
-  setBankAccount: Dispatch<SetStateAction<BankAccount>>,
-  setCreditCard: Dispatch<SetStateAction<CreditCard>>,
+  registerPlan: Dispatch<SetStateAction<Plans>>,
+  registerBankAccount: Dispatch<SetStateAction<BankAccount>>,
+  registerCreditCard: Dispatch<SetStateAction<CreditCard>>,
 }
