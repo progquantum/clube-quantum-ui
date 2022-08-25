@@ -1,9 +1,7 @@
 import { ReactNode } from 'react'
 
-import { Subscription } from 'shared/types/apiSchema'
-
 export type PlansProps = {
-  onClick?: () => void;
+  onOpenModalCvcRequest?: () => void;
   titleButton?: string;
   children?: ReactNode;
 }

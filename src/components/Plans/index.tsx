@@ -17,22 +17,22 @@ import { Periods, Plans, PlansData, PlansProps } from './types'
 import * as S from './styles'
 import { Skeleton } from './Skeleton'
 
-export function Plans ({ children, onClick, titleButton = 'Finalizar cadastro' }: PlansProps) {
+export function Plans ({ children, onOpenModalCvcRequest, titleButton = 'Finalizar cadastro' }: PlansProps) {
   const [selectedPeriod, setSelectedPeriod] = useState<Periods>('semiannual')
   const [selectedPlan, setSelectedPlan] = useState<Plans>('start')
 
-  const { data, isLoading } = usePlans()
-  const plans = useFindMe()
-  const userHasPlan = plans.data?.subscription?.is_active
+  const { data: plans, isLoading } = usePlans()
+  const { data: user } = useFindMe()
+  const userHasPlan = user?.subscription?.is_active
 
-  const planFree: PlansData = data ? data[0] : []
-  const planStart: PlansData = data ? data[1] : []
-  const planSelect: PlansData = data ? data[2] : []
+  const planFree: PlansData = plans ? plans[0] : []
+  const planStart: PlansData = plans ? plans[1] : []
+  const planSelect: PlansData = plans ? plans[2] : []
   const [planDuration, setPlanDuration] = useState(6)
   const [planId, setPlanId] = useState(planStart.id)
-  const [price, setPrice] = useState('')
-  const [planName, setPlanName] = useState('')
-  const { setPlan } = useSubscriptionsDispatch()
+  const [price, setPrice] = useState(planStart.semiannual_price)
+  const [planName, setPlanName] = useState(planStart.name)
+  const { registerPlan } = useSubscriptionsDispatch()
 
   const handleChoosePlan = (plan: Plans) => {
     setSelectedPlan(plan)
@@ -87,15 +87,14 @@ export function Plans ({ children, onClick, titleButton = 'Finalizar cadastro' }
     }
   }, [planId, planDuration])
 
-  const handleClick = () => {
-    setPlan({
+  const handleRegisterPlan = () => {
+    registerPlan({
       plan_id: planId,
       plan_duration: planDuration,
       price: price,
       plan_name: planName
     })
-
-    userHasPlan && onClick()
+    userHasPlan && onOpenModalCvcRequest()
   }
 
   if (isLoading) return (<Skeleton />)
@@ -218,7 +217,13 @@ export function Plans ({ children, onClick, titleButton = 'Finalizar cadastro' }
           <S.Text>
             Plano com um custo acessível e que te dá mais benefícios.
           </S.Text>
-          <h2>{selectedPeriod === 'semiannual' ? formatPrice(planStart.semiannual_price) : (selectedPeriod === 'monthly' ? formatPrice(planStart.monthly_price) : formatPrice(planStart.annual_price))}</h2>
+          <h2>
+            {selectedPeriod === 'semiannual'
+              ? formatPrice(planStart.semiannual_price)
+              : (selectedPeriod === 'monthly'
+                  ? formatPrice(planStart.monthly_price)
+                  : formatPrice(planStart.annual_price))}
+          </h2>
           <S.Button className={selectedPlan === 'start' ? 'selected-plan' : ''}>
             {selectedPlan === 'start' ? 'Plano Escolhido' : 'Escolher este plano'}
           </S.Button>
@@ -298,7 +303,13 @@ export function Plans ({ children, onClick, titleButton = 'Finalizar cadastro' }
         >
           <S.TitlePlan>{formatFirstLetterToUppercase(planSelect.name)}</S.TitlePlan>
           <S.Text>Plano para que você aproveite o máximo do Quantum.</S.Text>
-          <h2>{selectedPeriod === 'semiannual' ? formatPrice(planSelect.semiannual_price) : (selectedPeriod === 'monthly' ? formatPrice(planSelect.monthly_price) : formatPrice(planSelect.annual_price))}</h2>
+          <h2>
+            {selectedPeriod === 'semiannual'
+              ? formatPrice(planSelect.semiannual_price)
+              : (selectedPeriod === 'monthly'
+                  ? formatPrice(planSelect.monthly_price)
+                  : formatPrice(planSelect.annual_price))}
+          </h2>
           <S.Button className={selectedPlan === 'select' ? 'selected-plan' : ''}>
             {selectedPlan === 'select' ? 'Plano Escolhido' : 'Escolher este plano'}
           </S.Button>
@@ -378,7 +389,7 @@ export function Plans ({ children, onClick, titleButton = 'Finalizar cadastro' }
           ? (
             <Link href={BANK_ACCOUNT_PAGE}>
               <Button
-                onClick={handleClick}
+                onClick={handleRegisterPlan}
               >
                 {titleButton}
               </Button>
@@ -386,7 +397,7 @@ export function Plans ({ children, onClick, titleButton = 'Finalizar cadastro' }
             )
           : (
             <Button
-              onClick={handleClick}
+              onClick={handleRegisterPlan}
             >
               {titleButton}
             </Button>

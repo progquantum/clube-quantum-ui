@@ -42,11 +42,9 @@ export const Text = styled.p`
   line-height: .9375rem;
   text-align: center;
 `
-
 export const Subtitle = styled(Text)`
   color: ${({ theme }) => theme.colors.midnightBlue};
 `
-
 export const PlansWrapper = styled.div`
   width: 100%;
   padding: 2px;
@@ -66,7 +64,6 @@ export const Title = styled.h2`
   justify-content: center;
   align-items: center;
 `
-
 export const PlanType = styled.h4`
   width: 100%;
   text-align: center;
@@ -86,7 +83,6 @@ export const PlanType = styled.h4`
     font-size: 0.9rem;
   }
 `
-
 export const Button = styled.button`
   padding: .625rem 1.8125rem;
   border-radius: 5rem;
@@ -99,7 +95,6 @@ export const Button = styled.button`
     background: ${({ theme }) => theme.gradients.midnightBlueToMediumsLateBlue};
   }
 `
-
 export const PlansContents = styled.section`
   color: ${({ theme }) => theme.colors.gray[700]};
   gap: 1.5rem;
@@ -112,9 +107,7 @@ export const PlansContents = styled.section`
   @media(max-width: 910px) {
     flex-direction: column;
   }
-
 `
-
 export const PlanContentsWrapper = styled.div`
   width: 100%;
   padding: 3.75rem 1.875rem 5rem;
@@ -122,7 +115,6 @@ export const PlanContentsWrapper = styled.div`
   box-shadow: 2px 4px 20px rgba(0, 0, 0, 0.15);
   border-radius: 15px;
   cursor: pointer;
-
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -184,14 +176,12 @@ export const PlanItemsList = styled.ul`
 export const PlanItem = styled.div`
   margin-right: .3125rem;
   display: flex;
-  align-item: center;
+  align-items: center;
 `
-
 export const CheckedCheckBox = styled(IoMdCheckbox)`
   font-size: 1.3rem;
   color: ${({ theme }) => theme.colors.midnightBlue};
 `
-
 export const NotIncludedIcon = styled(MdDoNotDisturbOn)`
   font-size: 1.3rem;
   color: ${({ theme }) => theme.colors.gray[200]};
