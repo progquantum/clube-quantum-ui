@@ -1,9 +1,8 @@
-import { ReactNode } from 'react'
+import { ReactElement, ReactNode } from 'react'
 
 export type PlansProps = {
-  onOpenModalCvcRequest?: () => void;
-  titleButton?: string;
   children?: ReactNode;
+  button?: ReactElement;
 }
 
 export type Periods = 'monthly' | 'semiannual' | 'yearly'

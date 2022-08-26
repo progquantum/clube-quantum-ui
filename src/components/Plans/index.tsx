@@ -1,29 +1,20 @@
 import { useEffect, useState } from 'react'
 
-import Link from 'next/link'
-
-import { Button } from 'components/Button'
 import { usePlans } from 'hooks/usePlans'
 import { useSubscriptionsDispatch } from 'contexts/subscriptions/SubscriptionsContext'
 import { formatPrice } from 'utils/formatters/formatPrice'
 
 import { formatFirstLetterToUppercase } from 'utils/formatters/formatFirstLetterToUppercase'
 
-import { BANK_ACCOUNT_PAGE } from 'constants/routesPath'
-
-import { useFindMe } from 'hooks/useFindMe'
-
 import { Periods, Plans, PlansData, PlansProps } from './types'
 import * as S from './styles'
 import { Skeleton } from './Skeleton'
 
-export function Plans ({ children, onOpenModalCvcRequest, titleButton = 'Finalizar cadastro' }: PlansProps) {
+export function Plans ({ children, button }:PlansProps) {
   const [selectedPeriod, setSelectedPeriod] = useState<Periods>('semiannual')
   const [selectedPlan, setSelectedPlan] = useState<Plans>('start')
 
   const { data: plans, isLoading } = usePlans()
-  const { data: user } = useFindMe()
-  const userHasPlan = user?.subscription?.is_active
 
   const planFree: PlansData = plans ? plans[0] : []
   const planStart: PlansData = plans ? plans[1] : []
@@ -56,36 +47,28 @@ export function Plans ({ children, onOpenModalCvcRequest, titleButton = 'Finaliz
     }
   }
 
-  useEffect(() => {
-    if (planId === planFree.id) {
-      setPlanName(planFree.name)
-      if (planDuration === 1) {
-        setPrice(`0,${planFree.monthly_price}`)
-      } else if (planDuration === 6) {
-        setPrice(`0,${planFree.semiannual_price}`)
+  const handleSetNameAndPrice = (plan_id: string, plan_duration: number, plan:PlansData) => {
+    if (plan_id === plan.id) {
+      setPlanName(plan.name)
+      if (plan_duration === 1) {
+        setPrice(plan.monthly_price)
+      } else if (plan_duration === 6) {
+        setPrice(plan.semiannual_price)
       } else {
-        setPrice(`0,${planFree.annual_price}`)
-      }
-    } else if (planId === planStart.id) {
-      setPlanName(planStart.name)
-      if (planDuration === 1) {
-        setPrice(planStart.monthly_price)
-      } else if (planDuration === 6) {
-        setPrice(planStart.semiannual_price)
-      } else {
-        setPrice(planStart.annual_price)
-      }
-    } else {
-      setPlanName(planSelect.name)
-      if (planDuration === 1) {
-        setPrice(planSelect.monthly_price)
-      } else if (planDuration === 6) {
-        setPrice(planSelect.semiannual_price)
-      } else {
-        setPrice(planSelect.annual_price)
+        setPrice(plan.annual_price)
       }
     }
+  }
+
+  useEffect(() => {
+    handleSetNameAndPrice(planId, planDuration, planFree)
+    handleSetNameAndPrice(planId, planDuration, planStart)
+    handleSetNameAndPrice(planId, planDuration, planSelect)
   }, [planId, planDuration])
+
+  useEffect(() => {
+    handleRegisterPlan()
+  }, [price])
 
   const handleRegisterPlan = () => {
     registerPlan({
@@ -94,7 +77,6 @@ export function Plans ({ children, onOpenModalCvcRequest, titleButton = 'Finaliz
       price: price,
       plan_name: planName
     })
-    userHasPlan && onOpenModalCvcRequest()
   }
 
   if (isLoading) return (<Skeleton />)
@@ -385,23 +367,9 @@ export function Plans ({ children, onOpenModalCvcRequest, titleButton = 'Finaliz
       </S.PlansContents>
 
       <section>
-        {!userHasPlan
-          ? (
-            <Link href={BANK_ACCOUNT_PAGE}>
-              <Button
-                onClick={handleRegisterPlan}
-              >
-                {titleButton}
-              </Button>
-            </Link>
-            )
-          : (
-            <Button
-              onClick={handleRegisterPlan}
-            >
-              {titleButton}
-            </Button>
-            )}
+
+        {button}
+
       </section>
     </S.Container>
   )
