@@ -13,6 +13,8 @@ import { Plans } from 'components/Plans'
 import { SelectPlan } from './SelectPlan'
 import { ModalCVC } from './ModalCVC'
 import * as S from './styles'
+import { SubscriptionButton } from './SubscriptionButton'
+import { ManagePlansButton } from './ManagePlansButton'
 
 export function SubscriptionsPage () {
   const { data, isLoading } = useFindMe()
@@ -47,7 +49,7 @@ export function SubscriptionsPage () {
                     <SideBar loading={isLoading} />
                     {hasPlan
                       ? (
-                        <Plans titleButton='Continuar' onOpenModalCvcRequest={openCVC}>
+                        <Plans button={<SubscriptionButton onOpenModalCvcRequest={openCVC} />}>
                           <SelectPlan data={data} />
                           <Modal width={433} isActive={modalOpenCVC} onClose={closeCVC}>
                             <ModalCVC
@@ -60,7 +62,7 @@ export function SubscriptionsPage () {
                         )
 
                       : (
-                        <Plans titleButton='Continuar'>
+                        <Plans button={<ManagePlansButton />}>
                           <ManagePlans width='370' />
                         </Plans>
                         )}
