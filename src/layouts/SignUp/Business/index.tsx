@@ -13,6 +13,7 @@ import { LegalPerson } from '../Forms/LegalPerson'
 import { BusinessAddress } from '../Forms/BusinessAddress'
 import { BankCard } from '../Forms/BankCard'
 import * as S from './styles'
+import { SingUpButton } from '../SingUpButton'
 
 export function BusinessSignUpPage () {
   const [step, setStep] = useState(0)
@@ -123,7 +124,7 @@ export function BusinessSignUpPage () {
               />
             )}
             {step === 6 && (
-              <Plans onClick={() => nextStep()} />
+              <Plans button={<SingUpButton onUpdateFormStep={() => nextStep()} />} />
             )}
             {step === 7 && (
               <Successful />

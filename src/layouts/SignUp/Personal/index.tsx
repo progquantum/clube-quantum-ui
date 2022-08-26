@@ -13,6 +13,7 @@ import { PinCode } from '../Forms/PinCode'
 import { Phone } from '../Forms/Phone'
 import { CPF } from '../Forms/CPF'
 import * as S from './styles'
+import { SingUpButton } from '../SingUpButton'
 
 export function PersonalSignUpPage () {
   const [step, setStep] = useState(0)
@@ -84,7 +85,7 @@ export function PersonalSignUpPage () {
             )}
 
             {step === 6 && (
-              <Plans onClick={() => nextStep()} />
+              <Plans button={<SingUpButton onUpdateFormStep={() => nextStep()} />} />
             )}
 
             {step === 7 && (
