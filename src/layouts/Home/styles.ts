@@ -70,8 +70,11 @@ export const HomePageButton = styled(Button)`
   background:  ${({ theme }) => theme.gradients.midnightBlueToMediumsLateBlue};
   color: ${({ theme }) => theme.colors.white};
   font-weight: 500;
+  padding: 0.5rem 1.5rem;
+  border-radius: 2.5rem;
 
   :hover {
+    transition: none;
     background: ${({ theme }) => theme.colors.mediumslateBlue};
   }
 

@@ -1,8 +1,9 @@
 import Head from 'next/head'
 import Image from 'next/image'
-import Link from 'next/link'
 
 import { useShowSideBar } from 'hooks/useShowSideBar'
+
+import { SIGN_UP_PAGE } from 'constants/routesPath'
 
 import { Footer } from 'components/Footer'
 
@@ -40,9 +41,12 @@ export function HomePage () {
               <S.CashBackText>
                 Seja um membro Clube Quantum
               </S.CashBackText>
-              <Link href='/signup/'>
-                <S.HomePageButton>Criar minha conta</S.HomePageButton>
-              </Link>
+              <S.HomePageButton
+                as='a'
+                href={SIGN_UP_PAGE}
+              >
+                Criar minha conta
+              </S.HomePageButton>
             </div>
             <Image
               width={514}

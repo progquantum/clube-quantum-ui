@@ -35,6 +35,7 @@ export const LoginButton = styled(Button)`
   font-weight: 500;
 
   :hover {
+    transition: none;
     background: ${({ theme }) => theme.colors.mediumslateBlue};
   }
 `
