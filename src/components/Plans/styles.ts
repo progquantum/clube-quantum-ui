@@ -1,7 +1,9 @@
-import styled from 'styled-components'
+import styled, { css } from 'styled-components'
 import { IoMdCheckbox } from 'react-icons/io'
 import { MdDoNotDisturbOn } from 'react-icons/md'
 import { BiInfoCircle } from 'react-icons/bi'
+
+import { Active } from './types'
 
 export const Container = styled.div`
   width: 100%;
@@ -64,7 +66,7 @@ export const Title = styled.h2`
   justify-content: center;
   align-items: center;
 `
-export const PlanType = styled.h4`
+export const PlanType = styled.h4<Active>`
   width: 100%;
   text-align: center;
   color: ${({ theme }) => theme.colors.midnightBlue};
@@ -74,16 +76,18 @@ export const PlanType = styled.h4`
   line-height: 1.0625rem;
   padding: 10px 29px;
 
-  &.selected-period {
-    background-color: ${({ theme }) => theme.colors.midnightBlue};
-    color: #ffffff;
+  ${(props) => props.isActive &&
+    css`
+      background-color: ${({ theme }) => theme.colors.midnightBlue};
+      color: #ffffff;
+    `
   }
 
   @media(max-width: 525px) {
     font-size: 0.9rem;
   }
 `
-export const Button = styled.button`
+export const Button = styled.button<Active>`
   padding: .625rem 1.8125rem;
   border-radius: 5rem;
   background-color: ${({ theme }) => theme.colors.midnightBlue};
@@ -91,8 +95,10 @@ export const Button = styled.button`
   font-size: 0.75rem;
   font-weight: 500;
 
-  &.selected-plan {
-    background: ${({ theme }) => theme.gradients.midnightBlueToMediumsLateBlue};
+  ${(props) => props.isActive &&
+    css`
+      background: ${({ theme }) => theme.gradients.midnightBlueToMediumsLateBlue};
+    `
   }
 `
 export const PlansContents = styled.section`
@@ -108,7 +114,7 @@ export const PlansContents = styled.section`
     flex-direction: column;
   }
 `
-export const PlanContentsWrapper = styled.div`
+export const PlanContentsWrapper = styled.div<Active>`
   width: 100%;
   padding: 3.75rem 1.875rem 5rem;
   background: #FFFFFF;
@@ -133,18 +139,19 @@ export const PlanContentsWrapper = styled.div`
     width: 330px;
   }
 
-  &.selected-plan {
-    box-shadow: 2px 4px 20px rgba(0, 31, 128, 0.25);
-    transform: scale(1.1);
-    margin: 0 1.25rem;
-    transition: 0.4s;
+  ${(props) => props.isActive &&
+    css`
+      box-shadow: 2px 4px 20px rgba(0, 31, 128, 0.25);
+      transform: scale(1.1);
+      margin: 0 1.25rem;
+      transition: 0.4s;
 
-    @media(max-width: 910px) {
-      transform: scale(1.05, 1);
-      margin: 1.25rem 0;
-    }
+      @media(max-width: 910px) {
+        transform: scale(1.05, 1);
+        margin: 1.25rem 0;
+      }
+    `
   }
-
 `
 export const TitlePlan = styled.h3`
   font-weight: 900;

@@ -8,6 +8,10 @@ export type PlansProps = {
 export type Periods = 'monthly' | 'semiannual' | 'yearly'
 export type Plans = 'free' | 'start' | 'select'
 
+export type Active = {
+  isActive?: boolean;
+}
+
 export type PlansData = {
   id: string,
   name: string,
