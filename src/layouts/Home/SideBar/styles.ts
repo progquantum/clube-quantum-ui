@@ -4,16 +4,20 @@ import { Button } from 'components/Button'
 
 export const Container = styled.header`
   width: 100%;
-  padding: 1rem 1rem;
+  padding: 1rem 4rem;
 
   display: flex;
   align-items: center;
   justify-content: space-between;
   position: relative;
 
-  @media(max-width: 720px) {
-    padding: 1rem 1.5rem;
+  @media(max-width: 700px) {
+    padding: 1rem 2rem;
   }
+`
+
+export const Shadow = styled.div`
+  box-shadow: 0px 2px 20px rgba(0, 0, 0, 0.07);
 `
 
 interface MenuProps {
@@ -31,7 +35,7 @@ export const Menu = styled.div<MenuProps>`
   background-color: ${({ theme }) => theme.colors.white};
 
   position: absolute;
-  top: 68px;
+  top: 85px;
   right: 0;
   z-index: 10;
 

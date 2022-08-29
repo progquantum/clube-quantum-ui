@@ -1,218 +1,265 @@
-import styled, { css } from 'styled-components'
+import styled from 'styled-components'
+import Image from 'next/image'
 
 import { Button } from 'components/Button'
 
-export const Container = styled.main`
-  background: linear-gradient(180deg, #001F80 0%, #0C61FF 100%);
-  padding-top: 1rem;
-
-  animation: show 0.3s ease-in forwards;
-
-  @keyframes show {
-    0% {
-      opacity: 0;
-    }
-    50% {
-      opacity: 0.5;
-    }
-    100% {
-      opacity: 1;
-    }
-  }
+export const Background = styled.main`
+ margin: 1rem 0;
 `
 
-const wrapper = css`
-  max-width: 1200px;
+export const Container = styled.main`
   width: 100%;
+  max-width: 72.125rem;
   margin: 0 auto;
+`
 
+export const CashBackContainer = styled.section`
   display: flex;
   align-items: center;
   justify-content: space-between;
-`
+  gap: 7rem;
+  margin: 5rem 4rem;
 
-export const CashBackWrapper = styled.section`
-  ${wrapper}
+  @media(max-width: 1024px) {
+    gap: 3rem;
+  }
 
-  padding: 0 1rem;
-
-  @media(max-width: 730px) {
-    padding-top: 3rem;
-    text-align: center;
-
-    > span {
-      display: none !important;
-    }
+  @media(max-width: 700px) {
+    flex-direction: column-reverse;
+    justify-content: center;
+    margin: 4rem 2rem;
   }
 `
 
-export const CashBackContent = styled.div`
-  max-width: 734px;
-  width: 100%;
+export const CashBackTitle = styled.h1`
+  font-size: 2.5rem;
+  font-weight: 800;
+  color: ${({ theme }) => theme.colors.gray[700]};
 
-  display: flex;
-  flex-direction: column;
-  align-items: flex-start;
-
-  color: ${({ theme }) => theme.colors.white};
-
-  h1 {
-    font-size: 2.5rem;
-    font-weight: 900;
-    margin-bottom: 2.5rem;
-  }
-
-  h6 {
+  @media(max-width: 1024px) {
     font-size: 1.75rem;
-    font-weight: 500;
-    margin-bottom: 2.5rem;
-  }
-
-  @media(max-width: 730px) {
-    align-items: center;
   }
 `
 
-export const CashBackButton = styled(Button)`
-  background: ${({ theme }) => theme.colors.white};
-  color: ${({ theme }) => theme.colors.midnightBlue};
+export const CashBackText = styled.p`
+  font-size: 1.75rem;
+  font-weight: 500;
+  color: ${({ theme }) => theme.colors.gray[700]};
+  margin: 2.5rem 0;
+
+  @media(max-width: 1024px) {
+    font-size: 1.125rem;
+  }
 `
 
 export const ArrowDownWrapper = styled.div`
   width: 100%;
   margin: 5rem 0;
-
   display: flex;
   justify-content: center;
-
   > span {
     cursor: pointer;
+  }
+
+  @media(max-width: 700px) {
+   display: none;
+  }
+`
+
+export const HomePageButton = styled(Button)`
+  background:  ${({ theme }) => theme.gradients.midnightBlueToMediumsLateBlue};
+  color: ${({ theme }) => theme.colors.white};
+  font-weight: 500;
+
+  :hover {
+    background: ${({ theme }) => theme.colors.mediumslateBlue};
+  }
+
+  @media(max-width: 700px) {
+   width: 100%;
   }
 `
 
 export const Wrapper = styled.section`
-  max-width: 1920px;
-  width: 100%;
-  margin: 0 auto;
-  padding: 0 1rem;
-
-  @media(max-width: 870px) {
-    margin-bottom: 5rem;
-  }
-`
-
-export const Content = styled.div`
-  width: 100%;
-
   display: flex;
   align-items: center;
+  justify-content: space-between;
+  margin: 0 4rem;
+  margin-bottom: 5rem;
+  gap: 2rem;
 
-  &.second-content {
-    flex-direction: row-reverse;
-
-    div {
-      width: 50%;
-      margin-left: 0;
-      margin-right: 50px;
-    }
-  }
-
-  @media(max-width: 870px) {
-    &, &.second-content {
-      flex-direction: column-reverse;
-
-      div {
-        width: 100%;
-        margin: 0;
-      }
-    }
+  @media(max-width: 700px) {
+    margin: 0 2rem;
+    margin-bottom: 3rem;
+    flex-direction: column;
+    justify-content: center;
   }
 `
 
-export const TextContent = styled.div`
-  width: 50%;
-  margin-left: 100px;
+export const WrapperLeft = styled(Wrapper)`
+  flex-direction: row-reverse;
 
-  color: ${({ theme }) => theme.colors.white};
+  @media(max-width: 700px) {
+    flex-direction: column;
+  }
+`
 
-  h1 {
-    font-weight: 900;
-    margin-bottom: 30px;
-    font-size: 2rem;
+export const WrapperContent = styled.div`
+  display: flex;
+  flex-direction: column;
+  gap: 1.8rem;
+  width: 32rem;
+  color: ${({ theme }) => theme.colors.gray[700]};
 
-    &:last-of-type {
-      margin-top: 70px;
-    }
+  @media(max-width: 700px) {
+    gap: .75rem;
+    width: 20rem;
+    margin: 0 2rem;
+  }
+`
+
+export const ContentTitle = styled.h2`
+  font-weight: 600;
+  font-size: 2.5rem;
+
+  @media(max-width: 1024px) {
+    font-size: 1.4rem;
   }
 
-  h6 {
-    font-weight: 500;
-    font-size: 1.25rem;
+  @media(max-width: 700px) {
+    font-size: 1.2rem;
   }
 
-  @media(max-width: 870px) {
-    width: 100%;
+  @media(max-width: 360px) {
+    margin: 0 1.5rem;
+  }
+`
+export const ContentTitleLeft = styled(ContentTitle)`
+  @media(max-width: 700px) {
+    margin-top: 3rem;
+    text-align: end;
+  }
+`
+
+export const ContentText = styled.p`
+  font-weight: 500;
+  font-size: 1.25rem;
+  line-height: 1.5;
+
+  @media(max-width: 1024px) {
+    font-size: 1rem;
+  }
+
+  @media(max-width: 700px) {
+    font-size: .8rem;
+  }
+
+  @media(max-width: 360px) {
+    margin: 0 1.5rem;
+  }
+`
+export const ContentTextLeft = styled(ContentText)`
+  @media(max-width: 700px) {
+    text-align: end;
+  }
+`
+
+export const ImageWrapper = styled(Image)`
+  object-fit: cover;
+  border-radius: 1.25rem;
+
+  @media(max-width: 700px) {
+   border-radius: .8rem;
+  }
+`
+
+export const Line = styled.div`
+  margin: 4rem auto;
+  width: 18.75rem;
+  border: 2px solid  ${({ theme }) => theme.colors.gray[50]};
+  background-color:  ${({ theme }) => theme.colors.gray[50]};
+
+  @media(max-width: 700px) {
+    width: 14.75rem;
+  }
+`
+
+export const FaqContainer = styled.div`
+  margin: 5rem 4rem;
+
+  > h2 {
+    margin-bottom: 3.125rem;
+    font-weight: 800;
+  }
+
+  @media(max-width: 900px) {
     text-align: center;
-    margin-bottom: 3rem !important;
   }
+
+  @media(max-width: 700px) {
+    margin: 4rem 2rem;
+  }
+
+  @media(max-width: 700px) {
+    text-align: start;
+  }
+
 `
 
-export const FaqWrapper = styled.section`
-  max-width: 100%;
-  background: linear-gradient(180deg, #001F80 0%, #0C61FF 100%);
+export const FaqBox = styled.div`
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 3rem;
 
-  > div {
-    ${wrapper}
-
-    margin: 0 auto 2rem;
-    padding: 7rem 1rem;
-
-    @media(max-width: 1000px) {
-      justify-content: center;
-
-      > span {
-        display: none !important;
-      }
-    }
+  @media(max-width: 900px) {
+    justify-content: center;
   }
 `
 
 export const FaqContent = styled.div`
-  max-width: 472px;
-  width: 100%;
-  color: ${({ theme }) => theme.colors.white};
-
   display: flex;
   flex-direction: column;
-  align-items: flex-start;
+  gap: 1.5rem;
+  width: 100%;
+  max-width: 30rem;
+`
 
-  h1 {
-    font-weight: 900;
-    font-size: 1.75rem;
-    margin-bottom: 50px;
+export const FaqImage = styled.div`
+
+  @media(max-width: 900px) {
+  display: none;
   }
 `
 
-export const Box = styled.div`
-  width: 100%;
-  min-height: 290px;
-  padding: 50px;
-  border-radius: 30px;
-  border: 3px solid ${({ theme }) => theme.colors.white};
+export const Faq = styled.div`
+  padding: 3rem;
+  border: 3px solid ${({ theme }) => theme.colors.gray[700]};
+  border-radius: 1.5rem;
 
-  &:last-of-type {
-    margin-top: 30px;
-  }
-
-  h2 {
-    font-size: 1.5rem;
+  > h3 {
     font-weight: 700;
-    margin-bottom: 25px;
+    font-size: 1.5rem;
+    margin-bottom: 1.563rem;
   }
 
-  p {
-    font-size: 1rem;
+  > p {
     font-weight: 500;
-    line-height: 1.5rem;
+    font-size: .875rem;
+    line-height: 1.6;
+    color: ${({ theme }) => theme.colors.gray[400]};
+  }
+
+  @media(max-width: 700px) {
+    padding: 2rem;
+
+    > h3 {
+    font-size: 1rem;
+  }
+
+  > p {
+    font-size: .775rem;
+  }
+
   }
 `

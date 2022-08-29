@@ -24,32 +24,33 @@ export function SideBar () {
 
   return (
     <>
-      <S.Container>
-        <Link href='/'>
-          <Image width={38} height={55} src='/images/quantum-logo.svg' alt='Club Quantum logo' />
-        </Link>
+      <S.Shadow>
+        <S.Container>
+          <Link href='/'>
+            <Image width={38} height={55} src='/images/quantum-logo.svg' alt='Club Quantum logo' />
+          </Link>
 
-        {!isOpenSideBar
-          ? (
-            <Image
-              width={28}
-              height={20}
-              src='/images/open-menu.svg'
-              alt='Abrir sidebar'
-              onClick={handleOpenMenu}
-            />
-            )
-          : (
-            <Image
-              width={21}
-              height={21}
-              src='/images/close-menu.svg'
-              alt='Abrir sidebar'
-              onClick={handleCloseMenu}
-            />
-            )}
-      </S.Container>
-
+          {!isOpenSideBar
+            ? (
+              <Image
+                width={28}
+                height={20}
+                src='/images/open-menu.svg'
+                alt='Abrir sidebar'
+                onClick={handleOpenMenu}
+              />
+              )
+            : (
+              <Image
+                width={21}
+                height={21}
+                src='/images/close-menu.svg'
+                alt='Abrir sidebar'
+                onClick={handleCloseMenu}
+              />
+              )}
+        </S.Container>
+      </S.Shadow>
       <S.Menu isOpenedSideBar={isOpenSideBar}>
         {(isOpenSideBar && isShowContent) && (
           <>
