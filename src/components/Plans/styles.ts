@@ -137,6 +137,7 @@ export const PlanContentsWrapper = styled.div`
     box-shadow: 2px 4px 20px rgba(0, 31, 128, 0.25);
     transform: scale(1.1);
     margin: 0 1.25rem;
+    transition: 0.4s;
 
     @media(max-width: 910px) {
       transform: scale(1.05, 1);
