@@ -1,14 +1,14 @@
 import { MdAssignmentInd } from 'react-icons/md'
-
 import { useForm } from 'react-hook-form'
+import { AxiosError } from 'axios'
 
 import { useSubscriptionsState } from 'contexts/subscriptions/SubscriptionsContext'
 import { theme } from 'styles/theme'
 import { formatPrice } from 'utils/formatters/formatPrice'
-
 import { formatFirstLetterToUppercase } from 'utils/formatters/formatFirstLetterToUppercase'
-
 import { usePlanUpdate } from 'hooks/usePlanUpdate'
+import { error } from 'helpers/notify/error'
+import { ErrorResponse } from 'hooks/usePlanUpdate/types'
 
 import { ModalConfirmProps } from './types'
 import * as S from './styles'
@@ -27,7 +27,7 @@ export function ModalConfirm ({ onError, onSucessful, onCloseCVC }: ModalConfirm
     }
   })
   const {
-    mutate: updatePlan,
+    mutateAsync: updatePlan,
     isLoading: isUpdating
   } = usePlanUpdate()
 
@@ -46,7 +46,16 @@ export function ModalConfirm ({ onError, onSucessful, onCloseCVC }: ModalConfirm
     },
     {
       onSuccess: () => onSucessful(),
-      onError: () => onError()
+      onError: (err: AxiosError<ErrorResponse>) => {
+        if (err.response?.data.statusCode === 500) {
+          onError()
+        }
+        if (err.response?.data.statusCode === 409 &&
+          err.response?.data.message === 'This user has already subscribed on this plan'
+        ) {
+          error('Este usuário já está inscrito neste plano')
+        }
+      }
     })
   }
 
