@@ -86,7 +86,7 @@ export function BankCard ({
 
         <Input
           type='text'
-          label='CVC'
+          label='CVV'
           name='card_code'
           control={control}
         />

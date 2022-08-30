@@ -52,7 +52,7 @@ export function ModalCVC ({ onCloseCVC, onSucessful, onError }: ModalCVCProps) {
           <S.CVCform onSubmit={handleSubmit(onSubmit)}>
             <S.Title>
               <BsCreditCardFill size={22} color={colors.mediumslateBlue} />
-              Confirmar CVC
+              Confirmar CVV
             </S.Title>
             <S.Text>
               Para poder alterar seu plano, você precisa
@@ -65,7 +65,7 @@ export function ModalCVC ({ onCloseCVC, onSucessful, onError }: ModalCVCProps) {
               </S.CardData>
             </S.CardDataContainer>
             <S.CardDataContainer>
-              <S.CardDataTitle>Confirmar CVC</S.CardDataTitle>
+              <S.CardDataTitle>Confirmar CVV</S.CardDataTitle>
               <S.DivInput>
                 <S.InputCVC
                   name='cvc'
