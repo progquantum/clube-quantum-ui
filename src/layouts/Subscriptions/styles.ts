@@ -7,4 +7,8 @@ export const Main = styled.main`
   margin: 5rem auto;
   width: 100%;
   gap: 1.87rem;
+
+  @media(max-width: 1320px) {
+    gap: 6.1563rem;
+  }
 `

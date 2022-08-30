@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react'
+import { useEffect, useMemo, useState } from 'react'
 
 import { usePlans } from 'hooks/usePlans'
 import { useSubscriptionsDispatch } from 'contexts/subscriptions/SubscriptionsContext'
@@ -16,15 +16,21 @@ export function Plans ({ children, button }:PlansProps) {
 
   const { data: plans, isLoading } = usePlans()
 
-  const planFree: PlansData = plans ? plans[0] : []
-  const planStart: PlansData = plans ? plans[1] : []
-  const planSelect: PlansData = plans ? plans[2] : []
+  const planFree: PlansData = useMemo(() => plans ? plans[0] : [], [plans])
+  const planStart: PlansData = useMemo(() => plans ? plans[1] : [], [plans])
+  const planSelect: PlansData = useMemo(() => plans ? plans[2] : [], [plans])
   const [planDuration, setPlanDuration] = useState(6)
   const [planId, setPlanId] = useState(planStart.id)
   const [price, setPrice] = useState(planStart.semiannual_price)
   const [planName, setPlanName] = useState(planStart.name)
   const [isActive, setIsActive] = useState(false)
   const { registerPlan } = useSubscriptionsDispatch()
+
+  useEffect(() => {
+    setPlanId(planStart.id)
+    setPrice(planStart.semiannual_price)
+    setPlanName(planStart.name)
+  }, [planStart])
 
   const handleActive = () => setIsActive(true)
 
