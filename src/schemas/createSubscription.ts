@@ -7,7 +7,6 @@ export const cvcSchema = Yup.object().shape({
     .min(3)
     .required()
     .matches(/[0-9]/g, 'Campo deve conter somente números')
-
 })
 
 export const creditCardSchema = Yup.object().shape({
@@ -20,7 +19,8 @@ export const creditCardSchema = Yup.object().shape({
     .required(),
   expiration_date: Yup
     .string()
-    .required(),
+    .required()
+    .matches(/(0[1-9]|10|11|12)[/](20\d{2})/, 'Validade do cartão inválida'),
   cvc: Yup
     .string()
     .max(3)
