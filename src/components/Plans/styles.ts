@@ -22,6 +22,10 @@ export const Container = styled.div`
       margin-top: 5rem;
     }
   }
+
+  @media(max-width: 1320px) {
+    width: 24.0625rem;
+  }
 `
 
 export const Wrapper = styled.div`
@@ -110,7 +114,7 @@ export const PlansContents = styled.section`
   align-items: center;
   justify-content: center;
 
-  @media(max-width: 910px) {
+  @media(max-width: 1320px) {
     flex-direction: column;
   }
 `
@@ -131,12 +135,12 @@ export const PlanContentsWrapper = styled.div<Active>`
     color: ${({ theme }) => theme.colors.midnightBlue};
   }
 
-  @media(max-width: 910px) {
-    width: 350px;
+  @media(max-width: 1320px) {
+    width: 21.875rem;
   }
 
   @media(max-width: 460px ){
-    width: 330px;
+    width: 20.625rem;
   }
 
   ${(props) => props.isActive &&
