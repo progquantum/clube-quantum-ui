@@ -2,7 +2,6 @@ import { useForm, SubmitHandler } from 'react-hook-form'
 import { yupResolver } from '@hookform/resolvers/yup'
 import Link from 'next/link'
 import { useRouter } from 'next/router'
-
 import { useTheme } from 'styled-components'
 
 import { SideBar } from 'components/SideBar'
@@ -10,11 +9,10 @@ import { Header } from 'components/Header'
 import { Footer } from 'components/Footer'
 import { VISAIcon } from 'components/Illustrations/Visa'
 import { CreditCardIcon } from 'components/Illustrations/CreditCard'
-
 import { creditCardSchema } from 'schemas/createSubscription'
 import { BANK_ACCOUNT_PAGE, FINISHED_SUBSCRIPTION, SUBSCRIPTIONS_PAGE } from 'constants/routesPath'
 import { useSubscriptionsDispatch } from 'contexts/subscriptions/SubscriptionsContext'
-import { formatCreditCard } from 'utils/formatters/formatCreditCard'
+import { formatCreditCardAddSpace } from 'utils/formatters/formatCreditCard'
 import { formatCreditCardExpiration } from 'utils/formatters/formatCreditCardExpiration'
 
 import { FormCreditCardData } from './types'
@@ -84,7 +82,7 @@ export function CreditCardPage () {
                 placeholder='0000 0000 0000 0000'
                 {...register('card_number', {
                   onChange: (e) => {
-                    setValue('card_number', formatCreditCard(e.target.value))
+                    setValue('card_number', formatCreditCardAddSpace(e.target.value))
                   }
                 })}
               />
@@ -107,7 +105,7 @@ export function CreditCardPage () {
               />
             </S.DivInput>
             <S.CVC>
-              <S.Label>CVC</S.Label>
+              <S.Label>CVV</S.Label>
               <S.Input
                 control={control}
                 name='cvc'
