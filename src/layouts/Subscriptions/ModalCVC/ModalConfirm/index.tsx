@@ -8,9 +8,8 @@ import { formatPrice } from 'utils/formatters/formatPrice'
 import { formatFirstLetterToUppercase } from 'utils/formatters/formatFirstLetterToUppercase'
 import { usePlanUpdate } from 'hooks/usePlanUpdate'
 import { error } from 'helpers/notify/error'
-import { ErrorResponse } from 'hooks/usePlanUpdate/types'
 
-import { ModalConfirmProps } from './types'
+import { ErrorResponse, ModalConfirmProps } from './types'
 import * as S from './styles'
 
 export function ModalConfirm ({ onError, onSucessful, onCloseCVC }: ModalConfirmProps) {
@@ -47,13 +46,18 @@ export function ModalConfirm ({ onError, onSucessful, onCloseCVC }: ModalConfirm
     {
       onSuccess: () => onSucessful(),
       onError: (err: AxiosError<ErrorResponse>) => {
-        if (err.response?.data.statusCode === 500) {
-          onError()
-        }
-        if (err.response?.data.statusCode === 409 &&
-          err.response?.data.message === 'This user has already subscribed on this plan'
-        ) {
+        const isUserSubscribed = err.response?.data.statusCode === 409 &&
+            err.response?.data.message === 'This user has already subscribed on this plan'
+
+        const unexpectedError = err.response.data.statusCode >= 400 &&
+            err.response.data.statusCode < 500 &&
+            err.response.data.message !== 'This user has already subscribed on this plan'
+
+        if (isUserSubscribed) {
           error('Este usuário já está inscrito neste plano')
+        }
+        if (unexpectedError) {
+          onError()
         }
       }
     })
@@ -74,7 +78,7 @@ export function ModalConfirm ({ onError, onSucessful, onCloseCVC }: ModalConfirm
         </S.CardDataContainer>
         <S.CardDataContainer>
           <S.CardDataTitle>Total</S.CardDataTitle>
-          <S.CardDataText>{formatPrice(plan.price)}</S.CardDataText>
+          <S.CardDataText>{formatPrice(plan.price === '0' ? `0,${plan.price}` : plan.price)}</S.CardDataText>
         </S.CardDataContainer>
       </S.Plan>
       <S.ButtonConfirm

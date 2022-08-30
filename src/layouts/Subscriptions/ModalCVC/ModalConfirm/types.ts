@@ -2,7 +2,11 @@ export type ModalConfirmProps = {
   onCloseCVC: () => void
   onSucessful: () => void
   onError: () => void
+}
 
+export type ErrorResponse = {
+  'statusCode':number;
+  'message':string,
 }
 
 export type PlansData = {
