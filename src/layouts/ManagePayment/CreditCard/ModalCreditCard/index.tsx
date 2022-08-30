@@ -111,7 +111,7 @@ export function ModalCreditCard ({ onClose }: ModalCreditCardProps) {
         <Input
           maxLength={3}
           type='text'
-          label='CVC'
+          label='CVV'
           name='cvc'
           control={control}
         />

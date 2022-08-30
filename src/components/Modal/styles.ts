@@ -10,7 +10,6 @@ export const Container = styled.div`
     position: fixed;
     top: 0;
     right: 0;
-    -webkit-overflow-scrolling: hidden;
     display: flex;
     align-items: center;
     justify-content: center;

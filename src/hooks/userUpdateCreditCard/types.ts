@@ -5,3 +5,8 @@ export type UpdateCreditCardData = {
   cvc: string
   card_brand: string
 }
+
+export type ErrorResponse = {
+  type: string,
+  statusCode: number
+}
