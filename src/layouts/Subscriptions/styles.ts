@@ -9,6 +9,11 @@ export const Main = styled.main`
   gap: 1.87rem;
 
   @media(max-width: 1320px) {
-    gap: 6.1563rem;
+    gap: 6.1563rem; 
+    max-width: 70rem;
+    padding: 0 1rem;
+  }
+  @media(max-width: 820px) {
+    justify-content: center;
   }
 `
