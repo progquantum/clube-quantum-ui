@@ -9,6 +9,9 @@ export const Container = styled.div`
   align-items: center;
   flex-direction: column;
 
+  @media(max-width: 1320px) {
+    width: 24.0625rem;
+  }
 `
 
 export const Wrapper = styled(Skeleton)`
@@ -51,11 +54,9 @@ export const PlansContents = styled.div`
   align-items: center;
   justify-content: center;
 
-  @media(max-width: 910px) {
+  @media(max-width: 1320px) {
     flex-direction: column;
-    margin-top: 1.7rem;
   }
-
 `
 
 export const PlanContentsWrapper = styled(Skeleton)`
@@ -68,12 +69,8 @@ export const PlanContentsWrapper = styled(Skeleton)`
   flex-direction: column;
   align-items: center;
 
-  @media(max-width: 1024px) {
-    width: 218px;
-  }
-
-  @media(max-width: 910px) {
-    width: 350px;
+  @media(max-width: 1320px) {
+    width: 21.875rem;
   }
 
   @media(max-width: 460px ){
