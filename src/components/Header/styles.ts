@@ -1,7 +1,5 @@
 import styled from 'styled-components'
-import { motion } from 'framer-motion'
-
-export const AnimatedContainer = styled(motion.header)`
+export const Container = styled.header`
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -20,7 +18,7 @@ export const Wrapper = styled.div`
   justify-content: space-between;
 `
 
-export const AnimatedLeftNav = styled(motion.div)`
+export const LeftNav = styled.div`
   display: flex;
   flex-direction: column;
   align-items: flex-start;
@@ -34,7 +32,7 @@ export const AnimatedLeftNav = styled(motion.div)`
   }
 `
 
-export const AnimatedRightNav = styled(motion.div)`
+export const RightNav = styled.div`
   display: flex;
   justify-content: flex-end;
   align-items: center;

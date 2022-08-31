@@ -13,7 +13,6 @@ export function Skeleton () {
         <S.DivSelectPlan />
         <S.DivInviteFriends />
       </S.CotainerPlan>
-
     </S.MenuGrid>
   )
 }

@@ -1,3 +1,3 @@
-export type SendPhoneCodeData = {
+export type PhoneCodeRequest = {
   phone: string
 }

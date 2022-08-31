@@ -14,14 +14,14 @@ export function AppProvider ({ children }: PropsWithChildren<unknown>) {
   return (
     <>
       <DefaultSeo {...SEO} />
-      <QueryClientProvider client={queryClient}>
-        <AuthProvider>
-          <StyledProvider>
+      <StyledProvider>
+        <QueryClientProvider client={queryClient}>
+          <AuthProvider>
             <ToastContainer />
             {children}
-          </StyledProvider>
-        </AuthProvider>
-      </QueryClientProvider>
+          </AuthProvider>
+        </QueryClientProvider>
+      </StyledProvider>
     </>
   )
 }

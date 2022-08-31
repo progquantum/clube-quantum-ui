@@ -2,11 +2,13 @@ import { useMutation } from 'react-query'
 
 import { api } from 'config/client'
 
-import { SendPhoneCodeData } from './types'
+import { PhoneCodeRequest } from './types'
 
-const sendPhoneCodeRequest = (data: SendPhoneCodeData) => (
-  api.post('/phones/create-code', data)
-)
+export async function sendPhoneCodeRequest (phoneCode: PhoneCodeRequest) {
+  const { data } = await api.post('/phones/create-code', phoneCode)
+
+  return data as unknown
+}
 
 export function useSendPhoneCode () {
   return useMutation(sendPhoneCodeRequest)

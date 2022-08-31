@@ -1,20 +1,18 @@
-import dynamic from 'next/dynamic'
-
-import { Footer } from 'components/Footer'
 import { SideBar } from 'components/SideBar'
 import { ServicesBank } from 'components/ServicesBank'
-
-import { useFindMe } from 'hooks/useFindMe'
+import { Header } from 'components/Header'
+import { useHasMounted } from 'hooks/useHasMounted'
+import { useAuthState } from 'contexts/auth/AuthContext'
 
 import { ManagePlans } from './ManagePlans'
 import { MainContent } from './MainContent/Index'
 import { Skeleton } from './Skeleton'
 import * as S from './styles'
 
-const Header = dynamic(() => import('components/Header').then((mod) => mod.Header), { ssr: false })
-
 export function DashboardPage () {
-  const { data, isLoading } = useFindMe()
+  const { user } = useAuthState()
+  const { hasMounted } = useHasMounted()
+  const isLoading = !hasMounted
 
   return (
     <>
@@ -31,10 +29,10 @@ export function DashboardPage () {
           />
           {isLoading
             ? (<Skeleton />)
-            : (data?.subscription ? (<MainContent data={data} />) : (<ManagePlans />))}
+            : (user?.subscription ? (<MainContent data={user} />) : (<ManagePlans />))}
         </S.RightWrapper>
       </S.Container>
-      <Footer />
+
     </>
   )
 }
