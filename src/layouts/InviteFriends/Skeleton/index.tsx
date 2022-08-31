@@ -8,9 +8,6 @@ export function Skeleton () {
         <S.ContentSkeleton />
         <S.ButtonSkeleton />
 
-        <S.ContainerLinks>
-          <S.LinkSkeleton count={5} />
-        </S.ContainerLinks>
       </div>
 
       <S.ImageSkeleton />
