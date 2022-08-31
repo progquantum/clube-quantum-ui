@@ -1,5 +1,6 @@
 import Image from 'next/image'
 import Link from 'next/link'
+import { useRouter } from 'next/router'
 
 import { DASHBOARD_PAGE, SUBSCRIPTIONS_PAGE } from 'constants/routesPath'
 import { useAuthDispatch } from 'contexts/auth/AuthContext'
@@ -10,13 +11,15 @@ import * as S from './styles'
 
 export function SideBar ({ loading }: SideBarProps) {
   const { signOut } = useAuthDispatch()
+  const router = useRouter()
+  const pathName = router.pathname
 
   if (loading) return <Skeleton />
 
   return (
     <S.Container>
       <Link href={DASHBOARD_PAGE}>
-        <S.NavButton>
+        <S.NavButton activePath={pathName === DASHBOARD_PAGE}>
           <S.WrapImage>
             <Image
               width={19.15}
@@ -78,7 +81,7 @@ export function SideBar ({ loading }: SideBarProps) {
       </S.NavButton>
 
       <Link href={SUBSCRIPTIONS_PAGE}>
-        <S.NavButton>
+        <S.NavButton activePath={pathName === SUBSCRIPTIONS_PAGE}>
           <S.WrapImage>
             <Image
               width={21.6}

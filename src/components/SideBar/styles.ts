@@ -1,6 +1,8 @@
-import styled from 'styled-components'
+import styled, { css } from 'styled-components'
 
 import { Button } from 'components/Button'
+
+import { NavButtonProps } from './types'
 
 export const Container = styled.nav`
   display: flex;
@@ -18,7 +20,7 @@ export const Container = styled.nav`
   }
 `
 
-export const NavButton = styled.button`
+export const NavButton = styled.button<NavButtonProps>`
   display: flex;
   align-items: center;
   gap: 1.151rem;
@@ -27,10 +29,21 @@ export const NavButton = styled.button`
   height: 5rem;
   border-bottom: 1px solid ${({ theme }) => theme.colors.gray[100]};
   width: 15.625rem;
+  font-size: 1rem;
 
   &:disabled {
     opacity: 0.6;
     cursor: not-allowed;
+  }
+
+  ${(props) => props.activePath &&
+    css`
+      background: ${({ theme }) => theme.colors.ghostwhite};;
+      color: ${({ theme }) => theme.colors.gray[700]};
+      width: 100%;
+      padding: 0 1.46rem;
+      border: none;
+    `
   }
 `
 
