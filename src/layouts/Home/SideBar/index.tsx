@@ -17,6 +17,7 @@ export function SideBar () {
       setIsShowContent(true)
     }, 300)
   }
+
   const handleCloseMenu = () => {
     setIsOpenSideBar(false)
     setIsShowContent(false)
@@ -53,20 +54,17 @@ export function SideBar () {
       </S.Shadow>
       <S.Menu isOpenedSideBar={isOpenSideBar}>
         {(isOpenSideBar && isShowContent) && (
-          <>
-            <S.Nav>
-              <Link href='/'>Saiba Mais</Link>
-              <S.Line />
-              <Link href='/'>Seja um parceiro</Link>
-              <S.Line />
-              <Link href='/'>Central de dúvidas</Link>
-              <S.Line />
-              <Link href={SIGN_IN_PAGE}>
-                <S.LoginButton>Fazer Login</S.LoginButton>
-              </Link>
-            </S.Nav>
-
-          </>
+          <S.Nav>
+            <Link href='/'>Saiba Mais</Link>
+            <S.Line />
+            <Link href='/'>Seja um parceiro</Link>
+            <S.Line />
+            <Link href='/'>Central de dúvidas</Link>
+            <S.Line />
+            <Link href={SIGN_IN_PAGE}>
+              <S.LoginButton>Fazer Login</S.LoginButton>
+            </Link>
+          </S.Nav>
         )}
       </S.Menu>
     </>

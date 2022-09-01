@@ -2,7 +2,7 @@ import { useEffect, useState } from 'react'
 
 export function useShowSideBar () {
   const [width, setWidth] = useState(0)
-  const breakpoint = 1150
+  const breakpoint = 900
   const sidebarIsVisible = width < breakpoint
 
   const handleResize = () => setWidth(window.innerWidth)
@@ -14,5 +14,5 @@ export function useShowSideBar () {
     return () => window.removeEventListener('resize', handleResize)
   }, [])
 
-  return sidebarIsVisible
+  return { sidebarIsVisible }
 }

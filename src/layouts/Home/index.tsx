@@ -13,7 +13,7 @@ import { SideBar } from './SideBar'
 import * as S from './styles'
 
 export function HomePage () {
-  const sidebarIsVisible = useShowSideBar()
+  const { sidebarIsVisible } = useShowSideBar()
 
   const handleScroll = () => {
     window.scroll({
