@@ -11,7 +11,6 @@ export const Container = styled.header`
   justify-content: space-between;
   padding: 1rem 4rem;
 
-
   a {
     font-weight: 600;
     line-height: 1.3rem;
@@ -19,7 +18,7 @@ export const Container = styled.header`
   }
 `
 
-export const Shadow = styled.div`
+export const BoxContainer = styled.div`
   box-shadow: 0px 2px 20px rgba(0, 0, 0, 0.07);
 `
 
@@ -34,7 +33,7 @@ export const LoginButton = styled(Button)`
   padding: 0.625rem 1.813rem;
   font-weight: 500;
 
-  :hover {
+  &:hover {
     transition: none;
     background: ${({ theme }) => theme.colors.mediumslateBlue};
   }

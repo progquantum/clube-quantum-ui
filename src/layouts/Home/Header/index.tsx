@@ -7,7 +7,7 @@ import * as S from './styles'
 
 export function Header () {
   return (
-    <S.Shadow>
+    <S.BoxContainer>
       <S.Container>
 
         <Link href='/'>
@@ -25,6 +25,6 @@ export function Header () {
         </S.Nav>
 
       </S.Container>
-    </S.Shadow>
+    </S.BoxContainer>
   )
 }
