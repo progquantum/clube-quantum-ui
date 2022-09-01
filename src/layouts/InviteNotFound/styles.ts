@@ -38,7 +38,7 @@ export const ContentTitle = styled.h2`
   }
 `
 
-export const Image = styled.div`
+export const ImageWrap = styled.div`
   margin: 0 2rem 0 0;
 
   @media (min-width: 280px) and (max-width: 767px) {
@@ -51,7 +51,7 @@ export const Image = styled.div`
 export const BackToHomePage = styled(Button)`
   width: 100%;
 
-  :hover {
+  &:hover {
     background-color: ${({ theme }) => theme.colors.mediumslateBlue};
   }
 

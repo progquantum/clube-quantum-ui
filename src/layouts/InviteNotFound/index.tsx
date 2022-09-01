@@ -11,9 +11,9 @@ export function InviteNotFoundPage () {
           <S.ContentTitle>Oops, este convite parece ter expirado ou nunca existiu!</S.ContentTitle>
           <Link href='/'><S.BackToHomePage>Retornar à página principal</S.BackToHomePage></Link>
         </S.Content>
-        <S.Image>
+        <S.ImageWrap>
           <Image width={385} height={286} src='/images/expired.svg' />
-        </S.Image>
+        </S.ImageWrap>
       </S.Container>
     </>
   )
