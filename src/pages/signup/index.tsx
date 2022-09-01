@@ -3,7 +3,7 @@ import { GetServerSideProps } from 'next'
 import { SignUpPage } from 'layouts/SignUp'
 import { withSSRGuest } from 'helpers/auth/withSSRGuest'
 import { checkInviteCode } from 'services/resources'
-import { INVITE_CODE_NOT_FOUND } from 'constants/routesPath'
+import { INVITE_NOT_FOUND_PAGE } from 'constants/routesPath'
 
 export const getServerSideProps: GetServerSideProps = withSSRGuest(async (ctx) => {
   const { invite } = ctx.query
@@ -19,7 +19,7 @@ export const getServerSideProps: GetServerSideProps = withSSRGuest(async (ctx) =
   if (!is_valid) {
     return {
       redirect: {
-        destination: INVITE_CODE_NOT_FOUND,
+        destination: INVITE_NOT_FOUND_PAGE,
         permanent: false
       }
     }
