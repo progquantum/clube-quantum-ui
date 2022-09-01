@@ -4,11 +4,7 @@ import { api } from 'config/client'
 import { InviteCodePayload } from 'shared/types/apiSchema'
 
 export async function checkInviteCode (code: string | string[]) {
-  try {
-    const { data } = await api.get(`/validate-invite/${code}`)
-
-    return data as InviteCodePayload
-  } catch {
-    return noop
-  }
+  return await api.get<InviteCodePayload>(`/validate-invite/${code}`)
+    .then(response => response.data)
+    .catch(noop)
 }
