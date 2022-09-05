@@ -18,7 +18,7 @@ export const CashBackContainer = styled.section`
   align-items: center;
   justify-content: space-between;
   gap: 7rem;
-  margin: 5rem 4rem;
+  margin: 6.5rem 4rem;
 
   @media(max-width: 1024px) {
     gap: 3rem;

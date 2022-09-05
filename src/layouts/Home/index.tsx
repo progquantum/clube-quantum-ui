@@ -1,20 +1,15 @@
 import Head from 'next/head'
 import Image from 'next/image'
 
-import { useShowSideBar } from 'hooks/useShowSideBar'
-
 import { SIGN_UP_PAGE } from 'constants/routesPath'
 
 import { Footer } from 'components/Footer'
 
 import { Header } from './Header'
-import { SideBar } from './SideBar'
 
 import * as S from './styles'
 
 export function HomePage () {
-  const { sidebarIsVisible } = useShowSideBar()
-
   const handleScroll = () => {
     window.scroll({
       top: 650,
@@ -27,9 +22,7 @@ export function HomePage () {
       <Head>
         <title>Clube Quantum</title>
       </Head>
-
-      {!sidebarIsVisible ? <Header /> : <SideBar />}
-
+      <Header />
       <S.Background>
         <S.Container>
 
@@ -49,8 +42,8 @@ export function HomePage () {
               </S.HomePageButton>
             </div>
             <Image
-              width={514}
-              height={457}
+              width={480}
+              height={400}
               src='/images/cashback.svg'
               alt=''
             />
