@@ -1,6 +1,6 @@
 import { CreditCardIconProps } from './types'
 
-function CreditCardIcon ({ color, width, height }: CreditCardIconProps) {
+export function CreditCardIcon ({ color, width, height }: CreditCardIconProps) {
   return (
     <svg
       xmlns='http://www.w3.org/2000/svg'
@@ -22,5 +22,3 @@ function CreditCardIcon ({ color, width, height }: CreditCardIconProps) {
     </svg>
   )
 }
-
-export default CreditCardIcon

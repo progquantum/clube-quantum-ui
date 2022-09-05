@@ -2,13 +2,13 @@ import { ChangeEvent, useState } from 'react'
 import { useForm, SubmitHandler } from 'react-hook-form'
 import { yupResolver } from '@hookform/resolvers/yup'
 import { useQueryClient } from 'react-query'
+import { useTheme } from 'styled-components'
 
 import { Input } from 'components/Input'
+import { BancoUm } from 'components/Illustrations/BancoUm'
 import { formatBankAccount } from 'utils/formatters/formatBankAccount'
 import { useRegisterBankAccount } from 'hooks/useRegisterBankAccount'
-import { BancoUm } from 'components/Illustrations/BancoUm'
-import { colors } from 'styles/theme/colors'
-import { QUERY_KEY_FIND_BILLING } from 'hooks/useFindBilling'
+import { QUERY_KEY_FIND_BILLING } from 'hooks/useWallet'
 
 import { schema } from '../../../../schemas/insertBankAccount'
 import { ModalBankAccountProps, ModalBankAccountFormProps } from './types'
@@ -16,6 +16,7 @@ import * as S from './styles'
 
 export function ModalBankAccount ({ onClose }: ModalBankAccountProps) {
   const [isModalOpen, setIsModalOpen] = useState(false)
+  const { colors } = useTheme()
 
   const { mutateAsync: createBankAccount, isLoading } = useRegisterBankAccount()
   const queryClient = useQueryClient()
@@ -34,8 +35,10 @@ export function ModalBankAccount ({ onClose }: ModalBankAccountProps) {
     resolver: yupResolver(schema)
   })
 
-  function handleCloseBankAccountModal () {
-    setIsModalOpen(true)
+  const { current_account, holder_name } = getValues()
+
+  const handleCloseBankAccountModal = () => {
+    setIsModalOpen(prevState => !prevState)
   }
 
   const handleInputAccountFormat = (e: ChangeEvent<HTMLInputElement>) => {
@@ -44,14 +47,13 @@ export function ModalBankAccount ({ onClose }: ModalBankAccountProps) {
   }
 
   const handleCreateAccountBank: SubmitHandler<ModalBankAccountFormProps> = async (data) => {
-    const current_account = data.current_account.slice(0, -2)
-    const current_account_check_number = data.current_account.slice(-1)
-    const holder_name = data.holder_name
+    const accountNumber = data.current_account.slice(0, -2)
+    const accountDigit = data.current_account.slice(-1)
 
     await createBankAccount({
-      current_account,
-      current_account_check_number,
-      holder_name
+      current_account: accountNumber,
+      current_account_check_number: accountDigit,
+      holder_name: data.holder_name
     },
     {
       onSuccess: () => {
@@ -138,7 +140,7 @@ export function ModalBankAccount ({ onClose }: ModalBankAccountProps) {
                   Conta
                 </S.TitleContent>
                 <S.TextConfirmAccount>
-                  {getValues('current_account')}
+                  {current_account}
                 </S.TextConfirmAccount>
               </S.BankingConfirmAccount>
               <S.BankingConfirmAccount>
@@ -146,17 +148,17 @@ export function ModalBankAccount ({ onClose }: ModalBankAccountProps) {
                   Titular
                 </S.TitleContent>
                 <S.TextConfirmAccount>
-                  {getValues('holder_name')}
+                  {holder_name}
                 </S.TextConfirmAccount>
               </S.BankingConfirmAccount>
             </S.BankingConfirmData>
             <S.ButtonContinue
-              onClick={() => handleCreateAccountBank(getValues())}
+              onClick={() => handleCreateAccountBank({ current_account, holder_name })}
               loading={isLoading}
             >
               Finalizar
             </S.ButtonContinue>
-            <S.ButtonCancel onClick={() => setIsModalOpen(false)}>Voltar</S.ButtonCancel>
+            <S.ButtonCancel onClick={() => handleCloseBankAccountModal()}>Voltar</S.ButtonCancel>
           </>
           )}
     </>

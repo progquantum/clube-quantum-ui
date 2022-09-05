@@ -1,4 +1,4 @@
-import { useFindBilling } from 'hooks/useFindBilling'
+import { useWallet } from 'hooks/useWallet'
 import { Footer } from 'components/Footer'
 import { Header } from 'components/Header'
 import { SideBar } from 'components/SideBar'
@@ -6,11 +6,10 @@ import { ServicesBank } from 'components/ServicesBank'
 
 import { BankAccount } from './BankAccount'
 import { CreditCard } from './CreditCard'
-
 import * as S from './styles'
 
 export function ManagePaymentPage () {
-  const { data, isLoading } = useFindBilling({
+  const { data, isLoading } = useWallet({
     refetchOnWindowFocus: false
   })
 

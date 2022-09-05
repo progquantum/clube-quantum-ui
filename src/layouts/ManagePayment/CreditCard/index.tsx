@@ -1,28 +1,26 @@
+import { useTheme } from 'styled-components'
 import Image from 'next/image'
 
-import { colors } from 'styles/theme/colors'
-
-import CreditCardIcon from 'components/Illustrations/CreditCard'
-
+import { CreditCardIcon } from 'components/Illustrations/CreditCard'
 import { Modal } from 'components/Modal'
-
 import { useModal } from 'hooks/useModal'
 
 import { CreditCardProps } from './types'
-import * as S from './styles'
 import { Skeleton } from './Skeleton'
 import { ModalCreditCard } from './ModalCreditCard'
+import * as S from './styles'
 
 export function CreditCard ({ user, loading }: CreditCardProps) {
-  const cardLastDigits = user?.credit_card.last_digits
-  const cardExpirationDate = user?.credit_card.expiration_date
-
-  const hasCreditCard = user?.credit_card.last_digits
+  const { colors } = useTheme()
   const {
     modalOpen: modalOpenCreditCard,
     open: openCreditCard,
     close: closeCreditCard
   } = useModal()
+
+  const cardLastDigits = user?.credit_card.last_digits
+  const cardExpirationDate = user?.credit_card.expiration_date
+  const hasCreditCard = user?.credit_card.last_digits
 
   if (loading) return <Skeleton />
 

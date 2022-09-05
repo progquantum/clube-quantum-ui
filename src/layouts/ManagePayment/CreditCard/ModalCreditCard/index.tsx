@@ -2,31 +2,28 @@ import { ChangeEvent } from 'react'
 import { useForm, SubmitHandler } from 'react-hook-form'
 import { yupResolver } from '@hookform/resolvers/yup'
 import { useQueryClient } from 'react-query'
+import { useTheme } from 'styled-components'
 
+import { QUERY_KEY_FIND_BILLING } from 'hooks/useWallet'
 import { formatCreditCard } from 'utils/formatters/formatCreditCard'
 import { formatCreditCardExpiration } from 'utils/formatters/formatCreditCardExpiration'
 import { useUpdateCreditCard } from 'hooks/userUpdateCreditCard'
-
+import { CreditCardIcon } from 'components/Illustrations/CreditCard'
 import { Input } from 'components/Input'
-import { colors } from 'styles/theme/colors'
-
-import { QUERY_KEY_FIND_BILLING } from 'hooks/useFindBilling'
-
-import CreditCardIcon from 'components/Illustrations/CreditCard'
 
 import { schema } from '../../../../schemas/updateCreditCard'
-
 import { ModalCreditCardProps, ModalCreditCardFormProps } from './types'
 import * as S from './styles'
 
 export function ModalCreditCard ({ onClose }: ModalCreditCardProps) {
   const { mutateAsync: createCreditCard, isLoading: loading } = useUpdateCreditCard()
+  const { colors } = useTheme()
+
   const queryClient = useQueryClient()
 
   const {
     control,
     handleSubmit,
-    getValues,
     register,
     setValue
   } = useForm({
@@ -46,33 +43,28 @@ export function ModalCreditCard ({ onClose }: ModalCreditCardProps) {
     setValue('card_number', creditCardFormatted)
   }
 
-  const handleInputExpirationDateFormat = (e: ChangeEvent<HTMLInputElement>) => {
+  const handleInputExpirationFormat = (e: ChangeEvent<HTMLInputElement>) => {
     const expirationDateFormatted = formatCreditCardExpiration(e.target.value)
 
     setValue('expiration_date', expirationDateFormatted)
   }
 
   const handleCreateCreditCard:SubmitHandler<ModalCreditCardFormProps> = async (data) => {
-    const card_number = data.card_number.replace(/ /g, '')
-    const card_name = data.card_name
-    const expiration_date = data.expiration_date
-    const cvc = data.cvc
-    const card_brand = data.card_brand
+    const formattedCardNumber = data.card_number.replace(/ /g, '')
 
-    await createCreditCard(
-      {
-        card_number,
-        card_name,
-        expiration_date,
-        cvc,
-        card_brand
-      },
-      {
-        onSuccess: () => {
-          queryClient.invalidateQueries(QUERY_KEY_FIND_BILLING)
-          onClose()
-        }
-      })
+    await createCreditCard({
+      card_number: formattedCardNumber,
+      card_name: data.card_name,
+      expiration_date: data.expiration_date,
+      card_brand: data.card_brand,
+      cvc: data.cvc
+    },
+    {
+      onSuccess: () => {
+        queryClient.invalidateQueries(QUERY_KEY_FIND_BILLING)
+        onClose()
+      }
+    })
   }
 
   return (
@@ -81,7 +73,7 @@ export function ModalCreditCard ({ onClose }: ModalCreditCardProps) {
         <CreditCardIcon color={colors.gray[100]} width='20' height='14' />
         <S.ContentTitle>Seu cartão cadastrado</S.ContentTitle>
       </S.YourAccount>
-      <S.CreditCardForm onSubmit={handleSubmit(() => handleCreateCreditCard(getValues()))}>
+      <S.CreditCardForm onSubmit={handleSubmit(handleCreateCreditCard)}>
         <Input
           type='text'
           label='Nome do Cartão'
@@ -95,7 +87,7 @@ export function ModalCreditCard ({ onClose }: ModalCreditCardProps) {
           name='card_number'
           control={control}
           {...register('card_number', {
-            onChange: (e) => handleInputCardFormat(e)
+            onChange: e => handleInputCardFormat(e)
           })}
         />
         <Input
@@ -105,7 +97,7 @@ export function ModalCreditCard ({ onClose }: ModalCreditCardProps) {
           name='expiration_date'
           control={control}
           {...register('expiration_date', {
-            onChange: (e) => handleInputExpirationDateFormat(e)
+            onChange: e => handleInputExpirationFormat(e)
           })}
         />
         <Input
@@ -115,8 +107,19 @@ export function ModalCreditCard ({ onClose }: ModalCreditCardProps) {
           name='cvc'
           control={control}
         />
-        <S.ButtonConfirm type='submit' loading={loading} disabled={loading}>Confirmar</S.ButtonConfirm>
-        <S.ButtonCancel onClick={onClose} disabled={loading}>Cancelar</S.ButtonCancel>
+        <S.ButtonConfirm
+          type='submit'
+          loading={loading}
+          disabled={loading}
+        >
+          Confirmar
+        </S.ButtonConfirm>
+        <S.ButtonCancel
+          onClick={onClose}
+          disabled={loading}
+        >
+          Cancelar
+        </S.ButtonCancel>
       </S.CreditCardForm>
     </>
   )

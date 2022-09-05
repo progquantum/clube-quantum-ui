@@ -1,6 +1,6 @@
-import { FindBilling } from 'shared/types/apiSchema'
+import { Wallet } from 'shared/types/apiSchema'
 
 export type CreditCardProps = {
-  user: FindBilling
+  user: Wallet
   loading?: boolean
 }
