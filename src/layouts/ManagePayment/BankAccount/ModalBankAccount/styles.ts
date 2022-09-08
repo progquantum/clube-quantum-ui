@@ -51,7 +51,7 @@ export const ButtonContinue = styled(Button)`
   width: 100%;
   border: 2px solid transparent;
 
-  :hover {
+  &:hover {
     background-color: ${({ theme }) => theme.colors.mediumslateBlue};
  }
 `
@@ -63,7 +63,7 @@ export const ButtonCancel = styled(Button)`
   color: ${({ theme }) => theme.colors.danger};
   margin-top: 1rem;
 
-  :hover {
+  &:hover {
     background-color: ${({ theme }) => theme.colors.danger};
     color: ${({ theme }) => theme.colors.white};
   }
