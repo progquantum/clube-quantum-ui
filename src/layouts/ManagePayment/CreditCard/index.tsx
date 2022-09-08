@@ -1,14 +1,23 @@
 import { useTheme } from 'styled-components'
 import Image from 'next/image'
 
+import { useState } from 'react'
+
 import { CreditCardIcon } from 'components/Illustrations/CreditCard'
 
 import { CreditCardProps } from './types'
 import { Skeleton } from './Skeleton'
 
 import * as S from './styles'
+import { ModalCreditCard } from './ModalCreditCard'
 
 export function CreditCard ({ user, loading }: CreditCardProps) {
+  const [isNewModalOpen, setIsNewModalOpen] = useState(false)
+
+  const handleNewCreditCardModal = () => {
+    setIsNewModalOpen(prevState => !prevState)
+  }
+
   const { colors } = useTheme()
 
   const cardLastDigits = user?.credit_card.last_digits
@@ -24,32 +33,62 @@ export function CreditCard ({ user, loading }: CreditCardProps) {
           ? (
             <>
               <S.YourAccount>
-                <CreditCardIcon color={colors.gray[100]} width='20' height='14' />
+                <CreditCardIcon
+                  color={colors.gray[100]}
+                  width='20'
+                  height='14'
+                />
                 <S.ContentTitle>Seu cartão cadastrado</S.ContentTitle>
               </S.YourAccount>
+
               <S.CardDetails>
                 <S.CardNumber>
-                  <p>xxxx xxxx xxxx <S.LastDigits>{cardLastDigits}</S.LastDigits></p>
+                  <p>xxxx xxxx xxxx
+                    <S.LastDigits>{cardLastDigits}</S.LastDigits>
+                  </p>
                   <p>{cardExpirationDate}</p>
                 </S.CardNumber>
+
                 <div>
-                  <Image src='/images/visa.svg' width={80} height={43} />
+                  <Image
+                    src='/images/visa.svg'
+                    width={80}
+                    height={43}
+                  />
                 </div>
               </S.CardDetails>
-              <S.ButtonPlan>Atualizar cartão</S.ButtonPlan>
+
+              <S.ButtonPlan
+                onClick={handleNewCreditCardModal}
+              >
+                Atualizar cartão
+              </S.ButtonPlan>
             </>
             )
           : (
             <>
               <S.YourAccount>
-                <CreditCardIcon color={colors.gray[100]} width='20' height='14' />
+                <CreditCardIcon
+                  color={colors.gray[100]}
+                  width='20'
+                  height='14'
+                />
                 <S.ContentTitle>Seu cartão cadastrado</S.ContentTitle>
               </S.YourAccount>
-              <S.TextContent>Para cadastrar um cartão de crédito e aproveitar os benefícios clube quantum é necessário realizar uma assinatura.</S.TextContent>
+
+              <S.TextContent>Para cadastrar um cartão de crédito e aproveitar os benefícios
+                clube quantum é necessário realizar uma assinatura.
+              </S.TextContent>
               <S.ButtonPlan>Prosseguir</S.ButtonPlan>
             </>
             )}
+
       </S.Content>
+
+      <ModalCreditCard
+        isOpen={isNewModalOpen}
+        onRequestNewCreditCardModal={handleNewCreditCardModal}
+      />
     </>
   )
 }
