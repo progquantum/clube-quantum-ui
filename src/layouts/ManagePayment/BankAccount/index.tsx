@@ -68,17 +68,25 @@ export function BankAccount ({ user, loading }: BankAccountProps) {
         : (
           <>
             <S.YourAccount>
-              <BancoUm color={colors.gray[200]} width='22' height='22' />
+              <BancoUm
+                color={colors.gray[200]}
+                width='22'
+                height='22'
+              />
               <S.ContentTitle>Sua conta Banco Um</S.ContentTitle>
             </S.YourAccount>
             <S.Text>Nenhuma conta Banco Um registrada, gostaria de adicionar uma nova conta?</S.Text>
-            <S.BankAccountButton onClick={handleNewBankAccountModal}>Cadastrar conta bancária</S.BankAccountButton>
+            <S.BankAccountButton
+              onClick={handleNewBankAccountModal}
+            >
+              Cadastrar conta bancária
+            </S.BankAccountButton>
           </>
           )}
       <ModalBankAccount
         isOpen={isNewModalOpen}
         onRequestClose={handleNewBankAccountModal}
-        onRequestCloseNewModal={() => setIsNewModalOpen(prevState => !prevState)}
+        onRequestNewModal={() => setIsNewModalOpen(prevState => !prevState)}
       />
     </S.Content>
   )
