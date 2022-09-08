@@ -1,5 +1,6 @@
 export type ModalCreditCardProps = {
-  onClose: () => void,
+  isOpen: boolean,
+  onRequestNewCreditCardModal: () => void,
   onRefetch?: () => void
 }
 

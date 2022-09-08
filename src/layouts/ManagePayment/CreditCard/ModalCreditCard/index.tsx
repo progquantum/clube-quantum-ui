@@ -4,6 +4,8 @@ import { yupResolver } from '@hookform/resolvers/yup'
 import { useQueryClient } from 'react-query'
 import { useTheme } from 'styled-components'
 
+import Modal from 'react-modal'
+
 import { QUERY_KEY_FIND_BILLING } from 'hooks/useWallet'
 import { formatCreditCard } from 'utils/formatters/formatCreditCard'
 import { formatCreditCardExpiration } from 'utils/formatters/formatCreditCardExpiration'
@@ -15,7 +17,7 @@ import { schema } from '../../../../schemas/updateCreditCard'
 import { ModalCreditCardProps, ModalCreditCardFormProps } from './types'
 import * as S from './styles'
 
-export function ModalCreditCard ({ onClose }: ModalCreditCardProps) {
+export function ModalCreditCard ({ isOpen, onRequestNewCreditCardModal }: ModalCreditCardProps) {
   const { mutateAsync: createCreditCard, isLoading: loading } = useUpdateCreditCard()
   const { colors } = useTheme()
 
@@ -62,65 +64,88 @@ export function ModalCreditCard ({ onClose }: ModalCreditCardProps) {
     {
       onSuccess: () => {
         queryClient.invalidateQueries(QUERY_KEY_FIND_BILLING)
-        onClose()
+        onRequestNewCreditCardModal()
       }
     })
   }
 
   return (
     <>
-      <S.YourAccount>
-        <CreditCardIcon color={colors.gray[100]} width='20' height='14' />
-        <S.ContentTitle>Seu cartão cadastrado</S.ContentTitle>
-      </S.YourAccount>
-      <S.CreditCardForm onSubmit={handleSubmit(handleCreateCreditCard)}>
-        <Input
-          type='text'
-          label='Nome do Cartão'
-          name='card_name'
-          control={control}
-        />
-        <Input
-          maxLength={19}
-          type='text'
-          label='Número do Cartão'
-          name='card_number'
-          control={control}
-          {...register('card_number', {
-            onChange: e => handleInputCardFormat(e)
-          })}
-        />
-        <Input
-          maxLength={7}
-          type='text'
-          label='Data de Vencimento'
-          name='expiration_date'
-          control={control}
-          {...register('expiration_date', {
-            onChange: e => handleInputExpirationFormat(e)
-          })}
-        />
-        <Input
-          maxLength={3}
-          type='text'
-          label='CVV'
-          name='cvc'
-          control={control}
-        />
-        <S.ButtonConfirm
-          type='submit'
-          loading={loading}
-          disabled={loading}
+      <Modal
+        isOpen={isOpen}
+        onRequestClose={onRequestNewCreditCardModal}
+        className='react-modal-container'
+        overlayClassName='react-modal-overlay'
+      >
+
+        <S.YourAccount>
+          <CreditCardIcon
+            color={colors.gray[100]}
+            width='20'
+            height='14'
+          />
+          <S.ContentTitle>Seu cartão cadastrado</S.ContentTitle>
+        </S.YourAccount>
+
+        <S.CreditCardForm
+          onSubmit={handleSubmit(handleCreateCreditCard)}
         >
-          Confirmar
-        </S.ButtonConfirm>
-        <S.ButtonCancel
-          onClick={onClose}
-          disabled={loading}
-        >
-          Cancelar
-        </S.ButtonCancel>
-      </S.CreditCardForm>
+
+          <Input
+            type='text'
+            label='Nome do Cartão'
+            name='card_name'
+            control={control}
+          />
+
+          <Input
+            maxLength={19}
+            type='text'
+            label='Número do Cartão'
+            name='card_number'
+            control={control}
+            {...register('card_number', {
+              onChange: e => handleInputCardFormat(e)
+            })}
+          />
+
+          <Input
+            maxLength={7}
+            type='text'
+            label='Data de Vencimento'
+            name='expiration_date'
+            control={control}
+            {...register('expiration_date', {
+              onChange: e => handleInputExpirationFormat(e)
+            })}
+          />
+
+          <Input
+            maxLength={3}
+            type='text'
+            label='CVV'
+            name='cvc'
+            control={control}
+          />
+
+          <S.ButtonConfirm
+            type='submit'
+            loading={loading}
+            disabled={loading}
+          >
+            Confirmar
+          </S.ButtonConfirm>
+
+          <S.ButtonCancel
+            disabled={loading}
+            onClick={onRequestNewCreditCardModal}
+          >
+            Cancelar
+          </S.ButtonCancel>
+
+        </S.CreditCardForm>
+
+      </Modal>
     </>
   )
 }
