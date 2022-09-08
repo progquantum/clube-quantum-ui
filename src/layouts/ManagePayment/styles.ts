@@ -18,6 +18,7 @@ export const RightWrapper = styled.div`
     align-items: center;
   }
 `
+
 export const MenuGrid = styled.div`
   width: 100%;
   margin: 1rem 0;
@@ -25,7 +26,6 @@ export const MenuGrid = styled.div`
   grid-auto-columns: 1fr;
   grid-template-columns: 1fr 1fr;
   grid-template-rows: 1fr 1fr 2fr;
-
 `
 
 export const CardsContainer = styled.div`

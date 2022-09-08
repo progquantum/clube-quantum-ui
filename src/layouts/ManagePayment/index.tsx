@@ -24,8 +24,14 @@ export function ManagePaymentPage () {
           <ServicesBank />
           <S.MenuGrid />
           <S.CardsContainer>
-            <BankAccount user={data} loading={isLoading} />
-            <CreditCard user={data} loading={isLoading} />
+            <BankAccount
+              user={data}
+              loading={isLoading}
+            />
+            <CreditCard
+              user={data}
+              loading={isLoading}
+            />
           </S.CardsContainer>
         </S.RightWrapper>
       </S.Container>
