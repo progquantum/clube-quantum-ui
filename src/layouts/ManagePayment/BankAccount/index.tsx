@@ -1,22 +1,23 @@
 import { useTheme } from 'styled-components'
 
-import { useModal } from 'hooks/useModal'
-import { Modal } from 'components/Modal'
+import { useState } from 'react'
+
 import { BancoUm } from 'components/Illustrations/BancoUm'
 
 import { BankAccountProps } from './types'
-import { ModalBankAccount } from './ModalBankAccount'
+
 import * as S from './styles'
 import { Skeleton } from './Skeleton'
+import { ModalBankAccount } from './ModalBankAccount'
 
 export function BankAccount ({ user, loading }: BankAccountProps) {
-  const { colors } = useTheme()
+  const [isNewModalOpen, setIsNewModalOpen] = useState(false)
 
-  const {
-    modalOpen: modalOpenBank,
-    open: openBank,
-    close: closeBank
-  } = useModal()
+  const handleNewBankAccountModal = () => {
+    setIsNewModalOpen(prevState => !prevState)
+  }
+
+  const { colors } = useTheme()
 
   const holderName = user?.bank_account.holder_name
   const currentAccount = user?.bank_account.current_account
@@ -71,13 +72,14 @@ export function BankAccount ({ user, loading }: BankAccountProps) {
               <S.ContentTitle>Sua conta Banco Um</S.ContentTitle>
             </S.YourAccount>
             <S.Text>Nenhuma conta Banco Um registrada, gostaria de adicionar uma nova conta?</S.Text>
-            <S.BankAccountButton onClick={openBank}>Cadastrar conta bancária</S.BankAccountButton>
+            <S.BankAccountButton onClick={handleNewBankAccountModal}>Cadastrar conta bancária</S.BankAccountButton>
           </>
           )}
-
-      <Modal width={339} isActive={modalOpenBank} close={closeBank}>
-        <ModalBankAccount onClose={closeBank} />
-      </Modal>
+      <ModalBankAccount
+        isOpen={isNewModalOpen}
+        onRequestClose={handleNewBankAccountModal}
+        onRequestCloseNewModal={() => setIsNewModalOpen(prevState => !prevState)}
+      />
     </S.Content>
   )
 }

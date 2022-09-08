@@ -2,21 +2,14 @@ import { useTheme } from 'styled-components'
 import Image from 'next/image'
 
 import { CreditCardIcon } from 'components/Illustrations/CreditCard'
-import { Modal } from 'components/Modal'
-import { useModal } from 'hooks/useModal'
 
 import { CreditCardProps } from './types'
 import { Skeleton } from './Skeleton'
-import { ModalCreditCard } from './ModalCreditCard'
+
 import * as S from './styles'
 
 export function CreditCard ({ user, loading }: CreditCardProps) {
   const { colors } = useTheme()
-  const {
-    modalOpen: modalOpenCreditCard,
-    open: openCreditCard,
-    close: closeCreditCard
-  } = useModal()
 
   const cardLastDigits = user?.credit_card.last_digits
   const cardExpirationDate = user?.credit_card.expiration_date
@@ -43,7 +36,7 @@ export function CreditCard ({ user, loading }: CreditCardProps) {
                   <Image src='/images/visa.svg' width={80} height={43} />
                 </div>
               </S.CardDetails>
-              <S.ButtonPlan onClick={openCreditCard}>Atualizar cartão</S.ButtonPlan>
+              <S.ButtonPlan>Atualizar cartão</S.ButtonPlan>
             </>
             )
           : (
@@ -56,9 +49,6 @@ export function CreditCard ({ user, loading }: CreditCardProps) {
               <S.ButtonPlan>Prosseguir</S.ButtonPlan>
             </>
             )}
-        <Modal width={339} isActive={modalOpenCreditCard} close={closeCreditCard}>
-          <ModalCreditCard onClose={closeCreditCard} />
-        </Modal>
       </S.Content>
     </>
   )
