@@ -17,14 +17,14 @@ import { schema } from '../../../../schemas/insertBankAccount'
 import * as S from './styles'
 import { ModalBankAccountFormProps, ModalBankAccountProps } from './types'
 
-export function ModalBankAccount ({ isOpen, onRequestClose, onRequestCloseNewModal }: ModalBankAccountProps) {
+export function ModalBankAccount ({ isOpen, onRequestClose, onRequestNewModal }: ModalBankAccountProps) {
   const { colors } = useTheme()
 
   const [newConfirmModal, setNewConfirmModal] = useState(false)
 
   const handleRequestNewModal = () => {
     setNewConfirmModal(prevState => !prevState)
-    onRequestCloseNewModal()
+    onRequestNewModal()
   }
 
   const handleCloseNewConfirmModal = () => {
@@ -81,9 +81,14 @@ export function ModalBankAccount ({ isOpen, onRequestClose, onRequestCloseNewMod
         className='react-modal-container'
       >
         <S.YourAccount>
-          <BancoUm color={colors.gray[200]} width='22' height='16' />
+          <BancoUm
+            color={colors.gray[200]}
+            width='22'
+            height='16'
+          />
           <S.ContentTitle>Sua conta Banco Um</S.ContentTitle>
         </S.YourAccount>
+
         <S.BankingData>
           <S.BankingAccount>
             <S.TitleContent>
@@ -96,10 +101,15 @@ export function ModalBankAccount ({ isOpen, onRequestClose, onRequestCloseNewMod
           </S.BankingAccount>
 
           <S.BankingAccount>
-            <S.TitleContent>Agência</S.TitleContent>
-            <S.TextContent>0001</S.TextContent>
+            <S.TitleContent>
+              Agência
+            </S.TitleContent>
+            <S.TextContent>
+              0001
+            </S.TextContent>
           </S.BankingAccount>
         </S.BankingData>
+
         <S.BankingAccountForm onSubmit={handleSubmit(handleRequestNewModal)}>
           <Input
             maxLength={10}
@@ -123,7 +133,11 @@ export function ModalBankAccount ({ isOpen, onRequestClose, onRequestCloseNewMod
           >
             Confirmar
           </S.ButtonContinue>
-          <S.ButtonCancel onClick={onRequestClose}>Cancelar</S.ButtonCancel>
+          <S.ButtonCancel
+            onClick={onRequestClose}
+          >
+            Cancelar
+          </S.ButtonCancel>
         </S.BankingAccountForm>
       </Modal>
 
@@ -135,9 +149,14 @@ export function ModalBankAccount ({ isOpen, onRequestClose, onRequestCloseNewMod
       >
         <>
           <S.YourConfirmAccount>
-            <BancoUm color={colors.mediumslateBlue} width='22' height='16' />
+            <BancoUm
+              color={colors.mediumslateBlue}
+              width='22'
+              height='16'
+            />
             <S.ContentConfirmAccount>Sua conta Banco Um</S.ContentConfirmAccount>
           </S.YourConfirmAccount>
+
           <S.BankingConfirmData>
             <S.BankingConfirmAccount>
               <S.TitleContent>
@@ -148,6 +167,7 @@ export function ModalBankAccount ({ isOpen, onRequestClose, onRequestCloseNewMod
                 396 - Banco Um
               </S.TextConfirmAccount>
             </S.BankingConfirmAccount>
+
             <S.BankingConfirmAccount>
               <S.TitleContent>
                 Agência
@@ -156,6 +176,7 @@ export function ModalBankAccount ({ isOpen, onRequestClose, onRequestCloseNewMod
                 0001
               </S.TextConfirmAccount>
             </S.BankingConfirmAccount>
+
             <S.BankingConfirmAccount>
               <S.TitleContent>
                 Conta
@@ -164,6 +185,7 @@ export function ModalBankAccount ({ isOpen, onRequestClose, onRequestCloseNewMod
                 {current_account}
               </S.TextConfirmAccount>
             </S.BankingConfirmAccount>
+
             <S.BankingConfirmAccount>
               <S.TitleContent>
                 Titular
@@ -172,6 +194,7 @@ export function ModalBankAccount ({ isOpen, onRequestClose, onRequestCloseNewMod
                 {holder_name}
               </S.TextConfirmAccount>
             </S.BankingConfirmAccount>
+
           </S.BankingConfirmData>
           <S.ButtonContinue
             onClick={() => handleSubmit(handleCreateAccountBank({ current_account, holder_name }))}
@@ -179,7 +202,11 @@ export function ModalBankAccount ({ isOpen, onRequestClose, onRequestCloseNewMod
           >
             Finalizar
           </S.ButtonContinue>
-          <S.ButtonCancel onClick={handleRequestNewModal}>Voltar</S.ButtonCancel>
+          <S.ButtonCancel
+            onClick={handleRequestNewModal}
+          >
+            Voltar
+          </S.ButtonCancel>
         </>
       </Modal>
     </>
