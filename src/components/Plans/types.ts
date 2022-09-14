@@ -12,6 +12,11 @@ export type Active = {
   isActive?: boolean;
 }
 
+export type PlanDurationProps = {
+  period: Periods,
+  title: string
+}
+
 export type PlansData = {
   id: string,
   name: string,

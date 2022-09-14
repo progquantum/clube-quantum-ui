@@ -6,7 +6,7 @@ import { formatPrice } from 'utils/formatters/formatPrice'
 
 import { formatFirstLetterToUppercase } from 'utils/formatters/formatFirstLetterToUppercase'
 
-import { Periods, Plans, PlansData, PlansProps } from './types'
+import { Periods, PlanDurationProps, Plans, PlansData, PlansProps } from './types'
 import * as S from './styles'
 import { Skeleton } from './Skeleton'
 
@@ -23,7 +23,6 @@ export function Plans ({ children, button }:PlansProps) {
   const [planId, setPlanId] = useState(planStart.id)
   const [price, setPrice] = useState(planStart.semiannual_price)
   const [planName, setPlanName] = useState(planStart.name)
-  const [isActive, setIsActive] = useState(false)
   const { registerPlan } = useSubscriptionsDispatch()
 
   useEffect(() => {
@@ -31,8 +30,6 @@ export function Plans ({ children, button }:PlansProps) {
     setPrice(planStart.semiannual_price)
     setPlanName(planStart.name)
   }, [planStart])
-
-  const handleActive = () => setIsActive(true)
 
   const handleChoosePlan = (plan: Plans) => {
     setSelectedPlan(plan)
@@ -79,8 +76,6 @@ export function Plans ({ children, button }:PlansProps) {
     handleRegisterPlan()
   }, [price])
 
-  useEffect(() => handleActive())
-
   const handleRegisterPlan = () => {
     registerPlan({
       plan_id: planId,
@@ -90,6 +85,12 @@ export function Plans ({ children, button }:PlansProps) {
     })
   }
 
+  const planDurationOptions = [
+    { period: 'monthly', title: 'Mensal' },
+    { period: 'semiannual', title: 'Semestral' },
+    { period: 'yearly', title: 'Anual' }
+  ]
+
   if (isLoading) return (<Skeleton />)
   return (
     <S.Container>
@@ -97,43 +98,28 @@ export function Plans ({ children, button }:PlansProps) {
         <S.Title>Selecione o período de pagamento</S.Title>
 
         <S.PlansWrapper>
-          <S.PlanType
-            isActive={selectedPeriod === 'monthly' && isActive}
-            onClick={() => {
-              handleChoosePeriod('monthly')
-              handleActive()
-            }}
-          >
-            Mensal
-          </S.PlanType>
-          <S.PlanType
-            isActive={selectedPeriod === 'semiannual' && isActive}
-            onClick={() => {
-              handleChoosePeriod('semiannual')
-              handleActive()
-            }}
-          >
-            Semestral
-          </S.PlanType>
-          <S.PlanType
-            isActive={selectedPeriod === 'yearly' && isActive}
-            onClick={() => {
-              handleChoosePeriod('yearly')
-              handleActive()
-            }}
-          >
-            Anual
-          </S.PlanType>
+          {planDurationOptions.map((item: PlanDurationProps, index) => {
+            return (
+              <S.PlanType
+                key={index}
+                isActive={selectedPeriod === item.period}
+                onClick={() => {
+                  handleChoosePeriod(item.period)
+                }}
+              >
+                {item.title}
+              </S.PlanType>
+            )
+          })}
         </S.PlansWrapper>
         <S.Subtitle>Renovação feita de forma automática</S.Subtitle>
       </S.Wrapper>
       {children}
       <S.PlansContents>
         <S.PlanContentsWrapper
-          isActive={selectedPlan === 'free' && isActive}
+          isActive={selectedPlan === 'free'}
           onClick={() => {
             handleChoosePlan('free')
-            handleActive()
           }}
         >
           <S.TitlePlan>{formatFirstLetterToUppercase(planFree.name)}</S.TitlePlan>
@@ -141,7 +127,7 @@ export function Plans ({ children, button }:PlansProps) {
             Plano com um custo acessível e que te dá mais benefícios.
           </S.Text>
           <h2>R$ 0,00</h2>
-          <S.Button isActive={selectedPlan === 'free' && isActive}>
+          <S.Button isActive={selectedPlan === 'free'}>
             {selectedPlan === 'free' ? 'Plano Escolhido' : 'Escolher este plano'}
           </S.Button>
           <S.PlanItemsList>
@@ -215,10 +201,9 @@ export function Plans ({ children, button }:PlansProps) {
         </S.PlanContentsWrapper>
 
         <S.PlanContentsWrapper
-          isActive={selectedPlan === 'start' && isActive}
+          isActive={selectedPlan === 'start'}
           onClick={() => {
             handleChoosePlan('start')
-            handleActive()
           }}
         >
           <S.TitlePlan>{formatFirstLetterToUppercase(planStart.name)}</S.TitlePlan>
@@ -233,7 +218,7 @@ export function Plans ({ children, button }:PlansProps) {
                   : formatPrice(planStart.annual_price))}
           </h2>
           <S.Button
-            isActive={selectedPlan === 'start' && isActive}
+            isActive={selectedPlan === 'start'}
           >
             {selectedPlan === 'start' ? 'Plano Escolhido' : 'Escolher este plano'}
           </S.Button>
@@ -308,10 +293,9 @@ export function Plans ({ children, button }:PlansProps) {
         </S.PlanContentsWrapper>
 
         <S.PlanContentsWrapper
-          isActive={selectedPlan === 'select' && isActive}
+          isActive={selectedPlan === 'select'}
           onClick={() => {
             handleChoosePlan('select')
-            handleActive()
           }}
         >
           <S.TitlePlan>{formatFirstLetterToUppercase(planSelect.name)}</S.TitlePlan>
@@ -323,7 +307,7 @@ export function Plans ({ children, button }:PlansProps) {
                   ? formatPrice(planSelect.monthly_price)
                   : formatPrice(planSelect.annual_price))}
           </h2>
-          <S.Button isActive={selectedPlan === 'select' && isActive}>
+          <S.Button isActive={selectedPlan === 'select'}>
             {selectedPlan === 'select' ? 'Plano Escolhido' : 'Escolher este plano'}
           </S.Button>
           <S.PlanItemsList>
