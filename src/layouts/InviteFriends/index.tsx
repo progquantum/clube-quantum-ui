@@ -26,77 +26,63 @@ export function InviteFriendsPage () {
       <title>Convidar Amigos</title>
 
       <Header />
-
       <S.Container>
         {hasInviteCode
           ? (
             <>
               <div>
-                <S.Heading>Nós damos valor às amizades</S.Heading>
+                <S.Heading>Nós damos valor <br />às amizades</S.Heading>
 
                 <S.Content>
                   E recompensamos você, para cada Amigo convidado que se cadastrar no Clube Quantum.
                 </S.Content>
 
-                <S.LinkButton variant='secondary' onClick={handleShare}>
-                  Seu link de convite é:
-                  <S.InviteCode>{linkCode}</S.InviteCode>
-                </S.LinkButton>
-
-                <S.ContainerLinks>
-                  <S.InviteButton>
-                    <S.Instagram />
-                    Convidar via Instagram
-                  </S.InviteButton>
-
-                  <S.InviteButton>
-                    <S.Facebook />
-                    Convidar via Facebook
-                  </S.InviteButton>
-
-                  <S.InviteButton>
-                    <S.WhatsApp />
-                    Convidar via WhatsApp
-                  </S.InviteButton>
-
-                  <S.InviteButton>
-                    <S.Mail />
-                    Convidar via E-Mail
-                  </S.InviteButton>
-
-                  <S.InviteButton onClick={handleShare}>
-                    <S.Link />
-                    Copiar o link do convite
-                  </S.InviteButton>
-                </S.ContainerLinks>
+                <S.InviteCodeContainer variant='transparent' onClick={handleShare}>
+                  <p>
+                    Seu link de convite é:
+                    <br />
+                    <strong>{linkCode}</strong>
+                  </p>
+                </S.InviteCodeContainer>
               </div>
 
               <S.ImageDiv>
-                <Image className='image' width={385} height={467} src='/images/friends.svg' alt='' />
+                <Image
+                  width={385}
+                  height={467}
+                  src='/images/friends.svg'
+                  alt=''
+                />
               </S.ImageDiv>
             </>
             )
           : (
             <>
-              <div>
+              <S.ContainerWrapper>
                 <S.Heading>Oops, você ainda não pode convidar amigos!</S.Heading>
 
-                <S.Content>
-                  Conheça os planos disponíveis no Clube Quantum, e clique abaixo para acessar e começar usufruir dos benefícios.
-                </S.Content>
+                <S.Text>
+                  Para convidar seus amigos e experimentar os benefícios quantum, você precisa estar inserido em um plano!
+                </S.Text>
 
                 <S.ButtonPlan>
                   <S.HeadingInfo>
                     Conheça os planos disponíveis no clube quantum, e clique abaixo para acessar e começar usufruir dos benefícios.
                   </S.HeadingInfo>
 
-                  <S.InfoButton>Comece agora</S.InfoButton>
-
+                  <S.InfoButton>
+                    Aderir a um plano
+                  </S.InfoButton>
                 </S.ButtonPlan>
-              </div>
+              </S.ContainerWrapper>
 
               <S.ImageDiv>
-                <Image className='image' width={385} height={467} src='/images/friends-error.svg' alt='' />
+                <Image
+                  width={385}
+                  height={467}
+                  src='/images/friends-error.svg'
+                  alt=''
+                />
               </S.ImageDiv>
             </>
             )}

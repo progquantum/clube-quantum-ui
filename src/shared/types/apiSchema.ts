@@ -28,3 +28,7 @@ export type Address = {
   state: string,
   country: string
 }
+
+export type InviteCodePayload = {
+  is_valid: boolean
+}

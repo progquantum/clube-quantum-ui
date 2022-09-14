@@ -19,7 +19,7 @@ export function DashboardPage () {
         <SideBar />
         <S.RightWrapper>
           <ServicesBank />
-          {user.subscription ? <MainContent data={user} /> : <ManagePlans />}
+          {user.subscription ? <MainContent /> : <ManagePlans />}
         </S.RightWrapper>
       </S.Container>
     </>
