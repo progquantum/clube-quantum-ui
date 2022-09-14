@@ -31,4 +31,4 @@ export type Address = {
 
 export type InviteCodePayload = {
   is_valid: boolean
- }
+}

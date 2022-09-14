@@ -1,4 +1,4 @@
-export type RegisterSubscriptionData = {
+export type SubscriptionRequest = {
   plan: {
     plan_id: string,
     plan_duration: 1
@@ -14,4 +14,9 @@ export type RegisterSubscriptionData = {
       expiration_date: string,
       cvc: 990
   }
+}
+
+export type SubscriptionPayload = {
+  plan_name: string
+  is_active: boolean
 }

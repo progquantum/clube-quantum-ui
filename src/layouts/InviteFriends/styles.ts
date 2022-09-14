@@ -49,12 +49,12 @@ export const InviteCodeContainer = styled(Button)`
   border-radius: .625rem;
 
   * {
-   transition: none;
+    transition: none;
   }
 
- :hover {
-   background-color: ${({ theme }) => theme.colors.midnightBlue};
-   color: ${({ theme }) => theme.colors.white};
+  &:hover {
+    background-color: ${({ theme }) => theme.colors.midnightBlue};
+    color: ${({ theme }) => theme.colors.white};
  }
 
  @media (max-width: 414px) {
@@ -97,7 +97,7 @@ export const InfoButton = styled(Button)`
   font-weight: 500;
   padding: .5rem 0;
 
-  :hover {
+  &:hover {
     background-color: ${({ theme }) => theme.colors.mediumslateBlue};
   }
 `

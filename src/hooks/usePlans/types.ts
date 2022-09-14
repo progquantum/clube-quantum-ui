@@ -1,4 +1,4 @@
-export type PlansData = {
+export type PlansPayload = {
   id: string,
   name: string,
   cashback_above_own_individual_person: string,

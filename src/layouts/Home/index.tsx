@@ -2,11 +2,9 @@ import Head from 'next/head'
 import Image from 'next/image'
 
 import { SIGN_UP_PAGE } from 'constants/routesPath'
-
 import { Footer } from 'components/Footer'
 
 import { Header } from './Header'
-
 import * as S from './styles'
 
 export function HomePage () {

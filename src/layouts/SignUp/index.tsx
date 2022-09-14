@@ -9,7 +9,6 @@ import * as S from './styles'
 
 export function SignUpPage () {
   const { signUp } = useAuthDispatch()
-
   const router = useRouter()
   const inviteCode = router.query.invite as string
 

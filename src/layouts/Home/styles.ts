@@ -57,7 +57,8 @@ export const ArrowDownWrapper = styled.div`
   margin: 5rem 0;
   display: flex;
   justify-content: center;
-  > span {
+
+  & > span {
     cursor: pointer;
   }
 
@@ -73,7 +74,7 @@ export const HomePageButton = styled(Button)`
   padding: 0.5rem 1.5rem;
   border-radius: 2.5rem;
 
-  :hover {
+  &:hover {
     transition: none;
     background: ${({ theme }) => theme.colors.mediumslateBlue};
   }
@@ -190,7 +191,7 @@ export const Line = styled.div`
 export const FaqContainer = styled.div`
   margin: 5rem 4rem;
 
-  > h2 {
+  & > h2 {
     margin-bottom: 3.125rem;
     font-weight: 800;
   }
@@ -240,13 +241,13 @@ export const Faq = styled.div`
   border: 3px solid ${({ theme }) => theme.colors.gray[700]};
   border-radius: 1.5rem;
 
-  > h3 {
+  & > h3 {
     font-weight: 700;
     font-size: 1.5rem;
     margin-bottom: 1.563rem;
   }
 
-  > p {
+  & > p {
     font-weight: 500;
     font-size: .875rem;
     line-height: 1.6;
@@ -256,11 +257,11 @@ export const Faq = styled.div`
   @media(max-width: 700px) {
     padding: 2rem;
 
-    > h3 {
+  & > h3 {
     font-size: 1rem;
   }
 
-  > p {
+  & > p {
     font-size: .775rem;
   }
 

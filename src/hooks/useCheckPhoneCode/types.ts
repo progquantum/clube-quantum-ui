@@ -1,4 +1,4 @@
-export type RequestCheckPhoneCode = {
+export type CheckPhoneCodeRequest = {
   phone: string
   code: string
 }

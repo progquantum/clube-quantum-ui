@@ -1,7 +1,6 @@
+import { useState } from 'react'
 import Link from 'next/link'
 import Image from 'next/image'
-
-import { useState } from 'react'
 
 import { SIGN_IN_PAGE } from 'constants/routesPath'
 

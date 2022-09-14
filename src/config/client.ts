@@ -1,3 +1,3 @@
-import { setupAPIClient } from 'settings/api'
+import { setupAPIClient } from 'services/httpServices'
 
 export const api = setupAPIClient()
