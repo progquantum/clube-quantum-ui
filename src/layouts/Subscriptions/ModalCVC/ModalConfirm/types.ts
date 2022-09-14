@@ -1,7 +1,7 @@
 export type ModalConfirmProps = {
-  onCloseCVC: () => void
   onSucessful: () => void
   onError: () => void
+  onClose: () => void
 }
 
 export type ErrorResponse = {

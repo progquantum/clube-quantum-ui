@@ -98,6 +98,19 @@ export function FinishedPage () {
     )
   }
 
+  const formattedPlanName = formatFirstLetterToUppercase(plan?.plan_name)
+  const planDuration = plan?.plan_duration === 6
+    ? 'Semestral'
+    : plan?.plan_duration === 1
+      ? 'Mensal'
+      : 'Anual'
+  const formattedPrice = formatPrice(plan?.price)
+  const holderName = bankAccount?.holder_name
+  const cardName = creditCard?.card_name
+  const cardNumber = creditCard?.card_number
+  const cardCVC = creditCard?.cvc
+  const expirationDate = creditCard?.expiration_date
+  const formattedBankAccount = `${bankAccount?.current_account}-${bankAccount?.current_account_check_number}`
   return (
     <>
       <Header />
@@ -120,22 +133,18 @@ export function FinishedPage () {
                           Seu plano escolhido
                         </S.Title>
                         <S.TitlePlan>
-                          {formatFirstLetterToUppercase(plan?.plan_name)}
+                          {formattedPlanName}
                         </S.TitlePlan>
                         <S.CardDataContainer>
                           <S.CardDataTitle>Período de Cobrança</S.CardDataTitle>
                           <S.CardDataText>
-                            {plan?.plan_duration === 6
-                              ? 'Semestral'
-                              : plan?.plan_duration === 1
-                                ? 'Mensal'
-                                : 'Anual'}
+                            {planDuration}
                           </S.CardDataText>
                         </S.CardDataContainer>
                         <S.CardDataContainer>
                           <S.CardDataTitle>Total</S.CardDataTitle>
                           <S.CardDataText>
-                            {formatPrice(plan?.price)}
+                            {formattedPrice}
                           </S.CardDataText>
                         </S.CardDataContainer>
                       </S.Plan>
@@ -159,13 +168,13 @@ export function FinishedPage () {
                         <S.CardDataContainer>
                           <S.CardDataTitle>Conta</S.CardDataTitle>
                           <S.CardDataText>
-                            {`${bankAccount?.current_account}-${bankAccount?.current_account_check_number}`}
+                            {formattedBankAccount}
                           </S.CardDataText>
                         </S.CardDataContainer>
                         <S.CardDataContainer>
                           <S.CardDataTitle>Titular</S.CardDataTitle>
                           <S.CardDataText>
-                            {bankAccount?.holder_name}
+                            {holderName}
                           </S.CardDataText>
                         </S.CardDataContainer>
                       </S.Bank>
@@ -180,20 +189,20 @@ export function FinishedPage () {
                         </S.Title>
                         <S.CardDataContainer>
                           <S.CardDataTitle>Nome</S.CardDataTitle>
-                          <S.CardDataText>{creditCard?.card_name}</S.CardDataText>
+                          <S.CardDataText>{cardName}</S.CardDataText>
                         </S.CardDataContainer>
                         <S.CardDataContainer>
                           <S.CardDataTitle>Cartão</S.CardDataTitle>
-                          <S.CardDataText>{creditCard?.card_number}</S.CardDataText>
+                          <S.CardDataText>{cardNumber}</S.CardDataText>
                         </S.CardDataContainer>
                         <S.CardDataContainer>
                           <S.CardDataTitle>CVC</S.CardDataTitle>
-                          <S.CardDataText>{creditCard?.cvc}</S.CardDataText>
+                          <S.CardDataText>{cardCVC}</S.CardDataText>
                         </S.CardDataContainer>
                         <S.CardDataContainer>
                           <S.CardDataTitle>Validade</S.CardDataTitle>
                           <S.CardDataText>
-                            {creditCard?.expiration_date}
+                            {expirationDate}
                           </S.CardDataText>
                         </S.CardDataContainer>
                       </S.CreditCard>

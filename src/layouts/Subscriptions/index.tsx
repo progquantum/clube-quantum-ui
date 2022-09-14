@@ -1,9 +1,10 @@
-import { useFindMe } from 'hooks/useFindMe'
-import { useModal } from 'hooks/useModal'
+/* eslint-disable react/jsx-no-bind */
+import Modal from 'react-modal'
+import { useState } from 'react'
 
+import { useFindMe } from 'hooks/useFindMe'
 import { ManagePlans } from 'components/ManagePlans'
 import { Error } from 'components/Error'
-import { Modal } from 'components/Modal'
 import { Footer } from 'components/Footer'
 import { Header } from 'components/Header'
 import { SideBar } from 'components/SideBar'
@@ -20,21 +21,26 @@ export function SubscriptionsPage () {
   const { data, isLoading } = useFindMe()
   const hasPlan = data?.subscription?.is_active
 
-  const {
-    modalOpen: modalOpenCVC,
-    open: openCVC,
-    close: closeCVC
-  } = useModal()
+  const [modalIsOpen, setIsOpen] = useState(false)
 
-  const {
-    modalOpen: successful,
-    open: onSucessful
-  } = useModal()
+  function openModal () {
+    setIsOpen(true)
+  }
 
-  const {
-    modalOpen: error,
-    open: onError
-  } = useModal()
+  function closeModal () {
+    setIsOpen(false)
+  }
+
+  const [successful, setSuccessful] = useState(false)
+  const [error, setError] = useState(false)
+
+  function onError () {
+    setError(true)
+  }
+
+  function onSuccessful () {
+    setSuccessful(true)
+  }
   return (
     <>
       <title>Gerenciamento de plano - Clube Quantum</title>
@@ -49,13 +55,18 @@ export function SubscriptionsPage () {
                     <SideBar loading={isLoading} />
                     {hasPlan
                       ? (
-                        <Plans button={<SubscriptionButton onOpenModalCvcRequest={openCVC} />}>
+                        <Plans button={<SubscriptionButton onOpenModalCvcRequest={openModal} />}>
                           <SelectPlan data={data} />
-                          <Modal width={433} isActive={modalOpenCVC} onClose={closeCVC}>
+                          <Modal
+                            isOpen={modalIsOpen}
+                            onRequestClose={closeModal}
+                            overlayClassName='react-modal-overlay'
+                            className='react-modal-container-small'
+                          >
                             <ModalCVC
-                              onCloseCVC={closeCVC}
-                              onSucessful={onSucessful}
+                              onSucessful={onSuccessful}
                               onError={onError}
+                              onClose={closeModal}
                             />
                           </Modal>
                         </Plans>

@@ -1,7 +1,7 @@
 export type ModalCVCProps = {
-  onCloseCVC: () => void
   onSucessful: () => void
   onError:() => void
+  onClose:() => void
 }
 
 export type CVCFormValues = {

@@ -6,6 +6,9 @@ import * as S from './styles'
 import { SelectPlanProps } from './types'
 
 export function SelectPlan ({ data }:SelectPlanProps) {
+  const isPlanActive = data?.subscription?.is_active ? 'Ativo' : 'Cancelado'
+  const formattedPlanName = formatFirstLetterToUppercase(data?.subscription?.plan_name)
+
   return (
 
     <S.DivSelectPlan>
@@ -20,10 +23,10 @@ export function SelectPlan ({ data }:SelectPlanProps) {
       </S.HeaderSelectPlan>
       <S.DivStatusPlan>
         <S.TitleStatusPlan>
-          {formatFirstLetterToUppercase(data?.subscription?.plan_name)}
+          {formattedPlanName}
         </S.TitleStatusPlan>
         <S.StatusPlan>
-          {data?.subscription?.is_active ? 'Ativo' : 'Cancelado'}
+          {isPlanActive}
         </S.StatusPlan>
       </S.DivStatusPlan>
       <S.Deadline>

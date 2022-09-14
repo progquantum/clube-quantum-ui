@@ -26,7 +26,7 @@ export const CardDataContainer = styled.div`
   width: 100%;
   align-items: center;
   justify-content: space-between;
-  gap: 16px;
+  gap: 1rem;
 
 `
 export const Title = styled.p`
@@ -35,25 +35,38 @@ export const Title = styled.p`
   font-weight: 700;
   font-size: 1rem;
   line-height: 1.25rem;
+  
 `
 export const TitlePlan = styled.h2`
   font-weight: 900;
   font-size: 1.25rem;
-  padding-bottom: 16px;
+  padding-bottom: 1rem;
   border-bottom: 1px solid ${({ theme }) => theme.colors.gray[700]};
+
+  @media(max-width: 500px) {
+    font-size: 1rem ;
+  }
 `
 
 export const CardDataTitle = styled.p`
   font-weight: 700;
   font-size: 1.125rem;
+
+  @media(max-width: 500px) {
+    font-size: .875rem ;
+  }
 `
 export const CardDataText = styled.p`
   font-weight: 500;
   font-size: 1.125rem;
   line-height: 1.375rem;
+
+  @media(max-width: 500px) {
+    font-size: .875rem ;
+  }
 `
 export const ButtonConfirm = styled(Button)`
   width: 100%;
-  height: 44px;
+  height: 2.75rem;
 
 `

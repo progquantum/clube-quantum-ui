@@ -12,7 +12,7 @@ import { error } from 'helpers/notify/error'
 import { ErrorResponse, ModalConfirmProps } from './types'
 import * as S from './styles'
 
-export function ModalConfirm ({ onError, onSucessful, onCloseCVC }: ModalConfirmProps) {
+export function ModalConfirm ({ onError, onSucessful, onClose }: ModalConfirmProps) {
   const {
     handleSubmit,
     formState
@@ -63,6 +63,10 @@ export function ModalConfirm ({ onError, onSucessful, onCloseCVC }: ModalConfirm
     })
   }
 
+  const formattedPlanName = formatFirstLetterToUppercase(plan?.plan_name)
+  const planDuration = plan.plan_duration === 6 ? 'Semestral' : (plan.plan_duration === 1 ? 'Mensal' : 'Anual')
+  const formattedPrice = formatPrice(plan.price === '0' ? `0,${plan.price}` : plan.price)
+
   return (
 
     <S.Form onSubmit={handleSubmit(onSubmit)}>
@@ -71,14 +75,14 @@ export function ModalConfirm ({ onError, onSucessful, onCloseCVC }: ModalConfirm
           <MdAssignmentInd size={19.87} color={theme.colors.mediumslateBlue} />
           Seu plano escolhido
         </S.Title>
-        <S.TitlePlan>{formatFirstLetterToUppercase(plan?.plan_name)}</S.TitlePlan>
+        <S.TitlePlan>{formattedPlanName}</S.TitlePlan>
         <S.CardDataContainer>
           <S.CardDataTitle>Período de Cobrança</S.CardDataTitle>
-          <S.CardDataText>{plan.plan_duration === 6 ? 'Semestral' : (plan.plan_duration === 1 ? 'Mensal' : 'Anual')}</S.CardDataText>
+          <S.CardDataText>{planDuration}</S.CardDataText>
         </S.CardDataContainer>
         <S.CardDataContainer>
           <S.CardDataTitle>Total</S.CardDataTitle>
-          <S.CardDataText>{formatPrice(plan.price === '0' ? `0,${plan.price}` : plan.price)}</S.CardDataText>
+          <S.CardDataText>{formattedPrice}</S.CardDataText>
         </S.CardDataContainer>
       </S.Plan>
       <S.ButtonConfirm
@@ -92,7 +96,7 @@ export function ModalConfirm ({ onError, onSucessful, onCloseCVC }: ModalConfirm
       <S.ButtonConfirm
         variant='danger_outline'
         type='button'
-        onClick={onCloseCVC}
+        onClick={onClose}
       >
         Cancelar
       </S.ButtonConfirm>

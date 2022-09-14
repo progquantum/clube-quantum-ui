@@ -2,21 +2,18 @@ import { useForm, SubmitHandler } from 'react-hook-form'
 import { yupResolver } from '@hookform/resolvers/yup'
 import Link from 'next/link'
 import { useRouter } from 'next/router'
-
 import { useTheme } from 'styled-components'
 
 import { SideBar } from 'components/SideBar'
 import { Header } from 'components/Header'
 import { Footer } from 'components/Footer'
 import { BancoUm } from 'components/Illustrations/BancoUm'
-
 import { bankAccountSchema } from 'schemas/createSubscription'
 import { formatBankAccount } from 'utils/formatters/formatBankAccount'
 import { CREDIT_CARD_PAGE, SUBSCRIPTIONS_PAGE } from 'constants/routesPath'
 import { useSubscriptionsDispatch } from 'contexts/subscriptions/SubscriptionsContext'
 
 import { FormAccountData } from './types'
-
 import * as S from './styles'
 
 export function BankAccountPage () {
