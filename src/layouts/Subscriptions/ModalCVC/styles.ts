@@ -42,24 +42,12 @@ export const CardDataTitle = styled.p`
 export const DivInput = styled.div`
   display: flex;
   flex-direction: column;
-  width: 14.0625rem;
+  display: flex;
+  justify-content: flex-end;
   > div {
     margin: 0;
-    display: flex;
-    justify-content: flex-end;
+    width:100px;
   }
-`
-export const InputCVC = styled(Input)`
-  display: flex;
-  border: 2px solid ${({ theme }) => theme.colors.gray[700]};
-  border-radius: .625rem;
-  width: 6.25rem;
-  height: 3.4375rem;
-
-  ::placeholder {
-    color: ${({ theme }) => theme.colors.gray[400]};
-  }
-  
   @media(max-width: 500px) {
     font-size: .75rem ;
   }

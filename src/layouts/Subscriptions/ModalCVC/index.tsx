@@ -8,6 +8,8 @@ import { cvcSchema } from 'schemas/createSubscription'
 import { useBilling } from 'hooks/useBilling'
 import { useSubscriptionsDispatch } from 'contexts/subscriptions/SubscriptionsContext'
 
+import { Input } from 'components/Input'
+
 import * as S from './styles'
 import { CVCFormValues, ModalCVCProps } from './types'
 import { ModalConfirm } from './ModalConfirm'
@@ -70,7 +72,7 @@ export function ModalCVC ({ onSucessful, onError, onClose }: ModalCVCProps) {
             <S.CardDataContainer>
               <S.CardDataTitle>Confirmar CVV</S.CardDataTitle>
               <S.DivInput>
-                <S.InputCVC
+                <Input
                   name='cvc'
                   type='text'
                   control={control}

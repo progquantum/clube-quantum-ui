@@ -15,6 +15,8 @@ import { useSubscriptionsDispatch } from 'contexts/subscriptions/SubscriptionsCo
 import { formatCreditCardAddSpace } from 'utils/formatters/formatCreditCard'
 import { formatCreditCardExpiration } from 'utils/formatters/formatCreditCardExpiration'
 
+import { Input } from 'components/Input'
+
 import { FormCreditCardData } from './types'
 import * as S from './styles'
 
@@ -64,8 +66,8 @@ export function CreditCardPage () {
             você precisa adicionar um cartão
           </S.Text>
           <S.DivInput>
-            <S.Label>Nome do Cartão</S.Label>
-            <S.Input
+            <Input
+              label='Nome do Cartão'
               control={control}
               name='card_name'
               type='text'
@@ -74,8 +76,8 @@ export function CreditCardPage () {
           </S.DivInput>
           <S.ContentCardNumber>
             <S.DivInput>
-              <S.Label>Número do Cartão</S.Label>
-              <S.Input
+              <Input
+                label='Número do Cartão'
                 control={control}
                 name='card_number'
                 type='text'
@@ -91,8 +93,8 @@ export function CreditCardPage () {
           </S.ContentCardNumber>
           <S.ContentCardExpirateCVC>
             <S.DivInput>
-              <S.Label>Data de Vencimento</S.Label>
-              <S.Input
+              <Input
+                label='Data de Vencimento'
                 control={control}
                 name='expiration_date'
                 type='text'
@@ -105,8 +107,8 @@ export function CreditCardPage () {
               />
             </S.DivInput>
             <S.CVC>
-              <S.Label>CVV</S.Label>
-              <S.Input
+              <Input
+                label='CVV'
                 control={control}
                 name='cvc'
                 type='text'

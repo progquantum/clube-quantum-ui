@@ -13,6 +13,8 @@ import { formatBankAccount } from 'utils/formatters/formatBankAccount'
 import { CREDIT_CARD_PAGE, SUBSCRIPTIONS_PAGE } from 'constants/routesPath'
 import { useSubscriptionsDispatch } from 'contexts/subscriptions/SubscriptionsContext'
 
+import { Input } from 'components/Input'
+
 import { FormAccountData } from './types'
 import * as S from './styles'
 
@@ -66,9 +68,9 @@ export function BankAccountPage () {
             <S.Data>0001</S.Data>
           </S.Content>
           <S.DivInput>
-            <S.Label>Conta Corrente</S.Label>
-            <S.Input
+            <Input
               control={control}
+              label='Conta Corrente'
               name='current_account'
               type='text'
               placeholder='00000000-0'
@@ -80,9 +82,9 @@ export function BankAccountPage () {
             />
           </S.DivInput>
           <S.DivInput>
-            <S.Label>Nome completo do titular da conta</S.Label>
-            <S.Input
+            <Input
               control={control}
+              label='Nome completo do titular da conta'
               name='holder_name'
               type='text'
               placeholder='Nome completo'

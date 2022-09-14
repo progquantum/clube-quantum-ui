@@ -1,7 +1,6 @@
 import styled from 'styled-components'
 
 import { Button } from 'components/Button'
-import { Input as InputComponent } from 'components/Input'
 
 export const Main = styled.main`
   display: flex;
@@ -78,16 +77,7 @@ export const Label = styled.h2`
   font-size: 14px;
   color: ${({ theme }) => theme.colors.gray[700]};
 `
-export const Input = styled(InputComponent)`
-  border: 2px solid ${({ theme }) => theme.colors.gray[700]};
-  border-radius: 10px;
-  padding: 16px;
-  ::placeholder {
-    font-weight: 500;
-    font-size: 12px;
-    color: ${({ theme }) => theme.colors.gray[400]};
-  }
-`
+
 export const Description = styled.p`
   font-weight: 500;
   font-size: 14px;
