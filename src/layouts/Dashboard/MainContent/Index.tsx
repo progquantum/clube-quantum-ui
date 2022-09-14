@@ -3,13 +3,13 @@ import Link from 'next/link'
 import { faker } from '@faker-js/faker'
 
 import { INVITE_FRIENDS_PAGE } from 'constants/routesPath'
+import { useAuthState } from 'contexts/auth/AuthContext'
 
 import { AccountBalance } from '../AccountBalance'
-
-import { MainContentProps } from './types'
 import * as S from './styles'
 
-export function MainContent ({ data }: MainContentProps) {
+export function MainContent () {
+  const { user } = useAuthState()
   const balance = faker.finance.amount()
   const balanceInComing = faker.finance.amount()
 
@@ -100,11 +100,11 @@ export function MainContent ({ data }: MainContentProps) {
             src='/images/icon-plan.svg'
             alt='Icone plano'
           />
-          <S.TitlePlan>{data.subscription?.plan_name}</S.TitlePlan>
+          <S.TitlePlan>{user.subscription?.plan_name}</S.TitlePlan>
         </S.HeaderSelectPlan>
         <S.DivStatusPlan>
-          <S.TitleStatusPlan>{data.subscription?.plan_name}</S.TitleStatusPlan>
-          <S.StatusPlan>{data.subscription?.is_active ? 'Ativo' : 'Inativo'}</S.StatusPlan>
+          <S.TitleStatusPlan>{user.subscription?.plan_name}</S.TitleStatusPlan>
+          <S.StatusPlan>{user.subscription?.is_active ? 'Ativo' : 'Inativo'}</S.StatusPlan>
         </S.DivStatusPlan>
         <S.ManageButton disabled>Gerenciar planos</S.ManageButton>
         <S.Deadline>

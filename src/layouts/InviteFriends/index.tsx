@@ -3,19 +3,15 @@ import Image from 'next/image'
 import { Footer } from 'components/Footer'
 import { Header } from 'components/Header'
 import { useShare } from 'hooks/useShare'
-import { useHasMounted } from 'hooks/useHasMounted'
 import { useAuthState } from 'contexts/auth/AuthContext'
 
-import { Skeleton } from './Skeleton'
 import * as S from './styles'
 
 export function InviteFriendsPage () {
   const { user } = useAuthState()
-  const { hasMounted } = useHasMounted()
-
   const share = useShare()
-  const linkCode = `http://localhost:3000/signup?invite=${user?.invite_code}`
-  const hasInviteCode = user?.invite_code
+  const linkCode = `http://localhost:3000/signup?invite=${user.invite_code}`
+  const hasInviteCode = user.invite_code
 
   const handleShare = () => {
     share({
@@ -24,10 +20,6 @@ export function InviteFriendsPage () {
       url: linkCode
     })
   }
-
-  const isLoading = !hasMounted
-
-  if (isLoading) return <Skeleton />
 
   return (
     <>

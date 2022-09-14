@@ -36,7 +36,7 @@ export function AuthProvider ({ children }: PropsWithChildren<unknown>) {
   }, [])
 
   useEffect(() => {
-    (async () => {
+    async function getSession () {
       const cookies = parseCookies()
       const session = cookies[TOKEN_STORAGE_KEY]
 
@@ -45,13 +45,15 @@ export function AuthProvider ({ children }: PropsWithChildren<unknown>) {
 
         setUser(user)
       }
-    })()
+    }
+
+    getSession()
   }, [])
 
   const router = useRouter()
 
   const handleSignIn = useCallback(async ({ login, password }: SignInCredentials) => {
-    signIn({ login, password }, {
+    await signIn({ login, password }, {
       onSuccess: (data) => {
         const { token, refresh_token, user } = data
 

@@ -3,13 +3,17 @@ import { QueryClient, QueryClientProvider } from 'react-query'
 import { ToastContainer } from 'react-toastify'
 import { DefaultSeo } from 'next-seo'
 
-import SEO from '../../next-seo.config'
+import { useHasMounted } from 'hooks/useHasMounted'
 
+import SEO from '../../next-seo.config'
 import { AuthProvider } from './auth/AuthProvider'
 import { StyledProvider } from './styles'
 
 export function AppProvider ({ children }: PropsWithChildren<unknown>) {
   const [queryClient] = useState(() => new QueryClient())
+  const { hasMounted } = useHasMounted()
+
+  if (!hasMounted) return null
 
   return (
     <>
