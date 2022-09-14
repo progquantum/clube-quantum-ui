@@ -1,23 +1,20 @@
-import { useTheme } from 'styled-components'
-
 import { useState } from 'react'
+import { useTheme } from 'styled-components'
 
 import { BancoUm } from 'components/Illustrations/BancoUm'
 
-import { BankAccountProps } from './types'
-
-import * as S from './styles'
-import { Skeleton } from './Skeleton'
+import { Skeleton } from '../Skeleton'
 import { ModalBankAccount } from './ModalBankAccount'
+import { BankAccountProps } from './types'
+import * as S from './styles'
 
 export function BankAccount ({ user, loading }: BankAccountProps) {
   const [isNewModalOpen, setIsNewModalOpen] = useState(false)
+  const { colors } = useTheme()
 
   const handleNewBankAccountModal = () => {
     setIsNewModalOpen(prevState => !prevState)
   }
-
-  const { colors } = useTheme()
 
   const holderName = user?.bank_account.holder_name
   const currentAccount = user?.bank_account.current_account

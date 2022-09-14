@@ -3,7 +3,7 @@ import * as S from './styles'
 export function Skeleton () {
   return (
     <>
-      <S.CreditCardSkeleton />
+      <S.Container />
     </>
   )
 }

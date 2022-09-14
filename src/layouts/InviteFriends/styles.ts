@@ -1,120 +1,76 @@
-import styled, { css } from 'styled-components'
-import { FaInstagram, FaWhatsapp } from 'react-icons/fa'
-import { HiOutlineMail, HiOutlineLink } from 'react-icons/hi'
-import { FiFacebook } from 'react-icons/fi'
+import styled from 'styled-components'
 
 import { Button } from 'components/Button'
 
 export const Container = styled.main`
+  max-width: 72.125rem;
   width: 100%;
-  max-width: 75rem;
-  margin: 0 auto;
+  margin: 5rem auto;
+  gap: 1rem;
   display: flex;
   align-items: center;
-  justify-content: center;
-  gap: 4.5rem;
-  padding: 5rem 2rem;
+  justify-content: space-between;
+  padding: 0 2rem;
 `
 
 export const Heading = styled.h1`
   font-weight: 900;
   font-size: 2rem;
   line-height: 1.4;
-  max-width: 18ch;
   margin-bottom: 2rem;
+
+  @media (max-width: 414px) {
+    font-size: 1.5rem;
+ }
 `
 
 export const Content = styled.p`
   font-weight: 500;
   font-size: 1.25rem;
-  line-height: 1.3;
-  max-width: 30ch;
+  line-height: 1.5;
+  max-width: 31rem;
+  margin-bottom: 2.5rem;
+
+  @media (max-width: 414px) {
+    font-size: 1rem;
+ }
 `
 
-export const LinkButton = styled(Button)`
-  align-items: start;
+export const InviteCodeContainer = styled(Button)`
   flex-direction: column;
-  padding: 1rem 1.875rem;
-  margin-block: 2.2rem;
-  line-height: 1.5;
+  align-items: flex-start;
+  width: 100%;
+  max-width: 28rem;
+  padding: 1rem;
+  text-align: start;
+  line-height: 1.6;
+  color: ${({ theme }) => theme.colors.midnightBlue};
   border: 2px solid ${({ theme }) => theme.colors.midnightBlue};
   border-radius: .625rem;
-  max-width: 19rem;
-`
 
-export const InviteCode = styled.strong`
-  width: 100%;
-  text-overflow: ellipsis;
-  white-space: nowrap;
-  overflow: hidden; 
-`
+  * {
+    transition: none;
+  }
 
-const iconStyles = css`
-  background-color: ${({ theme }) => theme.colors.midnightBlue};
-  color: ${({ theme }) => theme.colors.white};
-  width: 1.875rem;
-  height: 1.875rem;
-  padding: .3rem;
-  border-radius: 50%;
-`
+  &:hover {
+    background-color: ${({ theme }) => theme.colors.midnightBlue};
+    color: ${({ theme }) => theme.colors.white};
+ }
 
-export const Instagram = styled(FaInstagram)`
-  ${iconStyles};
-`
-
-export const Facebook = styled(FiFacebook)`
-  ${iconStyles};
-`
-
-export const WhatsApp = styled(FaWhatsapp)`
-  ${iconStyles};
-`
-
-export const Mail = styled(HiOutlineMail)`
-  ${iconStyles};
-`
-
-export const Link = styled(HiOutlineLink)`
-  ${iconStyles};
+ @media (max-width: 414px) {
+   font-size: .9rem;
+ }
 `
 
 export const ImageDiv = styled.div`
-  @media (min-width: 280px) and (max-width: 767px) {
+  @media (max-width: 600px) {
     display: none;
   }
 `
 
-export const ContainerSpan = styled.div`
-  padding: 1rem 1.875rem;
-  margin-bottom: 2.25rem;
-
-  border: 2px solid ${({ theme }) => theme.colors.midnightBlue};
-  border-radius: .625rem;
-
-  width: 19.813rem;
-  height: 4.5rem;
-
-  p {
-    font-size: 1rem;
-    color: ${({ theme }) => theme.colors.midnightBlue};
-}
-`
-
-export const ContainerLinks = styled.div`
-  display: flex;
-  flex-direction: column;
-  align-items: flex-start;
-  gap: 1rem;
-`
-
-export const InviteButton = styled(Button)`
-  gap: .9rem;
-  padding: 0;
-  font-weight: 500;
-  font-size: 1.25rem;
-  line-height: 22px;
-  color: ${({ theme }) => theme.colors.gray[700]};
-  background-color: transparent;
+export const ContainerWrapper = styled.div`
+  width: 100%;
+  max-width: 28rem;
 `
 
 export const ButtonPlan = styled.div`
@@ -123,13 +79,25 @@ export const ButtonPlan = styled.div`
 `
 
 export const HeadingInfo = styled.h2`
-  margin: 2.5rem 0;
-  max-width: 25ch;
-  line-height: 1.3;
+  font-size: 1rem;
   font-weight: 900;
+  line-height: 1.3;
+  margin-bottom: 2.5rem;
+`
+
+export const Text = styled.p`
+  font-size: 1rem;
+  font-weight: 500;
+  line-height: 1.5;
+  margin-bottom: 2.5rem;
 `
 
 export const InfoButton = styled(Button)`
-  font-weight: 600;
-  padding: .7rem 0;
+  font-size: .875rem;
+  font-weight: 500;
+  padding: .5rem 0;
+
+  &:hover {
+    background-color: ${({ theme }) => theme.colors.mediumslateBlue};
+  }
 `

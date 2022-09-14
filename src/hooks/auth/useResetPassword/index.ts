@@ -2,14 +2,16 @@ import { useMutation } from 'react-query'
 
 import { api } from 'config/client'
 
-import { ResetPasswordRequestData } from './types'
+import { ResetPasswordRequest } from './types'
 
-const resetPasswordMutation = (
-  data: ResetPasswordRequestData
-) => (
-  api.patch<unknown>('/passwords/reset', data)
-)
+export async function resetPasswordRequest (
+  credentials: ResetPasswordRequest
+) {
+  const { data } = await api.patch('/passwords/reset', credentials)
+
+  return data as unknown
+}
 
 export function useResetPassword () {
-  return useMutation(resetPasswordMutation)
+  return useMutation(resetPasswordRequest)
 }

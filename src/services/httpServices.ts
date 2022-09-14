@@ -1,14 +1,19 @@
-import axios, { AxiosError } from 'axios'
+import { GetServerSidePropsContext } from 'next'
 import { parseCookies, setCookie } from 'nookies'
-import { toast } from 'react-toastify'
+import axios, { AxiosError } from 'axios'
 
 import { REFRESH_TOKEN_STORAGE_KEY, TOKEN_STORAGE_KEY } from 'constants/storage'
+import { AuthTokenError } from 'shared/errors/AuthTokenError'
+import { error as notifyError } from 'helpers/notify/error'
 import { logOut } from 'helpers/auth/logOut'
 
 let isRefreshing = false
-let failedRequestsQueue = []
+let failedRequestsQueue: {
+  onSuccess (token: string): void
+  onFailure (error: AxiosError): void
+}[] = []
 
-export function setupAPIClient (ctx = undefined) {
+export function setupAPIClient (ctx: GetServerSidePropsContext | undefined = undefined) {
   let cookies = parseCookies(ctx)
 
   const token = cookies[TOKEN_STORAGE_KEY]
@@ -28,7 +33,7 @@ export function setupAPIClient (ctx = undefined) {
       const expectedError = error.response && error.response.status >= 400 && error.response.status < 500
 
       if (!expectedError) {
-        toast.error('Encontramos um problema por aqui.')
+        notifyError('Encontramos um problema por aqui.')
       }
 
       if (error.response.status === 401) {
@@ -85,6 +90,12 @@ export function setupAPIClient (ctx = undefined) {
             }
           })
         })
+      } else {
+        if (process.browser) {
+          logOut()
+        } else {
+          return Promise.reject(new AuthTokenError())
+        }
       }
 
       return Promise.reject(error)

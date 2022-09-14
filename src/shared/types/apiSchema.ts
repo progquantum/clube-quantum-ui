@@ -48,3 +48,7 @@ export type Wallet = {
   credit_card?: CreditCard
   bank_account?: BankAccount
 }
+
+export type InviteCodePayload = {
+  is_valid: boolean
+}

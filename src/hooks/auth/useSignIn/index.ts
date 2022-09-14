@@ -5,13 +5,12 @@ import { api } from 'config/client'
 
 import { SignInCredentials } from './types'
 
-const signInMutation = (
-  credentials: SignInCredentials
-) => (
-  api.post<Session>('/sessions', credentials)
-    .then(response => response.data)
-)
+export async function signIn (credentials: SignInCredentials) {
+  const { data } = await api.post('/sessions', credentials)
+
+  return data as Session
+}
 
 export function useSignIn () {
-  return useMutation(signInMutation)
+  return useMutation(signIn)
 }

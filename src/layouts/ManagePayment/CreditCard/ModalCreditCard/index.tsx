@@ -18,11 +18,9 @@ import { ModalCreditCardProps, ModalCreditCardFormProps } from './types'
 import * as S from './styles'
 
 export function ModalCreditCard ({ isOpen, onRequestNewCreditCardModal }: ModalCreditCardProps) {
-  const { mutateAsync: createCreditCard, isLoading: loading } = useUpdateCreditCard()
+  const { mutateAsync: postBankAccount, isLoading: loading } = useUpdateCreditCard()
   const { colors } = useTheme()
-
   const queryClient = useQueryClient()
-
   const {
     control,
     handleSubmit,
@@ -51,10 +49,10 @@ export function ModalCreditCard ({ isOpen, onRequestNewCreditCardModal }: ModalC
     setValue('expiration_date', expirationDateFormatted)
   }
 
-  const handleCreateCreditCard:SubmitHandler<ModalCreditCardFormProps> = async (data) => {
+  const handleSubmitCreditCard:SubmitHandler<ModalCreditCardFormProps> = async (data) => {
     const formattedCardNumber = data.card_number.replace(/ /g, '')
 
-    await createCreditCard({
+    await postBankAccount({
       card_number: formattedCardNumber,
       card_name: data.card_name,
       expiration_date: data.expiration_date,
@@ -88,7 +86,7 @@ export function ModalCreditCard ({ isOpen, onRequestNewCreditCardModal }: ModalC
         </S.YourAccount>
 
         <S.CreditCardForm
-          onSubmit={handleSubmit(handleCreateCreditCard)}
+          onSubmit={handleSubmit(handleSubmitCreditCard)}
         >
 
           <Input

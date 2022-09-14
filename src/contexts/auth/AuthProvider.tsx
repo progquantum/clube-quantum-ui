@@ -1,14 +1,15 @@
-import { useMemo, useCallback, PropsWithChildren, useEffect, useState } from 'react'
+import { useMemo, useCallback, PropsWithChildren, useEffect } from 'react'
 import { useRouter } from 'next/router'
 import { useLocalStorage } from '@rehooks/local-storage'
-import { setCookie, destroyCookie } from 'nookies'
+import { setCookie, destroyCookie, parseCookies } from 'nookies'
 
-import { User } from 'shared/types/apiSchema'
-import { USER_STORAGE_KEY, TOKEN_STORAGE_KEY, REFRESH_TOKEN_STORAGE_KEY } from 'constants/storage'
-import { DASHBOARD_PAGE, SIGN_IN_PAGE } from 'constants/routesPath'
 import { useSignIn } from 'hooks/auth/useSignIn'
+import { User } from 'shared/types/apiSchema'
+import { USER_STORAGE_KEY, TOKEN_STORAGE_KEY, REFRESH_TOKEN_STORAGE_KEY, REGISTER_USER_STORAGE_KEY } from 'constants/storage'
+import { DASHBOARD_PAGE, SIGN_IN_PAGE } from 'constants/routesPath'
 import { api } from 'config/client'
 import { logOut } from 'helpers/auth/logOut'
+import { getMe } from 'services/resources'
 
 import { AuthStateProvider, AuthDispatchProvider } from './AuthContext'
 import { SignInCredentials, SignUpData } from './types'
@@ -16,14 +17,9 @@ import { SignInCredentials, SignUpData } from './types'
 let authChannel: BroadcastChannel
 
 export function AuthProvider ({ children }: PropsWithChildren<unknown>) {
-  const { mutate: signIn, isLoading: loading } = useSignIn()
-
-  const [registerUser, setRegisterUser] = useState<SignUpData>(null)
-
-  const [user, setUser, deleteUser] = useLocalStorage<User>(
-    USER_STORAGE_KEY,
-    {} as User
-  )
+  const { mutateAsync: signIn, isLoading: loading } = useSignIn()
+  const [registerUser, setRegisterUser] = useLocalStorage<SignUpData>(REGISTER_USER_STORAGE_KEY, {} as SignUpData)
+  const [user, setUser, deleteUser] = useLocalStorage<User>(USER_STORAGE_KEY, {} as User)
 
   useEffect(() => {
     authChannel = new BroadcastChannel('auth')
@@ -39,10 +35,25 @@ export function AuthProvider ({ children }: PropsWithChildren<unknown>) {
     }
   }, [])
 
+  useEffect(() => {
+    async function getSession () {
+      const cookies = parseCookies()
+      const session = cookies[TOKEN_STORAGE_KEY]
+
+      if (session) {
+        const user = await getMe()
+
+        setUser(user)
+      }
+    }
+
+    getSession()
+  }, [])
+
   const router = useRouter()
 
-  const handleSignIn = useCallback(({ login, password }: SignInCredentials) => {
-    signIn({ login, password }, {
+  const handleSignIn = useCallback(async ({ login, password }: SignInCredentials) => {
+    await signIn({ login, password }, {
       onSuccess: (data) => {
         const { token, refresh_token, user } = data
 
@@ -71,7 +82,6 @@ export function AuthProvider ({ children }: PropsWithChildren<unknown>) {
 
   const handleSignUp = useCallback((updateRegisterUser: SignUpData) => {
     setRegisterUser({
-      ...registerUser,
       ...updateRegisterUser
     })
   }, [registerUser])

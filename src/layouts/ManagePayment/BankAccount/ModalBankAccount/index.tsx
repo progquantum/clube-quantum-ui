@@ -13,27 +13,12 @@ import { useRegisterBankAccount } from 'hooks/useRegisterBankAccount'
 import { QUERY_KEY_FIND_BILLING } from 'hooks/useWallet'
 
 import { schema } from '../../../../schemas/insertBankAccount'
-
-import * as S from './styles'
 import { ModalBankAccountFormProps, ModalBankAccountProps } from './types'
+import * as S from './styles'
 
 export function ModalBankAccount ({ isOpen, onRequestClose, onRequestNewModal }: ModalBankAccountProps) {
-  const { colors } = useTheme()
-
   const [newConfirmModal, setNewConfirmModal] = useState(false)
-
-  const handleRequestNewModal = () => {
-    setNewConfirmModal(prevState => !prevState)
-    onRequestNewModal()
-  }
-
-  const handleCloseNewConfirmModal = () => {
-    setNewConfirmModal(false)
-  }
-
-  const { mutateAsync: createBankAccount, isLoading } = useRegisterBankAccount()
-  const queryClient = useQueryClient()
-
+  const { colors } = useTheme()
   const {
     control,
     handleSubmit,
@@ -50,16 +35,28 @@ export function ModalBankAccount ({ isOpen, onRequestClose, onRequestNewModal }:
 
   const { current_account, holder_name } = getValues()
 
+  const { mutateAsync: postBankAccount, isLoading } = useRegisterBankAccount()
+  const queryClient = useQueryClient()
+
+  const handleRequestNewModal = () => {
+    setNewConfirmModal(prevState => !prevState)
+    onRequestNewModal()
+  }
+
+  const handleCloseNewConfirmModal = () => {
+    setNewConfirmModal(false)
+  }
+
   const handleInputAccountFormat = (e: ChangeEvent<HTMLInputElement>) => {
     const accountFormatted = formatBankAccount(e.target.value)
     setValue('current_account', accountFormatted)
   }
 
-  const handleCreateAccountBank: SubmitHandler<ModalBankAccountFormProps> = async (data) => {
+  const handleSubmitAccountBank: SubmitHandler<ModalBankAccountFormProps> = async (data) => {
     const accountNumber = data.current_account.slice(0, -2)
     const accountDigit = data.current_account.slice(-1)
 
-    await createBankAccount({
+    await postBankAccount({
       current_account: accountNumber,
       current_account_check_number: accountDigit,
       holder_name: data.holder_name
@@ -197,7 +194,7 @@ export function ModalBankAccount ({ isOpen, onRequestClose, onRequestNewModal }:
 
           </S.BankingConfirmData>
           <S.ButtonContinue
-            onClick={() => handleSubmit(handleCreateAccountBank({ current_account, holder_name }))}
+            onClick={() => handleSubmit(handleSubmitAccountBank({ current_account, holder_name }))}
             loading={isLoading}
           >
             Finalizar

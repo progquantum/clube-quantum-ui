@@ -16,7 +16,6 @@ export function ManagePaymentPage () {
   return (
     <>
       <title>Informações de pagamento - Clube Quantum</title>
-
       <Header />
       <S.Container>
         <SideBar />

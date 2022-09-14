@@ -4,12 +4,12 @@ import { api } from 'config/client'
 
 import { RegisterBankAccountData } from './types'
 
-export const registerBankAccount = (
+export async function postBankAccount (
   data: RegisterBankAccountData
-): Promise<unknown> => (
-  api.post<unknown>('/bank-accounts', data)
-)
+) {
+  return await api.post<unknown>('/bank-accounts', data)
+}
 
 export function useRegisterBankAccount () {
-  return useMutation(registerBankAccount)
+  return useMutation(postBankAccount)
 }

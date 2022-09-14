@@ -5,11 +5,10 @@ import { useState } from 'react'
 
 import { CreditCardIcon } from 'components/Illustrations/CreditCard'
 
-import { CreditCardProps } from './types'
-import { Skeleton } from './Skeleton'
-
-import * as S from './styles'
+import { Skeleton } from '../Skeleton'
 import { ModalCreditCard } from './ModalCreditCard'
+import { CreditCardProps } from './types'
+import * as S from './styles'
 
 export function CreditCard ({ user, loading }: CreditCardProps) {
   const [isNewModalOpen, setIsNewModalOpen] = useState(false)

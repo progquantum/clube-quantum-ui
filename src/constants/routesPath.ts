@@ -12,3 +12,5 @@ export const SIGN_UP_PERSONAL_PAGE = '/signup/personal'
 
 export const RESET_PASSWORD_PAGE = '/reset-password'
 export const FORGOT_PASSWORD_PAGE = '/forgot-password'
+
+export const INVITE_NOT_FOUND_PAGE = '/invite-not-found'
