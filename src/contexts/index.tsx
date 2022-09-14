@@ -1,13 +1,17 @@
 import { PropsWithChildren, useState } from 'react'
 import { QueryClient, QueryClientProvider } from 'react-query'
+import { ReactQueryDevtools } from 'react-query/devtools'
 import { ToastContainer } from 'react-toastify'
 import { DefaultSeo } from 'next-seo'
+import Modal from 'react-modal'
 
 import { useHasMounted } from 'hooks/useHasMounted'
 
 import SEO from '../../next-seo.config'
 import { AuthProvider } from './auth/AuthProvider'
 import { StyledProvider } from './styles'
+
+Modal.setAppElement('#__next')
 
 export function AppProvider ({ children }: PropsWithChildren<unknown>) {
   const [queryClient] = useState(() => new QueryClient())
@@ -18,14 +22,15 @@ export function AppProvider ({ children }: PropsWithChildren<unknown>) {
   return (
     <>
       <DefaultSeo {...SEO} />
-      <StyledProvider>
-        <QueryClientProvider client={queryClient}>
+      <QueryClientProvider client={queryClient}>
+        <ReactQueryDevtools initialIsOpen={false} />
+        <StyledProvider>
           <AuthProvider>
             <ToastContainer />
             {children}
           </AuthProvider>
-        </QueryClientProvider>
-      </StyledProvider>
+        </StyledProvider>
+      </QueryClientProvider>
     </>
   )
 }

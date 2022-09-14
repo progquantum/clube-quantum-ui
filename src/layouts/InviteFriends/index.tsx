@@ -16,7 +16,7 @@ export function InviteFriendsPage () {
   const handleShare = () => {
     share({
       text: 'Seja um membro Clube Quantum!',
-      title: 'Cadastra-se a partir do link de convite abaixo.',
+      title: 'Cadastre-se a partir do link de convite abaixo.',
       url: linkCode
     })
   }

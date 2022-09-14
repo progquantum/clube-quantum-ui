@@ -29,6 +29,26 @@ export type Address = {
   country: string
 }
 
+export type CreditCard = {
+  last_digits: string,
+  brand: string,
+  expiration_date: string
+}
+
+export type BankAccount = {
+  bank_code: string,
+  bank_name: string,
+  agency: string,
+  holder_name: string,
+  current_account: string,
+  current_account_check_number: string
+}
+
+export type Wallet = {
+  credit_card?: CreditCard
+  bank_account?: BankAccount
+}
+
 export type InviteCodePayload = {
   is_valid: boolean
 }

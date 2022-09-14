@@ -5,9 +5,7 @@ import { api } from 'config/client'
 import { PhoneCodeRequest } from './types'
 
 export async function sendPhoneCodeRequest (phoneCode: PhoneCodeRequest) {
-  const { data } = await api.post('/phones/create-code', phoneCode)
-
-  return data as unknown
+  return await api.post<unknown>('/phones/create-code', phoneCode)
 }
 
 export function useSendPhoneCode () {
