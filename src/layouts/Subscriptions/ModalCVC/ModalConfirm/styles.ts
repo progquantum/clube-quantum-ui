@@ -5,7 +5,6 @@ import { Button } from 'components/Button'
 export const Form = styled.form`
   width: 100%;
   height: 100%;
-  max-width: 27.0625rem;
   max-height: 31.7437rem;
   display: flex;
   flex-direction: column;
