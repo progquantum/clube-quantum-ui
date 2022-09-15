@@ -5,6 +5,7 @@ import Link from 'next/link'
 import { useTheme } from 'styled-components'
 import { AxiosError } from 'axios'
 
+import { useSubscription } from 'hooks/useSubscription'
 import { Footer } from 'components/Footer'
 import { Header } from 'components/Header'
 import { SideBar } from 'components/SideBar'
@@ -16,12 +17,11 @@ import { formatFirstLetterToUppercase } from 'utils/formatters/formatFirstLetter
 import { formatPrice } from 'utils/formatters/formatPrice'
 import { CREDIT_CARD_PAGE } from 'constants/routesPath'
 import { useSubscriptionsState } from 'contexts/subscriptions/SubscriptionsContext'
-import { useRegisterSubscription } from 'hooks/useRegisterSubscription'
 import { error } from 'helpers/notify/error'
 import { formatCreditCardRemoveSpace } from 'utils/formatters/formatCreditCard'
 
-import * as S from './styles'
 import { ErrorResponse } from './types'
+import * as S from './styles'
 
 export function FinishedPage () {
   const { handleSubmit, formState } = useForm({
@@ -44,7 +44,7 @@ export function FinishedPage () {
     }
   })
   const { mutate: creatSubscription, isLoading: isCreating } =
-    useRegisterSubscription()
+    useSubscription()
 
   const { isSubmitting } = formState
   const isButtonDisabled = isSubmitting || isCreating

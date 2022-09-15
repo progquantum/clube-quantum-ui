@@ -1,6 +1,5 @@
-import styled, { useTheme } from 'styled-components'
+import styled from 'styled-components'
 
-import { Input } from 'components/Input'
 import { Button } from 'components/Button'
 
 export const CVCform = styled.form`
@@ -35,6 +34,7 @@ export const CardDataContainer = styled.div`
 export const CardDataTitle = styled.p`
   font-weight: 700;
   font-size: 1.125rem;
+
   @media(max-width: 500px) {
     font-size: .875rem ;
   }
@@ -44,11 +44,13 @@ export const DivInput = styled.div`
   flex-direction: column;
   display: flex;
   justify-content: flex-end;
+
   > div {
     margin: 0;
     width:100px;
   }
-  @media(max-width: 500px) {
+
+  @media(max-width: 767px) {
     font-size: .75rem ;
   }
 `
@@ -56,6 +58,7 @@ export const CardData = styled.p`
   font-weight: 500;
   font-size: 1.125rem;
   line-height: 1.375rem;
+
   @media(max-width: 500px) {
     font-size: .875rem ;
   }

@@ -1,7 +1,7 @@
 import Image from 'next/image'
 
-import * as S from './styles'
 import { ManagePlansProps } from './types'
+import * as S from './styles'
 
 export function ManagePlans ({ children, width }:ManagePlansProps) {
   return (
