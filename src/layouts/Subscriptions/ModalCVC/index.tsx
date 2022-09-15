@@ -1,28 +1,23 @@
+import { useState } from 'react'
 import { BsCreditCardFill } from 'react-icons/bs'
 import { SubmitHandler, useForm } from 'react-hook-form'
 import { yupResolver } from '@hookform/resolvers/yup'
 import { useTheme } from 'styled-components'
-import { useState } from 'react'
 
-import { cvcSchema } from 'schemas/createSubscription'
-import { useBilling } from 'hooks/useBilling'
+import { cvcSchema } from 'schemas/subscription'
+import { useWallet } from 'hooks/useWallet'
 import { useSubscriptionsDispatch } from 'contexts/subscriptions/SubscriptionsContext'
-
 import { Input } from 'components/Input'
 
-import * as S from './styles'
-import { CVCFormValues, ModalCVCProps } from './types'
 import { ModalConfirm } from './ModalConfirm'
+import { CVCFormValues, ModalCVCProps } from './types'
+import * as S from './styles'
 
 export function ModalCVC ({ onSucessful, onError, onClose }: ModalCVCProps) {
   const [modalConfirmIsOpen, setModalConfirmIsOpen] = useState(false)
 
   function openModal () {
     setModalConfirmIsOpen(true)
-  }
-
-  function closeModal () {
-    setModalConfirmIsOpen(false)
   }
 
   const {
@@ -37,7 +32,7 @@ export function ModalCVC ({ onSucessful, onError, onClose }: ModalCVCProps) {
   })
   const { isDirty, isSubmitting } = formState
   const isButtonDisabled = !isDirty || isSubmitting
-  const { data } = useBilling()
+  const { data } = useWallet()
   const { colors } = useTheme()
 
   const { registerCreditCard } = useSubscriptionsDispatch()
