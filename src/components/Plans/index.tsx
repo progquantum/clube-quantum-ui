@@ -8,13 +8,12 @@ import { formatFirstLetterToUppercase } from 'utils/formatters/formatFirstLetter
 
 import { Periods, PlanDurationProps, Plans, PlansData, PlansProps } from './types'
 import * as S from './styles'
-import { Skeleton } from './Skeleton'
 
 export function Plans ({ children, button }:PlansProps) {
   const [selectedPeriod, setSelectedPeriod] = useState<Periods>('semiannual')
   const [selectedPlan, setSelectedPlan] = useState<Plans>('start')
 
-  const { data: plans, isLoading } = usePlans()
+  const { data: plans } = usePlans()
 
   const planFree: PlansData = useMemo(() => plans ? plans[0] : [], [plans])
   const planStart: PlansData = useMemo(() => plans ? plans[1] : [], [plans])
@@ -91,7 +90,6 @@ export function Plans ({ children, button }:PlansProps) {
     { period: 'yearly', title: 'Anual' }
   ]
 
-  if (isLoading) return (<Skeleton />)
   return (
     <S.Container>
       <S.Wrapper>

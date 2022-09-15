@@ -5,16 +5,12 @@ import { useRouter } from 'next/router'
 import { DASHBOARD_PAGE, SUBSCRIPTIONS_PAGE } from 'constants/routesPath'
 import { useAuthDispatch } from 'contexts/auth/AuthContext'
 
-import { Skeleton } from './Skeleton'
-import { SideBarProps } from './types'
 import * as S from './styles'
 
-export function SideBar ({ loading }: SideBarProps) {
+export function SideBar () {
   const { signOut } = useAuthDispatch()
   const router = useRouter()
   const pathName = router.pathname
-
-  if (loading) return <Skeleton />
 
   return (
     <S.Container>

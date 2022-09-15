@@ -1,16 +1,14 @@
+import { useState } from 'react'
 import { useTheme } from 'styled-components'
 import Image from 'next/image'
 
-import { useState } from 'react'
-
 import { CreditCardIcon } from 'components/Illustrations/CreditCard'
 
-import { Skeleton } from '../Skeleton'
 import { ModalCreditCard } from './ModalCreditCard'
 import { CreditCardProps } from './types'
 import * as S from './styles'
 
-export function CreditCard ({ user, loading }: CreditCardProps) {
+export function CreditCard ({ user }: CreditCardProps) {
   const [isNewModalOpen, setIsNewModalOpen] = useState(false)
 
   const handleNewCreditCardModal = () => {
@@ -22,8 +20,6 @@ export function CreditCard ({ user, loading }: CreditCardProps) {
   const cardLastDigits = user?.credit_card.last_digits
   const cardExpirationDate = user?.credit_card.expiration_date
   const hasCreditCard = user?.credit_card.last_digits
-
-  if (loading) return <Skeleton />
 
   return (
     <>

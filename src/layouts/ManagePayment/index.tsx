@@ -29,7 +29,6 @@ export function ManagePaymentPage () {
             />
             <CreditCard
               user={data}
-              loading={isLoading}
             />
           </S.CardsContainer>
         </S.RightWrapper>

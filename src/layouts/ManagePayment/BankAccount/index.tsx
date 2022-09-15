@@ -3,7 +3,6 @@ import { useTheme } from 'styled-components'
 
 import { BancoUm } from 'components/Illustrations/BancoUm'
 
-import { Skeleton } from '../Skeleton'
 import { ModalBankAccount } from './ModalBankAccount'
 import { BankAccountProps } from './types'
 import * as S from './styles'
@@ -20,8 +19,6 @@ export function BankAccount ({ user, loading }: BankAccountProps) {
   const currentAccount = user?.bank_account.current_account
   const lastDigits = user?.bank_account.current_account_check_number
   const hasBankAccount = user?.bank_account.holder_name
-
-  if (loading) return <Skeleton />
 
   return (
     <S.Content>
