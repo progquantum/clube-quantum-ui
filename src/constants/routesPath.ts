@@ -1,4 +1,5 @@
 export const INVITE_FRIENDS_PAGE = '/invite-friends'
+export const MANAGE_PAYMENT_PAGE = '/manage-payment'
 export const DASHBOARD_PAGE = '/dashboard'
 export const SIGN_IN_PAGE = '/signin'
 export const SUBSCRIPTIONS_PAGE = '/subscriptions'
@@ -15,3 +16,5 @@ export const SIGN_UP_PERSONAL_PAGE = '/signup/personal'
 
 export const RESET_PASSWORD_PAGE = '/reset-password'
 export const FORGOT_PASSWORD_PAGE = '/forgot-password'
+
+export const INVITE_NOT_FOUND_PAGE = '/invite-not-found'

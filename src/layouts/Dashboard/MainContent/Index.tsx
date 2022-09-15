@@ -3,15 +3,14 @@ import Link from 'next/link'
 import { faker } from '@faker-js/faker'
 
 import { INVITE_FRIENDS_PAGE, SUBSCRIPTIONS_PAGE } from 'constants/routesPath'
-
+import { useAuthState } from 'contexts/auth/AuthContext'
 import { formatFirstLetterToUppercase } from 'utils/formatters/formatFirstLetterToUppercase'
 
 import { AccountBalance } from '../AccountBalance'
-
-import { MainContentProps } from './types'
 import * as S from './styles'
 
-export function MainContent ({ data }: MainContentProps) {
+export function MainContent () {
+  const { user } = useAuthState()
   const balance = faker.finance.amount()
   const balanceInComing = faker.finance.amount()
 
@@ -105,8 +104,8 @@ export function MainContent ({ data }: MainContentProps) {
           <S.TitlePlan>Seu plano</S.TitlePlan>
         </S.HeaderSelectPlan>
         <S.DivStatusPlan>
-          <S.TitleStatusPlan>{formatFirstLetterToUppercase(data.subscription?.plan_name)}</S.TitleStatusPlan>
-          <S.StatusPlan>{data.subscription?.is_active ? 'Ativo' : 'Cancelado'}</S.StatusPlan>
+          <S.TitleStatusPlan>{formatFirstLetterToUppercase(user.subscription?.plan_name)}</S.TitleStatusPlan>
+          <S.StatusPlan>{user.subscription?.is_active ? 'Ativo' : 'Cancelado'}</S.StatusPlan>
         </S.DivStatusPlan>
         <Link href={SUBSCRIPTIONS_PAGE}>
           <S.ManageButton>Gerenciar planos</S.ManageButton>

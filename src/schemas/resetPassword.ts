@@ -1,4 +1,4 @@
-import Yup from 'config/yup'
+import Yup from 'settings/yup'
 
 export const schema = Yup.object().shape({
   password: Yup.string().required(),

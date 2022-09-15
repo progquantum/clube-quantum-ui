@@ -2,14 +2,14 @@ import { useMutation } from 'react-query'
 
 import { api } from 'config/client'
 
-import { RequestCheckPhoneCode } from './types'
+import { CheckPhoneCodeRequest } from './types'
 
-const requestCheckPhoneCode = (
-  data: RequestCheckPhoneCode
-) => (
-  api.put('/phones/check-code/', data)
-)
+export async function checkPhoneCodeRequest (checkPhoneCode: CheckPhoneCodeRequest) {
+  const { data } = await api.put('/phones/check-code', checkPhoneCode)
+
+  return data as unknown
+}
 
 export function useCheckPhoneCode () {
-  return useMutation(requestCheckPhoneCode)
+  return useMutation(checkPhoneCodeRequest)
 }

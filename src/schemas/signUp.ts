@@ -1,6 +1,6 @@
 import * as validator from 'cpf-cnpj-validator'
 
-import Yup from 'config/yup'
+import Yup from 'settings/yup'
 
 export const cpfSchema = Yup.object().shape({
   cpf: Yup

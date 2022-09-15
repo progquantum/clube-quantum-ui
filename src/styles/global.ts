@@ -84,6 +84,7 @@ export default createGlobalStyle`
     list-style-type: none;
   }
 
+  
   .react-modal-overlay {
     background: rgba(0,0,0, 0.5);
     position: fixed;
@@ -94,25 +95,24 @@ export default createGlobalStyle`
     display: flex;
     align-items: center;
     justify-content: center;
-    
     @media (max-width: 500px) {
-      align-items: center;
+      align-items: flex-end;
     }
   }
-  .react-modal-container-small {
+  .react-modal-container {
     width: 100%;
-    max-width: 27.0625rem;
+    max-width: 36rem;
     background: white;
-    padding:  1.25rem 1.5rem;
+    padding: 2.5rem;
     position: relative;
     border-radius: .95rem;
-
     @media (max-width: 700px) {
       max-width: 25rem;
     }
     @media (max-width: 500px) {
-      max-width: 20.625rem;
-      padding: 1.5rem;
+      max-width: 100%;
+      padding: 2rem;
+      border-radius: .95rem .95rem 0 0;
     }
   }
 
