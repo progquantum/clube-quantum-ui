@@ -4,7 +4,7 @@ import { api } from 'config/client'
 
 import { PlansPayload } from './types'
 
-const QUERY_KEY_GET_PLANS = 'plans'
+const QUERY_KEY_PLANS = 'plans'
 
 export async function getPlans () {
   const { data } = await api.get('/plans')
@@ -13,5 +13,5 @@ export async function getPlans () {
 }
 
 export function usePlans () {
-  return useQuery(QUERY_KEY_GET_PLANS, getPlans)
+  return useQuery(QUERY_KEY_PLANS, getPlans)
 }
