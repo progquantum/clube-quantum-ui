@@ -1,10 +1,14 @@
-import noop from 'lodash.noop'
-
 import { api } from 'config/client'
-import { InviteCodePayload } from 'shared/types/apiSchema'
+import { User, InviteCodePayload } from 'shared/types/apiSchema'
+
+export async function getMe () {
+  const { data } = await api.get('/me')
+
+  return data as User
+}
 
 export async function checkInviteCode (code: string | string[]) {
-  return await api.get<InviteCodePayload>(`/validate-invite/${code}`)
-    .then(response => response.data)
-    .catch(noop)
+  const { data } = await api.get(`/validate-invite/${code}`)
+
+  return data as InviteCodePayload
 }

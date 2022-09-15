@@ -1,4 +1,5 @@
 export const INVITE_FRIENDS_PAGE = '/invite-friends'
+export const MANAGE_PAYMENT_PAGE = '/manage-payment'
 export const DASHBOARD_PAGE = '/dashboard'
 export const SIGN_IN_PAGE = '/signin'
 

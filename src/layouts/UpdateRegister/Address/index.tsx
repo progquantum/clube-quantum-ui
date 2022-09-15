@@ -3,7 +3,7 @@ import { Edit } from 'components/Illustrations/Edit'
 import { AddressProps } from './types'
 import * as S from './styles'
 
-export function Address ({ user, loading } : AddressProps) {
+export function Address ({ user } : AddressProps) {
   const street = user?.address.street
   const number = user?.address.number
   const neighborhood = user?.address.neighborhood

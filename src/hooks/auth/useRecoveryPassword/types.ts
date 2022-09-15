@@ -1,3 +1,3 @@
-export type RecoveryPasswordRequestData = {
+export type RecoveryPasswordRequest = {
   email: string
 }

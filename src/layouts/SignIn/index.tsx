@@ -100,7 +100,6 @@ export function SignInPage () {
           </Link>
         </S.CreateAccountButtonWrapper>
       </S.Wrapper>
-
       <Footer />
     </>
   )

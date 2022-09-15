@@ -2,14 +2,16 @@ import { useQuery } from 'react-query'
 
 import { api } from 'config/client'
 
-import { PlansData } from './types'
+import { PlansPayload } from './types'
 
-const QUERY_KEY_GET_PLANS = '@ClubeQuantum:plans'
+const QUERY_KEY_GET_PLANS = 'plans'
 
-export const fetchPlans = () => (
-  api.get<PlansData>('/plans').then((response) => response.data)
-)
+export async function getPlans () {
+  const { data } = await api.get('/plans')
+
+  return data as PlansPayload
+}
 
 export function usePlans () {
-  return useQuery(QUERY_KEY_GET_PLANS, fetchPlans)
+  return useQuery(QUERY_KEY_GET_PLANS, getPlans)
 }

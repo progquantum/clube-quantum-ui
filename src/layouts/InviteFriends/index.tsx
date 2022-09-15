@@ -2,31 +2,24 @@ import Image from 'next/image'
 
 import { Footer } from 'components/Footer'
 import { Header } from 'components/Header'
-
-import { useFindMe } from 'hooks/useFindMe'
 import { useShare } from 'hooks/useShare'
+import { useAuthState } from 'contexts/auth/AuthContext'
 
-import { Skeleton } from './Skeleton'
 import * as S from './styles'
 
 export function InviteFriendsPage () {
-  const { data, isLoading } = useFindMe()
-
-  const linkCode = `http://localhost:3000/signup?invite=${data?.invite_code}`
-
-  const hasInviteCode = data?.invite_code
-
+  const { user } = useAuthState()
   const share = useShare()
+  const linkCode = `http://localhost:3000/signup?invite=${user.invite_code}`
+  const hasInviteCode = user.invite_code
 
   const handleShare = () => {
     share({
       text: 'Seja um membro Clube Quantum!',
-      title: 'Cadastra-se a partir do link de convite abaixo.',
+      title: 'Cadastre-se a partir do link de convite abaixo.',
       url: linkCode
     })
   }
-
-  if (isLoading) return <Skeleton />
 
   return (
     <>
