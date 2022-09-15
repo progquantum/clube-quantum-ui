@@ -9,12 +9,11 @@ import { Header } from 'components/Header'
 import { Footer } from 'components/Footer'
 import { VISAIcon } from 'components/Illustrations/Visa'
 import { CreditCardIcon } from 'components/Illustrations/CreditCard'
-import { creditCardSchema } from 'schemas/createSubscription'
+import { creditCardSchema } from 'schemas/subscription'
 import { BANK_ACCOUNT_PAGE, FINISHED_SUBSCRIPTION, SUBSCRIPTIONS_PAGE } from 'constants/routesPath'
 import { useSubscriptionsDispatch } from 'contexts/subscriptions/SubscriptionsContext'
 import { formatCreditCardAddSpace } from 'utils/formatters/formatCreditCard'
 import { formatCreditCardExpiration } from 'utils/formatters/formatCreditCardExpiration'
-
 import { Input } from 'components/Input'
 
 import { FormCreditCardData } from './types'

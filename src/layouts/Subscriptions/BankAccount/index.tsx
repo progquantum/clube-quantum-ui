@@ -8,11 +8,10 @@ import { SideBar } from 'components/SideBar'
 import { Header } from 'components/Header'
 import { Footer } from 'components/Footer'
 import { BancoUm } from 'components/Illustrations/BancoUm'
-import { bankAccountSchema } from 'schemas/createSubscription'
+import { bankAccountSchema } from 'schemas/subscription'
 import { formatBankAccount } from 'utils/formatters/formatBankAccount'
 import { CREDIT_CARD_PAGE, SUBSCRIPTIONS_PAGE } from 'constants/routesPath'
 import { useSubscriptionsDispatch } from 'contexts/subscriptions/SubscriptionsContext'
-
 import { Input } from 'components/Input'
 
 import { FormAccountData } from './types'

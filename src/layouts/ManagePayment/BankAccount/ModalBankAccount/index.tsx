@@ -12,7 +12,7 @@ import { formatBankAccount } from 'utils/formatters/formatBankAccount'
 import { useRegisterBankAccount } from 'hooks/useRegisterBankAccount'
 import { QUERY_KEY_FIND_BILLING } from 'hooks/useWallet'
 
-import { schema } from '../../../../schemas/insertBankAccount'
+import { schema } from '../../../../schemas/bankAccount'
 import { ModalBankAccountFormProps, ModalBankAccountProps } from './types'
 import * as S from './styles'
 
