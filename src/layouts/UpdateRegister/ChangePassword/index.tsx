@@ -1,7 +1,7 @@
 import { SubmitHandler, useForm } from 'react-hook-form'
 import { yupResolver } from '@hookform/resolvers/yup'
 
-import { schema } from 'schemas/resetPassword'
+import { schema } from 'schemas/changePassword'
 
 import { Input } from 'components/Input'
 
