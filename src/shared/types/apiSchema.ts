@@ -32,3 +32,11 @@ export type Address = {
 export type InviteCodePayload = {
   is_valid: boolean
  }
+
+export type UserRegistrationData = {
+    name: string
+    birth_date: string
+    phone: string
+    email: string,
+    address: Address
+}
