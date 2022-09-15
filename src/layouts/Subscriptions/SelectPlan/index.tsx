@@ -1,13 +1,14 @@
 import Image from 'next/image'
 
+import { useAuthState } from 'contexts/auth/AuthContext'
 import { formatFirstLetterToUppercase } from 'utils/formatters/formatFirstLetterToUppercase'
 
 import * as S from './styles'
-import { SelectPlanProps } from './types'
 
-export function SelectPlan ({ data }:SelectPlanProps) {
-  const isPlanActive = data?.subscription?.is_active ? 'Ativo' : 'Cancelado'
-  const formattedPlanName = formatFirstLetterToUppercase(data?.subscription?.plan_name)
+export function SelectPlan () {
+  const { user } = useAuthState()
+  const isPlanActive = user.subscription?.is_active ? 'Ativo' : 'Cancelado'
+  const formattedPlanName = formatFirstLetterToUppercase(user.subscription?.plan_name)
 
   return (
 

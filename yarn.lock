@@ -3658,11 +3658,7 @@ execa@^5.0.0, execa@^5.1.1:
 
 exenv@^1.2.0:
   version "1.2.2"
-<<<<<<< HEAD
-  resolved "https://registry.yarnpkg.com/exenv/-/exenv-1.2.2.tgz#2ae78e85d9894158670b03d47bec1f03bd91bb9d"
-=======
   resolved "https://registry.npmjs.org/exenv/-/exenv-1.2.2.tgz"
->>>>>>> develop
   integrity sha512-Z+ktTxTwv9ILfgKCk32OX3n/doe+OcLTRtqK9pcL+JsP3J1/VW8Uvl4ZjLlKqeW4rzK4oesDOGMEMRIZqtP4Iw==
 
 exit@^0.1.2:
@@ -7021,11 +7017,7 @@ react-loading-skeleton@^3.1.0:
 
 react-modal@^3.15.1:
   version "3.15.1"
-<<<<<<< HEAD
-  resolved "https://registry.yarnpkg.com/react-modal/-/react-modal-3.15.1.tgz#950ce67bfef80971182dd0ed38f2d9b1a681288b"
-=======
   resolved "https://registry.npmjs.org/react-modal/-/react-modal-3.15.1.tgz"
->>>>>>> develop
   integrity sha512-duB9bxOaYg7Zt6TMFldIFxQRtSP+Dg3F1ZX3FXxSUn+3tZZ/9JCgeAQKDg7rhZSAqopq8TFRw3yIbnx77gyFTw==
   dependencies:
     exenv "^1.2.0"
@@ -8458,11 +8450,7 @@ walker@^1.0.7:
 
 warning@^4.0.3:
   version "4.0.3"
-<<<<<<< HEAD
-  resolved "https://registry.yarnpkg.com/warning/-/warning-4.0.3.tgz#16e9e077eb8a86d6af7d64aa1e05fd85b4678ca3"
-=======
   resolved "https://registry.npmjs.org/warning/-/warning-4.0.3.tgz"
->>>>>>> develop
   integrity sha512-rpJyN222KWIvHJ/F53XSZv0Zl/accqHR8et1kpaMTD/fLCRxtV8iX8czMzY7sVZupTI3zcUTg8eycS2kNF9l6w==
   dependencies:
     loose-envify "^1.0.0"

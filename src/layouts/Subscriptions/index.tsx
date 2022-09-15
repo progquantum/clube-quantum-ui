@@ -2,7 +2,6 @@
 import Modal from 'react-modal'
 import { useState } from 'react'
 
-import { useFindMe } from 'hooks/useFindMe'
 import { ManagePlans } from 'components/ManagePlans'
 import { Error } from 'components/Error'
 import { Footer } from 'components/Footer'
@@ -10,6 +9,7 @@ import { Header } from 'components/Header'
 import { SideBar } from 'components/SideBar'
 import { Successful } from 'components/Successful'
 import { Plans } from 'components/Plans'
+import { useAuthState } from 'contexts/auth/AuthContext'
 
 import { SelectPlan } from './SelectPlan'
 import { ModalCVC } from './ModalCVC'
@@ -18,8 +18,8 @@ import { SubscriptionButton } from './SubscriptionButton'
 import { ManagePlansButton } from './ManagePlansButton'
 
 export function SubscriptionsPage () {
-  const { data, isLoading } = useFindMe()
-  const hasPlan = data?.subscription?.is_active
+  const { user } = useAuthState()
+  const hasPlan = user.subscription?.is_active
 
   const [modalIsOpen, setIsOpen] = useState(false)
 
@@ -52,16 +52,16 @@ export function SubscriptionsPage () {
               {!successful
                 ? (
                   <>
-                    <SideBar loading={isLoading} />
+                    <SideBar />
                     {hasPlan
                       ? (
                         <Plans button={<SubscriptionButton onOpenModalCvcRequest={openModal} />}>
-                          <SelectPlan data={data} />
+                          <SelectPlan />
                           <Modal
                             isOpen={modalIsOpen}
                             onRequestClose={closeModal}
                             overlayClassName='react-modal-overlay'
-                            className='react-modal-container-small'
+                            className='react-modal-container'
                           >
                             <ModalCVC
                               onSucessful={onSuccessful}
