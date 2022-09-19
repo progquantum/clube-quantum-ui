@@ -4,6 +4,8 @@ import { yupResolver } from '@hookform/resolvers/yup'
 import { toast } from 'react-toastify'
 import { useRouter } from 'next/router'
 
+import { AxiosError } from 'axios'
+
 import { Input } from 'components/Input'
 import { Footer } from 'components/Footer'
 
@@ -11,6 +13,10 @@ import { schema } from 'schemas/recoveryPassword'
 import { useRecoveryPassword } from 'hooks/auth/useRecoveryPassword'
 
 import { SIGN_IN_PAGE } from 'constants/routesPath'
+
+import { ErrorResponse } from 'shared/errors/apiSchema'
+
+import { error } from 'helpers/notify/error'
 
 import { RecoveryPasswordFormValues } from './types'
 import * as S from './styles'
@@ -47,6 +53,14 @@ export function ForgotPasswordPage () {
         toast.success(`Enviado e-mail para ${variables.email}`)
 
         router.push(SIGN_IN_PAGE)
+      },
+      onError: (err: AxiosError<ErrorResponse>) => {
+        const isEmailRegistered = err.response?.data.statusCode === 400 &&
+        err.response?.data.message === 'Email not registered'
+
+        if (isEmailRegistered) {
+          error('Email não registrado')
+        }
       }
     })
   }
