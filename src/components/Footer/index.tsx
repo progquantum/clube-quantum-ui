@@ -1,5 +1,7 @@
 import Link from 'next/link'
 
+import { CONTACT_US_PAGE } from 'constants/routesPath'
+
 import * as S from './styles'
 
 export function Footer () {
@@ -18,7 +20,7 @@ export function Footer () {
               Trabalhe conosco
             </Link>
 
-            <Link href=''>
+            <Link href={CONTACT_US_PAGE}>
               Fale conosco
             </Link>
 
