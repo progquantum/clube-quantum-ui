@@ -11,6 +11,8 @@ import { api } from 'config/client'
 import { logOut } from 'helpers/auth/logOut'
 import { getMe } from 'services/resources'
 
+import { error } from 'helpers/notify/error'
+
 import { AuthStateProvider, AuthDispatchProvider } from './AuthContext'
 import { SignInCredentials, SignUpData } from './types'
 
@@ -72,7 +74,8 @@ export function AuthProvider ({ children }: PropsWithChildren<unknown>) {
         api.defaults.headers.common.Authorization = `Bearer ${token}`
 
         router.push(DASHBOARD_PAGE)
-      }
+      },
+      onError: () => error('Seu CPF/CNPJ ou senha está incorreto')
     })
   },
   [
