@@ -85,6 +85,7 @@ export function AuthProvider ({ children }: PropsWithChildren<unknown>) {
 
   const handleSignUp = useCallback((updateRegisterUser: SignUpData) => {
     setRegisterUser({
+      ...registerUser,
       ...updateRegisterUser
     })
   }, [registerUser])
