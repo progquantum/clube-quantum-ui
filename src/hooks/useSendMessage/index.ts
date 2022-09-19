@@ -5,7 +5,7 @@ import { api } from 'config/client'
 import { SendMessageRequest } from './types'
 
 export async function sendMessageRequest (messageData: SendMessageRequest) {
-  await api.post('/support/institutional-contact', messageData)
+  return await api.post<unknown>('/support/institutional-contact', messageData)
 }
 
 export function useSendMessage () {
