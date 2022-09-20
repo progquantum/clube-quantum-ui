@@ -7,7 +7,7 @@ import { UserRegistrationData } from './types'
 export const QUERY_KEY_ME_PROFILE = 'me/profile'
 
 export async function getUserInformation () {
-  return await api.get<UserRegistrationData>('/me/profile')
+  return await api.get<UserRegistrationData>('me/profile')
     .then((response) => response.data)
 }
 
