@@ -1,5 +1,4 @@
 import { useForm } from 'react-hook-form'
-import { FaAngleRight } from 'react-icons/fa'
 import Image from 'next/image'
 
 import { Input } from 'components/Input'
@@ -10,7 +9,8 @@ import * as S from './styles'
 
 export function BankCard ({
   onUpdateFormStep,
-  onNavigateToSuccessfulSignUp
+  onNavigateToSuccessfulSignUp,
+  onPreviousFormStep
 }: BankCardProps) {
   const {
     control,
@@ -18,11 +18,10 @@ export function BankCard ({
     formState
   } = useForm({
     defaultValues: {
-      account: '',
       card_name: '',
       card_number: '',
-      card_validate: '',
-      card_code: ''
+      expiration_date: '',
+      cvc: ''
     }
   })
 
@@ -34,82 +33,62 @@ export function BankCard ({
   }
 
   return (
-    <S.Container>
-      <S.DataBank>
-        <S.DataWrapper>
-          <h4>Cod. Banco</h4>
-          <h4>396 - Banco Um</h4>
-        </S.DataWrapper>
-        <S.DataWrapper>
-          <h4>Agência</h4>
-          <h4>0001</h4>
-        </S.DataWrapper>
-      </S.DataBank>
+    <S.Form onSubmit={handleSubmit(onSubmit)}>
+      <Input
+        type='text'
+        label='Nome do cartão'
+        name='card_name'
+        control={control}
+      />
 
-      <S.Form onSubmit={handleSubmit(onSubmit)}>
+      <S.Wrapper>
         <Input
           type='text'
-          label='Conta Corrente'
-          name='account'
+          label='Número do cartão'
+          name='card_number'
           control={control}
         />
 
-        <Input
-          type='text'
-          label='Nome do cartão'
-          name='card_name'
-          control={control}
+        <Image
+          width={110}
+          height={76}
+          src='/images/visa-card.png'
+          alt='Mastercard'
         />
+      </S.Wrapper>
 
-        <S.Wrapper>
-          <Input
-            type='text'
-            label='Número do cartão'
-            name='card_number'
-            control={control}
-          />
+      <Input
+        type='text'
+        label='Data de vencimento'
+        name='card_validate'
+        control={control}
+      />
 
-          <Image
-            width={110}
-            height={76}
-            src='/images/visa-card.png'
-            alt='Mastercard'
-          />
-        </S.Wrapper>
+      <Input
+        type='text'
+        label='CVC'
+        name='card_code'
+        control={control}
+      />
 
-        <Input
-          type='text'
-          label='Data de vencimento'
-          name='card_validate'
-          control={control}
-        />
+      <S.ButtonGroup>
 
-        <Input
-          type='text'
-          label='CVC'
-          name='card_code'
-          control={control}
-        />
-
-        <p>
-          A conta a ser cadastrada deve ser a conta Banco Um na
-          qual o CPF, informado anteriormente, está vinculado.
-        </p>
-
-        <S.ButtonGroup>
-          <S.JumpStepButton onClick={onNavigateToSuccessfulSignUp}>
-            Pular esta etapa
-          </S.JumpStepButton>
-
-          <Button
-            type='submit'
-            variant='rounded'
-            disabled={isButtonDisabled}
-          >
-            <FaAngleRight size={24} />
-          </Button>
-        </S.ButtonGroup>
-      </S.Form>
-    </S.Container>
+        <Button
+          type='submit'
+          disabled={isButtonDisabled}
+        >
+          Continuar
+        </Button>
+        <Button
+          variant='secondary'
+          onClick={onPreviousFormStep}
+        >
+          voltar
+        </Button>
+      </S.ButtonGroup>
+      <S.JumpStepButton onClick={onNavigateToSuccessfulSignUp}>
+        Pular esta etapa
+      </S.JumpStepButton>
+    </S.Form>
   )
 }
