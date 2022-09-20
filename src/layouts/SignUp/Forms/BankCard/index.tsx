@@ -60,14 +60,14 @@ export function BankCard ({
       <Input
         type='text'
         label='Data de vencimento'
-        name='card_validate'
+        name='expiration_date'
         control={control}
       />
 
       <Input
         type='text'
         label='CVC'
-        name='card_code'
+        name='cvc'
         control={control}
       />
 
