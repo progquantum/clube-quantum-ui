@@ -40,7 +40,9 @@ export function setupAPIClient (ctx: GetServerSidePropsContext | undefined = und
       const unauthorizedRoutes = UNAUTHORIZED_ROUTES.includes(error.response.config.url) && (
         error.response.config.method === 'post' || error.response.config.method === 'patch')
 
-      if (unauthorizedRoutes) {
+      const phoneUpdateRoute = error.response.config.url === '/phones/check-code'
+
+      if (unauthorizedRoutes || phoneUpdateRoute) {
         return Promise.reject(error)
       }
 

@@ -4,5 +4,6 @@ export const UNAUTHORIZED_ROUTES = [
   '/users/legal-persons',
   '/support/institutional-contact',
   '/passwords/recovery-request',
+  '/phones/create-code',
   '/passwords/reset'
 ]
