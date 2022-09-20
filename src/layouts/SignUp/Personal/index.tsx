@@ -13,6 +13,8 @@ import { PinCode } from '../Forms/PinCode'
 import { Phone } from '../Forms/Phone'
 import { CPF } from '../Forms/CPF'
 import * as S from './styles'
+import { LeftWrapperPersonal } from '../Forms/components/LeftWrapperPersonal'
+import { BankAccount } from '../Forms/BankAccount'
 
 export function PersonalSignUpPage () {
   const [step, setStep] = useState(0)
@@ -35,8 +37,8 @@ export function PersonalSignUpPage () {
 
       <S.Container>
         <S.ContentsWrapper width={step <= 6 ? 5 : 0}>
-          {step <= 6 && (
-            <Steper currentStep={step} stepsNumber={7} />
+          {step <= 8 && (
+            <Steper currentStep={step} stepsNumber={8} />
           )}
 
           <S.Contents>
@@ -45,10 +47,19 @@ export function PersonalSignUpPage () {
             )}
 
             {step === 5 && (
-              <Image width={401} height={634} src='/images/six-step-image.png' alt='' />
+              <LeftWrapperPersonal
+                title='Para esta etapa, precisamos que você informe o seu cartão de crédito para posterior escolha do seu plano.'
+                paragraph='Você pode pular esta etapa, mas precisará cadastrar o seu cartão posteriormente para poder aderir a um plano e aproveitar todos os benefícios de um membro Quantum Clube.'
+              />
+            )}
+            {step === 6 && (
+              <LeftWrapperPersonal
+                title='Para esta etapa, precisamos que você informe sua conta Banco Um. '
+                paragraph='Você pode pular esta etapa, mas precisará cadastrar sua conta posteriormente para poder receber o seu cashback e aproveitar todos os benefícios de um membro Quantum Clube.'
+              />
             )}
 
-            {step === 7 && (
+            {step === 8 && (
               <Image width={291} height={322} src='/images/successful-signup.png' alt='' />
             )}
 
@@ -80,14 +91,21 @@ export function PersonalSignUpPage () {
               <BankCard
                 onUpdateFormStep={() => nextStep()}
                 onNavigateToSuccessfulSignUp={() => navigateToSuccessfullSignUp()}
+                onPreviousFormStep={() => previousStep()}
+              />
+            )}
+            {step === 6 && (
+              <BankAccount
+                onUpdateFormStep={() => nextStep()}
+                onPreviousFormStep={() => previousStep()}
               />
             )}
 
-            {step === 6 && (
+            {step === 7 && (
               <Plans onUpdateFormStep={() => nextStep()} />
             )}
 
-            {step === 7 && (
+            {step === 8 && (
               <Successful />
             )}
           </S.Contents>
