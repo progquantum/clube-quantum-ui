@@ -20,12 +20,13 @@ export type Session = {
 }
 
 export type Address = {
-  street: string,
-  number: string,
-  neighborhood: string,
-  zip_code: string,
-  city: string,
-  state: string,
+  street: string
+  number: string
+  neighborhood: string
+  complement?: string
+  zip_code: string
+  city: string
+  state: string
   country: string
 }
 
