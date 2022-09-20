@@ -2,11 +2,16 @@ import Image from 'next/image'
 import { useRouter } from 'next/router'
 import { SubmitHandler, useForm } from 'react-hook-form'
 import { yupResolver } from '@hookform/resolvers/yup'
+import { AxiosError } from 'axios'
 
 import { schema } from 'schemas/resetPassword'
 import { Input } from 'components/Input'
 import { Footer } from 'components/Footer'
 import { useResetPassword } from 'hooks/auth/useResetPassword'
+import { success } from 'helpers/notify/success'
+import { SIGN_IN_PAGE } from 'constants/routesPath'
+import { ErrorResponse } from 'shared/errors/apiSchema'
+import { error } from 'helpers/notify/error'
 
 import { ResetPasswordFormValues } from './types'
 import * as S from './styles'
@@ -39,6 +44,26 @@ export function ResetPasswordPage () {
     resetPassword({
       code: inviteCode,
       password
+    }, {
+      onSuccess: () => {
+        success('Senha alterada com sucesso')
+        router.push(SIGN_IN_PAGE)
+      },
+      onError: (err : AxiosError<ErrorResponse>) => {
+        const isPasswordRecoveryCodeNotFound = err.response.status === 404 &&
+         err.response.data.message === 'Password recovery code not found'
+
+        const isPasswordRecoveryCodeInvalid = err.response.status === 400 &&
+         err.response.data.message === 'invalid code'
+
+        if (isPasswordRecoveryCodeNotFound) {
+          error('Não foi possivel alterar a sua senha, código de recuperação não encontrado')
+        }
+
+        if (isPasswordRecoveryCodeInvalid) {
+          error('Não foi possível alterar a sua senha, código de recuperação inválido')
+        }
+      }
     })
   }
 
