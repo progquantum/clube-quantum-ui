@@ -9,7 +9,7 @@ import Modal from 'react-modal'
 import { QUERY_KEY_FIND_BILLING } from 'hooks/useWallet'
 import { formatCreditCard } from 'utils/formatters/formatCreditCard'
 import { formatCreditCardExpiration } from 'utils/formatters/formatCreditCardExpiration'
-import { useUpdateCreditCard } from 'hooks/userUpdateCreditCard'
+import { useUpdateCreditCard } from 'hooks/useUpdateCreditCard'
 import { CreditCardIcon } from 'components/Illustrations/CreditCard'
 import { Input } from 'components/Input'
 
