@@ -1,5 +1,7 @@
 import styled from 'styled-components'
 
+import { Button } from 'components/Button'
+
 export const Container = styled.div`
   box-shadow: 0px 0px 20px rgba(0, 0, 0, 0.1);
   border-radius: .5rem;
@@ -19,7 +21,7 @@ export const Container = styled.div`
   }
 `
 
-export const EditPersonalInformation = styled.div`
+export const EditPersonalInformation = styled(Button)`
   width: 100%;
   background: ${({ theme }) => theme.gradients.midnightBlueToMediumsLateBlue};
   padding: .9rem 1.8rem;
@@ -27,8 +29,14 @@ export const EditPersonalInformation = styled.div`
   display: flex;
   justify-content: space-between;
   margin-bottom: .625rem;
+  cursor: pointer;
 
-  h2 {
+  &:hover {
+    background: ${({ theme }) => theme.colors.mediumslateBlue};
+    transition: none;
+  }
+
+  & h2 {
     font-weight: 500;
     font-size: .875rem;
     color:  ${({ theme }) => theme.colors.white};
