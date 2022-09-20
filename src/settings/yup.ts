@@ -12,7 +12,7 @@ const locale = {
   },
   string: {
     email: 'Esse campo precisa ser um email válido.',
-    max: 'Esse campo deve ser maior que ${max} caracteres.',
+    max: 'Esse campo deve ser menor que ${max} caracteres.',
     min: 'Esse campo deve ser maior que ${min} caracteres.'
   },
   number: {
