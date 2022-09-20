@@ -7,6 +7,8 @@ import { useCheckPhoneCode } from 'hooks/useCheckPhoneCode'
 import { useSendPhoneCode } from 'hooks/useSendPhoneCode'
 import { error } from 'helpers/notify/error'
 
+import { success } from 'helpers/notify/success'
+
 import { PinCodeProps } from './types'
 import * as S from './styles'
 
@@ -52,7 +54,14 @@ export function PinCode ({ onNextFormStep, onPreviousFormStep }: PinCodeProps) {
 
   function handleSendAnotherCode () {
     const { phone } = registerUser
-    requestSendPhoneCode({ phone: `+55 ${phone}` })
+    requestSendPhoneCode({ phone }, {
+      onSuccess: () => {
+        success(`Codigo enviado novamente para o numero ${phone}`)
+      },
+      onError: () => {
+        error('Número de telefone inválido!')
+      }
+    })
   }
 
   return (

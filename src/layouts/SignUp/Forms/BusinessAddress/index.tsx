@@ -2,6 +2,8 @@ import { useForm } from 'react-hook-form'
 import { FaAngleRight } from 'react-icons/fa'
 import { yupResolver } from '@hookform/resolvers/yup'
 
+import { AxiosError } from 'axios'
+
 import { addressDataSchema } from 'schemas/signUp'
 import { Input } from 'components/Input'
 import { Button } from 'components/Button'
@@ -11,6 +13,8 @@ import { useLegalPersonSingUp } from 'hooks/auth/useLegalPersonSingUp'
 import { useAuthState } from 'contexts/auth/AuthContext'
 import { formatValueToUppercase } from 'utils/formatters/formatValueToUppercase'
 import { error } from 'helpers/notify/error'
+
+import { ErrorResponse } from 'shared/errors/apiSchema'
 
 import { BusinessAddressProps, FormData } from './types'
 import * as S from './styles'
@@ -65,7 +69,33 @@ export function BusinessAddress ({ onUpdateFormStep }: BusinessAddressProps) {
       }
     }, {
       onSuccess: () => onUpdateFormStep(),
-      onError: () => error('Encontramos um erro por aqui, tente novamente mais tarde!')
+      onError: (err: AxiosError<ErrorResponse>) => {
+        const isEmailInvalid = err.response.status === 400 &&
+        err.response?.data.message[0] === 'email must be an email'
+
+        const isEmailInUse = err.response.status === 409 && err.response.data.message === 'Email already in use'
+
+        const isCNPJInUse = err.response.status === 409 && err.response.data.message === 'CNPJ already in use'
+
+        const isContryDoesntContaintOnlyLetters = err.response.status === 400 &&
+         err.response.data.message[0] === 'address.country can only contain letters'
+
+        if (isEmailInvalid) {
+          error('Insira um email válido')
+        }
+
+        if (isEmailInUse) {
+          error('Este email já está em uso, insira um outro email')
+        }
+
+        if (isCNPJInUse) {
+          error('Este CNPJ já está em uso')
+        }
+
+        if (isContryDoesntContaintOnlyLetters) {
+          error('O país deve conter somente letras')
+        }
+      }
     })
   }
 

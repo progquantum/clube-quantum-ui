@@ -6,6 +6,7 @@ import { REFRESH_TOKEN_STORAGE_KEY, TOKEN_STORAGE_KEY } from 'constants/storage'
 import { AuthTokenError } from 'shared/errors/AuthTokenError'
 import { error as notifyError } from 'helpers/notify/error'
 import { logOut } from 'helpers/auth/logOut'
+import { UNAUTHORIZED_ROUTES } from 'constants/unauthorizedRoutes'
 
 let isRefreshing = false
 let failedRequestsQueue: {
@@ -34,6 +35,15 @@ export function setupAPIClient (ctx: GetServerSidePropsContext | undefined = und
 
       if (!expectedError) {
         notifyError('Encontramos um problema por aqui.')
+      }
+
+      const unauthorizedRoutes = UNAUTHORIZED_ROUTES.includes(error.response.config.url) && (
+        error.response.config.method === 'post' || error.response.config.method === 'patch')
+
+      const phoneUpdateRoute = error.response.config.url === '/phones/check-code'
+
+      if (unauthorizedRoutes || phoneUpdateRoute) {
+        return Promise.reject(error)
       }
 
       if (error.response.status === 401) {
