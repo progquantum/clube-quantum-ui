@@ -5,7 +5,7 @@ import { BancoUm } from 'components/Illustrations/BancoUm'
 import * as S from './styles'
 import { LeftWrapperProps } from './types'
 
-export function LeftWrapperPersonal ({ title, paragraph }:LeftWrapperProps) {
+export function LeftWrapper ({ title, paragraph }:LeftWrapperProps) {
   const { colors } = useTheme()
   return (
     <S.Container>
