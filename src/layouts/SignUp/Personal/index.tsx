@@ -6,15 +6,15 @@ import { Footer } from 'components/Footer'
 import { Plans } from 'components/Plans'
 import { Successful } from 'components/Successful'
 
-import { BankCard } from '../Forms/BankCard'
+import { CredCard } from '../Forms/CredCard'
 import { PersonalAddress } from '../Forms/PersonalAddress'
 import { IndividualPerson } from '../Forms/IndividualPerson'
 import { PinCode } from '../Forms/PinCode'
 import { Phone } from '../Forms/Phone'
 import { CPF } from '../Forms/CPF'
-import * as S from './styles'
-import { LeftWrapperPersonal } from '../Forms/components/LeftWrapperPersonal'
+import { LeftWrapper } from '../Forms/components/LeftWrapper'
 import { BankAccount } from '../Forms/BankAccount'
+import * as S from './styles'
 
 export function PersonalSignUpPage () {
   const [step, setStep] = useState(0)
@@ -36,8 +36,8 @@ export function PersonalSignUpPage () {
       <title>Cadastre-se - Clube Quantum</title>
 
       <S.Container>
-        <S.ContentsWrapper width={step <= 6 ? 5 : 0}>
-          {step <= 8 && (
+        <S.ContentsWrapper width={step <= 7 ? 6 : 0}>
+          {step <= 7 && (
             <Steper currentStep={step} stepsNumber={8} />
           )}
 
@@ -47,13 +47,13 @@ export function PersonalSignUpPage () {
             )}
 
             {step === 5 && (
-              <LeftWrapperPersonal
+              <LeftWrapper
                 title='Para esta etapa, precisamos que você informe o seu cartão de crédito para posterior escolha do seu plano.'
                 paragraph='Você pode pular esta etapa, mas precisará cadastrar o seu cartão posteriormente para poder aderir a um plano e aproveitar todos os benefícios de um membro Quantum Clube.'
               />
             )}
             {step === 6 && (
-              <LeftWrapperPersonal
+              <LeftWrapper
                 title='Para esta etapa, precisamos que você informe sua conta Banco Um. '
                 paragraph='Você pode pular esta etapa, mas precisará cadastrar sua conta posteriormente para poder receber o seu cashback e aproveitar todos os benefícios de um membro Quantum Clube.'
               />
@@ -88,7 +88,7 @@ export function PersonalSignUpPage () {
             )}
 
             {step === 5 && (
-              <BankCard
+              <CredCard
                 onUpdateFormStep={() => nextStep()}
                 onNavigateToSuccessfulSignUp={() => navigateToSuccessfullSignUp()}
                 onPreviousFormStep={() => previousStep()}
