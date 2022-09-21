@@ -1,13 +1,14 @@
 import { useForm } from 'react-hook-form'
+import { yupResolver } from '@hookform/resolvers/yup'
 
 import { Input } from 'components/Input'
-
-import { formatBankAccount } from 'utils/formatters/formatBankAccount'
-
 import { Button } from 'components/Button'
 
-import * as S from './styles'
+import { formatBankAccount } from 'utils/formatters/formatBankAccount'
+import { bankAccountSchema } from 'schemas/signUp'
+
 import { BankAccountProps } from './types'
+import * as S from './styles'
 export function BankAccount ({
   onUpdateFormStep,
   onPreviousFormStep
@@ -18,7 +19,9 @@ export function BankAccount ({
     setValue,
     formState,
     handleSubmit
-  } = useForm()
+  } = useForm({
+    resolver: yupResolver(bankAccountSchema)
+  })
 
   const { isDirty, isSubmitting } = formState
   const isButtonDisabled = !isDirty || isSubmitting
