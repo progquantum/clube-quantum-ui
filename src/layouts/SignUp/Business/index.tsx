@@ -11,7 +11,9 @@ import { Phone } from '../Forms/Phone'
 import { PinCode } from '../Forms/PinCode'
 import { LegalPerson } from '../Forms/LegalPerson'
 import { BusinessAddress } from '../Forms/BusinessAddress'
-import { BankCard } from '../Forms/BankCard'
+import { CredCard } from '../Forms/CredCard'
+import { BankAccount } from '../Forms/BankAccount'
+import { LeftWrapper } from '../Forms/components/LeftWrapper'
 import * as S from './styles'
 
 export function BusinessSignUpPage () {
@@ -34,9 +36,9 @@ export function BusinessSignUpPage () {
       <title>Cadastre-se - Clube Quantum</title>
 
       <S.Container>
-        <S.ContentsWrapper width={step <= 6 ? 5 : 0}>
-          {step <= 6 && (
-            <Steper currentStep={step} stepsNumber={7} />
+        <S.ContentsWrapper width={step <= 7 ? 6 : 0}>
+          {step <= 7 && (
+            <Steper currentStep={step} stepsNumber={8} />
           )}
 
           <S.Contents>
@@ -81,11 +83,15 @@ export function BusinessSignUpPage () {
               />
             )}
             {step === 5 && (
-              <Image
-                width={385}
-                height={373}
-                src='/images/business-six-step.png'
-                alt=''
+              <LeftWrapper
+                title='Para esta etapa, precisamos que você informe o seu cartão de crédito para posterior escolha do seu plano.'
+                paragraph='Você pode pular esta etapa, mas precisará cadastrar o seu cartão posteriormente para poder aderir a um plano e aproveitar todos os benefícios de um membro Quantum Clube.'
+              />
+            )}
+            {step === 6 && (
+              <LeftWrapper
+                title='Para esta etapa, precisamos que você informe sua conta Banco Um. '
+                paragraph='Você pode pular esta etapa, mas precisará cadastrar sua conta posteriormente para poder receber o seu cashback e aproveitar todos os benefícios de um membro Quantum Clube.'
               />
             )}
             {step === 7 && (
@@ -117,15 +123,22 @@ export function BusinessSignUpPage () {
               <BusinessAddress onUpdateFormStep={() => nextStep()} />
             )}
             {step === 5 && (
-              <BankCard
+              <CredCard
+                onPreviousFormStep={() => previousStep()}
                 onUpdateFormStep={() => nextStep()}
                 onNavigateToSuccessfulSignUp={() => navigateToSuccessfullSignUp()}
               />
             )}
             {step === 6 && (
-              <Plans onUpdateFormStep={() => nextStep()} />
+              <BankAccount
+                onUpdateFormStep={() => nextStep()}
+                onPreviousFormStep={() => previousStep()}
+              />
             )}
             {step === 7 && (
+              <Plans onUpdateFormStep={() => nextStep()} />
+            )}
+            {step === 8 && (
               <Successful />
             )}
           </S.Contents>
