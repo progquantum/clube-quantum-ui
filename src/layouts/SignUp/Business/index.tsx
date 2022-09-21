@@ -94,7 +94,7 @@ export function BusinessSignUpPage () {
                 paragraph='Você pode pular esta etapa, mas precisará cadastrar sua conta posteriormente para poder receber o seu cashback e aproveitar todos os benefícios de um membro Quantum Clube.'
               />
             )}
-            {step === 7 && (
+            {step === 8 && (
               <Image
                 width={291}
                 height={322}
@@ -108,7 +108,10 @@ export function BusinessSignUpPage () {
               <CNPJ onUpdateFormStep={() => nextStep()} />
             )}
             {step === 1 && (
-              <Phone onUpdateFormStep={() => nextStep()} />
+              <Phone
+                onUpdateFormStep={() => nextStep()}
+                onPreviousFormStep={() => previousStep()}
+              />
             )}
             {step === 2 && (
               <PinCode
@@ -117,10 +120,16 @@ export function BusinessSignUpPage () {
               />
             )}
             {step === 3 && (
-              <LegalPerson onUpdateFormStep={() => nextStep()} />
+              <LegalPerson
+                onUpdateFormStep={() => nextStep()}
+                onPreviousFormStep={() => previousStep()}
+              />
             )}
             {step === 4 && (
-              <BusinessAddress onUpdateFormStep={() => nextStep()} />
+              <BusinessAddress
+                onUpdateFormStep={() => nextStep()}
+                onPreviousFormStep={() => previousStep()}
+              />
             )}
             {step === 5 && (
               <CredCard

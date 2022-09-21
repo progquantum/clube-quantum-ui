@@ -69,7 +69,10 @@ export function PersonalSignUpPage () {
             )}
 
             {step === 1 && (
-              <Phone onUpdateFormStep={() => nextStep()} />
+              <Phone
+                onUpdateFormStep={() => nextStep()}
+                onPreviousFormStep={() => previousStep()}
+              />
             )}
 
             {step === 2 && (
@@ -80,11 +83,17 @@ export function PersonalSignUpPage () {
             )}
 
             {step === 3 && (
-              <IndividualPerson onUpdateFormStep={() => nextStep()} />
+              <IndividualPerson
+                onUpdateFormStep={() => nextStep()}
+                onPreviousFormStep={() => previousStep()}
+              />
             )}
 
             {step === 4 && (
-              <PersonalAddress onUpdateFormStep={() => nextStep()} />
+              <PersonalAddress
+                onUpdateFormStep={() => nextStep()}
+                onPreviousFormStep={() => previousStep()}
+              />
             )}
 
             {step === 5 && (
