@@ -24,6 +24,7 @@ export const Wrap = styled.div`
   align-items: center;
   text-align: center;
   margin: 3.563rem;
+  max-width: 21.875rem;
 `
 
 export const LinkButton = styled(Button)`
@@ -35,7 +36,7 @@ export const LinkButton = styled(Button)`
 `
 
 export const Title = styled.h1`
-  font-size: 2rem;
+  font-size: 1.25rem;
   margin-bottom: 1.313rem;
   font-weight: 900;
 `
