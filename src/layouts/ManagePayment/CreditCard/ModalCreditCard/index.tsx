@@ -7,7 +7,7 @@ import { useTheme } from 'styled-components'
 import Modal from 'react-modal'
 
 import { QUERY_KEY_FIND_BILLING } from 'hooks/useWallet'
-import { formatCreditCard } from 'utils/formatters/formatCreditCard'
+import { formatCreditCardAddSpace } from 'utils/formatters/formatCreditCard'
 import { formatCreditCardExpiration } from 'utils/formatters/formatCreditCardExpiration'
 import { useUpdateCreditCard } from 'hooks/userUpdateCreditCard'
 import { CreditCardIcon } from 'components/Illustrations/CreditCard'
@@ -38,7 +38,7 @@ export function ModalCreditCard ({ isOpen, onRequestNewCreditCardModal }: ModalC
   })
 
   const handleInputCardFormat = (e: ChangeEvent<HTMLInputElement>) => {
-    const creditCardFormatted = formatCreditCard(e.target.value)
+    const creditCardFormatted = formatCreditCardAddSpace(e.target.value)
 
     setValue('card_number', creditCardFormatted)
   }
