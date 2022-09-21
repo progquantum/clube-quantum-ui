@@ -1,5 +1,6 @@
 export type IndividualPersonProps = {
   onUpdateFormStep: () => void
+  onPreviousFormStep: () => void
 }
 
 export type FormData = {

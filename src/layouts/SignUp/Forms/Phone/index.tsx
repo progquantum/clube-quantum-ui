@@ -1,4 +1,3 @@
-import { FaAngleRight } from 'react-icons/fa'
 import { useForm } from 'react-hook-form'
 import { yupResolver } from '@hookform/resolvers/yup'
 import { AxiosError } from 'axios'
@@ -16,7 +15,7 @@ import { ErrorResponse } from 'shared/errors/apiSchema'
 import { PhoneProps, FormData } from './types'
 import * as S from './styles'
 
-export function Phone ({ onUpdateFormStep }: PhoneProps) {
+export function Phone ({ onUpdateFormStep, onPreviousFormStep }: PhoneProps) {
   const {
     handleSubmit,
     control,
@@ -76,15 +75,21 @@ export function Phone ({ onUpdateFormStep }: PhoneProps) {
             }
           })}
         />
-
-        <Button
-          type='submit'
-          variant='rounded'
-          loading={isSendingPhoneCode}
-          disabled={isButtonDisabled}
-        >
-          <FaAngleRight size={24} />
-        </Button>
+        <S.ButtonGroup>
+          <Button
+            type='submit'
+            loading={isSendingPhoneCode}
+            disabled={isButtonDisabled}
+          >
+            Continuar
+          </Button>
+          <Button
+            variant='secondary'
+            onClick={onPreviousFormStep}
+          >
+            voltar
+          </Button>
+        </S.ButtonGroup>
       </S.Form>
     </S.Container>
   )

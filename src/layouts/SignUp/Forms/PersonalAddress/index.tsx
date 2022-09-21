@@ -1,7 +1,6 @@
+import { useState } from 'react'
 import { useForm } from 'react-hook-form'
-import { FaAngleRight } from 'react-icons/fa'
 import { yupResolver } from '@hookform/resolvers/yup'
-
 import { AxiosError } from 'axios'
 
 import { addressDataSchema } from 'schemas/signUp'
@@ -19,7 +18,7 @@ import { ErrorResponse } from 'shared/errors/apiSchema'
 import { PersonalAddressProps, FormData } from './types'
 import * as S from './styles'
 
-export function PersonalAddress ({ onUpdateFormStep }: PersonalAddressProps) {
+export function PersonalAddress ({ onUpdateFormStep, onPreviousFormStep }: PersonalAddressProps) {
   const {
     handleSubmit,
     control,
@@ -35,7 +34,8 @@ export function PersonalAddress ({ onUpdateFormStep }: PersonalAddressProps) {
       complement: '',
       city: '',
       state: '',
-      country: ''
+      country: '',
+      terms: ''
     },
     resolver: yupResolver(addressDataSchema)
   })
@@ -96,9 +96,10 @@ export function PersonalAddress ({ onUpdateFormStep }: PersonalAddressProps) {
       }
     })
   }
+  const [isChecked, setIsChecked] = useState(false)
 
   const { isDirty, isSubmitting } = formState
-  const isButtonDisabled = isSinguping || !isDirty || isSubmitting
+  const isButtonDisabled = isSinguping || !isDirty || isSubmitting || !isChecked
 
   return (
     <S.Container>
@@ -172,15 +173,37 @@ export function PersonalAddress ({ onUpdateFormStep }: PersonalAddressProps) {
           name='country'
           control={control}
         />
+        <S.Terms>
+          <S.CheckBox
+            type='checkbox'
+            name='terms'
+            checked={isChecked}
+            onChange={() => setIsChecked(current => !current)}
 
-        <Button
-          type='submit'
-          variant='rounded'
-          loading={isSinguping}
-          disabled={isButtonDisabled}
-        >
-          <FaAngleRight size={24} />
-        </Button>
+          />
+          <S.TextTerm>
+            Para continuar você precisa ler e concordar com
+            nossos <span>termos e condições</span> e
+            <span> política de privacidade.</span>
+            (obrigatório)
+          </S.TextTerm>
+
+        </S.Terms>
+        <S.ButtonGroup>
+          <Button
+            type='submit'
+            loading={isSinguping}
+            disabled={isButtonDisabled}
+          >
+            Continuar
+          </Button>
+          <Button
+            variant='secondary'
+            onClick={onPreviousFormStep}
+          >
+            voltar
+          </Button>
+        </S.ButtonGroup>
       </S.Form>
     </S.Container>
   )

@@ -1,7 +1,6 @@
+import { useState } from 'react'
 import { useForm } from 'react-hook-form'
-import { FaAngleRight } from 'react-icons/fa'
 import { yupResolver } from '@hookform/resolvers/yup'
-
 import { AxiosError } from 'axios'
 
 import { addressDataSchema } from 'schemas/signUp'
@@ -19,7 +18,7 @@ import { ErrorResponse } from 'shared/errors/apiSchema'
 import { BusinessAddressProps, FormData } from './types'
 import * as S from './styles'
 
-export function BusinessAddress ({ onUpdateFormStep }: BusinessAddressProps) {
+export function BusinessAddress ({ onUpdateFormStep, onPreviousFormStep }: BusinessAddressProps) {
   const {
     control,
     handleSubmit,
@@ -47,8 +46,10 @@ export function BusinessAddress ({ onUpdateFormStep }: BusinessAddressProps) {
     isLoading: isSignuping
   } = useLegalPersonSingUp()
 
+  const [isChecked, setIsChecked] = useState(false)
+
   const { isDirty, isSubmitting } = formState
-  const isButtonDisabled = !isDirty || isSubmitting || isSignuping
+  const isButtonDisabled = !isDirty || isSubmitting || isSignuping || !isChecked
 
   function onSubmit (data: FormData) {
     signUp({
@@ -174,14 +175,36 @@ export function BusinessAddress ({ onUpdateFormStep }: BusinessAddressProps) {
           control={control}
         />
 
-        <Button
-          type='submit'
-          variant='rounded'
-          loading={isSignuping}
-          disabled={isButtonDisabled}
-        >
-          <FaAngleRight size={24} />
-        </Button>
+        <S.Terms>
+          <S.CheckBox
+            type='checkbox'
+            name='terms'
+            checked={isChecked}
+            onChange={() => setIsChecked(current => !current)}
+          />
+          <S.TextTerm>
+            Para continuar você precisa ler e concordar com
+            nossos <span>termos e condições</span> e
+            <span> política de privacidade.</span>
+            (obrigatório)
+          </S.TextTerm>
+
+        </S.Terms>
+        <S.ButtonGroup>
+          <Button
+            type='submit'
+            loading={isSignuping}
+            disabled={isButtonDisabled}
+          >
+            Continuar
+          </Button>
+          <Button
+            variant='secondary'
+            onClick={onPreviousFormStep}
+          >
+            voltar
+          </Button>
+        </S.ButtonGroup>
       </S.Form>
     </S.Container>
   )

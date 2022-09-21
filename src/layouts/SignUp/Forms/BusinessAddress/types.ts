@@ -1,5 +1,6 @@
 export type BusinessAddressProps = {
   onUpdateFormStep: () => void;
+  onPreviousFormStep: () => void;
 }
 
 export type FormData = {

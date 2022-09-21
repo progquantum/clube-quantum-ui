@@ -1,5 +1,4 @@
 import { useForm } from 'react-hook-form'
-import Image from 'next/image'
 import { yupResolver } from '@hookform/resolvers/yup'
 
 import { Input } from 'components/Input'
@@ -8,6 +7,8 @@ import { Button } from 'components/Button'
 import { creditCardSchema } from 'schemas/signUp'
 import { formatCreditCardAddSpace } from 'utils/formatters/formatCreditCard'
 import { formatCreditCardExpiration } from 'utils/formatters/formatCreditCardExpiration'
+
+import { VISAIcon } from 'components/Illustrations/Visa'
 
 import { BankCardProps } from './types'
 import * as S from './styles'
@@ -47,7 +48,6 @@ export function CredCard ({
         label='Nome do cartão'
         name='card_name'
         control={control}
-        placeholder='Nome impresso no cartão'
       />
 
       <S.Wrapper>
@@ -56,7 +56,6 @@ export function CredCard ({
           label='Número do cartão'
           name='card_number'
           control={control}
-          placeholder='0000 0000 0000 0000'
           {...register('card_number', {
             onChange: (e) => {
               setValue('card_number', formatCreditCardAddSpace(e.target.value))
@@ -64,12 +63,7 @@ export function CredCard ({
           })}
         />
 
-        <Image
-          width={110}
-          height={76}
-          src='/images/visa-card.png'
-          alt='Mastercard'
-        />
+        <VISAIcon width='100' height='34.35' />
       </S.Wrapper>
 
       <Input
@@ -77,7 +71,6 @@ export function CredCard ({
         label='Data de vencimento'
         name='expiration_date'
         control={control}
-        placeholder='00/0000'
         {...register('expiration_date', {
           onChange: (e) => {
             setValue('expiration_date', formatCreditCardExpiration(e.target.value))
@@ -90,7 +83,6 @@ export function CredCard ({
         label='CVC'
         name='cvc'
         control={control}
-        placeholder='000'
       />
 
       <S.ButtonGroup>

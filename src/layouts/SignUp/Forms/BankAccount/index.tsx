@@ -44,7 +44,6 @@ export function BankAccount ({
         label='Conta Corrente'
         name='current_account'
         control={control}
-        placeholder='00000000-0'
         {...register('current_account', {
           onChange: (e) => {
             setValue('current_account', formatBankAccount(e.target.value))
@@ -56,7 +55,6 @@ export function BankAccount ({
         label='Nome completo do titular da conta'
         name='holder_name'
         type='text'
-        placeholder='Digite o nome do titular da conta'
       />
       <S.BankInfo>
         A conta a ser cadastrada deve ser a conta Banco Um na qual o CPF, informado anteriormente, está vinculado.

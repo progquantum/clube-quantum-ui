@@ -67,29 +67,37 @@ export function PinCode ({ onNextFormStep, onPreviousFormStep }: PinCodeProps) {
   return (
     <S.Container>
       <S.Form onSubmit={(e) => handleSubmit(e)}>
-        <h3>
+        <S.Title>
           Para continuar, insira o código de 6 dígitos
           enviado por SMS para o número que você digitou
-        </h3>
+        </S.Title>
         <PinCodeGrid
           pinCode={pinCode}
           onPinChange={handlePinChange}
           pinLength={PIN_LENGTH}
         />
-        <h3>Não recebeu?</h3>
+        <S.SubTitle>Não recebeu?</S.SubTitle>
         <S.Paragraph>
           Clique aqui para <span onClick={() => handleSendAnotherCode()}>receber outro código</span> ou {' '}
           <span onClick={onPreviousFormStep}>
             digite outro número
           </span>
         </S.Paragraph>
-        <Button
-          type='submit'
-          loading={isCheckingPhone}
-          disabled={isButtonDisabled}
-        >
-          Confirmar
-        </Button>
+        <S.ButtonGroup>
+          <Button
+            type='submit'
+            loading={isCheckingPhone}
+            disabled={isButtonDisabled}
+          >
+            Confirmar
+          </Button>
+          <Button
+            variant='secondary'
+            onClick={onPreviousFormStep}
+          >
+            voltar
+          </Button>
+        </S.ButtonGroup>
       </S.Form>
     </S.Container>
   )

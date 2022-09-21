@@ -1,5 +1,6 @@
 export type PersonalAddressProps = {
   onUpdateFormStep: () => void;
+  onPreviousFormStep: () => void;
 }
 
 export type FormData = {

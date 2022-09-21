@@ -1,5 +1,4 @@
 import { useForm } from 'react-hook-form'
-import { FaAngleRight } from 'react-icons/fa'
 import { yupResolver } from '@hookform/resolvers/yup'
 
 import { useAuthDispatch } from 'contexts/auth/AuthContext'
@@ -11,7 +10,8 @@ import { LegalPersonProps, FormData } from './types'
 import * as S from './styles'
 
 export function LegalPerson ({
-  onUpdateFormStep
+  onUpdateFormStep,
+  onPreviousFormStep
 }: LegalPersonProps) {
   const {
     control,
@@ -75,14 +75,20 @@ export function LegalPerson ({
           name='password_confirmation'
           control={control}
         />
-
-        <Button
-          type='submit'
-          variant='rounded'
-          disabled={isButtonDisabled}
-        >
-          <FaAngleRight size={24} />
-        </Button>
+        <S.ButtonGroup>
+          <Button
+            type='submit'
+            disabled={isButtonDisabled}
+          >
+            Continuar
+          </Button>
+          <Button
+            variant='secondary'
+            onClick={onPreviousFormStep}
+          >
+            voltar
+          </Button>
+        </S.ButtonGroup>
       </S.Form>
     </S.Container>
   )

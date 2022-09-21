@@ -1,7 +1,7 @@
 import styled from 'styled-components'
 
 export const Container = styled.div`
-  max-width: 30rem;
+  max-width: 19.6875rem;
   width: 100%;
 `
 
@@ -10,8 +10,21 @@ export const Form = styled.form`
   display: flex;
   flex-direction: column;
   align-items: flex-start;
-  gap: 2rem;
+  gap: 24px;
   color: ${({ theme }) => theme.colors.gray[700]};
+`
+export const Title = styled.h3`
+  font-weight: 500;
+  font-size: 1rem;
+  line-height: 1.25rem;
+  color: ${({ theme }) => theme.colors.gray[700]};
+`
+export const SubTitle = styled.h3`
+  font-weight: 700;
+  font-size: 1.125rem;
+  line-height: 22px;
+  color: ${({ theme }) => theme.colors.gray[700]};
+  margin-bottom: 0.9375rem;
 `
 
 export const Paragraph = styled.p`
@@ -19,22 +32,20 @@ export const Paragraph = styled.p`
 
   span {
     background-color: transparent;
-    font-size: 1rem;
+    font-size: 0.875rem;
     font-weight: bold;
     cursor: pointer;
   }
 `
 
-export const Button = styled.button`
-  width: 10.5rem;
-  height: 2.75rem;
-  background-color: ${({ theme }) => theme.colors.midnightBlue};
-  border-radius: 2.5rem;
-  color: ${({ theme }) => theme.colors.white};
-  font-weight: 600;
-
+export const ButtonGroup = styled.section`
+  width: 100%;
+  margin-top: 24px;
   display: flex;
-  align-items: center;
-  justify-content: center;
-  align-self: flex-end;
+  flex-direction: column;
+  justify-content: space-between;
+  gap: 12px;
+  button:last-of-type {
+    margin: 0;
+  }
 `
