@@ -39,6 +39,7 @@ export const personalDataSchema = Yup.object().shape({
     .required(),
   email: Yup
     .string()
+    .email('Formato de email inválido')
     .required(),
   email_confirmation: Yup
     .string()
@@ -59,6 +60,7 @@ export const legalPersonDataSchema = Yup.object().shape({
     .required(),
   email: Yup
     .string()
+    .email('Formato de email inválido')
     .required(),
   email_confirmation: Yup
     .string()
@@ -97,9 +99,9 @@ export const addressDataSchema = Yup.object().shape({
   state: Yup
     .string()
     .required()
-    .matches(/[A-Z]{2,}/g),
+    .matches(/[A-Z]{2,}/g, 'Campo deve conter somente letras. ex: SP'),
   country: Yup
     .string()
     .required()
-    .matches(/[A-Za-z]/g)
+    .matches(/[A-Za-z]/g, 'Campo deve conter somente letras')
 })

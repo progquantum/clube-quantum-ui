@@ -13,6 +13,7 @@ export const ADVANTAGES_PAGE = '/advantages'
 export const SIGN_UP_PAGE = '/signup/'
 export const SIGN_UP_BUSINESS_PAGE = '/signup/business'
 export const SIGN_UP_PERSONAL_PAGE = '/signup/personal'
+export const CONTACT_US_PAGE = '/contact-us'
 
 export const RESET_PASSWORD_PAGE = '/reset-password'
 export const FORGOT_PASSWORD_PAGE = '/forgot-password'
