@@ -7,7 +7,7 @@ import { SteperProps } from './types'
 export function Steper ({ stepsNumber, currentStep }: SteperProps) {
   return (
     <Container>
-      <Steps current={currentStep}>
+      <Steps current={currentStep} small>
         {Array.from({ length: stepsNumber }, (_, index) => (
           <Steps.Item key={index} />
         ))}
