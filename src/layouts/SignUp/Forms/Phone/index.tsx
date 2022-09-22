@@ -39,7 +39,7 @@ export function Phone ({ onUpdateFormStep, onPreviousFormStep }: PhoneProps) {
   const isButtonDisabled = isSendingPhoneCode || !isDirty || isSubmitting
 
   function onSubmitPhoneNumber (data: FormData) {
-    const phone = data.phone.includes('+55') ? data.phone : `+55 ${data.phone}`
+    const phone = `+55 ${data.phone}`
 
     sendPhoneCodeRequest({ phone }, {
       onSuccess: (_, variables) => {
