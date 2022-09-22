@@ -1,9 +1,34 @@
 export const UNAUTHORIZED_ROUTES = [
-  '/sessions',
-  '/users/individual-persons',
-  '/users/legal-persons',
-  '/support/institutional-contact',
-  '/passwords/recovery-request',
-  '/phones/create-code',
-  '/passwords/reset'
+  {
+    route: '/sessions',
+    method: 'post'
+  },
+  {
+    route: '/users/individual-persons',
+    method: 'post'
+  },
+  {
+    route: '/users/legal-persons',
+    method: 'post'
+  },
+  {
+    route: '/support/institutional-contact',
+    method: 'post'
+  },
+  {
+    route: '/passwords/recovery-request',
+    method: 'post'
+  },
+  {
+    route: '/phones/create-code',
+    method: 'post'
+  },
+  {
+    route: '/passwords/reset',
+    method: 'patch'
+  },
+  {
+    route: '/phones/check-code',
+    method: 'put'
+  }
 ]
