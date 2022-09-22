@@ -2,6 +2,7 @@ import { useMemo, useCallback, PropsWithChildren, useEffect } from 'react'
 import { useRouter } from 'next/router'
 import { useLocalStorage } from '@rehooks/local-storage'
 import { setCookie, destroyCookie, parseCookies } from 'nookies'
+import { AxiosError } from 'axios'
 
 import { useSignIn } from 'hooks/auth/useSignIn'
 import { User } from 'shared/types/apiSchema'
@@ -10,6 +11,7 @@ import { DASHBOARD_PAGE, SIGN_IN_PAGE } from 'constants/routesPath'
 import { api } from 'config/client'
 import { logOut } from 'helpers/auth/logOut'
 import { getMe } from 'services/resources'
+import { ErrorResponse } from 'shared/errors/apiSchema'
 
 import { error } from 'helpers/notify/error'
 
@@ -56,6 +58,13 @@ export function AuthProvider ({ children }: PropsWithChildren<unknown>) {
 
   const handleSignIn = useCallback(async ({ login, password }: SignInCredentials) => {
     await signIn({ login, password }, {
+      onError: (err: AxiosError<ErrorResponse>) => {
+        const isUserOrPasswordIncorrect = err.response.data.message === 'Cpf/Cnpj or password is incorrect'
+
+        if (isUserOrPasswordIncorrect) {
+          error('Seu CPF/CNPJ ou senha está incorreto')
+        }
+      },
       onSuccess: (data) => {
         const { token, refresh_token, user } = data
 
@@ -74,8 +83,7 @@ export function AuthProvider ({ children }: PropsWithChildren<unknown>) {
         api.defaults.headers.common.Authorization = `Bearer ${token}`
 
         router.push(DASHBOARD_PAGE)
-      },
-      onError: () => error('Seu CPF/CNPJ ou senha está incorreto')
+      }
     })
   },
   [
