@@ -22,9 +22,6 @@ export function CPF ({ onUpdateFormStep }: CPFProps) {
     setValue,
     formState
   } = useForm({
-    defaultValues: {
-      cpf: ''
-    },
     resolver: yupResolver(cpfSchema)
   })
 

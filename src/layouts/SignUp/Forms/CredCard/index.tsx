@@ -5,7 +5,7 @@ import { Input } from 'components/Input'
 import { Button } from 'components/Button'
 
 import { creditCardSchema } from 'schemas/signUp'
-import { formatCreditCardAddSpace } from 'utils/formatters/formatCreditCard'
+import { formatCreditCardAddSpace } from 'utils/formatters/formatCreditCardAddSpace'
 import { formatCreditCardExpiration } from 'utils/formatters/formatCreditCardExpiration'
 
 import { VISAIcon } from 'components/Illustrations/Visa'
@@ -25,12 +25,6 @@ export function CredCard ({
     register,
     setValue
   } = useForm({
-    defaultValues: {
-      card_name: '',
-      card_number: '',
-      expiration_date: '',
-      cvc: ''
-    },
     resolver: yupResolver(creditCardSchema)
   })
 

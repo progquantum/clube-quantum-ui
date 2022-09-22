@@ -27,9 +27,6 @@ export function ForgotPasswordPage () {
     handleSubmit,
     formState
   } = useForm({
-    defaultValues: {
-      email: ''
-    },
     resolver: yupResolver(schema)
   })
 

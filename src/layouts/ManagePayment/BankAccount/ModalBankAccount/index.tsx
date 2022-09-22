@@ -26,10 +26,6 @@ export function ModalBankAccount ({ isOpen, onRequestClose, onRequestNewModal }:
     register,
     setValue
   } = useForm({
-    defaultValues: {
-      current_account: '',
-      holder_name: ''
-    },
     resolver: yupResolver(schema)
   })
 

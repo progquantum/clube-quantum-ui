@@ -7,7 +7,7 @@ import { useTheme } from 'styled-components'
 import Modal from 'react-modal'
 
 import { QUERY_KEY_FIND_BILLING } from 'hooks/useWallet'
-import { formatCreditCardAddSpace } from 'utils/formatters/formatCreditCard'
+import { formatCreditCardAddSpace } from 'utils/formatters/formatCreditCardAddSpace'
 import { formatCreditCardExpiration } from 'utils/formatters/formatCreditCardExpiration'
 import { useUpdateCreditCard } from 'hooks/userUpdateCreditCard'
 import { CreditCardIcon } from 'components/Illustrations/CreditCard'
@@ -27,13 +27,6 @@ export function ModalCreditCard ({ isOpen, onRequestNewCreditCardModal }: ModalC
     register,
     setValue
   } = useForm({
-    defaultValues: {
-      card_number: '',
-      card_name: '',
-      expiration_date: '',
-      cvc: '',
-      card_brand: 'Visa'
-    },
     resolver: yupResolver(schema)
   })
 

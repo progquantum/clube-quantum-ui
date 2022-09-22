@@ -26,16 +26,6 @@ export function BusinessAddress ({ onUpdateFormStep, onPreviousFormStep }: Busin
     setValue,
     formState
   } = useForm({
-    defaultValues: {
-      zipCode: '',
-      street: '',
-      neighborhood: '',
-      number: '',
-      complement: '',
-      city: '',
-      state: '',
-      country: ''
-    },
     resolver: yupResolver(addressDataSchema)
   })
 

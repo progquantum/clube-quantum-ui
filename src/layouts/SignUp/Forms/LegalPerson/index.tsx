@@ -18,13 +18,6 @@ export function LegalPerson ({
     handleSubmit,
     formState
   } = useForm({
-    defaultValues: {
-      company_name: '',
-      email: '',
-      email_confirmation: '',
-      password: '',
-      password_confirmation: ''
-    },
     resolver: yupResolver(legalPersonDataSchema)
   })
 

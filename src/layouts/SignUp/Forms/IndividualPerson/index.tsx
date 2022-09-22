@@ -21,14 +21,6 @@ export function IndividualPerson ({
     setValue,
     formState
   } = useForm({
-    defaultValues: {
-      name: '',
-      birth_date: '',
-      email: '',
-      email_confirmation: '',
-      password: '',
-      password_confirmation: ''
-    },
     resolver: yupResolver(personalDataSchema)
   })
 

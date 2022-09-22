@@ -22,10 +22,6 @@ export function ResetPasswordPage () {
     handleSubmit,
     formState
   } = useForm({
-    defaultValues: {
-      password: '',
-      confirm_password: ''
-    },
     resolver: yupResolver(schema)
   })
 

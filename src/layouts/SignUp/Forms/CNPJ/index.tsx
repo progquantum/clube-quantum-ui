@@ -22,9 +22,6 @@ export function CNPJ ({ onUpdateFormStep }: CNPJProps) {
     setValue,
     formState
   } = useForm({
-    defaultValues: {
-      cnpj: ''
-    },
     resolver: yupResolver(cnpjSchema)
   })
 

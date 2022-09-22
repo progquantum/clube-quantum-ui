@@ -25,12 +25,6 @@ export function ContactUsPage () {
     reset,
     register
   } = useForm({
-    defaultValues: {
-      name: '',
-      email: '',
-      phone: '',
-      message: ''
-    },
     resolver: yupResolver(schema)
   })
 

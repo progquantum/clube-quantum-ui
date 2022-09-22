@@ -26,17 +26,6 @@ export function PersonalAddress ({ onUpdateFormStep, onPreviousFormStep }: Perso
     setValue,
     formState
   } = useForm({
-    defaultValues: {
-      zipCode: '',
-      street: '',
-      neighborhood: '',
-      number: '',
-      complement: '',
-      city: '',
-      state: '',
-      country: '',
-      terms: ''
-    },
     resolver: yupResolver(addressDataSchema)
   })
 

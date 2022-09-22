@@ -23,10 +23,6 @@ export function SignInPage () {
     setValue,
     formState
   } = useForm({
-    defaultValues: {
-      login: '',
-      password: ''
-    },
     resolver: yupResolver(schema)
   })
   const { signIn } = useAuthDispatch()

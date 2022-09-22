@@ -23,9 +23,6 @@ export function Phone ({ onUpdateFormStep, onPreviousFormStep }: PhoneProps) {
     setValue,
     formState
   } = useForm({
-    defaultValues: {
-      phone: ''
-    },
     resolver: yupResolver(phoneNumberSchema)
   })
 
