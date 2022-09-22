@@ -6,6 +6,3 @@ export function formatCreditCardAddSpace (value: string) {
   }
   return value
 }
-export function formatCreditCardRemoveSpace (value: string) {
-  return value.replace(/ /g, '')
-}
