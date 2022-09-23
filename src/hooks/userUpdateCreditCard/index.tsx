@@ -1,6 +1,6 @@
 import { useMutation } from 'react-query'
 
-import { api } from 'config/client'
+import { quantumClientQueue } from 'config/client'
 import { error } from 'helpers/notify/error'
 import { PaymentError } from 'shared/errors/PaymentError'
 
@@ -8,7 +8,7 @@ import { UpdateCreditCardData } from './types'
 
 export async function postCreditCard (data: UpdateCreditCardData) {
   try {
-    return await api.put<unknown>('/credit-cards', data)
+    return await quantumClientQueue.put<unknown>('/credit-cards', data)
   } catch (err) {
     if (
       err.response.data?.statusCode === 400 &&

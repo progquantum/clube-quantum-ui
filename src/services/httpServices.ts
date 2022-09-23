@@ -6,7 +6,6 @@ import { REFRESH_TOKEN_STORAGE_KEY, TOKEN_STORAGE_KEY } from 'constants/storage'
 import { AuthTokenError } from 'shared/errors/AuthTokenError'
 import { error as notifyError } from 'helpers/notify/error'
 import { logOut } from 'helpers/auth/logOut'
-import { UNAUTHORIZED_ROUTES } from 'constants/unauthorizedRoutes'
 
 let isRefreshing = false
 let failedRequestsQueue: {
@@ -35,18 +34,6 @@ export function setupAPIClient (ctx: GetServerSidePropsContext | undefined = und
 
       if (!expectedError) {
         notifyError('Encontramos um problema por aqui.')
-      }
-
-      const isUnauthorizedRoutes = UNAUTHORIZED_ROUTES.map((item) => {
-        if (item.route === error.response.config.url &&
-          item.method === error.response.config.method) {
-          return true
-        }
-        return false
-      })
-
-      if (isUnauthorizedRoutes) {
-        return Promise.reject(error)
       }
 
       if (error.response.status === 401) {

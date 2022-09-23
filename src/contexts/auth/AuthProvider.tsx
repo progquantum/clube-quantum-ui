@@ -8,7 +8,7 @@ import { useSignIn } from 'hooks/auth/useSignIn'
 import { User } from 'shared/types/apiSchema'
 import { USER_STORAGE_KEY, TOKEN_STORAGE_KEY, REFRESH_TOKEN_STORAGE_KEY, REGISTER_USER_STORAGE_KEY } from 'constants/storage'
 import { DASHBOARD_PAGE, SIGN_IN_PAGE } from 'constants/routesPath'
-import { api } from 'config/client'
+import { quantumClientQueue } from 'config/client'
 import { logOut } from 'helpers/auth/logOut'
 import { getMe } from 'services/resources'
 import { ErrorResponse } from 'shared/errors/apiSchema'
@@ -80,7 +80,7 @@ export function AuthProvider ({ children }: PropsWithChildren<unknown>) {
 
         setUser(user)
 
-        api.defaults.headers.common.Authorization = `Bearer ${token}`
+        quantumClientQueue.defaults.headers.common.Authorization = `Bearer ${token}`
 
         router.push(DASHBOARD_PAGE)
       }

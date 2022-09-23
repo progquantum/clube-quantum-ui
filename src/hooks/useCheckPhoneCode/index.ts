@@ -1,11 +1,11 @@
 import { useMutation } from 'react-query'
 
-import { api } from 'config/client'
+import { quantumClientBase } from 'config/client'
 
 import { CheckPhoneCodeRequest } from './types'
 
 export async function checkPhoneCodeRequest (checkPhoneCode: CheckPhoneCodeRequest) {
-  const { data } = await api.put('/phones/check-code', checkPhoneCode)
+  const { data } = await quantumClientBase.put('/phones/check-code', checkPhoneCode)
 
   return data as unknown
 }

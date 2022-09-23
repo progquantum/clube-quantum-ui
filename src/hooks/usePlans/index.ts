@@ -1,13 +1,13 @@
 import { useQuery } from 'react-query'
 
-import { api } from 'config/client'
+import { quantumClientBase } from 'config/client'
 
 import { PlansPayload } from './types'
 
 const QUERY_KEY_GET_PLANS = 'plans'
 
 export async function getPlans () {
-  const { data } = await api.get('/plans')
+  const { data } = await quantumClientBase.get('/plans')
 
   return data as PlansPayload
 }
