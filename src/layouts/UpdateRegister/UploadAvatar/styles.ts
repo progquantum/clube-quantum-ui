@@ -33,3 +33,10 @@ export const EditAvatar = styled(Button)`
     color:  ${({ theme }) => theme.colors.white};
   }
 `
+
+export const Avatar = styled.img`
+  width: 12rem;
+  height: 12rem;
+  object-fit: cover;
+  border-radius: 50%;
+`
