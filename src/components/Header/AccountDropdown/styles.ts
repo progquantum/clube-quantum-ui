@@ -1,7 +1,7 @@
-import styled, { css } from 'styled-components'
-import { motion } from 'framer-motion'
+import styled, { css } from 'styled-components';
+import { motion } from 'framer-motion';
 
-import { Button } from 'components/Button'
+import { Button } from 'components/Button';
 
 export const Container = styled.div`
   display: flex;
@@ -10,12 +10,12 @@ export const Container = styled.div`
   margin-left: 1.5rem;
   position: relative;
   cursor: pointer;
-`
+`;
 
 export const AccountDropdown = styled.img`
   width: 3rem;
   height: 3rem;
-`
+`;
 
 export const AnimatedDropdown = styled(motion.nav)`
   ${({ theme }) => css`
@@ -39,7 +39,7 @@ export const AnimatedDropdown = styled(motion.nav)`
       border-width: 0.8rem;
     }
   `}
-`
+`;
 
 export const NavButton = styled(Button)`
   ${({ theme }) => css`
@@ -58,7 +58,7 @@ export const NavButton = styled(Button)`
       border-radius: ${theme.radiis.smallTop};
     }
 
-    &:nth-child(n+2):nth-child(-n+8) {
+    &:nth-child(n + 2):nth-child(-n + 8) {
       border-radius: 0px;
     }
 
@@ -66,4 +66,4 @@ export const NavButton = styled(Button)`
       border-radius: ${theme.radiis.smallBottom};
     }
   `}
-`
+`;

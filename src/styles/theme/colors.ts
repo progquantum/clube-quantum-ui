@@ -21,10 +21,18 @@ export const colors = {
     200: '#BBBBBB',
     300: '#A8A8A8',
     400: '#878787',
-    700: '#3D3D3D'
+    700: '#3D3D3D',
+  },
+  input: {
+    background: {
+      1: '#F5F5F5',
+      2: '#E8E8E8',
+    },
+    danger: '#C53030',
+    text: '#161616',
   },
   yellow: '#FFCA28',
   warning: '#FFC107',
   danger: '#E12B2B',
-  success: '#00C851'
-}
+  success: '#00C851',
+};

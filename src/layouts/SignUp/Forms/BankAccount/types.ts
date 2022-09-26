@@ -1,4 +1,4 @@
 export type BankAccountProps = {
-  onUpdateFormStep: () => void
-  onPreviousFormStep: () => void
-}
+  onUpdateFormStep: () => void;
+  onPreviousFormStep: () => void;
+};

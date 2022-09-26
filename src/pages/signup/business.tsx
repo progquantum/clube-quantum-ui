@@ -1,7 +1,5 @@
-import { BusinessSignUpPage } from 'layouts/SignUp/Business'
+import { BusinessSignUpPage } from 'layouts/SignUp/Business';
 
-export default function BusinessSignUp () {
-  return (
-    <BusinessSignUpPage />
-  )
+export default function BusinessSignUp() {
+  return <BusinessSignUpPage />;
 }

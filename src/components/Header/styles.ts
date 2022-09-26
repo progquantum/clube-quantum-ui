@@ -1,4 +1,5 @@
-import styled from 'styled-components'
+import styled from 'styled-components';
+
 export const Container = styled.header`
   display: flex;
   flex-direction: column;
@@ -7,7 +8,7 @@ export const Container = styled.header`
   width: 100%;
   background: ${({ theme }) => theme.colors.background};
   position: relative;
-`
+`;
 
 export const Wrapper = styled.div`
   max-width: 70.625rem;
@@ -16,7 +17,7 @@ export const Wrapper = styled.div`
   height: 6.5rem;
   display: flex;
   justify-content: space-between;
-`
+`;
 
 export const LeftNav = styled.div`
   display: flex;
@@ -30,7 +31,7 @@ export const LeftNav = styled.div`
     height: auto;
     margin: 0 2.4rem 0.4rem -0.4rem;
   }
-`
+`;
 
 export const RightNav = styled.div`
   display: flex;
@@ -43,4 +44,4 @@ export const RightNav = styled.div`
       display: none;
     }
   }
-`
+`;

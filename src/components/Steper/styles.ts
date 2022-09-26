@@ -1,4 +1,4 @@
-import styled from 'styled-components'
+import styled from 'styled-components';
 
 export const Container = styled.div`
   display: flex;
@@ -32,4 +32,4 @@ export const Container = styled.div`
       border-color: ${({ theme }) => theme.colors.darkslategray};
     }
   }
-`
+`;

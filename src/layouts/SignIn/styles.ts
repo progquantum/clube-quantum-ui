@@ -1,10 +1,10 @@
-import styled from 'styled-components'
+import styled from 'styled-components';
 
-import { Button } from 'components/Button'
+import { Button } from 'components/Button';
 
 export const Wrapper = styled.main`
   padding-top: 2rem;
-`
+`;
 
 export const Form = styled.form`
   max-width: 30rem;
@@ -45,11 +45,11 @@ export const Form = styled.form`
     max-width: 25.5rem;
     width: 100%;
   }
-`
+`;
 
 export const SignInButton = styled(Button)`
   margin-bottom: 2rem;
-`
+`;
 
 export const LoginAbout = styled.div`
   width: 100%;
@@ -66,10 +66,11 @@ export const LoginAbout = styled.div`
     gap: 0.7rem;
   }
 
-  span, a {
+  span,
+  a {
     font-weight: 500;
   }
-`
+`;
 
 export const CreateAccountButtonWrapper = styled.div`
   max-width: 30rem;
@@ -108,4 +109,4 @@ export const CreateAccountButtonWrapper = styled.div`
     border-radius: 2.5rem;
     text-decoration: none;
   }
-`
+`;

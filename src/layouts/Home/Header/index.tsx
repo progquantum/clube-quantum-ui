@@ -1,72 +1,70 @@
-import { useState } from 'react'
-import Link from 'next/link'
-import Image from 'next/image'
+import { useState } from 'react';
+import Link from 'next/link';
+import Image from 'next/image';
 
-import { SIGN_IN_PAGE } from 'constants/routesPath'
+import { SIGN_IN_PAGE } from 'constants/routesPath';
 
-import * as S from './styles'
+import * as S from './styles';
 
-export function Header () {
-  const [menuIsOpen, setMenuIsOpen] = useState(false)
+export function Header() {
+  const [menuIsOpen, setMenuIsOpen] = useState(false);
 
   const handleMenuOpen = () => {
-    setMenuIsOpen(!menuIsOpen)
-  }
+    setMenuIsOpen(!menuIsOpen);
+  };
 
   return (
     <S.BoxContainer>
       <S.Container>
-        <S.LogoContainer as='a' href='/'>
+        <S.LogoContainer as="a" href="/">
           <Image
             width={50}
             height={67}
-            src='/images/quantum-logo.svg'
-            alt='Club Quantum logo'
+            src="/images/quantum-logo.svg"
+            alt="Club Quantum logo"
           />
         </S.LogoContainer>
 
-        {!menuIsOpen
-          ? (
-            <S.Nav>
-              <Link href='/'>Saiba Mais</Link>
-              <Link href='/'>Seja um parceiro</Link>
-              <Link href='/'>Central de dúvidas</Link>
+        {!menuIsOpen ? (
+          <S.Nav>
+            <Link href="/">Saiba Mais</Link>
+            <Link href="/">Seja um parceiro</Link>
+            <Link href="/">Central de dúvidas</Link>
+
+            <Link href={SIGN_IN_PAGE}>
+              <S.LoginButton>Fazer Login</S.LoginButton>
+            </Link>
+          </S.Nav>
+        ) : (
+          <>
+            <S.MenuMobile>
+              <Link href="/">Saiba Mais</Link>
+              <S.Line />
+              <Link href="/">Seja um parceiro</Link>
+              <S.Line />
+              <Link href="/">Central de dúvidas</Link>
+              <S.Line />
 
               <Link href={SIGN_IN_PAGE}>
-                <S.LoginButton>Fazer Login</S.LoginButton>
+                <S.LoginButtonMobile>Fazer Login</S.LoginButtonMobile>
               </Link>
-            </S.Nav>
-            )
-          : (
-            <>
-              <S.MenuMobile>
-                <Link href='/'>Saiba Mais</Link>
-                <S.Line />
-                <Link href='/'>Seja um parceiro</Link>
-                <S.Line />
-                <Link href='/'>Central de dúvidas</Link>
-                <S.Line />
-
-                <Link href={SIGN_IN_PAGE}>
-                  <S.LoginButtonMobile>Fazer Login</S.LoginButtonMobile>
-                </Link>
-              </S.MenuMobile>
-              <S.Overlay onClick={handleMenuOpen} />
-            </>
-            )}
+            </S.MenuMobile>
+            <S.Overlay onClick={handleMenuOpen} />
+          </>
+        )}
 
         <S.MenuIconContainer>
           <Image
             width={28}
             height={20}
-            src={!menuIsOpen
-              ? '/images/open-menu.svg'
-              : '/images/close-menu.svg'}
-            alt=''
+            src={
+              !menuIsOpen ? '/images/open-menu.svg' : '/images/close-menu.svg'
+            }
+            alt=""
             onClick={handleMenuOpen}
           />
         </S.MenuIconContainer>
       </S.Container>
     </S.BoxContainer>
-  )
+  );
 }

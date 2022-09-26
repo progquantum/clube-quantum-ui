@@ -1,3 +1,3 @@
 export type RecoveryPasswordFormValues = {
-  email: string
-}
+  email: string;
+};

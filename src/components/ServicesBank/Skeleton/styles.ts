@@ -1,5 +1,5 @@
-import Skeleton from 'react-loading-skeleton'
-import styled from 'styled-components'
+import Skeleton from 'react-loading-skeleton';
+import styled from 'styled-components';
 
 export const Container = styled.div`
   display: flex;
@@ -8,39 +8,36 @@ export const Container = styled.div`
   flex-wrap: wrap;
   gap: 0.625rem;
 
-
-  @media (max-width: 460px){
+  @media (max-width: 460px) {
     gap: 0 1.5rem;
     margin: 0;
   }
-`
+`;
 
 export const DivItem = styled(Skeleton)`
   display: flex;
   justify-content: center;
   align-items: center;
   flex-direction: column;
-  gap: .625rem;
+  gap: 0.625rem;
   border-radius: 0.313rem;
   width: 10.7269rem;
   height: 4.375rem;
 
-  @media (max-width: 1024px){
+  @media (max-width: 1024px) {
     width: 8.5625rem;
   }
 
-  @media (max-width: 460px){
+  @media (max-width: 460px) {
     width: 9.563rem;
     gap: 0;
-
   }
-`
+`;
 export const DivDisabled = styled.div`
-
-  @media (max-width: 1024px){
+  @media (max-width: 1024px) {
     display: none;
   }
-  @media (max-width: 460px){
+  @media (max-width: 460px) {
     display: flex;
   }
-`
+`;

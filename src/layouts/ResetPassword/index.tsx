@@ -1,67 +1,73 @@
-import Image from 'next/image'
-import { useRouter } from 'next/router'
-import { SubmitHandler, useForm } from 'react-hook-form'
-import { yupResolver } from '@hookform/resolvers/yup'
-import { AxiosError } from 'axios'
+import Image from 'next/image';
+import { useRouter } from 'next/router';
+import { SubmitHandler, useForm } from 'react-hook-form';
+import { yupResolver } from '@hookform/resolvers/yup';
+import { FiLock } from 'react-icons/fi';
+import { AxiosError } from 'axios';
 
-import { schema } from 'schemas/resetPassword'
-import { Input } from 'components/Input'
-import { Footer } from 'components/Footer'
-import { useResetPassword } from 'hooks/auth/useResetPassword'
-import { success } from 'helpers/notify/success'
-import { SIGN_IN_PAGE } from 'constants/routesPath'
-import { ErrorResponse } from 'shared/errors/apiSchema'
-import { error } from 'helpers/notify/error'
+import { schema } from 'schemas/resetPassword';
+import { Input } from 'components/Input';
+import { Footer } from 'components/Footer';
+import { useResetPassword } from 'hooks/auth/useResetPassword';
+import { success } from 'helpers/notify/success';
+import { SIGN_IN_PAGE } from 'constants/routesPath';
+import { ErrorResponse } from 'shared/errors/apiSchema';
+import { error } from 'helpers/notify/error';
 
-import { ResetPasswordFormValues } from './types'
-import * as S from './styles'
+import { ResetPasswordFormValues } from './types';
+import * as S from './styles';
 
-export function ResetPasswordPage () {
-  const {
-    control,
-    handleSubmit,
-    formState
-  } = useForm({
-    resolver: yupResolver(schema)
-  })
+export function ResetPasswordPage() {
+  const { control, handleSubmit, formState } = useForm({
+    resolver: yupResolver(schema),
+  });
 
-  const { mutate: resetPassword, isLoading } = useResetPassword()
+  const { mutate: resetPassword, isLoading } = useResetPassword();
 
-  const { isDirty, isSubmitting } = formState
-  const isButtonDisabled = !isDirty || isSubmitting || isLoading
+  const { isDirty, isSubmitting } = formState;
+  const isButtonDisabled = !isDirty || isSubmitting || isLoading;
 
-  const router = useRouter()
+  const router = useRouter();
 
-  const inviteCode = router.query.code
+  const inviteCode = router.query.code;
 
   const handleResetPassword: SubmitHandler<ResetPasswordFormValues> = ({
-    password
+    password,
   }) => {
-    resetPassword({
-      code: inviteCode,
-      password
-    }, {
-      onSuccess: () => {
-        success('Senha alterada com sucesso')
-        router.push(SIGN_IN_PAGE)
+    resetPassword(
+      {
+        code: inviteCode,
+        password,
       },
-      onError: (err : AxiosError<ErrorResponse>) => {
-        const isPasswordRecoveryCodeNotFound = err.response.status === 404 &&
-         err.response.data.message === 'Password recovery code not found'
+      {
+        onSuccess: () => {
+          success('Senha alterada com sucesso');
+          router.push(SIGN_IN_PAGE);
+        },
+        onError: (err: AxiosError<ErrorResponse>) => {
+          const isPasswordRecoveryCodeNotFound =
+            err.response.status === 404 &&
+            err.response.data.message === 'Password recovery code not found';
 
-        const isPasswordRecoveryCodeInvalid = err.response.status === 400 &&
-         err.response.data.message === 'invalid code'
+          const isPasswordRecoveryCodeInvalid =
+            err.response.status === 400 &&
+            err.response.data.message === 'invalid code';
 
-        if (isPasswordRecoveryCodeNotFound) {
-          error('Não foi possivel alterar a sua senha, código de recuperação não encontrado')
-        }
+          if (isPasswordRecoveryCodeNotFound) {
+            error(
+              'Não foi possivel alterar a sua senha, código de recuperação não encontrado',
+            );
+          }
 
-        if (isPasswordRecoveryCodeInvalid) {
-          error('Não foi possível alterar a sua senha, código de recuperação inválido')
-        }
-      }
-    })
-  }
+          if (isPasswordRecoveryCodeInvalid) {
+            error(
+              'Não foi possível alterar a sua senha, código de recuperação inválido',
+            );
+          }
+        },
+      },
+    );
+  };
 
   return (
     <>
@@ -72,21 +78,25 @@ export function ResetPasswordPage () {
           <h1>Reset sua senha!</h1>
 
           <Input
-            type='password'
-            label='Nova senha'
-            name='password'
+            type="password"
+            label="Nova senha"
+            name="password"
+            placeholder="Nova senha"
+            icon={FiLock}
             control={control}
           />
 
           <Input
-            type='password'
-            label='Confirma nova senha'
-            name='confirm_password'
+            type="password"
+            label="Confirma nova senha"
+            name="confirm_password"
+            placeholder="Confirma senha"
+            icon={FiLock}
             control={control}
           />
 
           <S.FormBtn
-            type='submit'
+            type="submit"
             disabled={isButtonDisabled}
             loading={isLoading}
           >
@@ -94,10 +104,14 @@ export function ResetPasswordPage () {
           </S.FormBtn>
         </S.Form>
 
-        <Image width={385} height={382} src='/images/main-forgot-password.svg' />
+        <Image
+          width={385}
+          height={382}
+          src="/images/main-forgot-password.svg"
+        />
       </S.Container>
 
       <Footer />
     </>
-  )
+  );
 }

@@ -1,15 +1,15 @@
-import { useMutation } from 'react-query'
+import { useMutation } from 'react-query';
 
-import { quantumClientBase } from 'config/client'
+import { quantumClientBase } from 'config/client';
 
-import { ZipCodePayload } from './types'
+import { ZipCodePayload } from './types';
 
-export async function zipCodeRequest (zipCode: string) {
-  const { data } = await quantumClientBase.get(`/zips-code/${zipCode}`)
+export async function zipCodeRequest(zipCode: string) {
+  const { data } = await quantumClientBase.get(`/zips-code/${zipCode}`);
 
-  return data as ZipCodePayload
+  return data as ZipCodePayload;
 }
 
-export function useZipCode () {
-  return useMutation(zipCodeRequest)
+export function useZipCode() {
+  return useMutation(zipCodeRequest);
 }

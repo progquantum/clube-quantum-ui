@@ -1,5 +1,5 @@
 export class PaymentError extends Error {
-  constructor () {
-    super('Invalid CVV')
+  constructor() {
+    super('Invalid CVV');
   }
 }

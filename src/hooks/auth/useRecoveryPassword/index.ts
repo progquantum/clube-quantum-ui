@@ -1,17 +1,20 @@
-import { useMutation } from 'react-query'
+import { useMutation } from 'react-query';
 
-import { quantumClientBase } from 'config/client'
+import { quantumClientBase } from 'config/client';
 
-import { RecoveryPasswordRequest } from './types'
+import { RecoveryPasswordRequest } from './types';
 
-export async function sendRecoveryPasswordRequest (
-  credentials: RecoveryPasswordRequest
+export async function sendRecoveryPasswordRequest(
+  credentials: RecoveryPasswordRequest,
 ) {
-  const { data } = await quantumClientBase.post<unknown>('/passwords/recovery-request', credentials)
+  const { data } = await quantumClientBase.post<unknown>(
+    '/passwords/recovery-request',
+    credentials,
+  );
 
-  return data as unknown
+  return data as unknown;
 }
 
-export function useRecoveryPassword () {
-  return useMutation(sendRecoveryPasswordRequest)
+export function useRecoveryPassword() {
+  return useMutation(sendRecoveryPasswordRequest);
 }

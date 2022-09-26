@@ -1,72 +1,72 @@
-import { ChangeEvent, useRef } from 'react'
+import { ChangeEvent, useRef } from 'react';
 
-import { StyledPinInput } from './styles'
-import { PinCodeGridProps } from './types'
+import { StyledPinInput } from './styles';
+import { PinCodeGridProps } from './types';
 
-export function PinCodeGrid ({
+export function PinCodeGrid({
   pinCode,
   onPinChange,
-  pinLength
+  pinLength,
 }: PinCodeGridProps) {
-  const inputRef = useRef<HTMLInputElement[]>([])
+  const inputRef = useRef<HTMLInputElement[]>([]);
 
-  function handleChangeInputFocus (pinCodeIndex: number) {
-    const input = inputRef.current[pinCodeIndex]
+  function handleChangeInputFocus(pinCodeIndex: number) {
+    const input = inputRef.current[pinCodeIndex];
 
     if (input) {
-      input.focus()
+      input.focus();
     }
   }
 
-  function handleOnChange (
+  function handleOnChange(
     { target }: ChangeEvent<HTMLInputElement>,
-    index: number
+    index: number,
   ) {
-    const { value } = target
-    const pinCodeNumber = value.trim()
+    const { value } = target;
+    const pinCodeNumber = value.trim();
 
     if (!value.length) {
-      return
+      return;
     }
 
-    onPinChange(pinCodeNumber, index)
+    onPinChange(pinCodeNumber, index);
 
     if (index < pinLength - 1) {
-      handleChangeInputFocus(index + 1)
+      handleChangeInputFocus(index + 1);
     }
   }
 
   const handleOnKeyDown = (
     { nativeEvent }: React.KeyboardEvent<HTMLInputElement>,
-    index: number
+    index: number,
   ) => {
-    const keyboardKeyCode = nativeEvent.code
+    const keyboardKeyCode = nativeEvent.code;
 
     if (keyboardKeyCode !== 'Backspace') {
-      return
+      return;
     }
 
     if (!pinCode[index]) {
-      handleChangeInputFocus(index - 1)
-      return
+      handleChangeInputFocus(index - 1);
+      return;
     }
 
-    onPinChange(undefined, index)
-  }
+    onPinChange(undefined, index);
+  };
 
   return (
     <div>
       {Array.from({ length: pinLength }, (_, index) => (
         <StyledPinInput
-          onKeyDown={(event) => handleOnKeyDown(event, index)}
+          onKeyDown={event => handleOnKeyDown(event, index)}
           key={index}
-          ref={(element) => {
-            inputRef.current[index] = element || undefined
+          ref={element => {
+            inputRef.current[index] = element || undefined;
           }}
-          onChange={(event) => handleOnChange(event, index)}
+          onChange={event => handleOnChange(event, index)}
           value={pinCode[index]}
         />
       ))}
     </div>
-  )
+  );
 }

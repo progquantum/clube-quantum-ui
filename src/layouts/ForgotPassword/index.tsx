@@ -1,66 +1,63 @@
-import Image from 'next/image'
-import { SubmitHandler, useForm } from 'react-hook-form'
-import { yupResolver } from '@hookform/resolvers/yup'
-import { toast } from 'react-toastify'
-import { useRouter } from 'next/router'
+import Image from 'next/image';
+import { SubmitHandler, useForm } from 'react-hook-form';
+import { yupResolver } from '@hookform/resolvers/yup';
+import { toast } from 'react-toastify';
+import { useRouter } from 'next/router';
 
-import { AxiosError } from 'axios'
+import { AxiosError } from 'axios';
 
-import { Input } from 'components/Input'
-import { Footer } from 'components/Footer'
+import { FiMail } from 'react-icons/fi';
 
-import { schema } from 'schemas/recoveryPassword'
-import { useRecoveryPassword } from 'hooks/auth/useRecoveryPassword'
+import { Input } from 'components/Input';
+import { Footer } from 'components/Footer';
+import { schema } from 'schemas/recoveryPassword';
+import { useRecoveryPassword } from 'hooks/auth/useRecoveryPassword';
+import { SIGN_IN_PAGE } from 'constants/routesPath';
+import { ErrorResponse } from 'shared/errors/apiSchema';
+import { error } from 'helpers/notify/error';
 
-import { SIGN_IN_PAGE } from 'constants/routesPath'
+import { RecoveryPasswordFormValues } from './types';
 
-import { ErrorResponse } from 'shared/errors/apiSchema'
+import * as S from './styles';
 
-import { error } from 'helpers/notify/error'
+export function ForgotPasswordPage() {
+  const { control, handleSubmit, formState } = useForm({
+    resolver: yupResolver(schema),
+  });
 
-import { RecoveryPasswordFormValues } from './types'
-import * as S from './styles'
+  const router = useRouter();
 
-export function ForgotPasswordPage () {
-  const {
-    control,
-    handleSubmit,
-    formState
-  } = useForm({
-    resolver: yupResolver(schema)
-  })
+  const { mutate: sendRecoveryPasswordRequest, isLoading } =
+    useRecoveryPassword();
 
-  const router = useRouter()
-
-  const {
-    mutate: sendRecoveryPasswordRequest,
-    isLoading
-  } = useRecoveryPassword()
-
-  const { isDirty, isSubmitting } = formState
-  const isButtonDisabled = !isDirty || isSubmitting || isLoading
+  const { isDirty, isSubmitting } = formState;
+  const isButtonDisabled = !isDirty || isSubmitting || isLoading;
 
   const handleRecoveryPassword: SubmitHandler<RecoveryPasswordFormValues> = ({
-    email
+    email,
   }) => {
-    sendRecoveryPasswordRequest({
-      email
-    }, {
-      onSuccess: (_, variables) => {
-        toast.success(`Enviado e-mail para ${variables.email}`)
-
-        router.push(SIGN_IN_PAGE)
+    sendRecoveryPasswordRequest(
+      {
+        email,
       },
-      onError: (err: AxiosError<ErrorResponse>) => {
-        const isEmailRegistered = err.response?.data.statusCode === 400 &&
-        err.response?.data.message === 'Email not registered'
+      {
+        onSuccess: (_, variables) => {
+          toast.success(`Enviado e-mail para ${variables.email}`);
 
-        if (isEmailRegistered) {
-          error('Email não registrado')
-        }
-      }
-    })
-  }
+          router.push(SIGN_IN_PAGE);
+        },
+        onError: (err: AxiosError<ErrorResponse>) => {
+          const isEmailRegistered =
+            err.response?.data.statusCode === 400 &&
+            err.response?.data.message === 'Email not registered';
+
+          if (isEmailRegistered) {
+            error('Email não registrado');
+          }
+        },
+      },
+    );
+  };
 
   return (
     <>
@@ -71,14 +68,15 @@ export function ForgotPasswordPage () {
           <h1>Esqueceu sua Senha</h1>
 
           <Input
-            type='email'
-            label='Email'
-            name='email'
+            label="Email"
+            name="email"
+            placeholder="E-mail"
+            icon={FiMail}
             control={control}
           />
 
           <S.FormBtn
-            type='submit'
+            type="submit"
             disabled={isButtonDisabled}
             loading={isLoading}
           >
@@ -86,10 +84,14 @@ export function ForgotPasswordPage () {
           </S.FormBtn>
         </S.Form>
 
-        <Image width={385} height={382} src='/images/main-forgot-password.svg' />
+        <Image
+          width={385}
+          height={382}
+          src="/images/main-forgot-password.svg"
+        />
       </S.Container>
 
       <Footer />
     </>
-  )
+  );
 }

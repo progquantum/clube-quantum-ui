@@ -1,9 +1,5 @@
-import * as S from './styles'
+import * as S from './styles';
 
-export function Skeleton () {
-  return (
-    <>
-      <S.Container />
-    </>
-  )
+export function Skeleton() {
+  return <S.Container />;
 }

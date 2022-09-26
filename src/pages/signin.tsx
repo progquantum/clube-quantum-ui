@@ -1,16 +1,14 @@
-import { GetServerSideProps } from 'next'
+import { GetServerSideProps } from 'next';
 
-import { SignInPage } from 'layouts/SignIn'
-import { withSSRGuest } from 'helpers/auth/withSSRGuest'
+import { SignInPage } from 'layouts/SignIn';
+import { withSSRGuest } from 'helpers/auth/withSSRGuest';
 
-export const getServerSideProps: GetServerSideProps = withSSRGuest(async () => {
-  return {
-    props: {}
-  }
-})
+export const getServerSideProps: GetServerSideProps = withSSRGuest(
+  async () => ({
+    props: {},
+  }),
+);
 
-export default function SignIn () {
-  return (
-    <SignInPage />
-  )
+export default function SignIn() {
+  return <SignInPage />;
 }

@@ -1,17 +1,19 @@
-import { useMutation } from 'react-query'
+import { useMutation } from 'react-query';
 
-import { quantumClientBase } from 'config/client'
-import { Session } from 'shared/types/apiSchema'
+import { quantumClientBase } from 'config/client';
+import { Session } from 'shared/types/apiSchema';
 
-import { LegalPersonSingRequest } from './types'
+import { LegalPersonSingRequest } from './types';
 
-const legalPersonSingUpResquest = (
-  data: LegalPersonSingRequest
-) => (
-  quantumClientBase.post<Session>('/users/legal-persons', data)
-    .then(response => response.data)
-)
+async function legalPersonSingUpResquest(credentials: LegalPersonSingRequest) {
+  const { data } = await quantumClientBase.post(
+    '/users/legal-persons',
+    credentials,
+  );
 
-export function useLegalPersonSingUp () {
-  return useMutation(legalPersonSingUpResquest)
+  return data as Session;
+}
+
+export function useLegalPersonSingUp() {
+  return useMutation(legalPersonSingUpResquest);
 }

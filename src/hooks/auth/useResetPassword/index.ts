@@ -1,17 +1,18 @@
-import { useMutation } from 'react-query'
+import { useMutation } from 'react-query';
 
-import { quantumClientBase } from 'config/client'
+import { quantumClientBase } from 'config/client';
 
-import { ResetPasswordRequest } from './types'
+import { ResetPasswordRequest } from './types';
 
-export async function resetPasswordRequest (
-  credentials: ResetPasswordRequest
-) {
-  const { data } = await quantumClientBase.patch('/passwords/reset', credentials)
+export async function resetPasswordRequest(credentials: ResetPasswordRequest) {
+  const { data } = await quantumClientBase.patch(
+    '/passwords/reset',
+    credentials,
+  );
 
-  return data as unknown
+  return data as unknown;
 }
 
-export function useResetPassword () {
-  return useMutation(resetPasswordRequest)
+export function useResetPassword() {
+  return useMutation(resetPasswordRequest);
 }

@@ -1,4 +1,4 @@
-import styled, { css } from 'styled-components'
+import styled, { css } from 'styled-components';
 
 export const Container = styled.main`
   max-width: 80rem;
@@ -11,12 +11,12 @@ export const Container = styled.main`
   justify-content: space-evenly;
   align-items: flex-start;
 
-  @media(max-width: 720px) {
+  @media (max-width: 720px) {
     flex-direction: column;
     align-items: center;
     gap: 70px;
   }
-`
+`;
 
 const wrapperStyles = css`
   max-width: 370px;
@@ -32,7 +32,7 @@ const wrapperStyles = css`
     align-items: center;
     justify-content: center;
   }
-`
+`;
 
 export const LeftWrapper = styled.div`
   ${wrapperStyles}
@@ -55,7 +55,7 @@ export const LeftWrapper = styled.div`
     color: ${({ theme }) => theme.colors.white};
     font-weight: 900;
   }
-`
+`;
 
 export const RightWrapper = styled.div`
   ${wrapperStyles}
@@ -82,7 +82,7 @@ export const RightWrapper = styled.div`
     align-self: center;
   }
 
-  @media(max-width: 720px) {
+  @media (max-width: 720px) {
     padding-left: 1rem;
   }
-`
+`;

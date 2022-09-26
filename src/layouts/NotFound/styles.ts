@@ -1,9 +1,9 @@
-import styled from 'styled-components'
+import styled from 'styled-components';
 
 export const Container = styled.main`
   width: 100%;
   margin-bottom: 6.25rem;
-`
+`;
 
 export const Wrapper = styled.div`
   max-width: 1640px;
@@ -15,16 +15,16 @@ export const Wrapper = styled.div`
   justify-content: center;
   gap: 10rem;
 
-  @media(max-width: 950px) {
+  @media (max-width: 950px) {
     gap: 3rem;
   }
 
-  @media(max-width: 820px) {
+  @media (max-width: 820px) {
     > span {
       display: none !important;
     }
   }
-`
+`;
 
 export const Info = styled.div`
   display: flex;
@@ -58,7 +58,7 @@ export const Info = styled.div`
     justify-content: center;
   }
 
-  @media(max-width: 400px) {
+  @media (max-width: 400px) {
     h1 {
       font-size: 2.5rem;
     }
@@ -71,4 +71,4 @@ export const Info = styled.div`
       width: 20rem;
     }
   }
-`
+`;

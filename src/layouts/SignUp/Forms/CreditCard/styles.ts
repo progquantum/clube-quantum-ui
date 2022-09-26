@@ -1,24 +1,11 @@
-import styled from 'styled-components'
+import styled from 'styled-components';
 
 export const Form = styled.form`
   width: 100%;
   display: flex;
   max-width: 21.875rem;
   flex-direction: column;
-`
-
-export const Wrapper = styled.div`
-  width: 100%;
-  margin-top: 2rem;
-
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-
-  img {
-    width: 30%;
-  }
-`
+`;
 
 export const ButtonGroup = styled.section`
   width: 100%;
@@ -30,7 +17,7 @@ export const ButtonGroup = styled.section`
   button:last-of-type {
     margin: 0;
   }
-`
+`;
 
 export const JumpStepButton = styled.p`
   margin-top: 15px;
@@ -40,4 +27,4 @@ export const JumpStepButton = styled.p`
   color: ${({ theme }) => theme.colors.midnightBlue};
   text-align: center;
   cursor: pointer;
-`
+`;

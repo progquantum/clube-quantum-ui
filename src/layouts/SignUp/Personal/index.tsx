@@ -1,34 +1,34 @@
-import { useState } from 'react'
-import Image from 'next/image'
+import { useState } from 'react';
+import Image from 'next/image';
 
-import { Steper } from 'components/Steper'
-import { Footer } from 'components/Footer'
-import { Plans } from 'components/Plans'
-import { Successful } from 'components/Successful'
+import { Steper } from 'components/Steper';
+import { Footer } from 'components/Footer';
+import { Plans } from 'components/Plans';
+import { Successful } from 'components/Successful';
 
-import { CredCard } from '../Forms/CredCard'
-import { PersonalAddress } from '../Forms/PersonalAddress'
-import { IndividualPerson } from '../Forms/IndividualPerson'
-import { PinCode } from '../Forms/PinCode'
-import { Phone } from '../Forms/Phone'
-import { CPF } from '../Forms/CPF'
-import { LeftWrapper } from '../Forms/components/LeftWrapper'
-import { BankAccount } from '../Forms/BankAccount'
-import * as S from './styles'
+import { CreditCard } from '../Forms/CreditCard';
+import { PersonalAddress } from '../Forms/PersonalAddress';
+import { IndividualPerson } from '../Forms/IndividualPerson';
+import { PinCode } from '../Forms/PinCode';
+import { Phone } from '../Forms/Phone';
+import { CPF } from '../Forms/CPF';
+import { LeftWrapper } from '../Forms/LeftWrapper';
+import { BankAccount } from '../Forms/BankAccount';
+import * as S from './styles';
 
-export function PersonalSignUpPage () {
-  const [step, setStep] = useState(0)
+export function PersonalSignUpPage() {
+  const [step, setStep] = useState(0);
 
-  function nextStep () {
-    setStep((prevState) => prevState + 1)
+  function nextStep() {
+    setStep(prevState => prevState + 1);
   }
 
-  function previousStep () {
-    setStep((prevState) => prevState - 1)
+  function previousStep() {
+    setStep(prevState => prevState - 1);
   }
 
-  function navigateToSuccessfullSignUp () {
-    setStep((prevState) => prevState + 2)
+  function navigateToSuccessfullSignUp() {
+    setStep(prevState => prevState + 3);
   }
 
   return (
@@ -37,30 +37,38 @@ export function PersonalSignUpPage () {
 
       <S.Container>
         <S.ContentsWrapper width={step <= 7 ? 6 : 0}>
-          {step <= 7 && (
-            <Steper currentStep={step} stepsNumber={8} />
-          )}
+          {step <= 7 && <Steper currentStep={step} stepsNumber={8} />}
 
           <S.Contents>
             {step <= 4 && (
-              <Image width={386} height={373} src='/images/girl-on-ladder.png' alt='' />
+              <Image
+                width={386}
+                height={373}
+                src="/images/girl-on-ladder.png"
+                alt=""
+              />
             )}
 
             {step === 5 && (
               <LeftWrapper
-                title='Para esta etapa, precisamos que você informe o seu cartão de crédito para posterior escolha do seu plano.'
-                paragraph='Você pode pular esta etapa, mas precisará cadastrar o seu cartão posteriormente para poder aderir a um plano e aproveitar todos os benefícios de um membro Quantum Clube.'
+                title="Para esta etapa, precisamos que você informe o seu cartão de crédito para posterior escolha do seu plano."
+                paragraph="Você pode pular esta etapa, mas precisará cadastrar o seu cartão posteriormente para poder aderir a um plano e aproveitar todos os benefícios de um membro Quantum Clube."
               />
             )}
             {step === 6 && (
               <LeftWrapper
-                title='Para esta etapa, precisamos que você informe sua conta Banco Um. '
-                paragraph='Você pode pular esta etapa, mas precisará cadastrar sua conta posteriormente para poder receber o seu cashback e aproveitar todos os benefícios de um membro Quantum Clube.'
+                title="Para esta etapa, precisamos que você informe sua conta Banco Um. "
+                paragraph="Você pode pular esta etapa, mas precisará cadastrar sua conta posteriormente para poder receber o seu cashback e aproveitar todos os benefícios de um membro Quantum Clube."
               />
             )}
 
             {step === 8 && (
-              <Image width={291} height={322} src='/images/successful-signup.png' alt='' />
+              <Image
+                width={291}
+                height={322}
+                src="/images/successful-signup.png"
+                alt=""
+              />
             )}
 
             {step === 0 && (
@@ -97,9 +105,11 @@ export function PersonalSignUpPage () {
             )}
 
             {step === 5 && (
-              <CredCard
+              <CreditCard
                 onUpdateFormStep={() => nextStep()}
-                onNavigateToSuccessfulSignUp={() => navigateToSuccessfullSignUp()}
+                onNavigateToSuccessfulSignUp={() =>
+                  navigateToSuccessfullSignUp()
+                }
                 onPreviousFormStep={() => previousStep()}
               />
             )}
@@ -110,17 +120,13 @@ export function PersonalSignUpPage () {
               />
             )}
 
-            {step === 7 && (
-              <Plans onUpdateFormStep={() => nextStep()} />
-            )}
+            {step === 7 && <Plans onUpdateFormStep={() => nextStep()} />}
 
-            {step === 8 && (
-              <Successful />
-            )}
+            {step === 8 && <Successful />}
           </S.Contents>
         </S.ContentsWrapper>
       </S.Container>
       <Footer />
     </>
-  )
+  );
 }

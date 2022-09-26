@@ -1,4 +1,4 @@
-import styled, { keyframes } from 'styled-components'
+import styled, { keyframes } from 'styled-components';
 
 const show = keyframes`
   0% {
@@ -10,7 +10,7 @@ const show = keyframes`
   100% {
     opacity: 1;
   }
-`
+`;
 
 export const Container = styled.div`
   width: 100vw;
@@ -25,9 +25,9 @@ export const Container = styled.div`
   justify-content: center;
 
   animation: ${show} 1s ease-in forwards;
-`
+`;
 
 export const Animation = styled.object`
   width: 100%;
   height: 100%;
-`
+`;

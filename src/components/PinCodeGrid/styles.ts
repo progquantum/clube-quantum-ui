@@ -1,4 +1,4 @@
-import styled from 'styled-components'
+import styled from 'styled-components';
 
 export const StyledPinInput = styled.input`
   width: 2.5rem;
@@ -16,8 +16,8 @@ export const StyledPinInput = styled.input`
 
   & + input {
     margin-left: 0.9375rem;
-    @media (max-width: 414px){
+    @media (max-width: 414px) {
       margin-left: 0.75rem;
+    }
   }
-  }
-`
+`;

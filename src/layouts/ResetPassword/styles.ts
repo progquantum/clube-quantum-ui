@@ -1,15 +1,15 @@
-import styled from 'styled-components'
+import styled from 'styled-components';
 
-import { Button } from 'components/Button'
+import { Button } from 'components/Button';
 
 export const Container = styled.section`
-  width:100%;
+  width: 100%;
   height: 100vh;
   display: flex;
   justify-content: center;
   align-items: center;
   gap: 2.5rem;
-`
+`;
 
 export const Form = styled.form`
   width: 322px;
@@ -30,9 +30,9 @@ export const Form = styled.form`
     color: ${({ theme }) => theme.colors.gray[700]};
     align-items: center;
   }
-`
+`;
 
 export const FormBtn = styled(Button)`
   width: 100%;
   height: 44px;
-`
+`;

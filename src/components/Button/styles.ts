@@ -1,6 +1,6 @@
-import styled, { css } from 'styled-components'
+import styled, { css } from 'styled-components';
 
-import { ButtonProps } from './types'
+import { ButtonProps } from './types';
 
 const variants = {
   secondary: css`
@@ -8,7 +8,7 @@ const variants = {
     color: ${({ theme }) => theme.colors.midnightBlue};
     border: 0.1rem solid ${({ theme }) => theme.colors.midnightBlue};
 
-    :hover {
+    &:hover {
       background: ${({ theme }) => theme.colors.midnightBlue};
       color: ${({ theme }) => theme.colors.white};
     }
@@ -23,8 +23,8 @@ const variants = {
 
   transparent: css`
     background: transparent;
-  `
-}
+  `,
+};
 
 export const Container = styled.button<ButtonProps>`
   ${({ theme, variant, color, background }) => css`
@@ -38,11 +38,14 @@ export const Container = styled.button<ButtonProps>`
     color: ${color || theme.colors.white};
     transition: ${theme.transitions.default};
 
+    &:disabled {
+      cursor: not-allowed;
+    }
+
     * {
       transition: ${theme.transitions.default};
     }
 
-
     ${variant && variants[variant]};
   `}
-`
+`;

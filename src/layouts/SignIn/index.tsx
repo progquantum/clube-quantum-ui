@@ -1,45 +1,33 @@
-import { ChangeEvent } from 'react'
-import { SubmitHandler, useForm } from 'react-hook-form'
-import { yupResolver } from '@hookform/resolvers/yup'
-import Link from 'next/link'
-import Head from 'next/head'
+import { ChangeEvent } from 'react';
+import { SubmitHandler, useForm } from 'react-hook-form';
+import { yupResolver } from '@hookform/resolvers/yup';
+import { FiUser, FiLock } from 'react-icons/fi';
+import Link from 'next/link';
+import Head from 'next/head';
 
-import { Input } from 'components/Input'
-import { Footer } from 'components/Footer'
-import { useAuthDispatch, useAuthState } from 'contexts/auth/AuthContext'
-import { schema } from 'schemas/signIn'
-import { formatCPF } from 'utils/formatters/formatCPF'
+import { Input } from 'components/Input';
+import { Footer } from 'components/Footer';
+import { useAuthDispatch, useAuthState } from 'contexts/auth/AuthContext';
+import { schema } from 'schemas/signIn';
+import { formatCPF } from 'utils/formatters/formatCPF';
+import { FORGOT_PASSWORD_PAGE, SIGN_UP_PAGE } from 'constants/routesPath';
 
-import { FORGOT_PASSWORD_PAGE, SIGN_UP_PAGE } from 'constants/routesPath'
+import { SignInFormValues } from './types';
+import * as S from './styles';
 
-import { SignInFormValues } from './types'
-import * as S from './styles'
+export function SignInPage() {
+  const { control, handleSubmit, register, setValue, formState } = useForm({
+    resolver: yupResolver(schema),
+  });
+  const { signIn } = useAuthDispatch();
+  const { loading } = useAuthState();
 
-export function SignInPage () {
-  const {
-    control,
-    handleSubmit,
-    register,
-    setValue,
-    formState
-  } = useForm({
-    resolver: yupResolver(schema)
-  })
-  const { signIn } = useAuthDispatch()
-  const { loading } = useAuthState()
+  const { isSubmitting } = formState;
+  const isButtonDisabled = isSubmitting || loading;
 
-  const { isDirty, isSubmitting } = formState
-  const isButtonDisabled = !isDirty || isSubmitting || loading
-
-  const onSubmit: SubmitHandler<SignInFormValues> = (data) => {
-    signIn(data)
-  }
-
-  const handleInputChange = (e: ChangeEvent<HTMLInputElement>) => {
-    const valueFormatted = formatCPF(e.target.value)
-
-    setValue('login', valueFormatted)
-  }
+  const handleSignIn: SubmitHandler<SignInFormValues> = data => {
+    signIn(data);
+  };
 
   return (
     <>
@@ -48,39 +36,42 @@ export function SignInPage () {
       </Head>
 
       <S.Wrapper>
-        <S.Form onSubmit={handleSubmit(onSubmit)}>
+        <S.Form onSubmit={handleSubmit(handleSignIn)}>
           <h1>Login</h1>
 
           <Input
-            type='text'
-            label='CPF/CNPJ'
-            name='login'
+            type="text"
+            label="CPF/CNPJ"
+            name="login"
+            placeholder="CPF/CNPJ"
+            icon={FiUser}
             control={control}
             {...register('login', {
-              onChange: (e) => handleInputChange(e)
+              onChange: (e: ChangeEvent<HTMLInputElement>) => {
+                setValue('login', formatCPF(e.target.value));
+              },
             })}
           />
 
           <Input
-            type='password'
-            label='Senha'
-            name='password'
+            type="password"
+            label="Senha"
+            name="password"
+            placeholder="Senha"
+            icon={FiLock}
             control={control}
           />
 
           <S.LoginAbout>
             <span>
-              <input type='checkbox' id='remember' />
-              <label htmlFor='remember'>Lembre meu login</label>
+              <input type="checkbox" id="remember" />
             </span>
 
-            <Link href={FORGOT_PASSWORD_PAGE}>
-              Esqueceu a sua senha?
-            </Link>
+            <Link href={FORGOT_PASSWORD_PAGE}>Esqueceu a sua senha?</Link>
           </S.LoginAbout>
 
           <S.SignInButton
-            type='submit'
+            type="submit"
             loading={loading}
             disabled={isButtonDisabled}
           >
@@ -91,12 +82,10 @@ export function SignInPage () {
         <S.CreateAccountButtonWrapper>
           <h1>Ainda não é um membro do Quantum Clube?</h1>
 
-          <Link href={SIGN_UP_PAGE}>
-            Criar Conta
-          </Link>
+          <Link href={SIGN_UP_PAGE}>Criar Conta</Link>
         </S.CreateAccountButtonWrapper>
       </S.Wrapper>
       <Footer />
     </>
-  )
+  );
 }
