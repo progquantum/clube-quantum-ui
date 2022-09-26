@@ -1,7 +1,9 @@
-import { useInformationUser } from 'hooks/useFindMeProfile'
+
 import { Header } from 'components/Header'
 import { SideBar } from 'components/SideBar'
 import { ServicesBank } from 'components/ServicesBank'
+
+import { useGetProfile } from 'hooks/useFindMeProfile'
 
 import * as S from './styles'
 import { UploadAvatar } from './UploadAvatar'
@@ -10,7 +12,7 @@ import { Address } from './Address'
 import { ChangePassword } from './ChangePassword'
 
 export function UpdateRegisterPage () {
-  const { data, isLoading } = useInformationUser({
+  const { data } = useGetProfile({
     refetchOnWindowFocus: false
   })
 
@@ -24,10 +26,9 @@ export function UpdateRegisterPage () {
           <S.MenuGrid />
           <S.ColumnGrid>
             <S.FLex>
-              <UploadAvatar />
+              <UploadAvatar user={data} />
               <Address
-                user={data}
-                loading={isLoading}
+                address={data?.address}
               />
             </S.FLex>
             <S.FLex>

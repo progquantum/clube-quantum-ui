@@ -3,7 +3,7 @@ import styled from 'styled-components'
 export const Container = styled.main`
   max-width: 72.125rem;
   width: 100%;
-  margin: 5rem auto;
+  margin: 3rem auto;
   gap: 3.125rem;
   color: ${({ theme }) => theme.colors.gray[700]};
   display: flex;
@@ -14,6 +14,7 @@ export const Container = styled.main`
 export const RightWrapper = styled.div`
   display: flex;
   flex-direction: column;
+
   @media (max-width: 460px){
     align-items: center;
   }
