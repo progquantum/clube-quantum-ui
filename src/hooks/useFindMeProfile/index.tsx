@@ -11,6 +11,6 @@ export async function getUserInformation () {
     .then((response) => response.data)
 }
 
-export function useInformationUser (options?: UseQueryOptions<UserRegistrationData>) {
+export function useGetProfile (options?: UseQueryOptions<UserRegistrationData>) {
   return useQuery(QUERY_KEY_ME_PROFILE, getUserInformation, options)
 }
