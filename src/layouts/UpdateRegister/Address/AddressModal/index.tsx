@@ -1,23 +1,22 @@
 import Modal from 'react-modal'
 
 import { SubmitHandler, useForm } from 'react-hook-form'
-
 import { yupResolver } from '@hookform/resolvers/yup'
 
 import { useQueryClient } from 'react-query'
 
-import { addressSchemas } from 'schemas/updateRegister'
-import { QUERY_KEY_ME_PROFILE } from 'hooks/useFindMeProfile'
+import { Location } from 'components/Illustrations/Location'
 import { Input } from 'components/Input'
+
+import { QUERY_KEY_ME_PROFILE } from 'hooks/useFindMeProfile'
+import { useUpadateAddress } from 'hooks/useUpdateAddress'
+
+import { addressSchemas } from 'schemas/updateRegister'
 import { formatCEP } from 'utils/formatters/formatCEP'
 import { formatAddressNumber } from 'utils/formatters/formatAddressNumber'
 import { formatValueToUppercase } from 'utils/formatters/formatValueToUppercase'
-import { Location } from 'components/Illustrations/Location'
-
-import { useUpadateAddress } from 'hooks/useUpdateAddress'
 
 import { error } from 'helpers/notify/error'
-
 import { success } from 'helpers/notify/success'
 
 import { AddressInformationProps, AddressFormProps } from './types'
@@ -32,20 +31,16 @@ export function AddressInformationModal ({ isOpen, onRequestClose }: AddressInfo
     control,
     handleSubmit,
     register,
-    setValue
+    setValue,
+    reset
   } = useForm({
-    defaultValues: {
-      street: '',
-      number: '',
-      neighborhood: '',
-      complement: '',
-      zip_code: '',
-      city: '',
-      state: '',
-      country: ''
-    },
     resolver: yupResolver(addressSchemas)
   })
+
+  const handleCloseModal = () => {
+    onRequestClose()
+    reset()
+  }
 
   const handleUpdateAddress:SubmitHandler<AddressFormProps> = async (data) => {
     await putAddress({
@@ -75,7 +70,7 @@ export function AddressInformationModal ({ isOpen, onRequestClose }: AddressInfo
     <>
       <Modal
         isOpen={isOpen}
-        onRequestClose={onRequestClose}
+        onRequestClose={handleCloseModal}
         overlayClassName='react-modal-overlay'
         className='react-modal-container'
       >
@@ -93,6 +88,7 @@ export function AddressInformationModal ({ isOpen, onRequestClose }: AddressInfo
                 control={control}
                 name='street'
               />
+
               <Input
                 type='text'
                 label='Número'
@@ -157,6 +153,7 @@ export function AddressInformationModal ({ isOpen, onRequestClose }: AddressInfo
                   }
                 })}
               />
+
               <Input
                 type='text'
                 label='País'
@@ -172,7 +169,7 @@ export function AddressInformationModal ({ isOpen, onRequestClose }: AddressInfo
             >
               Confirmar Alterações
             </S.ButtonConfirm>
-            <S.ButtonCancel onClick={onRequestClose}>Cancelar</S.ButtonCancel>
+            <S.ButtonCancel onClick={handleCloseModal}>Cancelar</S.ButtonCancel>
           </S.AddressForm>
         </S.AddressContainer>
       </Modal>

@@ -8,12 +8,12 @@ import { PersonalInformationModal } from './PersonalInformatioModal'
 import * as S from './styles'
 
 export function PersonalInformation ({ user } : PersonalInformationProps) {
+  const [requestModal, setRequestModal] = useState(false)
+
   const name = user?.name
   const formattedBirthDate = user?.birth_date?.slice(0, 10).split('-').reverse().join('/')
   const phone = user?.phone
   const email = user?.email
-
-  const [requestModal, setRequestModal] = useState(false)
 
   const handleRequestModal = () => {
     setRequestModal(prevState => !prevState)

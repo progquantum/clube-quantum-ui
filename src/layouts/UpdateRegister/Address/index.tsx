@@ -2,27 +2,28 @@ import { useState } from 'react'
 
 import { Edit } from 'components/Illustrations/Edit'
 
-import { AddressProps } from './types'
-import * as S from './styles'
 import { AddressInformationModal } from './AddressModal'
 
-export function Address ({ user } : AddressProps) {
-  const street = user?.address.street
-  const number = user?.address.number
-  const neighborhood = user?.address.neighborhood
-  const complement = user?.address.complement
-  const zip_code = user?.address.zip_code
-  const city = user?.address.city
-  const state = user?.address.state
-  const country = user?.address.country
+import { AddressProps } from './types'
+import * as S from './styles'
 
+export function Address ({ address } : AddressProps) {
   const [requestModal, setRequestModal] = useState(false)
+
+  const street = address?.street
+  const number = address?.number
+  const neighborhood = address?.neighborhood
+  const complement = address?.complement
+  const zipCode = address?.zip_code
+  const city = address?.city
+  const state = address?.state
+  const country = address?.country
+
+  const hasComplement = address?.complement
 
   const handleRequestModal = () => {
     setRequestModal(prevState => !prevState)
   }
-
-  const hasComplement = user?.address.complement
 
   return (
     <>
@@ -46,7 +47,7 @@ export function Address ({ user } : AddressProps) {
         <p>{neighborhood}</p>
 
         <h3>CEP</h3>
-        <p>{zip_code}</p>
+        <p>{zipCode}</p>
 
         <h3>Cidade</h3>
         <p>{city}</p>

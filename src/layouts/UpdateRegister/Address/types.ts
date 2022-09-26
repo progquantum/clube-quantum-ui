@@ -1,6 +1,6 @@
-import { UserRegistrationData } from 'shared/types/apiSchema'
+import { Address } from 'shared/types/apiSchema'
 
 export type AddressProps = {
-  user?: UserRegistrationData
+  address: Address
   loading?: boolean
 }

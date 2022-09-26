@@ -11,7 +11,6 @@ import { FORGOT_PASSWORD_PAGE } from 'constants/routesPath'
 import { useChangePassword } from 'hooks/auth/useChangePassword'
 
 import { success } from 'helpers/notify/success'
-
 import { error } from 'helpers/notify/error'
 
 import { ChangePasswordFormValues } from './types'
@@ -19,21 +18,16 @@ import { ChangePasswordFormValues } from './types'
 import * as S from './styles'
 
 export function ChangePassword () {
+  const { mutate: changePassword, isLoading } = useChangePassword()
+
   const {
     control,
     handleSubmit,
     formState,
     reset
   } = useForm({
-    defaultValues: {
-      actual_password: '',
-      new_password: '',
-      confirm_new_password: ''
-    },
     resolver: yupResolver(schema)
   })
-
-  const { mutate: changePassword, isLoading } = useChangePassword()
 
   const { isDirty, isSubmitting } = formState
   const isButtonDisabled = !isDirty || isSubmitting || isLoading
@@ -64,6 +58,7 @@ export function ChangePassword () {
           <User width='18' height='20' color='#BBBBBB' />
           <p>Alterar senha</p>
         </S.ResetPassword>
+
         <form onSubmit={handleSubmit(hanleChangePassword)}>
           <Input
             type='password'
@@ -71,6 +66,7 @@ export function ChangePassword () {
             name='actual_password'
             control={control}
           />
+
           <S.ForgotPassword href={FORGOT_PASSWORD_PAGE}>
             Esqueceu sua senha?
           </S.ForgotPassword>

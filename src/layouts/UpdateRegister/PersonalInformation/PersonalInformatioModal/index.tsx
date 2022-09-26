@@ -1,11 +1,13 @@
 import Modal from 'react-modal'
-import { SubmitHandler, useForm } from 'react-hook-form'
+import { ChangeEvent } from 'react'
 
+import { SubmitHandler, useForm } from 'react-hook-form'
 import { yupResolver } from '@hookform/resolvers/yup'
 
 import { useQueryClient } from 'react-query'
 
-import { ChangeEvent } from 'react'
+import { QUERY_KEY_ME_PROFILE } from 'hooks/useFindMeProfile'
+import { useUpdatePersonalInformation } from 'hooks/useUpdatePersonalInformation'
 
 import { User } from 'components/Illustrations/User'
 import { Input } from 'components/Input'
@@ -13,31 +15,24 @@ import { Input } from 'components/Input'
 import { formatPhoneNumber } from 'utils/formatters/formatPhoneNumber'
 import { formatBirthDate } from 'utils/formatters/formatBirthDate'
 import { personalInformationSchemas } from 'schemas/updateRegister'
-import { QUERY_KEY_ME_PROFILE } from 'hooks/useFindMeProfile'
-import { useUpdatePersonalInformation } from 'hooks/useUpdatePersonalInformation'
 
 import { success } from 'helpers/notify/success'
-
 import { error } from 'helpers/notify/error'
 
-import * as S from './styles'
 import { PersonalInformationFormProps, PersonalInformationProps } from './types'
+import * as S from './styles'
 
 export function PersonalInformationModal ({ isOpen, onRequestClose }: PersonalInformationProps) {
   const { mutateAsync: putPersonalInformation, isLoading: loading } = useUpdatePersonalInformation()
   const queryClient = useQueryClient()
+
   const {
     control,
     handleSubmit,
     register,
-    setValue
+    setValue,
+    reset
   } = useForm({
-    defaultValues: {
-      name: '',
-      birth_date: '',
-      phone: '',
-      email: ''
-    },
     resolver: yupResolver(personalInformationSchemas)
   })
 
@@ -51,6 +46,11 @@ export function PersonalInformationModal ({ isOpen, onRequestClose }: PersonalIn
     const formattedBirthDate = formatBirthDate(e.target.value)
 
     setValue('birth_date', formattedBirthDate)
+  }
+
+  const handleCloseModal = () => {
+    onRequestClose()
+    reset()
   }
 
   const handleSubmitPersonalInformation:SubmitHandler<PersonalInformationFormProps> = async (data) => {
@@ -69,7 +69,7 @@ export function PersonalInformationModal ({ isOpen, onRequestClose }: PersonalIn
         onRequestClose()
       },
       onError: () => {
-        error('Ops, algo deu errado!')
+        error('Opss, algo deu errado!')
       }
     })
   }
@@ -78,7 +78,7 @@ export function PersonalInformationModal ({ isOpen, onRequestClose }: PersonalIn
     <>
       <Modal
         isOpen={isOpen}
-        onRequestClose={onRequestClose}
+        onRequestClose={handleCloseModal}
         overlayClassName='react-modal-overlay'
         className='react-modal-container'
       >
@@ -87,6 +87,7 @@ export function PersonalInformationModal ({ isOpen, onRequestClose }: PersonalIn
             <User width='18' height='20' color='#BBBBBB' />
             <p>Informações Pessoais</p>
           </S.TextContent>
+
           <S.PersonalInformationForm onSubmit={handleSubmit(handleSubmitPersonalInformation)}>
             <Input
               type='text'
@@ -94,6 +95,7 @@ export function PersonalInformationModal ({ isOpen, onRequestClose }: PersonalIn
               control={control}
               name='name'
             />
+
             <Input
               type='text'
               label='Data de Nascimento'
@@ -103,6 +105,7 @@ export function PersonalInformationModal ({ isOpen, onRequestClose }: PersonalIn
                 onChange: e => handleBirthDateFormat(e)
               })}
             />
+
             <Input
               type='text'
               label='Telefone'
@@ -112,12 +115,14 @@ export function PersonalInformationModal ({ isOpen, onRequestClose }: PersonalIn
                 onChange: e => handlePhoneNumberFormat(e)
               })}
             />
+
             <Input
               type='text'
               label='Email'
               control={control}
               name='email'
             />
+
             <S.ButtonConfirm
               type='submit'
               loading={loading}
@@ -125,7 +130,12 @@ export function PersonalInformationModal ({ isOpen, onRequestClose }: PersonalIn
             >
               Confirmar Alterações
             </S.ButtonConfirm>
-            <S.ButtonCancel onClick={onRequestClose}>Cancelar</S.ButtonCancel>
+
+            <S.ButtonCancel
+              onClick={handleCloseModal}
+            >
+              Cancelar
+            </S.ButtonCancel>
           </S.PersonalInformationForm>
         </S.UserInformation>
       </Modal>
