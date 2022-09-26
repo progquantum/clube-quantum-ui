@@ -15,6 +15,8 @@ export const Container = styled.div`
 export const AccountDropdown = styled.img`
   width: 3rem;
   height: 3rem;
+  border-radius: 50%;
+  object-fit: cover;
 `
 
 export const AnimatedDropdown = styled(motion.nav)`

@@ -1,17 +1,18 @@
 import styled from 'styled-components'
 
 export const Container = styled.div`
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  flex-wrap: wrap;
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr 1fr;
   gap: 0.625rem;
   width: 100%;
   background-color: ${({ theme }) => theme.colors.background};
-  @media (max-width: 460px){
-    gap: 1.5rem;
-  }
 
+  @media (max-width: 1024px){
+    grid-template-columns: 1fr 1fr 1fr;
+  }
+  @media (max-width: 460px){
+    grid-template-columns: 1fr 1fr;
+  }
 `
 
 export const ButtonItem = styled.button`
@@ -26,12 +27,14 @@ export const ButtonItem = styled.button`
   width: 10.7269rem;
   height: 4.375rem;
   cursor: pointer;
+
   @media (max-width: 1024px){
-    width: 8.5625rem;
+    max-width: 8.5625rem;
   }
 
   @media (max-width: 460px){
-    width: 9.563rem;
+    width: 100%;
+    max-width: 9.563rem;
   }
 
   &:disabled {
