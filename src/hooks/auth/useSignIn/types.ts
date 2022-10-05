@@ -1,4 +1,4 @@
 export type SignInCredentials = {
-  login: string
-  password: string
-}
+  login: string;
+  password: string;
+};

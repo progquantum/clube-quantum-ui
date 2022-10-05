@@ -1,12 +1,12 @@
-import styled from 'styled-components'
+import styled from 'styled-components';
 
 export const StyledPinInput = styled.input`
-  width: 3rem;
-  height: 3rem;
+  width: 2.5rem;
+  height: 2.5rem;
   background-color: transparent;
 
   border: 2px solid ${({ theme }) => theme.colors.gray[700]};
-  border-radius: 1rem;
+  border-radius: 0.625rem;
 
   font-size: 0.8rem;
   text-align: center;
@@ -14,7 +14,15 @@ export const StyledPinInput = styled.input`
   font-size: 1rem;
   font-weight: bold;
 
-  & + input {
-    margin-left: 1rem;
+  @media (max-width: 414px) {
+    width: 2.2rem;
+    height: 2.2rem;
   }
-`
+
+  & + input {
+    margin-left: 0.9375rem;
+    @media (max-width: 414px) {
+      margin-left: 0.75rem;
+    }
+  }
+`;

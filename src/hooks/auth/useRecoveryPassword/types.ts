@@ -1,3 +1,3 @@
 export type RecoveryPasswordRequest = {
-  email: string
-}
+  email: string;
+};

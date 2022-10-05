@@ -1,5 +1,5 @@
 /* eslint-disable no-template-curly-in-string */
-import * as Yup from 'yup'
+import * as Yup from 'yup';
 
 const locale = {
   mixed: {
@@ -7,20 +7,20 @@ const locale = {
     required: 'Campo obrigatório.',
     notType: 'Campo inválido',
     oneOf: 'Este campo não corresponde',
-    max: 'Esse campo deve ser menor que ${max} caracteres.',
-    min: 'Esse campo deve ser maior que ${min} caracteres.'
+    max: 'Esse campo deve ter no máximo ${max} caracteres.',
+    min: 'Esse campo deve ter no mínimo ${min} caracteres.',
   },
   string: {
     email: 'Esse campo precisa ser um email válido.',
-    max: 'Esse campo deve ser maior que ${max} caracteres.',
-    min: 'Esse campo deve ser maior que ${min} caracteres.'
+    max: 'Esse campo deve ter no máximo ${max} caracteres.',
+    min: 'Esse campo deve ter no mínimo ${min} caracteres.',
   },
   number: {
-    max: 'Esse campo deve ser menor que ${max} caracteres.',
-    min: 'Esse campo deve ser maior que ${min} caracteres.'
-  }
-}
+    max: 'Esse campo deve ter no máximo ${max} caracteres.',
+    min: 'Esse campo deve ter no mínimo ${min} caracteres.',
+  },
+};
 
-Yup.setLocale(locale)
+Yup.setLocale(locale);
 
-export default Yup
+export default Yup;

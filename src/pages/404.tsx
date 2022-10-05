@@ -1,7 +1,5 @@
-import { NotFoundPage } from 'layouts/NotFound'
+import { NotFoundPage } from 'layouts/NotFound';
 
-export default function NotFound () {
-  return (
-    <NotFoundPage />
-  )
+export default function NotFound() {
+  return <NotFoundPage />;
 }

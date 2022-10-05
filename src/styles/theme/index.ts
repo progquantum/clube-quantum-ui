@@ -1,9 +1,9 @@
-import { transitions } from './transitions'
-import { colors } from './colors'
-import { fontSizes } from './fonts'
-import { gradients } from './gradients'
-import { radiis } from './radiis'
-import { spacings } from './spacings'
+import { transitions } from './transitions';
+import { colors } from './colors';
+import { fontSizes } from './fonts';
+import { gradients } from './gradients';
+import { radiis } from './radiis';
+import { spacings } from './spacings';
 
 export const theme = {
   colors,
@@ -11,5 +11,5 @@ export const theme = {
   gradients,
   radiis,
   spacings,
-  transitions
-}
+  transitions,
+};

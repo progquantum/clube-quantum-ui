@@ -1,23 +1,33 @@
-import { PropsWithChildren, useState } from 'react'
-import { QueryClient, QueryClientProvider } from 'react-query'
-import { ReactQueryDevtools } from 'react-query/devtools'
-import { ToastContainer } from 'react-toastify'
-import { DefaultSeo } from 'next-seo'
-import Modal from 'react-modal'
+import { PropsWithChildren, useState } from 'react';
+import { QueryClient, QueryClientProvider } from 'react-query';
+import { ReactQueryDevtools } from 'react-query/devtools';
+import { Toaster } from 'react-hot-toast';
+import { DefaultSeo } from 'next-seo';
+import Modal from 'react-modal';
 
-import { useHasMounted } from 'hooks/useHasMounted'
+import { useHasMounted } from 'hooks/useHasMounted';
 
-import SEO from '../../next-seo.config'
-import { AuthProvider } from './auth/AuthProvider'
-import { StyledProvider } from './styles'
+import SEO from '../../next-seo.config';
+import { AuthProvider } from './auth/AuthProvider';
+import { StyledProvider } from './styles';
 
-Modal.setAppElement('#__next')
+Modal.setAppElement('#__next');
 
-export function AppProvider ({ children }: PropsWithChildren<unknown>) {
-  const [queryClient] = useState(() => new QueryClient())
-  const { hasMounted } = useHasMounted()
+export function AppProvider({ children }: PropsWithChildren<unknown>) {
+  const [queryClient] = useState(
+    () =>
+      new QueryClient({
+        defaultOptions: {
+          queries: {
+            refetchOnWindowFocus: false,
+          },
+        },
+      }),
+  );
 
-  if (!hasMounted) return null
+  const { hasMounted } = useHasMounted();
+
+  if (!hasMounted) return null;
 
   return (
     <>
@@ -26,11 +36,11 @@ export function AppProvider ({ children }: PropsWithChildren<unknown>) {
         <ReactQueryDevtools initialIsOpen={false} />
         <StyledProvider>
           <AuthProvider>
-            <ToastContainer />
+            <Toaster />
             {children}
           </AuthProvider>
         </StyledProvider>
       </QueryClientProvider>
     </>
-  )
+  );
 }

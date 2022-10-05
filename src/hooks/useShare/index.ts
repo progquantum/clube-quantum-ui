@@ -1,30 +1,35 @@
-import { useCallback } from 'react'
-import { useCopyToClipboard } from 'react-use'
-import { toast } from 'react-toastify'
-import noop from 'lodash.noop'
+import { useCallback } from 'react';
+import { useCopyToClipboard } from 'react-use';
+import { toast } from 'react-hot-toast';
+import noop from 'lodash.noop';
 
-import { ShareData } from './types'
+import { ShareData } from './types';
 
-export function useShare () {
-  const [, copyToClipboard] = useCopyToClipboard()
+export function useShare() {
+  const [, copyToClipboard] = useCopyToClipboard();
 
-  const share = useCallback(({ title, text, url }: ShareData) => {
-    if (navigator?.share) {
-      navigator.share({
-        title,
-        text,
-        url
-      }).catch(noop)
+  const share = useCallback(
+    ({ title, text, url }: ShareData) => {
+      if (navigator?.share) {
+        navigator
+          .share({
+            title,
+            text,
+            url,
+          })
+          .catch(noop);
 
-      return
-    }
+        return;
+      }
 
-    if (!url) return
+      if (!url) return;
 
-    copyToClipboard(url)
+      copyToClipboard(url);
 
-    toast.success('Link de convite copiado')
-  }, [copyToClipboard, toast])
+      toast.success('Link de convite copiado');
+    },
+    [copyToClipboard, toast],
+  );
 
-  return share
+  return share;
 }

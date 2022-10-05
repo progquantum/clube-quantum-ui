@@ -1,44 +1,36 @@
-import { useState } from 'react'
-import Image from 'next/image'
+import { useState } from 'react';
+import Image from 'next/image';
 
-import { Button } from 'components/Button'
+import { Plans, PlansProps } from './types';
+import * as S from './styles';
 
-import { Plans, PlansProps } from './types'
-import * as S from './styles'
-
-export function Plans ({ onUpdateFormStep }: PlansProps) {
-  const [selectedPlan, setSelectedPlan] = useState<Plans>('semiannual')
+export function Plans({ onUpdateFormStep }: PlansProps) {
+  const [selectedPlan, setSelectedPlan] = useState<Plans>('semiannual');
 
   const handleChoosePlan = (plan: Plans) => {
-    setSelectedPlan(plan)
-  }
+    setSelectedPlan(plan);
+  };
 
   return (
     <S.Container>
       <S.Wrapper>
-        <Image width={450} height={350} src='/images/know-plans.png' alt='' />
+        <Image width={450} height={350} src="/images/know-plans.png" alt="" />
         <S.Plans>
           <S.PlansWrapper>
             <S.PlanType
-              className={
-                selectedPlan === 'monthly' ? 'selected-plan' : ''
-              }
+              className={selectedPlan === 'monthly' ? 'selected-plan' : ''}
               onClick={() => handleChoosePlan('monthly')}
             >
               Plano <br /> Mensal
             </S.PlanType>
             <S.PlanType
-              className={
-                selectedPlan === 'semiannual' ? 'selected-plan' : ''
-              }
+              className={selectedPlan === 'semiannual' ? 'selected-plan' : ''}
               onClick={() => handleChoosePlan('semiannual')}
             >
               Plano <br /> Semestral
             </S.PlanType>
             <S.PlanType
-              className={
-                selectedPlan === 'yearly' ? 'selected-plan' : ''
-              }
+              className={selectedPlan === 'yearly' ? 'selected-plan' : ''}
               onClick={() => handleChoosePlan('yearly')}
             >
               Plano <br /> Anual
@@ -51,9 +43,7 @@ export function Plans ({ onUpdateFormStep }: PlansProps) {
       <S.PlansContents>
         <S.PlanContentsWrapper>
           <h3>Quantum Free</h3>
-          <p>
-            It is a long established fact that a reader will be distracted.
-          </p>
+          <p>It is a long established fact that a reader will be distracted.</p>
           <h2>R$ 0,00</h2>
           <S.Button>Escolher este plano</S.Button>
           <S.PlanItemsList>
@@ -98,9 +88,7 @@ export function Plans ({ onUpdateFormStep }: PlansProps) {
 
         <S.PlanContentsWrapper>
           <h3>Quantum Start</h3>
-          <p>
-            It is a long established fact that a reader will be distracted.
-          </p>
+          <p>It is a long established fact that a reader will be distracted.</p>
           <h2>R$ 109,90</h2>
           <S.Button>Escolher este plano</S.Button>
           <S.PlanItemsList>
@@ -145,9 +133,7 @@ export function Plans ({ onUpdateFormStep }: PlansProps) {
 
         <S.PlanContentsWrapper>
           <h3>Quantum Select</h3>
-          <p>
-            It is a long established fact that a reader will be distracted.
-          </p>
+          <p>It is a long established fact that a reader will be distracted.</p>
           <h2>R$ 269,90</h2>
           <S.Button>Escolher este plano</S.Button>
           <S.PlanItemsList>
@@ -192,8 +178,10 @@ export function Plans ({ onUpdateFormStep }: PlansProps) {
       </S.PlansContents>
 
       <section>
-        <Button onClick={onUpdateFormStep}>Finalizar cadastro</Button>
+        <S.ButtonConfirm onClick={onUpdateFormStep}>
+          Finalizar cadastro
+        </S.ButtonConfirm>
       </section>
     </S.Container>
-  )
+  );
 }

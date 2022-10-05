@@ -1,63 +1,49 @@
-import { FaAngleRight } from 'react-icons/fa'
-import { useForm } from 'react-hook-form'
-import { yupResolver } from '@hookform/resolvers/yup'
+import { FiUser } from 'react-icons/fi';
+import { FormHandles, SubmitHandler } from '@unform/core';
+import { useCallback, useRef } from 'react';
+import { Form } from '@unform/web';
 
-import { useAuthDispatch } from 'contexts/auth/AuthContext'
-import { Input } from 'components/Input'
-import { cnpjSchema } from 'schemas/signUp'
-import { formatCNPJ } from 'utils/formatters/formatCNPJ'
-import { Button } from 'components/Button'
+import { useAuthDispatch } from 'contexts/auth/AuthContext';
+import { formatCNPJ } from 'utils/formatters/formatCNPJ';
+import { performSchemaValidation } from 'utils/performSchemaValidation';
+import { Input } from 'components/Input';
+import { Button } from 'components/Button';
+import { AuthLayout } from 'layouts/Auth';
 
-import { CNPJProps, FormData } from './types'
-import * as S from './styles'
+import { CNPJProps, FormValues } from './types';
+import { schema } from './schemas';
 
-export function CNPJ ({ onUpdateFormStep }: CNPJProps) {
-  const {
-    handleSubmit,
-    control,
-    register,
-    setValue,
-    formState
-  } = useForm({
-    defaultValues: {
-      cnpj: ''
-    },
-    resolver: yupResolver(cnpjSchema)
-  })
+export function CNPJ({ onUpdateFormStep }: CNPJProps) {
+  const { signUp } = useAuthDispatch();
 
-  const { signUp } = useAuthDispatch()
+  const formRef = useRef<FormHandles>(null);
 
-  const { isDirty, isSubmitting } = formState
-  const isButtonDisabled = !isDirty || isSubmitting
-
-  function onSubmit (data: FormData) {
-    signUp(data)
-    onUpdateFormStep()
-  }
+  const handleSignUp: SubmitHandler<FormValues> = useCallback(data => {
+    performSchemaValidation({
+      formRef,
+      data,
+      schema,
+    }).then(() => {
+      signUp(data);
+      onUpdateFormStep();
+    });
+  }, []);
 
   return (
-    <S.Container>
-      <S.Form onSubmit={handleSubmit(onSubmit)}>
+    <AuthLayout backgroundImage="/images/signup.png" title="Insira seu CNPJ">
+      <Form ref={formRef} onSubmit={handleSignUp}>
         <Input
-          type='text'
-          label='CPNJ'
-          name='cnpj'
-          control={control}
-          {...register('cnpj', {
-            onChange: (e) => {
-              setValue('cnpj', formatCNPJ(e.target.value))
-            }
-          })}
+          type="text"
+          name="cnpj"
+          placeholder="CNPJ"
+          icon={FiUser}
+          onChange={e =>
+            formRef.current.setFieldValue('cnpj', formatCNPJ(e.target.value))
+          }
         />
 
-        <Button
-          variant='rounded'
-          type='submit'
-          disabled={isButtonDisabled}
-        >
-          <FaAngleRight size={24} />
-        </Button>
-      </S.Form>
-    </S.Container>
-  )
+        <Button type="submit">Continuar</Button>
+      </Form>
+    </AuthLayout>
+  );
 }

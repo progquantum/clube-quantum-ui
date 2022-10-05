@@ -1,17 +1,17 @@
-import 'rsuite/dist/rsuite.css'
-import { Steps } from 'rsuite'
+import 'rsuite/dist/rsuite.css';
+import { Steps } from 'rsuite';
 
-import { Container } from './styles'
-import { SteperProps } from './types'
+import { Container } from './styles';
+import { SteperProps } from './types';
 
-export function Steper ({ stepsNumber, currentStep }: SteperProps) {
+export function Steper({ stepsNumber, currentStep }: SteperProps) {
   return (
     <Container>
-      <Steps current={currentStep}>
+      <Steps current={currentStep} small>
         {Array.from({ length: stepsNumber }, (_, index) => (
           <Steps.Item key={index} />
         ))}
       </Steps>
     </Container>
-  )
+  );
 }

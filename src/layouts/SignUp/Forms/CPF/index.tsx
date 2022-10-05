@@ -1,62 +1,52 @@
-import { FaAngleRight } from 'react-icons/fa'
-import { useForm } from 'react-hook-form'
-import { yupResolver } from '@hookform/resolvers/yup'
+import { useCallback, useRef } from 'react';
+import { FiUser } from 'react-icons/fi';
+import { Form } from '@unform/web';
+import { FormHandles, SubmitHandler } from '@unform/core';
+import noop from 'lodash.noop';
 
-import { useAuthDispatch } from 'contexts/auth/AuthContext'
-import { Input } from 'components/Input'
-import { cpfSchema } from 'schemas/signUp'
-import { formatCPF } from 'utils/formatters/formatCPF'
-import { Button } from 'components/Button'
+import { useAuthDispatch } from 'contexts/auth/AuthContext';
+import { Input } from 'components/Input';
+import { formatCPF } from 'utils/formatters/formatCPF';
+import { Button } from 'components/Button';
+import { AuthLayout } from 'layouts/Auth';
+import { performSchemaValidation } from 'utils/performSchemaValidation';
 
-import { CPFProps, FormData } from './types'
-import * as S from './styles'
+import { CPFProps, FormValues } from './types';
+import { schema } from './schemas';
 
-export function CPF ({ onUpdateFormStep }: CPFProps) {
-  const {
-    handleSubmit,
-    control,
-    register,
-    setValue,
-    formState
-  } = useForm({
-    defaultValues: {
-      cpf: ''
-    },
-    resolver: yupResolver(cpfSchema)
-  })
+export function CPF({ onUpdateFormStep }: CPFProps) {
+  const { signUp } = useAuthDispatch();
 
-  const { signUp } = useAuthDispatch()
+  const formRef = useRef<FormHandles>(null);
 
-  function onSubmit (data: FormData) {
-    signUp(data)
-    onUpdateFormStep()
-  }
-
-  const { isDirty, isSubmitting } = formState
-  const isButtonDisabled = !isDirty || isSubmitting
+  const handleCPFSubmit: SubmitHandler<FormValues> = useCallback(data => {
+    performSchemaValidation({
+      formRef,
+      data,
+      schema,
+    })
+      .then(() => {
+        signUp(data);
+        onUpdateFormStep();
+      })
+      .catch(noop);
+  }, []);
 
   return (
-    <S.Container>
-      <S.Form onSubmit={handleSubmit(onSubmit)}>
+    <AuthLayout backgroundImage="/images/signup.png" title="Insira seu CPF">
+      <Form ref={formRef} onSubmit={handleCPFSubmit}>
         <Input
-          type='text'
-          label='CPF'
-          control={control}
-          {...register('cpf', {
-            onChange: (e) => {
-              setValue('cpf', formatCPF(e.target.value))
-            }
-          })}
+          type="text"
+          name="cpf"
+          placeholder="CPF"
+          icon={FiUser}
+          onChange={e =>
+            formRef.current.setFieldValue('cpf', formatCPF(e.target.value))
+          }
         />
 
-        <Button
-          variant='rounded'
-          type='submit'
-          disabled={isButtonDisabled}
-        >
-          <FaAngleRight size={24} />
-        </Button>
-      </S.Form>
-    </S.Container>
-  )
+        <Button type="submit">Continuar</Button>
+      </Form>
+    </AuthLayout>
+  );
 }

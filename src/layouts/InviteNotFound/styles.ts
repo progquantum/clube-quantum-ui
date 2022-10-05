@@ -1,6 +1,6 @@
-import styled from 'styled-components'
+import styled from 'styled-components';
 
-import { Button } from 'components/Button'
+import { Button } from 'components/Button';
 
 export const Container = styled.main`
   width: 100%;
@@ -16,15 +16,15 @@ export const Container = styled.main`
     flex-direction: column;
     gap: 0;
   }
-`
+`;
 
 export const Content = styled.div`
   margin: 0 0 0 2rem;
 
   @media (min-width: 280px) and (max-width: 767px) {
-   margin: 2rem;
+    margin: 2rem;
   }
-`
+`;
 
 export const ContentTitle = styled.h2`
   font-weight: 900;
@@ -36,17 +36,17 @@ export const ContentTitle = styled.h2`
   @media (min-width: 280px) and (max-width: 767px) {
     font-size: 1.5rem;
   }
-`
+`;
 
 export const ImageWrap = styled.div`
   margin: 0 2rem 0 0;
 
   @media (min-width: 280px) and (max-width: 767px) {
-   max-width: 230px;
-   order: -1;
-   margin: 0 2rem;
+    max-width: 230px;
+    order: -1;
+    margin: 0 2rem;
   }
-`
+`;
 
 export const BackToHomePage = styled(Button)`
   width: 100%;
@@ -56,6 +56,6 @@ export const BackToHomePage = styled(Button)`
   }
 
   @media (max-width: 340px) {
-    font-size: .7rem;
+    font-size: 0.7rem;
   }
-`
+`;
