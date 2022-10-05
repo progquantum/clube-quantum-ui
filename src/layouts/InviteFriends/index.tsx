@@ -1,5 +1,7 @@
 import Image from 'next/image';
 
+import { Button } from 'components/Button';
+
 import { Footer } from 'components/Footer';
 import { Header } from 'components/Header';
 import { useShare } from 'hooks/useShare';
@@ -54,8 +56,8 @@ export function InviteFriendsPage() {
 
             <S.ImageDiv>
               <Image
-                width={385}
-                height={467}
+                width={375}
+                height={457}
                 src="/images/friends.svg"
                 alt=""
               />
@@ -77,7 +79,7 @@ export function InviteFriendsPage() {
                   abaixo para acessar e começar usufruir dos benefícios.
                 </S.HeadingInfo>
 
-                <S.InfoButton>Aderir a um plano</S.InfoButton>
+                <Button>Aderir a um plano</Button>
               </S.ButtonPlan>
             </S.ContainerWrapper>
 

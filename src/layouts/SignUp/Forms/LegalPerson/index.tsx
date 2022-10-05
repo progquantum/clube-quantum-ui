@@ -1,88 +1,79 @@
-import { SubmitHandler, useForm } from 'react-hook-form';
-import { yupResolver } from '@hookform/resolvers/yup';
-import { FiUser, FiMail, FiLock } from 'react-icons/fi';
+import { useCallback, useRef } from 'react';
+import { FiUser, FiMail, FiLock, FiLogOut } from 'react-icons/fi';
+import { FormHandles, SubmitHandler } from '@unform/core';
+import { Form } from '@unform/web';
+import noop from 'lodash.noop';
 
 import { useAuthDispatch } from 'contexts/auth/AuthContext';
 import { Input } from 'components/Input';
 import { Button } from 'components/Button';
-import { legalPersonDataSchema } from 'schemas/signUp';
+import { AuthLayout } from 'layouts/Auth';
+import { performSchemaValidation } from 'utils/performSchemaValidation';
+
+import { ShowPasswordInput } from 'components/Input/ShowPassword';
 
 import { LegalPersonProps, SignUpFormValues } from './types';
-import * as S from './styles';
+import { schema } from './schemas';
 
 export function LegalPerson({
   onUpdateFormStep,
   onPreviousFormStep,
 }: LegalPersonProps) {
-  const { control, handleSubmit, formState } = useForm({
-    resolver: yupResolver(legalPersonDataSchema),
-  });
-
   const { signUp } = useAuthDispatch();
+  const formRef = useRef<FormHandles>(null);
 
-  const { isSubmitting } = formState;
-  const isButtonDisabled = isSubmitting;
-
-  const handleSignUp: SubmitHandler<SignUpFormValues> = data => {
-    signUp(data);
-    onUpdateFormStep();
-  };
+  const handleSignUp: SubmitHandler<SignUpFormValues> = useCallback(data => {
+    performSchemaValidation({
+      formRef,
+      data,
+      schema,
+    })
+      .then(() => {
+        signUp(data);
+        onUpdateFormStep();
+      })
+      .catch(noop);
+  }, []);
 
   return (
-    <S.Container>
-      <S.Form onSubmit={handleSubmit(handleSignUp)}>
+    <AuthLayout backgroundImage="/images/signup.png" title="Insira seu CNPJ">
+      <Form ref={formRef} onSubmit={handleSignUp}>
         <Input
           type="text"
-          label="Razão Social"
           name="company_name"
-          control={control}
           placeholder="Razão social"
           icon={FiUser}
         />
 
-        <Input
-          type="email"
-          label="E-mail"
-          name="email"
-          control={control}
-          placeholder="Email"
-          icon={FiMail}
-        />
+        <Input type="email" name="email" placeholder="Email" icon={FiMail} />
 
         <Input
           type="email"
-          label="Confirmar e-mail"
           name="email_confirmation"
-          control={control}
           placeholder="Confirmar email"
           icon={FiMail}
         />
 
-        <Input
+        <ShowPasswordInput
           type="password"
-          label="Criar senha"
           name="password"
-          control={control}
-          placeholder="Criar"
+          placeholder="Criar senha"
           icon={FiLock}
         />
 
-        <Input
+        <ShowPasswordInput
           type="password"
-          label="Confirmar Senha"
           name="password_confirmation"
-          control={control}
+          placeholder="Confirmar senha"
           icon={FiLock}
         />
-        <S.ButtonGroup>
-          <Button type="submit" disabled={isButtonDisabled}>
-            Continuar
-          </Button>
-          <Button variant="secondary" onClick={onPreviousFormStep}>
-            Voltar
-          </Button>
-        </S.ButtonGroup>
-      </S.Form>
-    </S.Container>
+
+        <Button type="submit">Continuar</Button>
+      </Form>
+      <button type="button" onClick={onPreviousFormStep}>
+        <FiLogOut />
+        Voltar
+      </button>
+    </AuthLayout>
   );
 }

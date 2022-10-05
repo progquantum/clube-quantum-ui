@@ -18,6 +18,8 @@ import { logOut } from 'helpers/auth/logOut';
 import { error } from 'helpers/notify/error';
 import { getMe } from 'services/resources';
 
+import { ErrorResponse } from 'shared/errors/apiSchema';
+
 import { AuthStateProvider, AuthDispatchProvider } from './AuthContext';
 import { SignInCredentials, SignUpData } from './types';
 
@@ -66,8 +68,8 @@ export function AuthProvider({ children }: PropsWithChildren<unknown>) {
   const router = useRouter();
 
   const handleSignIn = useCallback(
-    async ({ login, password }: SignInCredentials) => {
-      await signIn(
+    ({ login, password }: SignInCredentials) => {
+      signIn(
         { login, password },
         {
           onSuccess: data => {
@@ -89,7 +91,13 @@ export function AuthProvider({ children }: PropsWithChildren<unknown>) {
 
             router.push(DASHBOARD_PAGE);
           },
-          onError: (err: AxiosError) => error(err.message),
+          onError: (err: AxiosError<ErrorResponse>) => {
+            if (
+              err.response.data.message === 'Cpf/Cnpj or password is incorrect'
+            ) {
+              error('Usuário ou senha incorretos');
+            }
+          },
         },
       );
     },

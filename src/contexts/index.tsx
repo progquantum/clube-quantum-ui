@@ -1,7 +1,7 @@
 import { PropsWithChildren, useState } from 'react';
 import { QueryClient, QueryClientProvider } from 'react-query';
 import { ReactQueryDevtools } from 'react-query/devtools';
-import { ToastContainer } from 'react-toastify';
+import { Toaster } from 'react-hot-toast';
 import { DefaultSeo } from 'next-seo';
 import Modal from 'react-modal';
 
@@ -36,7 +36,7 @@ export function AppProvider({ children }: PropsWithChildren<unknown>) {
         <ReactQueryDevtools initialIsOpen={false} />
         <StyledProvider>
           <AuthProvider>
-            <ToastContainer />
+            <Toaster />
             {children}
           </AuthProvider>
         </StyledProvider>

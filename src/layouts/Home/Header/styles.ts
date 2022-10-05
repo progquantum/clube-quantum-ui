@@ -14,11 +14,10 @@ export const Container = styled.header`
 
   a {
     font-weight: 600;
-    line-height: 1.3rem;
     color: ${({ theme }) => theme.colors.gray[700]};
 
     @media (max-width: 1024px) {
-      font-size: 0.8rem;
+      font-size: 0.9rem;
     }
   }
 
@@ -38,7 +37,7 @@ export const BoxContainer = styled.div`
 export const Nav = styled.nav`
   display: flex;
   align-items: center;
-  gap: 2.8rem;
+  gap: 3rem;
 
   @media (max-width: 1024px) {
     font-size: 1rem;
@@ -50,18 +49,19 @@ export const Nav = styled.nav`
 `;
 
 export const LoginButton = styled(Button)`
-  background: ${({ theme }) => theme.gradients.midnightBlueToMediumsLateBlue};
-  padding: 0.6rem 2rem;
-  font-weight: 500;
+  background: transparent;
+  color: ${({ theme }) => theme.colors.mediumslateBlue};
+  font-weight: 600;
+  padding: 1.2rem 0;
+  width: 80px;
+  height: 0;
+  margin-top: 0;
+  border-radius: 6px;
+  gap: 0.5rem;
 
   &:hover {
-    transition: none;
-    background: ${({ theme }) => theme.colors.mediumslateBlue};
-  }
-
-  @media (max-width: 1024px) {
-    padding: 0.5rem 1.3rem;
-    font-size: 0.8rem;
+    background: transparent;
+    color: ${({ theme }) => theme.colors.mediumslateBlue};
   }
 `;
 
@@ -111,7 +111,9 @@ export const Line = styled.hr`
 `;
 
 export const LoginButtonMobile = styled(LoginButton)`
-  width: 100%;
+  padding: 1.2rem 0;
+  height: 0;
+  margin-top: 0;
 `;
 
 export const MenuIconContainer = styled.div`

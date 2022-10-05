@@ -1,7 +1,6 @@
 import Image from 'next/image';
 import Link from 'next/link';
 
-import { Button } from 'components/Button';
 import { INVITE_FRIENDS_PAGE } from 'constants/routesPath';
 
 import { AccountDropdown } from './AccountDropdown';
@@ -17,7 +16,9 @@ export function Header() {
 
         <S.RightNav>
           <Link href={INVITE_FRIENDS_PAGE}>
-            <Button variant="secondary">Convidar Amigos</Button>
+            <S.InviteFriendsButton variant="secondary">
+              Convidar Amigos
+            </S.InviteFriendsButton>
           </Link>
           <AccountDropdown />
         </S.RightNav>

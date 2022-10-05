@@ -1,6 +1,5 @@
 export function formatCEP(cep: string) {
-  let formattedCep = cep;
-  formattedCep = cep.replace(/\D/g, '');
+  let formattedCep = cep.replace(/\D/g, '');
   formattedCep = formattedCep.replace(/^(\d{2})(\d)/, '$1.$2');
   formattedCep = formattedCep.replace(/\.(\d{3})(\d)/, '.$1-$2');
 

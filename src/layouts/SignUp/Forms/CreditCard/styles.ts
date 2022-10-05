@@ -1,30 +1,17 @@
-import styled from 'styled-components';
+import styled, { css } from 'styled-components';
+import { lighten } from 'polished';
 
-export const Form = styled.form`
-  width: 100%;
-  display: flex;
-  max-width: 21.875rem;
-  flex-direction: column;
-`;
-
-export const ButtonGroup = styled.section`
-  width: 100%;
-  margin-top: 24px;
-  display: flex;
-  flex-direction: column;
-  justify-content: space-between;
-  gap: 12px;
-  button:last-of-type {
-    margin: 0;
-  }
-`;
-
-export const JumpStepButton = styled.p`
-  margin-top: 15px;
-  font-weight: 500;
-  font-size: 14px;
-  line-height: 17px;
-  color: ${({ theme }) => theme.colors.midnightBlue};
+export const JumpStepButton = styled.button`
   text-align: center;
   cursor: pointer;
+  margin-bottom: 24px;
+  color: ${({ theme }) => theme.colors.gray[700]} !important;
+
+  transition: color 200ms;
+
+  &:hover {
+    ${({ theme }) => css`
+      color: ${lighten(0.2, theme.colors.gray[700])};
+    `}
+  }
 `;

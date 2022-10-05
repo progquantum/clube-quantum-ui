@@ -1,6 +1,6 @@
 import { useCallback } from 'react';
 import { useCopyToClipboard } from 'react-use';
-import { toast } from 'react-toastify';
+import { toast } from 'react-hot-toast';
 import noop from 'lodash.noop';
 
 import { ShareData } from './types';

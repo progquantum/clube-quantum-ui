@@ -1,8 +1,6 @@
 import { useState } from 'react';
 import Image from 'next/image';
 
-import { Button } from 'components/Button';
-
 import { Plans, PlansProps } from './types';
 import * as S from './styles';
 
@@ -180,7 +178,9 @@ export function Plans({ onUpdateFormStep }: PlansProps) {
       </S.PlansContents>
 
       <section>
-        <Button onClick={onUpdateFormStep}>Finalizar cadastro</Button>
+        <S.ButtonConfirm onClick={onUpdateFormStep}>
+          Finalizar cadastro
+        </S.ButtonConfirm>
       </section>
     </S.Container>
   );

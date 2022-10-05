@@ -1,20 +1,24 @@
-import { ChangeEvent } from 'react';
-import { useForm, SubmitHandler } from 'react-hook-form';
-import { yupResolver } from '@hookform/resolvers/yup';
+import { useRef } from 'react';
+import { Form } from '@unform/web';
+import { FormHandles, SubmitHandler } from '@unform/core';
 import { useQueryClient } from 'react-query';
 import { useTheme } from 'styled-components';
 import Modal from 'react-modal';
 import { FiCalendar, FiCreditCard, FiUser, FiLock } from 'react-icons/fi';
+import noop from 'lodash.noop';
 
+import { useUpdateCreditCard } from 'hooks/useUpdateCreditCard';
 import { QUERY_KEY_FIND_BILLING } from 'hooks/useWallet';
 import { formatCreditCardAddSpace } from 'utils/formatters/formatCreditCardAddSpace';
 import { formatCreditCardExpiration } from 'utils/formatters/formatCreditCardExpiration';
-import { useUpdateCreditCard } from 'hooks/userUpdateCreditCard';
 import { CreditCardIcon } from 'components/Illustrations/CreditCard';
 import { Input } from 'components/Input';
+import { performSchemaValidation } from 'utils/performSchemaValidation';
+import { Button } from 'components/Button';
+import { formatCreditCardRemoveSpace } from 'utils/formatters/formatCreditCardRemoveSpace';
+import { formatCVV } from 'utils/formatters/formatCVV';
 
-import { creditCardSchema } from 'schemas/managePayment';
-
+import { schema } from './schemas';
 import { ModalCreditCardProps, ModalCreditCardFormProps } from './types';
 import * as S from './styles';
 
@@ -22,46 +26,39 @@ export function ModalCreditCard({
   isOpen,
   onRequestNewCreditCardModal,
 }: ModalCreditCardProps) {
-  const { mutateAsync: postBankAccount, isLoading: loading } =
+  const { mutateAsync: postCreditCard, isLoading: loading } =
     useUpdateCreditCard();
   const { colors } = useTheme();
   const queryClient = useQueryClient();
-  const { control, handleSubmit, register, setValue } = useForm({
-    resolver: yupResolver(creditCardSchema),
-  });
 
-  const handleInputCardFormat = (e: ChangeEvent<HTMLInputElement>) => {
-    const creditCardFormatted = formatCreditCardAddSpace(e.target.value);
-
-    setValue('card_number', creditCardFormatted);
-  };
-
-  const handleInputExpirationFormat = (e: ChangeEvent<HTMLInputElement>) => {
-    const expirationDateFormatted = formatCreditCardExpiration(e.target.value);
-
-    setValue('expiration_date', expirationDateFormatted);
-  };
+  const formRef = useRef<FormHandles>(null);
 
   const handleSubmitCreditCard: SubmitHandler<
     ModalCreditCardFormProps
   > = async data => {
-    const formattedCardNumber = data.card_number.replace(/ /g, '');
-
-    await postBankAccount(
-      {
-        card_number: formattedCardNumber,
-        card_name: data.card_name,
-        expiration_date: data.expiration_date,
-        card_brand: data.card_brand,
-        cvc: data.cvc,
-      },
-      {
-        onSuccess: () => {
-          queryClient.invalidateQueries(QUERY_KEY_FIND_BILLING);
-          onRequestNewCreditCardModal();
-        },
-      },
-    );
+    performSchemaValidation({
+      formRef,
+      data,
+      schema,
+    })
+      .then(() => {
+        postCreditCard(
+          {
+            card_number: formatCreditCardRemoveSpace(data.card_number),
+            card_name: data.card_name,
+            expiration_date: data.expiration_date,
+            card_brand: 'visa',
+            cvc: data.cvc,
+          },
+          {
+            onSuccess: () => {
+              queryClient.invalidateQueries(QUERY_KEY_FIND_BILLING);
+              onRequestNewCreditCardModal();
+            },
+          },
+        );
+      })
+      .catch(noop);
   };
 
   return (
@@ -73,65 +70,68 @@ export function ModalCreditCard({
     >
       <S.YourAccount>
         <CreditCardIcon color={colors.gray[100]} width="20" height="14" />
-        <S.ContentTitle>Seu cartão cadastrado</S.ContentTitle>
+        <S.ContentTitle>Atualizar cartão</S.ContentTitle>
       </S.YourAccount>
 
-      <S.CreditCardForm onSubmit={handleSubmit(handleSubmitCreditCard)}>
+      <S.CreditCardForm
+        as={Form}
+        ref={formRef}
+        onSubmit={handleSubmitCreditCard}
+      >
         <Input
           type="text"
-          label="Nome do Cartão"
           name="card_name"
-          control={control}
-          placeholder="Nome escrito no cartão"
+          placeholder="Nome impresso no cartão"
           icon={FiUser}
         />
 
         <Input
-          maxLength={19}
           type="text"
-          label="Número do Cartão"
           name="card_number"
-          control={control}
           placeholder="Número do cartão"
           icon={FiCreditCard}
-          {...register('card_number', {
-            onChange: e => handleInputCardFormat(e),
-          })}
+          onChange={e =>
+            formRef.current.setFieldValue(
+              'card_number',
+              formatCreditCardAddSpace(e.target.value),
+            )
+          }
         />
 
         <Input
-          maxLength={7}
           type="text"
-          label="Data de Vencimento"
           name="expiration_date"
-          control={control}
           placeholder="Data de vencimento"
           icon={FiCalendar}
-          {...register('expiration_date', {
-            onChange: e => handleInputExpirationFormat(e),
-          })}
+          onChange={e =>
+            formRef.current.setFieldValue(
+              'expiration_date',
+              formatCreditCardExpiration(e.target.value),
+            )
+          }
         />
 
         <Input
-          maxLength={3}
           type="text"
-          label="CVV"
           name="cvc"
-          control={control}
           placeholder="CVV"
           icon={FiLock}
+          onChange={e =>
+            formRef.current.setFieldValue('cvc', formatCVV(e.target.value))
+          }
         />
 
-        <S.ButtonConfirm type="submit" loading={loading} disabled={loading}>
+        <Button type="submit" loading={loading} disabled={loading}>
           Confirmar
-        </S.ButtonConfirm>
+        </Button>
 
-        <S.ButtonCancel
+        <Button
           disabled={loading}
+          variant="danger_outline"
           onClick={onRequestNewCreditCardModal}
         >
           Cancelar
-        </S.ButtonCancel>
+        </Button>
       </S.CreditCardForm>
     </Modal>
   );

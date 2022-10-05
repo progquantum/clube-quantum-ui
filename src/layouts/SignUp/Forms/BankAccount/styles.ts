@@ -10,7 +10,8 @@ export const Form = styled.form`
 
 export const Content = styled.div`
   display: flex;
-  flex-direction: space-between;
+  justify-content: space-between;
+  margin-bottom: 0.9375rem;
 `;
 export const BankDataTitle = styled.h3`
   font-weight: 700;

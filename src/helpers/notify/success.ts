@@ -1,12 +1,8 @@
-import { toast } from 'react-toastify';
+import { toast } from 'react-hot-toast';
 
 export function success(message: string) {
-  toast(message, {
-    type: 'success',
-    position: toast.POSITION.TOP_RIGHT,
+  toast.success(message, {
+    position: 'top-right',
     className: 'toast-success',
-    progressClassName: 'success-progress-bar',
-    bodyClassName: 'success-body',
-    autoClose: 4000,
   });
 }

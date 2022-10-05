@@ -1,59 +1,49 @@
-import { useForm } from 'react-hook-form';
-import { yupResolver } from '@hookform/resolvers/yup';
 import { FiUser } from 'react-icons/fi';
-import Link from 'next/link';
+import { FormHandles, SubmitHandler } from '@unform/core';
+import { useCallback, useRef } from 'react';
+import { Form } from '@unform/web';
 
 import { useAuthDispatch } from 'contexts/auth/AuthContext';
-import { Input } from 'components/Input';
-import { cnpjSchema } from 'schemas/signUp';
 import { formatCNPJ } from 'utils/formatters/formatCNPJ';
+import { performSchemaValidation } from 'utils/performSchemaValidation';
+import { Input } from 'components/Input';
 import { Button } from 'components/Button';
+import { AuthLayout } from 'layouts/Auth';
 
-import { SIGN_UP_PAGE } from 'constants/routesPath';
-
-import { CNPJProps, FormData } from './types';
-import * as S from './styles';
+import { CNPJProps, FormValues } from './types';
+import { schema } from './schemas';
 
 export function CNPJ({ onUpdateFormStep }: CNPJProps) {
-  const { handleSubmit, control, register, setValue, formState } = useForm({
-    resolver: yupResolver(cnpjSchema),
-  });
-
   const { signUp } = useAuthDispatch();
 
-  const { isDirty, isSubmitting } = formState;
-  const isButtonDisabled = !isDirty || isSubmitting;
+  const formRef = useRef<FormHandles>(null);
 
-  function onSubmit(data: FormData) {
-    signUp(data);
-    onUpdateFormStep();
-  }
+  const handleSignUp: SubmitHandler<FormValues> = useCallback(data => {
+    performSchemaValidation({
+      formRef,
+      data,
+      schema,
+    }).then(() => {
+      signUp(data);
+      onUpdateFormStep();
+    });
+  }, []);
 
   return (
-    <S.Container>
-      <S.Form onSubmit={handleSubmit(onSubmit)}>
+    <AuthLayout backgroundImage="/images/signup.png" title="Insira seu CNPJ">
+      <Form ref={formRef} onSubmit={handleSignUp}>
         <Input
           type="text"
-          label="CPNJ"
           name="cnpj"
-          control={control}
           placeholder="CNPJ"
           icon={FiUser}
-          {...register('cnpj', {
-            onChange: e => {
-              setValue('cnpj', formatCNPJ(e.target.value));
-            },
-          })}
+          onChange={e =>
+            formRef.current.setFieldValue('cnpj', formatCNPJ(e.target.value))
+          }
         />
-        <S.ButtonGroup>
-          <Button type="submit" disabled={isButtonDisabled}>
-            Continuar
-          </Button>
-          <Link href={SIGN_UP_PAGE}>
-            <Button variant="secondary">Voltar</Button>
-          </Link>
-        </S.ButtonGroup>
-      </S.Form>
-    </S.Container>
+
+        <Button type="submit">Continuar</Button>
+      </Form>
+    </AuthLayout>
   );
 }

@@ -91,6 +91,11 @@ export const ButtonMarketplace = styled(Button)`
   color: ${({ theme }) => theme.colors.cornflowerblue};
   height: 2.3125rem;
 
+  &:hover {
+    background: ${({ theme }) => theme.colors.lightsteelblueice};
+    color: ${({ theme }) => theme.colors.cornflowerblue};
+  }
+
   &:disabled {
     cursor: not-allowed;
   }
@@ -145,12 +150,7 @@ export const StatusPlan = styled.span`
 `;
 
 export const ManageButton = styled(Button)`
-  width: 100%;
-  height: 2.3125rem;
-  font-size: 0.875rem;
-  line-height: 1.0625rem;
-  font-weight: 500;
-
+  margin-top: 0;
   &:disabled {
     opacity: 0.6;
     cursor: not-allowed;
@@ -174,9 +174,6 @@ export const TextDeadline = styled.p`
 `;
 
 export const ButtonCancel = styled(Button)`
-  background: transparent;
-  border: 1px solid ${({ theme }) => theme.colors.danger};
-  color: ${({ theme }) => theme.colors.danger};
   font-size: 0.875rem;
   line-height: 1.0625rem;
   height: 37px;
@@ -225,14 +222,14 @@ export const TextInviteFriends = styled(StatusPlan)`
 `;
 
 export const ButtonInviteFriends = styled(Button)`
-  background-color: ${({ theme }) => theme.colors.white};
+  background: ${({ theme }) => theme.colors.white};
   color: ${({ theme }) => theme.colors.midnightBlue};
   border: 2px solid ${({ theme }) => theme.colors.white};
   width: 100%;
 
   &:hover {
-    background: ${({ theme }) => theme.gradients.midnightBlueToMediumsLateBlue};
-    color: ${({ theme }) => theme.colors.white};
-    border: 2px solid ${({ theme }) => theme.colors.white};
+    background: ${({ theme }) => theme.colors.lightsteelblue};
+    color: ${({ theme }) => theme.colors.midnightBlue};
+    border: 2px solid ${({ theme }) => theme.colors.lightsteelblue};
   }
 `;

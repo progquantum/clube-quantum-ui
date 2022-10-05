@@ -1,63 +1,76 @@
-import { useState } from 'react';
-import { useForm, SubmitHandler } from 'react-hook-form';
-import { yupResolver } from '@hookform/resolvers/yup';
+import { useCallback, useRef, ChangeEvent } from 'react';
 import { AxiosError } from 'axios';
-import { FiHome, FiPackage, FiMapPin, FiGlobe, FiMap } from 'react-icons/fi';
-import { AiFillIdcard } from 'react-icons/ai';
+import {
+  FiHome,
+  FiPackage,
+  FiMapPin,
+  FiGlobe,
+  FiMap,
+  FiLogOut,
+} from 'react-icons/fi';
+import { FaRegAddressCard } from 'react-icons/fa';
 import { BiBuildingHouse } from 'react-icons/bi';
 import { BsPinMap } from 'react-icons/bs';
+import { Form } from '@unform/web';
+import { FormHandles, SubmitHandler } from '@unform/core';
 
-import { addressDataSchema } from 'schemas/signUp';
 import { Input } from 'components/Input';
 import { Button } from 'components/Button';
 import { formatCEP } from 'utils/formatters/formatCEP';
 import { formatAddressNumber } from 'utils/formatters/formatAddressNumber';
-import { formatValueToUppercase } from 'utils/formatters/formatValueToUppercase';
 import { useIndividualPersonSignUp } from 'hooks/auth/useIndividualPersonSignUp';
 import { useAuthState } from 'contexts/auth/AuthContext';
 import { error } from 'helpers/notify/error';
-
 import { ErrorResponse } from 'shared/errors/apiSchema';
+import { performSchemaValidation } from 'utils/performSchemaValidation';
+import { AuthLayout } from 'layouts/Auth';
+import { getZipCode } from 'services/resources';
+import { Checkbox } from 'components/Checkbox';
+import { formatCountry } from 'utils/formatters/formatCountry';
+import { formatUF } from 'utils/formatters/formatUF';
 
 import { PersonalAddressProps, AddressFormValues } from './types';
-import * as S from './styles';
+import { schema } from './schemas';
 
 export function PersonalAddress({
   onUpdateFormStep,
   onPreviousFormStep,
 }: PersonalAddressProps) {
-  const { handleSubmit, control, register, setValue, formState } = useForm({
-    resolver: yupResolver(addressDataSchema),
-  });
-
   const { registerUser } = useAuthState();
-
-  const { mutate: signUp, isLoading: isSinguping } =
+  const { mutate: signUp, isLoading: isSignuping } =
     useIndividualPersonSignUp();
 
-  const onSubmit: SubmitHandler<AddressFormValues> = data => {
-    const { name, phone, cpf, email, password, invited_by, birth_date } =
-      registerUser;
-    const {
-      street,
-      number,
-      neighborhood,
-      complement,
-      zip_code,
-      city,
-      state,
-      country,
-    } = data;
-    signUp(
-      {
-        name,
-        phone,
-        cpf,
-        email,
-        password,
-        invited_by,
-        birth_date,
-        address: {
+  const formRef = useRef<FormHandles>(null);
+
+  const handleZipCode = useCallback(
+    async (e: ChangeEvent<HTMLInputElement>) => {
+      formRef.current.setFieldValue('zip_code', formatCEP(e.target.value));
+
+      if (e.target.value.length === 10) {
+        const formattedCep = e.target.value.replace('.', '').replace('-', '');
+
+        await getZipCode(formattedCep).then(data => {
+          formRef.current.setFieldValue('street', data?.street);
+          formRef.current.setFieldValue('neighborhood', data?.neighborhood);
+          formRef.current.setFieldValue('city', data?.city);
+          formRef.current.setFieldValue('state', data?.state);
+          formRef.current.setFieldValue('country', data?.country);
+        });
+      }
+    },
+    [formRef],
+  );
+
+  const handleAddressSubmit: SubmitHandler<AddressFormValues> = useCallback(
+    data => {
+      performSchemaValidation({
+        formRef,
+        data,
+        schema,
+      }).then(() => {
+        const { name, phone, cpf, email, password, invited_by, birth_date } =
+          registerUser;
+        const {
           street,
           number,
           neighborhood,
@@ -66,169 +79,116 @@ export function PersonalAddress({
           city,
           state,
           country,
-        },
-      },
-      {
-        onSuccess: () => onUpdateFormStep(),
-        onError: (err: AxiosError<ErrorResponse>) => {
-          const isEmailInvalid =
-            err.response.status === 400 &&
-            err.response?.data.message[0] === 'email must be an email';
+        } = data;
+        signUp(
+          {
+            name,
+            phone,
+            cpf,
+            email,
+            password,
+            invited_by,
+            birth_date,
+            address: {
+              street,
+              number,
+              neighborhood,
+              complement,
+              zip_code,
+              city,
+              state,
+              country,
+            },
+          },
+          {
+            onSuccess: () => onUpdateFormStep(),
+            onError: (err: AxiosError<ErrorResponse>) => {
+              if (err.response.data.message === 'Email already in use') {
+                error('Este email já está em uso');
+              }
 
-          const isEmailInUse =
-            err.response.status === 409 &&
-            err.response.data.message === 'Email already in use';
-
-          const isCPFInUse =
-            err.response.status === 409 &&
-            err.response.data.message === 'CPF already in use';
-
-          const isContryDoesntContaintOnlyLetters =
-            err.response.status === 400 &&
-            err.response.data.message[0] ===
-              'address.country can only contain letters';
-
-          if (isEmailInvalid) {
-            error('Insira um email válido');
-          }
-
-          if (isEmailInUse) {
-            error('Este email já está em uso, insira um outro email');
-          }
-
-          if (isCPFInUse) {
-            error('Este CPF já está em uso');
-          }
-
-          if (isContryDoesntContaintOnlyLetters) {
-            error('O país deve conter somente letras');
-          }
-        },
-      },
-    );
-  };
-  const [isChecked, setIsChecked] = useState(false);
-
-  const { isDirty, isSubmitting } = formState;
-  const isButtonDisabled =
-    isSinguping || !isDirty || isSubmitting || !isChecked;
+              if (err.response.data.message === 'CPF already in use') {
+                error('Este CPF já está em uso');
+              }
+            },
+          },
+        );
+      });
+    },
+    [signUp, registerUser],
+  );
 
   return (
-    <S.Container>
-      <S.Form onSubmit={handleSubmit(onSubmit)}>
+    <AuthLayout
+      backgroundImage="/images/signup.png"
+      title="Insira seu endereço"
+    >
+      <Form ref={formRef} onSubmit={handleAddressSubmit}>
         <Input
           type="text"
-          label="CEP"
           name="zip_code"
-          control={control}
           placeholder="CEP"
           icon={FiMapPin}
-          {...register('zip_code', {
-            onChange: e => {
-              setValue('zip_code', formatCEP(e.target.value));
-            },
-          })}
+          onChange={e => handleZipCode(e)}
         />
-
+        <Input type="text" name="street" placeholder="Rua" icon={FiPackage} />
         <Input
           type="text"
-          label="Logradouro"
-          name="street"
-          placeholder="Rua"
-          icon={FiPackage}
-          control={control}
-        />
-
-        <Input
-          type="text"
-          label="Bairro"
           name="neighborhood"
           placeholder="Bairro"
-          control={control}
           icon={BiBuildingHouse}
         />
-
         <Input
           type="text"
-          label="Número"
           name="number"
           placeholder="Número"
           icon={FiHome}
-          control={control}
-          {...register('number', {
-            onChange: e => {
-              setValue('number', formatAddressNumber(e.target.value));
-            },
-          })}
+          onChange={e =>
+            formRef.current.setFieldValue(
+              'number',
+              formatAddressNumber(e.target.value),
+            )
+          }
         />
         <Input
           type="text"
-          label="Complemento"
           name="complement"
-          control={control}
           placeholder="Complemento"
-          icon={AiFillIdcard}
+          icon={FaRegAddressCard}
         />
-
+        <Input type="text" name="city" placeholder="Cidade" icon={BsPinMap} />
         <Input
           type="text"
-          label="Cidade"
-          name="city"
-          placeholder="Cidade"
-          control={control}
-          icon={BsPinMap}
-        />
-
-        <Input
-          type="text"
-          label="Estado"
           name="state"
           placeholder="Estado"
-          control={control}
-          maxLength={2}
           icon={FiMap}
-          {...register('state', {
-            onChange: e => {
-              setValue('state', formatValueToUppercase(e.target.value));
-            },
-          })}
+          onChange={e =>
+            formRef.current.setFieldValue('state', formatUF(e.target.value))
+          }
         />
-
         <Input
           type="text"
-          label="País"
           name="country"
           placeholder="Pais"
           icon={FiGlobe}
-          control={control}
+          onChange={e =>
+            formRef.current.setFieldValue(
+              'country',
+              formatCountry(e.target.value),
+            )
+          }
         />
-        <S.Terms>
-          <S.CheckBox
-            type="checkbox"
-            name="terms"
-            checked={isChecked}
-            onChange={() => setIsChecked(current => !current)}
-          />
-          <S.TextTerm>
-            Para continuar você precisa ler e concordar com nossos{' '}
-            <span>termos e condições</span> e
-            <span> política de privacidade.</span>
-            (obrigatório)
-          </S.TextTerm>
-        </S.Terms>
-        <S.ButtonGroup>
-          <Button
-            type="submit"
-            loading={isSinguping}
-            disabled={isButtonDisabled}
-          >
-            Continuar
-          </Button>
-          <Button variant="secondary" onClick={onPreviousFormStep}>
-            Voltar
-          </Button>
-        </S.ButtonGroup>
-      </S.Form>
-    </S.Container>
+
+        <Checkbox type="checkbox" name="terms" />
+
+        <Button type="submit" loading={isSignuping} disabled={isSignuping}>
+          Continuar
+        </Button>
+      </Form>
+      <button type="button" onClick={onPreviousFormStep}>
+        <FiLogOut />
+        Voltar
+      </button>
+    </AuthLayout>
   );
 }

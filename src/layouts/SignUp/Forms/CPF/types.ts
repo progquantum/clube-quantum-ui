@@ -2,6 +2,6 @@ export type CPFProps = {
   onUpdateFormStep: () => void;
 };
 
-export type FormData = {
+export type FormValues = {
   cpf: string;
 };

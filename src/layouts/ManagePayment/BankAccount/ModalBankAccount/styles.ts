@@ -19,6 +19,7 @@ export const YourAccount = styled.div`
 export const BankingData = styled.div`
   display: flex;
   justify-content: space-between;
+  margin-bottom: 1.5rem;
 `;
 
 export const BankingAccount = styled.div`
@@ -52,19 +53,6 @@ export const ButtonContinue = styled(Button)`
 
   &:hover {
     background-color: ${({ theme }) => theme.colors.mediumslateBlue};
-  }
-`;
-
-export const ButtonCancel = styled(Button)`
-  width: 100%;
-  background-color: transparent;
-  border: 2px solid ${({ theme }) => theme.colors.danger};
-  color: ${({ theme }) => theme.colors.danger};
-  margin-top: 1rem;
-
-  &:hover {
-    background-color: ${({ theme }) => theme.colors.danger};
-    color: ${({ theme }) => theme.colors.white};
   }
 `;
 

@@ -14,6 +14,11 @@ export const StyledPinInput = styled.input`
   font-size: 1rem;
   font-weight: bold;
 
+  @media (max-width: 414px) {
+    width: 2.2rem;
+    height: 2.2rem;
+  }
+
   & + input {
     margin-left: 0.9375rem;
     @media (max-width: 414px) {

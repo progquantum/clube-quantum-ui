@@ -1,20 +1,23 @@
-import { ChangeEvent, useState } from 'react';
-import { useForm, SubmitHandler } from 'react-hook-form';
-import { yupResolver } from '@hookform/resolvers/yup';
+import { useCallback, useRef, useState } from 'react';
+import { Form } from '@unform/web';
 import { useQueryClient } from 'react-query';
+import { FormHandles } from '@unform/core';
 import { useTheme } from 'styled-components';
 import { AiOutlineBank } from 'react-icons/ai';
 import { FiUser } from 'react-icons/fi';
 import Modal from 'react-modal';
+import noop from 'lodash.noop';
 
 import { Input } from 'components/Input';
 import { BancoUm } from 'components/Illustrations/BancoUm';
 import { formatBankAccount } from 'utils/formatters/formatBankAccount';
+import { performSchemaValidation } from 'utils/performSchemaValidation';
 import { useRegisterBankAccount } from 'hooks/useRegisterBankAccount';
 import { QUERY_KEY_FIND_BILLING } from 'hooks/useWallet';
-import { bankAccountSchema } from 'schemas/managePayment';
+import { Button } from 'components/Button';
 
 import { ModalBankAccountFormProps, ModalBankAccountProps } from './types';
+import { schema } from './schemas';
 import * as S from './styles';
 
 export function ModalBankAccount({
@@ -23,15 +26,14 @@ export function ModalBankAccount({
   onRequestNewModal,
 }: ModalBankAccountProps) {
   const [newConfirmModal, setNewConfirmModal] = useState(false);
-  const { colors } = useTheme();
-  const { control, handleSubmit, getValues, register, setValue } = useForm({
-    resolver: yupResolver(bankAccountSchema),
-  });
+  const [bankAccountData, setBankAccountData] = useState(null);
 
-  const { current_account, holder_name } = getValues();
+  const { colors } = useTheme();
+
+  const formRef = useRef<FormHandles>(null);
+  const queryClient = useQueryClient();
 
   const { mutateAsync: postBankAccount, isLoading } = useRegisterBankAccount();
-  const queryClient = useQueryClient();
 
   const handleRequestNewModal = () => {
     setNewConfirmModal(prevState => !prevState);
@@ -42,22 +44,34 @@ export function ModalBankAccount({
     setNewConfirmModal(false);
   };
 
-  const handleInputAccountFormat = (e: ChangeEvent<HTMLInputElement>) => {
-    const accountFormatted = formatBankAccount(e.target.value);
-    setValue('current_account', accountFormatted);
-  };
+  const handleValidateBankAccount = useCallback(
+    async (data: ModalBankAccountFormProps) => {
+      performSchemaValidation({
+        formRef,
+        data,
+        schema,
+      })
+        .then(() => {
+          const accountNumber = data.current_account.slice(0, -2);
+          const accountDigit = data.current_account.slice(-1);
+          setBankAccountData({
+            accountNumber,
+            accountDigit,
+            ...data,
+          });
+          handleRequestNewModal();
+        })
+        .catch(noop);
+    },
+    [bankAccountData],
+  );
 
-  const handleSubmitAccountBank: SubmitHandler<
-    ModalBankAccountFormProps
-  > = async data => {
-    const accountNumber = data.current_account.slice(0, -2);
-    const accountDigit = data.current_account.slice(-1);
-
-    await postBankAccount(
+  const handlePostBankAccount = () => {
+    postBankAccount(
       {
-        current_account: accountNumber,
-        current_account_check_number: accountDigit,
-        holder_name: data.holder_name,
+        current_account: bankAccountData.accountNumber,
+        current_account_check_number: bankAccountData.accountDigit,
+        holder_name: bankAccountData.holder_name,
       },
       {
         onSuccess: () => {
@@ -94,33 +108,37 @@ export function ModalBankAccount({
           </S.BankingAccount>
         </S.BankingData>
 
-        <S.BankingAccountForm onSubmit={handleSubmit(handleRequestNewModal)}>
+        <S.BankingAccountForm
+          as={Form}
+          ref={formRef}
+          onSubmit={handleValidateBankAccount}
+        >
           <Input
-            maxLength={9}
             type="text"
-            label="Conta Corrente"
             name="current_account"
-            control={control}
             placeholder="Conta corrente"
             icon={AiOutlineBank}
-            {...register('current_account', {
-              onChange: e => handleInputAccountFormat(e),
-            })}
+            onChange={e => {
+              formRef.current.setFieldValue(
+                'current_account',
+                formatBankAccount(e.target.value),
+              );
+            }}
           />
           <Input
             type="text"
-            label="Nome completo do titular"
             name="holder_name"
-            control={control}
-            icon={FiUser}
             placeholder="Nome completo do titular"
+            icon={FiUser}
           />
           <S.InfoText>
             A conta do Banco Um deve estar vinculada ao mesmo CPF cadastrado no
             Clube Quantum.
           </S.InfoText>
           <S.ButtonContinue type="submit">Confirmar</S.ButtonContinue>
-          <S.ButtonCancel onClick={onRequestClose}>Cancelar</S.ButtonCancel>
+          <Button variant="danger_outline" onClick={onRequestClose}>
+            Cancelar
+          </Button>
         </S.BankingAccountForm>
       </Modal>
 
@@ -152,27 +170,24 @@ export function ModalBankAccount({
 
             <S.BankingConfirmAccount>
               <S.TitleContent>Conta</S.TitleContent>
-              <S.TextConfirmAccount>{current_account}</S.TextConfirmAccount>
+              <S.TextConfirmAccount>
+                {bankAccountData?.current_account}
+              </S.TextConfirmAccount>
             </S.BankingConfirmAccount>
 
             <S.BankingConfirmAccount>
               <S.TitleContent>Titular</S.TitleContent>
-              <S.TextConfirmAccount>{holder_name}</S.TextConfirmAccount>
+              <S.TextConfirmAccount>
+                {bankAccountData?.holder_name}
+              </S.TextConfirmAccount>
             </S.BankingConfirmAccount>
           </S.BankingConfirmData>
-          <S.ButtonContinue
-            onClick={() =>
-              handleSubmit(
-                handleSubmitAccountBank({ current_account, holder_name }),
-              )
-            }
-            loading={isLoading}
-          >
+          <S.ButtonContinue onClick={handlePostBankAccount} loading={isLoading}>
             Finalizar
           </S.ButtonContinue>
-          <S.ButtonCancel onClick={handleRequestNewModal}>
+          <Button variant="danger_outline" onClick={handleRequestNewModal}>
             Voltar
-          </S.ButtonCancel>
+          </Button>
         </>
       </Modal>
     </>

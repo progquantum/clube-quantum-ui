@@ -113,7 +113,7 @@ export function SideBar({ loading }: SideBarProps) {
         Central de Privacidade
       </S.NavButton>
 
-      <S.SignOutButton onClick={signOut}>
+      <S.SignOutButton variant="danger" onClick={signOut}>
         Sair
         <Image
           width={16}

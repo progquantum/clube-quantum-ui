@@ -6,11 +6,21 @@ const variants = {
   secondary: css`
     background: transparent;
     color: ${({ theme }) => theme.colors.midnightBlue};
-    border: 0.1rem solid ${({ theme }) => theme.colors.midnightBlue};
+    border: 2px solid ${({ theme }) => theme.colors.midnightBlue};
 
     &:hover {
       background: ${({ theme }) => theme.colors.midnightBlue};
       color: ${({ theme }) => theme.colors.white};
+    }
+  `,
+
+  secondary_degrade: css`
+    color: ${({ theme }) => theme.colors.white};
+    background: ${({ theme }) => theme.gradients.midnightBlueToMediumsLateBlue};
+
+    &:hover {
+      color: ${({ theme }) => theme.colors.white};
+      background: ${({ theme }) => theme.gradients.royalblueToMidnightblue};
     }
   `,
 
@@ -24,6 +34,30 @@ const variants = {
   transparent: css`
     background: transparent;
   `,
+
+  danger: css`
+    background-color: ${({ theme }) => theme.colors.danger};
+    border: 2px solid ${({ theme }) => theme.colors.danger};
+    color: ${({ theme }) => theme.colors.white};
+
+    &:hover {
+      background-color: ${({ theme }) => theme.colors.dangerDark};
+      border: 2px solid ${({ theme }) => theme.colors.dangerDark};
+      color: ${({ theme }) => theme.colors.white};
+    }
+  `,
+
+  danger_outline: css`
+    background: ${({ theme }) => theme.colors.white};
+    color: ${({ theme }) => theme.colors.danger};
+    border: 2px solid ${({ theme }) => theme.colors.danger};
+
+    &:hover {
+      background-color: ${({ theme }) => theme.colors.danger};
+      border: 2px solid ${({ theme }) => theme.colors.danger};
+      color: ${({ theme }) => theme.colors.white};
+    }
+  `,
 };
 
 export const Container = styled.button<ButtonProps>`
@@ -31,19 +65,22 @@ export const Container = styled.button<ButtonProps>`
     display: flex;
     justify-content: center;
     align-items: center;
-    background: ${background || theme.colors.midnightBlue};
+    background: ${background || theme.gradients.midnightBlueToMediumsLateBlue};
     border: 0;
-    padding: 0.5rem 1.5rem;
-    border-radius: 2.5rem;
+    border-radius: 10px;
+    height: 56px;
+    width: 100%;
+    padding: 0 16px;
+    margin-top: 16px;
     color: ${color || theme.colors.white};
-    transition: ${theme.transitions.default};
+
+    &:hover {
+      background: ${({ theme }) => theme.colors.mediumslateBlue};
+      color: ${({ theme }) => theme.colors.white};
+    }
 
     &:disabled {
       cursor: not-allowed;
-    }
-
-    * {
-      transition: ${theme.transitions.default};
     }
 
     ${variant && variants[variant]};

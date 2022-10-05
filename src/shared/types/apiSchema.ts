@@ -53,3 +53,12 @@ export type Wallet = {
 export type InviteCodePayload = {
   is_valid: boolean;
 };
+
+export type ZipCode = {
+  cep: string;
+  city: string;
+  neighborhood: string;
+  state: string;
+  street: string;
+  country: string;
+};

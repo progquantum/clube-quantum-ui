@@ -1,6 +1,7 @@
 import { useState } from 'react';
 import Link from 'next/link';
 import Image from 'next/image';
+import { FiLogIn } from 'react-icons/fi';
 
 import { SIGN_IN_PAGE } from 'constants/routesPath';
 
@@ -32,7 +33,10 @@ export function Header() {
             <Link href="/">Central de dúvidas</Link>
 
             <Link href={SIGN_IN_PAGE}>
-              <S.LoginButton>Fazer Login</S.LoginButton>
+              <S.LoginButton>
+                <FiLogIn />
+                Login
+              </S.LoginButton>
             </Link>
           </S.Nav>
         ) : (
@@ -46,7 +50,10 @@ export function Header() {
               <S.Line />
 
               <Link href={SIGN_IN_PAGE}>
-                <S.LoginButtonMobile>Fazer Login</S.LoginButtonMobile>
+                <S.LoginButtonMobile>
+                  <FiLogIn />
+                  Login
+                </S.LoginButtonMobile>
               </Link>
             </S.MenuMobile>
             <S.Overlay onClick={handleMenuOpen} />

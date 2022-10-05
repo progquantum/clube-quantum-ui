@@ -18,7 +18,7 @@ export const Container = styled.div<StyledContainerProps>`
 
   svg {
     font-size: 1.25rem;
-    color: ${({ theme }) => theme.colors.gray[400]};
+    color: ${({ theme }) => theme.colors.input.icon};
   }
 
   svg:first-child {
@@ -29,11 +29,15 @@ export const Container = styled.div<StyledContainerProps>`
     margin-top: 0.5rem;
   }
 
+  ${({ isFocused, theme }) =>
+    isFocused &&
+    css`
+      border: 2px solid ${theme.colors.midnightBlue};
+    `}
+
   ${({ isFilled, theme }) =>
     isFilled &&
     css`
-      border: 2px solid ${theme.colors.midnightBlue};
-
       svg {
         color: ${theme.colors.midnightBlue};
       }

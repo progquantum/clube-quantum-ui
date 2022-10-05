@@ -1,73 +1,84 @@
-import { useForm } from 'react-hook-form';
-import { yupResolver } from '@hookform/resolvers/yup';
+import { useCallback, useRef } from 'react';
 import { AiOutlineBank } from 'react-icons/ai';
-import { FiUser } from 'react-icons/fi';
+import { FiLogOut, FiUser } from 'react-icons/fi';
+import { Form } from '@unform/web';
+import { FormHandles, SubmitHandler } from '@unform/core';
+import noop from 'lodash.noop';
 
 import { Input } from 'components/Input';
 import { Button } from 'components/Button';
-
 import { formatBankAccount } from 'utils/formatters/formatBankAccount';
-import { bankAccountSchema } from 'schemas/signUp';
+import { performSchemaValidation } from 'utils/performSchemaValidation';
+import { AuthLayout } from 'layouts/Auth';
 
-import { BankAccountProps } from './types';
+import { BankAccountProps, FormValues } from './types';
+import { schema } from './schemas';
 import * as S from './styles';
 
 export function BankAccount({
   onUpdateFormStep,
   onPreviousFormStep,
 }: BankAccountProps) {
-  const { control, register, setValue, formState, handleSubmit } = useForm({
-    resolver: yupResolver(bankAccountSchema),
-  });
+  const formRef = useRef<FormHandles>(null);
 
-  const { isDirty, isSubmitting } = formState;
-  const isButtonDisabled = !isDirty || isSubmitting;
+  const handleBankAccountSubmit: SubmitHandler<FormValues> = useCallback(
+    data => {
+      performSchemaValidation({
+        formRef,
+        data,
+        schema,
+      })
+        .then(() => {
+          onUpdateFormStep();
+        })
+        .catch(noop);
+    },
+    [],
+  );
 
-  function onSubmit() {
-    onUpdateFormStep();
-  }
   return (
-    <S.Form onSubmit={handleSubmit(onSubmit)}>
-      <S.Content>
-        <S.BankDataTitle>Cod. Banco</S.BankDataTitle>
-        <S.BankDataTitle>Agência</S.BankDataTitle>
-      </S.Content>
-      <S.Content>
-        <S.BankData>396 - Banco Um</S.BankData>
-        <S.BankData>0001</S.BankData>
-      </S.Content>
-      <Input
-        type="text"
-        label="Conta Corrente"
-        name="current_account"
-        control={control}
-        placeholder="Conta corrente"
-        icon={AiOutlineBank}
-        {...register('current_account', {
-          onChange: e => {
-            setValue('current_account', formatBankAccount(e.target.value));
-          },
-        })}
-      />
-      <Input
-        control={control}
-        label="Nome completo do titular da conta"
-        name="holder_name"
-        type="text"
-        placeholder="Nome completo do titular"
-        icon={FiUser}
-      />
-      <S.BankInfo>
-        A conta a ser cadastrada deve ser a conta Banco Um na qual o CPF,
-        informado anteriormente, está vinculado.
-      </S.BankInfo>
+    <AuthLayout
+      backgroundImage="/images/signup.png"
+      title="Insira uma conta bancária"
+    >
+      <Form ref={formRef} onSubmit={handleBankAccountSubmit}>
+        <S.Content>
+          <S.BankDataTitle>Cod. Banco</S.BankDataTitle>
+          <S.BankDataTitle>Agência</S.BankDataTitle>
+        </S.Content>
+        <S.Content>
+          <S.BankData>396 - Banco Um</S.BankData>
+          <S.BankData>0001</S.BankData>
+        </S.Content>
+        <Input
+          type="text"
+          name="current_account"
+          placeholder="Conta corrente"
+          icon={AiOutlineBank}
+          onChange={e =>
+            formRef.current.setFieldValue(
+              'current_account',
+              formatBankAccount(e.target.value),
+            )
+          }
+        />
+        <Input
+          type="text"
+          name="holder_name"
+          placeholder="Nome completo do titular"
+          icon={FiUser}
+        />
+        <S.BankInfo>
+          A conta a ser cadastrada deve ser a conta Banco Um na qual o CPF/CNPJ,
+          informado anteriormente, está vinculado.
+        </S.BankInfo>
 
-      <Button type="submit" disabled={isButtonDisabled}>
-        Continuar
-      </Button>
-      <Button variant="secondary" onClick={onPreviousFormStep}>
+        <Button type="submit">Continuar</Button>
+      </Form>
+      <button type="button" onClick={onPreviousFormStep}>
+        <FiLogOut />
         Voltar
-      </Button>
-    </S.Form>
+      </button>
+    </AuthLayout>
   );
 }

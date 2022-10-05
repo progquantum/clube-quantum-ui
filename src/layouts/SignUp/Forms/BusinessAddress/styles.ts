@@ -22,21 +22,3 @@ export const ButtonGroup = styled.section`
     margin: 0;
   }
 `;
-export const Terms = styled.div`
-  width: 100%;
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-`;
-export const CheckBox = styled.input`
-  width: 30%;
-`;
-export const TextTerm = styled.p`
-  font-weight: 500;
-  font-size: 12px;
-  line-height: 15px;
-
-  span {
-    font-weight: bold;
-  }
-`;

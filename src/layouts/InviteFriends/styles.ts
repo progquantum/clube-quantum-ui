@@ -41,7 +41,7 @@ export const InviteCodeContainer = styled(Button)`
   align-items: flex-start;
   width: 100%;
   max-width: 28rem;
-  padding: 1rem;
+  padding: 2.5rem 1rem;
   text-align: start;
   line-height: 1.6;
   color: ${({ theme }) => theme.colors.midnightBlue};
@@ -80,24 +80,14 @@ export const ButtonPlan = styled.div`
 
 export const HeadingInfo = styled.h2`
   font-size: 1rem;
-  font-weight: 900;
-  line-height: 1.3;
+  font-weight: 700;
+  line-height: 1.6;
   margin-bottom: 2.5rem;
 `;
 
 export const Text = styled.p`
   font-size: 1rem;
   font-weight: 500;
-  line-height: 1.5;
+  line-height: 1.6;
   margin-bottom: 2.5rem;
-`;
-
-export const InfoButton = styled(Button)`
-  font-size: 0.875rem;
-  font-weight: 500;
-  padding: 0.5rem 0;
-
-  &:hover {
-    background-color: ${({ theme }) => theme.colors.mediumslateBlue};
-  }
 `;

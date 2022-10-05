@@ -2,10 +2,13 @@ import { useState, useRef } from 'react';
 import { AnimatePresence } from 'framer-motion';
 import { FiLogOut, FiUser, FiUsers, FiUserCheck } from 'react-icons/fi';
 import { BsCurrencyDollar } from 'react-icons/bs';
-import { FaShoppingBag } from 'react-icons/fa';
-import { MdAssignmentInd, MdAssignmentTurnedIn } from 'react-icons/md';
-import { IoMdDocument } from 'react-icons/io';
+import {
+  MdOutlineAssignmentInd,
+  MdOutlineAssignmentTurnedIn,
+} from 'react-icons/md';
+import { HiOutlineDocument } from 'react-icons/hi';
 import Link from 'next/link';
+import { BiShoppingBag } from 'react-icons/bi';
 
 import { useAuthDispatch, useAuthState } from 'contexts/auth/AuthContext';
 import { DASHBOARD_PAGE } from 'constants/routesPath';
@@ -65,22 +68,22 @@ export function AccountDropdown() {
               </S.NavButton>
 
               <S.NavButton>
-                <FaShoppingBag />
+                <BiShoppingBag />
                 Pedidos
               </S.NavButton>
 
               <S.NavButton>
-                <MdAssignmentInd />
+                <MdOutlineAssignmentInd />
                 Planos
               </S.NavButton>
 
               <S.NavButton>
-                <MdAssignmentTurnedIn />
+                <MdOutlineAssignmentTurnedIn />
                 Licenças
               </S.NavButton>
 
               <S.NavButton>
-                <IoMdDocument />
+                <HiOutlineDocument />
                 Privacidade
               </S.NavButton>
 

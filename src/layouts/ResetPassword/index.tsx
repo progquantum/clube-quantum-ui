@@ -1,117 +1,73 @@
-import Image from 'next/image';
+import { useCallback, useRef } from 'react';
 import { useRouter } from 'next/router';
-import { SubmitHandler, useForm } from 'react-hook-form';
-import { yupResolver } from '@hookform/resolvers/yup';
 import { FiLock } from 'react-icons/fi';
-import { AxiosError } from 'axios';
+import { Form } from '@unform/web';
+import { FormHandles, SubmitHandler } from '@unform/core';
+import noop from 'lodash.noop';
 
-import { schema } from 'schemas/resetPassword';
-import { Input } from 'components/Input';
-import { Footer } from 'components/Footer';
 import { useResetPassword } from 'hooks/auth/useResetPassword';
-import { success } from 'helpers/notify/success';
-import { SIGN_IN_PAGE } from 'constants/routesPath';
-import { ErrorResponse } from 'shared/errors/apiSchema';
-import { error } from 'helpers/notify/error';
+import { performSchemaValidation } from 'utils/performSchemaValidation';
+import { AuthLayout } from 'layouts/Auth';
+import { Button } from 'components/Button';
+import { ShowPasswordInput } from 'components/Input/ShowPassword';
 
 import { ResetPasswordFormValues } from './types';
-import * as S from './styles';
+import { schema } from './schemas';
 
 export function ResetPasswordPage() {
-  const { control, handleSubmit, formState } = useForm({
-    resolver: yupResolver(schema),
-  });
-
   const { mutate: resetPassword, isLoading } = useResetPassword();
 
-  const { isDirty, isSubmitting } = formState;
-  const isButtonDisabled = !isDirty || isSubmitting || isLoading;
-
+  const formRef = useRef<FormHandles>(null);
   const router = useRouter();
 
   const inviteCode = router.query.code;
 
-  const handleResetPassword: SubmitHandler<ResetPasswordFormValues> = ({
-    password,
-  }) => {
-    resetPassword(
-      {
-        code: inviteCode,
-        password,
+  const handleResetPassword: SubmitHandler<ResetPasswordFormValues> =
+    useCallback(
+      data => {
+        performSchemaValidation({
+          formRef,
+          data,
+          schema,
+        })
+          .then(() => {
+            const { password } = data;
+
+            resetPassword({
+              code: inviteCode,
+              password,
+            });
+          })
+          .catch(noop);
       },
-      {
-        onSuccess: () => {
-          success('Senha alterada com sucesso');
-          router.push(SIGN_IN_PAGE);
-        },
-        onError: (err: AxiosError<ErrorResponse>) => {
-          const isPasswordRecoveryCodeNotFound =
-            err.response.status === 404 &&
-            err.response.data.message === 'Password recovery code not found';
-
-          const isPasswordRecoveryCodeInvalid =
-            err.response.status === 400 &&
-            err.response.data.message === 'invalid code';
-
-          if (isPasswordRecoveryCodeNotFound) {
-            error(
-              'Não foi possivel alterar a sua senha, código de recuperação não encontrado',
-            );
-          }
-
-          if (isPasswordRecoveryCodeInvalid) {
-            error(
-              'Não foi possível alterar a sua senha, código de recuperação inválido',
-            );
-          }
-        },
-      },
+      [resetPassword],
     );
-  };
 
   return (
-    <>
-      <title>Reset sua senha!</title>
-
-      <S.Container>
-        <S.Form onSubmit={handleSubmit(handleResetPassword)}>
-          <h1>Reset sua senha!</h1>
-
-          <Input
-            type="password"
-            label="Nova senha"
-            name="password"
-            placeholder="Nova senha"
-            icon={FiLock}
-            control={control}
-          />
-
-          <Input
-            type="password"
-            label="Confirma nova senha"
-            name="confirm_password"
-            placeholder="Confirma senha"
-            icon={FiLock}
-            control={control}
-          />
-
-          <S.FormBtn
-            type="submit"
-            disabled={isButtonDisabled}
-            loading={isLoading}
-          >
-            Avançar
-          </S.FormBtn>
-        </S.Form>
-
-        <Image
-          width={385}
-          height={382}
-          src="/images/main-forgot-password.svg"
+    <AuthLayout
+      backgroundImage="/images/reset-password.png"
+      backgroundPosition="right"
+      title="Redefinir senha"
+    >
+      <Form ref={formRef} onSubmit={handleResetPassword}>
+        <ShowPasswordInput
+          type="password"
+          name="password"
+          placeholder="Nova senha"
+          icon={FiLock}
         />
-      </S.Container>
 
-      <Footer />
-    </>
+        <ShowPasswordInput
+          type="password"
+          name="confirm_password"
+          placeholder="Confirma senha"
+          icon={FiLock}
+        />
+
+        <Button type="submit" disabled={isLoading} loading={isLoading}>
+          Avançar
+        </Button>
+      </Form>
+    </AuthLayout>
   );
 }

@@ -1,28 +1,30 @@
-import styled from 'styled-components';
+import styled, { css } from 'styled-components';
+import { lighten } from 'polished';
 
-export const Container = styled.main`
-  width: 100%;
-  margin-bottom: 6.25rem;
-`;
-
-export const Wrapper = styled.div`
-  max-width: 1640px;
-  width: 100%;
-  margin: 5rem auto 0;
-
+export const Container = styled.div`
   display: flex;
+  width: 100%;
+  height: 100vh;
+  max-width: 72.125rem;
   align-items: center;
   justify-content: center;
-  gap: 10rem;
+  margin: 0 auto;
+  gap: 6.75rem;
 
-  @media (max-width: 950px) {
-    gap: 3rem;
+  @media (max-width: 960px) {
+    flex-direction: column-reverse;
+    gap: 1.5rem;
   }
+`;
 
-  @media (max-width: 820px) {
-    > span {
-      display: none !important;
-    }
+export const ImageWrapper = styled.div`
+  @media (max-width: 960px) {
+    max-width: 340px;
+    margin: 0 2rem;
+  }
+  @media (max-width: 400px) {
+    max-width: 230px;
+    margin: 0 2rem;
   }
 `;
 
@@ -30,45 +32,44 @@ export const Info = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
-
-  color: ${({ theme }) => theme.colors.gray[400]};
-  font-weight: 900;
+  gap: 1rem;
+  max-width: 30rem;
 
   h1 {
+    font-weight: 800;
     font-size: 3rem;
-    margin-bottom: 1rem;
+    color: ${({ theme }) => theme.colors.gray[700]};
+    letter-spacing: 2px;
+
+    @media (max-width: 460px) {
+      font-size: 2.5rem;
+      margin: 0 1rem;
+    }
   }
 
-  h3 {
+  p {
+    font-weight: 600;
+    text-align: center;
     font-size: 1.5rem;
-    margin-bottom: 2.5rem;
+
+    @media (max-width: 460px) {
+      font-size: 1rem;
+      margin: 0 1rem;
+    }
   }
 
   a {
-    width: 22rem;
-    height: 3rem;
-    background-color: ${({ theme }) => theme.colors.midnightBlue};
-    color: ${({ theme }) => theme.colors.white};
-    font-size: 1rem;
-    font-weight: 600;
-    border-radius: 40px;
-
+    color: ${({ theme }) => theme.colors.midnightBlue};
     display: flex;
     align-items: center;
-    justify-content: center;
-  }
+    gap: 1rem;
+    margin-top: 24px;
+    transition: color 200ms;
 
-  @media (max-width: 400px) {
-    h1 {
-      font-size: 2.5rem;
-    }
-
-    h3 {
-      font-size: 1.3rem;
-    }
-
-    a {
-      width: 20rem;
+    &:hover {
+      ${({ theme }) => css`
+        color: ${lighten(0.2, theme.colors.midnightBlue)};
+      `}
     }
   }
 `;

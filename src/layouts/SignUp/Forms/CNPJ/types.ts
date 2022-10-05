@@ -2,6 +2,6 @@ export type CNPJProps = {
   onUpdateFormStep: () => void;
 };
 
-export type FormData = {
+export type FormValues = {
   cnpj: string;
 };

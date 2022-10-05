@@ -1,3 +1,5 @@
 export function formatAddressNumber(number: string) {
-  return number.replace(/[^\d]/g, '');
+  number.replace(/[^\d]/g, '');
+
+  return number;
 }

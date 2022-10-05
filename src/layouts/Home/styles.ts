@@ -24,7 +24,7 @@ export const CashBackContainer = styled.section`
     gap: 3rem;
   }
 
-  @media (max-width: 700px) {
+  @media (max-width: 768px) {
     flex-direction: column-reverse;
     justify-content: center;
     margin: 4rem 2rem;
@@ -71,8 +71,9 @@ export const HomePageButton = styled(Button)`
   background: ${({ theme }) => theme.gradients.midnightBlueToMediumsLateBlue};
   color: ${({ theme }) => theme.colors.white};
   font-weight: 500;
-  padding: 0.5rem 1.5rem;
-  border-radius: 2.5rem;
+  width: 200px;
+  height: 0;
+  padding: 1.5rem 0;
 
   &:hover {
     transition: none;
@@ -204,7 +205,7 @@ export const FaqContainer = styled.div`
     margin: 4rem 2rem;
   }
 
-  @media (max-width: 700px) {
+  @media (max-width: 540px) {
     text-align: start;
   }
 `;
@@ -213,7 +214,7 @@ export const FaqBox = styled.div`
   display: flex;
   align-items: center;
   justify-content: space-between;
-  gap: 3rem;
+  gap: 4rem;
 
   @media (max-width: 900px) {
     justify-content: center;
@@ -223,7 +224,7 @@ export const FaqBox = styled.div`
 export const FaqContent = styled.div`
   display: flex;
   flex-direction: column;
-  gap: 1.5rem;
+  gap: 2rem;
   width: 100%;
   max-width: 30rem;
 `;
@@ -235,8 +236,6 @@ export const FaqImage = styled.div`
 `;
 
 export const Faq = styled.div`
-  padding: 3rem;
-  border: 3px solid ${({ theme }) => theme.colors.gray[700]};
   border-radius: 1.5rem;
 
   & > h3 {
@@ -253,8 +252,6 @@ export const Faq = styled.div`
   }
 
   @media (max-width: 700px) {
-    padding: 2rem;
-
     & > h3 {
       font-size: 1rem;
     }
@@ -262,5 +259,30 @@ export const Faq = styled.div`
     & > p {
       font-size: 0.775rem;
     }
+  }
+`;
+
+export const ButtonFaq = styled(Button)`
+  background: transparent;
+  color: ${({ theme }) => theme.colors.mediumslateBlue};
+  font-weight: 600;
+  padding: 1.2rem 0;
+  height: 0;
+  margin-top: 0;
+  border-radius: 6px;
+  gap: 0.5rem;
+  justify-content: flex-start;
+
+  @media (max-width: 900px) {
+    justify-content: center;
+  }
+
+  @media (max-width: 540px) {
+    justify-content: flex-start;
+  }
+
+  &:hover {
+    background: transparent;
+    color: ${({ theme }) => theme.colors.mediumslateBlue};
   }
 `;

@@ -1,60 +1,52 @@
-import { useForm } from 'react-hook-form';
-import { yupResolver } from '@hookform/resolvers/yup';
+import { useCallback, useRef } from 'react';
 import { FiUser } from 'react-icons/fi';
-
-import Link from 'next/link';
+import { Form } from '@unform/web';
+import { FormHandles, SubmitHandler } from '@unform/core';
+import noop from 'lodash.noop';
 
 import { useAuthDispatch } from 'contexts/auth/AuthContext';
 import { Input } from 'components/Input';
-import { cpfSchema } from 'schemas/signUp';
 import { formatCPF } from 'utils/formatters/formatCPF';
 import { Button } from 'components/Button';
+import { AuthLayout } from 'layouts/Auth';
+import { performSchemaValidation } from 'utils/performSchemaValidation';
 
-import { SIGN_UP_PAGE } from 'constants/routesPath';
-
-import { CPFProps, FormData } from './types';
-import * as S from './styles';
+import { CPFProps, FormValues } from './types';
+import { schema } from './schemas';
 
 export function CPF({ onUpdateFormStep }: CPFProps) {
-  const { handleSubmit, control, register, setValue, formState } = useForm({
-    resolver: yupResolver(cpfSchema),
-  });
-
   const { signUp } = useAuthDispatch();
 
-  function onSubmit(data: FormData) {
-    signUp(data);
-    onUpdateFormStep();
-  }
+  const formRef = useRef<FormHandles>(null);
 
-  const { isDirty, isSubmitting } = formState;
-  const isButtonDisabled = !isDirty || isSubmitting;
+  const handleCPFSubmit: SubmitHandler<FormValues> = useCallback(data => {
+    performSchemaValidation({
+      formRef,
+      data,
+      schema,
+    })
+      .then(() => {
+        signUp(data);
+        onUpdateFormStep();
+      })
+      .catch(noop);
+  }, []);
 
   return (
-    <S.Container>
-      <S.Form onSubmit={handleSubmit(onSubmit)}>
+    <AuthLayout backgroundImage="/images/signup.png" title="Insira seu CPF">
+      <Form ref={formRef} onSubmit={handleCPFSubmit}>
         <Input
           type="text"
-          label="CPF"
-          control={control}
+          name="cpf"
           placeholder="CPF"
           icon={FiUser}
-          {...register('cpf', {
-            onChange: e => {
-              setValue('cpf', formatCPF(e.target.value));
-            },
-          })}
+          onChange={e =>
+            formRef.current.setFieldValue('cpf', formatCPF(e.target.value))
+          }
         />
 
-        <S.ButtonGroup>
-          <Button type="submit" disabled={isButtonDisabled}>
-            Continuar
-          </Button>
-          <Link href={SIGN_UP_PAGE}>
-            <Button variant="secondary">Voltar</Button>
-          </Link>
-        </S.ButtonGroup>
-      </S.Form>
-    </S.Container>
+        <Button type="submit">Continuar</Button>
+      </Form>
+    </AuthLayout>
   );
 }

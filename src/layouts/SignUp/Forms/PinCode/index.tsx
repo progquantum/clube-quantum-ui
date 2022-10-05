@@ -1,13 +1,16 @@
-import { FormEvent, useState } from 'react';
+import { useState, FormEvent } from 'react';
+import { AxiosError } from 'axios';
+import { FiLogOut } from 'react-icons/fi';
 
 import { useAuthState } from 'contexts/auth/AuthContext';
 import { PinCodeGrid } from 'components/PinCodeGrid';
 import { Button } from 'components/Button';
 import { useCheckPhoneCode } from 'hooks/useCheckPhoneCode';
 import { useSendPhoneCode } from 'hooks/useSendPhoneCode';
-import { error } from 'helpers/notify/error';
-
+import { ErrorResponse } from 'shared/errors/apiSchema';
 import { success } from 'helpers/notify/success';
+import { error } from 'helpers/notify/error';
+import { AuthLayout } from 'layouts/Auth';
 
 import { PinCodeProps } from './types';
 import * as S from './styles';
@@ -35,7 +38,6 @@ export function PinCode({ onNextFormStep, onPreviousFormStep }: PinCodeProps) {
 
   const handlePhoneCodeVerification = (event: FormEvent) => {
     event.preventDefault();
-
     const code = pinCode.join('');
     const { phone } = registerUser;
 
@@ -46,29 +48,32 @@ export function PinCode({ onNextFormStep, onPreviousFormStep }: PinCodeProps) {
       },
       {
         onSuccess: () => onNextFormStep(),
-        onError: () => error('Código inválido!'),
+        onError: (err: AxiosError<ErrorResponse>) => {
+          if (err.message === 'Invalid code') error('Código inválido!');
+        },
       },
     );
   };
 
-  function handleSendAnotherCode() {
+  const handleSendAnotherCode = () => {
     const { phone } = registerUser;
+
     requestSendPhoneCode(
       { phone },
       {
         onSuccess: () => {
-          success(`Codigo enviado novamente para o numero ${phone}`);
-        },
-        onError: () => {
-          error('Número de telefone inválido!');
+          success(`Código enviado novamente para o número ${phone}`);
         },
       },
     );
-  }
+  };
 
   return (
-    <S.Container>
-      <S.Form onSubmit={e => handlePhoneCodeVerification(e)}>
+    <AuthLayout
+      backgroundImage="/images/signup.png"
+      title="Código de verificação"
+    >
+      <form onSubmit={handlePhoneCodeVerification}>
         <S.Title>
           Para continuar, insira o código de 6 dígitos enviado por SMS para o
           número que você digitou
@@ -80,28 +85,28 @@ export function PinCode({ onNextFormStep, onPreviousFormStep }: PinCodeProps) {
         />
         <S.SubTitle>Não recebeu?</S.SubTitle>
         <S.Paragraph>
-          Clique aqui para{' '}
-          <button type="button" onClick={() => handleSendAnotherCode()}>
-            receber outro código
-          </button>{' '}
-          ou{' '}
-          <button type="button" onClick={onPreviousFormStep}>
-            digite outro número
-          </button>
+          Clique aqui para
+          <S.ButtonPinCode type="button" onClick={handleSendAnotherCode}>
+            &nbsp;receber outro código&nbsp;
+          </S.ButtonPinCode>
+          <br />
+          ou
+          <S.ButtonPinCode type="button" onClick={onPreviousFormStep}>
+            &nbsp;digite outro número
+          </S.ButtonPinCode>
         </S.Paragraph>
-        <S.ButtonGroup>
-          <Button
-            type="submit"
-            loading={isCheckingPhone}
-            disabled={isButtonDisabled}
-          >
-            Confirmar
-          </Button>
-          <Button variant="secondary" onClick={onPreviousFormStep}>
-            Voltar
-          </Button>
-        </S.ButtonGroup>
-      </S.Form>
-    </S.Container>
+        <Button
+          type="submit"
+          loading={isCheckingPhone}
+          disabled={isButtonDisabled}
+        >
+          Confirmar
+        </Button>
+      </form>
+      <button type="button" onClick={onPreviousFormStep}>
+        <FiLogOut />
+        Voltar
+      </button>
+    </AuthLayout>
   );
 }

@@ -1,95 +1,100 @@
-import { useForm } from 'react-hook-form';
-import { yupResolver } from '@hookform/resolvers/yup';
-import { FiCalendar, FiCreditCard, FiLock, FiUser } from 'react-icons/fi';
+import { useRef, useCallback } from 'react';
+import {
+  FiCalendar,
+  FiCreditCard,
+  FiLock,
+  FiUser,
+  FiLogOut,
+} from 'react-icons/fi';
+import { Form } from '@unform/web';
+import { FormHandles, SubmitHandler } from '@unform/core';
+import noop from 'lodash.noop';
 
 import { Input } from 'components/Input';
 import { Button } from 'components/Button';
-import { creditCardSchema } from 'schemas/signUp';
 import { formatCreditCardAddSpace } from 'utils/formatters/formatCreditCardAddSpace';
 import { formatCreditCardExpiration } from 'utils/formatters/formatCreditCardExpiration';
-import { VISAIcon } from 'components/Illustrations/Visa';
+import { performSchemaValidation } from 'utils/performSchemaValidation';
+import { AuthLayout } from 'layouts/Auth';
+import { formatCVV } from 'utils/formatters/formatCVV';
 
-import { BankCardProps } from './types';
+import { BankCardProps, CreditCardFormValues } from './types';
 import * as S from './styles';
+import { schema } from './schemas';
 
 export function CreditCard({
   onUpdateFormStep,
   onNavigateToSuccessfulSignUp,
   onPreviousFormStep,
 }: BankCardProps) {
-  const { control, handleSubmit, formState, register, setValue } = useForm({
-    resolver: yupResolver(creditCardSchema),
-  });
+  const formRef = useRef<FormHandles>(null);
 
-  const { isDirty, isSubmitting } = formState;
-  const isButtonDisabled = !isDirty || isSubmitting;
-
-  function onSubmit() {
-    onUpdateFormStep();
-  }
+  const handleSubmitCreditCard: SubmitHandler<CreditCardFormValues> =
+    useCallback(data => {
+      performSchemaValidation({
+        data,
+        schema,
+        formRef,
+      })
+        .then(() => onUpdateFormStep())
+        .catch(noop);
+    }, []);
 
   return (
-    <S.Form onSubmit={handleSubmit(onSubmit)}>
-      <Input
-        type="text"
-        label="Nome do cartão"
-        name="card_name"
-        control={control}
-        placeholder="Nome completo do titular"
-        icon={FiUser}
-      />
-
-      <Input
-        type="text"
-        label="Número do cartão"
-        name="card_number"
-        control={control}
-        placeholder="Número do cartão"
-        icon={FiCreditCard}
-        {...register('card_number', {
-          onChange: e => {
-            setValue('card_number', formatCreditCardAddSpace(e.target.value));
-          },
-        })}
-      />
-
-      <Input
-        type="text"
-        label="Data de vencimento"
-        name="expiration_date"
-        control={control}
-        placeholder="Data de vencimento"
-        icon={FiCalendar}
-        {...register('expiration_date', {
-          onChange: e => {
-            setValue(
+    <AuthLayout
+      backgroundImage="/images/signup.png"
+      title="Insira um cartão de crédito"
+    >
+      <Form ref={formRef} onSubmit={handleSubmitCreditCard}>
+        <Input
+          type="text"
+          name="card_name"
+          placeholder="Nome completo do titular"
+          icon={FiUser}
+        />
+        <Input
+          type="text"
+          name="card_number"
+          placeholder="Número do cartão"
+          icon={FiCreditCard}
+          onChange={e =>
+            formRef.current.setFieldValue(
+              'card_number',
+              formatCreditCardAddSpace(e.target.value),
+            )
+          }
+        />
+        <Input
+          type="text"
+          name="expiration_date"
+          placeholder="Data de vencimento"
+          icon={FiCalendar}
+          onChange={e =>
+            formRef.current.setFieldValue(
               'expiration_date',
               formatCreditCardExpiration(e.target.value),
-            );
-          },
-        })}
-      />
+            )
+          }
+        />
+        <Input
+          type="text"
+          name="cvc"
+          placeholder="CVV"
+          icon={FiLock}
+          onChange={e =>
+            formRef.current.setFieldValue('cvc', formatCVV(e.target.value))
+          }
+        />
 
-      <Input
-        type="text"
-        label="CVC"
-        name="cvc"
-        control={control}
-        placeholder="CVC"
-        icon={FiLock}
-      />
-
-      <S.ButtonGroup>
-        <Button type="submit" disabled={isButtonDisabled}>
-          Continuar
-        </Button>
-        <Button variant="secondary" onClick={onPreviousFormStep}>
-          Voltar
-        </Button>
-      </S.ButtonGroup>
+        <Button type="submit">Continuar</Button>
+      </Form>
       <S.JumpStepButton onClick={onNavigateToSuccessfulSignUp}>
-        Pular esta etapa
+        Pular etapa
       </S.JumpStepButton>
-    </S.Form>
+      <button type="button" onClick={onPreviousFormStep}>
+        <FiLogOut />
+        Voltar
+      </button>
+    </AuthLayout>
   );
 }

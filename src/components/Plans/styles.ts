@@ -2,6 +2,8 @@ import styled from 'styled-components';
 import { IoMdCheckbox } from 'react-icons/io';
 import { MdDoNotDisturbOn } from 'react-icons/md';
 
+import { Button as ComponentButton } from 'components/Button';
+
 export const Container = styled.div`
   width: 100%;
   max-width: 53.4375rem;
@@ -148,4 +150,9 @@ export const CheckedCheckBox = styled(IoMdCheckbox)`
 export const NotIncludedIcon = styled(MdDoNotDisturbOn)`
   font-size: 1.3rem;
   color: ${({ theme }) => theme.colors.gray[200]};
+`;
+
+export const ButtonConfirm = styled(ComponentButton)`
+  width: 250px;
+  margin-bottom: 60px;
 `;

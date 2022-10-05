@@ -111,7 +111,9 @@ export function MainContent() {
           <S.TextDeadline>
             Sua assinatura será renovada em 15/xx/xxxx
           </S.TextDeadline>
-          <S.ButtonCancel disabled>Cancelar</S.ButtonCancel>
+          <S.ButtonCancel variant="danger_outline" disabled>
+            Cancelar
+          </S.ButtonCancel>
         </S.Deadline>
       </S.DivSelectPlan>
 

@@ -7,17 +7,17 @@ const locale = {
     required: 'Campo obrigatório.',
     notType: 'Campo inválido',
     oneOf: 'Este campo não corresponde',
-    max: 'Esse campo deve ser menor que ${max} caracteres.',
-    min: 'Esse campo deve ser maior que ${min} caracteres.',
+    max: 'Esse campo deve ter no máximo ${max} caracteres.',
+    min: 'Esse campo deve ter no mínimo ${min} caracteres.',
   },
   string: {
     email: 'Esse campo precisa ser um email válido.',
-    max: 'Esse campo deve ser maior que ${max} caracteres.',
-    min: 'Esse campo deve ser maior que ${min} caracteres.',
+    max: 'Esse campo deve ter no máximo ${max} caracteres.',
+    min: 'Esse campo deve ter no mínimo ${min} caracteres.',
   },
   number: {
-    max: 'Esse campo deve ser menor que ${max} caracteres.',
-    min: 'Esse campo deve ser maior que ${min} caracteres.',
+    max: 'Esse campo deve ter no máximo ${max} caracteres.',
+    min: 'Esse campo deve ter no mínimo ${min} caracteres.',
   },
 };
 

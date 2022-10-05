@@ -1,92 +1,96 @@
-import { SubmitHandler, useForm } from 'react-hook-form';
-import { yupResolver } from '@hookform/resolvers/yup';
-import { FiPhone } from 'react-icons/fi';
+import { useCallback, useRef } from 'react';
+import { FiPhone, FiLogOut } from 'react-icons/fi';
+import { Form } from '@unform/web';
+import { FormHandles, SubmitHandler } from '@unform/core';
+import noop from 'lodash.noop';
 import { AxiosError } from 'axios';
 
 import { useAuthDispatch } from 'contexts/auth/AuthContext';
-import { phoneNumberSchema } from 'schemas/signUp';
 import { Input } from 'components/Input';
 import { Button } from 'components/Button';
 import { formatPhoneNumber } from 'utils/formatters/formatPhoneNumber';
 import { useSendPhoneCode } from 'hooks/useSendPhoneCode';
-import { error } from 'helpers/notify/error';
+import { performSchemaValidation } from 'utils/performSchemaValidation';
+import { AuthLayout } from 'layouts/Auth';
 import { success } from 'helpers/notify/success';
+import { error } from 'helpers/notify/error';
 import { ErrorResponse } from 'shared/errors/apiSchema';
 
 import { PhoneProps, PhoneFormValues } from './types';
-import * as S from './styles';
+import { schema } from './schemas';
 
 export function Phone({ onUpdateFormStep, onPreviousFormStep }: PhoneProps) {
-  const { handleSubmit, control, register, setValue, formState } = useForm({
-    resolver: yupResolver(phoneNumberSchema),
-  });
-
   const { signUp } = useAuthDispatch();
+
+  const formRef = useRef<FormHandles>(null);
+
   const { mutate: sendPhoneCodeRequest, isLoading: isSendingPhoneCode } =
     useSendPhoneCode();
 
-  const { isDirty, isSubmitting } = formState;
-  const isButtonDisabled = isSendingPhoneCode || !isDirty || isSubmitting;
+  const handlePhoneCode: SubmitHandler<PhoneFormValues> = useCallback(
+    data => {
+      performSchemaValidation({
+        formRef,
+        data,
+        schema,
+      })
+        .then(() => {
+          const phone = `+55 ${data.phone}`;
 
-  const handlePhoneCode: SubmitHandler<PhoneFormValues> = data => {
-    const phone = `+55 ${data.phone}`;
+          sendPhoneCodeRequest(
+            { phone },
+            {
+              onSuccess: (_, variables) => {
+                success(`Codigo enviado para o numero ${variables.phone}`);
+                signUp({ phone });
+                onUpdateFormStep();
+              },
+              onError: (err: AxiosError<ErrorResponse>) => {
+                if (err.response.data.message === 'Phone already in use') {
+                  error('Este telefone já está em uso');
+                }
 
-    sendPhoneCodeRequest(
-      { phone },
-      {
-        onSuccess: (_, variables) => {
-          success(`Codigo enviado para o numero ${variables.phone}`);
-          signUp({ phone });
-          onUpdateFormStep();
-        },
-        onError: (err: AxiosError<ErrorResponse>) => {
-          const isPhoneInUse =
-            err.response.status === 409 &&
-            err.response.data.message === 'Phone already in use';
-          const isPhoneInvalid =
-            err.response.status === 400 &&
-            err.response.data.message[0] === 'phone must be a phone number';
-
-          if (isPhoneInUse) {
-            error('Este telefone já está em uso, insira um outro telefone');
-          }
-
-          if (isPhoneInvalid) {
-            error('Número de telefone inválido!');
-          }
-        },
-      },
-    );
-  };
+                if (
+                  err.response.data.message[0] ===
+                  'phone must be a phone number'
+                ) {
+                  error('Número de telefone inválido!');
+                }
+              },
+            },
+          );
+        })
+        .catch(noop);
+    },
+    [signUp],
+  );
 
   return (
-    <S.Container>
-      <S.Form onSubmit={handleSubmit(handlePhoneCode)}>
+    <AuthLayout
+      backgroundImage="/images/signup.png"
+      title="Insira seu telefone"
+    >
+      <Form ref={formRef} onSubmit={handlePhoneCode}>
         <Input
           type="text"
-          label="Telefone"
+          name="phone"
           placeholder="Telefone"
           icon={FiPhone}
-          control={control}
-          {...register('phone', {
-            onChange: e => {
-              setValue('phone', formatPhoneNumber(e.target.value));
-            },
-          })}
+          onChange={e =>
+            formRef.current.setFieldValue(
+              'phone',
+              formatPhoneNumber(e.target.value),
+            )
+          }
         />
-        <S.ButtonGroup>
-          <Button
-            type="submit"
-            loading={isSendingPhoneCode}
-            disabled={isButtonDisabled}
-          >
-            Continuar
-          </Button>
-          <Button variant="secondary" onClick={onPreviousFormStep}>
-            Voltar
-          </Button>
-        </S.ButtonGroup>
-      </S.Form>
-    </S.Container>
+        <Button type="submit" loading={isSendingPhoneCode}>
+          Continuar
+        </Button>
+      </Form>
+      <button type="button" onClick={onPreviousFormStep}>
+        <FiLogOut />
+        Voltar
+      </button>
+    </AuthLayout>
   );
 }

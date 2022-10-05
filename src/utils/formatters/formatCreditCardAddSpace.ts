@@ -1,12 +1,15 @@
 export function formatCreditCardAddSpace(value: string) {
-  const preFormattedValue = value.replace(/[^\d]/g, '');
-  let formattedValue = value;
+  let valueFormatted = value.replace(/[^\d]/g, '');
 
-  if (preFormattedValue.length <= 19) {
-    formattedValue = preFormattedValue
+  if (valueFormatted.length <= 19) {
+    valueFormatted = valueFormatted
       .replace(/(.{4})/g, '$1 ')
       .replace(/\s*$/, '');
   }
 
-  return formattedValue;
+  if (valueFormatted.length > 19) {
+    valueFormatted = valueFormatted.substring(0, valueFormatted.length - 1);
+  }
+
+  return valueFormatted;
 }

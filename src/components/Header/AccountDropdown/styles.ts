@@ -44,13 +44,15 @@ export const AnimatedDropdown = styled(motion.nav)`
 export const NavButton = styled(Button)`
   ${({ theme }) => css`
     width: 100%;
-    padding: 0.75rem 1rem;
+    margin-top: 0;
+    padding: 0.5rem 1rem;
     justify-content: space-between;
     font-size: ${theme.fontSizes.sm};
     background: ${theme.colors.ghostwhite};
     color: ${theme.colors.midnightBlue};
 
     &:hover {
+      color: ${theme.colors.midnightBlue};
       background: ${theme.colors.background};
     }
 
@@ -63,6 +65,7 @@ export const NavButton = styled(Button)`
     }
 
     &:last-child {
+      color: ${theme.colors.danger};
       border-radius: ${theme.radiis.smallBottom};
     }
   `}

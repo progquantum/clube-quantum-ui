@@ -25,14 +25,16 @@ export const colors = {
   },
   input: {
     background: {
-      1: '#F5F5F5',
+      1: '#f5f6fa',
       2: '#E8E8E8',
     },
+    icon: `#95a5a6`,
     danger: '#C53030',
     text: '#161616',
   },
   yellow: '#FFCA28',
   warning: '#FFC107',
   danger: '#E12B2B',
+  dangerDark: '#B92626',
   success: '#00C851',
 };

@@ -1,12 +1,13 @@
-import Image from 'next/image';
 import Link from 'next/link';
 import { useRouter } from 'next/router';
 
+import { AuthLayout } from 'layouts/Auth';
 import {
   SIGN_UP_BUSINESS_PAGE,
   SIGN_UP_PERSONAL_PAGE,
 } from 'constants/routesPath';
 import { useAuthDispatch } from 'contexts/auth/AuthContext';
+import { Button } from 'components/Button';
 
 import * as S from './styles';
 
@@ -21,30 +22,20 @@ export function SignUpPage() {
     });
 
   return (
-    <S.Container>
-      <S.ContainerImage>
-        <Image
-          width={386}
-          height={373}
-          src="/images/girl-on-ladder.png"
-          alt="Imagem seja um membro Quantum"
-        />
-      </S.ContainerImage>
-
+    <AuthLayout
+      title="Antes de prosseguirmos"
+      description="Qual tipo de conta você deseja abrir?"
+      backgroundImage="/images/signup.png"
+    >
       <S.Wrap>
-        <S.Title>Antes de prosseguirmos</S.Title>
-        <S.Paragraph>
-          Diga-nos, qual tipo de conta você deseja abrir?
-        </S.Paragraph>
-
         <Link href={SIGN_UP_PERSONAL_PAGE} passHref>
-          <S.LinkButton onClick={handleSubmit}>Pessoa Física</S.LinkButton>
+          <Button onClick={handleSubmit}>Pessoa Física</Button>
         </Link>
 
         <Link href={SIGN_UP_BUSINESS_PAGE} passHref>
-          <S.LinkButton onClick={handleSubmit}>Pessoa Juridica</S.LinkButton>
+          <Button onClick={handleSubmit}>Pessoa Juridica</Button>
         </Link>
       </S.Wrap>
-    </S.Container>
+    </AuthLayout>
   );
 }

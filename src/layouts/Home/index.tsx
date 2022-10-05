@@ -1,5 +1,6 @@
 import Head from 'next/head';
 import Image from 'next/image';
+import Link from 'next/link';
 
 import { SIGN_UP_PAGE } from 'constants/routesPath';
 import { Footer } from 'components/Footer';
@@ -27,9 +28,9 @@ export function HomePage() {
             <div>
               <S.CashBackTitle>Ganhe cash back todo dia!</S.CashBackTitle>
               <S.CashBackText>Seja um membro Clube Quantum</S.CashBackText>
-              <S.HomePageButton as="a" href={SIGN_UP_PAGE}>
-                Criar minha conta
-              </S.HomePageButton>
+              <Link href={SIGN_UP_PAGE}>
+                <S.HomePageButton>Criar minha conta</S.HomePageButton>
+              </Link>
             </div>
             <Image width={480} height={400} src="/images/cashback.svg" alt="" />
           </S.CashBackContainer>
@@ -107,7 +108,7 @@ export function HomePage() {
                     o seu código de indicação nas suas redes sociais.
                   </p>
                 </S.Faq>
-                <S.HomePageButton>Veja mais dúvidas</S.HomePageButton>
+                <S.ButtonFaq>Veja mais dúvidas</S.ButtonFaq>
               </S.FaqContent>
               <S.FaqImage>
                 <Image src="/images/questions.svg" width={480} height={336} />
