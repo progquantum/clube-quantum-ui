@@ -44,6 +44,7 @@ export function ForgotPasswordPage() {
       backgroundImage="/images/forgot-password.png"
       backgroundPosition="right"
       title="Esqueci minha senha"
+      description="Digite seu endereço de email abaixo e nós lhe enviaremos um link de redefinição de senha."
     >
       <Form ref={formRef} onSubmit={handleRecoveryPassword}>
         <Input name="email" placeholder="E-mail" icon={FiMail} />

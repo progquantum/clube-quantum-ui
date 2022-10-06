@@ -40,10 +40,17 @@ export const Content = styled.section`
   h1,
   p {
     margin-top: 24px;
+    color: ${({ theme }) => theme.colors.gray[400]};
   }
 
   p {
-    color: ${({ theme }) => theme.colors.gray[400]};
+    margin: 40px 0;
+    width: 50%;
+    text-align: center;
+
+    @media (max-width: 768px) {
+      width: 90%;
+    }
   }
 
   form {
