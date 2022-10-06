@@ -1,11 +1,9 @@
 export function formatCreditCardAddSpace(value: string) {
   let valueFormatted = value.replace(/[^\d]/g, '');
 
-  if (valueFormatted.length <= 19) {
-    valueFormatted = valueFormatted
-      .replace(/(.{4})/g, '$1 ')
-      .replace(/\s*$/, '');
-  }
+  valueFormatted = valueFormatted.replace(/(\d{4})(\d)/, '$1 $2');
+  valueFormatted = valueFormatted.replace(/(\d{4})(\d)/, '$1 $2');
+  valueFormatted = valueFormatted.replace(/(\d{4})(\d)/, '$1 $2');
 
   if (valueFormatted.length > 19) {
     valueFormatted = valueFormatted.substring(0, valueFormatted.length - 1);
