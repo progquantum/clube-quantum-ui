@@ -1,14 +1,13 @@
-import { Button } from 'components/Button'
+import { SubscriptionButtonProps } from './types';
 
-import { SubscriptionButtonProps } from './types'
+import * as S from './styles';
 
-export function SubscriptionButton ({ onOpenModalCvcRequest }:SubscriptionButtonProps) {
+export function SubscriptionButton({
+  onOpenModalCvcRequest,
+}: SubscriptionButtonProps) {
   return (
-    <Button
-      variant='primary'
-      onClick={onOpenModalCvcRequest}
-    >
+    <S.SubscriptionButton onClick={onOpenModalCvcRequest}>
       Continuar
-    </Button>
-  )
+    </S.SubscriptionButton>
+  );
 }

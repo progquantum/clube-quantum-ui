@@ -1,4 +1,4 @@
 export type ErrorResponse = {
-  'statusCode':number;
-  'message':string,
-}
+  statusCode: number;
+  message: string;
+};

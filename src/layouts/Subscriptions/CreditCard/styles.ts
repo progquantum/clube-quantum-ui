@@ -1,6 +1,6 @@
-import styled from 'styled-components'
+import styled from 'styled-components';
 
-import { Button } from 'components/Button'
+import { Button } from 'components/Button';
 
 export const Main = styled.main`
   display: flex;
@@ -10,14 +10,14 @@ export const Main = styled.main`
   width: 100%;
   gap: 120px;
 
-  @media (max-width: 1024px){
+  @media (max-width: 1024px) {
     gap: 60px;
   }
-`
+`;
 export const Form = styled.form`
   background: ${({ theme }) => theme.colors.white};
   box-shadow: 0px 0px 20px rgba(0, 0, 0, 0.1);
-  border-radius: .9375rem;
+  border-radius: 0.9375rem;
   width: 26.6875rem;
   height: 100%;
   display: flex;
@@ -25,42 +25,42 @@ export const Form = styled.form`
   gap: 20px;
   align-items: flex-start;
   padding: 2.5rem 1.875rem;
-  @media (max-width: 460px){
+  @media (max-width: 460px) {
     width: 20.625rem;
   }
-`
+`;
 export const Line = styled.span`
   display: flex;
-  gap: .625rem;
+  gap: 0.625rem;
   font-weight: 500;
-  font-size: .625rem;
+  font-size: 0.625rem;
   line-height: 1.25rem;
   color: ${({ theme }) => theme.colors.gray[400]};
-`
+`;
 export const Text = styled.p`
   font-weight: 500;
   font-size: 16px;
   line-height: 20px;
   color: ${({ theme }) => theme.colors.gray[400]};
-`
+`;
 export const Content = styled.div`
   display: flex;
   justify-content: space-between;
   align-items: center;
   width: 100%;
-`
+`;
 export const Title = styled.p`
   font-weight: 700;
   font-size: 16px;
   line-height: 20px;
   color: ${({ theme }) => theme.colors.gray[700]};
-`
+`;
 export const Data = styled.p`
   font-weight: 900;
   font-size: 16px;
   line-height: 20px;
   color: ${({ theme }) => theme.colors.gray[700]};
-`
+`;
 export const DivInput = styled.div`
   display: flex;
   flex-direction: column;
@@ -71,13 +71,13 @@ export const DivInput = styled.div`
     display: flex;
     justify-content: flex-end;
   }
-`
+`;
 export const CVC = styled(DivInput)`
   width: 41.15%;
-  @media (max-width: 460px){
+  @media (max-width: 460px) {
     width: 60%;
   }
-`
+`;
 export const Description = styled.p`
   font-weight: 500;
   font-size: 14px;
@@ -85,22 +85,21 @@ export const Description = styled.p`
   color: ${({ theme }) => theme.colors.black};
   display: flex;
   align-items: center;
-`
+`;
 export const ConfirmButton = styled(Button)`
   width: 100%;
   padding: 10px 29px;
-`
+`;
 export const ReturnButton = styled(Button)`
   width: 100%;
-`
+`;
 export const ContentCardNumber = styled.div`
   width: 100%;
   display: flex;
   align-items: center;
   gap: 24px;
-`
-export const ContentCardExpirateCVC = styled(ContentCardNumber)`
-`
+`;
+export const ContentCardExpirateCVC = styled(ContentCardNumber)``;
 export const Cancel = styled.a`
   width: 100%;
   display: flex;
@@ -108,4 +107,4 @@ export const Cancel = styled.a`
   justify-content: center;
   text-align: center;
   color: ${({ theme }) => theme.colors.danger};
-`
+`;

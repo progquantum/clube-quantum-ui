@@ -1,4 +1,4 @@
 export type VISAIconProps = {
-  width: string
-  height: string
-}
+  width: string;
+  height: string;
+};

@@ -1,98 +1,64 @@
-import Image from 'next/image'
-import { SubmitHandler, useForm } from 'react-hook-form'
-import { yupResolver } from '@hookform/resolvers/yup'
-import { toast } from 'react-toastify'
-import { useRouter } from 'next/router'
+import { useCallback, useRef } from 'react';
+import { FiArrowLeft, FiMail } from 'react-icons/fi';
+import { Form } from '@unform/web';
+import { FormHandles, SubmitHandler } from '@unform/core';
+import Link from 'next/link';
+import noop from 'lodash.noop';
 
-import { AxiosError } from 'axios'
+import { Input } from 'components/Input';
+import { useRecoveryPassword } from 'hooks/auth/useRecoveryPassword';
+import { performSchemaValidation } from 'utils/performSchemaValidation';
+import { AuthLayout } from 'layouts/Auth';
+import { Button } from 'components/Button';
+import { SIGN_IN_PAGE } from 'constants/routesPath';
 
-import { Input } from 'components/Input'
-import { Footer } from 'components/Footer'
+import { RecoveryPasswordFormValues } from './types';
+import { schema } from './schemas';
 
-import { schema } from 'schemas/recoveryPassword'
-import { useRecoveryPassword } from 'hooks/auth/useRecoveryPassword'
+export function ForgotPasswordPage() {
+  const formRef = useRef<FormHandles>(null);
 
-import { SIGN_IN_PAGE } from 'constants/routesPath'
+  const { mutate: sendRecoveryPasswordRequest, isLoading } =
+    useRecoveryPassword();
 
-import { ErrorResponse } from 'shared/errors/apiSchema'
+  const handleRecoveryPassword: SubmitHandler<RecoveryPasswordFormValues> =
+    useCallback(
+      data => {
+        performSchemaValidation({
+          data,
+          formRef,
+          schema,
+        })
+          .then(() => {
+            const { email } = data;
 
-import { error } from 'helpers/notify/error'
-
-import { RecoveryPasswordFormValues } from './types'
-import * as S from './styles'
-
-export function ForgotPasswordPage () {
-  const {
-    control,
-    handleSubmit,
-    formState
-  } = useForm({
-    defaultValues: {
-      email: ''
-    },
-    resolver: yupResolver(schema)
-  })
-
-  const router = useRouter()
-
-  const {
-    mutate: sendRecoveryPasswordRequest,
-    isLoading
-  } = useRecoveryPassword()
-
-  const { isDirty, isSubmitting } = formState
-  const isButtonDisabled = !isDirty || isSubmitting || isLoading
-
-  const handleRecoveryPassword: SubmitHandler<RecoveryPasswordFormValues> = ({
-    email
-  }) => {
-    sendRecoveryPasswordRequest({
-      email
-    }, {
-      onSuccess: (_, variables) => {
-        toast.success(`Enviado e-mail para ${variables.email}`)
-
-        router.push(SIGN_IN_PAGE)
+            sendRecoveryPasswordRequest({ email });
+          })
+          .catch(noop);
       },
-      onError: (err: AxiosError<ErrorResponse>) => {
-        const isEmailRegistered = err.response?.data.statusCode === 400 &&
-        err.response?.data.message === 'Email not registered'
-
-        if (isEmailRegistered) {
-          error('Email não registrado')
-        }
-      }
-    })
-  }
+      [sendRecoveryPasswordRequest],
+    );
 
   return (
-    <>
-      <title>Esqueceu sua Senha</title>
+    <AuthLayout
+      backgroundImage="/images/forgot-password.png"
+      backgroundPosition="right"
+      title="Esqueci minha senha"
+    >
+      <Form ref={formRef} onSubmit={handleRecoveryPassword}>
+        <Input name="email" placeholder="E-mail" icon={FiMail} />
 
-      <S.Container>
-        <S.Form onSubmit={handleSubmit(handleRecoveryPassword)}>
-          <h1>Esqueceu sua Senha</h1>
+        <Button type="submit" disabled={isLoading} loading={isLoading}>
+          Avançar
+        </Button>
+      </Form>
 
-          <Input
-            type='email'
-            label='Email'
-            name='email'
-            control={control}
-          />
-
-          <S.FormBtn
-            type='submit'
-            disabled={isButtonDisabled}
-            loading={isLoading}
-          >
-            Avançar
-          </S.FormBtn>
-        </S.Form>
-
-        <Image width={385} height={382} src='/images/main-forgot-password.svg' />
-      </S.Container>
-
-      <Footer />
-    </>
-  )
+      <Link href={SIGN_IN_PAGE} prefetch>
+        <a>
+          <FiArrowLeft />
+          Voltar para o login
+        </a>
+      </Link>
+    </AuthLayout>
+  );
 }

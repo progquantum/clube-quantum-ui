@@ -1,48 +1,57 @@
-import styled from 'styled-components'
-
-import { TextTitleProps } from './types'
+import styled, { css } from 'styled-components';
+import { lighten } from 'polished';
 
 export const Container = styled.div`
-  width: 100%;
   display: flex;
+  width: 100%;
+  height: 100vh;
+  max-width: 72.125rem;
   align-items: center;
   justify-content: center;
-  margin-top: 4.0231rem;
-  gap: 3.75rem;
-`
-export const LeftWrapper = styled.div`
-  @media (max-width: 820px){
-    display: none;
-  }
-`
+  margin: 0 auto;
+  gap: 6.75rem;
+`;
 
-export const Content = styled.div`
-  max-width: 20.625rem;
-  width: 100%;
+export const ImageContainer = styled.div`
+  @media (max-width: 940px) {
+    display: none !important;
+  }
+`;
+
+export const TextTitle = styled.h1`
+  font-size: 2rem;
+  font-weight: 900;
+  text-align: center;
+  margin: 3.75rem 0;
+`;
+
+export const Message = styled.div`
   color: ${({ theme }) => theme.colors.gray[700]};
   display: flex;
   flex-direction: column;
+  justify-content: center;
   align-items: center;
-`
+  max-width: 30rem;
+`;
 
-export const TextTitle = styled.h3<TextTitleProps>`
-  font-size: 1.25rem;
-  font-weight: ${(props) => props.fontWeight};
-  margin: ${(props) => props.margin || 0};
-`
+export const Achor = styled.a`
+  color: ${({ theme }) => theme.colors.midnightBlue};
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  margin-top: 24px;
+  transition: color 200ms;
+
+  &:hover {
+    ${({ theme }) => css`
+      color: ${lighten(0.2, theme.colors.midnightBlue)};
+    `}
+  }
+`;
 
 export const Paragraph = styled.p`
   font-size: 1.25rem;
   text-align: center;
-  margin-bottom: 2.5rem;
-`
-
-export const Button = styled.button`
-  padding: 1rem 1.875rem;
-  margin-top: 2rem;
-  border-radius: 5rem;
-  background-color: ${({ theme }) => theme.colors.midnightBlue};
-  color: ${({ theme }) => theme.colors.white};
-  font-size: 0.75rem;
-  font-weight: 900;
-`
+  line-height: 1.6;
+  margin-bottom: 1rem;
+`;

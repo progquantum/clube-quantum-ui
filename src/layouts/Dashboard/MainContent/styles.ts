@@ -1,6 +1,6 @@
-import styled from 'styled-components'
+import styled from 'styled-components';
 
-import { Button } from 'components/Button'
+import { Button } from 'components/Button';
 
 export const Container = styled.div`
   width: 100%;
@@ -11,16 +11,16 @@ export const Container = styled.div`
   grid-template-rows: 1fr 1fr 2fr;
   gap: 2rem;
   grid-template-areas:
-  "Container Container"
-  "DivMarketplace DivMarketplace"
-  "DivSelectPlan DivInviteFriends";
+    'Container Container'
+    'DivMarketplace DivMarketplace'
+    'DivSelectPlan DivInviteFriends';
 
-@media (max-width:1024px ){
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-}
-`
+  @media (max-width: 1024px) {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+`;
 
 export const DivMarketplace = styled.div`
   grid-area: DivMarketplace;
@@ -32,43 +32,43 @@ export const DivMarketplace = styled.div`
   justify-content: space-between;
   flex-wrap: wrap;
   padding: 1.875rem 2.5rem 1.875rem 1.875rem;
-  gap: .625rem;
-  border-radius: .9375rem;
+  gap: 0.625rem;
+  border-radius: 0.9375rem;
 
-@media (max-width: 1024px) {
-  width: 27.0625rem;
-  gap: 1.25rem;
-}
+  @media (max-width: 1024px) {
+    width: 27.0625rem;
+    gap: 1.25rem;
+  }
 
-@media (max-width: 460px) {
-  width: 20.625rem;
-}
-`
+  @media (max-width: 460px) {
+    width: 20.625rem;
+  }
+`;
 export const ItemMarket = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  gap: .625rem;
+  gap: 0.625rem;
   cursor: not-allowed;
-`
+`;
 export const AccessMarket = styled.div`
   display: flex;
   flex-direction: column;
   align-items: flex-start;
   gap: 1.25rem;
-`
+`;
 export const HeaderAccessMarket = styled.div`
   display: flex;
   flex-direction: row;
-  gap: .625rem;
-`
+  gap: 0.625rem;
+`;
 export const MarketText = styled.p`
   font-weight: 500;
-  font-size: .75rem;
-  line-height: .9375rem;
+  font-size: 0.75rem;
+  line-height: 0.9375rem;
   color: ${({ theme }) => theme.colors.lightsteelblueice};
-`
+`;
 export const ComingSoon = styled.span`
   position: absolute;
   top: -20px;
@@ -78,24 +78,28 @@ export const ComingSoon = styled.span`
   padding: 10px 20px;
   border-radius: 50px;
 
-  @media (max-width: 1024px){
+  @media (max-width: 1024px) {
     left: -22px;
   }
 
-  @media (max-width: 460px){
+  @media (max-width: 460px) {
     left: -12px;
   }
-`
+`;
 export const ButtonMarketplace = styled(Button)`
   background: ${({ theme }) => theme.colors.lightsteelblueice};
   color: ${({ theme }) => theme.colors.cornflowerblue};
   height: 2.3125rem;
 
+  &:hover {
+    background: ${({ theme }) => theme.colors.lightsteelblueice};
+    color: ${({ theme }) => theme.colors.cornflowerblue};
+  }
+
   &:disabled {
     cursor: not-allowed;
   }
-
-`
+`;
 
 export const DivSelectPlan = styled.div`
   grid-area: DivSelectPlan;
@@ -106,86 +110,71 @@ export const DivSelectPlan = styled.div`
   gap: 1.5rem;
   width: 21.4688rem;
   height: 15.375rem;
-  border-radius: .9375rem;
+  border-radius: 0.9375rem;
   box-shadow: 0rem 0rem 1.25rem rgba(0, 0, 0, 0.1);
   background-color: ${({ theme }) => theme.colors.white};
 
-  @media (max-width:1024px ){
+  @media (max-width: 1024px) {
     width: 27.0625rem;
   }
-  
-  @media (max-width: 460px){
+
+  @media (max-width: 460px) {
     width: 20.625rem;
   }
-`
+`;
 
-export const HeaderSelectPlan = styled(HeaderAccessMarket)``
+export const HeaderSelectPlan = styled(HeaderAccessMarket)``;
 
 export const TitlePlan = styled.span`
   font-weight: 500;
-  font-size: .625rem;
+  font-size: 0.625rem;
   line-height: 1.25rem;
-`
+`;
 export const DivStatusPlan = styled.div`
   display: flex;
   justify-content: space-between;
   width: 100%;
-`
+`;
 
 export const TitleStatusPlan = styled.h3`
   font-weight: 700;
   font-size: 1rem;
   line-height: 1.25rem;
   color: ${({ theme }) => theme.colors.success};
-`
+`;
 export const StatusPlan = styled.span`
   font-weight: 500;
   font-size: 14px;
   line-height: 17px;
   color: ${({ theme }) => theme.colors.success};
-`
+`;
 
 export const ManageButton = styled(Button)`
-  width: 100%;
-  height: 2.3125rem;
-  font-size: .875rem;
-  line-height: 1.0625rem;
-  font-weight: 500;
-
+  margin-top: 0;
   &:disabled {
     opacity: 0.6;
     cursor: not-allowed;
   }
-
-  &:hover{
-    color: ${({ theme }) => theme.colors.white};
-    background: ${({ theme }) => theme.colors.mediumslateBlue};
-    
-  }
-
-`
+`;
 
 export const Deadline = styled.div`
   display: flex;
   align-items: center;
   justify-content: space-between;
   width: 100%;
-`
+`;
 
 export const TextDeadline = styled.p`
   font-weight: 500;
-  font-size: .75rem;
-  line-height: .9375rem;
+  font-size: 0.75rem;
+  line-height: 0.9375rem;
   color: ${({ theme }) => theme.colors.gray[300]};
   line-height: 1.25rem;
   width: 135.75px;
-`
+`;
 
 export const ButtonCancel = styled(Button)`
-  background: transparent;
-  border: 1px solid ${({ theme }) => theme.colors.danger};
-  color: ${({ theme }) => theme.colors.danger};
-  font-size: .875rem;
+  font-size: 0.875rem;
   line-height: 1.0625rem;
   height: 37px;
   width: 135.75px;
@@ -194,13 +183,7 @@ export const ButtonCancel = styled(Button)`
     opacity: 0.6;
     cursor: not-allowed;
   }
-
-  &:hover {
-    background-color: ${({ theme }) => theme.colors.danger};
-    color: ${({ theme }) => theme.colors.white};
-    border: 1px solid ${({ theme }) => theme.colors.danger};
-  }
-`
+`;
 
 export const DivInviteFriends = styled.div`
   grid-area: DivInviteFriends;
@@ -213,40 +196,40 @@ export const DivInviteFriends = styled.div`
   height: 15.375rem;
   background-color: ${({ theme }) => theme.colors.mediumslateBlue};
   box-shadow: 0px 0px 20px rgba(0, 0, 0, 0.1);
-  border-radius: .9375rem;
+  border-radius: 0.9375rem;
 
-  @media (max-width:1024px ){
+  @media (max-width: 1024px) {
     width: 27.0625rem;
   }
 
-  @media (max-width: 460px){
+  @media (max-width: 460px) {
     width: 20.625rem;
   }
-`
+`;
 
-export const HeaderInviteFriends = styled(HeaderAccessMarket)``
+export const HeaderInviteFriends = styled(HeaderAccessMarket)``;
 
 export const TitleFriends = styled(TitlePlan)`
   color: ${({ theme }) => theme.colors.white};
-`
+`;
 
 export const TitleInviteFriends = styled(TitleStatusPlan)`
   color: ${({ theme }) => theme.colors.white};
-`
+`;
 
 export const TextInviteFriends = styled(StatusPlan)`
   color: ${({ theme }) => theme.colors.white};
-`
+`;
 
 export const ButtonInviteFriends = styled(Button)`
-  background-color: ${({ theme }) => theme.colors.white};
+  background: ${({ theme }) => theme.colors.white};
   color: ${({ theme }) => theme.colors.midnightBlue};
   border: 2px solid ${({ theme }) => theme.colors.white};
   width: 100%;
 
   &:hover {
-    background: ${({ theme }) => theme.gradients.midnightBlueToMediumsLateBlue} ;
-    color: ${({ theme }) => theme.colors.white};
-    border: 2px solid ${({ theme }) => theme.colors.white};
+    background: ${({ theme }) => theme.colors.lightsteelblue};
+    color: ${({ theme }) => theme.colors.midnightBlue};
+    border: 2px solid ${({ theme }) => theme.colors.lightsteelblue};
   }
-`
+`;

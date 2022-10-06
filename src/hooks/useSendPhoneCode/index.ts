@@ -1,13 +1,13 @@
-import { useMutation } from 'react-query'
+import { useMutation } from 'react-query';
 
-import { api } from 'config/client'
+import { quantumClientBase } from 'config/client';
 
-import { PhoneCodeRequest } from './types'
+import { PhoneCodeRequest } from './types';
 
-export async function sendPhoneCodeRequest (phoneCode: PhoneCodeRequest) {
-  return await api.post<unknown>('/phones/create-code', phoneCode)
+export async function sendPhoneCodeRequest(phoneCode: PhoneCodeRequest) {
+  await quantumClientBase.post<unknown>('/phones/create-code', phoneCode);
 }
 
-export function useSendPhoneCode () {
-  return useMutation(sendPhoneCodeRequest)
+export function useSendPhoneCode() {
+  return useMutation(sendPhoneCodeRequest);
 }

@@ -21,11 +21,21 @@ export const colors = {
     200: '#BBBBBB',
     300: '#A8A8A8',
     400: '#878787',
-    700: '#3D3D3D'
+    700: '#3D3D3D',
+  },
+  input: {
+    background: {
+      1: '#f5f6fa',
+      2: '#E8E8E8',
+    },
+    icon: `#95a5a6`,
+    danger: '#C53030',
+    text: '#161616',
   },
   black: '#000000',
   yellow: '#FFCA28',
   warning: '#FFC107',
   danger: '#E12B2B',
-  success: '#00C851'
-}
+  dangerDark: '#B92626',
+  success: '#00C851',
+};

@@ -1,89 +1,79 @@
-import { useForm } from 'react-hook-form'
-import { FaAngleRight } from 'react-icons/fa'
-import { yupResolver } from '@hookform/resolvers/yup'
+import { useCallback, useRef } from 'react';
+import { FiUser, FiMail, FiLock, FiLogOut } from 'react-icons/fi';
+import { FormHandles, SubmitHandler } from '@unform/core';
+import { Form } from '@unform/web';
+import noop from 'lodash.noop';
 
-import { useAuthDispatch } from 'contexts/auth/AuthContext'
-import { Input } from 'components/Input'
-import { Button } from 'components/Button'
-import { legalPersonDataSchema } from 'schemas/signUp'
+import { useAuthDispatch } from 'contexts/auth/AuthContext';
+import { Input } from 'components/Input';
+import { Button } from 'components/Button';
+import { AuthLayout } from 'layouts/Auth';
+import { performSchemaValidation } from 'utils/performSchemaValidation';
 
-import { LegalPersonProps, FormData } from './types'
-import * as S from './styles'
+import { ShowPasswordInput } from 'components/Input/ShowPassword';
 
-export function LegalPerson ({
-  onUpdateFormStep
+import { LegalPersonProps, SignUpFormValues } from './types';
+import { schema } from './schemas';
+
+export function LegalPerson({
+  onUpdateFormStep,
+  onPreviousFormStep,
 }: LegalPersonProps) {
-  const {
-    control,
-    handleSubmit,
-    formState
-  } = useForm({
-    defaultValues: {
-      company_name: '',
-      email: '',
-      email_confirmation: '',
-      password: '',
-      password_confirmation: ''
-    },
-    resolver: yupResolver(legalPersonDataSchema)
-  })
+  const { signUp } = useAuthDispatch();
+  const formRef = useRef<FormHandles>(null);
 
-  const { signUp } = useAuthDispatch()
-
-  const { isDirty, isSubmitting } = formState
-  const isButtonDisabled = !isDirty || isSubmitting
-
-  function onSubmit (data: FormData) {
-    signUp(data)
-    onUpdateFormStep()
-  }
+  const handleSignUp: SubmitHandler<SignUpFormValues> = useCallback(data => {
+    performSchemaValidation({
+      formRef,
+      data,
+      schema,
+    })
+      .then(() => {
+        signUp(data);
+        onUpdateFormStep();
+      })
+      .catch(noop);
+  }, []);
 
   return (
-    <S.Container>
-      <S.Form onSubmit={handleSubmit(onSubmit)}>
+    <AuthLayout backgroundImage="/images/signup.png" title="Insira seu CNPJ">
+      <Form ref={formRef} onSubmit={handleSignUp}>
         <Input
-          type='text'
-          label='Razão Social'
-          name='company_name'
-          control={control}
+          type="text"
+          name="company_name"
+          placeholder="Razão social"
+          icon={FiUser}
         />
 
-        <Input
-          type='email'
-          label='E-mail'
-          name='email'
-          control={control}
-        />
+        <Input type="email" name="email" placeholder="Email" icon={FiMail} />
 
         <Input
-          type='email'
-          label='Confirmar e-mail'
-          name='email_confirmation'
-          control={control}
+          type="email"
+          name="email_confirmation"
+          placeholder="Confirmar email"
+          icon={FiMail}
         />
 
-        <Input
-          type='password'
-          label='Criar senha'
-          name='password'
-          control={control}
+        <ShowPasswordInput
+          type="password"
+          name="password"
+          placeholder="Criar senha"
+          icon={FiLock}
         />
 
-        <Input
-          type='password'
-          label='Confirmar Senha'
-          name='password_confirmation'
-          control={control}
+        <ShowPasswordInput
+          type="password"
+          name="password_confirmation"
+          placeholder="Confirmar senha"
+          icon={FiLock}
         />
 
-        <Button
-          type='submit'
-          variant='rounded'
-          disabled={isButtonDisabled}
-        >
-          <FaAngleRight size={24} />
-        </Button>
-      </S.Form>
-    </S.Container>
-  )
+        <Button type="submit">Continuar</Button>
+      </Form>
+      <button type="button" onClick={onPreviousFormStep}>
+        <FiLogOut />
+        Voltar
+      </button>
+    </AuthLayout>
+  );
 }

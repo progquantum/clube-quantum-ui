@@ -1,3 +1,3 @@
 export const transitions = {
-  default: '180ms ease-in-out'
-}
+  default: '180ms ease-in-out',
+};

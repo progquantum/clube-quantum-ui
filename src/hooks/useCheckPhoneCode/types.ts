@@ -1,4 +1,4 @@
 export type CheckPhoneCodeRequest = {
-  phone: string
-  code: string
-}
+  phone: string;
+  code: string;
+};

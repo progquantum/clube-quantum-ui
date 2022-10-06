@@ -1,15 +1,13 @@
-import { GetServerSideProps } from 'next'
+import { GetServerSideProps } from 'next';
 
-import { SubscriptionsPage } from 'layouts/Subscriptions'
+import { SubscriptionsPage } from 'layouts/Subscriptions';
 
-import { withSSRAuth } from 'helpers/auth/withSSRAuth'
+import { withSSRAuth } from 'helpers/auth/withSSRAuth';
 
-export const getServerSideProps: GetServerSideProps = withSSRAuth(async () => {
-  return {
-    props: {}
-  }
-})
+export const getServerSideProps: GetServerSideProps = withSSRAuth(async () => ({
+  props: {},
+}));
 
-export default function Subscriptions () {
-  return <SubscriptionsPage />
+export default function Subscriptions() {
+  return <SubscriptionsPage />;
 }

@@ -1,4 +1,4 @@
-import styled from 'styled-components'
+import styled from 'styled-components';
 
 export const Container = styled.div`
   width: 100vw;
@@ -7,9 +7,9 @@ export const Container = styled.div`
   display: flex;
   align-items: center;
   justify-content: center;
-`
+`;
 
 export const AnimetedLoader = styled.object`
   width: min(500px, 100%);
   height: auto;
-`
+`;

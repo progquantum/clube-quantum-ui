@@ -1,6 +1,8 @@
-import styled from 'styled-components'
+import styled from 'styled-components';
 
 export const Container = styled.div`
+  display: flex;
+  justify-content: center;
   max-width: 500px;
   width: 100%;
   margin: 0 auto;
@@ -30,4 +32,4 @@ export const Container = styled.div`
       border-color: ${({ theme }) => theme.colors.darkslategray};
     }
   }
-`
+`;

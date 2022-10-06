@@ -1,4 +1,4 @@
-import styled from 'styled-components'
+import styled from 'styled-components';
 
 export const Main = styled.main`
   display: flex;
@@ -8,12 +8,12 @@ export const Main = styled.main`
   width: 100%;
   gap: 1.87rem;
 
-  @media(max-width: 1320px) {
-    gap: 6.1563rem; 
+  @media (max-width: 1320px) {
+    gap: 6.1563rem;
     max-width: 70rem;
     padding: 0 1rem;
   }
-  @media(max-width: 820px) {
+  @media (max-width: 820px) {
     justify-content: center;
   }
-`
+`;

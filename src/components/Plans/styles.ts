@@ -1,9 +1,9 @@
-import styled, { css } from 'styled-components'
-import { IoMdCheckbox } from 'react-icons/io'
-import { MdDoNotDisturbOn } from 'react-icons/md'
-import { BiInfoCircle } from 'react-icons/bi'
+import styled, { css } from 'styled-components';
+import { IoMdCheckbox } from 'react-icons/io';
+import { MdDoNotDisturbOn } from 'react-icons/md';
+import { BiInfoCircle } from 'react-icons/bi';
 
-import { Active } from './types'
+import { Active } from './types';
 
 export const Container = styled.div`
   width: 100%;
@@ -12,6 +12,8 @@ export const Container = styled.div`
   justify-content: center;
   align-items: center;
   flex-direction: column;
+  margin: 0 auto;
+  margin-bottom: 30px;
 
   section {
     width: 100%;
@@ -23,10 +25,10 @@ export const Container = styled.div`
     }
   }
 
-  @media(max-width: 1320px) {
+  @media (max-width: 1320px) {
     width: 24.0625rem;
   }
-`
+`;
 
 export const Wrapper = styled.div`
   width: 22.5rem;
@@ -36,31 +38,33 @@ export const Wrapper = styled.div`
   flex-direction: column;
   gap: 1.25rem;
 
-  @media(max-width: 900px) {
+  margin: 30px 0;
+
+  @media (max-width: 900px) {
     > span {
       display: none !important;
     }
   }
-`
+`;
 export const Text = styled.p`
   font-weight: 500;
-  font-size: .75rem;
-  line-height: .9375rem;
+  font-size: 0.75rem;
+  line-height: 0.9375rem;
   text-align: center;
-`
+`;
 export const Subtitle = styled(Text)`
   color: ${({ theme }) => theme.colors.midnightBlue};
-`
+`;
 export const PlansWrapper = styled.div`
   width: 100%;
   padding: 2px;
-  border-radius: 5rem;
+  border-radius: 0.625rem;
   border: 2px solid ${({ theme }) => theme.colors.midnightBlue};
 
   display: flex;
   align-items: center;
   justify-content: space-between;
-`
+`;
 export const Title = styled.h2`
   font-weight: 900;
   font-size: 1rem;
@@ -69,42 +73,43 @@ export const Title = styled.h2`
   display: flex;
   justify-content: center;
   align-items: center;
-`
+`;
 export const PlanType = styled.h4<Active>`
   width: 100%;
   text-align: center;
   color: ${({ theme }) => theme.colors.midnightBlue};
-  border-radius: 5rem;
+  border-radius: 0.625rem;
   cursor: pointer;
-  font-size: .875rem;
+  font-size: 0.875rem;
   line-height: 1.0625rem;
   padding: 10px 29px;
 
-  ${(props) => props.isActive &&
+  ${props =>
+    props.isActive &&
     css`
       background-color: ${({ theme }) => theme.colors.midnightBlue};
       color: #ffffff;
-    `
-  }
+    `}
 
-  @media(max-width: 525px) {
+  @media (max-width: 525px) {
     font-size: 0.9rem;
   }
-`
+`;
 export const Button = styled.button<Active>`
-  padding: .625rem 1.8125rem;
-  border-radius: 5rem;
+  padding: 0.625rem 1.8125rem;
+  border-radius: 10px;
   background-color: ${({ theme }) => theme.colors.midnightBlue};
   color: ${({ theme }) => theme.colors.white};
   font-size: 0.75rem;
   font-weight: 500;
 
-  ${(props) => props.isActive &&
+  ${props =>
+    props.isActive &&
     css`
-      background: ${({ theme }) => theme.gradients.midnightBlueToMediumsLateBlue};
-    `
-  }
-`
+      background: ${({ theme }) =>
+        theme.gradients.midnightBlueToMediumsLateBlue};
+    `}
+`;
 export const PlansContents = styled.section`
   color: ${({ theme }) => theme.colors.gray[700]};
   gap: 1.5rem;
@@ -114,14 +119,14 @@ export const PlansContents = styled.section`
   align-items: center;
   justify-content: center;
 
-  @media(max-width: 1320px) {
+  @media (max-width: 1320px) {
     flex-direction: column;
   }
-`
+`;
 export const PlanContentsWrapper = styled.div<Active>`
   width: 100%;
   padding: 3.75rem 1.875rem 5rem;
-  background: #FFFFFF;
+  background: #ffffff;
   box-shadow: 2px 4px 20px rgba(0, 0, 0, 0.15);
   border-radius: 15px;
   cursor: pointer;
@@ -135,35 +140,35 @@ export const PlanContentsWrapper = styled.div<Active>`
     color: ${({ theme }) => theme.colors.midnightBlue};
   }
 
-  @media(max-width: 1320px) {
+  @media (max-width: 1320px) {
     width: 21.875rem;
   }
 
-  @media(max-width: 460px ){
+  @media (max-width: 460px) {
     width: 20.625rem;
   }
 
-  ${(props) => props.isActive &&
+  ${props =>
+    props.isActive &&
     css`
       box-shadow: 2px 4px 20px rgba(0, 31, 128, 0.25);
       transform: scale(1.1);
       margin: 0 1.25rem;
       transition: 0.4s;
 
-      @media(max-width: 910px) {
+      @media (max-width: 1320px) {
         transform: scale(1.05, 1);
         margin: 1.25rem 0;
       }
-    `
-  }
-`
+    `}
+`;
 export const TitlePlan = styled.h3`
   font-weight: 900;
   font-size: 1.25rem;
   line-height: 1.5rem;
   text-align: center;
-  margin-bottom: .625rem;
-`
+  margin-bottom: 0.625rem;
+`;
 export const PlanItemsList = styled.ul`
   margin-top: 3.125rem;
 
@@ -171,7 +176,7 @@ export const PlanItemsList = styled.ul`
     display: flex;
     align-items: flex-start;
     font-weight: 500;
-    font-size: .875rem;
+    font-size: 0.875rem;
     line-height: 1.0625rem;
     justify-content: space-between;
 
@@ -184,22 +189,22 @@ export const PlanItemsList = styled.ul`
       margin-right: 0.5rem;
     }
   }
-`
+`;
 export const PlanItem = styled.div`
-  margin-right: .3125rem;
+  margin-right: 0.3125rem;
   display: flex;
   align-items: center;
-`
+`;
 export const CheckedCheckBox = styled(IoMdCheckbox)`
   font-size: 1.3rem;
   color: ${({ theme }) => theme.colors.midnightBlue};
-`
+`;
 export const NotIncludedIcon = styled(MdDoNotDisturbOn)`
   font-size: 1.3rem;
   color: ${({ theme }) => theme.colors.gray[200]};
-`
+`;
 export const InfoIcon = styled(BiInfoCircle)`
-  font-size: .625rem;
+  font-size: 0.625rem;
   display: flex;
   align-items: flex-start;
-`
+`;

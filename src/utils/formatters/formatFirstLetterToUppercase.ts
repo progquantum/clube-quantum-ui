@@ -1,7 +1,6 @@
-export const formatFirstLetterToUppercase = (text: string) => {
-  return text?.toLowerCase()
+export const formatFirstLetterToUppercase = (text: string) =>
+  text
+    ?.toLowerCase()
     .split(' ')
-    .map((word) => {
-      return word[0].toUpperCase() + word.slice(1)
-    }).join(' ')
-}
+    .map(word => word[0].toUpperCase() + word.slice(1))
+    .join(' ');

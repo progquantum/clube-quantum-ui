@@ -1,20 +1,14 @@
-import { useRouter } from 'next/router'
+import { useRouter } from 'next/router';
 
-import { Button } from 'components/Button'
-import { BANK_ACCOUNT_PAGE } from 'constants/routesPath'
+import { BANK_ACCOUNT_PAGE } from 'constants/routesPath';
 
-export function ManagePlansButton () {
-  const router = useRouter()
+import * as S from './styles';
+
+export function ManagePlansButton() {
+  const router = useRouter();
   const handlCreatePlan = () => {
-    router.push(BANK_ACCOUNT_PAGE)
-  }
+    router.push(BANK_ACCOUNT_PAGE);
+  };
 
-  return (
-    <Button
-      variant='primary'
-      onClick={handlCreatePlan}
-    >
-      Continuar
-    </Button>
-  )
+  return <S.ManageButton onClick={handlCreatePlan}>Continuar</S.ManageButton>;
 }

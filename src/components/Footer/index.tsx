@@ -1,10 +1,10 @@
-import Link from 'next/link'
+import Link from 'next/link';
 
-import { CONTACT_US_PAGE } from 'constants/routesPath'
+import { CONTACT_US_PAGE } from 'constants/routesPath';
 
-import * as S from './styles'
+import * as S from './styles';
 
-export function Footer () {
+export function Footer() {
   return (
     <S.Container>
       <S.About>
@@ -12,21 +12,13 @@ export function Footer () {
           <S.Heading>Institucional</S.Heading>
 
           <S.Nav>
-            <Link href=''>
-              Quem somos
-            </Link>
+            <Link href="/">Quem somos</Link>
 
-            <Link href=''>
-              Trabalhe conosco
-            </Link>
+            <Link href="/">Trabalhe conosco</Link>
 
-            <Link href={CONTACT_US_PAGE}>
-              Fale conosco
-            </Link>
+            <Link href={CONTACT_US_PAGE}>Fale conosco</Link>
 
-            <Link href=''>
-              Parceiros
-            </Link>
+            <Link href="/">Parceiros</Link>
           </S.Nav>
         </div>
 
@@ -34,21 +26,13 @@ export function Footer () {
           <S.Heading>Deixe-nos lhe ajudar</S.Heading>
 
           <S.Nav>
-            <Link href=''>
-              Sua conta
-            </Link>
+            <Link href="/">Sua conta</Link>
 
-            <Link href=''>
-              Frete e prazo de entrega
-            </Link>
+            <Link href="/">Frete e prazo de entrega</Link>
 
-            <Link href=''>
-              Devoluções e reembolsos
-            </Link>
+            <Link href="/">Devoluções e reembolsos</Link>
 
-            <Link href=''>
-              Ajuda
-            </Link>
+            <Link href="/">Ajuda</Link>
           </S.Nav>
         </div>
       </S.About>
@@ -64,5 +48,5 @@ export function Footer () {
         <S.HeadingNumber>0800 000 0000</S.HeadingNumber>
       </S.Contact>
     </S.Container>
-  )
+  );
 }

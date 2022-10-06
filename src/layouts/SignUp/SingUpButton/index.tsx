@@ -1,14 +1,7 @@
-import { Button } from 'components/Button'
+import { SingUpButtonProps } from './types';
 
-import { SingUpButtonProps } from './types'
+import * as S from './styles';
 
-export function SingUpButton ({ onUpdateFormStep }: SingUpButtonProps) {
-  return (
-    <Button
-      variant='primary'
-      onClick={onUpdateFormStep}
-    >
-      Continuar
-    </Button>
-  )
+export function SingUpButton({ onUpdateFormStep }: SingUpButtonProps) {
+  return <S.SingUpButton onClick={onUpdateFormStep}>Continuar</S.SingUpButton>;
 }

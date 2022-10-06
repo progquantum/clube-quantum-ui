@@ -1,29 +1,32 @@
-import { useState, useRef } from 'react'
-import { AnimatePresence } from 'framer-motion'
-import { FiLogOut, FiUser, FiUsers, FiUserCheck } from 'react-icons/fi'
-import { BsCurrencyDollar } from 'react-icons/bs'
-import { FaShoppingBag } from 'react-icons/fa'
-import { MdAssignmentInd, MdAssignmentTurnedIn } from 'react-icons/md'
-import { IoMdDocument } from 'react-icons/io'
-import Link from 'next/link'
+import { useState, useRef } from 'react';
+import { AnimatePresence } from 'framer-motion';
+import { FiLogOut, FiUser, FiUsers, FiUserCheck } from 'react-icons/fi';
+import { BsCurrencyDollar } from 'react-icons/bs';
+import {
+  MdOutlineAssignmentInd,
+  MdOutlineAssignmentTurnedIn,
+} from 'react-icons/md';
+import { HiOutlineDocument } from 'react-icons/hi';
+import Link from 'next/link';
+import { BiShoppingBag } from 'react-icons/bi';
 
-import { useAuthDispatch, useAuthState } from 'contexts/auth/AuthContext'
-import { DASHBOARD_PAGE, SUBSCRIPTIONS_PAGE } from 'constants/routesPath'
+import { useAuthDispatch, useAuthState } from 'contexts/auth/AuthContext';
+import { DASHBOARD_PAGE, SUBSCRIPTIONS_PAGE } from 'constants/routesPath';
 
-import { DROP_DOWN_ANIMATION } from './animations'
-import * as S from './styles'
+import { DROP_DOWN_ANIMATION } from './animations';
+import * as S from './styles';
 
-export function AccountDropdown () {
-  const { signOut } = useAuthDispatch()
-  const { user } = useAuthState()
+export function AccountDropdown() {
+  const { signOut } = useAuthDispatch();
+  const { user } = useAuthState();
 
-  const [isDropdownVisible, setIsDropdownVisible] = useState(false)
+  const [isDropdownVisible, setIsDropdownVisible] = useState(false);
 
-  const dropdownRef = useRef<HTMLDivElement>(null)
+  const dropdownRef = useRef<HTMLDivElement>(null);
 
   const handleDropdownVisibility = () => {
-    setIsDropdownVisible(!isDropdownVisible)
-  }
+    setIsDropdownVisible(!isDropdownVisible);
+  };
 
   return (
     <S.Container onClick={handleDropdownVisibility}>
@@ -36,9 +39,9 @@ export function AccountDropdown () {
         {isDropdownVisible && (
           <S.AnimatedDropdown
             variants={DROP_DOWN_ANIMATION}
-            initial='hidden'
-            animate='visible'
-            exit='hidden'
+            initial="hidden"
+            animate="visible"
+            exit="hidden"
             ref={dropdownRef}
           >
             <ul>
@@ -65,23 +68,23 @@ export function AccountDropdown () {
               </S.NavButton>
 
               <S.NavButton>
-                <FaShoppingBag />
+                <BiShoppingBag />
                 Pedidos
               </S.NavButton>
               <Link href={SUBSCRIPTIONS_PAGE}>
                 <S.NavButton>
-                  <MdAssignmentInd />
+                  <MdOutlineAssignmentInd />
                   Planos
                 </S.NavButton>
               </Link>
 
               <S.NavButton>
-                <MdAssignmentTurnedIn />
+                <MdOutlineAssignmentTurnedIn />
                 Licenças
               </S.NavButton>
 
               <S.NavButton>
-                <IoMdDocument />
+                <HiOutlineDocument />
                 Privacidade
               </S.NavButton>
 
@@ -94,5 +97,5 @@ export function AccountDropdown () {
         )}
       </AnimatePresence>
     </S.Container>
-  )
+  );
 }

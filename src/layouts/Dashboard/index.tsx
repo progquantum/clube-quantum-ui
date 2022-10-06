@@ -1,15 +1,14 @@
+import { SideBar } from 'components/SideBar';
+import { ServicesBank } from 'components/ServicesBank';
+import { Header } from 'components/Header';
+import { useAuthState } from 'contexts/auth/AuthContext';
+import { ManagePlans } from 'components/ManagePlans';
 
-import { SideBar } from 'components/SideBar'
-import { ServicesBank } from 'components/ServicesBank'
-import { Header } from 'components/Header'
-import { useAuthState } from 'contexts/auth/AuthContext'
-import { ManagePlans } from 'components/ManagePlans'
+import { MainContent } from './MainContent/Index';
+import * as S from './styles';
 
-import { MainContent } from './MainContent/Index'
-import * as S from './styles'
-
-export function DashboardPage () {
-  const { user } = useAuthState()
+export function DashboardPage() {
+  const { user } = useAuthState();
 
   return (
     <>
@@ -24,5 +23,5 @@ export function DashboardPage () {
         </S.RightWrapper>
       </S.Container>
     </>
-  )
+  );
 }

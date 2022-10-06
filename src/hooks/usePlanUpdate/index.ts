@@ -1,14 +1,15 @@
-import { useMutation } from 'react-query'
+import { useMutation } from 'react-query';
 
-import { api } from 'config/client'
+import { quantumClientQueue } from 'config/client';
 
-import { PlanPayLoad, PlanData } from './types'
+import { SubscriptionPayload, SubscriptionRequest } from './types';
 
-export async function planUpdateRequest (requestBody: PlanData) {
-  const { data } = await api.put('/subscriptions', requestBody)
-  return data as PlanPayLoad
+export async function planUpdateRequest(subscription: SubscriptionRequest) {
+  const { data } = await quantumClientQueue.put('/subscriptions', subscription);
+
+  return data as SubscriptionPayload;
 }
 
-export function usePlanUpdate () {
-  return useMutation(planUpdateRequest)
+export function usePlanUpdate() {
+  return useMutation(planUpdateRequest);
 }

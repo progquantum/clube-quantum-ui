@@ -1,3 +1,3 @@
 export type SingUpButtonProps = {
-  onUpdateFormStep: () => void
-}
+  onUpdateFormStep: () => void;
+};

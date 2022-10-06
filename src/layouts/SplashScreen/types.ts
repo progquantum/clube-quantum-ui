@@ -1,3 +1,3 @@
 export type SplashscreenProps = {
-  onRequestSplashScreen: () => void
-}
+  onRequestSplashScreen: () => void;
+};

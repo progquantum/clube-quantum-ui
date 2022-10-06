@@ -1,8 +1,8 @@
-import styled from 'styled-components'
+import styled from 'styled-components';
 
-import { Button } from 'components/Button'
+import { Button } from 'components/Button';
 
-import { TextTitleProps } from './types'
+import { TextTitleProps } from './types';
 
 export const Container = styled.div`
   width: 100%;
@@ -11,12 +11,12 @@ export const Container = styled.div`
   justify-content: center;
   margin-top: 4.0231rem;
   gap: 3.75rem;
-`
+`;
 export const LeftWrapper = styled.div`
-  @media (max-width: 820px){
+  @media (max-width: 820px) {
     display: none;
   }
-`
+`;
 
 export const Content = styled.div`
   max-width: 20.625rem;
@@ -25,30 +25,31 @@ export const Content = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
-`
+`;
 
 export const TextTitle = styled.h3<TextTitleProps>`
   font-size: 1.25rem;
-  font-weight: ${(props) => props.fontWeight};
-  margin: ${(props) => props.margin || 0};
-`
+  font-weight: ${props => props.fontWeight};
+  margin: ${props => props.margin || 0};
+`;
 
 export const Paragraph = styled.p`
   font-size: 1.125rem;
   font-weight: 500;
   text-align: center;
   margin-bottom: 1.5rem;
-`
+`;
 export const Line = styled.div`
   width: 100%;
   margin-bottom: 1.5rem;
   border-bottom: 3px solid ${({ theme }) => theme.colors.gray[100]};
-`
+`;
 
+// eslint-disable-next-line no-underscore-dangle
 export const Button_ = styled(Button)`
   width: 100%;
   margin-bottom: 24px;
-  @media (max-width: 374px){
+  @media (max-width: 374px) {
     width: 90%;
   }
-`
+`;

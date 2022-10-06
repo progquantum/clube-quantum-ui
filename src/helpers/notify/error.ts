@@ -1,11 +1,8 @@
-import { toast } from 'react-toastify'
+import { toast } from 'react-hot-toast';
 
-export function error (message: string) {
-  toast(message, {
-    type: 'error',
-    position: toast.POSITION.TOP_RIGHT,
+export function error(message: string) {
+  toast.error(message, {
+    position: 'top-right',
     className: 'toast-error',
-    progressClassName: 'error-progress-bar',
-    autoClose: 4000
-  })
+  });
 }

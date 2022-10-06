@@ -1,5 +1,5 @@
-import { InviteNotFoundPage } from 'layouts/InviteNotFound'
+import { InviteNotFoundPage } from 'layouts/InviteNotFound';
 
-export default function InviteNotFound () {
-  return <InviteNotFoundPage />
+export default function InviteNotFound() {
+  return <InviteNotFoundPage />;
 }
