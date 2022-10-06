@@ -16,7 +16,31 @@ let failedRequestsQueue: {
   onFailure(error: AxiosError): void;
 }[] = [];
 
-export function setupAPIClient(
+export function baseInstance() {
+  const api = axios.create({
+    baseURL: process.env.NEXT_PUBLIC_API_HOST,
+  });
+
+  api.interceptors.response.use(
+    response => response,
+    (error: AxiosError) => {
+      const expectedError =
+        error.response &&
+        error.response.status >= 400 &&
+        error.response.status < 500;
+
+      if (!expectedError) {
+        notifyError('Encontramos um problema por aqui.');
+      }
+
+      return Promise.reject(error);
+    },
+  );
+
+  return api;
+}
+
+export function queueInstance(
   ctx: GetServerSidePropsContext | undefined = undefined,
 ) {
   let cookies = parseCookies(ctx);
