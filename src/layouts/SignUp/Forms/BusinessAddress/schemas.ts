@@ -15,6 +15,6 @@ export const schema = Yup.object().shape({
     .matches(/[A-Za-z]/g, 'Campo deve conter somente letras'),
   terms: Yup.boolean().oneOf(
     [true],
-    'Para prosseguir você precisa aceitar os termos!',
+    'Para prosseguir você precisa aceitar os termos',
   ),
 });
