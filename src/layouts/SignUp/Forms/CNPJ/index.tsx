@@ -1,7 +1,8 @@
-import { FiUser } from 'react-icons/fi';
+import { FiLogOut, FiUser } from 'react-icons/fi';
 import { FormHandles, SubmitHandler } from '@unform/core';
 import { useCallback, useRef } from 'react';
 import { Form } from '@unform/web';
+import Link from 'next/link';
 
 import { useAuthDispatch } from 'contexts/auth/AuthContext';
 import { formatCNPJ } from 'utils/formatters/formatCNPJ';
@@ -9,6 +10,7 @@ import { performSchemaValidation } from 'utils/performSchemaValidation';
 import { Input } from 'components/Input';
 import { Button } from 'components/Button';
 import { AuthLayout } from 'layouts/Auth';
+import { SIGN_UP_PAGE } from 'constants/routesPath';
 
 import { CNPJProps, FormValues } from './types';
 import { schema } from './schemas';
@@ -44,6 +46,12 @@ export function CNPJ({ onUpdateFormStep }: CNPJProps) {
 
         <Button type="submit">Continuar</Button>
       </Form>
+      <Link href={SIGN_UP_PAGE}>
+        <a>
+          <FiLogOut />
+          Voltar
+        </a>
+      </Link>
     </AuthLayout>
   );
 }
