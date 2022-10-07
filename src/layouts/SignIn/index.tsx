@@ -43,7 +43,11 @@ export function SignInPage() {
         <title>Acesse sua conta - Clube Quantum</title>
       </Head>
 
-      <AuthLayout title="Faça seu login" backgroundImage="/images/signin.png">
+      <AuthLayout
+        title="Faça seu login"
+        backgroundImage="/images/signin.png"
+        backgroundPosition="right"
+      >
         <Form ref={formRef} onSubmit={handleSignIn}>
           <Input
             type="text"
