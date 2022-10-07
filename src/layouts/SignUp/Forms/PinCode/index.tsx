@@ -49,7 +49,8 @@ export function PinCode({ onNextFormStep, onPreviousFormStep }: PinCodeProps) {
       {
         onSuccess: () => onNextFormStep(),
         onError: (err: AxiosError<ErrorResponse>) => {
-          if (err.message === 'Invalid code') error('Código inválido!');
+          if (err.response.data.message === 'Invalid code')
+            error('Código inválido!');
         },
       },
     );
@@ -85,7 +86,7 @@ export function PinCode({ onNextFormStep, onPreviousFormStep }: PinCodeProps) {
         />
         <S.SubTitle>Não recebeu?</S.SubTitle>
         <S.Paragraph>
-          Clique aqui para
+          Clique para
           <S.ButtonPinCode type="button" onClick={handleSendAnotherCode}>
             &nbsp;receber outro código&nbsp;
           </S.ButtonPinCode>
