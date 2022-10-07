@@ -1,5 +1,5 @@
 import { useCallback, useRef } from 'react';
-import { FiArrowLeft, FiMail } from 'react-icons/fi';
+import { FiLogOut, FiMail } from 'react-icons/fi';
 import { Form } from '@unform/web';
 import { FormHandles, SubmitHandler } from '@unform/core';
 import Link from 'next/link';
@@ -47,7 +47,12 @@ export function ForgotPasswordPage() {
       description="Digite seu endereço de email abaixo e nós lhe enviaremos um link de redefinição de senha."
     >
       <Form ref={formRef} onSubmit={handleRecoveryPassword}>
-        <Input name="email" placeholder="E-mail" icon={FiMail} />
+        <Input
+          name="email"
+          placeholder="E-mail"
+          icon={FiMail}
+          inputMode="email"
+        />
 
         <Button type="submit" disabled={isLoading} loading={isLoading}>
           Avançar
@@ -56,7 +61,7 @@ export function ForgotPasswordPage() {
 
       <Link href={SIGN_IN_PAGE} prefetch>
         <a>
-          <FiArrowLeft />
+          <FiLogOut />
           Voltar para o login
         </a>
       </Link>

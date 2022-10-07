@@ -39,6 +39,7 @@ export function CPF({ onUpdateFormStep }: CPFProps) {
       <Form ref={formRef} onSubmit={handleCPFSubmit}>
         <Input
           type="text"
+          inputMode="numeric"
           name="cpf"
           placeholder="CPF"
           icon={FiUser}

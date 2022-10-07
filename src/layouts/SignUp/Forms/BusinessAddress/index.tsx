@@ -129,6 +129,7 @@ export function BusinessAddress({
       <Form ref={formRef} onSubmit={handleSubmitAddress}>
         <Input
           type="text"
+          inputMode="numeric"
           name="zip_code"
           placeholder="CEP"
           icon={FiMapPin}
@@ -151,6 +152,7 @@ export function BusinessAddress({
 
         <Input
           type="text"
+          inputMode="numeric"
           name="number"
           placeholder="Número"
           icon={FiHome}

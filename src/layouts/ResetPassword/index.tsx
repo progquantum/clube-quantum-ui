@@ -63,6 +63,7 @@ export function ResetPasswordPage() {
           name="confirm_password"
           placeholder="Confirma senha"
           icon={FiLock}
+          onPaste={e => e.preventDefault()}
         />
 
         <Button type="submit" disabled={isLoading} loading={isLoading}>

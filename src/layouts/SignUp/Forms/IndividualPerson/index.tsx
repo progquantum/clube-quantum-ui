@@ -64,6 +64,7 @@ export function IndividualPerson({
 
         <Input
           type="text"
+          inputMode="numeric"
           name="birth_date"
           placeholder="Data de nascimento"
           icon={FiCalendar}
@@ -80,6 +81,7 @@ export function IndividualPerson({
           name="email"
           placeholder="Preencha seu email"
           icon={FiMail}
+          inputMode="email"
         />
 
         <Input
@@ -87,6 +89,8 @@ export function IndividualPerson({
           name="email_confirmation"
           placeholder="Confirme seu email"
           icon={FiMail}
+          onPaste={e => e.preventDefault()}
+          inputMode="email"
         />
 
         <ShowPasswordInput
@@ -101,6 +105,7 @@ export function IndividualPerson({
           name="password_confirmation"
           icon={FiLock}
           placeholder="Confirmar senha"
+          onPaste={e => e.preventDefault()}
         />
 
         <Button type="submit">Continuar</Button>

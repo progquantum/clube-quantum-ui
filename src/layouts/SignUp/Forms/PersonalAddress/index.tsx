@@ -126,6 +126,7 @@ export function PersonalAddress({
       <Form ref={formRef} onSubmit={handleAddressSubmit}>
         <Input
           type="text"
+          inputMode="numeric"
           name="zip_code"
           placeholder="CEP"
           icon={FiMapPin}
@@ -140,6 +141,7 @@ export function PersonalAddress({
         />
         <Input
           type="text"
+          inputMode="numeric"
           name="number"
           placeholder="Número"
           icon={FiHome}

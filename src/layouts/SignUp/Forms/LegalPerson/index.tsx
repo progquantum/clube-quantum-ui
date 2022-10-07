@@ -45,13 +45,21 @@ export function LegalPerson({
           icon={FiUser}
         />
 
-        <Input type="email" name="email" placeholder="Email" icon={FiMail} />
+        <Input
+          type="email"
+          name="email"
+          placeholder="Email"
+          icon={FiMail}
+          inputMode="email"
+        />
 
         <Input
           type="email"
           name="email_confirmation"
           placeholder="Confirmar email"
           icon={FiMail}
+          onPaste={e => e.preventDefault()}
+          inputMode="email"
         />
 
         <ShowPasswordInput
@@ -66,6 +74,7 @@ export function LegalPerson({
           name="password_confirmation"
           placeholder="Confirmar senha"
           icon={FiLock}
+          onPaste={e => e.preventDefault()}
         />
 
         <Button type="submit">Continuar</Button>

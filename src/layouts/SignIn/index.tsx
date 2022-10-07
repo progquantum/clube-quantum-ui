@@ -57,6 +57,7 @@ export function SignInPage() {
               )
             }
             icon={FiUser}
+            inputMode="numeric"
           />
 
           <ShowPasswordInput

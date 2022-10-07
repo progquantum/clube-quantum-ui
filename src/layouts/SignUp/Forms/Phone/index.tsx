@@ -73,6 +73,7 @@ export function Phone({ onUpdateFormStep, onPreviousFormStep }: PhoneProps) {
       <Form ref={formRef} onSubmit={handlePhoneCode}>
         <Input
           type="text"
+          inputMode="tel"
           name="phone"
           placeholder="Telefone"
           icon={FiPhone}

@@ -36,6 +36,7 @@ export function CNPJ({ onUpdateFormStep }: CNPJProps) {
       <Form ref={formRef} onSubmit={handleSignUp}>
         <Input
           type="text"
+          inputMode="numeric"
           name="cnpj"
           placeholder="CNPJ"
           icon={FiUser}
