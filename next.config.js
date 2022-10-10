@@ -2,13 +2,14 @@ module.exports = {
   reactStrictMode: true,
   swcMinify: true,
   compiler: {
-    styledComponents: true
+    styledComponents: true,
   },
   webpack: (config, { isServer }) => {
     if (isServer) {
-      require('./src/scripts/sitemap-generator')
+      // eslint-disable-next-line global-require
+      require('./src/scripts/sitemap-generator');
     }
 
-    return config
-  }
-}
+    return config;
+  },
+};

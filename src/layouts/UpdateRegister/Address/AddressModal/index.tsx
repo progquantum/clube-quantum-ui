@@ -1,178 +1,238 @@
-import Modal from 'react-modal'
+import Modal from 'react-modal';
 
-import { SubmitHandler, useForm } from 'react-hook-form'
-import { yupResolver } from '@hookform/resolvers/yup'
+import { ChangeEvent, useCallback, useRef } from 'react';
+import { Form } from '@unform/web';
+import { FormHandles, SubmitHandler } from '@unform/core';
+import {
+  FiMapPin,
+  FiPackage,
+  FiHome,
+  FiMap,
+  FiGlobe,
+  FiInfo,
+} from 'react-icons/fi';
+import { BiBuildingHouse } from 'react-icons/bi';
+import { BsPinMap } from 'react-icons/bs';
 
-import { useQueryClient } from 'react-query'
+import { useQueryClient } from 'react-query';
 
-import { Location } from 'components/Illustrations/Location'
-import { Input } from 'components/Input'
+import { Location } from 'components/Illustrations/Location';
+import { Input } from 'components/Input';
 
-import { QUERY_KEY_ME_PROFILE } from 'hooks/useFindMeProfile'
-import { useUpadateAddress } from 'hooks/useUpdateAddress'
+import { QUERY_KEY_ME_PROFILE } from 'hooks/useFindMeProfile';
+import { useUpadateAddress } from 'hooks/useUpdateAddress';
 
-import { addressSchemas } from 'schemas/updateRegister'
-import { formatCEP } from 'utils/formatters/formatCEP'
-import { formatAddressNumber } from 'utils/formatters/formatAddressNumber'
-import { formatValueToUppercase } from 'utils/formatters/formatValueToUppercase'
+import { formatCEP } from 'utils/formatters/formatCEP';
+import { formatAddressNumber } from 'utils/formatters/formatAddressNumber';
 
-import { error } from 'helpers/notify/error'
-import { success } from 'helpers/notify/success'
+import { error } from 'helpers/notify/error';
+import { success } from 'helpers/notify/success';
 
-import { AddressInformationProps, AddressFormProps } from './types'
+import { performSchemaValidation } from 'utils/performSchemaValidation';
 
-import * as S from './styles'
+import { Button } from 'components/Button';
 
-export function AddressInformationModal ({ isOpen, onRequestClose }: AddressInformationProps) {
-  const { mutateAsync: putAddress, isLoading: loading } = useUpadateAddress()
-  const queryClient = useQueryClient()
+import { getZipCode } from 'services/resources';
 
-  const {
-    control,
-    handleSubmit,
-    register,
-    setValue,
-    reset
-  } = useForm({
-    resolver: yupResolver(addressSchemas)
-  })
+import { formatUF } from 'utils/formatters/formatUF';
+
+import { formatCountry } from 'utils/formatters/formatCountry';
+
+import { CloseModal } from 'components/CloseModal';
+
+import { AddressInformationProps, AddressFormProps } from './types';
+
+import * as S from './styles';
+import { schema } from './schemas';
+
+export function AddressInformationModal({
+  isOpen,
+  onRequestClose,
+}: AddressInformationProps) {
+  const { mutateAsync: putAddress, isLoading: loading } = useUpadateAddress();
+  const queryClient = useQueryClient();
+
+  const formRef = useRef<FormHandles>(null);
 
   const handleCloseModal = () => {
-    onRequestClose()
-    reset()
-  }
+    onRequestClose();
+  };
 
-  const handleUpdateAddress:SubmitHandler<AddressFormProps> = async (data) => {
-    await putAddress({
-      street: data.street,
-      number: data.number,
-      neighborhood: data.neighborhood,
-      complement: data.complement,
-      zip_code: data.zip_code,
-      city: data.city,
-      state: data.state,
-      country: data.country
-    },
-    {
-      onSuccess: () => {
-        queryClient.invalidateQueries(QUERY_KEY_ME_PROFILE)
-        success('Perfil atualizado com sucesso.')
-        onRequestClose()
-      },
-      onError: () => {
-        error('Ops, algo deu errado!')
+  const handleZipCode = useCallback(
+    async (e: ChangeEvent<HTMLInputElement>) => {
+      formRef.current.setFieldValue('zip_code', formatCEP(e.target.value));
+
+      if (e.target.value.length === 10) {
+        const formattedCep = e.target.value.replace('.', '').replace('-', '');
+
+        await getZipCode(formattedCep).then(data => {
+          formRef.current.setFieldValue('street', data?.street);
+          formRef.current.setFieldValue('neighborhood', data?.neighborhood);
+          formRef.current.setFieldValue('city', data?.city);
+          formRef.current.setFieldValue('state', data?.state);
+          formRef.current.setFieldValue('country', data?.country);
+        });
       }
-    }
-    )
-  }
+    },
+    [formRef],
+  );
+
+  const handleUpdateAddress: SubmitHandler<AddressFormProps> = useCallback(
+    async data => {
+      performSchemaValidation({
+        formRef,
+        data,
+        schema,
+      }).then(() => {
+        const {
+          street,
+          number,
+          neighborhood,
+          complement,
+          zip_code,
+          city,
+          state,
+          country,
+        } = data;
+        putAddress(
+          {
+            street,
+            number,
+            neighborhood,
+            complement,
+            zip_code,
+            city,
+            state,
+            country,
+          },
+          {
+            onSuccess: () => {
+              queryClient.invalidateQueries(QUERY_KEY_ME_PROFILE);
+              success('Perfil atualizado com sucesso');
+              onRequestClose();
+            },
+            onError: () => {
+              error('Ops, algo deu errado!');
+            },
+          },
+        );
+      });
+    },
+    [putAddress],
+  );
 
   return (
-    <>
-      <Modal
-        isOpen={isOpen}
-        onRequestClose={handleCloseModal}
-        overlayClassName='react-modal-overlay'
-        className='react-modal-container'
-      >
-        <S.AddressContainer>
-          <S.TextContent>
-            <Location width='18' height='20' color='#BBBBBB' />
-            <p>Endereço</p>
-          </S.TextContent>
+    <Modal
+      isOpen={isOpen}
+      onRequestClose={handleCloseModal}
+      overlayClassName="react-modal-overlay"
+      className="react-modal-container"
+    >
+      <S.AddressContainer>
+        <S.TextContent>
+          <Location width="18" height="20" color="#BBBBBB" />
+          <p>Endereço</p>
+        </S.TextContent>
 
-          <S.AddressForm onSubmit={handleSubmit(handleUpdateAddress)}>
-            <S.AddressWrapper>
-              <S.InputStreet
-                type='text'
-                label='Rua'
-                control={control}
-                name='street'
-              />
+        <S.AddressForm as={Form} ref={formRef} onSubmit={handleUpdateAddress}>
+          <S.AddressWrapper>
+            <Input
+              type="text"
+              variant="secundary"
+              placeholder="CEP"
+              icon={FiMapPin}
+              name="zip_code"
+              onChange={e => handleZipCode(e)}
+            />
+          </S.AddressWrapper>
+          <S.AddressWrapper>
+            <Input
+              type="text"
+              variant="secundary"
+              placeholder="Rua"
+              name="street"
+              icon={FiPackage}
+            />
+          </S.AddressWrapper>
 
-              <Input
-                type='text'
-                label='Número'
-                control={control}
-                name='number'
-                {...register('number', {
-                  onChange: (e) => {
-                    setValue('number', formatAddressNumber(e.target.value))
-                  }
-                })}
-              />
-            </S.AddressWrapper>
+          <S.AddressWrapper>
+            <Input
+              type="text"
+              variant="secundary"
+              placeholder="N°"
+              name="number"
+              icon={FiHome}
+              onChange={e =>
+                formRef.current.setFieldValue(
+                  'number',
+                  formatAddressNumber(e.target.value),
+                )
+              }
+            />
+          </S.AddressWrapper>
 
-            <S.AddressWrapper>
-              <Input
-                type='text'
-                label='Bairro'
-                control={control}
-                name='neighborhood'
-              />
+          <S.AddressWrapper>
+            <Input
+              type="text"
+              variant="secundary"
+              placeholder="Bairro"
+              name="neighborhood"
+              icon={BiBuildingHouse}
+            />
+          </S.AddressWrapper>
 
-              <Input
-                type='text'
-                label='Complemento'
-                control={control}
-                name='complement'
-              />
-            </S.AddressWrapper>
+          <S.AddressWrapper>
+            <Input
+              type="text"
+              variant="secundary"
+              placeholder="Complemento"
+              name="complement"
+              icon={FiInfo}
+            />
+          </S.AddressWrapper>
+          <S.AddressWrapper>
+            <Input
+              type="text"
+              variant="secundary"
+              placeholder="Cidade"
+              name="city"
+              icon={BsPinMap}
+            />
+          </S.AddressWrapper>
+          <S.AddressWrapper>
+            <Input
+              type="text"
+              variant="secundary"
+              maxLength={2}
+              placeholder="UF"
+              name="state"
+              icon={FiMap}
+              onChange={e =>
+                formRef.current.setFieldValue('state', formatUF(e.target.value))
+              }
+            />
 
-            <S.AddressWrapper>
+            <Input
+              type="text"
+              variant="secundary"
+              placeholder="País"
+              name="country"
+              icon={FiGlobe}
+              onChange={e =>
+                formRef.current.setFieldValue(
+                  'country',
+                  formatCountry(e.target.value),
+                )
+              }
+            />
+          </S.AddressWrapper>
 
-              <Input
-                type='text'
-                label='CEP'
-                control={control}
-                name='zip_code'
-                {...register('zip_code', {
-                  onChange: (e) => {
-                    setValue('zip_code', formatCEP(e.target.value))
-                  }
-                })}
-              />
-              <Input
-                type='text'
-                label='Cidade'
-                control={control}
-                name='city'
-              />
-            </S.AddressWrapper>
-
-            <S.AddressWrapper>
-
-              <Input
-                type='text'
-                maxLength={2}
-                label='UF'
-                control={control}
-                name='state'
-                {...register('state', {
-                  onChange: (e) => {
-                    setValue('state', formatValueToUppercase(e.target.value))
-                  }
-                })}
-              />
-
-              <Input
-                type='text'
-                label='País'
-                control={control}
-                name='country'
-              />
-            </S.AddressWrapper>
-
-            <S.ButtonConfirm
-              type='submit'
-              loading={loading}
-              disabled={loading}
-            >
-              Confirmar Alterações
-            </S.ButtonConfirm>
-            <S.ButtonCancel onClick={handleCloseModal}>Cancelar</S.ButtonCancel>
-          </S.AddressForm>
-        </S.AddressContainer>
-      </Modal>
-    </>
-  )
+          <Button type="submit" loading={loading} disabled={loading}>
+            Confirmar Alterações
+          </Button>
+          <CloseModal onClick={handleCloseModal} />
+        </S.AddressForm>
+      </S.AddressContainer>
+    </Modal>
+  );
 }

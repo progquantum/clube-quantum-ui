@@ -1,3 +1,3 @@
 export type PhoneCodeRequest = {
-  phone: string
-}
+  phone: string;
+};

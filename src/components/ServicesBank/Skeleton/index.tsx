@@ -1,6 +1,6 @@
-import * as S from './styles'
+import * as S from './styles';
 
-export function Skeleton () {
+export function Skeleton() {
   return (
     <S.Container>
       <S.DivItem />
@@ -10,5 +10,5 @@ export function Skeleton () {
         <S.DivItem />
       </S.DivDisabled>
     </S.Container>
-  )
+  );
 }

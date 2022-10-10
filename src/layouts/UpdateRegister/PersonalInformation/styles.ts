@@ -1,10 +1,10 @@
-import styled from 'styled-components'
+import styled from 'styled-components';
 
-import { Button } from 'components/Button'
+import { Button } from 'components/Button';
 
 export const Container = styled.div`
   box-shadow: 0px 0px 20px rgba(0, 0, 0, 0.1);
-  border-radius: .5rem;
+  border-radius: 0.5rem;
   height: max-content;
   display: flex;
   flex-direction: column;
@@ -13,23 +13,18 @@ export const Container = styled.div`
 
   h3 {
     font-weight: 700;
-    font-size: .875rem;
+    font-size: 0.875rem;
   }
   p {
     font-weight: 500;
-    font-size: .75rem;
+    font-size: 0.75rem;
   }
-`
+`;
 
 export const EditPersonalInformation = styled(Button)`
-  width: 100%;
-  background: ${({ theme }) => theme.gradients.midnightBlueToMediumsLateBlue};
-  padding: .9rem 1.8rem;
-  border-radius: 6.25rem;
   display: flex;
+  align-items: center;
   justify-content: space-between;
-  margin-bottom: .625rem;
-  cursor: pointer;
 
   &:hover {
     background: ${({ theme }) => theme.colors.mediumslateBlue};
@@ -38,7 +33,7 @@ export const EditPersonalInformation = styled(Button)`
 
   & h2 {
     font-weight: 500;
-    font-size: .875rem;
-    color:  ${({ theme }) => theme.colors.white};
+    font-size: 0.875rem;
+    color: ${({ theme }) => theme.colors.white};
   }
-`
+`;

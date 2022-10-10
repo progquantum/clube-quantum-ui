@@ -1,6 +1,5 @@
-import { createGlobalStyle } from 'styled-components'
-import 'react-toastify/dist/ReactToastify.css'
-import 'react-loading-skeleton/dist/skeleton.css'
+import { createGlobalStyle } from 'styled-components';
+import 'react-loading-skeleton/dist/skeleton.css';
 
 export default createGlobalStyle`
   * {
@@ -23,6 +22,7 @@ export default createGlobalStyle`
     height: auto;
     font-size: ${({ theme }) => theme.fontSizes.base};
     color: ${({ theme }) => theme.colors.gray[700]};
+    background: ${({ theme }) => theme.colors.background};
     text-rendering: optimizeLegibility !important;
     -webkit-font-smoothing: antialiased !important;
     -moz-osx-font-smoothing: grayscale;
@@ -47,12 +47,11 @@ export default createGlobalStyle`
     height: 100%;
   }
 
-  body, input, button {
+  body, input, button, textarea {
     font: 1rem 'Montserrat', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";
   }
 
-  input,
-  button {
+  input, textarea, button {
     outline: 0;
   }
 
@@ -92,6 +91,7 @@ export default createGlobalStyle`
     bottom: 0;
     right: 0;
     left: 0;
+    z-index: 10;
 
     display: flex;
     align-items: center;
@@ -121,7 +121,7 @@ export default createGlobalStyle`
     }
   }
 
-  [disable] {
+  button:not(:hover)[disable] {
     opacity: 0.6;
     cursor: not-allowed;
   }
@@ -129,4 +129,4 @@ export default createGlobalStyle`
   :root {
     --shape: ${({ theme }) => theme.colors.white};
   }
-`
+`;

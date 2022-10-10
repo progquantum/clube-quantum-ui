@@ -1,15 +1,13 @@
-import { useMutation } from 'react-query'
+import { useMutation } from 'react-query';
 
-import { api } from 'config/client'
+import { quantumClientQueue } from 'config/client';
 
-import { RegisterBankAccountData } from './types'
+import { RegisterBankAccountData } from './types';
 
-export async function postBankAccount (
-  data: RegisterBankAccountData
-) {
-  return await api.post<unknown>('/bank-accounts', data)
+export async function postBankAccount(data: RegisterBankAccountData) {
+  await quantumClientQueue.post<unknown>('/bank-accounts', data);
 }
 
-export function useRegisterBankAccount () {
-  return useMutation(postBankAccount)
+export function useRegisterBankAccount() {
+  return useMutation(postBankAccount);
 }

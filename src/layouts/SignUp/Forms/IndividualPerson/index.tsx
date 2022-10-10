@@ -1,118 +1,114 @@
-import { useForm } from 'react-hook-form'
-import { FaAngleRight } from 'react-icons/fa'
-import { yupResolver } from '@hookform/resolvers/yup'
+import { useCallback, useRef } from 'react';
+import { FiUser, FiMail, FiLock, FiCalendar, FiLogOut } from 'react-icons/fi';
+import { FormHandles, SubmitHandler } from '@unform/core';
+import { Form } from '@unform/web';
+import noop from 'lodash.noop';
 
-import { useAuthDispatch } from 'contexts/auth/AuthContext'
-import { Input } from 'components/Input'
-import { Button } from 'components/Button'
-import { personalDataSchema } from 'schemas/signUp'
-import { formatBirthDate } from 'utils/formatters/formatBirthDate'
+import { useAuthDispatch } from 'contexts/auth/AuthContext';
+import { Input } from 'components/Input';
+import { Button } from 'components/Button';
+import { formatBirthDate } from 'utils/formatters/formatBirthDate';
+import { performSchemaValidation } from 'utils/performSchemaValidation';
+import { AuthLayout } from 'layouts/Auth';
+import { ShowPasswordInput } from 'components/Input/ShowPassword';
 
-import { IndividualPersonProps, FormData } from './types'
-import * as S from './styles'
+import { schema } from './schemas';
+import { IndividualPersonProps, SignUpFormValues } from './types';
 
-export function IndividualPerson ({
-  onUpdateFormStep
+export function IndividualPerson({
+  onUpdateFormStep,
+  onPreviousFormStep,
 }: IndividualPersonProps) {
-  const {
-    handleSubmit,
-    control,
-    register,
-    setValue,
-    formState
-  } = useForm({
-    defaultValues: {
-      name: '',
-      birth_date: '',
-      email: '',
-      email_confirmation: '',
-      password: '',
-      password_confirmation: ''
-    },
-    resolver: yupResolver(personalDataSchema)
-  })
+  const { signUp } = useAuthDispatch();
 
-  const { signUp } = useAuthDispatch()
+  const formRef = useRef<FormHandles>(null);
 
-  const { isDirty, isSubmitting } = formState
-  const isButtonDisabled = !isDirty || isSubmitting
-
-  function handleFormatFormData (data: FormData) {
-    const { birth_date } = data
-    const formattedBirthDate = birth_date.split('/').reverse().join('-')
-
+  const handleFormatFormData = (data: SignUpFormValues) => {
+    const { birth_date } = data;
+    const formattedBirthDate = birth_date.split('/').reverse().join('-');
     const formData = {
       ...data,
-      birth_date: formattedBirthDate
-    }
+      birth_date: formattedBirthDate,
+    };
 
-    return formData
-  }
+    return formData;
+  };
 
-  async function onSubmit (data: FormData) {
-    const formData = handleFormatFormData(data)
+  const handleSignUp: SubmitHandler<SignUpFormValues> = useCallback(data => {
+    performSchemaValidation({
+      formRef,
+      data,
+      schema,
+    })
+      .then(() => {
+        const formData = handleFormatFormData(data);
 
-    signUp(formData)
-    onUpdateFormStep()
-  }
+        signUp(formData);
+        onUpdateFormStep();
+      })
+      .catch(noop);
+  }, []);
 
   return (
-    <S.Container>
-      <S.Form onSubmit={handleSubmit(onSubmit)}>
+    <AuthLayout
+      backgroundImage="/images/signup.png"
+      title="Insira seus dados pessoais"
+    >
+      <Form ref={formRef} onSubmit={handleSignUp}>
         <Input
-          type='text'
-          label='Nome Completo'
-          name='name'
-          control={control}
+          type="text"
+          name="name"
+          placeholder="Nome completo"
+          icon={FiUser}
         />
 
         <Input
-          type='text'
-          label='Data de nascimento'
-          control={control}
-          {...register('birth_date', {
-            onChange: (e) => {
-              setValue('birth_date', formatBirthDate(e.target.value))
-            }
-          })}
+          type="text"
+          name="birth_date"
+          placeholder="Data de nascimento"
+          icon={FiCalendar}
+          onChange={e => {
+            formRef.current.setFieldValue(
+              'birth_date',
+              formatBirthDate(e.target.value),
+            );
+          }}
         />
 
         <Input
-          type='email'
-          label='E-mail'
-          name='email'
-          control={control}
+          type="email"
+          name="email"
+          placeholder="Preencha seu email"
+          icon={FiMail}
         />
 
         <Input
-          type='email'
-          label='Confimar e-mail'
-          name='email_confirmation'
-          control={control}
+          type="email"
+          name="email_confirmation"
+          placeholder="Confirme seu email"
+          icon={FiMail}
         />
 
-        <Input
-          type='password'
-          label='Criar senha'
-          name='password'
-          control={control}
+        <ShowPasswordInput
+          type="password"
+          name="password"
+          icon={FiLock}
+          placeholder="Criar senha"
         />
 
-        <Input
-          type='password'
-          label='Confirmar Senha'
-          name='password_confirmation'
-          control={control}
+        <ShowPasswordInput
+          type="password"
+          name="password_confirmation"
+          icon={FiLock}
+          placeholder="Confirmar senha"
         />
 
-        <Button
-          type='submit'
-          variant='rounded'
-          disabled={isButtonDisabled}
-        >
-          <FaAngleRight size={24} />
-        </Button>
-      </S.Form>
-    </S.Container>
-  )
+        <Button type="submit">Continuar</Button>
+      </Form>
+      <button type="button" onClick={onPreviousFormStep}>
+        <FiLogOut />
+        Voltar
+      </button>
+    </AuthLayout>
+  );
 }

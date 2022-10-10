@@ -1,4 +1,4 @@
-import styled from 'styled-components'
+import styled from 'styled-components';
 
 export const Container = styled.main`
   max-width: 72.125rem;
@@ -9,16 +9,16 @@ export const Container = styled.main`
   display: flex;
   align-items: flex-start;
   justify-content: space-evenly;
-`
+`;
 
 export const RightWrapper = styled.div`
   display: flex;
   flex-direction: column;
 
-  @media (max-width: 460px){
+  @media (max-width: 460px) {
     align-items: center;
   }
-`
+`;
 
 export const MenuGrid = styled.div`
   width: 100%;
@@ -27,20 +27,21 @@ export const MenuGrid = styled.div`
   grid-auto-columns: 1fr;
   grid-template-columns: 1fr 1fr;
   grid-template-rows: 1fr 1fr 2fr;
-`
+`;
 
 export const ColumnGrid = styled.div`
   display: grid;
   grid-template-columns: 1fr 1fr;
-  gap: 2rem;
+  gap: 1rem;
+  margin: 0 0.5rem;
 
   @media (max-width: 1024px) {
     grid-template-columns: 1fr;
   }
-`
+`;
 
 export const FLex = styled.div`
   display: flex;
   flex-direction: column;
   gap: 1rem;
-`
+`;

@@ -1,131 +1,144 @@
-import { useMemo, useCallback, PropsWithChildren, useEffect } from 'react'
-import { useRouter } from 'next/router'
-import { useLocalStorage } from '@rehooks/local-storage'
-import { setCookie, destroyCookie, parseCookies } from 'nookies'
+import { useMemo, useCallback, PropsWithChildren, useEffect } from 'react';
+import { useRouter } from 'next/router';
+import { useLocalStorage } from '@rehooks/local-storage';
+import { setCookie, destroyCookie, parseCookies } from 'nookies';
+import { AxiosError } from 'axios';
 
-import { useSignIn } from 'hooks/auth/useSignIn'
-import { User } from 'shared/types/apiSchema'
-import { USER_STORAGE_KEY, TOKEN_STORAGE_KEY, REFRESH_TOKEN_STORAGE_KEY, REGISTER_USER_STORAGE_KEY } from 'constants/storage'
-import { DASHBOARD_PAGE, SIGN_IN_PAGE } from 'constants/routesPath'
-import { api } from 'config/client'
-import { logOut } from 'helpers/auth/logOut'
-import { getMe } from 'services/resources'
+import { useSignIn } from 'hooks/auth/useSignIn';
+import { User } from 'shared/types/apiSchema';
+import {
+  USER_STORAGE_KEY,
+  TOKEN_STORAGE_KEY,
+  REFRESH_TOKEN_STORAGE_KEY,
+  REGISTER_USER_STORAGE_KEY,
+} from 'constants/storage';
+import { DASHBOARD_PAGE, SIGN_IN_PAGE } from 'constants/routesPath';
+import { quantumClientQueue } from 'config/client';
+import { logOut } from 'helpers/auth/logOut';
+import { error } from 'helpers/notify/error';
+import { getMe } from 'services/resources';
 
-import { error } from 'helpers/notify/error'
+import { ErrorResponse } from 'shared/errors/apiSchema';
 
-import { AuthStateProvider, AuthDispatchProvider } from './AuthContext'
-import { SignInCredentials, SignUpData } from './types'
+import { AuthStateProvider, AuthDispatchProvider } from './AuthContext';
+import { SignInCredentials, SignUpData } from './types';
 
-let authChannel: BroadcastChannel
+let authChannel: BroadcastChannel;
 
-export function AuthProvider ({ children }: PropsWithChildren<unknown>) {
-  const { mutateAsync: signIn, isLoading: loading } = useSignIn()
-  const [registerUser, setRegisterUser] = useLocalStorage<SignUpData>(REGISTER_USER_STORAGE_KEY, {} as SignUpData)
-  const [user, setUser, deleteUser] = useLocalStorage<User>(USER_STORAGE_KEY, {} as User)
+export function AuthProvider({ children }: PropsWithChildren<unknown>) {
+  const { mutateAsync: signIn, isLoading: loading } = useSignIn();
+  const [registerUser, setRegisterUser] = useLocalStorage<SignUpData>(
+    REGISTER_USER_STORAGE_KEY,
+    {} as SignUpData,
+  );
+  const [user, setUser, deleteUser] = useLocalStorage<User>(
+    USER_STORAGE_KEY,
+    {} as User,
+  );
 
   useEffect(() => {
-    authChannel = new BroadcastChannel('auth')
+    authChannel = new BroadcastChannel(`auth`);
 
-    authChannel.onmessage = (message) => {
+    authChannel.onmessage = message => {
       switch (message.data) {
-        case 'logOut':
-          logOut()
-          break
+        case `logOut`:
+          logOut();
+          break;
         default:
-          break
+          break;
       }
-    }
-  }, [])
+    };
+  }, []);
 
   useEffect(() => {
-    async function getSession () {
-      const cookies = parseCookies()
-      const session = cookies[TOKEN_STORAGE_KEY]
+    async function getSession() {
+      const cookies = parseCookies();
+      const session = cookies[TOKEN_STORAGE_KEY];
 
       if (session) {
-        const user = await getMe()
+        const user = await getMe();
 
-        setUser(user)
+        setUser(user);
       }
     }
 
-    getSession()
-  }, [])
+    getSession();
+  }, []);
 
-  const router = useRouter()
+  const router = useRouter();
 
-  const handleSignIn = useCallback(async ({ login, password }: SignInCredentials) => {
-    await signIn({ login, password }, {
-      onSuccess: (data) => {
-        const { token, refresh_token, user } = data
+  const handleSignIn = useCallback(
+    ({ login, password }: SignInCredentials) => {
+      signIn(
+        { login, password },
+        {
+          onSuccess: data => {
+            const { token, refresh_token, user } = data;
 
-        setCookie(undefined, TOKEN_STORAGE_KEY, token, {
-          maxAge: 60 * 60 * 24 * 30,
-          path: '/'
-        })
+            setCookie(undefined, TOKEN_STORAGE_KEY, token, {
+              maxAge: 60 * 60 * 24 * 30,
+              path: `/`,
+            });
 
-        setCookie(undefined, REFRESH_TOKEN_STORAGE_KEY, refresh_token, {
-          maxAge: 60 * 60 * 24 * 30,
-          path: '/'
-        })
+            setCookie(undefined, REFRESH_TOKEN_STORAGE_KEY, refresh_token, {
+              maxAge: 60 * 60 * 24 * 30,
+              path: `/`,
+            });
 
-        setUser(user)
+            setUser(user);
 
-        api.defaults.headers.common.Authorization = `Bearer ${token}`
+            quantumClientQueue.defaults.headers.common.Authorization = `Bearer ${token}`;
 
-        router.push(DASHBOARD_PAGE)
-      },
-      onError: () => error('Seu CPF/CNPJ ou senha está incorreto')
-    })
-  },
-  [
-    signIn,
-    setUser
-  ])
+            router.push(DASHBOARD_PAGE);
+          },
+          onError: (err: AxiosError<ErrorResponse>) => {
+            if (
+              err.response.data.message === 'Cpf/Cnpj or password is incorrect'
+            ) {
+              error('Usuário ou senha incorretos');
+            }
+          },
+        },
+      );
+    },
+    [signIn, setUser],
+  );
 
-  const handleSignUp = useCallback((updateRegisterUser: SignUpData) => {
-    setRegisterUser({
-      ...registerUser,
-      ...updateRegisterUser
-    })
-  }, [registerUser])
+  const handleSignUp = useCallback(
+    (updateRegisterUser: SignUpData) => {
+      setRegisterUser({
+        ...registerUser,
+        ...updateRegisterUser,
+      });
+    },
+    [registerUser],
+  );
 
   const signOut = useCallback(() => {
-    deleteUser()
-    destroyCookie(undefined, TOKEN_STORAGE_KEY)
-    destroyCookie(undefined, REFRESH_TOKEN_STORAGE_KEY)
+    deleteUser();
+    destroyCookie(undefined, TOKEN_STORAGE_KEY);
+    destroyCookie(undefined, REFRESH_TOKEN_STORAGE_KEY);
 
-    router.push(SIGN_IN_PAGE)
-  },
-  [
-    deleteUser
-  ])
+    router.push(SIGN_IN_PAGE);
+  }, [deleteUser]);
 
   const authState = useMemo(
     () => ({
       user,
       loading,
-      registerUser
+      registerUser,
     }),
-    [
-      user,
-      loading,
-      registerUser
-    ]
-  )
+    [user, loading, registerUser],
+  );
 
   const authDispatch = useMemo(
     () => ({
       signIn: handleSignIn,
       signUp: handleSignUp,
-      signOut
+      signOut,
     }),
-    [
-      handleSignIn,
-      handleSignUp,
-      signOut
-    ]
-  )
+    [handleSignIn, handleSignUp, signOut],
+  );
 
   return (
     <AuthStateProvider value={authState}>
@@ -133,5 +146,5 @@ export function AuthProvider ({ children }: PropsWithChildren<unknown>) {
         {children}
       </AuthDispatchProvider>
     </AuthStateProvider>
-  )
+  );
 }

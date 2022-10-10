@@ -1,5 +1,5 @@
-import { Profile } from 'shared/types/apiSchema'
+import { Profile } from 'shared/types/apiSchema';
 
 export type PersonalInformationProps = {
-  user?: Profile
-}
+  user?: Profile;
+};

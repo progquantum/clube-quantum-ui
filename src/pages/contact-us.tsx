@@ -1,5 +1,5 @@
-import { ContactUsPage } from 'layouts/ContactUs'
+import { ContactUsPage } from 'layouts/ContactUs';
 
-export default function ContactUs () {
-  return <ContactUsPage />
+export default function ContactUs() {
+  return <ContactUsPage />;
 }

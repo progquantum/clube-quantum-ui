@@ -1,4 +1,4 @@
 export type avatarModalProps = {
-  isOpen: boolean
-  onRequestClose: () => void
-}
+  isOpen: boolean;
+  onRequestClose: () => void;
+};

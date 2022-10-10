@@ -1,68 +1,83 @@
-import styled, { css } from 'styled-components'
+import styled, { css } from 'styled-components';
 
-import { StyledInputProps, LabelProps } from './types'
+import { Tooltip } from 'components/Tooltip';
 
-export const Container = styled.div`
-  width: 100%;
+import { StyledContainerProps, InputProps } from './types';
+
+export const Container = styled.div<StyledContainerProps>`
+  position: relative;
   display: flex;
   align-items: center;
-  gap: 0.3rem;
-  position: relative;
-  margin-bottom: 1rem;
-  margin-top: 2rem;
-`
-
-export const Label = styled.label<LabelProps>`
-  position: absolute;
-  left: 0.9rem;
-  top: 0.8rem;
-  pointer-events: none;
-  user-select: none;
-  transition: all 0.5s ease;
-  font-weight: 600;
-  color: ${({ theme }) => theme.colors.gray[700]};
-
-  ${({ isDirty }) => isDirty && css`
-    top: -1.2rem;
-    left: 0.1rem;
-    font-size: 0.9rem;
-    font-weight: 700;
-  `}
-`
-
-export const Input = styled.input<StyledInputProps>`
+  background: ${({ theme }) => theme.colors.input.background[1]};
+  color: ${({ theme }) => theme.colors.input.text};
+  border-radius: 0.625rem;
+  border: 2px solid ${({ theme }) => theme.colors.input.background[1]};
   width: 100%;
-  padding: 0.8rem;
-  box-shadow: none;
-  outline: none;
-  border: none;
-  background-color: inherit;
-  font-size: 1rem;
-  transition: all 0.5s ease;
-  border-bottom: 2.5px solid ${({ theme }) => theme.colors.gray[700]};
-  color: ${({ theme }) => theme.colors.gray[700]};
+  padding: 0 16px;
+  transition: all 100ms;
 
-  ${({ isDirty, theme }) => isDirty && css`
-    border-bottom: 2.5px solid ${theme.colors.royalblue};
-  `}
-
-  &:focus ~ label {
-    top: -1.2rem;
-    left: 0.1rem;
-    font-size: 0.9rem;
-    font-weight: 700;
+  svg {
+    font-size: 1.25rem;
+    color: ${({ theme }) => theme.colors.input.icon};
   }
 
-  &::placeholder {
-    color: ${({ theme }) => theme.colors.royalblue};
+  svg:first-child {
+    margin-right: 0.625rem;
   }
 
-  ${({ hasError, theme }) => hasError &&
+  & + div {
+    margin-top: 0.5rem;
+
+    ${({ variant }) =>
+      variant === 'secundary' &&
+      css`
+        margin-top: 0rem;
+      `}
+  }
+
+  ${({ isFocused, theme }) =>
+    isFocused &&
     css`
-      border-bottom: 2px solid ${theme.colors.danger};
-    `};
-`
+      border: 2px solid ${theme.colors.midnightBlue};
+    `}
 
-export const Error = styled.p`
-  color: ${({ theme }) => theme.colors.danger};
-`
+  ${({ isFilled, theme }) =>
+    isFilled &&
+    css`
+      svg {
+        color: ${theme.colors.midnightBlue};
+      }
+    `}
+
+  ${({ hasError, theme }) =>
+    hasError &&
+    css`
+      border: 2px solid ${theme.colors.input.danger};
+
+      svg {
+        color: ${theme.colors.input.danger};
+      }
+    `}
+`;
+
+export const Input = styled.input<InputProps>`
+  flex: 1;
+  background: transparent;
+  border: none;
+  height: 100%;
+  width: 100%;
+  padding: 1rem 0;
+`;
+
+export const Error = styled(Tooltip)`
+  height: 100%;
+
+  span {
+    background: ${({ theme }) => theme.colors.danger};
+    font-size: 0.875rem;
+
+    &:before {
+      border-color: ${({ theme }) => theme.colors.danger};
+    }
+  }
+`;

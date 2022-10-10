@@ -1,7 +1,7 @@
-import styled, { css } from 'styled-components'
-import { motion } from 'framer-motion'
+import styled, { css } from 'styled-components';
+import { motion } from 'framer-motion';
 
-import { Button } from 'components/Button'
+import { Button } from 'components/Button';
 
 export const Container = styled.div`
   display: flex;
@@ -10,14 +10,7 @@ export const Container = styled.div`
   margin-left: 1.5rem;
   position: relative;
   cursor: pointer;
-`
-
-export const AccountDropdown = styled.img`
-  width: 3rem;
-  height: 3rem;
-  border-radius: 50%;
-  object-fit: cover;
-`
+`;
 
 export const AnimatedDropdown = styled(motion.nav)`
   ${({ theme }) => css`
@@ -41,18 +34,20 @@ export const AnimatedDropdown = styled(motion.nav)`
       border-width: 0.8rem;
     }
   `}
-`
+`;
 
 export const NavButton = styled(Button)`
   ${({ theme }) => css`
     width: 100%;
-    padding: 0.75rem 1rem;
+    margin-top: 0;
+    padding: 0.5rem 1rem;
     justify-content: space-between;
     font-size: ${theme.fontSizes.sm};
     background: ${theme.colors.ghostwhite};
     color: ${theme.colors.midnightBlue};
 
     &:hover {
+      color: ${theme.colors.midnightBlue};
       background: ${theme.colors.background};
     }
 
@@ -60,12 +55,13 @@ export const NavButton = styled(Button)`
       border-radius: ${theme.radiis.smallTop};
     }
 
-    &:nth-child(n+2):nth-child(-n+8) {
+    &:nth-child(n + 2):nth-child(-n + 8) {
       border-radius: 0px;
     }
 
     &:last-child {
+      color: ${theme.colors.danger};
       border-radius: ${theme.radiis.smallBottom};
     }
   `}
-`
+`;

@@ -1,11 +1,11 @@
-import Image from 'next/image'
-import Link from 'next/link'
+import Image from 'next/image';
+import Link from 'next/link';
 
-import { Footer } from 'components/Footer'
+import { Footer } from 'components/Footer';
 
-import * as S from './styles'
+import * as S from './styles';
 
-export function BancoUmAdvantagesPage () {
+export function BancoUmAdvantagesPage() {
   return (
     <>
       <S.Container>
@@ -24,21 +24,24 @@ export function BancoUmAdvantagesPage () {
         </S.LeftWrapper>
 
         <S.RightWrapper>
-          <Image width={71} height={44} src='/images/banco-um-logo.svg' />
-          <Image width={275} height={129} src='/images/iframe-video.svg' />
+          <Image width={71} height={44} src="/images/banco-um-logo.svg" />
+          <Image width={275} height={129} src="/images/iframe-video.svg" />
           <p>Baixe o aplicativo e crie sua conta</p>
           <S.Badges>
-            <Link href='#'>
-              <Image width={74} height={24} src='/images/ios-store-badge.svg' />
+            <Link href="/">
+              <Image width={74} height={24} src="/images/ios-store-badge.svg" />
             </Link>
-            <Link href='#'>
-              <Image width={74} height={24} src='/images/google-play-badge.svg' />
+            <Link href="/">
+              <Image
+                width={74}
+                height={24}
+                src="/images/google-play-badge.svg"
+              />
             </Link>
           </S.Badges>
         </S.RightWrapper>
       </S.Container>
-
       <Footer />
     </>
-  )
+  );
 }

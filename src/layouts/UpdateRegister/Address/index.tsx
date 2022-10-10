@@ -1,36 +1,36 @@
-import { useState } from 'react'
+import { useState } from 'react';
 
-import { Edit } from 'components/Illustrations/Edit'
+import { Edit } from 'components/Illustrations/Edit';
 
-import { AddressInformationModal } from './AddressModal'
+import { AddressInformationModal } from './AddressModal';
 
-import { AddressProps } from './types'
-import * as S from './styles'
+import { AddressProps } from './types';
+import * as S from './styles';
 
-export function Address ({ address } : AddressProps) {
-  const [requestModal, setRequestModal] = useState(false)
+export function Address({ address }: AddressProps) {
+  const [requestModal, setRequestModal] = useState(false);
 
-  const street = address?.street
-  const number = address?.number
-  const neighborhood = address?.neighborhood
-  const complement = address?.complement
-  const zipCode = address?.zip_code
-  const city = address?.city
-  const state = address?.state
-  const country = address?.country
+  const street = address?.street;
+  const number = address?.number;
+  const neighborhood = address?.neighborhood;
+  const complement = address?.complement;
+  const zipCode = address?.zip_code;
+  const city = address?.city;
+  const state = address?.state;
+  const country = address?.country;
 
-  const hasComplement = address?.complement
+  const hasComplement = address?.complement;
 
   const handleRequestModal = () => {
-    setRequestModal(prevState => !prevState)
-  }
+    setRequestModal(prevState => !prevState);
+  };
 
   return (
     <>
       <S.Container>
         <S.EditAddress onClick={handleRequestModal}>
           <h2>Endereço</h2>
-          <Edit width='15' height='15' color='#fff' />
+          <Edit width="15" height="15" color="#fff" />
         </S.EditAddress>
 
         <h3>Rua</h3>
@@ -40,8 +40,7 @@ export function Address ({ address } : AddressProps) {
         <p>{number}</p>
 
         <h3>Complemento</h3>
-        <p>{hasComplement ? `${complement}` : 'N/A'}
-        </p>
+        <p>{hasComplement ? `${complement}` : 'N/A'}</p>
 
         <h3>Bairro</h3>
         <p>{neighborhood}</p>
@@ -63,5 +62,5 @@ export function Address ({ address } : AddressProps) {
         onRequestClose={handleRequestModal}
       />
     </>
-  )
+  );
 }

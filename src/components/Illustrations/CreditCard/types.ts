@@ -1,5 +1,5 @@
 export type CreditCardIconProps = {
-  color: string
-  width: string
-  height: string
-}
+  color: string;
+  width: string;
+  height: string;
+};

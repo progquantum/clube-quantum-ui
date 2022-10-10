@@ -1,144 +1,138 @@
-import Modal from 'react-modal'
-import { ChangeEvent } from 'react'
+import Modal from 'react-modal';
+import { useCallback, useRef } from 'react';
+import { Form } from '@unform/web';
+import { FormHandles, SubmitHandler } from '@unform/core';
 
-import { SubmitHandler, useForm } from 'react-hook-form'
-import { yupResolver } from '@hookform/resolvers/yup'
+import { useQueryClient } from 'react-query';
 
-import { useQueryClient } from 'react-query'
+import { FiCalendar, FiMail, FiPhone, FiUser } from 'react-icons/fi';
 
-import { QUERY_KEY_ME_PROFILE } from 'hooks/useFindMeProfile'
-import { useUpdatePersonalInformation } from 'hooks/useUpdatePersonalInformation'
+import { QUERY_KEY_ME_PROFILE } from 'hooks/useFindMeProfile';
+import { useUpdatePersonalInformation } from 'hooks/useUpdatePersonalInformation';
 
-import { User } from 'components/Illustrations/User'
-import { Input } from 'components/Input'
+import { User } from 'components/Illustrations/User';
+import { Input } from 'components/Input';
 
-import { formatPhoneNumber } from 'utils/formatters/formatPhoneNumber'
-import { formatBirthDate } from 'utils/formatters/formatBirthDate'
-import { personalInformationSchemas } from 'schemas/updateRegister'
+import { success } from 'helpers/notify/success';
+import { error } from 'helpers/notify/error';
 
-import { success } from 'helpers/notify/success'
-import { error } from 'helpers/notify/error'
+import { Button } from 'components/Button';
 
-import { PersonalInformationFormProps, PersonalInformationProps } from './types'
-import * as S from './styles'
+import { performSchemaValidation } from 'utils/performSchemaValidation';
 
-export function PersonalInformationModal ({ isOpen, onRequestClose }: PersonalInformationProps) {
-  const { mutateAsync: putPersonalInformation, isLoading: loading } = useUpdatePersonalInformation()
-  const queryClient = useQueryClient()
+import { formatPhoneNumber } from 'utils/formatters/formatPhoneNumber';
 
-  const {
-    control,
-    handleSubmit,
-    register,
-    setValue,
-    reset
-  } = useForm({
-    resolver: yupResolver(personalInformationSchemas)
-  })
+import { formatBirthDate } from 'utils/formatters/formatBirthDate';
 
-  const handlePhoneNumberFormat = (e: ChangeEvent<HTMLInputElement>) => {
-    const formattedPhoneNumber = formatPhoneNumber(e.target.value)
+import { CloseModal } from 'components/CloseModal';
 
-    setValue('phone', formattedPhoneNumber)
-  }
+import {
+  PersonalInformationFormProps,
+  PersonalInformationProps,
+} from './types';
+import * as S from './styles';
+import { schema } from './schemas';
 
-  const handleBirthDateFormat = (e: ChangeEvent<HTMLInputElement>) => {
-    const formattedBirthDate = formatBirthDate(e.target.value)
+export function PersonalInformationModal({
+  isOpen,
+  onRequestClose,
+}: PersonalInformationProps) {
+  const { mutateAsync: putPersonalInformation, isLoading: loading } =
+    useUpdatePersonalInformation();
+  const queryClient = useQueryClient();
 
-    setValue('birth_date', formattedBirthDate)
-  }
+  const formRef = useRef<FormHandles>(null);
 
   const handleCloseModal = () => {
-    onRequestClose()
-    reset()
-  }
+    onRequestClose();
+  };
 
-  const handleSubmitPersonalInformation:SubmitHandler<PersonalInformationFormProps> = async (data) => {
-    const formattedBirthDate = data.birth_date.split('/').reverse().join('-')
-
-    await putPersonalInformation({
-      name: data.name,
-      birth_date: formattedBirthDate,
-      phone: data.phone,
-      email: data.email
-    },
-    {
-      onSuccess: () => {
-        queryClient.invalidateQueries(QUERY_KEY_ME_PROFILE)
-        success('Perfil atualizado com sucesso.')
-        onRequestClose()
+  const handleSubmitPersonalInformation: SubmitHandler<PersonalInformationFormProps> =
+    useCallback(
+      async data => {
+        performSchemaValidation({
+          formRef,
+          data,
+          schema,
+        }).then(() => {
+          const { name, phone, email } = data;
+          const birth_date = data.birth_date.split('/').reverse().join('-');
+          putPersonalInformation(
+            {
+              name,
+              birth_date,
+              phone,
+              email,
+            },
+            {
+              onSuccess: () => {
+                queryClient.invalidateQueries(QUERY_KEY_ME_PROFILE);
+                success('Perfil atualizado com sucesso');
+                onRequestClose();
+              },
+              onError: () => {
+                error('Opss, algo deu errado!');
+              },
+            },
+          );
+        });
       },
-      onError: () => {
-        error('Opss, algo deu errado!')
-      }
-    })
-  }
-
+      [putPersonalInformation],
+    );
   return (
-    <>
-      <Modal
-        isOpen={isOpen}
-        onRequestClose={handleCloseModal}
-        overlayClassName='react-modal-overlay'
-        className='react-modal-container'
-      >
-        <S.UserInformation>
-          <S.TextContent>
-            <User width='18' height='20' color='#BBBBBB' />
-            <p>Informações Pessoais</p>
-          </S.TextContent>
+    <Modal
+      isOpen={isOpen}
+      onRequestClose={handleCloseModal}
+      overlayClassName="react-modal-overlay"
+      className="react-modal-container"
+    >
+      <S.UserInformation>
+        <S.TextContent>
+          <User width="18" height="20" color="#BBBBBB" />
+          <p>Informações Pessoais</p>
+        </S.TextContent>
 
-          <S.PersonalInformationForm onSubmit={handleSubmit(handleSubmitPersonalInformation)}>
-            <Input
-              type='text'
-              label='Nome'
-              control={control}
-              name='name'
-            />
+        <S.PersonalInformationForm
+          as={Form}
+          ref={formRef}
+          onSubmit={handleSubmitPersonalInformation}
+        >
+          <Input type="text" placeholder="Nome" name="name" icon={FiUser} />
 
-            <Input
-              type='text'
-              label='Data de Nascimento'
-              control={control}
-              name='birth_date'
-              {...register('birth_date', {
-                onChange: e => handleBirthDateFormat(e)
-              })}
-            />
+          <Input
+            type="text"
+            placeholder="Data de nascimento"
+            name="birth_date"
+            icon={FiCalendar}
+            onChange={e => {
+              formRef.current.setFieldValue(
+                'birth_date',
+                formatBirthDate(e.target.value),
+              );
+            }}
+          />
 
-            <Input
-              type='text'
-              label='Telefone'
-              control={control}
-              name='phone'
-              {...register('phone', {
-                onChange: e => handlePhoneNumberFormat(e)
-              })}
-            />
+          <Input
+            type="text"
+            placeholder="Telefone"
+            name="phone"
+            icon={FiPhone}
+            onChange={e => {
+              formRef.current.setFieldValue(
+                'phone',
+                formatPhoneNumber(e.target.value),
+              );
+            }}
+          />
 
-            <Input
-              type='text'
-              label='Email'
-              control={control}
-              name='email'
-            />
+          <Input type="text" placeholder="E-mail" name="email" icon={FiMail} />
 
-            <S.ButtonConfirm
-              type='submit'
-              loading={loading}
-              disabled={loading}
-            >
-              Confirmar Alterações
-            </S.ButtonConfirm>
-
-            <S.ButtonCancel
-              onClick={handleCloseModal}
-            >
-              Cancelar
-            </S.ButtonCancel>
-          </S.PersonalInformationForm>
-        </S.UserInformation>
-      </Modal>
-    </>
-  )
+          <Button type="submit" loading={loading} disabled={loading}>
+            Confirmar Alterações
+          </Button>
+          <CloseModal onClick={handleCloseModal} />
+        </S.PersonalInformationForm>
+      </S.UserInformation>
+    </Modal>
+  );
 }

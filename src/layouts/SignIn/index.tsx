@@ -1,49 +1,41 @@
-import { ChangeEvent } from 'react'
-import { SubmitHandler, useForm } from 'react-hook-form'
-import { yupResolver } from '@hookform/resolvers/yup'
-import Link from 'next/link'
-import Head from 'next/head'
+import { useCallback, useRef } from 'react';
+import { FormHandles, SubmitHandler } from '@unform/core';
+import { Form } from '@unform/web';
+import { FiUser, FiLock, FiLogIn } from 'react-icons/fi';
+import Link from 'next/link';
+import Head from 'next/head';
+import noop from 'lodash.noop';
 
-import { Input } from 'components/Input'
-import { Footer } from 'components/Footer'
-import { useAuthDispatch, useAuthState } from 'contexts/auth/AuthContext'
-import { schema } from 'schemas/signIn'
-import { formatCPF } from 'utils/formatters/formatCPF'
+import { Input } from 'components/Input';
+import { useAuthDispatch, useAuthState } from 'contexts/auth/AuthContext';
+import { FORGOT_PASSWORD_PAGE, SIGN_UP_PAGE } from 'constants/routesPath';
+import { performSchemaValidation } from 'utils/performSchemaValidation';
+import { AuthLayout } from 'layouts/Auth';
+import { Button } from 'components/Button';
+import { ShowPasswordInput } from 'components/Input/ShowPassword';
+import { formatCPForCNPJ } from 'utils/formatters/formatCPForCNPJ';
 
-import { FORGOT_PASSWORD_PAGE, SIGN_UP_PAGE } from 'constants/routesPath'
+import { SignInFormValues } from './types';
+import { schema } from './schemas';
 
-import { SignInFormValues } from './types'
-import * as S from './styles'
+export function SignInPage() {
+  const { signIn } = useAuthDispatch();
+  const { loading } = useAuthState();
 
-export function SignInPage () {
-  const {
-    control,
-    handleSubmit,
-    register,
-    setValue,
-    formState
-  } = useForm({
-    defaultValues: {
-      login: '',
-      password: ''
+  const formRef = useRef<FormHandles>(null);
+
+  const handleSignIn: SubmitHandler<SignInFormValues> = useCallback(
+    data => {
+      performSchemaValidation({
+        formRef,
+        data,
+        schema,
+      })
+        .then(() => signIn(data))
+        .catch(noop);
     },
-    resolver: yupResolver(schema)
-  })
-  const { signIn } = useAuthDispatch()
-  const { loading } = useAuthState()
-
-  const { isDirty, isSubmitting } = formState
-  const isButtonDisabled = !isDirty || isSubmitting || loading
-
-  const onSubmit: SubmitHandler<SignInFormValues> = (data) => {
-    signIn(data)
-  }
-
-  const handleInputChange = (e: ChangeEvent<HTMLInputElement>) => {
-    const valueFormatted = formatCPF(e.target.value)
-
-    setValue('login', valueFormatted)
-  }
+    [signIn],
+  );
 
   return (
     <>
@@ -51,56 +43,45 @@ export function SignInPage () {
         <title>Acesse sua conta - Clube Quantum</title>
       </Head>
 
-      <S.Wrapper>
-        <S.Form onSubmit={handleSubmit(onSubmit)}>
-          <h1>Login</h1>
-
+      <AuthLayout title="Faça seu login" backgroundImage="/images/signin.png">
+        <Form ref={formRef} onSubmit={handleSignIn}>
           <Input
-            type='text'
-            label='CPF/CNPJ'
-            name='login'
-            control={control}
-            {...register('login', {
-              onChange: (e) => handleInputChange(e)
-            })}
+            type="text"
+            name="login"
+            autoCapitalize="none"
+            placeholder="CPF/CNPJ"
+            onChange={e =>
+              formRef.current.setFieldValue(
+                'login',
+                formatCPForCNPJ(e.target.value),
+              )
+            }
+            icon={FiUser}
           />
 
-          <Input
-            type='password'
-            label='Senha'
-            name='password'
-            control={control}
+          <ShowPasswordInput
+            type="password"
+            name="password"
+            placeholder="Senha"
+            icon={FiLock}
           />
 
-          <S.LoginAbout>
-            <span>
-              <input type='checkbox' id='remember' />
-              <label htmlFor='remember'>Lembre meu login</label>
-            </span>
-
-            <Link href={FORGOT_PASSWORD_PAGE}>
-              Esqueceu a sua senha?
-            </Link>
-          </S.LoginAbout>
-
-          <S.SignInButton
-            type='submit'
-            loading={loading}
-            disabled={isButtonDisabled}
-          >
+          <Button type="submit" loading={loading} disabled={loading}>
             Login
-          </S.SignInButton>
-        </S.Form>
+          </Button>
 
-        <S.CreateAccountButtonWrapper>
-          <h1>Ainda não é um membro do Quantum Clube?</h1>
-
-          <Link href={SIGN_UP_PAGE}>
-            Criar Conta
+          <Link href={FORGOT_PASSWORD_PAGE} prefetch>
+            Esqueceu a sua senha?
           </Link>
-        </S.CreateAccountButtonWrapper>
-      </S.Wrapper>
-      <Footer />
+        </Form>
+
+        <Link href={SIGN_UP_PAGE} prefetch>
+          <a>
+            <FiLogIn />
+            Criar uma conta
+          </a>
+        </Link>
+      </AuthLayout>
     </>
-  )
+  );
 }

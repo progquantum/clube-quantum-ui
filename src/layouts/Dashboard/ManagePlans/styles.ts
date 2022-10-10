@@ -1,6 +1,6 @@
-import styled from 'styled-components'
+import styled from 'styled-components';
 
-import { Button } from 'components/Button'
+import { Button } from 'components/Button';
 /* Styled NoPlanCard */
 
 export const Container = styled.div`
@@ -17,40 +17,40 @@ export const Container = styled.div`
 
   width: 44.9375rem;
 
-  @media (max-width: 1024px){
+  @media (max-width: 1024px) {
     width: 27.0625rem;
   }
 
-  @media (max-width: 460px){
+  @media (max-width: 460px) {
     width: 330px;
   }
-`
+`;
 
 export const Content = styled.div`
   display: flex;
   flex-direction: row;
   gap: 10px;
-`
+`;
 export const TitleContent = styled.span`
   font-weight: 500;
   font-size: 10px;
   line-height: 20px;
-`
+`;
 export const Title = styled.h3`
   font-weight: 900;
   font-size: 18px;
   line-height: 1.375rem;
-`
+`;
 
 export const Text = styled.p`
-  font-size: .875rem;
+  font-size: 0.875rem;
   color: ${({ theme }) => theme.colors.gray[400]};
-`
+`;
 
 export const ButtonManagePlans = styled(Button)`
   width: 100%;
   height: 2.3125rem;
   font-weight: 500;
-  font-size: .875rem;
+  font-size: 0.875rem;
   line-height: 1.0625rem;
-`
+`;

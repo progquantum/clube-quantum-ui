@@ -1,6 +1,6 @@
-import styled from 'styled-components'
+import styled from 'styled-components';
 
-import { Button } from 'components/Button'
+import { Button } from 'components/Button';
 
 export const Container = styled.nav`
   display: flex;
@@ -13,10 +13,10 @@ export const Container = styled.nav`
   box-shadow: 0 0 1.875rem rgba(0, 0, 0, 0.08);
   border-radius: 0.625rem;
 
-  @media (max-width: 820px){
+  @media (max-width: 820px) {
     display: none;
   }
-`
+`;
 
 export const NavButton = styled.button`
   display: flex;
@@ -32,14 +32,14 @@ export const NavButton = styled.button`
     opacity: 0.6;
     cursor: not-allowed;
   }
-`
+`;
 
 export const WrapImage = styled.div`
   width: 25.008px;
   display: flex;
   justify-content: center;
   align-items: center;
-`
+`;
 
 export const SignOutButton = styled(Button)`
   justify-content: space-between;
@@ -48,4 +48,4 @@ export const SignOutButton = styled(Button)`
   border-radius: 0.625rem;
   margin: 1.5rem 0;
   background: ${({ theme }) => theme.colors.danger};
-`
+`;

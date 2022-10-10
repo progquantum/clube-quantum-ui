@@ -1,149 +1,133 @@
-import { ChangeEvent } from 'react'
-import { useForm, SubmitHandler } from 'react-hook-form'
-import { yupResolver } from '@hookform/resolvers/yup'
-import { useQueryClient } from 'react-query'
-import { useTheme } from 'styled-components'
+import { useRef } from 'react';
+import { Form } from '@unform/web';
+import { FormHandles, SubmitHandler } from '@unform/core';
+import { useQueryClient } from 'react-query';
+import { useTheme } from 'styled-components';
+import Modal from 'react-modal';
+import { FiCalendar, FiCreditCard, FiUser, FiLock } from 'react-icons/fi';
+import noop from 'lodash.noop';
 
-import Modal from 'react-modal'
+import { useUpdateCreditCard } from 'hooks/useUpdateCreditCard';
+import { QUERY_KEY_FIND_BILLING } from 'hooks/useWallet';
+import { formatCreditCardAddSpace } from 'utils/formatters/formatCreditCardAddSpace';
+import { formatCreditCardExpiration } from 'utils/formatters/formatCreditCardExpiration';
+import { CreditCardIcon } from 'components/Illustrations/CreditCard';
+import { Input } from 'components/Input';
+import { performSchemaValidation } from 'utils/performSchemaValidation';
+import { Button } from 'components/Button';
+import { formatCreditCardRemoveSpace } from 'utils/formatters/formatCreditCardRemoveSpace';
+import { formatCVV } from 'utils/formatters/formatCVV';
 
-import { QUERY_KEY_FIND_BILLING } from 'hooks/useWallet'
-import { formatCreditCard } from 'utils/formatters/formatCreditCard'
-import { formatCreditCardExpiration } from 'utils/formatters/formatCreditCardExpiration'
-import { useUpdateCreditCard } from 'hooks/useUpdateCreditCard'
-import { CreditCardIcon } from 'components/Illustrations/CreditCard'
-import { Input } from 'components/Input'
+import { CloseModal } from 'components/CloseModal';
 
-import { schema } from '../../../../schemas/updateCreditCard'
-import { ModalCreditCardProps, ModalCreditCardFormProps } from './types'
-import * as S from './styles'
+import { schema } from './schemas';
+import { ModalCreditCardProps, ModalCreditCardFormProps } from './types';
+import * as S from './styles';
 
-export function ModalCreditCard ({ isOpen, onRequestNewCreditCardModal }: ModalCreditCardProps) {
-  const { mutateAsync: postBankAccount, isLoading: loading } = useUpdateCreditCard()
-  const { colors } = useTheme()
-  const queryClient = useQueryClient()
-  const {
-    control,
-    handleSubmit,
-    register,
-    setValue
-  } = useForm({
-    defaultValues: {
-      card_number: '',
-      card_name: '',
-      expiration_date: '',
-      cvc: '',
-      card_brand: 'Visa'
-    },
-    resolver: yupResolver(schema)
-  })
+export function ModalCreditCard({
+  isOpen,
+  onRequestNewCreditCardModal,
+}: ModalCreditCardProps) {
+  const { mutateAsync: postCreditCard, isLoading: loading } =
+    useUpdateCreditCard();
+  const { colors } = useTheme();
+  const queryClient = useQueryClient();
 
-  const handleInputCardFormat = (e: ChangeEvent<HTMLInputElement>) => {
-    const creditCardFormatted = formatCreditCard(e.target.value)
+  const formRef = useRef<FormHandles>(null);
 
-    setValue('card_number', creditCardFormatted)
-  }
-
-  const handleInputExpirationFormat = (e: ChangeEvent<HTMLInputElement>) => {
-    const expirationDateFormatted = formatCreditCardExpiration(e.target.value)
-
-    setValue('expiration_date', expirationDateFormatted)
-  }
-
-  const handleSubmitCreditCard:SubmitHandler<ModalCreditCardFormProps> = async (data) => {
-    const formattedCardNumber = data.card_number.replace(/ /g, '')
-
-    await postBankAccount({
-      card_number: formattedCardNumber,
-      card_name: data.card_name,
-      expiration_date: data.expiration_date,
-      card_brand: data.card_brand,
-      cvc: data.cvc
-    },
-    {
-      onSuccess: () => {
-        queryClient.invalidateQueries(QUERY_KEY_FIND_BILLING)
-        onRequestNewCreditCardModal()
-      }
+  const handleSubmitCreditCard: SubmitHandler<
+    ModalCreditCardFormProps
+  > = async data => {
+    performSchemaValidation({
+      formRef,
+      data,
+      schema,
     })
-  }
+      .then(() => {
+        postCreditCard(
+          {
+            card_number: formatCreditCardRemoveSpace(data.card_number),
+            card_name: data.card_name,
+            expiration_date: data.expiration_date,
+            card_brand: 'visa',
+            cvc: data.cvc,
+          },
+          {
+            onSuccess: () => {
+              queryClient.invalidateQueries(QUERY_KEY_FIND_BILLING);
+              onRequestNewCreditCardModal();
+            },
+          },
+        );
+      })
+      .catch(noop);
+  };
 
   return (
-    <>
-      <Modal
-        isOpen={isOpen}
-        onRequestClose={onRequestNewCreditCardModal}
-        className='react-modal-container'
-        overlayClassName='react-modal-overlay'
+    <Modal
+      isOpen={isOpen}
+      onRequestClose={onRequestNewCreditCardModal}
+      className="react-modal-container"
+      overlayClassName="react-modal-overlay"
+    >
+      <S.YourAccount>
+        <CreditCardIcon color={colors.gray[100]} width="20" height="14" />
+        <S.ContentTitle>Atualizar cartão</S.ContentTitle>
+      </S.YourAccount>
+
+      <S.CreditCardForm
+        as={Form}
+        ref={formRef}
+        onSubmit={handleSubmitCreditCard}
       >
+        <Input
+          type="text"
+          name="card_name"
+          placeholder="Nome impresso no cartão"
+          icon={FiUser}
+        />
 
-        <S.YourAccount>
-          <CreditCardIcon
-            color={colors.gray[100]}
-            width='20'
-            height='14'
-          />
-          <S.ContentTitle>Seu cartão cadastrado</S.ContentTitle>
-        </S.YourAccount>
+        <Input
+          type="text"
+          name="card_number"
+          placeholder="Número do cartão"
+          icon={FiCreditCard}
+          onChange={e =>
+            formRef.current.setFieldValue(
+              'card_number',
+              formatCreditCardAddSpace(e.target.value),
+            )
+          }
+        />
 
-        <S.CreditCardForm
-          onSubmit={handleSubmit(handleSubmitCreditCard)}
-        >
+        <Input
+          type="text"
+          name="expiration_date"
+          placeholder="Data de vencimento"
+          icon={FiCalendar}
+          onChange={e =>
+            formRef.current.setFieldValue(
+              'expiration_date',
+              formatCreditCardExpiration(e.target.value),
+            )
+          }
+        />
 
-          <Input
-            type='text'
-            label='Nome do Cartão'
-            name='card_name'
-            control={control}
-          />
+        <Input
+          type="text"
+          name="cvc"
+          placeholder="CVV"
+          icon={FiLock}
+          onChange={e =>
+            formRef.current.setFieldValue('cvc', formatCVV(e.target.value))
+          }
+        />
 
-          <Input
-            maxLength={19}
-            type='text'
-            label='Número do Cartão'
-            name='card_number'
-            control={control}
-            {...register('card_number', {
-              onChange: e => handleInputCardFormat(e)
-            })}
-          />
-
-          <Input
-            maxLength={7}
-            type='text'
-            label='Data de Vencimento'
-            name='expiration_date'
-            control={control}
-            {...register('expiration_date', {
-              onChange: e => handleInputExpirationFormat(e)
-            })}
-          />
-
-          <Input
-            maxLength={3}
-            type='text'
-            label='CVV'
-            name='cvc'
-            control={control}
-          />
-
-          <S.ButtonConfirm
-            type='submit'
-            loading={loading}
-            disabled={loading}
-          >
-            Confirmar
-          </S.ButtonConfirm>
-
-          <S.ButtonCancel
-            disabled={loading}
-            onClick={onRequestNewCreditCardModal}
-          >
-            Cancelar
-          </S.ButtonCancel>
-
-        </S.CreditCardForm>
-
-      </Modal>
-    </>
-  )
+        <Button type="submit" loading={loading} disabled={loading}>
+          Confirmar
+        </Button>
+        <CloseModal disabled={loading} onClick={onRequestNewCreditCardModal} />
+      </S.CreditCardForm>
+    </Modal>
+  );
 }

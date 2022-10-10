@@ -4,5 +4,5 @@ export const fontSizes = {
   base: '1rem',
   lg: '1.125rem',
   xl: '1.25rem',
-  '2xl': '2.5rem'
-}
+  '2xl': '2.5rem',
+};

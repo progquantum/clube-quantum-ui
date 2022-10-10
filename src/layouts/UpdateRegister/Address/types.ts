@@ -1,6 +1,6 @@
-import { Address } from 'shared/types/apiSchema'
+import { Address } from 'shared/types/apiSchema';
 
 export type AddressProps = {
-  address: Address
-  loading?: boolean
-}
+  address: Address;
+  loading?: boolean;
+};

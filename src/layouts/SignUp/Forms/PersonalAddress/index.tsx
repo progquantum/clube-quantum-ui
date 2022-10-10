@@ -1,187 +1,194 @@
-import { useForm } from 'react-hook-form'
-import { FaAngleRight } from 'react-icons/fa'
-import { yupResolver } from '@hookform/resolvers/yup'
+import { useCallback, useRef, ChangeEvent } from 'react';
+import { AxiosError } from 'axios';
+import {
+  FiHome,
+  FiPackage,
+  FiMapPin,
+  FiGlobe,
+  FiMap,
+  FiLogOut,
+} from 'react-icons/fi';
+import { FaRegAddressCard } from 'react-icons/fa';
+import { BiBuildingHouse } from 'react-icons/bi';
+import { BsPinMap } from 'react-icons/bs';
+import { Form } from '@unform/web';
+import { FormHandles, SubmitHandler } from '@unform/core';
 
-import { AxiosError } from 'axios'
+import { Input } from 'components/Input';
+import { Button } from 'components/Button';
+import { formatCEP } from 'utils/formatters/formatCEP';
+import { formatAddressNumber } from 'utils/formatters/formatAddressNumber';
+import { useIndividualPersonSignUp } from 'hooks/auth/useIndividualPersonSignUp';
+import { useAuthState } from 'contexts/auth/AuthContext';
+import { error } from 'helpers/notify/error';
+import { ErrorResponse } from 'shared/errors/apiSchema';
+import { performSchemaValidation } from 'utils/performSchemaValidation';
+import { AuthLayout } from 'layouts/Auth';
+import { getZipCode } from 'services/resources';
+import { Checkbox } from 'components/Checkbox';
+import { formatCountry } from 'utils/formatters/formatCountry';
+import { formatUF } from 'utils/formatters/formatUF';
 
-import { addressDataSchema } from 'schemas/signUp'
-import { Input } from 'components/Input'
-import { Button } from 'components/Button'
-import { formatCEP } from 'utils/formatters/formatCEP'
-import { formatAddressNumber } from 'utils/formatters/formatAddressNumber'
-import { formatValueToUppercase } from 'utils/formatters/formatValueToUppercase'
-import { useIndividualPersonSignUp } from 'hooks/auth/useIndividualPersonSignUp'
-import { useAuthState } from 'contexts/auth/AuthContext'
-import { error } from 'helpers/notify/error'
+import { PersonalAddressProps, AddressFormValues } from './types';
+import { schema } from './schemas';
 
-import { ErrorResponse } from 'shared/errors/apiSchema'
+export function PersonalAddress({
+  onUpdateFormStep,
+  onPreviousFormStep,
+}: PersonalAddressProps) {
+  const { registerUser } = useAuthState();
+  const { mutate: signUp, isLoading: isSignuping } =
+    useIndividualPersonSignUp();
 
-import { PersonalAddressProps, FormData } from './types'
-import * as S from './styles'
+  const formRef = useRef<FormHandles>(null);
 
-export function PersonalAddress ({ onUpdateFormStep }: PersonalAddressProps) {
-  const {
-    handleSubmit,
-    control,
-    register,
-    setValue,
-    formState
-  } = useForm({
-    defaultValues: {
-      zipCode: '',
-      street: '',
-      neighborhood: '',
-      number: '',
-      complement: '',
-      city: '',
-      state: '',
-      country: ''
+  const handleZipCode = useCallback(
+    async (e: ChangeEvent<HTMLInputElement>) => {
+      formRef.current.setFieldValue('zip_code', formatCEP(e.target.value));
+
+      if (e.target.value.length === 10) {
+        const formattedCep = e.target.value.replace('.', '').replace('-', '');
+
+        await getZipCode(formattedCep).then(data => {
+          formRef.current.setFieldValue('street', data?.street);
+          formRef.current.setFieldValue('neighborhood', data?.neighborhood);
+          formRef.current.setFieldValue('city', data?.city);
+          formRef.current.setFieldValue('state', data?.state);
+          formRef.current.setFieldValue('country', data?.country);
+        });
+      }
     },
-    resolver: yupResolver(addressDataSchema)
-  })
+    [formRef],
+  );
 
-  const { registerUser } = useAuthState()
+  const handleAddressSubmit: SubmitHandler<AddressFormValues> = useCallback(
+    data => {
+      performSchemaValidation({
+        formRef,
+        data,
+        schema,
+      }).then(() => {
+        const { name, phone, cpf, email, password, invited_by, birth_date } =
+          registerUser;
+        const {
+          street,
+          number,
+          neighborhood,
+          complement,
+          zip_code,
+          city,
+          state,
+          country,
+        } = data;
+        signUp(
+          {
+            name,
+            phone,
+            cpf,
+            email,
+            password,
+            invited_by,
+            birth_date,
+            address: {
+              street,
+              number,
+              neighborhood,
+              complement,
+              zip_code,
+              city,
+              state,
+              country,
+            },
+          },
+          {
+            onSuccess: () => onUpdateFormStep(),
+            onError: (err: AxiosError<ErrorResponse>) => {
+              if (err.response.data.message === 'Email already in use') {
+                error('Este email já está em uso');
+              }
 
-  const {
-    mutate: signUp,
-    isLoading: isSinguping
-  } = useIndividualPersonSignUp()
-
-  function onSubmit (data: FormData) {
-    signUp({
-      name: registerUser.name,
-      phone: registerUser.phone,
-      cpf: registerUser.cpf,
-      email: registerUser.email,
-      password: registerUser.password,
-      invited_by: registerUser.invited_by,
-      birth_date: registerUser.birth_date,
-      address: {
-        street: data.street,
-        number: data.number,
-        neighborhood: data.neighborhood,
-        zip_code: data.zipCode,
-        city: data.city,
-        state: data.state,
-        country: data.country
-      }
-    }, {
-      onSuccess: () => onUpdateFormStep(),
-      onError: (err: AxiosError<ErrorResponse>) => {
-        const isEmailInvalid = err.response.status === 400 &&
-        err.response?.data.message[0] === 'email must be an email'
-
-        const isEmailInUse = err.response.status === 409 && err.response.data.message === 'Email already in use'
-
-        const isCPFInUse = err.response.status === 409 && err.response.data.message === 'CPF already in use'
-
-        const isContryDoesntContaintOnlyLetters = err.response.status === 400 &&
-         err.response.data.message[0] === 'address.country can only contain letters'
-
-        if (isEmailInvalid) {
-          error('Insira um email válido')
-        }
-
-        if (isEmailInUse) {
-          error('Este email já está em uso, insira um outro email')
-        }
-
-        if (isCPFInUse) {
-          error('Este CPF já está em uso')
-        }
-
-        if (isContryDoesntContaintOnlyLetters) {
-          error('O país deve conter somente letras')
-        }
-      }
-    })
-  }
-
-  const { isDirty, isSubmitting } = formState
-  const isButtonDisabled = isSinguping || !isDirty || isSubmitting
+              if (err.response.data.message === 'CPF already in use') {
+                error('Este CPF já está em uso');
+              }
+            },
+          },
+        );
+      });
+    },
+    [signUp, registerUser],
+  );
 
   return (
-    <S.Container>
-      <S.Form onSubmit={handleSubmit(onSubmit)}>
+    <AuthLayout
+      backgroundImage="/images/signup.png"
+      title="Insira seu endereço"
+    >
+      <Form ref={formRef} onSubmit={handleAddressSubmit}>
         <Input
-          type='text'
-          label='CEP'
-          control={control}
-          {...register('zipCode', {
-            onChange: (e) => {
-              setValue('zipCode', formatCEP(e.target.value))
-            }
-          })}
+          type="text"
+          name="zip_code"
+          placeholder="CEP"
+          icon={FiMapPin}
+          onChange={e => handleZipCode(e)}
+        />
+        <Input type="text" name="street" placeholder="Rua" icon={FiPackage} />
+        <Input
+          type="text"
+          name="neighborhood"
+          placeholder="Bairro"
+          icon={BiBuildingHouse}
+        />
+        <Input
+          type="text"
+          name="number"
+          placeholder="Número"
+          icon={FiHome}
+          onChange={e =>
+            formRef.current.setFieldValue(
+              'number',
+              formatAddressNumber(e.target.value),
+            )
+          }
+        />
+        <Input
+          type="text"
+          name="complement"
+          placeholder="Complemento"
+          icon={FaRegAddressCard}
+        />
+        <Input type="text" name="city" placeholder="Cidade" icon={BsPinMap} />
+        <Input
+          type="text"
+          name="state"
+          placeholder="Estado"
+          icon={FiMap}
+          onChange={e =>
+            formRef.current.setFieldValue('state', formatUF(e.target.value))
+          }
+        />
+        <Input
+          type="text"
+          name="country"
+          placeholder="Pais"
+          icon={FiGlobe}
+          onChange={e =>
+            formRef.current.setFieldValue(
+              'country',
+              formatCountry(e.target.value),
+            )
+          }
         />
 
-        <Input
-          type='text'
-          label='Logradouro'
-          name='street'
-          control={control}
-        />
+        <Checkbox type="checkbox" name="terms" />
 
-        <Input
-          type='text'
-          label='Bairro'
-          name='neighborhood'
-          control={control}
-        />
-
-        <Input
-          type='text'
-          label='Número'
-          control={control}
-          {...register('number', {
-            onChange: (e) => {
-              setValue('number', formatAddressNumber(e.target.value))
-            }
-          })}
-        />
-
-        <Input
-          type='text'
-          label='Complemento'
-          name='complement'
-          control={control}
-        />
-
-        <Input
-          type='text'
-          label='Cidade'
-          name='city'
-          control={control}
-        />
-
-        <Input
-          type='text'
-          label='Estado'
-          name='state'
-          control={control}
-          maxLength={2}
-          {...register('state', {
-            onChange: (e) => {
-              setValue('state', formatValueToUppercase(e.target.value))
-            }
-          })}
-        />
-
-        <Input
-          type='text'
-          label='País'
-          name='country'
-          control={control}
-        />
-
-        <Button
-          type='submit'
-          variant='rounded'
-          loading={isSinguping}
-          disabled={isButtonDisabled}
-        >
-          <FaAngleRight size={24} />
+        <Button type="submit" loading={isSignuping} disabled={isSignuping}>
+          Continuar
         </Button>
-      </S.Form>
-    </S.Container>
-  )
+      </Form>
+      <button type="button" onClick={onPreviousFormStep}>
+        <FiLogOut />
+        Voltar
+      </button>
+    </AuthLayout>
+  );
 }

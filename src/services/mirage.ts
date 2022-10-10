@@ -1,13 +1,13 @@
-import { createServer } from 'miragejs'
+import { createServer } from 'miragejs';
 
-export function makeServer ({ environment = 'test' } = {}) {
+export function makeServer({ environment = 'test' } = {}) {
   const server = createServer({
     environment,
 
-    routes () {
-      this.urlPrefix = 'http://localhost:3333'
-    }
-  })
+    routes() {
+      this.urlPrefix = 'http://localhost:3333';
+    },
+  });
 
-  return server
+  return server;
 }

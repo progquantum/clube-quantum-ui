@@ -1,3 +1,9 @@
-import { setupAPIClient } from 'services/httpServices'
+import axios from 'axios';
 
-export const api = setupAPIClient()
+import { setupAPIClient } from 'services/httpServices';
+
+export const quantumClientQueue = setupAPIClient();
+
+export const quantumClientBase = axios.create({
+  baseURL: process.env.NEXT_PUBLIC_API_HOST,
+});

@@ -1,17 +1,17 @@
-import Image from 'next/image'
-import Link from 'next/link'
+import Image from 'next/image';
+import Link from 'next/link';
 
-import { DASHBOARD_PAGE, UPDATE_REGISTER_PAGE } from 'constants/routesPath'
-import { useAuthDispatch } from 'contexts/auth/AuthContext'
+import { DASHBOARD_PAGE, UPDATE_REGISTER_PAGE } from 'constants/routesPath';
+import { useAuthDispatch } from 'contexts/auth/AuthContext';
 
-import { Skeleton } from './Skeleton'
-import { SideBarProps } from './types'
-import * as S from './styles'
+import { Skeleton } from './Skeleton';
+import { SideBarProps } from './types';
+import * as S from './styles';
 
-export function SideBar ({ loading }: SideBarProps) {
-  const { signOut } = useAuthDispatch()
+export function SideBar({ loading }: SideBarProps) {
+  const { signOut } = useAuthDispatch();
 
-  if (loading) return <Skeleton />
+  if (loading) return <Skeleton />;
 
   return (
     <S.Container>
@@ -21,8 +21,8 @@ export function SideBar ({ loading }: SideBarProps) {
             <Image
               width={19.15}
               height={24}
-              src='/images/icon-my-account.svg'
-              alt='Icone Minha Conta'
+              src="/images/icon-my-account.svg"
+              alt="Icone Minha Conta"
             />
           </S.WrapImage>
           Minha Conta
@@ -34,8 +34,8 @@ export function SideBar ({ loading }: SideBarProps) {
             <Image
               width={24}
               height={24}
-              src='/images/icon-update-user.svg'
-              alt='Icone Atualizar Cadastro'
+              src="/images/icon-update-user.svg"
+              alt="Icone Atualizar Cadastro"
             />
           </S.WrapImage>
           Atualizar Cadastro
@@ -46,8 +46,8 @@ export function SideBar ({ loading }: SideBarProps) {
           <Image
             width={13.5}
             height={24}
-            src='/images/icon-bank-statement.svg'
-            alt='Icone Extratos'
+            src="/images/icon-bank-statement.svg"
+            alt="Icone Extratos"
           />
         </S.WrapImage>
         Extratos
@@ -58,8 +58,8 @@ export function SideBar ({ loading }: SideBarProps) {
           <Image
             width={24}
             height={24}
-            src='/images/icon-my-friends.svg'
-            alt='Icone Meus Amigos'
+            src="/images/icon-my-friends.svg"
+            alt="Icone Meus Amigos"
           />
         </S.WrapImage>
         Meus Amigos
@@ -70,8 +70,8 @@ export function SideBar ({ loading }: SideBarProps) {
           <Image
             width={21.18}
             height={24}
-            src='/images/icon-my-orders.svg'
-            alt='Icone Meus Pedidos'
+            src="/images/icon-my-orders.svg"
+            alt="Icone Meus Pedidos"
           />
         </S.WrapImage>
         Meus Pedidos
@@ -82,8 +82,8 @@ export function SideBar ({ loading }: SideBarProps) {
           <Image
             width={21.6}
             height={24}
-            src='/images/icon-plans.svg'
-            alt='Icone Planos'
+            src="/images/icon-plans.svg"
+            alt="Icone Planos"
           />
         </S.WrapImage>
         Planos
@@ -94,8 +94,8 @@ export function SideBar ({ loading }: SideBarProps) {
           <Image
             width={21.6}
             height={24}
-            src='/images/icon-licenses.svg'
-            alt='Icone Lincenças'
+            src="/images/icon-licenses.svg"
+            alt="Icone Lincenças"
           />
         </S.WrapImage>
         Lincenças
@@ -106,22 +106,22 @@ export function SideBar ({ loading }: SideBarProps) {
           <Image
             width={18.46}
             height={24}
-            src='/images/icon-privacy-center.svg'
-            alt='Icone Central de Privacidade'
+            src="/images/icon-privacy-center.svg"
+            alt="Icone Central de Privacidade"
           />
         </S.WrapImage>
         Central de Privacidade
       </S.NavButton>
 
-      <S.SignOutButton onClick={signOut}>
+      <S.SignOutButton variant="danger" onClick={signOut}>
         Sair
         <Image
           width={16}
           height={16}
-          src='/images/icon-logout.svg'
-          alt='Icone Sair'
+          src="/images/icon-logout.svg"
+          alt="Icone Sair"
         />
       </S.SignOutButton>
     </S.Container>
-  )
+  );
 }

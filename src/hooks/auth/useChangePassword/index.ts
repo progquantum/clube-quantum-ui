@@ -1,15 +1,31 @@
-import { useMutation } from 'react-query'
+import { useMutation } from 'react-query';
 
-import { api } from 'config/client'
+import { AxiosError } from 'axios';
 
-import { ChangePasswordRequestData } from './types'
+import { quantumClientQueue } from 'config/client';
 
-const changePasswordMutation = (
-  data: ChangePasswordRequestData
-) => (
-  api.patch<unknown>('/users/update-password', data)
-)
+import { success } from 'helpers/notify/success';
+import { ErrorResponse } from 'shared/errors/apiSchema';
 
-export function useChangePassword () {
-  return useMutation(changePasswordMutation)
+import { error } from 'helpers/notify/error';
+
+import { ChangePasswordRequestData } from './types';
+
+async function changePasswordMutation(data: ChangePasswordRequestData) {
+  return await quantumClientQueue.patch<unknown>(
+    '/users/update-password',
+    data,
+  );
+}
+export function useChangePassword() {
+  return useMutation(changePasswordMutation, {
+    onSuccess: () => {
+      success('Senha alterada com sucesso');
+    },
+    onError: (err: AxiosError<ErrorResponse>) => {
+      if (err.response.data.message === 'Password does not match') {
+        error('Senha atual não corresponde');
+      }
+    },
+  });
 }

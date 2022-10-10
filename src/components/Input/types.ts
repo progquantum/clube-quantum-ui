@@ -1,17 +1,17 @@
-import { InputHTMLAttributes } from 'react'
-import { Control, FieldError } from 'react-hook-form'
+import { InputHTMLAttributes } from 'react';
+import { IconBaseProps } from 'react-icons';
 
 export type InputProps = InputHTMLAttributes<HTMLInputElement> & {
-  label: string
-  control: Control<any, any>
-  name: string
-}
+  name: string;
+  icon?: React.ComponentType<IconBaseProps>;
+  variant?: InputVariant;
+};
 
-export type StyledInputProps = {
-  hasError: FieldError
-  isDirty: boolean
-}
+export type InputVariant = 'secundary';
 
-export type LabelProps = {
-  isDirty: boolean
-}
+export type StyledContainerProps = {
+  isFocused: boolean;
+  isFilled: boolean;
+  hasError: boolean;
+  variant?: InputVariant;
+};

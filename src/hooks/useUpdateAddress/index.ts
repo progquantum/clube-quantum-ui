@@ -1,14 +1,13 @@
+import { useMutation } from 'react-query';
 
-import { useMutation } from 'react-query'
+import { quantumClientQueue } from 'config/client';
 
-import { api } from 'config/client'
+import { UpdateAddressProps } from './types';
 
-import { UpdateAddressProps } from './types'
-
-export async function putAddress (data: UpdateAddressProps) {
-  return await api.put<unknown>('users/address', data)
+export async function putAddress(data: UpdateAddressProps) {
+  return await quantumClientQueue.put<unknown>('users/address', data);
 }
 
-export function useUpadateAddress () {
-  return useMutation(putAddress)
+export function useUpadateAddress() {
+  return useMutation(putAddress);
 }

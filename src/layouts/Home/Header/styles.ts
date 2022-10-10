@@ -1,6 +1,6 @@
-import styled from 'styled-components'
+import styled from 'styled-components';
 
-import { Button } from 'components/Button'
+import { Button } from 'components/Button';
 
 export const Container = styled.header`
   width: 100%;
@@ -14,57 +14,56 @@ export const Container = styled.header`
 
   a {
     font-weight: 600;
-    line-height: 1.3rem;
     color: ${({ theme }) => theme.colors.gray[700]};
 
-    @media (max-width:1024px) {
-      font-size: .8rem;
+    @media (max-width: 1024px) {
+      font-size: 0.9rem;
     }
   }
 
-  @media (max-width:860px) {
+  @media (max-width: 860px) {
     padding: 1rem 3rem;
   }
 
-  @media (max-width:700px) {
+  @media (max-width: 700px) {
     padding: 1rem 2rem;
   }
-
-`
+`;
 
 export const BoxContainer = styled.div`
   box-shadow: 0px 2px 20px rgba(0, 0, 0, 0.07);
-`
+`;
 
 export const Nav = styled.nav`
   display: flex;
   align-items: center;
-  gap: 2.8rem;
+  gap: 3rem;
 
-  @media (max-width:1024px) {
+  @media (max-width: 1024px) {
     font-size: 1rem;
   }
 
-  @media (max-width:860px) {
+  @media (max-width: 860px) {
     display: none;
   }
-`
+`;
 
 export const LoginButton = styled(Button)`
-  background: ${({ theme }) => theme.gradients.midnightBlueToMediumsLateBlue};
-  padding: .6rem 2rem;
-  font-weight: 500;
+  background: transparent;
+  color: ${({ theme }) => theme.colors.mediumslateBlue};
+  font-weight: 600;
+  padding: 1.2rem 0;
+  width: 80px;
+  height: 0;
+  margin-top: 0;
+  border-radius: 6px;
+  gap: 0.5rem;
 
   &:hover {
-    transition: none;
-    background: ${({ theme }) => theme.colors.mediumslateBlue};
+    background: transparent;
+    color: ${({ theme }) => theme.colors.mediumslateBlue};
   }
-
-  @media (max-width:1024px) {
-    padding: .5rem 1.3rem;
-    font-size: .8rem;
-  }
-`
+`;
 
 export const MenuMobile = styled.nav`
   display: flex;
@@ -81,9 +80,9 @@ export const MenuMobile = styled.nav`
   padding: 2.2rem 1.5rem;
   border-radius: 0 0 0 10px;
   box-shadow: 0px 3px 0px rgba(0, 0, 0, 0.07);
-  animation: showMenu .5s ease-in-out;
+  animation: showMenu 0.5s ease-in-out;
 
-  @media (min-width:861px) {
+  @media (min-width: 861px) {
     display: none;
   }
 
@@ -102,32 +101,34 @@ export const MenuMobile = styled.nav`
       transform: translateX(0px);
     }
   }
-`
+`;
 
 export const Line = styled.hr`
   height: 2px;
   width: 100%;
   border: none;
   background: transparent url(/images/line.svg) center no-repeat;
-`
+`;
 
 export const LoginButtonMobile = styled(LoginButton)`
-  width: 100%;
-`
+  padding: 1.2rem 0;
+  height: 0;
+  margin-top: 0;
+`;
 
 export const MenuIconContainer = styled.div`
   display: none;
 
-  @media (max-width:860px) {
+  @media (max-width: 860px) {
     display: block;
   }
-`
+`;
 
 export const LogoContainer = styled.div`
   @media (max-width: 400px) {
     width: 40px;
   }
-`
+`;
 
 export const Overlay = styled.div`
   background: transparent;
@@ -137,4 +138,4 @@ export const Overlay = styled.div`
   left: 0;
   bottom: 0;
   z-index: 1;
-`
+`;

@@ -1,30 +1,34 @@
-import { useState } from 'react'
+import { useState } from 'react';
 
-import { Edit } from 'components/Illustrations/Edit'
+import { Edit } from 'components/Illustrations/Edit';
 
-import { PersonalInformationProps } from './types'
+import { PersonalInformationProps } from './types';
 
-import { PersonalInformationModal } from './PersonalInformatioModal'
-import * as S from './styles'
+import { PersonalInformationModal } from './PersonalInformatioModal';
+import * as S from './styles';
 
-export function PersonalInformation ({ user } : PersonalInformationProps) {
-  const [requestModal, setRequestModal] = useState(false)
+export function PersonalInformation({ user }: PersonalInformationProps) {
+  const [requestModal, setRequestModal] = useState(false);
 
-  const name = user?.name
-  const formattedBirthDate = user?.birth_date?.slice(0, 10).split('-').reverse().join('/')
-  const phone = user?.phone
-  const email = user?.email
+  const name = user?.name;
+  const formattedBirthDate = user?.birth_date
+    ?.slice(0, 10)
+    .split('-')
+    .reverse()
+    .join('/');
+  const phone = user?.phone;
+  const email = user?.email;
 
   const handleRequestModal = () => {
-    setRequestModal(prevState => !prevState)
-  }
+    setRequestModal(prevState => !prevState);
+  };
 
   return (
     <>
       <S.Container>
         <S.EditPersonalInformation onClick={handleRequestModal}>
           <h2>Informações Pessoais</h2>
-          <Edit width='15' height='15' color='#fff' />
+          <Edit width="15" height="15" color="#fff" />
         </S.EditPersonalInformation>
 
         <h3>Nome</h3>
@@ -44,5 +48,5 @@ export function PersonalInformation ({ user } : PersonalInformationProps) {
         onRequestClose={handleRequestModal}
       />
     </>
-  )
+  );
 }

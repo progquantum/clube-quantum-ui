@@ -1,5 +1,5 @@
 export type EditProps = {
-  color: string
-  width: string
-  height: string
-}
+  color: string;
+  width: string;
+  height: string;
+};

@@ -1,99 +1,92 @@
-import { SubmitHandler, useForm } from 'react-hook-form'
-import { yupResolver } from '@hookform/resolvers/yup'
+import { useCallback, useRef } from 'react';
+import { FiLock } from 'react-icons/fi';
+import { Form } from '@unform/web';
+import { FormHandles, SubmitHandler } from '@unform/core';
 
-import { schema } from 'schemas/changePassword'
+import { CgPassword } from 'react-icons/cg';
 
-import { Input } from 'components/Input'
+import noop from 'lodash.noop';
 
-import { User } from 'components/Illustrations/User'
-import { FORGOT_PASSWORD_PAGE } from 'constants/routesPath'
+import { Input } from 'components/Input';
+import { User } from 'components/Illustrations/User';
+import { FORGOT_PASSWORD_PAGE } from 'constants/routesPath';
 
-import { useChangePassword } from 'hooks/auth/useChangePassword'
+import { useChangePassword } from 'hooks/auth/useChangePassword';
 
-import { success } from 'helpers/notify/success'
-import { error } from 'helpers/notify/error'
+import { ShowPasswordInput } from 'components/Input/ShowPassword';
 
-import { ChangePasswordFormValues } from './types'
+import { performSchemaValidation } from 'utils/performSchemaValidation';
 
-import * as S from './styles'
+import { Button } from 'components/Button';
 
-export function ChangePassword () {
-  const { mutate: changePassword, isLoading } = useChangePassword()
+import { schema } from './schemas';
 
-  const {
-    control,
-    handleSubmit,
-    formState,
-    reset
-  } = useForm({
-    resolver: yupResolver(schema)
-  })
+import { ChangePasswordFormValues } from './types';
 
-  const { isDirty, isSubmitting } = formState
-  const isButtonDisabled = !isDirty || isSubmitting || isLoading
+import * as S from './styles';
 
-  const hanleChangePassword: SubmitHandler<ChangePasswordFormValues> = ({
-    actual_password,
-    new_password
-  }) => {
-    changePassword({
-      actual_password,
-      new_password
-    }, {
-      onSuccess: () => {
-        success('Senha alterada com sucesso!')
-        reset()
+export function ChangePassword() {
+  const { mutate: changePassword, isLoading } = useChangePassword();
+  const formRef = useRef<FormHandles>(null);
+
+  const hanleChangePassword: SubmitHandler<ChangePasswordFormValues> =
+    useCallback(
+      data => {
+        performSchemaValidation({
+          formRef,
+          data,
+          schema,
+        })
+          .then(() => {
+            changePassword({
+              ...data,
+            });
+          })
+          .catch(noop);
       },
-      onError: () => {
-        error('Opsss, algo deu errado!')
-      }
-    })
-  }
+      [changePassword],
+    );
 
   return (
     <>
       <title>Atualização de cadastro</title>
       <S.Container>
         <S.ResetPassword>
-          <User width='18' height='20' color='#BBBBBB' />
+          <User width="18" height="20" color="#BBBBBB" />
           <p>Alterar senha</p>
         </S.ResetPassword>
 
-        <form onSubmit={handleSubmit(hanleChangePassword)}>
+        <Form ref={formRef} onSubmit={hanleChangePassword}>
           <Input
-            type='password'
-            label='Sua senha atual'
-            name='actual_password'
-            control={control}
+            type="password"
+            placeholder="Sua senha atual"
+            name="actual_password"
+            icon={CgPassword}
           />
 
           <S.ForgotPassword href={FORGOT_PASSWORD_PAGE}>
             Esqueceu sua senha?
           </S.ForgotPassword>
 
-          <Input
-            type='password'
-            label='Nova senha'
-            name='new_password'
-            control={control}
+          <ShowPasswordInput
+            type="password"
+            placeholder="Nova senha"
+            name="new_password"
+            icon={FiLock}
           />
 
-          <Input
-            type='password'
-            label='Confirma nova senha'
-            name='confirm_new_password'
-            control={control}
+          <ShowPasswordInput
+            type="password"
+            placeholder="Confirma nova senha"
+            name="confirm_new_password"
+            icon={FiLock}
           />
 
-          <S.ChangePassword
-            type='submit'
-            disabled={isButtonDisabled}
-            loading={isLoading}
-          >
+          <Button type="submit" loading={isLoading}>
             Solicitar alteração de senha
-          </S.ChangePassword>
-        </form>
+          </Button>
+        </Form>
       </S.Container>
     </>
-  )
+  );
 }

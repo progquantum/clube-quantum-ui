@@ -1,13 +1,13 @@
-import { PropsWithChildren } from 'react'
-import { PulseLoader } from 'react-spinners'
+import { PropsWithChildren } from 'react';
+import { PulseLoader } from 'react-spinners';
 
-import { Loading } from 'components/Loading'
+import { Loading } from 'components/Loading';
 
-import { ButtonProps } from './types'
+import { ButtonProps } from './types';
 
-import * as S from './styles'
+import * as S from './styles';
 
-export function Button ({
+export function Button({
   children,
   loading,
   type,
@@ -16,15 +16,11 @@ export function Button ({
 }: PropsWithChildren<ButtonProps>) {
   return (
     <S.Container type={type || 'button'} variant={variant} {...rest}>
-      {
-       loading
-         ? (
-           <Loading icon={PulseLoader} color='var(--shape)' size={10} />
-           )
-         : (
-             children
-           )
-      }
+      {loading ? (
+        <Loading icon={PulseLoader} color="var(--shape)" size={10} />
+      ) : (
+        children
+      )}
     </S.Container>
-  )
+  );
 }

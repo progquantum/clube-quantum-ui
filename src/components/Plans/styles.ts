@@ -1,6 +1,8 @@
-import styled from 'styled-components'
-import { IoMdCheckbox } from 'react-icons/io'
-import { MdDoNotDisturbOn } from 'react-icons/md'
+import styled from 'styled-components';
+import { IoMdCheckbox } from 'react-icons/io';
+import { MdDoNotDisturbOn } from 'react-icons/md';
+
+import { Button as ComponentButton } from 'components/Button';
 
 export const Container = styled.div`
   width: 100%;
@@ -16,7 +18,7 @@ export const Container = styled.div`
       margin-top: 5rem;
     }
   }
-`
+`;
 
 export const Plans = styled.div`
   width: 100%;
@@ -28,7 +30,7 @@ export const Plans = styled.div`
     font-weight: 600;
     color: ${({ theme }) => theme.colors.midnightBlue};
   }
-`
+`;
 
 export const PlansWrapper = styled.div`
   width: 100%;
@@ -39,7 +41,7 @@ export const PlansWrapper = styled.div`
   display: flex;
   align-items: center;
   justify-content: space-between;
-`
+`;
 
 export const PlanType = styled.h4`
   width: 100%;
@@ -54,10 +56,10 @@ export const PlanType = styled.h4`
     color: #ffffff;
   }
 
-  @media(max-width: 525px) {
+  @media (max-width: 525px) {
     font-size: 0.9rem;
   }
-`
+`;
 
 export const Button = styled.button`
   padding: 1rem 1.875rem;
@@ -66,29 +68,29 @@ export const Button = styled.button`
   color: ${({ theme }) => theme.colors.white};
   font-size: 0.75rem;
   font-weight: 900;
-`
+`;
 
 export const PlansContents = styled.section`
   margin-top: 6.25rem;
   color: ${({ theme }) => theme.colors.gray[700]};
   gap: 1.5rem;
 
-  @media(max-width: 910px) {
+  @media (max-width: 910px) {
     flex-direction: column;
     max-width: 70%;
     transform: translateX(25%);
   }
 
-  @media(max-width: 520px) {
+  @media (max-width: 520px) {
     max-width: 100%;
     transform: translateX(0%);
   }
-`
+`;
 
 export const PlanContentsWrapper = styled.div`
   width: 100%;
   padding: 3.75rem 1.875rem 5rem;
-  background: #FFFFFF;
+  background: #ffffff;
   box-shadow: 2px 4px 20px rgba(0, 0, 0, 0.15);
   border-radius: 15px;
 
@@ -109,7 +111,7 @@ export const PlanContentsWrapper = styled.div`
   h3 {
     font-size: 1.5rem;
   }
-`
+`;
 
 export const PlanItemsList = styled.ul`
   margin-top: 3.125rem;
@@ -127,25 +129,30 @@ export const PlanItemsList = styled.ul`
       margin-right: 0.5rem;
     }
   }
-`
+`;
 
 export const Wrapper = styled.section`
   align-items: flex-end;
   gap: 1.5rem;
 
-  @media(max-width: 900px) {
+  @media (max-width: 900px) {
     > span {
       display: none !important;
     }
   }
-`
+`;
 
 export const CheckedCheckBox = styled(IoMdCheckbox)`
   font-size: 1.3rem;
   color: ${({ theme }) => theme.colors.midnightBlue};
-`
+`;
 
 export const NotIncludedIcon = styled(MdDoNotDisturbOn)`
   font-size: 1.3rem;
   color: ${({ theme }) => theme.colors.gray[200]};
-`
+`;
+
+export const ButtonConfirm = styled(ComponentButton)`
+  width: 250px;
+  margin-bottom: 60px;
+`;
