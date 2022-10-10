@@ -51,7 +51,7 @@ export function CPF({ onUpdateFormStep }: CPFProps) {
         <Button type="submit">Continuar</Button>
       </Form>
       <Link href={SIGN_UP_PAGE}>
-        <a>
+        <a className="anchor">
           <FiLogOut />
           Voltar
         </a>

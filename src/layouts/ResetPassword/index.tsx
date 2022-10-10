@@ -9,7 +9,8 @@ import { useResetPassword } from 'hooks/auth/useResetPassword';
 import { performSchemaValidation } from 'utils/performSchemaValidation';
 import { AuthLayout } from 'layouts/Auth';
 import { Button } from 'components/Button';
-import { ShowPasswordInput } from 'components/Input/ShowPassword';
+
+import { Input } from 'components/Input';
 
 import { ResetPasswordFormValues } from './types';
 import { schema } from './schemas';
@@ -51,15 +52,15 @@ export function ResetPasswordPage() {
       description="Por favor, digite sua nova senha abaixo."
     >
       <Form ref={formRef} onSubmit={handleResetPassword}>
-        <ShowPasswordInput
-          type="password"
+        <Input
+          typePassword
           name="password"
           placeholder="Nova senha"
           icon={FiLock}
         />
 
-        <ShowPasswordInput
-          type="password"
+        <Input
+          typePassword
           name="confirm_password"
           placeholder="Confirma senha"
           icon={FiLock}

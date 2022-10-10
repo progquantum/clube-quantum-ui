@@ -12,7 +12,6 @@ import { FORGOT_PASSWORD_PAGE, SIGN_UP_PAGE } from 'constants/routesPath';
 import { performSchemaValidation } from 'utils/performSchemaValidation';
 import { AuthLayout } from 'layouts/Auth';
 import { Button } from 'components/Button';
-import { ShowPasswordInput } from 'components/Input/ShowPassword';
 import { formatCPForCNPJ } from 'utils/formatters/formatCPForCNPJ';
 
 import { SignInFormValues } from './types';
@@ -60,8 +59,8 @@ export function SignInPage() {
             inputMode="numeric"
           />
 
-          <ShowPasswordInput
-            type="password"
+          <Input
+            typePassword
             name="password"
             placeholder="Senha"
             icon={FiLock}
@@ -71,13 +70,15 @@ export function SignInPage() {
             Login
           </Button>
 
+          {/* Should wrap link component with element due to this 
+          issue of next/link https://github.com/vercel/next.js/issues/127 */}
           <Link href={FORGOT_PASSWORD_PAGE} prefetch>
-            Esqueceu a sua senha?
+            <a className="form-anchor">Esqueceu a sua senha?</a>
           </Link>
         </Form>
 
         <Link href={SIGN_UP_PAGE} prefetch>
-          <a>
+          <a className="anchor">
             <FiLogIn />
             Criar uma conta
           </a>

@@ -12,8 +12,11 @@ export function NotFoundPage() {
       <S.Info>
         <h1>404</h1>
         <p>Oops, página não encontrada</p>
-        <Link href={HOMEPAGE_PAGE}>
-          <a>
+
+        {/* Should wrap link component with element due to this 
+        issue of next/link https://github.com/vercel/next.js/issues/127 */}
+        <Link href={HOMEPAGE_PAGE} prefetch>
+          <a className="anchor">
             <FiLogIn />
             Retornar para homepage
           </a>

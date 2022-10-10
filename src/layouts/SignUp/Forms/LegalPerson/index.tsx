@@ -10,8 +10,6 @@ import { Button } from 'components/Button';
 import { AuthLayout } from 'layouts/Auth';
 import { performSchemaValidation } from 'utils/performSchemaValidation';
 
-import { ShowPasswordInput } from 'components/Input/ShowPassword';
-
 import { LegalPersonProps, SignUpFormValues } from './types';
 import { schema } from './schemas';
 
@@ -62,15 +60,15 @@ export function LegalPerson({
           inputMode="email"
         />
 
-        <ShowPasswordInput
-          type="password"
+        <Input
+          typePassword
           name="password"
           placeholder="Criar senha"
           icon={FiLock}
         />
 
-        <ShowPasswordInput
-          type="password"
+        <Input
+          typePassword
           name="password_confirmation"
           placeholder="Confirmar senha"
           icon={FiLock}

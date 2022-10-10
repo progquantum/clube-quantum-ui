@@ -51,7 +51,7 @@ export function TextArea({ name, icon: Icon, ...rest }: TextAreaProps) {
         {...rest}
         required
       />
-      {error && <S.Error title={error} icon={FiAlertCircle} />}
+      {error && <S.Error title={error} />}
     </S.Container>
   );
 }

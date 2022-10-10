@@ -10,7 +10,6 @@ import { Button } from 'components/Button';
 import { formatBirthDate } from 'utils/formatters/formatBirthDate';
 import { performSchemaValidation } from 'utils/performSchemaValidation';
 import { AuthLayout } from 'layouts/Auth';
-import { ShowPasswordInput } from 'components/Input/ShowPassword';
 
 import { schema } from './schemas';
 import { IndividualPersonProps, SignUpFormValues } from './types';
@@ -93,15 +92,15 @@ export function IndividualPerson({
           inputMode="email"
         />
 
-        <ShowPasswordInput
-          type="password"
+        <Input
+          typePassword
           name="password"
           icon={FiLock}
           placeholder="Criar senha"
         />
 
-        <ShowPasswordInput
-          type="password"
+        <Input
+          typePassword
           name="password_confirmation"
           icon={FiLock}
           placeholder="Confirmar senha"

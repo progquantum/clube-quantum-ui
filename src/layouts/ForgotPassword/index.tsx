@@ -59,8 +59,10 @@ export function ForgotPasswordPage() {
         </Button>
       </Form>
 
+      {/* Should wrap link component with element due to this 
+      issue of next/link https://github.com/vercel/next.js/issues/127 */}
       <Link href={SIGN_IN_PAGE} prefetch>
-        <a>
+        <a className="anchor">
           <FiLogOut />
           Voltar para o login
         </a>

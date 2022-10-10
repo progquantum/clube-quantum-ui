@@ -47,8 +47,11 @@ export function CNPJ({ onUpdateFormStep }: CNPJProps) {
 
         <Button type="submit">Continuar</Button>
       </Form>
-      <Link href={SIGN_UP_PAGE}>
-        <a>
+
+      {/* Should wrap link component with element due to this 
+      issue of next/link https://github.com/vercel/next.js/issues/127 */}
+      <Link href={SIGN_UP_PAGE} prefetch>
+        <a className="anchor">
           <FiLogOut />
           Voltar
         </a>

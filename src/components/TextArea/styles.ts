@@ -1,7 +1,5 @@
 import styled, { css } from 'styled-components';
 
-import { Tooltip } from 'components/Tooltip';
-
 import { StyledContainerProps } from './types';
 
 export const Container = styled.div<StyledContainerProps>`
@@ -59,15 +57,11 @@ export const Message = styled.textarea`
   resize: none;
 `;
 
-export const Error = styled(Tooltip)`
-  height: 100%;
-
-  span {
-    background: ${({ theme }) => theme.colors.danger};
-    font-size: 0.875rem;
-
-    &:before {
-      border-color: ${({ theme }) => theme.colors.danger};
-    }
-  }
+export const Error = styled.span`
+  color: ${({ theme }) => theme.colors.danger};
+  display: block;
+  font-size: 0.875rem;
+  width: 90%;
+  text-align: start;
+  margin: 5px 0;
 `;
