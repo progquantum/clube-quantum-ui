@@ -31,16 +31,16 @@ export const Content = styled.section`
   .title {
     text-align: center;
     font-size: 1.5rem;
+    color: ${({ theme }) => theme.colors.gray[700]};
   }
 
   .title,
   .description {
     margin-top: 24px;
-    color: ${({ theme }) => theme.colors.gray[400]};
   }
 
   .description {
-    margin: 40px 0;
+    color: ${({ theme }) => theme.colors.gray[400]};
     width: 50%;
     text-align: center;
 

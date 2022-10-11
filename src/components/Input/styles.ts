@@ -80,10 +80,8 @@ export const Error = styled.span`
 `;
 
 export const HidePasswordButtonContainer = styled.div`
-  width: 4rem;
   height: 100%;
   display: flex;
-  background: ${({ theme }) => theme.colors.input.background[2]};
   align-items: center;
   justify-content: center;
   margin: 0 auto;
@@ -95,6 +93,9 @@ export const HidePasswordButtonContainer = styled.div`
     width: 100%;
     height: 100%;
     margin: 16px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
 
     svg {
       margin-right: 0 !important;

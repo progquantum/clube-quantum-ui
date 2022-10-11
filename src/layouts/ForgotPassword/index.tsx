@@ -49,6 +49,7 @@ export function ForgotPasswordPage() {
       <Form ref={formRef} onSubmit={handleRecoveryPassword}>
         <Input
           name="email"
+          type="text"
           placeholder="E-mail"
           icon={FiMail}
           inputMode="email"
