@@ -1,6 +1,6 @@
 export const INVITE_FRIENDS_PAGE = '/invite-friends';
 export const MANAGE_PAYMENT_PAGE = '/manage-payment';
-export const UPDATE_REGISTER_PAGE = '/update-register';
+export const UPDATE_USER_ACCOUNT_PAGE = '/update-account';
 export const DASHBOARD_PAGE = '/dashboard';
 export const SIGN_IN_PAGE = '/signin';
 

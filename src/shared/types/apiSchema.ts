@@ -20,7 +20,6 @@ export type Profile = {
   phone: string;
   email: string;
   avatar_url: string;
-  address: Address;
 };
 
 export type User = {

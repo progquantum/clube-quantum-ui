@@ -7,7 +7,7 @@ export function CloseModal({
   ...rest
 }: ButtonHTMLAttributes<HTMLButtonElement>) {
   return (
-    <S.CloseModal title="Fechar modal" {...rest}>
+    <S.CloseModal title="Fechar" aria-label="Fechar" {...rest}>
       <RiCloseLine size={24} />
     </S.CloseModal>
   );

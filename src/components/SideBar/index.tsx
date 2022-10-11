@@ -1,7 +1,7 @@
 import Image from 'next/image';
 import Link from 'next/link';
 
-import { DASHBOARD_PAGE, UPDATE_REGISTER_PAGE } from 'constants/routesPath';
+import { DASHBOARD_PAGE, UPDATE_USER_ACCOUNT_PAGE } from 'constants/routesPath';
 import { useAuthDispatch } from 'contexts/auth/AuthContext';
 
 import { Skeleton } from './Skeleton';
@@ -28,7 +28,7 @@ export function SideBar({ loading }: SideBarProps) {
           Minha Conta
         </S.NavButton>
       </Link>
-      <Link href={UPDATE_REGISTER_PAGE}>
+      <Link href={UPDATE_USER_ACCOUNT_PAGE}>
         <S.NavButton>
           <S.WrapImage>
             <Image

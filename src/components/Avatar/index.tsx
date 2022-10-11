@@ -1,15 +1,13 @@
 import { Suspense } from 'react';
 
-import { useGetProfile } from 'hooks/useFindMeProfile';
+import { useUserProfile } from 'hooks/user/useUserProfile';
 
+import { getUserImagePlaceholder } from './utils';
 import { AvatarProps } from './types';
 import * as S from './styles';
-import { getUserImagePlaceholder } from './utils';
 
 export function Avatar({ width, height }: AvatarProps) {
-  const { data: user } = useGetProfile({
-    refetchOnWindowFocus: false,
-  });
+  const { data: user } = useUserProfile();
 
   return (
     <Suspense>
