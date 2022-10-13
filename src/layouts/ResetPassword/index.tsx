@@ -10,6 +10,8 @@ import { performSchemaValidation } from 'utils/performSchemaValidation';
 import { AuthLayout } from 'layouts/Auth';
 import { Button } from 'components/Button';
 import { ShowPasswordInput } from 'components/Input/ShowPassword';
+import { success } from 'helpers/notify/success';
+import { SIGN_IN_PAGE } from 'constants/routesPath';
 
 import { ResetPasswordFormValues } from './types';
 import { schema } from './schemas';
@@ -33,10 +35,19 @@ export function ResetPasswordPage() {
           .then(() => {
             const { password } = data;
 
-            resetPassword({
-              code: inviteCode,
-              password,
-            });
+            resetPassword(
+              {
+                code: inviteCode,
+                password,
+              },
+              {
+                onSuccess: () => {
+                  success('Senha alterada com sucesso');
+
+                  router.push(SIGN_IN_PAGE);
+                },
+              },
+            );
           })
           .catch(noop);
       },

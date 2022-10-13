@@ -1,5 +1,4 @@
 import { useCallback, useRef } from 'react';
-import { AxiosError } from 'axios';
 import {
   FiMapPin,
   FiPackage,
@@ -21,8 +20,6 @@ import { formatAddressNumber } from 'utils/formatters/formatAddressNumber';
 import { performSchemaValidation } from 'utils/performSchemaValidation';
 import { useLegalPersonSingUp } from 'hooks/auth/useLegalPersonSingUp';
 import { useAuthState } from 'contexts/auth/AuthContext';
-import { error } from 'helpers/notify/error';
-import { ErrorResponse } from 'shared/errors/apiSchema';
 import { AuthLayout } from 'layouts/Auth';
 import { formatCountry } from 'utils/formatters/formatCountry';
 import { Checkbox } from 'components/Checkbox';
@@ -49,16 +46,6 @@ export function BusinessAddress({
       }).then(() => {
         const { company_name, phone, cnpj, email, password, invited_by } =
           registerUser;
-        const {
-          street,
-          number,
-          complement,
-          neighborhood,
-          zip_code,
-          city,
-          state,
-          country,
-        } = data;
 
         signUp(
           {
@@ -69,31 +56,11 @@ export function BusinessAddress({
             password,
             invited_by,
             address: {
-              street,
-              number,
-              complement,
-              neighborhood,
-              zip_code,
-              city,
-              state,
-              country,
+              ...data,
             },
           },
           {
             onSuccess: () => onUpdateFormStep(),
-            onError: (err: AxiosError<ErrorResponse>) => {
-              if (err.response?.data.message[0] === 'email must be an email') {
-                error('Insira um email válido');
-              }
-
-              if (err.response.data.message === 'Email already in use') {
-                error('Este email já está em uso');
-              }
-
-              if (err.response.data.message === 'CNPJ already in use') {
-                error('Este CNPJ já está em uso');
-              }
-            },
           },
         );
       });
