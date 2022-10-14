@@ -55,7 +55,7 @@ export function Phone({ onUpdateFormStep, onPreviousFormStep }: PhoneProps) {
       backgroundImage="/images/signup.png"
       title="Insira seu telefone"
     >
-      <Form ref={formRef} onSubmit={handlePhoneCode}>
+      <Form ref={formRef} onSubmit={handlePhoneCode} className="form">
         <Input
           type="text"
           name="phone"

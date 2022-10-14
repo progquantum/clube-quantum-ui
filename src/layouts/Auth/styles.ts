@@ -28,40 +28,37 @@ export const Content = styled.section`
   width: min(800px, 100%);
   padding: 50px 0;
 
-  > div:first-of-type {
-    flex: 0;
-  }
-
-  h1 {
+  .title {
     text-align: center;
     font-size: 1.5rem;
+    color: ${({ theme }) => theme.colors.gray[700]};
   }
 
-  h1,
-  p {
+  .title,
+  .description {
     margin-top: 24px;
   }
 
-  p {
+  .description {
     color: ${({ theme }) => theme.colors.gray[400]};
-  }
-
-  form {
-    margin: 40px 0;
     width: 50%;
     text-align: center;
 
-    h1 {
-      text-align: center;
-
-      margin-bottom: 24px;
+    @media (max-width: 768px) {
+      width: 90%;
     }
+  }
+
+  .form {
+    margin: 40px 0;
+    width: 50%;
+    text-align: center;
 
     @media (max-width: 768px) {
       width: 90%;
     }
 
-    a {
+    .form-anchor {
       color: ${({ theme }) => theme.colors.gray[700]};
       display: block;
       margin-top: 24px;
@@ -79,7 +76,7 @@ export const Content = styled.section`
     background: none;
   }
 
-  & > a,
+  & > .anchor,
   & > button {
     display: flex;
     align-items: center;

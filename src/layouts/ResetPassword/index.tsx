@@ -60,7 +60,7 @@ export function ResetPasswordPage() {
       backgroundPosition="right"
       title="Redefinir senha"
     >
-      <Form ref={formRef} onSubmit={handleResetPassword}>
+      <Form ref={formRef} onSubmit={handleResetPassword} className="form">
         <ShowPasswordInput
           type="password"
           name="password"

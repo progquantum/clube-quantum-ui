@@ -95,7 +95,7 @@ export function PersonalAddress({
       backgroundImage="/images/signup.png"
       title="Insira seu endereço"
     >
-      <Form ref={formRef} onSubmit={handleAddressSubmit}>
+      <Form ref={formRef} onSubmit={handleAddressSubmit} className="form">
         <Input
           type="text"
           name="zip_code"

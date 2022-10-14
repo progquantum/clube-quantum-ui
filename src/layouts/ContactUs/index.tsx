@@ -52,7 +52,12 @@ export function ContactUsPage() {
       title="Entre em contato conosco"
       backgroundImage="/images/contact-us.png"
     >
-      <S.Form as={Form} ref={formRef} onSubmit={handleSendMessage}>
+      <S.Form
+        as={Form}
+        ref={formRef}
+        onSubmit={handleSendMessage}
+        className="form"
+      >
         <Input
           type="text"
           name="name"

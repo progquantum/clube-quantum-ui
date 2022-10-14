@@ -54,7 +54,7 @@ export function IndividualPerson({
       backgroundImage="/images/signup.png"
       title="Insira seus dados pessoais"
     >
-      <Form ref={formRef} onSubmit={handleSignUp}>
+      <Form ref={formRef} onSubmit={handleSignUp} className="form">
         <Input
           type="text"
           name="name"

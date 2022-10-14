@@ -34,7 +34,7 @@ export function CPF({ onUpdateFormStep }: CPFProps) {
 
   return (
     <AuthLayout backgroundImage="/images/signup.png" title="Insira seu CPF">
-      <Form ref={formRef} onSubmit={handleCPFSubmit}>
+      <Form ref={formRef} onSubmit={handleCPFSubmit} className="form">
         <Input
           type="text"
           name="cpf"

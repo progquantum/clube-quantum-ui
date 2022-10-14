@@ -44,7 +44,7 @@ export function SignInPage() {
       </Head>
 
       <AuthLayout title="Faça seu login" backgroundImage="/images/signin.png">
-        <Form ref={formRef} onSubmit={handleSignIn}>
+        <Form ref={formRef} onSubmit={handleSignIn} className="form">
           <Input
             type="text"
             name="login"

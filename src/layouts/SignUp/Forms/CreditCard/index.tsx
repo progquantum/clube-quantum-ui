@@ -45,7 +45,7 @@ export function CreditCard({
       backgroundImage="/images/signup.png"
       title="Insira um cartão de crédito"
     >
-      <Form ref={formRef} onSubmit={handleSubmitCreditCard}>
+      <Form ref={formRef} onSubmit={handleSubmitCreditCard} className="form">
         <Input
           type="text"
           name="card_name"

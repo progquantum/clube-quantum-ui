@@ -41,7 +41,7 @@ export function BankAccount({
       backgroundImage="/images/signup.png"
       title="Insira uma conta bancária"
     >
-      <Form ref={formRef} onSubmit={handleBankAccountSubmit}>
+      <Form ref={formRef} onSubmit={handleBankAccountSubmit} className="form">
         <S.Content>
           <S.BankDataTitle>Cod. Banco</S.BankDataTitle>
           <S.BankDataTitle>Agência</S.BankDataTitle>
