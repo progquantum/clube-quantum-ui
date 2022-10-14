@@ -9,10 +9,6 @@ export async function resetPasswordRequest(credentials: ResetPasswordRequest) {
   try {
     await quantumClientBase.patch<unknown>('/passwords/reset', credentials);
   } catch (err) {
-    if (err.response.data.message === 'Password recovery code not found') {
-      error('Código de recuperação não encontrado');
-    }
-
     if (err.response.data.message === 'invalid code') {
       error('Código de recuperação inválido');
     }
