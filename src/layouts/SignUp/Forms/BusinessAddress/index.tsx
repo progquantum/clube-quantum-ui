@@ -1,4 +1,5 @@
-import { useCallback, useRef } from 'react';
+import { ChangeEvent, useCallback, useRef } from 'react';
+
 import {
   FiMapPin,
   FiPackage,
@@ -24,6 +25,7 @@ import { AuthLayout } from 'layouts/Auth';
 import { formatCountry } from 'utils/formatters/formatCountry';
 import { Checkbox } from 'components/Checkbox';
 import { formatUF } from 'utils/formatters/formatUF';
+import { getZipCode } from 'services/resources';
 
 import { BusinessAddressProps, AddressFormValues } from './types';
 import { schema } from './schemas';
@@ -36,6 +38,25 @@ export function BusinessAddress({
   const { registerUser } = useAuthState();
 
   const formRef = useRef<FormHandles>(null);
+
+  const handleZipCode = useCallback(
+    async (e: ChangeEvent<HTMLInputElement>) => {
+      formRef.current.setFieldValue('zip_code', formatCEP(e.target.value));
+
+      if (e.target.value.length === 10) {
+        const formattedCep = e.target.value.replace('.', '').replace('-', '');
+
+        await getZipCode(formattedCep).then(data => {
+          formRef.current.setFieldValue('street', data?.street);
+          formRef.current.setFieldValue('neighborhood', data?.neighborhood);
+          formRef.current.setFieldValue('city', data?.city);
+          formRef.current.setFieldValue('state', data?.state);
+          formRef.current.setFieldValue('country', data?.country);
+        });
+      }
+    },
+    [formRef],
+  );
 
   const handleSubmitAddress: SubmitHandler<AddressFormValues> = useCallback(
     data => {
@@ -76,12 +97,11 @@ export function BusinessAddress({
       <Form ref={formRef} onSubmit={handleSubmitAddress}>
         <Input
           type="text"
+          inputMode="numeric"
           name="zip_code"
           placeholder="CEP"
           icon={FiMapPin}
-          onChange={e =>
-            formRef.current.setFieldValue('zip_code', formatCEP(e.target.value))
-          }
+          onChange={e => handleZipCode(e)}
         />
 
         <Input
@@ -100,6 +120,7 @@ export function BusinessAddress({
 
         <Input
           type="text"
+          inputMode="numeric"
           name="number"
           placeholder="Número"
           icon={FiHome}

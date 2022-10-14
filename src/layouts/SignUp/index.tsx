@@ -1,9 +1,11 @@
 import Link from 'next/link';
 import { useRouter } from 'next/router';
+import { FiLogIn } from 'react-icons/fi';
 
 import { AuthLayout } from 'layouts/Auth';
 import {
   SIGN_UP_BUSINESS_PAGE,
+  SIGN_IN_PAGE,
   SIGN_UP_PERSONAL_PAGE,
 } from 'constants/routesPath';
 import { useAuthDispatch } from 'contexts/auth/AuthContext';
@@ -36,6 +38,15 @@ export function SignUpPage() {
           <Button onClick={handleSubmit}>Pessoa Juridica</Button>
         </Link>
       </S.Wrap>
+
+      {/* Should wrap link component with element due to this 
+      issue of next/link https://github.com/vercel/next.js/issues/127 */}
+      <Link href={SIGN_IN_PAGE} prefetch>
+        <a className="anchor">
+          <FiLogIn />
+          Já possuo uma conta
+        </a>
+      </Link>
     </AuthLayout>
   );
 }

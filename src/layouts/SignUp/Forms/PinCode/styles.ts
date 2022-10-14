@@ -25,7 +25,7 @@ export const SubTitle = styled.h3`
   margin: 0.9375rem 0;
 `;
 
-export const Paragraph = styled.p`
+export const Paragraph = styled.span`
   margin-top: -1.5rem;
 `;
 export const ButtonPinCode = styled.button`

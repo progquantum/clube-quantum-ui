@@ -59,7 +59,13 @@ export function ContactUsPage() {
           placeholder="Nome completo"
           icon={FiUser}
         />
-        <Input type="email" name="email" placeholder="E-mail" icon={FiMail} />
+        <Input
+          type="email"
+          name="email"
+          placeholder="E-mail"
+          icon={FiMail}
+          inputMode="email"
+        />
         <Input
           type="text"
           name="phone"
@@ -71,6 +77,7 @@ export function ContactUsPage() {
               formatPhoneNumber(e.target.value),
             );
           }}
+          inputMode="tel"
         />
         <TextArea
           icon={FiMessageSquare}

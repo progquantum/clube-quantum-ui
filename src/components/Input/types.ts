@@ -4,10 +4,12 @@ import { IconBaseProps } from 'react-icons';
 export type InputProps = InputHTMLAttributes<HTMLInputElement> & {
   name: string;
   icon?: React.ComponentType<IconBaseProps>;
+  typePassword?: boolean;
 };
 
 export type StyledContainerProps = {
   isFocused: boolean;
   isFilled: boolean;
   hasError: boolean;
+  typePassword?: boolean;
 };
