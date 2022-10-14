@@ -9,8 +9,9 @@ import { useResetPassword } from 'hooks/auth/useResetPassword';
 import { performSchemaValidation } from 'utils/performSchemaValidation';
 import { AuthLayout } from 'layouts/Auth';
 import { Button } from 'components/Button';
-
 import { Input } from 'components/Input';
+import { success } from 'helpers/notify/success';
+import { SIGN_IN_PAGE } from 'constants/routesPath';
 
 import { ResetPasswordFormValues } from './types';
 import { schema } from './schemas';
@@ -34,10 +35,19 @@ export function ResetPasswordPage() {
           .then(() => {
             const { password } = data;
 
-            resetPassword({
-              code: inviteCode,
-              password,
-            });
+            resetPassword(
+              {
+                code: inviteCode,
+                password,
+              },
+              {
+                onSuccess: () => {
+                  success('Senha alterada com sucesso');
+
+                  router.push(SIGN_IN_PAGE);
+                },
+              },
+            );
           })
           .catch(noop);
       },
@@ -47,7 +57,6 @@ export function ResetPasswordPage() {
   return (
     <AuthLayout
       backgroundImage="/images/reset-password.png"
-      backgroundPosition="right"
       title="Redefinir senha"
       description="Por favor, digite sua nova senha abaixo."
     >

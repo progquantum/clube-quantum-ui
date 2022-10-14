@@ -4,6 +4,7 @@ import { Form } from '@unform/web';
 import { FormHandles, SubmitHandler } from '@unform/core';
 import Link from 'next/link';
 import noop from 'lodash.noop';
+import Router from 'next/router';
 
 import { Input } from 'components/Input';
 import { useRecoveryPassword } from 'hooks/auth/useRecoveryPassword';
@@ -11,6 +12,7 @@ import { performSchemaValidation } from 'utils/performSchemaValidation';
 import { AuthLayout } from 'layouts/Auth';
 import { Button } from 'components/Button';
 import { SIGN_IN_PAGE } from 'constants/routesPath';
+import { success } from 'helpers/notify/success';
 
 import { RecoveryPasswordFormValues } from './types';
 import { schema } from './schemas';
@@ -30,9 +32,16 @@ export function ForgotPasswordPage() {
           schema,
         })
           .then(() => {
-            const { email } = data;
+            sendRecoveryPasswordRequest(
+              { ...data },
+              {
+                onSuccess: (_, variables) => {
+                  success(`Enviado e-mail para ${variables.email}`);
 
-            sendRecoveryPasswordRequest({ email });
+                  Router.push(SIGN_IN_PAGE);
+                },
+              },
+            );
           })
           .catch(noop);
       },

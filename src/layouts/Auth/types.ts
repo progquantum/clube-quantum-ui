@@ -5,10 +5,6 @@ export type AuthLayoutProps = {
   backgroundPosition?: 'left' | 'right';
 };
 
-export type BackgroundProps = {
-  backgroundImage: string;
-};
-
 export type ContainerProps = {
   backgroundPosition: 'left' | 'right';
 };
