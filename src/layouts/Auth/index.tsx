@@ -16,7 +16,13 @@ export function AuthLayout({
 }: PropsWithChildren<AuthLayoutProps>) {
   return (
     <S.Container backgroundPosition={backgroundPosition}>
-      <S.Background backgroundImage={backgroundImage} />
+      <S.Background
+        src={backgroundImage}
+        alt=""
+        layout="fill"
+        objectFit="cover"
+        objectPosition="center"
+      />
 
       <S.Content>
         <Link href={SIGN_IN_PAGE}>
