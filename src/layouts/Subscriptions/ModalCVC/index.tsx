@@ -14,6 +14,8 @@ import { Input } from 'components/Input';
 
 import { formatCVV } from 'utils/formatters/formatCVV';
 
+import { CloseModal } from 'components/CloseModal';
+
 import { ModalConfirm } from './ModalConfirm';
 import { CVCFormValues, ModalCVCProps } from './types';
 import { schema } from './schemas';
@@ -84,9 +86,7 @@ export function ModalCVC({ onSucessful, onError, onClose }: ModalCVCProps) {
             <S.CardData>{expirationDate}</S.CardData>
           </S.CardDataContainer>
           <S.ButtonCVC type="submit">Continuar</S.ButtonCVC>
-          <S.ButtonCVC variant="danger_outline" type="button" onClick={onClose}>
-            Cancelar
-          </S.ButtonCVC>
+          <CloseModal onClick={onClose} />
         </S.CVCform>
       ) : (
         <ModalConfirm

@@ -133,7 +133,7 @@ export function FinishedPage() {
                         height="15"
                         color={colors.mediumslateBlue}
                       />
-                      Seu conta do Banco Um
+                      Sua conta do Banco Um
                     </S.Title>
                     <S.CardDataContainer>
                       <S.CardDataTitle>Cód. Banco</S.CardDataTitle>

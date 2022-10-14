@@ -41,49 +41,37 @@ export function SubscriptionsPage() {
   function onSuccessful() {
     setSuccessful(true);
   }
+
+  if (error) return <Error />;
+  if (successful) return <Successful />;
+
   return (
     <>
       <title>Gerenciamento de plano - Clube Quantum</title>
       <Header />
       <S.Main>
-        {!error ? (
-          // eslint-disable-next-line react/jsx-no-useless-fragment
-          <>
-            {!successful ? (
-              <>
-                <SideBar />
-                {hasPlan ? (
-                  <Plans
-                    button={
-                      <SubscriptionButton onOpenModalCvcRequest={openModal} />
-                    }
-                  >
-                    <SelectPlan />
-                    <Modal
-                      isOpen={modalIsOpen}
-                      onRequestClose={closeModal}
-                      overlayClassName="react-modal-overlay"
-                      className="react-modal-container"
-                    >
-                      <ModalCVC
-                        onSucessful={onSuccessful}
-                        onError={onError}
-                        onClose={closeModal}
-                      />
-                    </Modal>
-                  </Plans>
-                ) : (
-                  <Plans button={<ManagePlansButton />}>
-                    <ManagePlans width="370" />
-                  </Plans>
-                )}
-              </>
-            ) : (
-              <Successful />
-            )}
-          </>
+        {hasPlan ? (
+          <Plans
+            button={<SubscriptionButton onOpenModalCvcRequest={openModal} />}
+          >
+            <SelectPlan />
+            <Modal
+              isOpen={modalIsOpen}
+              onRequestClose={closeModal}
+              overlayClassName="react-modal-overlay"
+              className="react-modal-container"
+            >
+              <ModalCVC
+                onSucessful={onSuccessful}
+                onError={onError}
+                onClose={closeModal}
+              />
+            </Modal>
+          </Plans>
         ) : (
-          <Error />
+          <Plans button={<ManagePlansButton />}>
+            <ManagePlans width="370" />
+          </Plans>
         )}
       </S.Main>
       <Footer />

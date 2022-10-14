@@ -8,6 +8,8 @@ import { formatFirstLetterToUppercase } from 'utils/formatters/formatFirstLetter
 import { usePlanUpdate } from 'hooks/usePlanUpdate';
 import { error } from 'helpers/notify/error';
 
+import { CloseModal } from 'components/CloseModal';
+
 import { ErrorResponse, ModalConfirmProps } from './types';
 import * as S from './styles';
 
@@ -91,9 +93,7 @@ export function ModalConfirm({
       >
         Finalizar
       </S.ButtonConfirm>
-      <S.ButtonConfirm variant="danger_outline" type="button" onClick={onClose}>
-        Cancelar
-      </S.ButtonConfirm>
+      <CloseModal onClick={onClose} />
     </S.Container>
   );
 }
