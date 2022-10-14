@@ -11,7 +11,7 @@ import { useRecoveryPassword } from 'hooks/auth/useRecoveryPassword';
 import { performSchemaValidation } from 'utils/performSchemaValidation';
 import { AuthLayout } from 'layouts/Auth';
 import { Button } from 'components/Button';
-import { SIGN_IN_PAGE } from 'constants/routesPath';
+import { RESET_PASSWORD_PAGE, SIGN_IN_PAGE } from 'constants/routesPath';
 import { success } from 'helpers/notify/success';
 
 import { RecoveryPasswordFormValues } from './types';
@@ -38,7 +38,7 @@ export function ForgotPasswordPage() {
                 onSuccess: (_, variables) => {
                   success(`Enviado e-mail para ${variables.email}`);
 
-                  Router.push(SIGN_IN_PAGE);
+                  Router.push(`${RESET_PASSWORD_PAGE}/${data.email}`);
                 },
               },
             );
@@ -54,7 +54,7 @@ export function ForgotPasswordPage() {
       backgroundPosition="right"
       title="Esqueci minha senha"
     >
-      <Form ref={formRef} onSubmit={handleRecoveryPassword}>
+      <Form ref={formRef} onSubmit={handleRecoveryPassword} className="form">
         <Input name="email" placeholder="E-mail" icon={FiMail} />
 
         <Button type="submit" disabled={isLoading} loading={isLoading}>
