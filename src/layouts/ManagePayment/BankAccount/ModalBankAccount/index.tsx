@@ -126,6 +126,7 @@ export function ModalBankAccount({
                 formatBankAccount(e.target.value),
               );
             }}
+            inputMode="numeric"
           />
           <Input
             type="text"

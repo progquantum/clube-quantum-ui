@@ -43,7 +43,7 @@ export function CreditCard({
   return (
     <AuthLayout
       backgroundImage="/images/signup.png"
-      title="Insira um cartão de crédito"
+      title="Insira um cartão Banco Um"
     >
       <Form ref={formRef} onSubmit={handleSubmitCreditCard}>
         <Input
@@ -54,6 +54,7 @@ export function CreditCard({
         />
         <Input
           type="text"
+          inputMode="numeric"
           name="card_number"
           placeholder="Número do cartão"
           icon={FiCreditCard}
@@ -66,6 +67,7 @@ export function CreditCard({
         />
         <Input
           type="text"
+          inputMode="numeric"
           name="expiration_date"
           placeholder="Data de vencimento"
           icon={FiCalendar}
@@ -79,6 +81,7 @@ export function CreditCard({
         <Input
           type="text"
           name="cvc"
+          inputMode="numeric"
           placeholder="CVV"
           icon={FiLock}
           onChange={e =>

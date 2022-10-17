@@ -1,5 +1,4 @@
 import { useCallback, useRef, ChangeEvent } from 'react';
-import { AxiosError } from 'axios';
 import {
   FiHome,
   FiPackage,
@@ -20,8 +19,6 @@ import { formatCEP } from 'utils/formatters/formatCEP';
 import { formatAddressNumber } from 'utils/formatters/formatAddressNumber';
 import { useIndividualPersonSignUp } from 'hooks/auth/useIndividualPersonSignUp';
 import { useAuthState } from 'contexts/auth/AuthContext';
-import { error } from 'helpers/notify/error';
-import { ErrorResponse } from 'shared/errors/apiSchema';
 import { performSchemaValidation } from 'utils/performSchemaValidation';
 import { AuthLayout } from 'layouts/Auth';
 import { getZipCode } from 'services/resources';
@@ -70,16 +67,7 @@ export function PersonalAddress({
       }).then(() => {
         const { name, phone, cpf, email, password, invited_by, birth_date } =
           registerUser;
-        const {
-          street,
-          number,
-          neighborhood,
-          complement,
-          zip_code,
-          city,
-          state,
-          country,
-        } = data;
+
         signUp(
           {
             name,
@@ -90,27 +78,11 @@ export function PersonalAddress({
             invited_by,
             birth_date,
             address: {
-              street,
-              number,
-              neighborhood,
-              complement,
-              zip_code,
-              city,
-              state,
-              country,
+              ...data,
             },
           },
           {
             onSuccess: () => onUpdateFormStep(),
-            onError: (err: AxiosError<ErrorResponse>) => {
-              if (err.response.data.message === 'Email already in use') {
-                error('Este email já está em uso');
-              }
-
-              if (err.response.data.message === 'CPF already in use') {
-                error('Este CPF já está em uso');
-              }
-            },
           },
         );
       });
@@ -126,6 +98,7 @@ export function PersonalAddress({
       <Form ref={formRef} onSubmit={handleAddressSubmit}>
         <Input
           type="text"
+          inputMode="numeric"
           name="zip_code"
           placeholder="CEP"
           icon={FiMapPin}
@@ -140,6 +113,7 @@ export function PersonalAddress({
         />
         <Input
           type="text"
+          inputMode="numeric"
           name="number"
           placeholder="Número"
           icon={FiHome}

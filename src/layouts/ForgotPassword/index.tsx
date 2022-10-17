@@ -1,9 +1,10 @@
 import { useCallback, useRef } from 'react';
-import { FiArrowLeft, FiMail } from 'react-icons/fi';
+import { FiLogOut, FiMail } from 'react-icons/fi';
 import { Form } from '@unform/web';
 import { FormHandles, SubmitHandler } from '@unform/core';
 import Link from 'next/link';
 import noop from 'lodash.noop';
+import Router from 'next/router';
 
 import { Input } from 'components/Input';
 import { useRecoveryPassword } from 'hooks/auth/useRecoveryPassword';
@@ -11,6 +12,7 @@ import { performSchemaValidation } from 'utils/performSchemaValidation';
 import { AuthLayout } from 'layouts/Auth';
 import { Button } from 'components/Button';
 import { SIGN_IN_PAGE } from 'constants/routesPath';
+import { success } from 'helpers/notify/success';
 
 import { RecoveryPasswordFormValues } from './types';
 import { schema } from './schemas';
@@ -30,9 +32,16 @@ export function ForgotPasswordPage() {
           schema,
         })
           .then(() => {
-            const { email } = data;
+            sendRecoveryPasswordRequest(
+              { ...data },
+              {
+                onSuccess: (_, variables) => {
+                  success(`Enviado e-mail para ${variables.email}`);
 
-            sendRecoveryPasswordRequest({ email });
+                  Router.push(SIGN_IN_PAGE);
+                },
+              },
+            );
           })
           .catch(noop);
       },
@@ -44,18 +53,27 @@ export function ForgotPasswordPage() {
       backgroundImage="/images/forgot-password.png"
       backgroundPosition="right"
       title="Esqueci minha senha"
+      description="Digite seu endereço de email abaixo e nós lhe enviaremos um link de redefinição de senha."
     >
       <Form ref={formRef} onSubmit={handleRecoveryPassword}>
-        <Input name="email" placeholder="E-mail" icon={FiMail} />
+        <Input
+          name="email"
+          type="text"
+          placeholder="E-mail"
+          icon={FiMail}
+          inputMode="email"
+        />
 
         <Button type="submit" disabled={isLoading} loading={isLoading}>
           Avançar
         </Button>
       </Form>
 
+      {/* Should wrap link component with element due to this 
+      issue of next/link https://github.com/vercel/next.js/issues/127 */}
       <Link href={SIGN_IN_PAGE} prefetch>
-        <a>
-          <FiArrowLeft />
+        <a className="anchor">
+          <FiLogOut />
           Voltar para o login
         </a>
       </Link>

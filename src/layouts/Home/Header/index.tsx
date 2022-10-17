@@ -32,7 +32,7 @@ export function Header() {
             <Link href="/">Seja um parceiro</Link>
             <Link href="/">Central de dúvidas</Link>
 
-            <Link href={SIGN_IN_PAGE}>
+            <Link href={SIGN_IN_PAGE} prefetch>
               <S.LoginButton>
                 <FiLogIn />
                 Login
@@ -49,7 +49,7 @@ export function Header() {
               <Link href="/">Central de dúvidas</Link>
               <S.Line />
 
-              <Link href={SIGN_IN_PAGE}>
+              <Link href={SIGN_IN_PAGE} prefetch>
                 <S.LoginButtonMobile>
                   <FiLogIn />
                   Login

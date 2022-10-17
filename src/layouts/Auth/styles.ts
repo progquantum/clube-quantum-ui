@@ -1,7 +1,8 @@
 import styled, { css } from 'styled-components';
 import { lighten, shade } from 'polished';
+import Image from 'next/image';
 
-import { BackgroundProps, ContainerProps } from './types';
+import { ContainerProps } from './types';
 
 const backgroundPositionStyles = {
   left: css`
@@ -16,34 +17,41 @@ export const Container = styled.div<ContainerProps>`
   min-height: 100vh;
   display: flex;
   align-items: stretch;
+  position: relative;
 
   ${({ backgroundPosition }) => backgroundPositionStyles[backgroundPosition]}
 `;
 
 export const Content = styled.section`
+  background: ${({ theme }) => theme.colors.background};
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
   width: min(800px, 100%);
   padding: 50px 0;
+  position: relative;
+  z-index: 2;
 
-  > div:first-of-type {
-    flex: 0;
-  }
-
-  h1 {
+  .title {
     text-align: center;
     font-size: 1.5rem;
+    color: ${({ theme }) => theme.colors.gray[700]};
   }
 
-  h1,
-  p {
+  .title,
+  .description {
     margin-top: 24px;
   }
 
-  p {
+  .description {
     color: ${({ theme }) => theme.colors.gray[400]};
+    width: 50%;
+    text-align: center;
+
+    @media (max-width: 768px) {
+      width: 90%;
+    }
   }
 
   form {
@@ -51,17 +59,11 @@ export const Content = styled.section`
     width: 50%;
     text-align: center;
 
-    h1 {
-      text-align: center;
-
-      margin-bottom: 24px;
-    }
-
     @media (max-width: 768px) {
       width: 90%;
     }
 
-    a {
+    .form-anchor {
       color: ${({ theme }) => theme.colors.gray[700]};
       display: block;
       margin-top: 24px;
@@ -79,7 +81,7 @@ export const Content = styled.section`
     background: none;
   }
 
-  & > a,
+  & > .anchor,
   & > button {
     display: flex;
     align-items: center;
@@ -98,37 +100,11 @@ export const Content = styled.section`
   }
 `;
 
-export const Background = styled.div<BackgroundProps>`
-  flex: 1;
-  background-repeat: no-repeat;
-  background-position: center;
-  background-size: cover;
-  position: relative;
+export const Background = styled(Image)`
+  position: absolute;
   z-index: 1;
-
-  &::after {
-    content: '';
-    background-color: ${({ theme }) => theme.colors.royalblue};
-    position: absolute;
-    width: 100%;
-    height: 100%;
-    left: 0;
-    top: 0;
-    opacity: 0.3;
-    z-index: -1;
-  }
-
-  ${({ backgroundImage }) =>
-    backgroundImage &&
-    css`
-      background-image: url(${backgroundImage});
-    `}
 
   @media (max-width: 768px) {
     display: none;
   }
-`;
-
-export const ContainerImage = styled.div`
-  cursor: pointer;
 `;

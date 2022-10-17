@@ -1,5 +1,5 @@
-import { useCallback, useRef } from 'react';
-import { AxiosError } from 'axios';
+import { ChangeEvent, useCallback, useRef } from 'react';
+
 import {
   FiMapPin,
   FiPackage,
@@ -21,12 +21,11 @@ import { formatAddressNumber } from 'utils/formatters/formatAddressNumber';
 import { performSchemaValidation } from 'utils/performSchemaValidation';
 import { useLegalPersonSingUp } from 'hooks/auth/useLegalPersonSingUp';
 import { useAuthState } from 'contexts/auth/AuthContext';
-import { error } from 'helpers/notify/error';
-import { ErrorResponse } from 'shared/errors/apiSchema';
 import { AuthLayout } from 'layouts/Auth';
 import { formatCountry } from 'utils/formatters/formatCountry';
 import { Checkbox } from 'components/Checkbox';
 import { formatUF } from 'utils/formatters/formatUF';
+import { getZipCode } from 'services/resources';
 
 import { BusinessAddressProps, AddressFormValues } from './types';
 import { schema } from './schemas';
@@ -40,6 +39,25 @@ export function BusinessAddress({
 
   const formRef = useRef<FormHandles>(null);
 
+  const handleZipCode = useCallback(
+    async (e: ChangeEvent<HTMLInputElement>) => {
+      formRef.current.setFieldValue('zip_code', formatCEP(e.target.value));
+
+      if (e.target.value.length === 10) {
+        const formattedCep = e.target.value.replace('.', '').replace('-', '');
+
+        await getZipCode(formattedCep).then(data => {
+          formRef.current.setFieldValue('street', data?.street);
+          formRef.current.setFieldValue('neighborhood', data?.neighborhood);
+          formRef.current.setFieldValue('city', data?.city);
+          formRef.current.setFieldValue('state', data?.state);
+          formRef.current.setFieldValue('country', data?.country);
+        });
+      }
+    },
+    [formRef],
+  );
+
   const handleSubmitAddress: SubmitHandler<AddressFormValues> = useCallback(
     data => {
       performSchemaValidation({
@@ -49,16 +67,6 @@ export function BusinessAddress({
       }).then(() => {
         const { company_name, phone, cnpj, email, password, invited_by } =
           registerUser;
-        const {
-          street,
-          number,
-          complement,
-          neighborhood,
-          zip_code,
-          city,
-          state,
-          country,
-        } = data;
 
         signUp(
           {
@@ -69,31 +77,11 @@ export function BusinessAddress({
             password,
             invited_by,
             address: {
-              street,
-              number,
-              complement,
-              neighborhood,
-              zip_code,
-              city,
-              state,
-              country,
+              ...data,
             },
           },
           {
             onSuccess: () => onUpdateFormStep(),
-            onError: (err: AxiosError<ErrorResponse>) => {
-              if (err.response?.data.message[0] === 'email must be an email') {
-                error('Insira um email válido');
-              }
-
-              if (err.response.data.message === 'Email already in use') {
-                error('Este email já está em uso');
-              }
-
-              if (err.response.data.message === 'CNPJ already in use') {
-                error('Este CNPJ já está em uso');
-              }
-            },
           },
         );
       });
@@ -109,12 +97,11 @@ export function BusinessAddress({
       <Form ref={formRef} onSubmit={handleSubmitAddress}>
         <Input
           type="text"
+          inputMode="numeric"
           name="zip_code"
           placeholder="CEP"
           icon={FiMapPin}
-          onChange={e =>
-            formRef.current.setFieldValue('zip_code', formatCEP(e.target.value))
-          }
+          onChange={e => handleZipCode(e)}
         />
 
         <Input
@@ -133,6 +120,7 @@ export function BusinessAddress({
 
         <Input
           type="text"
+          inputMode="numeric"
           name="number"
           placeholder="Número"
           icon={FiHome}

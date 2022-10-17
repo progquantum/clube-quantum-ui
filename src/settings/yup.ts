@@ -5,8 +5,8 @@ const locale = {
   mixed: {
     default: 'Campo inválido.',
     required: 'Campo obrigatório.',
-    notType: 'Campo inválido',
-    oneOf: 'Este campo não corresponde',
+    notType: 'Campo inválido.',
+    oneOf: 'Este campo não corresponde.',
     max: 'Esse campo deve ter no máximo ${max} caracteres.',
     min: 'Esse campo deve ter no mínimo ${min} caracteres.',
   },

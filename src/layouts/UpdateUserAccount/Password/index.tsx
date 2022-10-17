@@ -8,7 +8,7 @@ import noop from 'lodash.noop';
 import { useUpdateUserPassword } from 'hooks/user/useUpdateUserPassword';
 import { User } from 'components/Illustrations/User';
 import { FORGOT_PASSWORD_PAGE } from 'constants/routesPath';
-import { ShowPasswordInput } from 'components/Input/ShowPassword';
+import { Input } from 'components/Input';
 import { performSchemaValidation } from 'utils/performSchemaValidation';
 import { Button } from 'components/Button';
 import { success } from 'helpers/notify/success';
@@ -59,7 +59,7 @@ export function Password() {
         </S.ResetPassword>
 
         <Form ref={formRef} onSubmit={hanleChangePassword}>
-          <ShowPasswordInput
+          <Input
             type="password"
             placeholder="Sua senha atual"
             name="actual_password"
@@ -70,7 +70,7 @@ export function Password() {
             Esqueceu sua senha?
           </S.ForgotPassword>
 
-          <ShowPasswordInput
+          <Input
             type="password"
             placeholder="Nova senha"
             name="new_password"
@@ -78,7 +78,7 @@ export function Password() {
             onPaste={e => e.preventDefault()}
           />
 
-          <ShowPasswordInput
+          <Input
             type="password"
             placeholder="Confirma nova senha"
             name="confirm_new_password"

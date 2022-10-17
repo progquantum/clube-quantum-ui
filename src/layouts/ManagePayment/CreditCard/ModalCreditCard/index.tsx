@@ -98,6 +98,7 @@ export function ModalCreditCard({
               formatCreditCardAddSpace(e.target.value),
             )
           }
+          inputMode="numeric"
         />
 
         <Input
@@ -111,6 +112,7 @@ export function ModalCreditCard({
               formatCreditCardExpiration(e.target.value),
             )
           }
+          inputMode="numeric"
         />
 
         <Input
@@ -121,6 +123,7 @@ export function ModalCreditCard({
           onChange={e =>
             formRef.current.setFieldValue('cvc', formatCVV(e.target.value))
           }
+          inputMode="numeric"
         />
 
         <Button type="submit" loading={loading} disabled={loading}>

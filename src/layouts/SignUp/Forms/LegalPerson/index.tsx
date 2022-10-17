@@ -10,8 +10,6 @@ import { Button } from 'components/Button';
 import { AuthLayout } from 'layouts/Auth';
 import { performSchemaValidation } from 'utils/performSchemaValidation';
 
-import { ShowPasswordInput } from 'components/Input/ShowPassword';
-
 import { LegalPersonProps, SignUpFormValues } from './types';
 import { schema } from './schemas';
 
@@ -45,27 +43,36 @@ export function LegalPerson({
           icon={FiUser}
         />
 
-        <Input type="email" name="email" placeholder="Email" icon={FiMail} />
+        <Input
+          type="email"
+          name="email"
+          placeholder="Email"
+          icon={FiMail}
+          inputMode="email"
+        />
 
         <Input
           type="email"
           name="email_confirmation"
           placeholder="Confirmar email"
           icon={FiMail}
+          onPaste={e => e.preventDefault()}
+          inputMode="email"
         />
 
-        <ShowPasswordInput
-          type="password"
+        <Input
+          typePassword
           name="password"
           placeholder="Criar senha"
           icon={FiLock}
         />
 
-        <ShowPasswordInput
-          type="password"
+        <Input
+          typePassword
           name="password_confirmation"
           placeholder="Confirmar senha"
           icon={FiLock}
+          onPaste={e => e.preventDefault()}
         />
 
         <Button type="submit">Continuar</Button>

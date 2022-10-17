@@ -2,7 +2,6 @@ import { useMutation } from 'react-query';
 
 import { quantumClientQueue } from 'config/client';
 import { error } from 'helpers/notify/error';
-import { PaymentError } from 'shared/errors/PaymentError';
 
 import { UpdateCreditCardData } from './types';
 
@@ -15,7 +14,8 @@ export async function postCreditCard(data: UpdateCreditCardData) {
       err.response.data?.type === 'update_recurrence_payment_method'
     ) {
       error('Código CVV inválido');
-      throw new PaymentError();
+
+      return Promise.reject(err);
     }
   }
 }

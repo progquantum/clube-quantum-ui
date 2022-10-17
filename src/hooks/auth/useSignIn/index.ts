@@ -2,13 +2,20 @@ import { useMutation } from 'react-query';
 
 import { Session } from 'shared/types/apiSchema';
 import { quantumClientBase } from 'config/client';
+import { error } from 'helpers/notify/error';
 
 import { SignInCredentials } from './types';
 
 export async function signIn(credentials: SignInCredentials) {
-  const { data } = await quantumClientBase.post('/sessions', credentials);
+  try {
+    const { data } = await quantumClientBase.post('/sessions', credentials);
 
-  return data as Session;
+    return data as Session;
+  } catch (err) {
+    if (err.response.data.message === 'Cpf/Cnpj or password is incorrect') {
+      error('Usuário ou senha incorretos');
+    }
+  }
 }
 
 export function useSignIn() {
