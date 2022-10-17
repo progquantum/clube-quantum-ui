@@ -13,6 +13,7 @@ export const Container = styled.div<StyledContainerProps>`
   width: 100%;
   padding: 1rem;
   transition: all 100ms;
+  margin-top: 8px;
 
   svg {
     font-size: 1.25rem;

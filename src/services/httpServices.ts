@@ -54,6 +54,16 @@ export function queueInstance(
     },
   });
 
+  api.interceptors.request.use(
+    config => {
+      api.defaults.headers.common.Authorization = `Bearer ${token}`;
+
+      return config;
+    },
+
+    error => Promise.reject(error),
+  );
+
   api.interceptors.response.use(
     response => response,
     (error: AxiosError) => {

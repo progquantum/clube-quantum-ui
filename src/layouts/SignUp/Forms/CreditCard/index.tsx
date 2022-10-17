@@ -43,7 +43,7 @@ export function CreditCard({
   return (
     <AuthLayout
       backgroundImage="/images/signup.png"
-      title="Insira um cartão de crédito"
+      title="Insira um cartão Banco Um"
     >
       <Form ref={formRef} onSubmit={handleSubmitCreditCard}>
         <Input
