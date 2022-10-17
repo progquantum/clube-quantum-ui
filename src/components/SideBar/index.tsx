@@ -1,7 +1,7 @@
 import Image from 'next/image';
 import Link from 'next/link';
 
-import { DASHBOARD_PAGE } from 'constants/routesPath';
+import { DASHBOARD_PAGE, UPDATE_USER_ACCOUNT_PAGE } from 'constants/routesPath';
 import { useAuthDispatch } from 'contexts/auth/AuthContext';
 
 import { Skeleton } from './Skeleton';
@@ -28,19 +28,19 @@ export function SideBar({ loading }: SideBarProps) {
           Minha Conta
         </S.NavButton>
       </Link>
-
-      <S.NavButton disabled>
-        <S.WrapImage>
-          <Image
-            width={24}
-            height={24}
-            src="/images/icon-update-user.svg"
-            alt="Icone Atualizar Cadastro"
-          />
-        </S.WrapImage>
-        Atualizar Cadastro
-      </S.NavButton>
-
+      <Link href={UPDATE_USER_ACCOUNT_PAGE}>
+        <S.NavButton>
+          <S.WrapImage>
+            <Image
+              width={24}
+              height={24}
+              src="/images/icon-update-user.svg"
+              alt="Icone Atualizar Cadastro"
+            />
+          </S.WrapImage>
+          Atualizar Cadastro
+        </S.NavButton>
+      </Link>
       <S.NavButton disabled>
         <S.WrapImage>
           <Image

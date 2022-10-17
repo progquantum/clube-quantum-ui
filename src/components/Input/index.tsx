@@ -13,6 +13,7 @@ export function Input({
   name,
   type,
   typePassword,
+  variant,
   ...rest
 }: InputProps) {
   const [isFocused, setIsFocused] = useState(false);
@@ -70,6 +71,7 @@ export function Input({
         <S.Input
           name={name}
           type={type || inputType}
+          variant={variant}
           defaultValue={defaultValue}
           ref={inputRef}
           onFocus={handleInputFocus}

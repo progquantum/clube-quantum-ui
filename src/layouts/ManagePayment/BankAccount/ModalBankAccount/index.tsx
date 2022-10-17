@@ -16,6 +16,8 @@ import { useRegisterBankAccount } from 'hooks/useRegisterBankAccount';
 import { QUERY_KEY_FIND_BILLING } from 'hooks/useWallet';
 import { Button } from 'components/Button';
 
+import { CloseModal } from 'components/CloseModal';
+
 import { ModalBankAccountFormProps, ModalBankAccountProps } from './types';
 import { schema } from './schemas';
 import * as S from './styles';
@@ -137,9 +139,7 @@ export function ModalBankAccount({
             Clube Quantum.
           </S.InfoText>
           <S.ButtonContinue type="submit">Confirmar</S.ButtonContinue>
-          <Button variant="danger_outline" onClick={onRequestClose}>
-            Cancelar
-          </Button>
+          <CloseModal onClick={onRequestClose} />
         </S.BankingAccountForm>
       </Modal>
 

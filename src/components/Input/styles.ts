@@ -1,6 +1,6 @@
 import styled, { css } from 'styled-components';
 
-import { StyledContainerProps } from './types';
+import { InputProps, StyledContainerProps } from './types';
 
 export const Container = styled.div`
   display: flex;
@@ -34,6 +34,12 @@ export const ContainerInput = styled.div<StyledContainerProps>`
 
   & + div {
     margin-top: 0.5rem;
+
+    ${({ variant }) =>
+      variant === 'secundary' &&
+      css`
+        margin-top: 0rem;
+      `}
   }
 
   ${({ isFocused, theme }) =>
@@ -61,7 +67,7 @@ export const ContainerInput = styled.div<StyledContainerProps>`
     `}
 `;
 
-export const Input = styled.input`
+export const Input = styled.input<InputProps>`
   flex: 1;
   background: transparent;
   border: none;

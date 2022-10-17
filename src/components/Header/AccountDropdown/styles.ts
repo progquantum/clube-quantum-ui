@@ -12,11 +12,6 @@ export const Container = styled.div`
   cursor: pointer;
 `;
 
-export const AccountDropdown = styled.img`
-  width: 3rem;
-  height: 3rem;
-`;
-
 export const AnimatedDropdown = styled(motion.nav)`
   ${({ theme }) => css`
     position: absolute;

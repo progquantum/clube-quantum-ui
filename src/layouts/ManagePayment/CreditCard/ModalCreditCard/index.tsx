@@ -18,6 +18,8 @@ import { Button } from 'components/Button';
 import { formatCreditCardRemoveSpace } from 'utils/formatters/formatCreditCardRemoveSpace';
 import { formatCVV } from 'utils/formatters/formatCVV';
 
+import { CloseModal } from 'components/CloseModal';
+
 import { schema } from './schemas';
 import { ModalCreditCardProps, ModalCreditCardFormProps } from './types';
 import * as S from './styles';
@@ -127,14 +129,7 @@ export function ModalCreditCard({
         <Button type="submit" loading={loading} disabled={loading}>
           Confirmar
         </Button>
-
-        <Button
-          disabled={loading}
-          variant="danger_outline"
-          onClick={onRequestNewCreditCardModal}
-        >
-          Cancelar
-        </Button>
+        <CloseModal disabled={loading} onClick={onRequestNewCreditCardModal} />
       </S.CreditCardForm>
     </Modal>
   );

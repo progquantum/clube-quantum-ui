@@ -1,9 +1,12 @@
 import { useTheme } from 'styled-components';
-import Image from 'next/image';
 
 import { useState } from 'react';
 
 import { CreditCardIcon } from 'components/Illustrations/CreditCard';
+
+import { Button } from 'components/Button';
+
+import { VISAIcon } from 'components/Illustrations/Visa';
 
 import { Skeleton } from '../Skeleton';
 import { ModalCreditCard } from './ModalCreditCard';
@@ -44,14 +47,10 @@ export function CreditCard({ user, loading }: CreditCardProps) {
                 <p>{cardExpirationDate}</p>
               </S.CardNumber>
 
-              <div>
-                <Image src="/images/visa.svg" width={80} height={43} />
-              </div>
+              <VISAIcon width="80" height="43" />
             </S.CardDetails>
 
-            <S.ButtonPlan onClick={handleNewCreditCardModal}>
-              Atualizar cartão
-            </S.ButtonPlan>
+            <Button onClick={handleNewCreditCardModal}>Atualizar cartão</Button>
           </>
         ) : (
           <>
@@ -64,7 +63,7 @@ export function CreditCard({ user, loading }: CreditCardProps) {
               Para cadastrar um cartão de crédito e aproveitar os benefícios
               clube quantum é necessário realizar uma assinatura.
             </S.TextContent>
-            <S.ButtonPlan>Prosseguir</S.ButtonPlan>
+            <Button>Prosseguir</Button>
           </>
         )}
       </S.Content>
