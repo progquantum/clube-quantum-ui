@@ -7,14 +7,10 @@ export const schema = Yup.object().shape({
   number: Yup.string(),
   complement: Yup.string(),
   city: Yup.string().required(),
-  state: Yup.string()
-    .required()
-    .matches(/[A-Z]{2,}/g, 'Campo deve conter somente letras. ex: SP'),
-  country: Yup.string()
-    .required()
-    .matches(/[A-Za-z]/g, 'Campo deve conter somente letras'),
+  state: Yup.string().required(),
+  country: Yup.string().required(),
   terms: Yup.boolean().oneOf(
     [true],
-    'Para prosseguir você precisa aceitar os termos!',
+    'Para prosseguir você precisa aceitar os termos.',
   ),
 });

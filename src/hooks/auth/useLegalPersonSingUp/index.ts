@@ -26,6 +26,7 @@ async function legalPersonSingUpResquest(credentials: LegalPersonSingRequest) {
     if (err.response.data.message === 'CNPJ already in use') {
       error('Este CNPJ já está em uso');
     }
+
     return Promise.reject(err);
   }
 }

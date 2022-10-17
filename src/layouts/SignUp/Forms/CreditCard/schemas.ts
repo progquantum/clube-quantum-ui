@@ -3,17 +3,10 @@ import Yup from 'settings/yup';
 export const schema = Yup.object().shape({
   card_number: Yup.string()
     .required()
-    .matches(
-      /^(4654)\s(47\d{2})\s(\d{4})\s(\d{4})$/,
-      'Cartão de crédito inválido!',
-    ),
+    .matches(/^(4654)\s(47\d{2})\s(\d{4})\s(\d{4})$/, 'Cartão inválido.'),
   card_name: Yup.string().required(),
   expiration_date: Yup.string()
     .required()
-    .matches(/(0[1-9]|10|11|12)[/](20\d{2})/, 'Data inválida'),
-  cvc: Yup.string()
-    .max(3)
-    .min(3)
-    .required()
-    .matches(/[0-9]/g, 'Campo deve conter somente números'),
+    .matches(/(0[1-9]|10|11|12)[/](20\d{2})/, 'Data inválida.'),
+  cvc: Yup.string().max(3).min(3).required(),
 });
