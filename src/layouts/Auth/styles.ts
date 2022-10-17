@@ -103,11 +103,8 @@ export const Content = styled.section`
 export const Background = styled(Image)`
   position: absolute;
   z-index: 1;
+
   @media (max-width: 768px) {
     display: none;
   }
-`;
-
-export const ContainerImage = styled.div`
-  cursor: pointer;
 `;

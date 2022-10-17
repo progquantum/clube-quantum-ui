@@ -4,8 +4,8 @@ import Image from 'next/image';
 
 import { SIGN_IN_PAGE } from 'constants/routesPath';
 
-import * as S from './styles';
 import { AuthLayoutProps } from './types';
+import * as S from './styles';
 
 export function AuthLayout({
   title,
@@ -18,15 +18,16 @@ export function AuthLayout({
     <S.Container backgroundPosition={backgroundPosition}>
       <S.Background
         src={backgroundImage}
-        alt=""
         layout="fill"
         objectFit="cover"
         objectPosition="center"
       />
 
       <S.Content>
+        {/* Should wrap link component with element due to this
+          issue of next/link https://github.com/vercel/next.js/issues/127 */}
         <Link href={SIGN_IN_PAGE}>
-          <S.ContainerImage>
+          <a>
             <Image
               src="/images/quantum-logo.svg"
               width={120}
@@ -35,7 +36,7 @@ export function AuthLayout({
               alt="Clube Quantum"
               title="Login"
             />
-          </S.ContainerImage>
+          </a>
         </Link>
 
         <h1 className="title">{title}</h1>
