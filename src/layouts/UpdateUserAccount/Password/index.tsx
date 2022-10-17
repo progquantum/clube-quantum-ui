@@ -60,7 +60,7 @@ export function Password() {
 
         <Form ref={formRef} onSubmit={hanleChangePassword}>
           <Input
-            type="password"
+            typePassword
             placeholder="Sua senha atual"
             name="actual_password"
             icon={CgPassword}
@@ -71,7 +71,7 @@ export function Password() {
           </S.ForgotPassword>
 
           <Input
-            type="password"
+            typePassword
             placeholder="Nova senha"
             name="new_password"
             icon={FiLock}
@@ -79,7 +79,7 @@ export function Password() {
           />
 
           <Input
-            type="password"
+            typePassword
             placeholder="Confirma nova senha"
             name="confirm_new_password"
             icon={FiLock}
