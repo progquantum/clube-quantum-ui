@@ -5,7 +5,7 @@ import { Session } from 'shared/types/apiSchema';
 
 import { IndividualPersonSingRequest } from './types';
 
-async function individualPersonSingUpResquest(
+async function individualPersonSignUpRequest(
   credentials: IndividualPersonSingRequest,
 ) {
   const { data } = await quantumClientBase.post(
@@ -17,5 +17,5 @@ async function individualPersonSingUpResquest(
 }
 
 export function useIndividualPersonSignUp() {
-  return useMutation(individualPersonSingUpResquest);
+  return useMutation(individualPersonSignUpRequest);
 }
