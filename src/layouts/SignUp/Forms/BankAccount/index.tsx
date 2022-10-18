@@ -11,6 +11,8 @@ import { formatBankAccount } from 'utils/formatters/formatBankAccount';
 import { performSchemaValidation } from 'utils/performSchemaValidation';
 import { AuthLayout } from 'layouts/Auth';
 
+import { useSubscriptionsDispatch } from 'contexts/subscriptions/SubscriptionsContext';
+
 import { BankAccountProps, FormValues } from './types';
 import { schema } from './schemas';
 import * as S from './styles';
@@ -19,6 +21,7 @@ export function BankAccount({
   onUpdateFormStep,
   onPreviousFormStep,
 }: BankAccountProps) {
+  const { registerBankAccount } = useSubscriptionsDispatch();
   const formRef = useRef<FormHandles>(null);
 
   const handleBankAccountSubmit: SubmitHandler<FormValues> = useCallback(
@@ -29,8 +32,14 @@ export function BankAccount({
         schema,
       })
         .then(() => {
+          registerBankAccount({
+            current_account: data.current_account.slice(0, -2),
+            current_account_check_number: data.current_account.slice(-1),
+            holder_name: data.holder_name,
+          });
           onUpdateFormStep();
         })
+
         .catch(noop);
     },
     [],
@@ -41,7 +50,7 @@ export function BankAccount({
       backgroundImage="/images/signup.png"
       title="Insira uma conta bancária"
     >
-      <Form ref={formRef} onSubmit={handleBankAccountSubmit}>
+      <Form ref={formRef} onSubmit={handleBankAccountSubmit} className="form">
         <S.Content>
           <S.BankDataTitle>Cod. Banco</S.BankDataTitle>
           <S.BankDataTitle>Agência</S.BankDataTitle>

@@ -18,6 +18,8 @@ import { performSchemaValidation } from 'utils/performSchemaValidation';
 import { AuthLayout } from 'layouts/Auth';
 import { formatCVV } from 'utils/formatters/formatCVV';
 
+import { useSubscriptionsDispatch } from 'contexts/subscriptions/SubscriptionsContext';
+
 import { BankCardProps, CreditCardFormValues } from './types';
 import * as S from './styles';
 import { schema } from './schemas';
@@ -27,6 +29,7 @@ export function CreditCard({
   onNavigateToSuccessfulSignUp,
   onPreviousFormStep,
 }: BankCardProps) {
+  const { registerCreditCard } = useSubscriptionsDispatch();
   const formRef = useRef<FormHandles>(null);
 
   const handleSubmitCreditCard: SubmitHandler<CreditCardFormValues> =
@@ -36,7 +39,11 @@ export function CreditCard({
         schema,
         formRef,
       })
-        .then(() => onUpdateFormStep())
+        .then(() => {
+          registerCreditCard(data);
+          onUpdateFormStep();
+        })
+
         .catch(noop);
     }, []);
 
@@ -45,7 +52,7 @@ export function CreditCard({
       backgroundImage="/images/signup.png"
       title="Insira um cartão de crédito"
     >
-      <Form ref={formRef} onSubmit={handleSubmitCreditCard}>
+      <Form ref={formRef} onSubmit={handleSubmitCreditCard} className="form">
         <Input
           type="text"
           name="card_name"
