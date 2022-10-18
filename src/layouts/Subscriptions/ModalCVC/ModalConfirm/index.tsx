@@ -1,3 +1,4 @@
+/* eslint-disable no-nested-ternary */
 import { MdAssignmentInd } from 'react-icons/md';
 import { AxiosError } from 'axios';
 
@@ -58,15 +59,9 @@ export function ModalConfirm({
   };
 
   const formattedPlanName = formatFirstLetterToUppercase(plan?.plan_name);
-  const planDuration =
-    // eslint-disable-next-line no-nested-ternary
-    plan.plan_duration === 6
-      ? 'Semestral'
-      : plan.plan_duration === 1
-      ? 'Mensal'
-      : 'Anual';
+  const planPeriod = plan?.plan_period;
   const formattedPrice = formatPrice(
-    plan.price === '0' ? `0,${plan.price}` : plan.price,
+    plan?.price === '0' ? `0,${plan?.price}` : plan?.price,
   );
 
   return (
@@ -79,7 +74,13 @@ export function ModalConfirm({
         <S.TitlePlan>{formattedPlanName}</S.TitlePlan>
         <S.CardDataContainer>
           <S.CardDataTitle>Período de Cobrança</S.CardDataTitle>
-          <S.CardDataText>{planDuration}</S.CardDataText>
+          <S.CardDataText>
+            {planPeriod === 'monthly'
+              ? 'Mensal'
+              : planPeriod === 'semiannual'
+              ? 'Semestral'
+              : 'Anual'}
+          </S.CardDataText>
         </S.CardDataContainer>
         <S.CardDataContainer>
           <S.CardDataTitle>Total</S.CardDataTitle>
