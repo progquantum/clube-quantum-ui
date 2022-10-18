@@ -28,6 +28,7 @@ import { getZipCode } from 'services/resources';
 import { Checkbox } from 'components/Checkbox';
 import { formatCountry } from 'utils/formatters/formatCountry';
 import { formatUF } from 'utils/formatters/formatUF';
+import { quantumClientQueue } from 'config/client';
 
 import { PersonalAddressProps, AddressFormValues } from './types';
 import { schema } from './schemas';
@@ -101,7 +102,10 @@ export function PersonalAddress({
             },
           },
           {
-            onSuccess: () => onUpdateFormStep(),
+            onSuccess: data => {
+              quantumClientQueue.defaults.headers.common.Authorization = `Bearer ${data.token}`;
+              onUpdateFormStep();
+            },
             onError: (err: AxiosError<ErrorResponse>) => {
               if (err.response.data.message === 'Email already in use') {
                 error('Este email já está em uso');
@@ -123,7 +127,7 @@ export function PersonalAddress({
       backgroundImage="/images/signup.png"
       title="Insira seu endereço"
     >
-      <Form ref={formRef} onSubmit={handleAddressSubmit}>
+      <Form ref={formRef} onSubmit={handleAddressSubmit} className="form">
         <Input
           type="text"
           name="zip_code"
