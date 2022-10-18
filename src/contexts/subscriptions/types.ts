@@ -5,6 +5,7 @@ export type Plans = {
   plan_duration?: number;
   price?: string;
   plan_name?: string;
+  plan_period: string;
 };
 
 export type BankAccount = {

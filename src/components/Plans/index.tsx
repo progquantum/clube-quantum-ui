@@ -93,6 +93,7 @@ export function Plans({ children, button }: PlansProps) {
       plan_duration: planDuration,
       price,
       plan_name: planName,
+      plan_period: selectedPeriod,
     });
   };
 
