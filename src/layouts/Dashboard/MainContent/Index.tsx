@@ -3,14 +3,15 @@ import Link from 'next/link';
 import { faker } from '@faker-js/faker';
 
 import { INVITE_FRIENDS_PAGE, SUBSCRIPTIONS_PAGE } from 'constants/routesPath';
-import { useAuthState } from 'contexts/auth/AuthContext';
 import { formatFirstLetterToUppercase } from 'utils/formatters/formatFirstLetterToUppercase';
+
+import { useMe } from 'hooks/useMe';
 
 import { AccountBalance } from '../AccountBalance';
 import * as S from './styles';
 
 export function MainContent() {
-  const { user } = useAuthState();
+  const { data } = useMe();
   const balance = faker.finance.amount();
   const balanceInComing = faker.finance.amount();
 
@@ -103,10 +104,10 @@ export function MainContent() {
         </S.HeaderSelectPlan>
         <S.DivStatusPlan>
           <S.TitleStatusPlan>
-            {formatFirstLetterToUppercase(user.subscription?.plan_name)}
+            {formatFirstLetterToUppercase(data?.subscription?.plan_name)}
           </S.TitleStatusPlan>
           <S.StatusPlan>
-            {user.subscription?.is_active ? 'Ativo' : 'Cancelado'}
+            {data?.subscription?.is_active ? 'Ativo' : 'Cancelado'}
           </S.StatusPlan>
         </S.DivStatusPlan>
         <Link href={SUBSCRIPTIONS_PAGE}>
