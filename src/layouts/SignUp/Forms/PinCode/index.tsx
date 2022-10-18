@@ -73,7 +73,7 @@ export function PinCode({ onNextFormStep, onPreviousFormStep }: PinCodeProps) {
       backgroundImage="/images/signup.png"
       title="Código de verificação"
     >
-      <form onSubmit={handlePhoneCodeVerification}>
+      <form onSubmit={handlePhoneCodeVerification} className="form">
         <S.Title>
           Para continuar, insira o código de 6 dígitos enviado por SMS para o
           número que você digitou

@@ -45,7 +45,7 @@ export function ForgotPasswordPage() {
       backgroundPosition="right"
       title="Esqueci minha senha"
     >
-      <Form ref={formRef} onSubmit={handleRecoveryPassword}>
+      <Form ref={formRef} onSubmit={handleRecoveryPassword} className="form">
         <Input name="email" placeholder="E-mail" icon={FiMail} />
 
         <Button type="submit" disabled={isLoading} loading={isLoading}>
