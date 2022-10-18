@@ -11,6 +11,7 @@ import { Phone } from '../Forms/Phone';
 import { CPF } from '../Forms/CPF';
 import { BankAccount } from '../Forms/BankAccount';
 import { SingUpButton } from '../SingUpButton';
+import { Summary } from '../Forms/Summary';
 
 export function PersonalSignUpPage() {
   const [step, setStep] = useState(0);
@@ -24,7 +25,7 @@ export function PersonalSignUpPage() {
   };
 
   const navigateToSuccessfullSignUp = () => {
-    setStep(prevState => prevState + 3);
+    setStep(prevState => prevState + 4);
   };
 
   const stepsMapping = {
@@ -57,7 +58,10 @@ export function PersonalSignUpPage() {
       />
     ),
     7: <Plans button={<SingUpButton onUpdateFormStep={() => nextStep()} />} />,
-    8: <Successful />,
+    8: (
+      <Summary onUpdateFormStep={nextStep} onPreviousFormStep={previousStep} />
+    ),
+    9: <Successful />,
   };
 
   const Component = stepsMapping[step];

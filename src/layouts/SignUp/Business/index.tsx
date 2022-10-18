@@ -11,6 +11,7 @@ import { BusinessAddress } from '../Forms/BusinessAddress';
 import { CreditCard } from '../Forms/CreditCard';
 import { BankAccount } from '../Forms/BankAccount';
 import { SingUpButton } from '../SingUpButton';
+import { Summary } from '../Forms/Summary';
 
 export function BusinessSignUpPage() {
   const [step, setStep] = useState(0);
@@ -24,7 +25,7 @@ export function BusinessSignUpPage() {
   };
 
   const navigateToSuccessfullSignUp = () => {
-    setStep(prevState => prevState + 3);
+    setStep(prevState => prevState + 4);
   };
 
   const stepsMapping = {
@@ -57,7 +58,10 @@ export function BusinessSignUpPage() {
       />
     ),
     7: <Plans button={<SingUpButton onUpdateFormStep={() => nextStep()} />} />,
-    8: <Successful />,
+    8: (
+      <Summary onUpdateFormStep={nextStep} onPreviousFormStep={previousStep} />
+    ),
+    9: <Successful />,
   };
 
   const Component = stepsMapping[step];
