@@ -3,7 +3,6 @@ import { FiPhone, FiLogOut } from 'react-icons/fi';
 import { Form } from '@unform/web';
 import { FormHandles, SubmitHandler } from '@unform/core';
 import noop from 'lodash.noop';
-import { AxiosError } from 'axios';
 
 import { useAuthDispatch } from 'contexts/auth/AuthContext';
 import { Input } from 'components/Input';
@@ -13,8 +12,6 @@ import { useSendPhoneCode } from 'hooks/useSendPhoneCode';
 import { performSchemaValidation } from 'utils/performSchemaValidation';
 import { AuthLayout } from 'layouts/Auth';
 import { success } from 'helpers/notify/success';
-import { error } from 'helpers/notify/error';
-import { ErrorResponse } from 'shared/errors/apiSchema';
 
 import { PhoneProps, PhoneFormValues } from './types';
 import { schema } from './schemas';
@@ -45,18 +42,6 @@ export function Phone({ onUpdateFormStep, onPreviousFormStep }: PhoneProps) {
                 signUp({ phone });
                 onUpdateFormStep();
               },
-              onError: (err: AxiosError<ErrorResponse>) => {
-                if (err.response.data.message === 'Phone already in use') {
-                  error('Este telefone já está em uso');
-                }
-
-                if (
-                  err.response.data.message[0] ===
-                  'phone must be a phone number'
-                ) {
-                  error('Número de telefone inválido!');
-                }
-              },
             },
           );
         })
@@ -73,6 +58,7 @@ export function Phone({ onUpdateFormStep, onPreviousFormStep }: PhoneProps) {
       <Form ref={formRef} onSubmit={handlePhoneCode} className="form">
         <Input
           type="text"
+          inputMode="tel"
           name="phone"
           placeholder="Telefone"
           icon={FiPhone}

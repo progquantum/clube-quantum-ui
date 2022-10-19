@@ -18,6 +18,8 @@ import { Button } from 'components/Button';
 import { formatCreditCardRemoveSpace } from 'utils/formatters/formatCreditCardRemoveSpace';
 import { formatCVV } from 'utils/formatters/formatCVV';
 
+import { CloseModal } from 'components/CloseModal';
+
 import { schema } from './schemas';
 import { ModalCreditCardProps, ModalCreditCardFormProps } from './types';
 import * as S from './styles';
@@ -96,6 +98,7 @@ export function ModalCreditCard({
               formatCreditCardAddSpace(e.target.value),
             )
           }
+          inputMode="numeric"
         />
 
         <Input
@@ -109,6 +112,7 @@ export function ModalCreditCard({
               formatCreditCardExpiration(e.target.value),
             )
           }
+          inputMode="numeric"
         />
 
         <Input
@@ -119,19 +123,13 @@ export function ModalCreditCard({
           onChange={e =>
             formRef.current.setFieldValue('cvc', formatCVV(e.target.value))
           }
+          inputMode="numeric"
         />
 
         <Button type="submit" loading={loading} disabled={loading}>
           Confirmar
         </Button>
-
-        <Button
-          disabled={loading}
-          variant="danger_outline"
-          onClick={onRequestNewCreditCardModal}
-        >
-          Cancelar
-        </Button>
+        <CloseModal disabled={loading} onClick={onRequestNewCreditCardModal} />
       </S.CreditCardForm>
     </Modal>
   );

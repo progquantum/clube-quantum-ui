@@ -1,15 +1,19 @@
 import styled from 'styled-components';
 
 export const Container = styled.div`
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  flex-wrap: wrap;
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr 1fr;
+  place-items: center;
   gap: 0.625rem;
   width: 100%;
+  padding: 0 0.5rem;
   background-color: ${({ theme }) => theme.colors.background};
+
+  @media (max-width: 1024px) {
+    grid-template-columns: 1fr 1fr 1fr;
+  }
   @media (max-width: 460px) {
-    gap: 1.5rem;
+    grid-template-columns: 1fr 1fr;
   }
 `;
 
@@ -20,17 +24,19 @@ export const ButtonItem = styled.button`
   flex-direction: column;
   gap: 0.625rem;
   background-color: ${({ theme }) => theme.colors.background};
-  box-shadow: 0 0 1.25rem rgba(0, 0, 0, 0.1);
+  box-shadow: 0 0 1rem rgba(0, 0, 0, 0.1);
   border-radius: 0.313rem;
   width: 10.7269rem;
   height: 4.375rem;
   cursor: pointer;
+
   @media (max-width: 1024px) {
-    width: 8.5625rem;
+    max-width: 8.5625rem;
   }
 
   @media (max-width: 460px) {
-    width: 9.563rem;
+    width: 100%;
+    max-width: 9.563rem;
   }
 
   &:disabled {

@@ -14,8 +14,20 @@
     "Atomics": "readonly",
     "SharedArrayBuffer": "readonly"
   },
-  "plugins": ["import", "jsx-a11y", "react", "react-hooks", "import", "prettier"],
-  "extends": ["airbnb", "plugin:import/errors", "plugin:import/warnings", "prettier"],
+  "plugins": [
+    "import",
+    "jsx-a11y",
+    "react",
+    "react-hooks",
+    "import",
+    "prettier"
+  ],
+  "extends": [
+    "airbnb",
+    "plugin:import/errors",
+    "plugin:import/warnings",
+    "prettier"
+  ],
   "rules": {
     "prettier/prettier": "error",
     "no-shadow": "off",

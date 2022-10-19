@@ -4,8 +4,7 @@ import { faker } from '@faker-js/faker';
 
 import { INVITE_FRIENDS_PAGE, SUBSCRIPTIONS_PAGE } from 'constants/routesPath';
 import { formatFirstLetterToUppercase } from 'utils/formatters/formatFirstLetterToUppercase';
-
-import { useMe } from 'hooks/useMe';
+import { useMe } from 'hooks/user/useMe';
 
 import { AccountBalance } from '../AccountBalance';
 import * as S from './styles';

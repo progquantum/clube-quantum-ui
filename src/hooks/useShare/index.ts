@@ -5,6 +5,12 @@ import noop from 'lodash.noop';
 
 import { ShareData } from './types';
 
+/**
+ * Exposes the Open Graph Share functionality. If the share is not supported, it will simply
+ * copy to the clipboard and show a success toast instead.
+ *
+ * @params share
+ */
 export function useShare() {
   const [, copyToClipboard] = useCopyToClipboard();
 

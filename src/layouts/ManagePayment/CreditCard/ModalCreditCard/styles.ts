@@ -12,6 +12,7 @@ export const YourAccount = styled.div`
   align-items: center;
   gap: 0.625rem;
   margin-bottom: 1rem;
+  margin-top: 0.5rem;
 `;
 
 export const CreditCardForm = styled.form`

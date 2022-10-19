@@ -2,28 +2,32 @@ import Link from 'next/link';
 
 import Image from 'next/image';
 
-import * as S from './styles';
 import {
   INVITE_FRIENDS_PAGE,
   MANAGE_PAYMENT_PAGE,
-} from '../../constants/routesPath';
+  UPDATE_USER_ACCOUNT_PAGE,
+} from 'constants/routesPath';
+
 import { ServicesBankProps } from './types';
 import { Skeleton } from './Skeleton';
+import * as S from './styles';
 
 export function ServicesBank({ loading }: ServicesBankProps) {
   if (loading) return <Skeleton />;
 
   return (
     <S.Container>
-      <S.ButtonItem disabled>
-        <Image
-          width={25}
-          height={25}
-          src="/images/icon-my-account.svg"
-          alt="Icon Usuário"
-        />
-        <S.Text>Atualizar Cadastro</S.Text>
-      </S.ButtonItem>
+      <Link href={UPDATE_USER_ACCOUNT_PAGE}>
+        <S.ButtonItem>
+          <Image
+            width={25}
+            height={25}
+            src="/images/icon-my-account.svg"
+            alt="Icon Usuário"
+          />
+          <S.Text>Atualizar Cadastro</S.Text>
+        </S.ButtonItem>
+      </Link>
 
       <Link href={MANAGE_PAYMENT_PAGE}>
         <S.ButtonItem>

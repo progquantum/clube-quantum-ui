@@ -1,4 +1,3 @@
-import { AxiosError } from 'axios';
 import { FormHandles, SubmitHandler } from '@unform/core';
 import { useRef } from 'react';
 import { Form } from '@unform/web';
@@ -8,10 +7,8 @@ import { useSendMessage } from 'hooks/useSendMessage';
 import { SendMessageRequest } from 'hooks/useSendMessage/types';
 import { formatPhoneNumber } from 'utils/formatters/formatPhoneNumber';
 import { success } from 'helpers/notify/success';
-import { Input } from 'components/Input';
-import { ErrorResponse } from 'shared/errors/apiSchema';
 import { performSchemaValidation } from 'utils/performSchemaValidation';
-import { error } from 'helpers/notify/error';
+import { Input } from 'components/Input';
 import { AuthLayout } from 'layouts/Auth';
 import { TextArea } from 'components/TextArea';
 import { Button } from 'components/Button';
@@ -45,16 +42,6 @@ export function ContactUsPage() {
             success('Mensagem enviada com sucesso');
             formRef.current.reset();
           },
-          onError: (err: AxiosError<ErrorResponse>) => {
-            if (
-              err.response?.data.message[0] === 'phone must be a phone number'
-            ) {
-              error('Telefone inválido');
-            }
-            if (err.response?.data.message[0] === 'email must be an email') {
-              error('E-mail inválido');
-            }
-          },
         },
       );
     });
@@ -77,7 +64,13 @@ export function ContactUsPage() {
           placeholder="Nome completo"
           icon={FiUser}
         />
-        <Input type="email" name="email" placeholder="E-mail" icon={FiMail} />
+        <Input
+          type="email"
+          name="email"
+          placeholder="E-mail"
+          icon={FiMail}
+          inputMode="email"
+        />
         <Input
           type="text"
           name="phone"
@@ -89,6 +82,7 @@ export function ContactUsPage() {
               formatPhoneNumber(e.target.value),
             );
           }}
+          inputMode="tel"
         />
         <TextArea
           icon={FiMessageSquare}

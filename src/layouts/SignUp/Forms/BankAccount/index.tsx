@@ -61,6 +61,7 @@ export function BankAccount({
         </S.Content>
         <Input
           type="text"
+          inputMode="numeric"
           name="current_account"
           placeholder="Conta corrente"
           icon={AiOutlineBank}

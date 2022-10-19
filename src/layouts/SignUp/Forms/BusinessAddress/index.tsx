@@ -1,5 +1,4 @@
 import { ChangeEvent, useCallback, useRef } from 'react';
-import { AxiosError } from 'axios';
 import {
   FiMapPin,
   FiPackage,
@@ -21,16 +20,11 @@ import { formatAddressNumber } from 'utils/formatters/formatAddressNumber';
 import { performSchemaValidation } from 'utils/performSchemaValidation';
 import { useLegalPersonSingUp } from 'hooks/auth/useLegalPersonSingUp';
 import { useAuthState } from 'contexts/auth/AuthContext';
-import { error } from 'helpers/notify/error';
-import { ErrorResponse } from 'shared/errors/apiSchema';
 import { AuthLayout } from 'layouts/Auth';
 import { formatCountry } from 'utils/formatters/formatCountry';
 import { Checkbox } from 'components/Checkbox';
 import { formatUF } from 'utils/formatters/formatUF';
-
 import { getZipCode } from 'services/resources';
-
-import { quantumClientQueue } from 'config/client';
 
 import { BusinessAddressProps, AddressFormValues } from './types';
 import { schema } from './schemas';
@@ -72,16 +66,6 @@ export function BusinessAddress({
       }).then(() => {
         const { company_name, phone, cnpj, email, password, invited_by } =
           registerUser;
-        const {
-          street,
-          number,
-          complement,
-          neighborhood,
-          zip_code,
-          city,
-          state,
-          country,
-        } = data;
 
         signUp(
           {
@@ -92,34 +76,11 @@ export function BusinessAddress({
             password,
             invited_by,
             address: {
-              street,
-              number,
-              complement,
-              neighborhood,
-              zip_code,
-              city,
-              state,
-              country,
+              ...data,
             },
           },
           {
-            onSuccess: data => {
-              quantumClientQueue.defaults.headers.common.Authorization = `Bearer ${data.token}`;
-              onUpdateFormStep();
-            },
-            onError: (err: AxiosError<ErrorResponse>) => {
-              if (err.response?.data.message[0] === 'email must be an email') {
-                error('Insira um email válido');
-              }
-
-              if (err.response.data.message === 'Email already in use') {
-                error('Este email já está em uso');
-              }
-
-              if (err.response.data.message === 'CNPJ already in use') {
-                error('Este CNPJ já está em uso');
-              }
-            },
+            onSuccess: () => onUpdateFormStep(),
           },
         );
       });
@@ -135,6 +96,7 @@ export function BusinessAddress({
       <Form ref={formRef} onSubmit={handleSubmitAddress} className="form">
         <Input
           type="text"
+          inputMode="numeric"
           name="zip_code"
           placeholder="CEP"
           icon={FiMapPin}
@@ -157,6 +119,7 @@ export function BusinessAddress({
 
         <Input
           type="text"
+          inputMode="numeric"
           name="number"
           placeholder="Número"
           icon={FiHome}

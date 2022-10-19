@@ -1,7 +1,5 @@
 import styled from 'styled-components';
 
-import { Button } from 'components/Button';
-
 export const Content = styled.div`
   box-shadow: 0px 0px 20px 0px #0000001a;
   width: 21.844rem;
@@ -53,6 +51,7 @@ export const TitleContent = styled.strong`
     font-size: 0.8rem;
   }
 `;
+
 export const TextContent = styled.p`
   color: ${({ theme }) => theme.colors.gray[400]};
   font-weight: 500;
@@ -78,11 +77,4 @@ export const BankingOwner = styled.div`
   display: flex;
   flex-direction: column;
   gap: 0.9rem;
-`;
-
-export const BankAccountButton = styled(Button)`
-  font-size: 0.9rem;
-  :hover {
-    background-color: ${({ theme }) => theme.colors.mediumslateBlue};
-  }
 `;

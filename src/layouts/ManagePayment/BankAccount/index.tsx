@@ -3,6 +3,8 @@ import { useTheme } from 'styled-components';
 
 import { BancoUm } from 'components/Illustrations/BancoUm';
 
+import { Button } from 'components/Button';
+
 import { Skeleton } from '../Skeleton';
 import { ModalBankAccount } from './ModalBankAccount';
 import { BankAccountProps } from './types';
@@ -67,9 +69,9 @@ export function BankAccount({ user, loading }: BankAccountProps) {
             Nenhuma conta Banco Um registrada, gostaria de adicionar uma nova
             conta?
           </S.Text>
-          <S.BankAccountButton onClick={handleNewBankAccountModal}>
+          <Button onClick={handleNewBankAccountModal}>
             Cadastrar conta bancária
-          </S.BankAccountButton>
+          </Button>
         </>
       )}
       <ModalBankAccount

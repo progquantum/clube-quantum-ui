@@ -3,6 +3,25 @@ export type Subscription = {
   is_active: boolean;
 };
 
+export type Address = {
+  street: string;
+  number: string;
+  neighborhood: string;
+  complement?: string;
+  zip_code: string;
+  city: string;
+  state: string;
+  country: string;
+};
+
+export type Profile = {
+  name: string;
+  birth_date: string;
+  phone: string;
+  email: string;
+  avatar_url: string;
+};
+
 export type User = {
   name: string;
   subscription?: Subscription;
@@ -17,17 +36,6 @@ export type Session = {
   user: User;
   token: string;
   refresh_token: string;
-};
-
-export type Address = {
-  street: string;
-  number: string;
-  complement: string;
-  neighborhood: string;
-  zip_code: string;
-  city: string;
-  state: string;
-  country: string;
 };
 
 export type CreditCard = {

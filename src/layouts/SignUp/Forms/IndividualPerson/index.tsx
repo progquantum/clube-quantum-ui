@@ -10,7 +10,6 @@ import { Button } from 'components/Button';
 import { formatBirthDate } from 'utils/formatters/formatBirthDate';
 import { performSchemaValidation } from 'utils/performSchemaValidation';
 import { AuthLayout } from 'layouts/Auth';
-import { ShowPasswordInput } from 'components/Input/ShowPassword';
 
 import { schema } from './schemas';
 import { IndividualPersonProps, SignUpFormValues } from './types';
@@ -64,6 +63,7 @@ export function IndividualPerson({
 
         <Input
           type="text"
+          inputMode="numeric"
           name="birth_date"
           placeholder="Data de nascimento"
           icon={FiCalendar}
@@ -80,6 +80,7 @@ export function IndividualPerson({
           name="email"
           placeholder="Preencha seu email"
           icon={FiMail}
+          inputMode="email"
         />
 
         <Input
@@ -87,20 +88,23 @@ export function IndividualPerson({
           name="email_confirmation"
           placeholder="Confirme seu email"
           icon={FiMail}
+          onPaste={e => e.preventDefault()}
+          inputMode="email"
         />
 
-        <ShowPasswordInput
-          type="password"
+        <Input
+          typePassword
           name="password"
           icon={FiLock}
           placeholder="Criar senha"
         />
 
-        <ShowPasswordInput
-          type="password"
+        <Input
+          typePassword
           name="password_confirmation"
           icon={FiLock}
           placeholder="Confirmar senha"
+          onPaste={e => e.preventDefault()}
         />
 
         <Button type="submit">Continuar</Button>

@@ -10,15 +10,16 @@ import { HiOutlineDocument } from 'react-icons/hi';
 import Link from 'next/link';
 import { BiShoppingBag } from 'react-icons/bi';
 
-import { useAuthDispatch, useAuthState } from 'contexts/auth/AuthContext';
+import { useAuthDispatch } from 'contexts/auth/AuthContext';
 import { DASHBOARD_PAGE, SUBSCRIPTIONS_PAGE } from 'constants/routesPath';
+
+import { Avatar } from 'components/Avatar';
 
 import { DROP_DOWN_ANIMATION } from './animations';
 import * as S from './styles';
 
 export function AccountDropdown() {
   const { signOut } = useAuthDispatch();
-  const { user } = useAuthState();
 
   const [isDropdownVisible, setIsDropdownVisible] = useState(false);
 
@@ -30,11 +31,7 @@ export function AccountDropdown() {
 
   return (
     <S.Container onClick={handleDropdownVisibility}>
-      <S.AccountDropdown
-        src={`https://ui-avatars.com/api/?rounded=true&format=svg&background=F5F6FA&color=0E5AE4&name=${user.name}`}
-        alt={`Conta de ${user.name}`}
-      />
-
+      <Avatar width="48" height="48" />
       <AnimatePresence>
         {isDropdownVisible && (
           <S.AnimatedDropdown

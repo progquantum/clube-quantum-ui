@@ -2,7 +2,6 @@ import { useMemo, useCallback, PropsWithChildren, useEffect } from 'react';
 import { useRouter } from 'next/router';
 import { useLocalStorage } from '@rehooks/local-storage';
 import { setCookie, destroyCookie, parseCookies } from 'nookies';
-import { AxiosError } from 'axios';
 
 import { useSignIn } from 'hooks/auth/useSignIn';
 import { User } from 'shared/types/apiSchema';
@@ -15,10 +14,7 @@ import {
 import { DASHBOARD_PAGE, SIGN_IN_PAGE } from 'constants/routesPath';
 import { quantumClientQueue } from 'config/client';
 import { logOut } from 'helpers/auth/logOut';
-import { error } from 'helpers/notify/error';
 import { getMe } from 'services/resources';
-
-import { ErrorResponse } from 'shared/errors/apiSchema';
 
 import { AuthStateProvider, AuthDispatchProvider } from './AuthContext';
 import { SignInCredentials, SignUpData } from './types';
@@ -90,13 +86,6 @@ export function AuthProvider({ children }: PropsWithChildren<unknown>) {
             quantumClientQueue.defaults.headers.common.Authorization = `Bearer ${token}`;
 
             router.push(DASHBOARD_PAGE);
-          },
-          onError: (err: AxiosError<ErrorResponse>) => {
-            if (
-              err.response.data.message === 'Cpf/Cnpj or password is incorrect'
-            ) {
-              error('Usuário ou senha incorretos');
-            }
           },
         },
       );
