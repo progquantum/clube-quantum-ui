@@ -83,43 +83,76 @@ export default createGlobalStyle`
     list-style-type: none;
   }
 
-  .react-modal-overlay {
-    background: rgba(0,0,0, 0.5);
-
+  .modal-overlay {
+    background: rgba(0, 0, 0, 0.6);
     position: fixed;
     top: 0;
     bottom: 0;
     right: 0;
     left: 0;
-    z-index: 10;
+    z-index: 5;
+  }
 
+  .modal-container {
+    position: fixed;
+    inset: 0;
+    z-index: 99999;
+    background-color: ${({ theme }) => theme.colors.background};
+    width: 100%;
+    max-width: 33rem;
+    height: fit-content;
+    margin: auto auto;
+    padding: 2rem;
+    border-radius: 1rem;
+
+    @media (max-width: 500px) {
+      margin-bottom: 0;
+      border-radius: 1rem 1rem 0 0;
+      cursor: grab;
+    }
+  }
+
+  .drag, .drag-2 {
+    display: none;
+
+    @media (max-width: 500px) {
+      display: block;
+      width: 3rem;
+      height: .25rem;
+      position: absolute;
+      top: 10px;
+      right: 0;
+      left: 0;
+      background-color: ${({ theme }) => theme.colors.gray[200]};
+      border-radius: 4px;
+      border: none;
+      margin: 0 auto;
+    }
+  }
+
+
+  .modal-close {
+    position: absolute;
+    top: 5px;
+    right: 10px;
+    border-radius: 0.625rem;
+    padding: 1rem;
+    border: none;
+    background: transparent;
+    color: ${({ theme }) => theme.colors.gray[400]};
     display: flex;
     align-items: center;
-    justify-content: center;
+    transition: 0.2s all;
 
-    @media (max-width: 500px) {
-      align-items: flex-end;
-    }
-  }
-
-  .react-modal-container {
-    width: 100%;
-    max-width: 36rem;
-    background: white;
-    padding: 2.5rem;
-    position: relative;
-    border-radius: .95rem;
-
-    @media (max-width: 700px) {
-      max-width: 25rem;
+    &:hover {
+      color: ${({ theme }) => theme.colors.danger};
     }
 
     @media (max-width: 500px) {
-      max-width: 100%;
-      padding: 2rem;
-      border-radius: .95rem .95rem 0 0;
+      display: none;
     }
   }
+
 
   button:not(:hover)[disable] {
     opacity: 0.6;
