@@ -1,4 +1,3 @@
-import ReactModal from 'react-modal';
 import { useCallback, useRef } from 'react';
 import { Form } from '@unform/web';
 import { FormHandles, SubmitHandler } from '@unform/core';
@@ -7,20 +6,20 @@ import { FiCalendar, FiMail, FiPhone, FiUser } from 'react-icons/fi';
 
 import { useUpdateUserProfile } from 'hooks/user/useUpdateUserProfile';
 import { QUERY_KEY_PROFILE } from 'hooks/user/useUserProfile';
+import { Modal as ModalProfile } from 'components/Modal';
 import { User } from 'components/Illustrations/User';
 import { Input } from 'components/Input';
-import { success } from 'helpers/notify/success';
 import { Button } from 'components/Button';
+import { success } from 'helpers/notify/success';
 import { performSchemaValidation } from 'utils/performSchemaValidation';
 import { formatPhoneNumber } from 'utils/formatters/formatPhoneNumber';
 import { formatBirthDate } from 'utils/formatters/formatBirthDate';
-import { CloseModal } from 'components/CloseModal';
 
 import { UserProfileFormProps, UserProfileProps } from './types';
 import { schema } from './schemas';
 import * as S from './styles';
 
-export function Modal({ isOpen, onRequestClose }: UserProfileProps) {
+export function Modal({ onRequestClose }: UserProfileProps) {
   const { mutateAsync: updateUserProfile, isLoading: loading } =
     useUpdateUserProfile();
 
@@ -57,12 +56,7 @@ export function Modal({ isOpen, onRequestClose }: UserProfileProps) {
     );
 
   return (
-    <ReactModal
-      isOpen={isOpen}
-      onRequestClose={onRequestClose}
-      overlayClassName="react-modal-overlay"
-      className="react-modal-container"
-    >
+    <ModalProfile onClose={onRequestClose}>
       <S.UserInformation>
         <S.TextContent>
           <User width="18" height="20" color="#BBBBBB" />
@@ -107,9 +101,8 @@ export function Modal({ isOpen, onRequestClose }: UserProfileProps) {
           <Button type="submit" loading={loading} disabled={loading}>
             Confirmar Alterações
           </Button>
-          <CloseModal onClick={onRequestClose} />
         </S.PersonalInformationForm>
       </S.UserInformation>
-    </ReactModal>
+    </ModalProfile>
   );
 }

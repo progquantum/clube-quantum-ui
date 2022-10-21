@@ -14,10 +14,10 @@ import { CreditCardProps } from './types';
 import * as S from './styles';
 
 export function CreditCard({ user, loading }: CreditCardProps) {
-  const [isNewModalOpen, setIsNewModalOpen] = useState(false);
+  const [showModal, setShowModal] = useState(false);
 
-  const handleNewCreditCardModal = () => {
-    setIsNewModalOpen(prevState => !prevState);
+  const handleRequestModal = () => {
+    setShowModal(prevState => !prevState);
   };
 
   const { colors } = useTheme();
@@ -50,7 +50,7 @@ export function CreditCard({ user, loading }: CreditCardProps) {
               <VISAIcon width="80" height="43" />
             </S.CardDetails>
 
-            <Button onClick={handleNewCreditCardModal}>Atualizar cartão</Button>
+            <Button onClick={handleRequestModal}>Atualizar cartão</Button>
           </>
         ) : (
           <>
@@ -68,10 +68,7 @@ export function CreditCard({ user, loading }: CreditCardProps) {
         )}
       </S.Content>
 
-      <ModalCreditCard
-        isOpen={isNewModalOpen}
-        onRequestNewCreditCardModal={handleNewCreditCardModal}
-      />
+      {showModal && <ModalCreditCard onRequestClose={handleRequestModal} />}
     </>
   );
 }

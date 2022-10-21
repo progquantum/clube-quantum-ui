@@ -1,8 +1,8 @@
 export type ModalBankAccountProps = {
-  isOpen: boolean;
   onRequestClose: () => void;
   onRefetch?: () => void;
   onRequestNewModal: () => void;
+  isOpen: boolean;
 };
 
 export type ModalBankAccountFormProps = {
