@@ -50,6 +50,7 @@ export function Modal({ children, onClose }: ModalProps) {
         dragElastic={DRAG_ELASTIC_ANIMATION}
         dragConstraints={DRAG_CONSTRAINTS_ANIMATION}
         ref={modalRef}
+        key="modal"
       >
         <button
           type="button"
