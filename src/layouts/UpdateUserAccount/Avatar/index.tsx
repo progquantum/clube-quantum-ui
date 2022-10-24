@@ -19,7 +19,7 @@ export function UploadAvatar() {
         <h2>Foto do Perfil</h2>
         <Edit width="15" height="15" color="#fff" />
       </S.EditAvatar>
-      <Avatar width="160" height="160" />
+      <Avatar width="200" height="200" />
       {showModal && <Modal onRequestClose={handleRequestModal} />}
     </S.Container>
   );

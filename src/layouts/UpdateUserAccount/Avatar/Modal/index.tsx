@@ -73,9 +73,9 @@ export function Modal({ onRequestClose }: avatarModalProps) {
         {isUserAvatar ? (
           <Image
             src={isUserAvatar}
-            width={192}
-            height={192}
-            object-fit="cover"
+            width={200}
+            height={200}
+            objectFit="cover"
             style={avatarPreviewBorderRadius}
           />
         ) : (
