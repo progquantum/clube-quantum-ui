@@ -14,7 +14,7 @@ export const DRAG_CONSTRAINTS_ANIMATION = {
   bottom: 0,
 };
 
-export const TRANSITION_PROPS = {
+export const DEFAULT_TRANSITION = {
   type: 'spring',
   stiffness: 500,
   damping: 30,

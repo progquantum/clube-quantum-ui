@@ -7,7 +7,7 @@ import { FiCalendar, FiCreditCard, FiUser, FiLock } from 'react-icons/fi';
 import noop from 'lodash.noop';
 
 import { useUpdateCreditCard } from 'hooks/useUpdateCreditCard';
-import { QUERY_KEY_FIND_BILLING } from 'hooks/useWallet';
+import { QUERY_KEY_WALLET } from 'hooks/useWallet';
 import { formatCreditCardAddSpace } from 'utils/formatters/formatCreditCardAddSpace';
 import { formatCreditCardExpiration } from 'utils/formatters/formatCreditCardExpiration';
 import { performSchemaValidation } from 'utils/performSchemaValidation';
@@ -49,7 +49,7 @@ export function ModalCreditCard({ onRequestClose }: ModalCreditCardProps) {
           },
           {
             onSuccess: () => {
-              queryClient.invalidateQueries(QUERY_KEY_FIND_BILLING);
+              queryClient.invalidateQueries(QUERY_KEY_WALLET);
               onRequestClose();
             },
           },
