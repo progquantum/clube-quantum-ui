@@ -6,7 +6,6 @@ import { ManagePlans } from 'components/ManagePlans';
 import { Error } from 'components/Error';
 import { Footer } from 'components/Footer';
 import { Header } from 'components/Header';
-import { SideBar } from 'components/SideBar';
 import { Successful } from 'components/Successful';
 import { Plans } from 'components/Plans';
 import { useAuthState } from 'contexts/auth/AuthContext';

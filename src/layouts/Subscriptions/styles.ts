@@ -4,7 +4,7 @@ export const Main = styled.main`
   display: flex;
   align-items: flex-start;
   justify-content: center;
-  margin: 5rem auto;
+  margin: 2rem auto;
   width: 100%;
   gap: 1.87rem;
 

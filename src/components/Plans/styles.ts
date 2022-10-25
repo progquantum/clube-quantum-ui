@@ -1,7 +1,6 @@
 import styled, { css } from 'styled-components';
-import { IoMdCheckbox } from 'react-icons/io';
-import { MdDoNotDisturbOn } from 'react-icons/md';
-import { BiInfoCircle } from 'react-icons/bi';
+import { VscChromeClose } from 'react-icons/vsc';
+import { FaCheck } from 'react-icons/fa';
 
 import { Active } from './types';
 
@@ -59,7 +58,9 @@ export const PlansWrapper = styled.div`
   width: 100%;
   padding: 2px;
   border-radius: 0.625rem;
-  border: 2px solid ${({ theme }) => theme.colors.midnightBlue};
+  background: ${({ theme }) => theme.gradients.midnightBlueToMediumsLateBlue};
+  border: 2px solid
+    ${({ theme }) => theme.gradients.midnightBlueToMediumsLateBlue};
 
   display: flex;
   align-items: center;
@@ -77,7 +78,7 @@ export const Title = styled.h2`
 export const PlanType = styled.h4<Active>`
   width: 100%;
   text-align: center;
-  color: ${({ theme }) => theme.colors.midnightBlue};
+  color: ${({ theme }) => theme.colors.white};
   border-radius: 0.625rem;
   cursor: pointer;
   font-size: 0.875rem;
@@ -87,8 +88,8 @@ export const PlanType = styled.h4<Active>`
   ${props =>
     props.isActive &&
     css`
-      background-color: ${({ theme }) => theme.colors.midnightBlue};
-      color: #ffffff;
+      background-color: ${({ theme }) => theme.colors.white};
+      color: ${({ theme }) => theme.colors.midnightBlue};
     `}
 
   @media (max-width: 525px) {
@@ -102,12 +103,14 @@ export const Button = styled.button<Active>`
   color: ${({ theme }) => theme.colors.white};
   font-size: 0.75rem;
   font-weight: 500;
+  margin-top: 1.5625rem;
 
   ${props =>
     props.isActive &&
     css`
-      background: ${({ theme }) =>
-        theme.gradients.midnightBlueToMediumsLateBlue};
+      background: ${({ theme }) => theme.colors.background};
+      color: ${({ theme }) => theme.colors.midnightBlue};
+      font-weight: 600;
     `}
 `;
 export const PlansContents = styled.section`
@@ -125,7 +128,7 @@ export const PlansContents = styled.section`
 `;
 export const PlanContentsWrapper = styled.div<Active>`
   width: 100%;
-  padding: 3.75rem 1.875rem 5rem;
+  padding: 2.75rem 1.875rem;
   background: #ffffff;
   box-shadow: 2px 4px 20px rgba(0, 0, 0, 0.15);
   border-radius: 15px;
@@ -136,7 +139,7 @@ export const PlanContentsWrapper = styled.div<Active>`
 
   h2 {
     font-size: 1.25rem;
-    margin: 1.5625rem 0 2.1875rem;
+    margin-top: 1.5625rem;
     color: ${({ theme }) => theme.colors.midnightBlue};
   }
 
@@ -151,10 +154,24 @@ export const PlanContentsWrapper = styled.div<Active>`
   ${props =>
     props.isActive &&
     css`
+      background: ${({ theme }) =>
+        theme.gradients.midnightBlueToMediumsLateBlue};
       box-shadow: 2px 4px 20px rgba(0, 31, 128, 0.25);
       transform: scale(1.1);
       margin: 0 1.25rem;
       transition: 0.4s;
+
+      h3 {
+        color: ${({ theme }) => theme.colors.white};
+      }
+
+      p {
+        color: ${({ theme }) => theme.colors.white};
+      }
+
+      h2 {
+        color: ${({ theme }) => theme.colors.white};
+      }
 
       @media (max-width: 1320px) {
         transform: scale(1.05, 1);
@@ -169,7 +186,7 @@ export const TitlePlan = styled.h3`
   text-align: center;
   margin-bottom: 0.625rem;
 `;
-export const PlanItemsList = styled.ul`
+export const PlanItemsList = styled.ul<Active>`
   margin-top: 3.125rem;
 
   li {
@@ -189,22 +206,38 @@ export const PlanItemsList = styled.ul`
       margin-right: 0.5rem;
     }
   }
+
+  ${props =>
+    props.isActive &&
+    css`
+      li {
+        div {
+          color: ${({ theme }) => theme.colors.white};
+          span {
+            svg {
+              color: ${({ theme }) => theme.colors.white};
+            }
+          }
+        }
+      }
+    `}
 `;
 export const PlanItem = styled.div`
   margin-right: 0.3125rem;
   display: flex;
-  align-items: center;
+  align-items: stretch;
 `;
-export const CheckedCheckBox = styled(IoMdCheckbox)`
-  font-size: 1.3rem;
+
+export const PlanItemNotIncluded = styled(PlanItem)`
+  gap: 8px;
+  p {
+    color: ${({ theme }) => theme.colors.gray[200]};
+  }
+`;
+export const IconChecked = styled(FaCheck)`
   color: ${({ theme }) => theme.colors.midnightBlue};
 `;
-export const NotIncludedIcon = styled(MdDoNotDisturbOn)`
-  font-size: 1.3rem;
-  color: ${({ theme }) => theme.colors.gray[200]};
-`;
-export const InfoIcon = styled(BiInfoCircle)`
-  font-size: 0.625rem;
-  display: flex;
-  align-items: flex-start;
+export const NotIncludedIcon = styled(VscChromeClose)`
+  font-size: 1rem;
+  color: ${({ theme }) => theme.colors.gray[300]};
 `;

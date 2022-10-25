@@ -105,6 +105,7 @@ export function Plans({ children, button }: PlansProps) {
 
   return (
     <S.Container>
+      {children}
       <S.Wrapper>
         <S.Title>Selecione o período de pagamento</S.Title>
 
@@ -124,7 +125,7 @@ export function Plans({ children, button }: PlansProps) {
         </S.PlansWrapper>
         <S.Subtitle>Renovação feita de forma automática</S.Subtitle>
       </S.Wrapper>
-      {children}
+
       <S.PlansContents>
         <S.PlanContentsWrapper
           isActive={selectedPlan === 'free'}
@@ -135,83 +136,56 @@ export function Plans({ children, button }: PlansProps) {
           <S.TitlePlan>
             {formatFirstLetterToUppercase(planFree.name)}
           </S.TitlePlan>
-          <S.Text>
-            Plano com um custo acessível e que te dá mais benefícios.
-          </S.Text>
+          <S.Text>Benefícios Quantum e Cashback sem pagar nada.</S.Text>
           <h2>R$ 0,00</h2>
+
+          <S.PlanItemsList isActive={selectedPlan === 'free'}>
+            <li>
+              <S.PlanItem>
+                <span>
+                  <S.IconChecked />
+                </span>
+                CashBack sobre as transações com o cartão Banco Um
+              </S.PlanItem>
+            </li>
+            <li>
+              <S.PlanItem>
+                <span>
+                  <S.IconChecked />
+                </span>
+                Ganho por indicação direta
+              </S.PlanItem>
+            </li>
+            <li>
+              <S.PlanItemNotIncluded>
+                <S.NotIncludedIcon />
+                <p>Ganhos por indicados indiretos</p>
+              </S.PlanItemNotIncluded>
+            </li>
+            <li>
+              <S.PlanItemNotIncluded>
+                <S.NotIncludedIcon />
+                <p>Programa de Fidelidade Quantum</p>
+              </S.PlanItemNotIncluded>
+            </li>
+            <li>
+              <S.PlanItemNotIncluded>
+                <S.NotIncludedIcon />
+                <p>Ganhos por indicados diretos</p>
+              </S.PlanItemNotIncluded>
+            </li>
+            <li>
+              <S.PlanItemNotIncluded>
+                <S.NotIncludedIcon />
+                <p>Comissões</p>
+              </S.PlanItemNotIncluded>
+            </li>
+          </S.PlanItemsList>
           <S.Button isActive={selectedPlan === 'free'}>
             {selectedPlan === 'free'
               ? 'Plano Escolhido'
               : 'Escolher este plano'}
           </S.Button>
-          <S.PlanItemsList>
-            <li>
-              <S.PlanItem>
-                <span>
-                  <S.CheckedCheckBox />
-                </span>
-                CashBack sobre as transações com o cartão Banco Um
-              </S.PlanItem>
-              <span>
-                <S.InfoIcon />
-              </span>
-            </li>
-            <li>
-              <S.PlanItem>
-                <span>
-                  <S.CheckedCheckBox />
-                </span>
-                Ganho por indicação direta
-              </S.PlanItem>
-              <span>
-                <S.InfoIcon />
-              </span>
-            </li>
-            <li>
-              <S.PlanItem>
-                <span>
-                  <S.NotIncludedIcon />
-                </span>
-                Ganhos por indicados indiretos
-              </S.PlanItem>
-              <span>
-                <S.InfoIcon />
-              </span>
-            </li>
-            <li>
-              <S.PlanItem>
-                <span>
-                  <S.NotIncludedIcon />
-                </span>
-                Programa de Fidelidade Quantum
-              </S.PlanItem>
-              <span>
-                <S.InfoIcon />
-              </span>
-            </li>
-            <li>
-              <S.PlanItem>
-                <span>
-                  <S.NotIncludedIcon />
-                </span>
-                Ganhos por indicados diretos
-              </S.PlanItem>
-              <span>
-                <S.InfoIcon />
-              </span>
-            </li>
-            <li>
-              <S.PlanItem>
-                <span>
-                  <S.NotIncludedIcon />
-                </span>
-                Comissões
-              </S.PlanItem>
-              <span>
-                <S.InfoIcon />
-              </span>
-            </li>
-          </S.PlanItemsList>
         </S.PlanContentsWrapper>
 
         <S.PlanContentsWrapper
@@ -233,79 +207,58 @@ export function Plans({ children, button }: PlansProps) {
               ? formatPrice(planStart.monthly_price)
               : formatPrice(planStart.annual_price)}
           </h2>
+
+          <S.PlanItemsList isActive={selectedPlan === 'start'}>
+            <li>
+              <S.PlanItem>
+                <span>
+                  <S.IconChecked />
+                </span>
+                CashBack sobre as transações com o cartão Banco Um
+              </S.PlanItem>
+            </li>
+            <li>
+              <S.PlanItem>
+                <span>
+                  <S.IconChecked />
+                </span>
+                Ganho por indicação direta
+              </S.PlanItem>
+            </li>
+            <li>
+              <S.PlanItem>
+                <span>
+                  <S.IconChecked />
+                </span>
+                Ganhos por indicados indiretos
+              </S.PlanItem>
+            </li>
+            <li>
+              <S.PlanItem>
+                <span>
+                  <S.IconChecked />
+                </span>
+                Programa de Fidelidade Quantum
+              </S.PlanItem>
+            </li>
+            <li>
+              <S.PlanItemNotIncluded>
+                <S.NotIncludedIcon />
+                <p>Ganhos por indicados diretos</p>
+              </S.PlanItemNotIncluded>
+            </li>
+            <li>
+              <S.PlanItemNotIncluded>
+                <S.NotIncludedIcon />
+                <p>Comissões</p>
+              </S.PlanItemNotIncluded>
+            </li>
+          </S.PlanItemsList>
           <S.Button isActive={selectedPlan === 'start'}>
             {selectedPlan === 'start'
               ? 'Plano Escolhido'
               : 'Escolher este plano'}
           </S.Button>
-          <S.PlanItemsList>
-            <li>
-              <S.PlanItem>
-                <span>
-                  <S.CheckedCheckBox />
-                </span>
-                CashBack sobre as transações com o cartão Banco Um
-              </S.PlanItem>
-              <span>
-                <S.InfoIcon />
-              </span>
-            </li>
-            <li>
-              <S.PlanItem>
-                <span>
-                  <S.CheckedCheckBox />
-                </span>
-                Ganho por indicação direta
-              </S.PlanItem>
-              <span>
-                <S.InfoIcon />
-              </span>
-            </li>
-            <li>
-              <S.PlanItem>
-                <span>
-                  <S.CheckedCheckBox />
-                </span>
-                Ganhos por indicados indiretos
-              </S.PlanItem>
-              <span>
-                <S.InfoIcon />
-              </span>
-            </li>
-            <li>
-              <S.PlanItem>
-                <span>
-                  <S.CheckedCheckBox />
-                </span>
-                Programa de Fidelidade Quantum
-              </S.PlanItem>
-              <span>
-                <S.InfoIcon />
-              </span>
-            </li>
-            <li>
-              <S.PlanItem>
-                <span>
-                  <S.NotIncludedIcon />
-                </span>
-                Ganhos por indicados diretos
-              </S.PlanItem>
-              <span>
-                <S.InfoIcon />
-              </span>
-            </li>
-            <li>
-              <S.PlanItem>
-                <span>
-                  <S.NotIncludedIcon />
-                </span>
-                Comissões
-              </S.PlanItem>
-              <span>
-                <S.InfoIcon />
-              </span>
-            </li>
-          </S.PlanItemsList>
         </S.PlanContentsWrapper>
 
         <S.PlanContentsWrapper
@@ -325,79 +278,62 @@ export function Plans({ children, button }: PlansProps) {
               ? formatPrice(planSelect.monthly_price)
               : formatPrice(planSelect.annual_price)}
           </h2>
+
+          <S.PlanItemsList isActive={selectedPlan === 'select'}>
+            <li>
+              <S.PlanItem>
+                <span>
+                  <S.IconChecked />
+                </span>
+                CashBack sobre as transações com o cartão Banco Um
+              </S.PlanItem>
+            </li>
+            <li>
+              <S.PlanItem>
+                <span>
+                  <S.IconChecked />
+                </span>
+                Ganho por indicação direta
+              </S.PlanItem>
+            </li>
+            <li>
+              <S.PlanItem>
+                <span>
+                  <S.IconChecked />
+                </span>
+                Ganhos por indicados indiretos
+              </S.PlanItem>
+            </li>
+            <li>
+              <S.PlanItem>
+                <span>
+                  <S.IconChecked />
+                </span>
+                Programa de Fidelidade Quantum
+              </S.PlanItem>
+            </li>
+            <li>
+              <S.PlanItem>
+                <span>
+                  <S.IconChecked />
+                </span>
+                Ganhos por indicados diretos
+              </S.PlanItem>
+            </li>
+            <li>
+              <S.PlanItem>
+                <span>
+                  <S.IconChecked />
+                </span>
+                Comissões
+              </S.PlanItem>
+            </li>
+          </S.PlanItemsList>
           <S.Button isActive={selectedPlan === 'select'}>
             {selectedPlan === 'select'
               ? 'Plano Escolhido'
               : 'Escolher este plano'}
           </S.Button>
-          <S.PlanItemsList>
-            <li>
-              <S.PlanItem>
-                <span>
-                  <S.CheckedCheckBox />
-                </span>
-                CashBack sobre as transações com o cartão Banco Um
-              </S.PlanItem>
-              <span>
-                <S.InfoIcon />
-              </span>
-            </li>
-            <li>
-              <S.PlanItem>
-                <span>
-                  <S.CheckedCheckBox />
-                </span>
-                Ganho por indicação direta
-              </S.PlanItem>
-              <span>
-                <S.InfoIcon />
-              </span>
-            </li>
-            <li>
-              <S.PlanItem>
-                <span>
-                  <S.CheckedCheckBox />
-                </span>
-                Ganhos por indicados indiretos
-              </S.PlanItem>
-              <span>
-                <S.InfoIcon />
-              </span>
-            </li>
-            <li>
-              <S.PlanItem>
-                <span>
-                  <S.CheckedCheckBox />
-                </span>
-                Programa de Fidelidade Quantum
-              </S.PlanItem>
-              <span>
-                <S.InfoIcon />
-              </span>
-            </li>
-            <li>
-              <S.PlanItem>
-                <span>
-                  <S.CheckedCheckBox />
-                </span>
-                Ganhos por indicados diretos
-              </S.PlanItem>
-              <span>
-                <S.InfoIcon />
-              </span>
-            </li>
-            <li>
-              <S.PlanItem>
-                <span>
-                  <S.CheckedCheckBox />
-                </span>
-                Comissões
-              </S.PlanItem>
-              <span>
-                <S.InfoIcon />
-              </span>
-            </li>
-          </S.PlanItemsList>
         </S.PlanContentsWrapper>
       </S.PlansContents>
 
