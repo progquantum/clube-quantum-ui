@@ -54,7 +54,7 @@ export const Content = styled.section`
     }
   }
 
-  form {
+  .form {
     margin: 40px 0;
     width: 50%;
     text-align: center;

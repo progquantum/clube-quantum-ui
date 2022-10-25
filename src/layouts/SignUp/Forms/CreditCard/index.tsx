@@ -45,7 +45,7 @@ export function CreditCard({
       backgroundImage="/images/signup.png"
       title="Insira um cartão Banco Um"
     >
-      <Form ref={formRef} onSubmit={handleSubmitCreditCard}>
+      <Form ref={formRef} onSubmit={handleSubmitCreditCard} className="form">
         <Input
           type="text"
           name="card_name"
@@ -90,10 +90,11 @@ export function CreditCard({
         />
 
         <Button type="submit">Continuar</Button>
+        <S.JumpStepButton onClick={onNavigateToSuccessfulSignUp}>
+          Pular etapa
+        </S.JumpStepButton>
       </Form>
-      <S.JumpStepButton onClick={onNavigateToSuccessfulSignUp}>
-        Pular etapa
-      </S.JumpStepButton>
+
       <button type="button" onClick={onPreviousFormStep}>
         <FiLogOut />
         Voltar

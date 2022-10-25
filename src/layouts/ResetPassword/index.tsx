@@ -33,12 +33,10 @@ export function ResetPasswordPage() {
           schema,
         })
           .then(() => {
-            const { password } = data;
-
             resetPassword(
               {
                 code: inviteCode,
-                password,
+                password: data.password,
               },
               {
                 onSuccess: () => {
@@ -60,7 +58,7 @@ export function ResetPasswordPage() {
       title="Redefinir senha"
       description="Por favor, digite sua nova senha abaixo."
     >
-      <Form ref={formRef} onSubmit={handleResetPassword}>
+      <Form ref={formRef} onSubmit={handleResetPassword} className="form">
         <Input
           typePassword
           name="password"
