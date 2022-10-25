@@ -13,5 +13,6 @@ export const CONTACT_US_PAGE = '/contact-us';
 
 export const RESET_PASSWORD_PAGE = '/reset-password';
 export const FORGOT_PASSWORD_PAGE = '/forgot-password';
+export const REQUEST_PASSWORD_RESET_SUCCESS = '/request-password-reset-success';
 
 export const INVITE_NOT_FOUND_PAGE = '/invite-not-found';
