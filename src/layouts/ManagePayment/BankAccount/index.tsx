@@ -5,7 +5,7 @@ import { BancoUm } from 'components/Illustrations/BancoUm';
 import { Button } from 'components/Button';
 
 import { Skeleton } from '../Skeleton';
-import { ModalBankAccount } from './ModalBankAccount';
+import { Modal } from './Modal';
 import { BankAccountProps } from './types';
 import * as S from './styles';
 
@@ -71,7 +71,7 @@ export function BankAccount({ user, loading }: BankAccountProps) {
           <Button onClick={handleRequestModal}>Cadastrar conta bancária</Button>
         </>
       )}
-      <ModalBankAccount
+      <Modal
         isOpen={showModal}
         onRequestClose={handleRequestModal}
         onRequestNewModal={() => setShowModal(prevState => !prevState)}

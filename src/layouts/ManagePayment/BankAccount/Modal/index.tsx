@@ -10,7 +10,7 @@ import noop from 'lodash.noop';
 import { Input } from 'components/Input';
 import { BancoUm } from 'components/Illustrations/BancoUm';
 import { Button } from 'components/Button';
-import { Modal } from 'components/Modal';
+import { Modal as ModalBankAccount } from 'components/Modal';
 import { formatBankAccount } from 'utils/formatters/formatBankAccount';
 import { performSchemaValidation } from 'utils/performSchemaValidation';
 import { useRegisterBankAccount } from 'hooks/useRegisterBankAccount';
@@ -24,7 +24,7 @@ import {
 import { schema } from './schemas';
 import * as S from './styles';
 
-export function ModalBankAccount({
+export function Modal({
   onRequestClose,
   onRequestNewModal,
   isOpen,
@@ -97,7 +97,7 @@ export function ModalBankAccount({
   return (
     <>
       {isOpen && (
-        <Modal onClose={onRequestClose}>
+        <ModalBankAccount onClose={onRequestClose}>
           <S.YourAccount>
             <BancoUm color={colors.gray[200]} width="22" height="16" />
             <S.ContentTitle>Sua conta Banco Um</S.ContentTitle>
@@ -142,56 +142,51 @@ export function ModalBankAccount({
             </S.InfoText>
             <S.ButtonContinue type="submit">Confirmar</S.ButtonContinue>
           </S.BankingAccountForm>
-        </Modal>
+        </ModalBankAccount>
       )}
 
       {showNewModal && (
-        <Modal onClose={handleCloseNewConfirmModal}>
-          <>
-            <S.YourConfirmAccount>
-              <BancoUm color={colors.mediumslateBlue} width="22" height="16" />
-              <S.ContentConfirmAccount>
-                Sua conta Banco Um
-              </S.ContentConfirmAccount>
-            </S.YourConfirmAccount>
+        <ModalBankAccount onClose={handleCloseNewConfirmModal}>
+          <S.YourConfirmAccount>
+            <BancoUm color={colors.mediumslateBlue} width="22" height="16" />
+            <S.ContentConfirmAccount>
+              Sua conta Banco Um
+            </S.ContentConfirmAccount>
+          </S.YourConfirmAccount>
 
-            <S.BankingConfirmData>
-              <S.BankingConfirmAccount>
-                <S.TitleContent>Cód. Banco</S.TitleContent>
+          <S.BankingConfirmData>
+            <S.BankingConfirmAccount>
+              <S.TitleContent>Cód. Banco</S.TitleContent>
 
-                <S.TextConfirmAccount>396 - Banco Um</S.TextConfirmAccount>
-              </S.BankingConfirmAccount>
+              <S.TextConfirmAccount>396 - Banco Um</S.TextConfirmAccount>
+            </S.BankingConfirmAccount>
 
-              <S.BankingConfirmAccount>
-                <S.TitleContent>Agência</S.TitleContent>
-                <S.TextConfirmAccount>0001</S.TextConfirmAccount>
-              </S.BankingConfirmAccount>
+            <S.BankingConfirmAccount>
+              <S.TitleContent>Agência</S.TitleContent>
+              <S.TextConfirmAccount>0001</S.TextConfirmAccount>
+            </S.BankingConfirmAccount>
 
-              <S.BankingConfirmAccount>
-                <S.TitleContent>Conta</S.TitleContent>
-                <S.TextConfirmAccount>
-                  {bankAccountData?.current_account}
-                </S.TextConfirmAccount>
-              </S.BankingConfirmAccount>
+            <S.BankingConfirmAccount>
+              <S.TitleContent>Conta</S.TitleContent>
+              <S.TextConfirmAccount>
+                {bankAccountData?.current_account}
+              </S.TextConfirmAccount>
+            </S.BankingConfirmAccount>
 
-              <S.BankingConfirmAccount>
-                <S.TitleContent>Titular</S.TitleContent>
-                <S.TextConfirmAccount>
-                  {bankAccountData?.holder_name}
-                </S.TextConfirmAccount>
-              </S.BankingConfirmAccount>
-            </S.BankingConfirmData>
-            <S.ButtonContinue
-              onClick={handlePostBankAccount}
-              loading={isLoading}
-            >
-              Finalizar
-            </S.ButtonContinue>
-            <Button variant="danger_outline" onClick={handleRequestNewModal}>
-              Voltar
-            </Button>
-          </>
-        </Modal>
+            <S.BankingConfirmAccount>
+              <S.TitleContent>Titular</S.TitleContent>
+              <S.TextConfirmAccount>
+                {bankAccountData?.holder_name}
+              </S.TextConfirmAccount>
+            </S.BankingConfirmAccount>
+          </S.BankingConfirmData>
+          <S.ButtonContinue onClick={handlePostBankAccount} loading={isLoading}>
+            Finalizar
+          </S.ButtonContinue>
+          <Button variant="danger_outline" onClick={handleRequestNewModal}>
+            Voltar
+          </Button>
+        </ModalBankAccount>
       )}
     </>
   );

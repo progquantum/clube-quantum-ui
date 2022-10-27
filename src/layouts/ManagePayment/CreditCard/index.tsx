@@ -9,7 +9,7 @@ import { Button } from 'components/Button';
 import { VISAIcon } from 'components/Illustrations/Visa';
 
 import { Skeleton } from '../Skeleton';
-import { ModalCreditCard } from './ModalCreditCard';
+import { Modal } from './Modal';
 import { CreditCardProps } from './types';
 import * as S from './styles';
 
@@ -68,7 +68,7 @@ export function CreditCard({ user, loading }: CreditCardProps) {
         )}
       </S.Content>
 
-      {showModal && <ModalCreditCard onRequestClose={handleRequestModal} />}
+      {showModal && <Modal onRequestClose={handleRequestModal} />}
     </>
   );
 }

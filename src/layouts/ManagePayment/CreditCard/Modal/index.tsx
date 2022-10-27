@@ -16,13 +16,13 @@ import { formatCVV } from 'utils/formatters/formatCVV';
 import { CreditCardIcon } from 'components/Illustrations/CreditCard';
 import { Input } from 'components/Input';
 import { Button } from 'components/Button';
-import { Modal } from 'components/Modal';
+import { Modal as ModalCreditCard } from 'components/Modal';
 
 import { schema } from './schemas';
 import { ModalCreditCardProps, ModalCreditCardFormProps } from './types';
 import * as S from './styles';
 
-export function ModalCreditCard({ onRequestClose }: ModalCreditCardProps) {
+export function Modal({ onRequestClose }: ModalCreditCardProps) {
   const { mutateAsync: postCreditCard, isLoading: loading } =
     useUpdateCreditCard();
   const { colors } = useTheme();
@@ -59,7 +59,7 @@ export function ModalCreditCard({ onRequestClose }: ModalCreditCardProps) {
   };
 
   return (
-    <Modal onClose={onRequestClose}>
+    <ModalCreditCard onClose={onRequestClose}>
       <S.YourAccount>
         <CreditCardIcon color={colors.gray[100]} width="20" height="14" />
         <S.ContentTitle>Atualizar cartão</S.ContentTitle>
@@ -120,6 +120,6 @@ export function ModalCreditCard({ onRequestClose }: ModalCreditCardProps) {
           Confirmar
         </Button>
       </S.CreditCardForm>
-    </Modal>
+    </ModalCreditCard>
   );
 }
