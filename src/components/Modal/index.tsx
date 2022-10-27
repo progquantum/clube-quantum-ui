@@ -1,5 +1,5 @@
 import { AnimatePresence, PanInfo, useAnimation } from 'framer-motion';
-import React, { useEffect, useRef } from 'react';
+import React, { PropsWithChildren, useEffect, useRef } from 'react';
 import { RiCloseLine } from 'react-icons/ri';
 
 import {
@@ -12,7 +12,7 @@ import {
 import { ModalProps } from './types';
 import * as S from './styles';
 
-export function Modal({ children, onClose }: ModalProps) {
+export function Modal({ children, onClose }: PropsWithChildren<ModalProps>) {
   const modalRef = useRef<HTMLDivElement>(null);
 
   const { start } = useAnimation();
@@ -54,16 +54,18 @@ export function Modal({ children, onClose }: ModalProps) {
         ref={modalRef}
         key="modal"
       >
-        <S.CloseButton
-          type="button"
-          onClick={onClose}
-          title="Fechar Modal"
-          aria-label="Fechar Modal"
-        >
-          <RiCloseLine size={24} />
-        </S.CloseButton>
-        <S.Drag title="Arraste para fechar" />
-        {children}
+        <>
+          <S.CloseButton
+            type="button"
+            onClick={onClose}
+            title="Fechar Modal"
+            aria-label="Fechar Modal"
+          >
+            <RiCloseLine size={24} />
+          </S.CloseButton>
+          <S.Drag title="Arraste para fechar" />
+          {children}
+        </>
       </S.AnimatedContainer>
       <S.AnimatedModalOverlay onClick={onClose} />
     </AnimatePresence>
