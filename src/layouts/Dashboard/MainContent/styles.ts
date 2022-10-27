@@ -33,7 +33,7 @@ export const DivMarketplace = styled.div`
   flex-wrap: wrap;
   padding: 1.875rem 2.5rem 1.875rem 1.875rem;
   gap: 0.625rem;
-  border-radius: 0.9375rem;
+  border-radius: 0.625rem;
 
   @media (max-width: 1024px) {
     width: 27.0625rem;
@@ -44,6 +44,7 @@ export const DivMarketplace = styled.div`
     width: 20.625rem;
   }
 `;
+
 export const ItemMarket = styled.div`
   display: flex;
   flex-direction: column;
@@ -51,24 +52,40 @@ export const ItemMarket = styled.div`
   justify-content: center;
   gap: 0.625rem;
   cursor: not-allowed;
+
+  > svg {
+    font-size: 2rem;
+    color: ${({ theme }) => theme.colors.mediumslateblue};
+    background: ${({ theme }) => theme.colors.lightsteelblueice};
+    padding: 4px;
+    border-radius: 50%;
+  }
 `;
+
 export const AccessMarket = styled.div`
   display: flex;
   flex-direction: column;
   align-items: flex-start;
   gap: 1.25rem;
 `;
+
 export const HeaderAccessMarket = styled.div`
   display: flex;
   flex-direction: row;
   gap: 0.625rem;
+
+  > svg {
+    color: ${({ theme }) => theme.colors.lightsteelblueice};
+  }
 `;
+
 export const MarketText = styled.p`
   font-weight: 500;
   font-size: 0.75rem;
   line-height: 0.9375rem;
   color: ${({ theme }) => theme.colors.lightsteelblueice};
 `;
+
 export const ComingSoon = styled.span`
   position: absolute;
   top: -20px;
@@ -86,6 +103,7 @@ export const ComingSoon = styled.span`
     left: -12px;
   }
 `;
+
 export const ButtonMarketplace = styled(Button)`
   background: ${({ theme }) => theme.colors.lightsteelblueice};
   color: ${({ theme }) => theme.colors.cornflowerblue};
@@ -110,7 +128,7 @@ export const DivSelectPlan = styled.div`
   gap: 1.5rem;
   width: 21.4688rem;
   height: 15.375rem;
-  border-radius: 0.9375rem;
+  border-radius: 0.625rem;
   box-shadow: 0rem 0rem 1.25rem rgba(0, 0, 0, 0.1);
   background-color: ${({ theme }) => theme.colors.white};
 
@@ -123,7 +141,13 @@ export const DivSelectPlan = styled.div`
   }
 `;
 
-export const HeaderSelectPlan = styled(HeaderAccessMarket)``;
+export const HeaderSelectPlan = styled(HeaderAccessMarket)`
+  color: ${({ theme }) => theme.colors.gray['300']};
+  > svg {
+    font-size: 1.0625rem;
+    color: ${({ theme }) => theme.colors.gray['300']};
+  }
+`;
 
 export const TitlePlan = styled.span`
   font-weight: 500;
@@ -196,7 +220,7 @@ export const DivInviteFriends = styled.div`
   height: 15.375rem;
   background-color: ${({ theme }) => theme.colors.mediumslateBlue};
   box-shadow: 0px 0px 20px rgba(0, 0, 0, 0.1);
-  border-radius: 0.9375rem;
+  border-radius: 0.625rem;
 
   @media (max-width: 1024px) {
     width: 27.0625rem;
@@ -207,7 +231,12 @@ export const DivInviteFriends = styled.div`
   }
 `;
 
-export const HeaderInviteFriends = styled(HeaderAccessMarket)``;
+export const HeaderInviteFriends = styled(HeaderAccessMarket)`
+  > svg {
+    font-size: 1.0625rem;
+    color: ${({ theme }) => theme.colors.white};
+  }
+`;
 
 export const TitleFriends = styled(TitlePlan)`
   color: ${({ theme }) => theme.colors.white};
