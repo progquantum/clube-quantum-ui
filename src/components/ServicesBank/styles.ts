@@ -4,39 +4,38 @@ export const Container = styled.div`
   display: grid;
   grid-template-columns: 1fr 1fr 1fr 1fr;
   place-items: center;
-  gap: 0.625rem;
   width: 100%;
-  padding: 0 0.5rem;
+  column-gap: 1rem;
+  row-gap: 1rem;
+
   background-color: ${({ theme }) => theme.colors.background};
 
   @media (max-width: 1024px) {
-    grid-template-columns: 1fr 1fr 1fr;
-  }
-  @media (max-width: 460px) {
     grid-template-columns: 1fr 1fr;
   }
 `;
 
 export const ButtonItem = styled.button`
   display: flex;
-  justify-content: center;
   align-items: center;
   flex-direction: column;
-  gap: 0.625rem;
+  justify-content: center;
+  gap: 0.6rem;
   background-color: ${({ theme }) => theme.colors.background};
-  box-shadow: 0 0 1rem rgba(0, 0, 0, 0.1);
-  border-radius: 0.313rem;
-  width: 10.7269rem;
-  height: 4.375rem;
+  box-shadow: 0rem 0rem 1rem rgba(41, 40, 40, 0.1);
+  border-radius: 0.625rem;
   cursor: pointer;
+  position: relative;
+  width: 100%;
+  height: 4.5rem;
+  padding: 0.5rem 0.5rem;
 
-  @media (max-width: 1024px) {
-    max-width: 8.5625rem;
-  }
-
-  @media (max-width: 460px) {
-    width: 100%;
-    max-width: 9.563rem;
+  > svg {
+    color: ${({ theme }) => theme.colors.mediumslateBlue};
+    font-size: 1.8rem;
+    background-color: ${({ theme }) => theme.colors.ghostwhite};
+    padding: 4px;
+    border-radius: 50%;
   }
 
   &:disabled {
@@ -47,15 +46,7 @@ export const ButtonItem = styled.button`
 `;
 
 export const Text = styled.p`
-  font-weight: 500;
-  font-size: 0.75rem;
-  line-height: 0.938rem;
-`;
-export const ButtonMarketplace = styled(ButtonItem)`
-  @media (max-width: 1024px) {
-    display: none;
-  }
-  @media (max-width: 460px) {
-    display: flex;
-  }
+  font-size: 0.8rem;
+  line-height: 1.5;
+  color: ${({ theme }) => theme.colors.gray['400']};
 `;
