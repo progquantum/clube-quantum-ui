@@ -1,4 +1,4 @@
-import { AnimatePresence, motion, PanInfo, useAnimation } from 'framer-motion';
+import { AnimatePresence, PanInfo, useAnimation } from 'framer-motion';
 import React, { useEffect, useRef } from 'react';
 import { RiCloseLine } from 'react-icons/ri';
 
@@ -6,65 +6,66 @@ import {
   DRAG_CONSTRAINTS_ANIMATION,
   DRAG_ELASTIC_ANIMATION,
   MODAL_ANIMATION,
-  TRANSITION_PROPS,
+  DEFAULT_TRANSITION,
 } from './animation';
 
 import { ModalProps } from './types';
+import * as S from './styles';
 
 export function Modal({ children, onClose }: ModalProps) {
-  const modalRef = useRef(null);
+  const modalRef = useRef<HTMLDivElement>(null);
 
-  const controls = useAnimation();
+  const { start } = useAnimation();
 
   useEffect(() => {
-    controls.start({
+    start({
       y: 0,
-      transition: TRANSITION_PROPS,
+      transition: DEFAULT_TRANSITION,
     });
   }, []);
 
-  async function handleDragEnd(_, info: PanInfo) {
+  async function handleDragEnd(_: Event, info: PanInfo) {
     const offset = info.offset.y;
     const velocity = info.velocity.y;
     const { height } = modalRef.current.getBoundingClientRect();
+
     if (offset > height / 2 || velocity > 800) {
-      await controls.start({ y: '100%', transition: TRANSITION_PROPS });
+      await start({ y: '100%', transition: DEFAULT_TRANSITION });
+
       onClose();
     } else {
-      controls.start({ y: 0, transition: TRANSITION_PROPS });
+      start({ y: 0, transition: DEFAULT_TRANSITION });
     }
   }
 
   return (
     <AnimatePresence>
-      <motion.div
-        className="modal-container"
+      <S.AnimatedContainer
         variants={MODAL_ANIMATION}
         initial="visible"
         animate="animate"
         exit="hidden"
-        transition={TRANSITION_PROPS}
+        transition={DEFAULT_TRANSITION}
         drag="y"
         dragDirectionLock
-        onDragEnd={handleDragEnd}
+        onDragEnd={(e, info) => handleDragEnd(e, info)}
         dragElastic={DRAG_ELASTIC_ANIMATION}
         dragConstraints={DRAG_CONSTRAINTS_ANIMATION}
         ref={modalRef}
         key="modal"
       >
-        <button
+        <S.CloseButton
           type="button"
           onClick={onClose}
           title="Fechar Modal"
           aria-label="Fechar Modal"
-          className="modal-close"
         >
           <RiCloseLine size={24} />
-        </button>
-        <div title="Arraste para fechar" className="drag" />
+        </S.CloseButton>
+        <S.Drag title="Arraste para fechar" />
         {children}
-      </motion.div>
-      <motion.div className="modal-overlay" onClick={onClose} />
+      </S.AnimatedContainer>
+      <S.AnimatedModalOverlay onClick={onClose} />
     </AnimatePresence>
   );
 }

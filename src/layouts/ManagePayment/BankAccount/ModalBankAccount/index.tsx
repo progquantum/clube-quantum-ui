@@ -1,7 +1,7 @@
 import { useCallback, useRef, useState } from 'react';
 import { useQueryClient } from 'react-query';
 import { Form } from '@unform/web';
-import { FormHandles } from '@unform/core';
+import { FormHandles, SubmitHandler } from '@unform/core';
 import { useTheme } from 'styled-components';
 import { AiOutlineBank } from 'react-icons/ai';
 import { FiUser } from 'react-icons/fi';
@@ -14,9 +14,13 @@ import { Modal } from 'components/Modal';
 import { formatBankAccount } from 'utils/formatters/formatBankAccount';
 import { performSchemaValidation } from 'utils/performSchemaValidation';
 import { useRegisterBankAccount } from 'hooks/useRegisterBankAccount';
-import { QUERY_KEY_FIND_BILLING } from 'hooks/useWallet';
+import { QUERY_KEY_WALLET } from 'hooks/useWallet';
 
-import { ModalBankAccountFormProps, ModalBankAccountProps } from './types';
+import {
+  BankAccount,
+  ModalBankAccountFormProps,
+  ModalBankAccountProps,
+} from './types';
 import { schema } from './schemas';
 import * as S from './styles';
 
@@ -26,14 +30,15 @@ export function ModalBankAccount({
   isOpen,
 }: ModalBankAccountProps) {
   const [showNewModal, setShowNewModal] = useState(false);
-  const [bankAccountData, setBankAccountData] = useState(null);
+  const [bankAccountData, setBankAccountData] = useState<BankAccount>(null);
 
   const { colors } = useTheme();
 
   const formRef = useRef<FormHandles>(null);
   const queryClient = useQueryClient();
 
-  const { mutateAsync: postBankAccount, isLoading } = useRegisterBankAccount();
+  const { mutateAsync: updateBankAccount, isLoading } =
+    useRegisterBankAccount();
 
   const handleRequestNewModal = () => {
     setShowNewModal(prevState => !prevState);
@@ -44,38 +49,45 @@ export function ModalBankAccount({
     setShowNewModal(false);
   };
 
-  const handleValidateBankAccount = useCallback(
-    async (data: ModalBankAccountFormProps) => {
+  const handleUpdateBankAccount = (data: ModalBankAccountFormProps) => {
+    const { current_account, holder_name, current_account_check_number } = data;
+    const account_number = data.current_account.slice(0, -2);
+    const account_digit = data.current_account.slice(-1);
+
+    setBankAccountData({
+      current_account,
+      holder_name,
+      current_account_check_number,
+      account_number,
+      account_digit,
+    });
+
+    handleRequestNewModal();
+  };
+
+  const handleSubmit: SubmitHandler<ModalBankAccountFormProps> = useCallback(
+    async data => {
       performSchemaValidation({
         formRef,
         data,
         schema,
       })
-        .then(() => {
-          const accountNumber = data.current_account.slice(0, -2);
-          const accountDigit = data.current_account.slice(-1);
-          setBankAccountData({
-            accountNumber,
-            accountDigit,
-            ...data,
-          });
-          handleRequestNewModal();
-        })
+        .then(() => handleUpdateBankAccount(data))
         .catch(noop);
     },
-    [bankAccountData],
+    [],
   );
 
   const handlePostBankAccount = () => {
-    postBankAccount(
+    updateBankAccount(
       {
-        current_account: bankAccountData.accountNumber,
-        current_account_check_number: bankAccountData.accountDigit,
+        current_account: bankAccountData.account_number,
+        current_account_check_number: bankAccountData.account_digit,
         holder_name: bankAccountData.holder_name,
       },
       {
         onSuccess: () => {
-          queryClient.invalidateQueries(QUERY_KEY_FIND_BILLING);
+          queryClient.invalidateQueries(QUERY_KEY_WALLET);
           handleCloseNewConfirmModal();
         },
       },
@@ -104,11 +116,7 @@ export function ModalBankAccount({
             </S.BankingAccount>
           </S.BankingData>
 
-          <S.BankingAccountForm
-            as={Form}
-            ref={formRef}
-            onSubmit={handleValidateBankAccount}
-          >
+          <S.BankingAccountForm as={Form} ref={formRef} onSubmit={handleSubmit}>
             <Input
               type="text"
               name="current_account"
@@ -136,6 +144,7 @@ export function ModalBankAccount({
           </S.BankingAccountForm>
         </Modal>
       )}
+
       {showNewModal && (
         <Modal onClose={handleCloseNewConfirmModal}>
           <>
