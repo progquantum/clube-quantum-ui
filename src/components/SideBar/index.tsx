@@ -1,8 +1,29 @@
-import Image from 'next/image';
 import Link from 'next/link';
+import { useState } from 'react';
+import { BiUserPin } from 'react-icons/bi';
+import {
+  RiArrowDownSLine,
+  RiArrowUpSLine,
+  RiDraftLine,
+  RiHome6Line,
+  RiLock2Line,
+  RiShoppingBasket2Line,
+  RiUserStarLine,
+} from 'react-icons/ri';
+import { FiLogOut } from 'react-icons/fi';
 
-import { DASHBOARD_PAGE, UPDATE_USER_ACCOUNT_PAGE } from 'constants/routesPath';
+import { useRouter } from 'next/router';
+
+import {
+  DASHBOARD_PAGE,
+  UPDATE_USER_ACCOUNT_PAGE,
+  INVITE_FRIENDS_PAGE,
+} from 'constants/routesPath';
 import { useAuthDispatch } from 'contexts/auth/AuthContext';
+
+import { Avatar } from 'components/Avatar';
+
+import { useUserProfile } from 'hooks/user/useUserProfile';
 
 import { Skeleton } from './Skeleton';
 import { SideBarProps } from './types';
@@ -10,118 +31,100 @@ import * as S from './styles';
 
 export function SideBar({ loading }: SideBarProps) {
   const { signOut } = useAuthDispatch();
+  const { data: user } = useUserProfile();
+  const { pathname } = useRouter();
+
+  const [showMyAccount, setShowMyAccount] = useState<boolean>(false);
+  const [showMarketplace, setShowMarketplace] = useState<boolean>(false);
 
   if (loading) return <Skeleton />;
 
   return (
     <S.Container>
       <Link href={DASHBOARD_PAGE}>
-        <S.NavButton>
-          <S.WrapImage>
-            <Image
-              width={19.15}
-              height={24}
-              src="/images/icon-my-account.svg"
-              alt="Icone Minha Conta"
-            />
-          </S.WrapImage>
+        <S.NavButton activePath={pathname === DASHBOARD_PAGE}>
+          <div>
+            <RiHome6Line />
+            Dashboard
+          </div>
+        </S.NavButton>
+      </Link>
+
+      <S.NavButton
+        onClick={() => {
+          setShowMyAccount(prevState => !prevState);
+        }}
+      >
+        <div>
+          <BiUserPin />
           Minha Conta
-        </S.NavButton>
-      </Link>
-      <Link href={UPDATE_USER_ACCOUNT_PAGE}>
+        </div>
+        {showMyAccount ? <RiArrowUpSLine /> : <RiArrowDownSLine />}
+      </S.NavButton>
+      {showMyAccount && (
+        <S.SubMenu>
+          <Link href={UPDATE_USER_ACCOUNT_PAGE}>
+            <S.SubMenuLink activePath={pathname === UPDATE_USER_ACCOUNT_PAGE}>
+              Atualizar Cadastro
+            </S.SubMenuLink>
+          </Link>
+          <S.SubMenuLink>PLanos</S.SubMenuLink>
+          <S.SubMenuLink>Extratos</S.SubMenuLink>
+          <S.SubMenuLink>Meus Amigos</S.SubMenuLink>
+        </S.SubMenu>
+      )}
+
+      <S.NavButton
+        onClick={() => {
+          setShowMarketplace(prevState => !prevState);
+        }}
+      >
+        <div>
+          <RiShoppingBasket2Line />
+          Marketplace
+        </div>
+        {showMarketplace ? <RiArrowUpSLine /> : <RiArrowDownSLine />}
+      </S.NavButton>
+      {showMarketplace && (
+        <S.SubMenu>
+          <S.SubMenuLink>Meus Pedidos</S.SubMenuLink>
+          <S.SubMenuLink>Marketplace</S.SubMenuLink>
+        </S.SubMenu>
+      )}
+      <Link href={INVITE_FRIENDS_PAGE}>
         <S.NavButton>
-          <S.WrapImage>
-            <Image
-              width={24}
-              height={24}
-              src="/images/icon-update-user.svg"
-              alt="Icone Atualizar Cadastro"
-            />
-          </S.WrapImage>
-          Atualizar Cadastro
+          <div>
+            <RiUserStarLine />
+            Convidar Amigos
+          </div>
         </S.NavButton>
       </Link>
-      <S.NavButton disabled>
-        <S.WrapImage>
-          <Image
-            width={13.5}
-            height={24}
-            src="/images/icon-bank-statement.svg"
-            alt="Icone Extratos"
-          />
-        </S.WrapImage>
-        Extratos
+
+      <S.NavButton>
+        <div>
+          <RiDraftLine />
+          Lincenças
+        </div>
       </S.NavButton>
 
-      <S.NavButton disabled>
-        <S.WrapImage>
-          <Image
-            width={24}
-            height={24}
-            src="/images/icon-my-friends.svg"
-            alt="Icone Meus Amigos"
-          />
-        </S.WrapImage>
-        Meus Amigos
+      <S.NavButton>
+        <div>
+          <RiLock2Line /> Privacidade
+        </div>
       </S.NavButton>
 
-      <S.NavButton disabled>
-        <S.WrapImage>
-          <Image
-            width={21.18}
-            height={24}
-            src="/images/icon-my-orders.svg"
-            alt="Icone Meus Pedidos"
-          />
-        </S.WrapImage>
-        Meus Pedidos
-      </S.NavButton>
+      <S.User>
+        <Avatar width="35" height="35" />
+        <div>
+          <strong>{user?.name}</strong>
+          <p>{user?.email}</p>
+        </div>
+      </S.User>
 
-      <S.NavButton disabled>
-        <S.WrapImage>
-          <Image
-            width={21.6}
-            height={24}
-            src="/images/icon-plans.svg"
-            alt="Icone Planos"
-          />
-        </S.WrapImage>
-        Planos
-      </S.NavButton>
-
-      <S.NavButton disabled>
-        <S.WrapImage>
-          <Image
-            width={21.6}
-            height={24}
-            src="/images/icon-licenses.svg"
-            alt="Icone Lincenças"
-          />
-        </S.WrapImage>
-        Lincenças
-      </S.NavButton>
-
-      <S.NavButton disabled>
-        <S.WrapImage>
-          <Image
-            width={18.46}
-            height={24}
-            src="/images/icon-privacy-center.svg"
-            alt="Icone Central de Privacidade"
-          />
-        </S.WrapImage>
-        Central de Privacidade
-      </S.NavButton>
-
-      <S.SignOutButton variant="danger" onClick={signOut}>
+      <S.SignOut onClick={signOut}>
         Sair
-        <Image
-          width={16}
-          height={16}
-          src="/images/icon-logout.svg"
-          alt="Icone Sair"
-        />
-      </S.SignOutButton>
+        <FiLogOut />
+      </S.SignOut>
     </S.Container>
   );
 }
