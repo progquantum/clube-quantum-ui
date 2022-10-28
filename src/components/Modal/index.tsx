@@ -1,5 +1,5 @@
 import { AnimatePresence, PanInfo, useAnimation } from 'framer-motion';
-import React, { PropsWithChildren, useEffect, useRef } from 'react';
+import { PropsWithChildren, useEffect, useRef } from 'react';
 import { RiCloseLine } from 'react-icons/ri';
 
 import {
@@ -63,7 +63,7 @@ export function Modal({ children, onClose }: PropsWithChildren<ModalProps>) {
           >
             <RiCloseLine size={24} />
           </S.CloseButton>
-          <S.Drag title="Arraste para fechar" />
+          <S.Drag />
           {children}
         </>
       </S.AnimatedContainer>

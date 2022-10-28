@@ -33,7 +33,7 @@ export function CNPJ({ onUpdateFormStep }: CNPJProps) {
 
   return (
     <AuthLayout backgroundImage="/images/signup.png" title="Insira seu CNPJ">
-      <Form ref={formRef} onSubmit={handleSignUp}>
+      <Form ref={formRef} onSubmit={handleSignUp} className="form">
         <Input
           type="text"
           inputMode="numeric"

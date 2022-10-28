@@ -41,7 +41,7 @@ export function BankAccount({
       backgroundImage="/images/signup.png"
       title="Insira uma conta bancária"
     >
-      <Form ref={formRef} onSubmit={handleBankAccountSubmit}>
+      <Form ref={formRef} onSubmit={handleBankAccountSubmit} className="form">
         <S.Content>
           <S.BankDataTitle>Cod. Banco</S.BankDataTitle>
           <S.BankDataTitle>Agência</S.BankDataTitle>
@@ -71,7 +71,7 @@ export function BankAccount({
         />
         <S.BankInfo>
           A conta a ser cadastrada deve ser a conta Banco Um na qual o CPF/CNPJ,
-          informado anteriormente, está vinculado.
+          informado anteriormente está vinculado.
         </S.BankInfo>
 
         <Button type="submit">Continuar</Button>

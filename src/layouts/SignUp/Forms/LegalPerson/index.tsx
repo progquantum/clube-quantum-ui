@@ -35,7 +35,7 @@ export function LegalPerson({
 
   return (
     <AuthLayout backgroundImage="/images/signup.png" title="Insira seu CNPJ">
-      <Form ref={formRef} onSubmit={handleSignUp}>
+      <Form ref={formRef} onSubmit={handleSignUp} className="form">
         <Input
           type="text"
           name="company_name"
