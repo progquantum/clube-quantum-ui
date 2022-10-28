@@ -85,7 +85,7 @@ export function Plans({ children, button }: PlansProps) {
   useEffect(() => {
     // eslint-disable-next-line @typescript-eslint/no-use-before-define
     handleRegisterPlan();
-  }, [price]);
+  }, [price, selectedPeriod]);
 
   const handleRegisterPlan = () => {
     registerPlan({
