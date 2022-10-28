@@ -2,14 +2,14 @@ import { useCallback, useRef, useState } from 'react';
 import { Form } from '@unform/web';
 import { useQueryClient } from 'react-query';
 import { FormHandles } from '@unform/core';
-import { useTheme } from 'styled-components';
 import { AiOutlineBank } from 'react-icons/ai';
 import { FiUser } from 'react-icons/fi';
 import Modal from 'react-modal';
 import noop from 'lodash.noop';
 
+import { RiBankLine } from 'react-icons/ri';
+
 import { Input } from 'components/Input';
-import { BancoUm } from 'components/Illustrations/BancoUm';
 import { formatBankAccount } from 'utils/formatters/formatBankAccount';
 import { performSchemaValidation } from 'utils/performSchemaValidation';
 import { useRegisterBankAccount } from 'hooks/useRegisterBankAccount';
@@ -29,8 +29,6 @@ export function ModalBankAccount({
 }: ModalBankAccountProps) {
   const [newConfirmModal, setNewConfirmModal] = useState(false);
   const [bankAccountData, setBankAccountData] = useState(null);
-
-  const { colors } = useTheme();
 
   const formRef = useRef<FormHandles>(null);
   const queryClient = useQueryClient();
@@ -93,7 +91,7 @@ export function ModalBankAccount({
         className="react-modal-container"
       >
         <S.YourAccount>
-          <BancoUm color={colors.gray[200]} width="22" height="16" />
+          <RiBankLine />
           <S.ContentTitle>Sua conta Banco Um</S.ContentTitle>
         </S.YourAccount>
 
@@ -151,7 +149,7 @@ export function ModalBankAccount({
       >
         <>
           <S.YourConfirmAccount>
-            <BancoUm color={colors.mediumslateBlue} width="22" height="16" />
+            <RiBankLine />
             <S.ContentConfirmAccount>
               Sua conta Banco Um
             </S.ContentConfirmAccount>

@@ -2,16 +2,16 @@ import { useRef } from 'react';
 import { Form } from '@unform/web';
 import { FormHandles, SubmitHandler } from '@unform/core';
 import { useQueryClient } from 'react-query';
-import { useTheme } from 'styled-components';
 import Modal from 'react-modal';
 import { FiCalendar, FiCreditCard, FiUser, FiLock } from 'react-icons/fi';
 import noop from 'lodash.noop';
+
+import { RiBankCard2Line } from 'react-icons/ri';
 
 import { useUpdateCreditCard } from 'hooks/useUpdateCreditCard';
 import { QUERY_KEY_FIND_BILLING } from 'hooks/useWallet';
 import { formatCreditCardAddSpace } from 'utils/formatters/formatCreditCardAddSpace';
 import { formatCreditCardExpiration } from 'utils/formatters/formatCreditCardExpiration';
-import { CreditCardIcon } from 'components/Illustrations/CreditCard';
 import { Input } from 'components/Input';
 import { performSchemaValidation } from 'utils/performSchemaValidation';
 import { Button } from 'components/Button';
@@ -30,7 +30,6 @@ export function ModalCreditCard({
 }: ModalCreditCardProps) {
   const { mutateAsync: postCreditCard, isLoading: loading } =
     useUpdateCreditCard();
-  const { colors } = useTheme();
   const queryClient = useQueryClient();
 
   const formRef = useRef<FormHandles>(null);
@@ -71,7 +70,7 @@ export function ModalCreditCard({
       overlayClassName="react-modal-overlay"
     >
       <S.YourAccount>
-        <CreditCardIcon color={colors.gray[100]} width="20" height="14" />
+        <RiBankCard2Line />
         <S.ContentTitle>Atualizar cartão</S.ContentTitle>
       </S.YourAccount>
 

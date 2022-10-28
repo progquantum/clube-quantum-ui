@@ -1,6 +1,6 @@
 import { useState } from 'react';
 
-import { Edit } from 'components/Illustrations/Edit';
+import { RiPencilLine } from 'react-icons/ri';
 
 import { useUserProfile } from 'hooks/user/useUserProfile';
 
@@ -21,7 +21,7 @@ export function Address() {
       <S.Container>
         <S.EditAddress onClick={handleRequestModal}>
           <h2>Endereço</h2>
-          <Edit width="15" height="15" color="#fff" />
+          <RiPencilLine />
         </S.EditAddress>
 
         <h3>Rua</h3>

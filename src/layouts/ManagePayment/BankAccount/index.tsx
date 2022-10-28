@@ -1,7 +1,6 @@
 import { useState } from 'react';
-import { useTheme } from 'styled-components';
 
-import { BancoUm } from 'components/Illustrations/BancoUm';
+import { RiBankLine } from 'react-icons/ri';
 
 import { Button } from 'components/Button';
 
@@ -12,7 +11,6 @@ import * as S from './styles';
 
 export function BankAccount({ user, loading }: BankAccountProps) {
   const [isNewModalOpen, setIsNewModalOpen] = useState(false);
-  const { colors } = useTheme();
 
   const handleNewBankAccountModal = () => {
     setIsNewModalOpen(prevState => !prevState);
@@ -30,7 +28,7 @@ export function BankAccount({ user, loading }: BankAccountProps) {
       {hasBankAccount ? (
         <>
           <S.YourAccount>
-            <BancoUm color={colors.gray[200]} width="22" height="16" />
+            <RiBankLine />
             <S.ContentTitle>Sua conta Banco Um</S.ContentTitle>
           </S.YourAccount>
 
@@ -62,7 +60,7 @@ export function BankAccount({ user, loading }: BankAccountProps) {
       ) : (
         <>
           <S.YourAccount>
-            <BancoUm color={colors.gray[200]} width="22" height="22" />
+            <RiBankLine />
             <S.ContentTitle>Sua conta Banco Um</S.ContentTitle>
           </S.YourAccount>
           <S.Text>

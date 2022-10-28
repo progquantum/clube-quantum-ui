@@ -14,7 +14,8 @@ import { BiBuildingHouse } from 'react-icons/bi';
 import { BsPinMap } from 'react-icons/bs';
 import { useQueryClient } from 'react-query';
 
-import { Location } from 'components/Illustrations/Location';
+import { RiMapPinLine } from 'react-icons/ri';
+
 import { Input } from 'components/Input';
 import { QUERY_KEY_PROFILE } from 'hooks/user/useUserProfile';
 import { UpdateUserAddress } from 'hooks/user/useUpdateUserAddress';
@@ -91,7 +92,7 @@ export function Modal({ isOpen, onRequestClose }: AddressInformationProps) {
     >
       <S.AddressContainer>
         <S.TextContent>
-          <Location width="18" height="20" color="#BBBBBB" />
+          <RiMapPinLine />
           <p>Endereço</p>
         </S.TextContent>
 

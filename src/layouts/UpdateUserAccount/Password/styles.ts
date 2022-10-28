@@ -17,8 +17,12 @@ export const ResetPassword = styled.div`
 
   p {
     font-weight: 500;
-    font-size: 0.7rem;
+    font-size: 0.8rem;
     color: ${({ theme }) => theme.colors.gray[400]};
+  }
+
+  > svg {
+    color: ${({ theme }) => theme.colors.gray[300]};
   }
 `;
 

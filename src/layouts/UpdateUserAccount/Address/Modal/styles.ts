@@ -12,8 +12,12 @@ export const TextContent = styled.div`
   margin-bottom: 0.5rem;
 
   & p {
-    font-size: 0.7rem;
+    font-size: 0.8rem;
     color: ${({ theme }) => theme.colors.gray[400]};
+  }
+
+  > svg {
+    color: ${({ theme }) => theme.colors.gray[300]};
   }
 `;
 
