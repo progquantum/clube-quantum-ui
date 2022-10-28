@@ -20,13 +20,15 @@
     "react",
     "react-hooks",
     "import",
-    "prettier"
+    "prettier",
+    "cypress"
   ],
   "extends": [
     "airbnb",
     "plugin:import/errors",
     "plugin:import/warnings",
-    "prettier"
+    "prettier",
+    "plugin:cypress/recommended"
   ],
   "rules": {
     "prettier/prettier": "error",
