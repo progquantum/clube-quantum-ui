@@ -47,7 +47,7 @@ export function SignInPage() {
         backgroundImage="/images/signin.png"
         backgroundPosition="right"
       >
-        <Form ref={formRef} onSubmit={handleSignIn}>
+        <Form ref={formRef} onSubmit={handleSignIn} className="form">
           <Input
             type="text"
             name="login"

@@ -1,5 +1,5 @@
-import ReactModal from 'react-modal';
 import { ChangeEvent, useCallback, useRef } from 'react';
+import { useQueryClient } from 'react-query';
 import { Form } from '@unform/web';
 import { FormHandles, SubmitHandler } from '@unform/core';
 import {
@@ -12,11 +12,13 @@ import {
 } from 'react-icons/fi';
 import { BiBuildingHouse } from 'react-icons/bi';
 import { BsPinMap } from 'react-icons/bs';
-import { useQueryClient } from 'react-query';
 
 import { RiMapPinLine } from 'react-icons/ri';
 
+import { Modal as ModalAddress } from 'components/Modal';
+
 import { Input } from 'components/Input';
+import { Button } from 'components/Button';
 import { QUERY_KEY_PROFILE } from 'hooks/user/useUserProfile';
 import { UpdateUserAddress } from 'hooks/user/useUpdateUserAddress';
 import { formatCEP } from 'utils/formatters/formatCEP';
@@ -25,17 +27,15 @@ import { formatAddressNumber } from 'utils/formatters/formatAddressNumber';
 import { error } from 'helpers/notify/error';
 import { success } from 'helpers/notify/success';
 import { performSchemaValidation } from 'utils/performSchemaValidation';
-import { Button } from 'components/Button';
 import { getZipCode } from 'services/resources';
 import { formatUF } from 'utils/formatters/formatUF';
 import { formatCountry } from 'utils/formatters/formatCountry';
-import { CloseModal } from 'components/CloseModal';
 
 import { AddressInformationProps, AddressFormValues } from './types';
 import { schema } from './schemas';
 import * as S from './styles';
 
-export function Modal({ isOpen, onRequestClose }: AddressInformationProps) {
+export function Modal({ onRequestClose }: AddressInformationProps) {
   const { mutateAsync: updateAddress, isLoading: loading } =
     UpdateUserAddress();
   const queryClient = useQueryClient();
@@ -84,12 +84,7 @@ export function Modal({ isOpen, onRequestClose }: AddressInformationProps) {
   );
 
   return (
-    <ReactModal
-      isOpen={isOpen}
-      onRequestClose={onRequestClose}
-      overlayClassName="react-modal-overlay"
-      className="react-modal-container"
-    >
+    <ModalAddress onClose={onRequestClose}>
       <S.AddressContainer>
         <S.TextContent>
           <RiMapPinLine />
@@ -192,9 +187,8 @@ export function Modal({ isOpen, onRequestClose }: AddressInformationProps) {
           <Button type="submit" loading={loading} disabled={loading}>
             Confirmar Alterações
           </Button>
-          <CloseModal onClick={onRequestClose} />
         </S.AddressForm>
       </S.AddressContainer>
-    </ReactModal>
+    </ModalAddress>
   );
 }

@@ -1,7 +1,5 @@
 import styled from 'styled-components';
 
-import { Button } from 'components/Button';
-
 export const Container = styled.div`
   display: flex;
   flex-direction: column;
@@ -47,24 +45,8 @@ export const UploadButton = styled.label`
   }
 `;
 
-export const CancelButton = styled(Button)`
-  width: 100%;
-  background: ${({ theme }) => theme.colors.danger};
-  border: 2px solid ${({ theme }) => theme.colors.danger};
-  color: ${({ theme }) => theme.colors.white};
-
-  &:hover {
-    color: ${({ theme }) => theme.colors.danger};
-    background: transparent;
-  }
-`;
-
 export const InputFile = styled.input`
   display: none;
-`;
-
-export const Avatar = styled.div`
-  border-radius: 50%;
 `;
 
 export const AvatarForm = styled.form`

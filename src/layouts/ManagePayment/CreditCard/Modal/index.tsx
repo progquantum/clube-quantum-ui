@@ -1,33 +1,28 @@
 import { useRef } from 'react';
+import { useQueryClient } from 'react-query';
 import { Form } from '@unform/web';
 import { FormHandles, SubmitHandler } from '@unform/core';
-import { useQueryClient } from 'react-query';
-import Modal from 'react-modal';
-import { FiCalendar, FiCreditCard, FiUser, FiLock } from 'react-icons/fi';
 import noop from 'lodash.noop';
 
+import { FiCalendar, FiCreditCard, FiUser, FiLock } from 'react-icons/fi';
 import { RiBankCard2Line } from 'react-icons/ri';
 
 import { useUpdateCreditCard } from 'hooks/useUpdateCreditCard';
-import { QUERY_KEY_FIND_BILLING } from 'hooks/useWallet';
+import { QUERY_KEY_WALLET } from 'hooks/useWallet';
 import { formatCreditCardAddSpace } from 'utils/formatters/formatCreditCardAddSpace';
 import { formatCreditCardExpiration } from 'utils/formatters/formatCreditCardExpiration';
-import { Input } from 'components/Input';
 import { performSchemaValidation } from 'utils/performSchemaValidation';
-import { Button } from 'components/Button';
 import { formatCreditCardRemoveSpace } from 'utils/formatters/formatCreditCardRemoveSpace';
 import { formatCVV } from 'utils/formatters/formatCVV';
-
-import { CloseModal } from 'components/CloseModal';
+import { Input } from 'components/Input';
+import { Button } from 'components/Button';
+import { Modal as ModalCreditCard } from 'components/Modal';
 
 import { schema } from './schemas';
 import { ModalCreditCardProps, ModalCreditCardFormProps } from './types';
 import * as S from './styles';
 
-export function ModalCreditCard({
-  isOpen,
-  onRequestNewCreditCardModal,
-}: ModalCreditCardProps) {
+export function Modal({ onRequestClose }: ModalCreditCardProps) {
   const { mutateAsync: postCreditCard, isLoading: loading } =
     useUpdateCreditCard();
   const queryClient = useQueryClient();
@@ -53,8 +48,8 @@ export function ModalCreditCard({
           },
           {
             onSuccess: () => {
-              queryClient.invalidateQueries(QUERY_KEY_FIND_BILLING);
-              onRequestNewCreditCardModal();
+              queryClient.invalidateQueries(QUERY_KEY_WALLET);
+              onRequestClose();
             },
           },
         );
@@ -63,12 +58,7 @@ export function ModalCreditCard({
   };
 
   return (
-    <Modal
-      isOpen={isOpen}
-      onRequestClose={onRequestNewCreditCardModal}
-      className="react-modal-container"
-      overlayClassName="react-modal-overlay"
-    >
+    <ModalCreditCard onClose={onRequestClose}>
       <S.YourAccount>
         <RiBankCard2Line />
         <S.ContentTitle>Atualizar cartão</S.ContentTitle>
@@ -128,8 +118,7 @@ export function ModalCreditCard({
         <Button type="submit" loading={loading} disabled={loading}>
           Confirmar
         </Button>
-        <CloseModal disabled={loading} onClick={onRequestNewCreditCardModal} />
       </S.CreditCardForm>
-    </Modal>
+    </ModalCreditCard>
   );
 }

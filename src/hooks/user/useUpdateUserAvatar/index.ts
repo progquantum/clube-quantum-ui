@@ -1,18 +1,18 @@
 import { useMutation } from 'react-query';
 
 import { quantumClientQueue } from 'config/client';
+import { error } from 'helpers/notify/error';
 
-export async function putAvatar(requestBody: unknown) {
+export async function putAvatar(requestBody: FormData) {
   try {
-    const { data } = await quantumClientQueue.put('/avatar', requestBody, {
+    return await quantumClientQueue.put<unknown>('/avatar', requestBody, {
       headers: {
         'Content-Type': 'multipart/form-data',
       },
     });
-    return data;
   } catch (err) {
     if (err.response.status === 400) {
-      throw new Error('Opss, algo deu errado!');
+      error('Arquivo não suportado');
     }
   }
 }

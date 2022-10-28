@@ -1,5 +1,4 @@
 export type AddressInformationProps = {
-  isOpen: boolean;
   onRequestClose: () => void;
 };
 

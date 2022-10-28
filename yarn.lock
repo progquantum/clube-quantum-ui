@@ -3781,11 +3781,6 @@ execa@^5.0.0, execa@^5.1.1:
     signal-exit "^3.0.3"
     strip-final-newline "^2.0.0"
 
-exenv@^1.2.0:
-  version "1.2.2"
-  resolved "https://registry.yarnpkg.com/exenv/-/exenv-1.2.2.tgz#2ae78e85d9894158670b03d47bec1f03bd91bb9d"
-  integrity sha512-Z+ktTxTwv9ILfgKCk32OX3n/doe+OcLTRtqK9pcL+JsP3J1/VW8Uvl4ZjLlKqeW4rzK4oesDOGMEMRIZqtP4Iw==
-
 exit@^0.1.2:
   version "0.1.2"
   resolved "https://registry.yarnpkg.com/exit/-/exit-0.1.2.tgz#0632638f8d877cc82107d30a0fff1a17cba1cd0c"
@@ -5935,7 +5930,7 @@ longest@^2.0.1:
   resolved "https://registry.yarnpkg.com/longest/-/longest-2.0.1.tgz#781e183296aa94f6d4d916dc335d0d17aefa23f8"
   integrity sha512-Ajzxb8CM6WAnFjgiloPsI3bF+WCxcvhdIG3KNA2KN962+tdBsHcuQ4k4qX/EcS/2CRkcc0iAkR956Nib6aXU/Q==
 
-loose-envify@^1.0.0, loose-envify@^1.1.0, loose-envify@^1.4.0:
+loose-envify@^1.1.0, loose-envify@^1.4.0:
   version "1.4.0"
   resolved "https://registry.yarnpkg.com/loose-envify/-/loose-envify-1.4.0.tgz#71ee51fa7be4caec1a63839f7e682d8132d30caf"
   integrity sha512-lyuxPGr/Wfhrlem2CL/UcnUc1zcqKAImBDzukY7Y5F/yQiNdko6+fRLevlw1HgMySw7f611UIY408EtxRSoK3Q==
@@ -7268,7 +7263,7 @@ react-is@^18.0.0:
   resolved "https://registry.yarnpkg.com/react-is/-/react-is-18.2.0.tgz#199431eeaaa2e09f86427efbb4f1473edb47609b"
   integrity sha512-xWGDIW6x921xtzPkhiULtthJHoJvBbF3q26fzloPCK0hsvxtPVelvftw3zjbHWSkR2km9Z+4uxbDDK/6Zw9B8w==
 
-react-lifecycles-compat@^3.0.0, react-lifecycles-compat@^3.0.4:
+react-lifecycles-compat@^3.0.4:
   version "3.0.4"
   resolved "https://registry.yarnpkg.com/react-lifecycles-compat/-/react-lifecycles-compat-3.0.4.tgz#4f1a273afdfc8f3488a8c516bfda78f872352362"
   integrity sha512-fBASbA6LnOU9dOU2eW7aQ8xmYBSXUIWr+UmF9b1efZBazGNO+rcXT/icdKnYm2pTwcRylVUYwW7H1PHfLekVzA==
@@ -7277,16 +7272,6 @@ react-loading-skeleton@^3.1.0:
   version "3.1.0"
   resolved "https://registry.yarnpkg.com/react-loading-skeleton/-/react-loading-skeleton-3.1.0.tgz#ce22942f1af77bfd60854417075792367f54f41e"
   integrity sha512-j1U1CWWs68nBPOg7tkQqnlFcAMFF6oEK6MgqAo15f8A5p7mjH6xyKn2gHbkcimpwfO0VQXqxAswnSYVr8lWzjw==
-
-react-modal@^3.15.1:
-  version "3.16.1"
-  resolved "https://registry.yarnpkg.com/react-modal/-/react-modal-3.16.1.tgz#34018528fc206561b1a5467fc3beeaddafb39b2b"
-  integrity sha512-VStHgI3BVcGo7OXczvnJN7yT2TWHJPDXZWyI/a0ssFNhGZWsPmB8cF0z33ewDXq4VfYMO1vXgiv/g8Nj9NDyWg==
-  dependencies:
-    exenv "^1.2.0"
-    prop-types "^15.7.2"
-    react-lifecycles-compat "^3.0.0"
-    warning "^4.0.3"
 
 react-query@^3.39.1:
   version "3.39.2"
@@ -7303,6 +7288,11 @@ react-spinners@^0.12.0:
   integrity sha512-kC/3g4Dk3kBaVfYVu7f+Zxd9wTxt6Lzws5cP3jCuE03TZwTNtwS++ZGUNF8BR3M8UrUFXP0gil0L9LONOsUkjw==
   dependencies:
     "@emotion/react" "^11.4.1"
+
+react-timer-hook@^2.0.3:
+  version "2.0.7"
+  resolved "https://registry.yarnpkg.com/react-timer-hook/-/react-timer-hook-2.0.7.tgz#49d998d92cf83fa5d874a1d94116766336666487"
+  integrity sha512-kCuCgXLS736lc7hocvHsGzmBdOh3uv1Al9ynIgxmV690nA73UqgYLoGNIxoo6CUoEcyNVARiveBlCRKDQbZIbQ==
 
 react-universal-interface@^0.6.2:
   version "0.6.2"
@@ -7769,6 +7759,11 @@ semver@^7.0.0, semver@^7.1.1, semver@^7.1.2, semver@^7.2.1, semver@^7.3.2, semve
   integrity sha512-NB1ctGL5rlHrPJtFDVIVzTyQylMLu9N9VICA6HSFJo8MCGVTMW6gfpicwKmmK/dAjTOrqu5l63JJOpDSrAis3A==
   dependencies:
     lru-cache "^6.0.0"
+
+serialize-query-params@^2.0.2:
+  version "2.0.2"
+  resolved "https://registry.yarnpkg.com/serialize-query-params/-/serialize-query-params-2.0.2.tgz#598a3fb9e13f4ea1c1992fbd20231aa16b31db81"
+  integrity sha512-1chMo1dST4pFA9RDXAtF0Rbjaut4is7bzFbI1Z26IuMub68pNCILku85aYmeFhvnY//BXUPUhoRMjYcsT93J/Q==
 
 set-blocking@^2.0.0:
   version "2.0.0"
@@ -8601,6 +8596,13 @@ url-parse@^1.5.3:
     querystringify "^2.1.1"
     requires-port "^1.0.0"
 
+use-query-params@^2.1.2:
+  version "2.1.2"
+  resolved "https://registry.yarnpkg.com/use-query-params/-/use-query-params-2.1.2.tgz#0bd100a0839e5195106cfb291b43d2159618ca9d"
+  integrity sha512-evg64srKaILvKyRQ1zpXvekTC7rktAT7OAekU7x6naHrOMqLHtq0MHR/PtKIQAP4d7HrkYNVOS8exHhiWy7m3A==
+  dependencies:
+    serialize-query-params "^2.0.2"
+
 use-sync-external-store@1.2.0:
   version "1.2.0"
   resolved "https://registry.yarnpkg.com/use-sync-external-store/-/use-sync-external-store-1.2.0.tgz#7dbefd6ef3fe4e767a0cf5d7287aacfb5846928a"
@@ -8670,13 +8672,6 @@ walker@^1.0.8:
   integrity sha512-ts/8E8l5b7kY0vlWLewOkDXMmPdLcVV4GmOQLyxuSswIJsweeFZtAsMF7k1Nszz+TYBQrlYRmzOnr398y1JemQ==
   dependencies:
     makeerror "1.0.12"
-
-warning@^4.0.3:
-  version "4.0.3"
-  resolved "https://registry.yarnpkg.com/warning/-/warning-4.0.3.tgz#16e9e077eb8a86d6af7d64aa1e05fd85b4678ca3"
-  integrity sha512-rpJyN222KWIvHJ/F53XSZv0Zl/accqHR8et1kpaMTD/fLCRxtV8iX8czMzY7sVZupTI3zcUTg8eycS2kNF9l6w==
-  dependencies:
-    loose-envify "^1.0.0"
 
 wcwidth@^1.0.0, wcwidth@^1.0.1:
   version "1.0.1"

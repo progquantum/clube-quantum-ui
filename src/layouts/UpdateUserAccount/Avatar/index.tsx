@@ -8,20 +8,20 @@ import { Modal } from './Modal';
 import * as S from './styles';
 
 export function UploadAvatar() {
-  const [avatarModal, setAvatarModal] = useState(false);
+  const [showModal, setShowModal] = useState(false);
 
-  const handleRequestAvatarModal = () => {
-    setAvatarModal(prevState => !prevState);
+  const handleRequestModal = () => {
+    setShowModal(prevState => !prevState);
   };
 
   return (
     <S.Container>
-      <S.EditAvatar onClick={handleRequestAvatarModal}>
+      <S.EditAvatar onClick={handleRequestModal}>
         <h2>Foto do Perfil</h2>
         <RiPencilLine />
       </S.EditAvatar>
-      <Avatar width="160" height="160" />
-      <Modal isOpen={avatarModal} onRequestClose={handleRequestAvatarModal} />
+      <Avatar width="200" height="200" />
+      {showModal && <Modal onRequestClose={handleRequestModal} />}
     </S.Container>
   );
 }

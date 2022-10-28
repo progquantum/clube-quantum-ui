@@ -94,7 +94,7 @@ export function BusinessAddress({
       backgroundImage="/images/signup.png"
       title="Insira seu endereço"
     >
-      <Form ref={formRef} onSubmit={handleSubmitAddress}>
+      <Form ref={formRef} onSubmit={handleSubmitAddress} className="form">
         <Input
           type="text"
           inputMode="numeric"

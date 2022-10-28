@@ -4,8 +4,9 @@ import { lighten } from 'polished';
 export const JumpStepButton = styled.button`
   text-align: center;
   cursor: pointer;
-  margin-bottom: 24px;
+  margin-top: 24px;
   color: ${({ theme }) => theme.colors.gray[700]} !important;
+  background-color: transparent;
 
   transition: color 200ms;
 

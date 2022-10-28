@@ -72,7 +72,6 @@ export const ContentConfirmAccount = styled.h2`
   font-size: 0.75rem;
   color: ${({ theme }) => theme.colors.gray[700]};
   font-weight: 700;
-  line-height: 1.25rem;
 `;
 
 export const BankingConfirmAccount = styled.div`

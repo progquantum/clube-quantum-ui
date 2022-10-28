@@ -5,15 +5,15 @@ import { RiBankLine } from 'react-icons/ri';
 import { Button } from 'components/Button';
 
 import { Skeleton } from '../Skeleton';
-import { ModalBankAccount } from './ModalBankAccount';
+import { Modal } from './Modal';
 import { BankAccountProps } from './types';
 import * as S from './styles';
 
 export function BankAccount({ user, loading }: BankAccountProps) {
-  const [isNewModalOpen, setIsNewModalOpen] = useState(false);
+  const [showModal, setShowModal] = useState(false);
 
-  const handleNewBankAccountModal = () => {
-    setIsNewModalOpen(prevState => !prevState);
+  const handleRequestModal = () => {
+    setShowModal(prevState => !prevState);
   };
 
   const holderName = user?.bank_account.holder_name;
@@ -67,15 +67,13 @@ export function BankAccount({ user, loading }: BankAccountProps) {
             Nenhuma conta Banco Um registrada, gostaria de adicionar uma nova
             conta?
           </S.Text>
-          <Button onClick={handleNewBankAccountModal}>
-            Cadastrar conta bancária
-          </Button>
+          <Button onClick={handleRequestModal}>Cadastrar conta bancária</Button>
         </>
       )}
-      <ModalBankAccount
-        isOpen={isNewModalOpen}
-        onRequestClose={handleNewBankAccountModal}
-        onRequestNewModal={() => setIsNewModalOpen(prevState => !prevState)}
+      <Modal
+        isOpen={showModal}
+        onRequestClose={handleRequestModal}
+        onRequestNewModal={() => setShowModal(prevState => !prevState)}
       />
     </S.Content>
   );
