@@ -34,3 +34,6 @@ jobs:
 
       - name: Build
         run: yarn build
+
+      - name: Run Cypress Tests
+        run: yarn cy:run 
