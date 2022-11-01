@@ -13,8 +13,10 @@ import {
 import { BiBuildingHouse } from 'react-icons/bi';
 import { BsPinMap } from 'react-icons/bs';
 
+import { RiMapPinLine } from 'react-icons/ri';
+
 import { Modal as ModalAddress } from 'components/Modal';
-import { Location } from 'components/Illustrations/Location';
+
 import { Input } from 'components/Input';
 import { Button } from 'components/Button';
 import { QUERY_KEY_PROFILE } from 'hooks/user/useUserProfile';
@@ -85,7 +87,7 @@ export function Modal({ onRequestClose }: AddressInformationProps) {
     <ModalAddress onClose={onRequestClose}>
       <S.AddressContainer>
         <S.TextContent>
-          <Location width="18" height="20" color="#BBBBBB" />
+          <RiMapPinLine />
           <p>Endereço</p>
         </S.TextContent>
 

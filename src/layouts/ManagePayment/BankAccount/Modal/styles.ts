@@ -15,6 +15,10 @@ export const YourAccount = styled.div`
   gap: 0.625rem;
   margin-bottom: 1.5rem;
   margin-top: 0.5rem;
+
+  > svg {
+    color: ${({ theme }) => theme.colors.gray[200]};
+  }
 `;
 
 export const BankingData = styled.div`
@@ -68,7 +72,6 @@ export const ContentConfirmAccount = styled.h2`
   font-size: 0.75rem;
   color: ${({ theme }) => theme.colors.gray[700]};
   font-weight: 700;
-  line-height: 1.25rem;
 `;
 
 export const BankingConfirmAccount = styled.div`

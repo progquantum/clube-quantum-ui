@@ -1,8 +1,6 @@
-import { useTheme } from 'styled-components';
-
 import { useState } from 'react';
 
-import { CreditCardIcon } from 'components/Illustrations/CreditCard';
+import { RiBankCard2Line } from 'react-icons/ri';
 
 import { Button } from 'components/Button';
 
@@ -20,8 +18,6 @@ export function CreditCard({ user, loading }: CreditCardProps) {
     setShowModal(prevState => !prevState);
   };
 
-  const { colors } = useTheme();
-
   const cardLastDigits = user?.credit_card.last_digits;
   const cardExpirationDate = user?.credit_card.expiration_date;
   const hasCreditCard = user?.credit_card.last_digits;
@@ -34,7 +30,7 @@ export function CreditCard({ user, loading }: CreditCardProps) {
         {hasCreditCard ? (
           <>
             <S.YourAccount>
-              <CreditCardIcon color={colors.gray[100]} width="20" height="14" />
+              <RiBankCard2Line />
               <S.ContentTitle>Seu cartão cadastrado</S.ContentTitle>
             </S.YourAccount>
 
@@ -55,7 +51,7 @@ export function CreditCard({ user, loading }: CreditCardProps) {
         ) : (
           <>
             <S.YourAccount>
-              <CreditCardIcon color={colors.gray[100]} width="20" height="14" />
+              <RiBankCard2Line />
               <S.ContentTitle>Seu cartão cadastrado</S.ContentTitle>
             </S.YourAccount>
 

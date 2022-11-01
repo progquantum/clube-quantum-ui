@@ -2,9 +2,10 @@ import { useRef } from 'react';
 import { useQueryClient } from 'react-query';
 import { Form } from '@unform/web';
 import { FormHandles, SubmitHandler } from '@unform/core';
-import { useTheme } from 'styled-components';
-import { FiCalendar, FiCreditCard, FiUser, FiLock } from 'react-icons/fi';
 import noop from 'lodash.noop';
+
+import { FiCalendar, FiCreditCard, FiUser, FiLock } from 'react-icons/fi';
+import { RiBankCard2Line } from 'react-icons/ri';
 
 import { useUpdateCreditCard } from 'hooks/useUpdateCreditCard';
 import { QUERY_KEY_WALLET } from 'hooks/useWallet';
@@ -13,7 +14,6 @@ import { formatCreditCardExpiration } from 'utils/formatters/formatCreditCardExp
 import { performSchemaValidation } from 'utils/performSchemaValidation';
 import { formatCreditCardRemoveSpace } from 'utils/formatters/formatCreditCardRemoveSpace';
 import { formatCVV } from 'utils/formatters/formatCVV';
-import { CreditCardIcon } from 'components/Illustrations/CreditCard';
 import { Input } from 'components/Input';
 import { Button } from 'components/Button';
 import { Modal as ModalCreditCard } from 'components/Modal';
@@ -25,7 +25,6 @@ import * as S from './styles';
 export function Modal({ onRequestClose }: ModalCreditCardProps) {
   const { mutateAsync: postCreditCard, isLoading: loading } =
     useUpdateCreditCard();
-  const { colors } = useTheme();
   const queryClient = useQueryClient();
 
   const formRef = useRef<FormHandles>(null);
@@ -61,7 +60,7 @@ export function Modal({ onRequestClose }: ModalCreditCardProps) {
   return (
     <ModalCreditCard onClose={onRequestClose}>
       <S.YourAccount>
-        <CreditCardIcon color={colors.gray[100]} width="20" height="14" />
+        <RiBankCard2Line />
         <S.ContentTitle>Atualizar cartão</S.ContentTitle>
       </S.YourAccount>
 

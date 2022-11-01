@@ -30,6 +30,10 @@ export const YourAccount = styled.div`
   display: flex;
   align-items: center;
   gap: 0.625rem;
+
+  > svg {
+    color: ${({ theme }) => theme.colors.gray[200]};
+  }
 `;
 
 export const BankingData = styled.div`

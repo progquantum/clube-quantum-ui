@@ -1,51 +1,145 @@
-import styled from 'styled-components';
+import styled, { css } from 'styled-components';
 
 import { Button } from 'components/Button';
+
+import { NavButtonProps } from './types';
 
 export const Container = styled.nav`
   display: flex;
   flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  width: 18.563rem;
-  height: 46.125rem;
-  background-color: ${({ theme }) => theme.colors.background};
-  box-shadow: 0 0 1.875rem rgba(0, 0, 0, 0.08);
+  gap: 1rem;
+  box-shadow: 0rem 0rem 2rem rgba(41, 40, 40, 0.1);
+  padding: 1rem;
   border-radius: 0.625rem;
+  position: relative;
+  width: 280px;
 
-  @media (max-width: 820px) {
+  @media (max-width: 780px) {
     display: none;
   }
 `;
 
-export const NavButton = styled.button`
+export const NavButton = styled.button<NavButtonProps>`
   display: flex;
   align-items: center;
-  gap: 1.151rem;
+  justify-content: space-between;
   background: none;
-  border: none;
-  height: 5rem;
-  border-bottom: 1px solid ${({ theme }) => theme.colors.gray[100]};
-  width: 15.625rem;
+  padding: 1rem;
+  color: ${({ theme }) => theme.colors.gray['400']};
 
-  &:disabled {
-    opacity: 0.6;
-    cursor: not-allowed;
+  > div {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+
+    > svg {
+      font-size: 1.3rem;
+    }
+  }
+
+  &:hover {
+    color: ${({ theme }) => theme.colors.mediumslateBlue};
+  }
+
+  ${props =>
+    props.activePath &&
+    css`
+      color: ${({ theme }) => theme.colors.mediumslateBlue};
+      background-color: ${({ theme }) => theme.colors.ghostwhite};
+      border-radius: 0.625rem;
+    `}
+`;
+
+export const SubMenu = styled.div`
+  border-left: 2px solid ${({ theme }) => theme.colors.light};
+  margin-left: 25px;
+  position: relative;
+`;
+
+export const SubMenuLink = styled.button<NavButtonProps>`
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  background: none;
+  font-size: 0.9rem;
+  padding: 0.8rem 1rem;
+  transition: 0.3s all;
+
+  color: ${({ theme }) => theme.colors.gray['400']};
+
+  font-size: 0.9rem;
+
+  > svg {
+    font-size: 1rem;
+  }
+
+  ${props =>
+    props.activePath &&
+    css`
+      color: ${({ theme }) => theme.colors.mediumslateBlue};
+      width: 100%;
+
+      &::before {
+        content: '';
+        display: flex;
+        align-items: center;
+        width: 1.8px;
+        height: 20px;
+        background-color: ${({ theme }) => theme.colors.mediumslateBlue};
+        position: absolute;
+        left: 0;
+        padding: 0.7rem 0;
+        margin-left: -2px;
+      }
+    `}
+
+  &:hover {
+    color: ${({ theme }) => theme.colors.mediumslateBlue};
+    width: 100%;
+
+    &::before {
+      content: '';
+      display: flex;
+      align-items: center;
+      width: 1.8px;
+      height: 20px;
+      background-color: ${({ theme }) => theme.colors.mediumslateBlue};
+      position: absolute;
+      left: 0;
+      padding: 0.7rem 0;
+      margin-left: -2px;
+    }
   }
 `;
 
-export const WrapImage = styled.div`
-  width: 25.008px;
+export const User = styled.div`
   display: flex;
-  justify-content: center;
   align-items: center;
+  gap: 0.5rem;
+  border-top: 2px solid ${({ theme }) => theme.colors.light};
+  padding-top: 1.5rem;
+  padding: 1rem;
+  color: ${({ theme }) => theme.colors.gray['400']};
+
+  strong {
+    font-size: 0.9rem;
+    color: ${({ theme }) => theme.colors.gray['700']};
+  }
+
+  p {
+    font-size: 0.6rem;
+  }
 `;
 
-export const SignOutButton = styled(Button)`
+export const SignOut = styled(Button)`
+  background: #ffe7e3;
   justify-content: space-between;
-  width: 14.563rem;
-  height: 3.125rem;
-  border-radius: 0.625rem;
-  margin: 1.5rem 0;
-  background: ${({ theme }) => theme.colors.danger};
+  margin-top: 0;
+  color: ${({ theme }) => theme.colors.danger};
+  transition: 0.2s all;
+
+  &:hover {
+    background-color: ${({ theme }) => theme.colors.danger};
+    color: #ffe7e3;
+  }
 `;

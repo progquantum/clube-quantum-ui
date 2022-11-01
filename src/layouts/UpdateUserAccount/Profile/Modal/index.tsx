@@ -4,10 +4,11 @@ import { FormHandles, SubmitHandler } from '@unform/core';
 import { useQueryClient } from 'react-query';
 import { FiCalendar, FiMail, FiPhone, FiUser } from 'react-icons/fi';
 
+import { RiTaskLine } from 'react-icons/ri';
+
 import { useUpdateUserProfile } from 'hooks/user/useUpdateUserProfile';
 import { QUERY_KEY_PROFILE } from 'hooks/user/useUserProfile';
 import { Modal as ModalProfile } from 'components/Modal';
-import { User } from 'components/Illustrations/User';
 import { Input } from 'components/Input';
 import { Button } from 'components/Button';
 import { success } from 'helpers/notify/success';
@@ -59,7 +60,7 @@ export function Modal({ onRequestClose }: UserProfileProps) {
     <ModalProfile onClose={onRequestClose}>
       <S.UserInformation>
         <S.TextContent>
-          <User width="18" height="20" color="#BBBBBB" />
+          <RiTaskLine />
           <p>Informações Pessoais</p>
         </S.TextContent>
 

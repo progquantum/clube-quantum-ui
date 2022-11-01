@@ -2,13 +2,13 @@ import { useCallback, useRef, useState } from 'react';
 import { useQueryClient } from 'react-query';
 import { Form } from '@unform/web';
 import { FormHandles, SubmitHandler } from '@unform/core';
-import { useTheme } from 'styled-components';
-import { AiOutlineBank } from 'react-icons/ai';
-import { FiUser } from 'react-icons/fi';
 import noop from 'lodash.noop';
 
+import { AiOutlineBank } from 'react-icons/ai';
+import { FiUser } from 'react-icons/fi';
+import { RiBankLine } from 'react-icons/ri';
+
 import { Input } from 'components/Input';
-import { BancoUm } from 'components/Illustrations/BancoUm';
 import { Button } from 'components/Button';
 import { Modal as ModalBankAccount } from 'components/Modal';
 import { formatBankAccount } from 'utils/formatters/formatBankAccount';
@@ -31,8 +31,6 @@ export function Modal({
 }: ModalBankAccountProps) {
   const [showNewModal, setShowNewModal] = useState(false);
   const [bankAccountData, setBankAccountData] = useState<BankAccount>(null);
-
-  const { colors } = useTheme();
 
   const formRef = useRef<FormHandles>(null);
   const queryClient = useQueryClient();
@@ -99,7 +97,7 @@ export function Modal({
       {isOpen && (
         <ModalBankAccount onClose={onRequestClose}>
           <S.YourAccount>
-            <BancoUm color={colors.gray[200]} width="22" height="16" />
+            <RiBankLine />
             <S.ContentTitle>Sua conta Banco Um</S.ContentTitle>
           </S.YourAccount>
 
@@ -148,7 +146,6 @@ export function Modal({
       {showNewModal && (
         <ModalBankAccount onClose={handleCloseNewConfirmModal}>
           <S.YourConfirmAccount>
-            <BancoUm color={colors.mediumslateBlue} width="22" height="16" />
             <S.ContentConfirmAccount>
               Sua conta Banco Um
             </S.ContentConfirmAccount>

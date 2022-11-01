@@ -16,12 +16,12 @@ export const AnimatedDropdown = styled(motion.nav)`
   ${({ theme }) => css`
     position: absolute;
     z-index: 10;
-    top: 128%;
+    top: 148%;
     right: 0;
     min-width: 9.123rem;
     border-radius: ${theme.radiis.small};
     background: ${theme.colors.ghostwhite};
-    box-shadow: 0 0.6rem 0.6rem rgba(0, 0, 0, 0.12);
+    box-shadow: 0 0rem 0.6rem rgba(0, 0, 0, 0.1);
 
     &::before {
       content: '';
@@ -40,7 +40,7 @@ export const NavButton = styled(Button)`
   ${({ theme }) => css`
     width: 100%;
     margin-top: 0;
-    padding: 0.5rem 1rem;
+    height: 50px;
     justify-content: space-between;
     font-size: ${theme.fontSizes.sm};
     background: ${theme.colors.ghostwhite};

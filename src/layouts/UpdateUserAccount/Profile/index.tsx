@@ -1,6 +1,7 @@
 import { useState } from 'react';
 
-import { Edit } from 'components/Illustrations/Edit';
+import { RiPencilLine } from 'react-icons/ri';
+
 import { useUserProfile } from 'hooks/user/useUserProfile';
 
 import { Modal } from './Modal';
@@ -26,7 +27,7 @@ export function Profile() {
       <S.Container>
         <S.EditPersonalInformation onClick={handleRequestModal}>
           <h2>Informações Pessoais</h2>
-          <Edit width="15" height="15" color="#fff" />
+          <RiPencilLine />
         </S.EditPersonalInformation>
 
         <h3>Nome</h3>

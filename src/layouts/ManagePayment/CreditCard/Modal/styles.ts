@@ -13,6 +13,10 @@ export const YourAccount = styled.div`
   gap: 0.625rem;
   margin-bottom: 1rem;
   margin-top: 0.5rem;
+
+  > svg {
+    color: ${({ theme }) => theme.colors.gray[200]};
+  }
 `;
 
 export const CreditCardForm = styled.form`

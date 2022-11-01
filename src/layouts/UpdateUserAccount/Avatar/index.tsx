@@ -1,6 +1,7 @@
 import { useState } from 'react';
 
-import { Edit } from 'components/Illustrations/Edit';
+import { RiPencilLine } from 'react-icons/ri';
+
 import { Avatar } from 'components/Avatar';
 
 import { Modal } from './Modal';
@@ -17,7 +18,7 @@ export function UploadAvatar() {
     <S.Container>
       <S.EditAvatar onClick={handleRequestModal}>
         <h2>Foto do Perfil</h2>
-        <Edit width="15" height="15" color="#fff" />
+        <RiPencilLine />
       </S.EditAvatar>
       <Avatar width="200" height="200" />
       {showModal && <Modal onRequestClose={handleRequestModal} />}
