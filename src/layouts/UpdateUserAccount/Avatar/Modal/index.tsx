@@ -1,15 +1,14 @@
 import Image from 'next/image';
-import ReactModal from 'react-modal';
-import { RiImageAddLine } from 'react-icons/ri';
 import { ChangeEvent, FormEvent, useState } from 'react';
 import { useQueryClient } from 'react-query';
+import { RiImageAddLine } from 'react-icons/ri';
 
 import { QUERY_KEY_PROFILE } from 'hooks/user/useUserProfile';
 import { useUpdateUserAvatar } from 'hooks/user/useUpdateUserAvatar';
 import { error } from 'helpers/notify/error';
 import { success } from 'helpers/notify/success';
+import { Modal as ModalAvatar } from 'components/Modal';
 import { Button } from 'components/Button';
-import { CloseModal } from 'components/CloseModal';
 
 import { avatarModalProps } from './types';
 import * as S from './styles';
@@ -18,7 +17,7 @@ const avatarPreviewBorderRadius = {
   borderRadius: '50%',
 };
 
-export function Modal({ isOpen, onRequestClose }: avatarModalProps) {
+export function Modal({ onRequestClose }: avatarModalProps) {
   const [isUserAvatar, setIsUserAvatar] = useState<string>('');
   const [avatarUploaded, setAvatarUploaded] = useState(null);
 
@@ -67,21 +66,16 @@ export function Modal({ isOpen, onRequestClose }: avatarModalProps) {
   };
 
   return (
-    <ReactModal
-      isOpen={isOpen}
-      onRequestClose={handleCloseModal}
-      className="react-modal-container"
-      overlayClassName="react-modal-overlay"
-    >
+    <ModalAvatar onClose={handleCloseModal}>
       <S.Container>
         <h3>Alterar imagem do perfil</h3>
 
         {isUserAvatar ? (
           <Image
             src={isUserAvatar}
-            width={192}
-            height={192}
-            object-fit="cover"
+            width={200}
+            height={200}
+            objectFit="cover"
             style={avatarPreviewBorderRadius}
           />
         ) : (
@@ -114,9 +108,8 @@ export function Modal({ isOpen, onRequestClose }: avatarModalProps) {
               Salvar
             </Button>
           )}
-          <CloseModal onClick={handleCloseModal} />
         </S.AvatarForm>
       </S.Container>
-    </ReactModal>
+    </ModalAvatar>
   );
 }

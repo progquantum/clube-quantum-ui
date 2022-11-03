@@ -9,7 +9,7 @@ import { formatFirstLetterToUppercase } from 'utils/formatters/formatFirstLetter
 import { usePlanUpdate } from 'hooks/usePlanUpdate';
 import { error } from 'helpers/notify/error';
 
-import { CloseModal } from 'components/CloseModal';
+import { Modal } from 'components/Modal';
 
 import { ErrorResponse, ModalConfirmProps } from './types';
 import * as S from './styles';
@@ -65,36 +65,40 @@ export function ModalConfirm({
   );
 
   return (
-    <S.Container>
-      <S.Plan>
-        <S.Title>
-          <MdAssignmentInd size={19.87} color={theme.colors.mediumslateBlue} />
-          Seu plano escolhido
-        </S.Title>
-        <S.TitlePlan>{formattedPlanName}</S.TitlePlan>
-        <S.CardDataContainer>
-          <S.CardDataTitle>Período de Cobrança</S.CardDataTitle>
-          <S.CardDataText>
-            {planPeriod === 'monthly'
-              ? 'Mensal'
-              : planPeriod === 'semiannual'
-              ? 'Semestral'
-              : 'Anual'}
-          </S.CardDataText>
-        </S.CardDataContainer>
-        <S.CardDataContainer>
-          <S.CardDataTitle>Total</S.CardDataTitle>
-          <S.CardDataText>{formattedPrice}</S.CardDataText>
-        </S.CardDataContainer>
-      </S.Plan>
-      <S.ButtonConfirm
-        onClick={handleUpdatePlan}
-        loading={isUpdating}
-        disabled={isUpdating}
-      >
-        Finalizar
-      </S.ButtonConfirm>
-      <CloseModal onClick={onClose} />
-    </S.Container>
+    <Modal onClose={onClose}>
+      <S.Container>
+        <S.Plan>
+          <S.Title>
+            <MdAssignmentInd
+              size={19.87}
+              color={theme.colors.mediumslateBlue}
+            />
+            Seu plano escolhido
+          </S.Title>
+          <S.TitlePlan>{formattedPlanName}</S.TitlePlan>
+          <S.CardDataContainer>
+            <S.CardDataTitle>Período de Cobrança</S.CardDataTitle>
+            <S.CardDataText>
+              {planPeriod === 'monthly'
+                ? 'Mensal'
+                : planPeriod === 'semiannual'
+                ? 'Semestral'
+                : 'Anual'}
+            </S.CardDataText>
+          </S.CardDataContainer>
+          <S.CardDataContainer>
+            <S.CardDataTitle>Total</S.CardDataTitle>
+            <S.CardDataText>{formattedPrice}</S.CardDataText>
+          </S.CardDataContainer>
+        </S.Plan>
+        <S.ButtonConfirm
+          onClick={handleUpdatePlan}
+          loading={isUpdating}
+          disabled={isUpdating}
+        >
+          Finalizar
+        </S.ButtonConfirm>
+      </S.Container>
+    </Modal>
   );
 }

@@ -12,8 +12,12 @@ export const TextContent = styled.div`
   gap: 0.625rem;
 
   & p {
-    font-size: 0.7rem;
+    font-size: 0.8rem;
     color: ${({ theme }) => theme.colors.gray[400]};
+  }
+
+  > svg {
+    color: ${({ theme }) => theme.colors.gray[300]};
   }
 `;
 

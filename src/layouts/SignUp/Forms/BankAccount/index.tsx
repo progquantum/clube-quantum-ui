@@ -80,7 +80,7 @@ export function BankAccount({
         />
         <S.BankInfo>
           A conta a ser cadastrada deve ser a conta Banco Um na qual o CPF/CNPJ,
-          informado anteriormente, está vinculado.
+          informado anteriormente está vinculado.
         </S.BankInfo>
 
         <Button type="submit">Continuar</Button>

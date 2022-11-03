@@ -1,4 +1,4 @@
-import Image from 'next/image';
+import { RiStackLine } from 'react-icons/ri';
 
 import { ManagePlansProps } from './types';
 import * as S from './styles';
@@ -7,12 +7,7 @@ export function ManagePlans({ children, width }: ManagePlansProps) {
   return (
     <S.Container width={width}>
       <S.Content>
-        <Image
-          width={17.89}
-          height={19.87}
-          src="/images/icon-plan.svg"
-          alt="icone plano"
-        />
+        <RiStackLine />
         <S.TitleContent>Seu plano</S.TitleContent>
       </S.Content>
       <S.Title>Você não está inserido em nenhum plano.</S.Title>

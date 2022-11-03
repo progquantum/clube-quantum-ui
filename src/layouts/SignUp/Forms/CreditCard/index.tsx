@@ -97,10 +97,11 @@ export function CreditCard({
         />
 
         <Button type="submit">Continuar</Button>
+        <S.JumpStepButton onClick={onNavigateToSuccessfulSignUp}>
+          Pular etapa
+        </S.JumpStepButton>
       </Form>
-      <S.JumpStepButton onClick={onNavigateToSuccessfulSignUp}>
-        Pular etapa
-      </S.JumpStepButton>
+
       <button type="button" onClick={onPreviousFormStep}>
         <FiLogOut />
         Voltar

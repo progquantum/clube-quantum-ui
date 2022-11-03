@@ -11,7 +11,10 @@ import { useRecoveryPassword } from 'hooks/auth/useRecoveryPassword';
 import { performSchemaValidation } from 'utils/performSchemaValidation';
 import { AuthLayout } from 'layouts/Auth';
 import { Button } from 'components/Button';
-import { SIGN_IN_PAGE } from 'constants/routesPath';
+import {
+  REQUEST_PASSWORD_RESET_SUCCESS,
+  SIGN_IN_PAGE,
+} from 'constants/routesPath';
 import { success } from 'helpers/notify/success';
 
 import { RecoveryPasswordFormValues } from './types';
@@ -32,16 +35,16 @@ export function ForgotPasswordPage() {
           schema,
         })
           .then(() => {
-            sendRecoveryPasswordRequest(
-              { ...data },
-              {
-                onSuccess: (_, variables) => {
-                  success(`Enviado e-mail para ${variables.email}`);
+            sendRecoveryPasswordRequest(data, {
+              onSuccess: (_, variables) => {
+                success(`Enviado e-mail para ${variables.email}`);
 
-                  Router.push(SIGN_IN_PAGE);
-                },
+                Router.push({
+                  pathname: REQUEST_PASSWORD_RESET_SUCCESS,
+                  search: `?email=${data.email}`,
+                });
               },
-            );
+            });
           })
           .catch(noop);
       },

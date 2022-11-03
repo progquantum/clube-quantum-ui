@@ -1,14 +1,18 @@
 import { useState, useRef } from 'react';
 import { AnimatePresence } from 'framer-motion';
-import { FiLogOut, FiUser, FiUsers, FiUserCheck } from 'react-icons/fi';
-import { BsCurrencyDollar } from 'react-icons/bs';
-import {
-  MdOutlineAssignmentInd,
-  MdOutlineAssignmentTurnedIn,
-} from 'react-icons/md';
-import { HiOutlineDocument } from 'react-icons/hi';
+import { FiLogOut } from 'react-icons/fi';
 import Link from 'next/link';
-import { BiShoppingBag } from 'react-icons/bi';
+
+import {
+  RiDraftLine,
+  RiEditBoxLine,
+  RiInboxArchiveLine,
+  RiLock2Line,
+  RiStackLine,
+  RiUser3Line,
+  RiUserStarLine,
+  RiBarChartBoxLine,
+} from 'react-icons/ri';
 
 import { useAuthDispatch } from 'contexts/auth/AuthContext';
 import { DASHBOARD_PAGE, SUBSCRIPTIONS_PAGE } from 'constants/routesPath';
@@ -44,44 +48,44 @@ export function AccountDropdown() {
             <ul>
               <Link href={DASHBOARD_PAGE}>
                 <S.NavButton>
-                  <FiUser />
+                  <RiUser3Line />
                   Perfil
                 </S.NavButton>
               </Link>
 
               <S.NavButton>
-                <FiUserCheck />
+                <RiEditBoxLine />
                 Cadastro
               </S.NavButton>
 
               <S.NavButton>
-                <BsCurrencyDollar />
+                <RiBarChartBoxLine />
                 Extratos
               </S.NavButton>
 
               <S.NavButton>
-                <FiUsers />
+                <RiUserStarLine />
                 Amigos
               </S.NavButton>
 
               <S.NavButton>
-                <BiShoppingBag />
+                <RiInboxArchiveLine />
                 Pedidos
               </S.NavButton>
               <Link href={SUBSCRIPTIONS_PAGE}>
                 <S.NavButton>
-                  <MdOutlineAssignmentInd />
+                  <RiStackLine />
                   Planos
                 </S.NavButton>
               </Link>
 
               <S.NavButton>
-                <MdOutlineAssignmentTurnedIn />
+                <RiDraftLine />
                 Licenças
               </S.NavButton>
 
               <S.NavButton>
-                <HiOutlineDocument />
+                <RiLock2Line />
                 Privacidade
               </S.NavButton>
 

@@ -1,13 +1,14 @@
 import { useState } from 'react';
 
-import { Edit } from 'components/Illustrations/Edit';
+import { RiPencilLine } from 'react-icons/ri';
+
 import { useUserProfile } from 'hooks/user/useUserProfile';
 
 import { Modal } from './Modal';
 import * as S from './styles';
 
 export function Profile() {
-  const [requestModal, setRequestModal] = useState(false);
+  const [showModal, setShowModal] = useState(false);
 
   const { data } = useUserProfile();
 
@@ -18,7 +19,7 @@ export function Profile() {
     .join('/');
 
   const handleRequestModal = () => {
-    setRequestModal(prevState => !prevState);
+    setShowModal(prevState => !prevState);
   };
 
   return (
@@ -26,7 +27,7 @@ export function Profile() {
       <S.Container>
         <S.EditPersonalInformation onClick={handleRequestModal}>
           <h2>Informações Pessoais</h2>
-          <Edit width="15" height="15" color="#fff" />
+          <RiPencilLine />
         </S.EditPersonalInformation>
 
         <h3>Nome</h3>
@@ -42,7 +43,7 @@ export function Profile() {
         <p>{data?.email}</p>
       </S.Container>
 
-      <Modal isOpen={requestModal} onRequestClose={handleRequestModal} />
+      {showModal && <Modal onRequestClose={handleRequestModal} />}
     </>
   );
 }

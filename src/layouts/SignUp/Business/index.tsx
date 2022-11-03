@@ -1,7 +1,6 @@
 import { useState } from 'react';
 
 import { Plans } from 'components/Plans';
-import { Successful } from 'components/Successful';
 
 import { CNPJ } from '../Forms/CNPJ';
 import { Phone } from '../Forms/Phone';
@@ -12,6 +11,7 @@ import { CreditCard } from '../Forms/CreditCard';
 import { BankAccount } from '../Forms/BankAccount';
 import { SingUpButton } from '../SingUpButton';
 import { Summary } from '../Forms/Summary';
+import { Successful } from '../Forms/Successful';
 
 export function BusinessSignUpPage() {
   const [step, setStep] = useState(0);

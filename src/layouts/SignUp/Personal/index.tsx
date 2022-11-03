@@ -1,7 +1,6 @@
 import React, { useState } from 'react';
 
 import { Plans } from 'components/Plans';
-import { Successful } from 'components/Successful';
 
 import { CreditCard } from '../Forms/CreditCard';
 import { PersonalAddress } from '../Forms/PersonalAddress';
@@ -12,6 +11,7 @@ import { CPF } from '../Forms/CPF';
 import { BankAccount } from '../Forms/BankAccount';
 import { SingUpButton } from '../SingUpButton';
 import { Summary } from '../Forms/Summary';
+import { Successful } from '../Forms/Successful';
 
 export function PersonalSignUpPage() {
   const [step, setStep] = useState(0);

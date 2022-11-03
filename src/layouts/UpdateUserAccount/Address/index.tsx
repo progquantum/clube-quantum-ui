@@ -1,6 +1,6 @@
 import { useState } from 'react';
 
-import { Edit } from 'components/Illustrations/Edit';
+import { RiPencilLine } from 'react-icons/ri';
 
 import { useUserProfile } from 'hooks/user/useUserProfile';
 
@@ -8,12 +8,12 @@ import { Modal } from './Modal';
 import * as S from './styles';
 
 export function Address() {
-  const [requestModal, setRequestModal] = useState(false);
+  const [showModal, setShowModal] = useState(false);
 
   const { data } = useUserProfile();
 
   const handleRequestModal = () => {
-    setRequestModal(prevState => !prevState);
+    setShowModal(prevState => !prevState);
   };
 
   return (
@@ -21,7 +21,7 @@ export function Address() {
       <S.Container>
         <S.EditAddress onClick={handleRequestModal}>
           <h2>Endereço</h2>
-          <Edit width="15" height="15" color="#fff" />
+          <RiPencilLine />
         </S.EditAddress>
 
         <h3>Rua</h3>
@@ -31,7 +31,7 @@ export function Address() {
         <p>{data?.address.number}</p>
 
         <h3>Complemento</h3>
-        <p>{data?.address ? `${data.address.complement}` : 'N/A'}</p>
+        <p>{data?.address.complement ? `${data.address.complement}` : 'N/A'}</p>
 
         <h3>Bairro</h3>
         <p>{data?.address.neighborhood}</p>
@@ -49,7 +49,7 @@ export function Address() {
         <p>{data?.address.country}</p>
       </S.Container>
 
-      <Modal isOpen={requestModal} onRequestClose={handleRequestModal} />
+      {showModal && <Modal onRequestClose={handleRequestModal} />}
     </>
   );
 }

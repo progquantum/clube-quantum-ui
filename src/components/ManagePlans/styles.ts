@@ -27,12 +27,19 @@ export const Content = styled.div`
   display: flex;
   flex-direction: row;
   gap: 10px;
+
+  > svg {
+    font-size: 1.0625rem;
+    color: ${({ theme }) => theme.colors.gray['300']};
+  }
 `;
+
 export const TitleContent = styled.span`
   font-weight: 500;
   font-size: 10px;
   line-height: 20px;
 `;
+
 export const Title = styled.h3`
   font-weight: 900;
   font-size: 18px;

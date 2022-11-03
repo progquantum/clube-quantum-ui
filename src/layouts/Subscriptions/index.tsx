@@ -1,5 +1,4 @@
 /* eslint-disable react/jsx-no-bind */
-import Modal from 'react-modal';
 import { useState } from 'react';
 
 import { ManagePlans } from 'components/ManagePlans';
@@ -54,18 +53,13 @@ export function SubscriptionsPage() {
             button={<SubscriptionButton onOpenModalCvcRequest={openModal} />}
           >
             <SelectPlan />
-            <Modal
-              isOpen={modalIsOpen}
-              onRequestClose={closeModal}
-              overlayClassName="react-modal-overlay"
-              className="react-modal-container"
-            >
-              <ModalCVC
-                onSucessful={onSuccessful}
-                onError={onError}
-                onClose={closeModal}
-              />
-            </Modal>
+
+            <ModalCVC
+              onSucessful={onSuccessful}
+              modalIsOpen={modalIsOpen}
+              onError={onError}
+              onClose={closeModal}
+            />
           </Plans>
         ) : (
           <Plans button={<ManagePlansButton />}>

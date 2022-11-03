@@ -1,10 +1,21 @@
-import Image from 'next/image';
 import Link from 'next/link';
 import { faker } from '@faker-js/faker';
 
+import {
+  RiCursorLine,
+  RiGlobalLine,
+  RiRefund2Line,
+  RiShoppingBagLine,
+  RiSmartphoneLine,
+  RiStackLine,
+  RiUserStarLine,
+} from 'react-icons/ri';
+
 import { INVITE_FRIENDS_PAGE, SUBSCRIPTIONS_PAGE } from 'constants/routesPath';
-import { formatFirstLetterToUppercase } from 'utils/formatters/formatFirstLetterToUppercase';
+
 import { useMe } from 'hooks/user/useMe';
+
+import { formatFirstLetterToUppercase } from 'utils/formatters/formatFirstLetterToUppercase';
 
 import { AccountBalance } from '../AccountBalance';
 import * as S from './styles';
@@ -32,12 +43,7 @@ export function MainContent() {
         <S.ComingSoon>Em breve</S.ComingSoon>
         <S.AccessMarket>
           <S.HeaderAccessMarket>
-            <Image
-              width={15.03}
-              height={17.18}
-              src="/images/icon-marketplace.svg"
-              alt="icone marketplace"
-            />
+            <RiShoppingBagLine />
             <S.MarketText>Marketplace Quantum</S.MarketText>
           </S.HeaderAccessMarket>
           <S.ButtonMarketplace disabled>
@@ -45,61 +51,31 @@ export function MainContent() {
           </S.ButtonMarketplace>
         </S.AccessMarket>
         <S.ItemMarket>
-          <Image
-            width={40}
-            height={40}
-            src="/images/icon-partner-web.svg"
-            alt="Icone sites parceiros"
-          />
+          <RiGlobalLine />
           <S.MarketText>Sites parceiros</S.MarketText>
         </S.ItemMarket>
         <S.ItemMarket>
-          <Image
-            width={40}
-            height={40}
-            src="/images/icon-shopping-bag.svg"
-            alt="Icone sites parceiros"
-          />
+          <RiShoppingBagLine />
           <S.MarketText>Lojas próximas</S.MarketText>
         </S.ItemMarket>
         <S.ItemMarket>
-          <Image
-            width={40}
-            height={40}
-            src="/images/icon-click.svg"
-            alt="Icone sites parceiros"
-          />
+          <RiCursorLine />
           <S.MarketText>Serviços</S.MarketText>
         </S.ItemMarket>
         <S.ItemMarket>
-          <Image
-            width={40}
-            height={40}
-            src="/images/icon-dollar-market.svg"
-            alt="Icone sites parceiros"
-          />
+          <RiRefund2Line />
           <S.MarketText>Ofertas</S.MarketText>
         </S.ItemMarket>
         <S.ItemMarket>
-          <Image
-            width={40}
-            height={40}
-            src="/images/icon-earphone.svg"
-            alt="Icone sites parceiros"
-          />
+          <RiSmartphoneLine />
           <S.MarketText>Eletrônicos</S.MarketText>
         </S.ItemMarket>
       </S.DivMarketplace>
 
       <S.DivSelectPlan>
         <S.HeaderSelectPlan>
-          <Image
-            width={17.89}
-            height={19.87}
-            src="/images/icon-plan.svg"
-            alt="Icone plano"
-          />
-          <S.TitlePlan>Seu plano</S.TitlePlan>
+          <RiStackLine />
+          <S.TitlePlan>Seu Plano</S.TitlePlan>
         </S.HeaderSelectPlan>
         <S.DivStatusPlan>
           <S.TitleStatusPlan>
@@ -124,12 +100,7 @@ export function MainContent() {
 
       <S.DivInviteFriends>
         <S.HeaderInviteFriends>
-          <Image
-            width={17.89}
-            height={19.87}
-            src="/images/icon-invite-friends.svg"
-            alt="Icone convidar amigos"
-          />
+          <RiUserStarLine />
           <S.TitleFriends>Convidar amigos</S.TitleFriends>
         </S.HeaderInviteFriends>
         <S.TitleInviteFriends>Não fique sozinho nessa!</S.TitleInviteFriends>

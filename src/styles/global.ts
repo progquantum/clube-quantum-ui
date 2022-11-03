@@ -83,40 +83,6 @@ export default createGlobalStyle`
     list-style-type: none;
   }
 
-
-  .react-modal-overlay {
-    background: rgba(0,0,0, 0.5);
-    position: fixed;
-    top: 0;
-    bottom: 0;
-    right: 0;
-    left: 0;
-    z-index: 10;
-
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    @media (max-width: 500px) {
-      align-items: flex-end;
-    }
-  }
-  .react-modal-container {
-    width: 100%;
-    max-width: 36rem;
-    background: white;
-    padding: 2.5rem;
-    position: relative;
-    border-radius: .95rem;
-    @media (max-width: 700px) {
-      max-width: 25rem;
-    }
-    @media (max-width: 500px) {
-      max-width: 100%;
-      padding: 2rem;
-      border-radius: .95rem .95rem 0 0;
-    }
-  }
-
   button:not(:hover)[disable] {
     opacity: 0.6;
     cursor: not-allowed;
@@ -135,7 +101,6 @@ export default createGlobalStyle`
     width: 100%;
     height: 4px;
   }
-
 
   :root {
     --shape: ${({ theme }) => theme.colors.white};

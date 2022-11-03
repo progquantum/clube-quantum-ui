@@ -33,12 +33,10 @@ export function ResetPasswordPage() {
           schema,
         })
           .then(() => {
-            const { password } = data;
-
             resetPassword(
               {
                 code: inviteCode,
-                password,
+                password: data.password,
               },
               {
                 onSuccess: () => {

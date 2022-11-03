@@ -1,6 +1,5 @@
 export type UserProfileProps = {
-  isOpen: boolean;
-  onRequestClose: () => void;
+  onRequestClose?: () => void;
 };
 
 export type UserProfileFormProps = {

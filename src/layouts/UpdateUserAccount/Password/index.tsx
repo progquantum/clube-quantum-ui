@@ -5,8 +5,9 @@ import { FormHandles, SubmitHandler } from '@unform/core';
 import { CgPassword } from 'react-icons/cg';
 import noop from 'lodash.noop';
 
+import { RiUserShared2Line } from 'react-icons/ri';
+
 import { useUpdateUserPassword } from 'hooks/user/useUpdateUserPassword';
-import { User } from 'components/Illustrations/User';
 import { FORGOT_PASSWORD_PAGE } from 'constants/routesPath';
 import { Input } from 'components/Input';
 import { performSchemaValidation } from 'utils/performSchemaValidation';
@@ -54,7 +55,7 @@ export function Password() {
       <title>Atualização de cadastro</title>
       <S.Container>
         <S.ResetPassword>
-          <User width="18" height="20" color="#BBBBBB" />
+          <RiUserShared2Line />
           <p>Alterar senha</p>
         </S.ResetPassword>
 

@@ -1,26 +1,22 @@
-import { useTheme } from 'styled-components';
-
 import { useState } from 'react';
 
-import { CreditCardIcon } from 'components/Illustrations/CreditCard';
+import { RiBankCard2Line } from 'react-icons/ri';
 
 import { Button } from 'components/Button';
 
 import { VISAIcon } from 'components/Illustrations/Visa';
 
 import { Skeleton } from '../Skeleton';
-import { ModalCreditCard } from './ModalCreditCard';
+import { Modal } from './Modal';
 import { CreditCardProps } from './types';
 import * as S from './styles';
 
 export function CreditCard({ user, loading }: CreditCardProps) {
-  const [isNewModalOpen, setIsNewModalOpen] = useState(false);
+  const [showModal, setShowModal] = useState(false);
 
-  const handleNewCreditCardModal = () => {
-    setIsNewModalOpen(prevState => !prevState);
+  const handleRequestModal = () => {
+    setShowModal(prevState => !prevState);
   };
-
-  const { colors } = useTheme();
 
   const cardLastDigits = user?.credit_card.last_digits;
   const cardExpirationDate = user?.credit_card.expiration_date;
@@ -34,7 +30,7 @@ export function CreditCard({ user, loading }: CreditCardProps) {
         {hasCreditCard ? (
           <>
             <S.YourAccount>
-              <CreditCardIcon color={colors.gray[100]} width="20" height="14" />
+              <RiBankCard2Line />
               <S.ContentTitle>Seu cartão cadastrado</S.ContentTitle>
             </S.YourAccount>
 
@@ -50,12 +46,12 @@ export function CreditCard({ user, loading }: CreditCardProps) {
               <VISAIcon width="80" height="43" />
             </S.CardDetails>
 
-            <Button onClick={handleNewCreditCardModal}>Atualizar cartão</Button>
+            <Button onClick={handleRequestModal}>Atualizar cartão</Button>
           </>
         ) : (
           <>
             <S.YourAccount>
-              <CreditCardIcon color={colors.gray[100]} width="20" height="14" />
+              <RiBankCard2Line />
               <S.ContentTitle>Seu cartão cadastrado</S.ContentTitle>
             </S.YourAccount>
 
@@ -68,10 +64,7 @@ export function CreditCard({ user, loading }: CreditCardProps) {
         )}
       </S.Content>
 
-      <ModalCreditCard
-        isOpen={isNewModalOpen}
-        onRequestNewCreditCardModal={handleNewCreditCardModal}
-      />
+      {showModal && <Modal onRequestClose={handleRequestModal} />}
     </>
   );
 }

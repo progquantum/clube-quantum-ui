@@ -3,8 +3,7 @@ import { useTheme } from 'styled-components';
 import { FiLogOut } from 'react-icons/fi';
 
 import { useSubscription } from 'hooks/useSubscription';
-import { BancoUm } from 'components/Illustrations/BancoUm';
-import { CreditCardIcon } from 'components/Illustrations/CreditCard';
+
 import { formatFirstLetterToUppercase } from 'utils/formatters/formatFirstLetterToUppercase';
 import { formatPrice } from 'utils/formatters/formatPrice';
 
@@ -15,6 +14,10 @@ import { formatCreditCardRemoveSpace } from 'utils/formatters/formatCreditCardRe
 import { AuthLayout } from 'layouts/Auth';
 
 import { Button } from 'components/Button';
+
+import { BancoUm } from 'components/Illustrations/BancoUm';
+
+import { CreditCardIcon } from 'components/Illustrations/CreditCard';
 
 import { SummaryProps } from './types';
 import * as S from './styles';

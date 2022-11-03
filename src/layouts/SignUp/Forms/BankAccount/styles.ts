@@ -26,7 +26,9 @@ export const BankData = styled.h3`
 `;
 
 export const BankInfo = styled.p`
+  margin-top: 10px;
   font-weight: 500;
   font-size: 16px;
   line-height: 20px;
+  color: ${({ theme }) => theme.colors.gray[700]};
 `;
