@@ -1,9 +1,7 @@
 import { useState } from 'react';
-
 import { RiBankCard2Line } from 'react-icons/ri';
 
 import { Button } from 'components/Button';
-
 import { VISAIcon } from 'components/Illustrations/Visa';
 
 import { Skeleton } from '../Skeleton';
