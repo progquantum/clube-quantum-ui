@@ -1,13 +1,7 @@
 import Image from 'next/image';
 import Link from 'next/link';
 
-import {
-  IoArrowBackCircleOutline,
-  IoChevronBackCircleOutline,
-  IoReturnDownBackSharp,
-} from 'react-icons/io5';
-
-import { GiBrickWall } from 'react-icons/gi';
+import { IoReturnDownBackSharp } from 'react-icons/io5';
 
 import { HOMEPAGE_PAGE } from 'constants/routesPath';
 
