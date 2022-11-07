@@ -7,7 +7,8 @@ import { Footer } from 'components/Footer';
 import { Header } from 'components/Header';
 import { Successful } from 'components/Successful';
 import { Plans } from 'components/Plans';
-import { useAuthState } from 'contexts/auth/AuthContext';
+
+import { useMe } from 'hooks/user/useMe';
 
 import { SelectPlan } from './SelectPlan';
 import { ModalCVC } from './ModalCVC';
@@ -16,8 +17,8 @@ import { SubscriptionButton } from './SubscriptionButton';
 import { ManagePlansButton } from './ManagePlansButton';
 
 export function SubscriptionsPage() {
-  const { user } = useAuthState();
-  const hasPlan = user.subscription?.is_active;
+  const { data } = useMe();
+  const hasPlan = data?.subscription?.is_active;
 
   const [modalIsOpen, setIsOpen] = useState(false);
 
