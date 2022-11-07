@@ -28,6 +28,10 @@ export const HeaderSelectPlan = styled.div`
   display: flex;
   flex-direction: row;
   gap: 0.625rem;
+  > svg {
+    font-size: 1.0625rem;
+    color: ${({ theme }) => theme.colors.gray['300']};
+  }
 `;
 export const TitlePlan = styled.span`
   font-weight: 500;

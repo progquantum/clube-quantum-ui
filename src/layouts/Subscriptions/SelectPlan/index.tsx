@@ -1,4 +1,4 @@
-import Image from 'next/image';
+import { RiStackLine } from 'react-icons/ri';
 
 import { useAuthState } from 'contexts/auth/AuthContext';
 import { formatFirstLetterToUppercase } from 'utils/formatters/formatFirstLetterToUppercase';
@@ -15,12 +15,7 @@ export function SelectPlan() {
   return (
     <S.DivSelectPlan>
       <S.HeaderSelectPlan>
-        <Image
-          width={17.89}
-          height={19.87}
-          src="/images/icon-plan.svg"
-          alt="Icone plano"
-        />
+        <RiStackLine />
         <S.TitlePlan>Seu plano</S.TitlePlan>
       </S.HeaderSelectPlan>
       <S.DivStatusPlan>
