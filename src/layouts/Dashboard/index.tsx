@@ -20,7 +20,7 @@ export function DashboardPage() {
         <SideBar />
         <S.RightWrapper>
           <ServicesBank />
-          {data.subscription ? <MainContent /> : <ManagePlans />}
+          {data?.subscription ? <MainContent /> : <ManagePlans />}
         </S.RightWrapper>
       </S.Container>
     </>

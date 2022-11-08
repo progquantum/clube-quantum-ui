@@ -1,6 +1,8 @@
 /* eslint-disable no-nested-ternary */
 import { useEffect, useMemo, useState } from 'react';
 
+import { FaCheck } from 'react-icons/fa';
+
 import { usePlans } from 'hooks/usePlans';
 import { useSubscriptionsDispatch } from 'contexts/subscriptions/SubscriptionsContext';
 import { formatPrice } from 'utils/formatters/formatPrice';
@@ -137,13 +139,20 @@ export function Plans({ children, button }: PlansProps) {
             {formatFirstLetterToUppercase(planFree.name)}
           </S.TitlePlan>
           <S.Text>Benefícios Quantum e Cashback sem pagar nada.</S.Text>
-          <h2>R$ 0,00</h2>
-
+          <S.Price>
+            <span>R$</span> 0
+          </S.Price>
+          <S.Button isActive={selectedPlan === 'free'}>
+            {selectedPlan === 'free'
+              ? 'Plano Escolhido'
+              : 'Escolher este plano'}
+          </S.Button>
+          <S.Text>Gratuito inclui:</S.Text>
           <S.PlanItemsList isActive={selectedPlan === 'free'}>
             <li>
               <S.PlanItem>
                 <span>
-                  <S.IconChecked />
+                  <FaCheck />
                 </span>
                 CashBack sobre as transações com o cartão Banco Um
               </S.PlanItem>
@@ -151,7 +160,7 @@ export function Plans({ children, button }: PlansProps) {
             <li>
               <S.PlanItem>
                 <span>
-                  <S.IconChecked />
+                  <FaCheck />
                 </span>
                 Ganho por indicação direta
               </S.PlanItem>
@@ -181,11 +190,6 @@ export function Plans({ children, button }: PlansProps) {
               </S.PlanItemNotIncluded>
             </li>
           </S.PlanItemsList>
-          <S.Button isActive={selectedPlan === 'free'}>
-            {selectedPlan === 'free'
-              ? 'Plano Escolhido'
-              : 'Escolher este plano'}
-          </S.Button>
         </S.PlanContentsWrapper>
 
         <S.PlanContentsWrapper
@@ -200,19 +204,25 @@ export function Plans({ children, button }: PlansProps) {
           <S.Text>
             Plano com um custo acessível e que te dá mais benefícios.
           </S.Text>
-          <h2>
+          <S.Price>
             {selectedPeriod === 'semiannual'
               ? formatPrice(planStart.semiannual_price)
               : selectedPeriod === 'monthly'
               ? formatPrice(planStart.monthly_price)
               : formatPrice(planStart.annual_price)}
-          </h2>
+          </S.Price>
+
+          <S.Button isActive={selectedPlan === 'start'}>
+            {selectedPlan === 'start'
+              ? 'Plano Escolhido'
+              : 'Escolher este plano'}
+          </S.Button>
 
           <S.PlanItemsList isActive={selectedPlan === 'start'}>
             <li>
               <S.PlanItem>
                 <span>
-                  <S.IconChecked />
+                  <FaCheck />
                 </span>
                 CashBack sobre as transações com o cartão Banco Um
               </S.PlanItem>
@@ -220,7 +230,7 @@ export function Plans({ children, button }: PlansProps) {
             <li>
               <S.PlanItem>
                 <span>
-                  <S.IconChecked />
+                  <FaCheck />
                 </span>
                 Ganho por indicação direta
               </S.PlanItem>
@@ -228,7 +238,7 @@ export function Plans({ children, button }: PlansProps) {
             <li>
               <S.PlanItem>
                 <span>
-                  <S.IconChecked />
+                  <FaCheck />
                 </span>
                 Ganhos por indicados indiretos
               </S.PlanItem>
@@ -236,7 +246,7 @@ export function Plans({ children, button }: PlansProps) {
             <li>
               <S.PlanItem>
                 <span>
-                  <S.IconChecked />
+                  <FaCheck />
                 </span>
                 Programa de Fidelidade Quantum
               </S.PlanItem>
@@ -254,11 +264,6 @@ export function Plans({ children, button }: PlansProps) {
               </S.PlanItemNotIncluded>
             </li>
           </S.PlanItemsList>
-          <S.Button isActive={selectedPlan === 'start'}>
-            {selectedPlan === 'start'
-              ? 'Plano Escolhido'
-              : 'Escolher este plano'}
-          </S.Button>
         </S.PlanContentsWrapper>
 
         <S.PlanContentsWrapper
@@ -271,19 +276,25 @@ export function Plans({ children, button }: PlansProps) {
             {formatFirstLetterToUppercase(planSelect.name)}
           </S.TitlePlan>
           <S.Text>Plano para que você aproveite o máximo do Quantum.</S.Text>
-          <h2>
+          <S.Price>
             {selectedPeriod === 'semiannual'
               ? formatPrice(planSelect.semiannual_price)
               : selectedPeriod === 'monthly'
               ? formatPrice(planSelect.monthly_price)
               : formatPrice(planSelect.annual_price)}
-          </h2>
+          </S.Price>
+
+          <S.Button isActive={selectedPlan === 'select'}>
+            {selectedPlan === 'select'
+              ? 'Plano Escolhido'
+              : 'Escolher este plano'}
+          </S.Button>
 
           <S.PlanItemsList isActive={selectedPlan === 'select'}>
             <li>
               <S.PlanItem>
                 <span>
-                  <S.IconChecked />
+                  <FaCheck />
                 </span>
                 CashBack sobre as transações com o cartão Banco Um
               </S.PlanItem>
@@ -291,7 +302,7 @@ export function Plans({ children, button }: PlansProps) {
             <li>
               <S.PlanItem>
                 <span>
-                  <S.IconChecked />
+                  <FaCheck />
                 </span>
                 Ganho por indicação direta
               </S.PlanItem>
@@ -299,7 +310,7 @@ export function Plans({ children, button }: PlansProps) {
             <li>
               <S.PlanItem>
                 <span>
-                  <S.IconChecked />
+                  <FaCheck />
                 </span>
                 Ganhos por indicados indiretos
               </S.PlanItem>
@@ -307,7 +318,7 @@ export function Plans({ children, button }: PlansProps) {
             <li>
               <S.PlanItem>
                 <span>
-                  <S.IconChecked />
+                  <FaCheck />
                 </span>
                 Programa de Fidelidade Quantum
               </S.PlanItem>
@@ -315,7 +326,7 @@ export function Plans({ children, button }: PlansProps) {
             <li>
               <S.PlanItem>
                 <span>
-                  <S.IconChecked />
+                  <FaCheck />
                 </span>
                 Ganhos por indicados diretos
               </S.PlanItem>
@@ -323,17 +334,12 @@ export function Plans({ children, button }: PlansProps) {
             <li>
               <S.PlanItem>
                 <span>
-                  <S.IconChecked />
+                  <FaCheck />
                 </span>
                 Comissões
               </S.PlanItem>
             </li>
           </S.PlanItemsList>
-          <S.Button isActive={selectedPlan === 'select'}>
-            {selectedPlan === 'select'
-              ? 'Plano Escolhido'
-              : 'Escolher este plano'}
-          </S.Button>
         </S.PlanContentsWrapper>
       </S.PlansContents>
 

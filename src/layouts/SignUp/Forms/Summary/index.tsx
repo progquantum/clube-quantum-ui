@@ -15,10 +15,6 @@ import { AuthLayout } from 'layouts/Auth';
 
 import { Button } from 'components/Button';
 
-import { BancoUm } from 'components/Illustrations/BancoUm';
-
-import { CreditCardIcon } from 'components/Illustrations/CreditCard';
-
 import { SummaryProps } from './types';
 import * as S from './styles';
 
@@ -95,10 +91,7 @@ export function Summary({
           </S.CardDataContainer>
         </S.Plan>
         <S.Bank>
-          <S.Title>
-            <BancoUm width="10.32" height="15" color={colors.mediumslateBlue} />
-            Sua conta do Banco Um
-          </S.Title>
+          <S.Title>Sua conta do Banco Um</S.Title>
           <S.CardDataContainer>
             <S.CardDataTitle>Cód. Banco</S.CardDataTitle>
             <S.CardDataText>396 - Banco Um</S.CardDataText>
@@ -117,14 +110,7 @@ export function Summary({
           </S.CardDataContainer>
         </S.Bank>
         <S.CreditCard>
-          <S.Title>
-            <CreditCardIcon
-              width="22"
-              height="16"
-              color={colors.mediumslateBlue}
-            />
-            Seu cartão cadastrado
-          </S.Title>
+          <S.Title>Seu cartão cadastrado</S.Title>
           <S.CardDataContainer>
             <S.CardDataTitle>Nome</S.CardDataTitle>
             <S.CardDataText>{cardName}</S.CardDataText>

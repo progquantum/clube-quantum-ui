@@ -1,24 +1,15 @@
-import { useCallback, useRef } from 'react';
+import { useCallback, useRef, useState } from 'react';
 import { FiCalendar, FiCreditCard, FiLock } from 'react-icons/fi';
-import Link from 'next/link';
-import { useRouter } from 'next/router';
-import { useTheme } from 'styled-components';
 
 import { Form } from '@unform/web';
 import { FormHandles, SubmitHandler } from '@unform/core';
 import noop from 'lodash.noop';
 
-import { SideBar } from 'components/SideBar';
-import { Header } from 'components/Header';
-import { Footer } from 'components/Footer';
+import { RiBankCard2Line } from 'react-icons/ri';
+
 import { VISAIcon } from 'components/Illustrations/Visa';
-import { CreditCardIcon } from 'components/Illustrations/CreditCard';
 import { Input } from 'components/Input';
-import {
-  BANK_ACCOUNT_PAGE,
-  FINISHED_SUBSCRIPTION,
-  SUBSCRIPTIONS_PAGE,
-} from 'constants/routesPath';
+
 import { useSubscriptionsDispatch } from 'contexts/subscriptions/SubscriptionsContext';
 import { performSchemaValidation } from 'utils/performSchemaValidation';
 import { formatCreditCardExpiration } from 'utils/formatters/formatCreditCardExpiration';
@@ -26,14 +17,22 @@ import { formatCreditCardAddSpace } from 'utils/formatters/formatCreditCardAddSp
 
 import { formatCVV } from 'utils/formatters/formatCVV';
 
-import { FormCreditCardData } from './types';
+import { Modal } from 'components/Modal';
+
+import { Button } from 'components/Button';
+
+import { FormCreditCardData, ModalProps } from './types';
 import { schema } from './schemas';
 import * as S from './styles';
+import { FinishedPage } from '../Finished';
 
-export function CreditCardPage() {
-  const router = useRouter();
-  const { colors } = useTheme();
+export function ModalCreditCard({ onRequestClose }: ModalProps) {
   const { registerCreditCard } = useSubscriptionsDispatch();
+  const [showModal, setShowModal] = useState(false);
+
+  const handleRequestModal = () => {
+    setShowModal(prevState => !prevState);
+  };
 
   const formRef = useRef<FormHandles>(null);
 
@@ -46,7 +45,7 @@ export function CreditCardPage() {
       })
         .then(() => {
           registerCreditCard(data);
-          router.push(FINISHED_SUBSCRIPTION);
+          handleRequestModal();
         })
         .catch(noop);
     },
@@ -55,41 +54,34 @@ export function CreditCardPage() {
 
   return (
     <>
-      <Header />
-      <S.Main>
-        <SideBar />
+      <Modal onClose={onRequestClose}>
         <S.Form as={Form} ref={formRef} onSubmit={handleSubmitCreditCard}>
           <S.Line>
-            <CreditCardIcon color={colors.gray[100]} width="22" height="16" />
-            Seu cartão cadastrado
+            <RiBankCard2Line size={14} />
+            Cartão
           </S.Line>
-          <S.Text>
-            Para poder tirar o máximo de proveito dos benefícios da plataforma,
-            você precisa adicionar um cartão
-          </S.Text>
-          <S.DivInput>
+
+          <Input
+            type="text"
+            name="card_name"
+            placeholder="Nome impresso no cartão"
+          />
+
+          <S.ContentCardNumber>
             <Input
               type="text"
-              name="card_name"
-              placeholder="Nome impresso no cartão"
+              name="card_number"
+              placeholder="Número do cartão"
+              icon={FiCreditCard}
+              onChange={e =>
+                formRef.current.setFieldValue(
+                  'card_number',
+                  formatCreditCardAddSpace(e.target.value),
+                )
+              }
             />
-          </S.DivInput>
-          <S.ContentCardNumber>
-            <S.DivInput>
-              <Input
-                type="text"
-                name="card_number"
-                placeholder="Número do cartão"
-                icon={FiCreditCard}
-                onChange={e =>
-                  formRef.current.setFieldValue(
-                    'card_number',
-                    formatCreditCardAddSpace(e.target.value),
-                  )
-                }
-              />
-            </S.DivInput>
-            <VISAIcon width="50" height="17.18" />
+
+            <VISAIcon width="50" height="50" />
           </S.ContentCardNumber>
           <S.ContentCardExpirateCVC>
             <S.DivInput>
@@ -121,18 +113,14 @@ export function CreditCardPage() {
               />
             </S.CVC>
           </S.ContentCardExpirateCVC>
-          <S.ConfirmButton variant="secondary_degrade" type="submit">
-            Confirmar
-          </S.ConfirmButton>
-          <Link href={BANK_ACCOUNT_PAGE}>
-            <S.ReturnButton variant="secondary">Voltar</S.ReturnButton>
-          </Link>
-          <Link href={SUBSCRIPTIONS_PAGE}>
-            <S.Cancel>Cancelar</S.Cancel>
-          </Link>
+          <Button type="submit">Confirmar</Button>
+
+          <S.ReturnButton onClick={onRequestClose} variant="danger_outline">
+            Voltar
+          </S.ReturnButton>
         </S.Form>
-      </S.Main>
-      <Footer />
+      </Modal>
+      {showModal ? <FinishedPage onRequestClose={handleRequestModal} /> : null}
     </>
   );
 }

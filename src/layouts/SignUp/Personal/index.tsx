@@ -14,7 +14,7 @@ import { Summary } from '../Forms/Summary';
 import { Successful } from '../Forms/Successful';
 
 export function PersonalSignUpPage() {
-  const [step, setStep] = useState(0);
+  const [step, setStep] = useState(7);
 
   const nextStep = () => {
     setStep(prevState => prevState + 1);

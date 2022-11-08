@@ -14,7 +14,7 @@ import { SelectPlan } from './SelectPlan';
 import { ModalCVC } from './ModalCVC';
 import * as S from './styles';
 import { SubscriptionButton } from './SubscriptionButton';
-import { ManagePlansButton } from './ManagePlansButton';
+import { ModalBankAccount } from './ModalBankAccount';
 
 export function SubscriptionsPage() {
   const { data } = useMe();
@@ -63,8 +63,11 @@ export function SubscriptionsPage() {
             />
           </Plans>
         ) : (
-          <Plans button={<ManagePlansButton />}>
-            <ManagePlans width="370" />
+          <Plans
+            button={<SubscriptionButton onOpenModalCvcRequest={openModal} />}
+          >
+            {modalIsOpen ? <ModalBankAccount onClose={closeModal} /> : null}
+            <ManagePlans width="350" />
           </Plans>
         )}
       </S.Main>

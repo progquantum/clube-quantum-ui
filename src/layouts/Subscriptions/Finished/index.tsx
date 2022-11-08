@@ -1,29 +1,26 @@
 /* eslint-disable no-nested-ternary */
-import { useState } from 'react';
-import { MdAssignmentInd } from 'react-icons/md';
-import Link from 'next/link';
-import { useTheme } from 'styled-components';
+
+import { RiBankCard2Line, RiBankLine } from 'react-icons/ri';
 
 import { useSubscription } from 'hooks/useSubscription';
-import { Footer } from 'components/Footer';
-import { Header } from 'components/Header';
-import { SideBar } from 'components/SideBar';
-import { Successful } from 'components/Successful';
-import { BancoUm } from 'components/Illustrations/BancoUm';
-import { CreditCardIcon } from 'components/Illustrations/CreditCard';
+
 import { formatFirstLetterToUppercase } from 'utils/formatters/formatFirstLetterToUppercase';
 import { formatPrice } from 'utils/formatters/formatPrice';
-import { CREDIT_CARD_PAGE } from 'constants/routesPath';
+
 import { useSubscriptionsState } from 'contexts/subscriptions/SubscriptionsContext';
 import { formatCreditCardRemoveSpace } from 'utils/formatters/formatCreditCardRemoveSpace';
 
-import * as S from './styles';
+import { Modal } from 'components/Modal';
 
-export function FinishedPage() {
+import { success } from 'helpers/notify/success';
+
+import * as S from './styles';
+import { ModalProps } from './types';
+
+export function FinishedPage({ onRequestClose }: ModalProps) {
   const { mutate: creatSubscription, isLoading: isCreating } =
     useSubscription();
-  const [isSuccessful, setIsSuccessful] = useState(false);
-  const { colors } = useTheme();
+
   const { plan, bankAccount, creditCard } = useSubscriptionsState();
 
   const handleSubscriptionSubmit = () => {
@@ -50,7 +47,10 @@ export function FinishedPage() {
         },
       },
       {
-        onSuccess: () => setIsSuccessful(true),
+        onSuccess: () => {
+          success('Plano atualizado com sucesso!');
+          onRequestClose();
+        },
       },
     );
   };
@@ -65,108 +65,84 @@ export function FinishedPage() {
   const expirationDate = creditCard?.expiration_date;
   const formattedBankAccount = `${bankAccount?.current_account}-${bankAccount?.current_account_check_number}`;
   return (
-    <>
-      <Header />
-      <S.Main>
-        {!isSuccessful ? (
-          <>
-            <SideBar />
-            <S.Container>
-              <S.TitleFinished>Resumo da conta</S.TitleFinished>
-              <S.Plan>
-                <S.Title>
-                  <MdAssignmentInd
-                    size={19.87}
-                    color={colors.mediumslateBlue}
-                  />
-                  Seu plano escolhido
-                </S.Title>
-                <S.TitlePlan>{formattedPlanName}</S.TitlePlan>
-                <S.CardDataContainer>
-                  <S.CardDataTitle>Período de Cobrança</S.CardDataTitle>
-                  <S.CardDataText>
-                    {planPeriod === 'monthly'
-                      ? 'Mensal'
-                      : planPeriod === 'semiannual'
-                      ? 'Semestral'
-                      : 'Anual'}
-                  </S.CardDataText>
-                </S.CardDataContainer>
-                <S.CardDataContainer>
-                  <S.CardDataTitle>Total</S.CardDataTitle>
-                  <S.CardDataText>{formattedPrice}</S.CardDataText>
-                </S.CardDataContainer>
-              </S.Plan>
-              <S.Bank>
-                <S.Title>
-                  <BancoUm
-                    width="10.32"
-                    height="15"
-                    color={colors.mediumslateBlue}
-                  />
-                  Sua conta do Banco Um
-                </S.Title>
-                <S.CardDataContainer>
-                  <S.CardDataTitle>Cód. Banco</S.CardDataTitle>
-                  <S.CardDataText>396 - Banco Um</S.CardDataText>
-                </S.CardDataContainer>
-                <S.CardDataContainer>
-                  <S.CardDataTitle>Agência</S.CardDataTitle>
-                  <S.CardDataText>0001</S.CardDataText>
-                </S.CardDataContainer>
-                <S.CardDataContainer>
-                  <S.CardDataTitle>Conta</S.CardDataTitle>
-                  <S.CardDataText>{formattedBankAccount}</S.CardDataText>
-                </S.CardDataContainer>
-                <S.CardDataContainer>
-                  <S.CardDataTitle>Titular</S.CardDataTitle>
-                  <S.CardDataText>{holderName}</S.CardDataText>
-                </S.CardDataContainer>
-              </S.Bank>
-              <S.CreditCard>
-                <S.Title>
-                  <CreditCardIcon
-                    width="22"
-                    height="16"
-                    color={colors.mediumslateBlue}
-                  />
-                  Seu cartão cadastrado
-                </S.Title>
-                <S.CardDataContainer>
-                  <S.CardDataTitle>Nome</S.CardDataTitle>
-                  <S.CardDataText>{cardName}</S.CardDataText>
-                </S.CardDataContainer>
-                <S.CardDataContainer>
-                  <S.CardDataTitle>Cartão</S.CardDataTitle>
-                  <S.CardDataText>{cardNumber}</S.CardDataText>
-                </S.CardDataContainer>
-                <S.CardDataContainer>
-                  <S.CardDataTitle>CVC</S.CardDataTitle>
-                  <S.CardDataText>{cardCVC}</S.CardDataText>
-                </S.CardDataContainer>
-                <S.CardDataContainer>
-                  <S.CardDataTitle>Validade</S.CardDataTitle>
-                  <S.CardDataText>{expirationDate}</S.CardDataText>
-                </S.CardDataContainer>
-              </S.CreditCard>
-              <S.ConfirmButton
-                onClick={handleSubscriptionSubmit}
-                loading={isCreating}
-              >
-                Finalizar
-              </S.ConfirmButton>
-              <Link href={CREDIT_CARD_PAGE}>
-                <S.ReturnButton variant="secondary" type="button">
-                  Voltar
-                </S.ReturnButton>
-              </Link>
-            </S.Container>
-          </>
-        ) : (
-          <Successful />
-        )}
-      </S.Main>
-      <Footer />
-    </>
+    <Modal onClose={onRequestClose}>
+      <S.Container>
+        <S.Plan>
+          <S.TitlePlan>{formattedPlanName}</S.TitlePlan>
+          <S.CardDataContainer>
+            <S.CardDataTitle>Período de Cobrança</S.CardDataTitle>
+            <S.CardDataText>
+              {planPeriod === 'monthly'
+                ? 'Mensal'
+                : planPeriod === 'semiannual'
+                ? 'Semestral'
+                : 'Anual'}
+            </S.CardDataText>
+          </S.CardDataContainer>
+          <S.CardDataContainer>
+            <S.CardDataTitle>Total</S.CardDataTitle>
+            <S.CardDataText>{formattedPrice}</S.CardDataText>
+          </S.CardDataContainer>
+        </S.Plan>
+        <S.Bank>
+          <S.Title>
+            <RiBankLine />
+            Sua conta do Banco Um
+          </S.Title>
+          <S.CardDataContainer>
+            <S.CardDataTitle>Cód. Banco</S.CardDataTitle>
+            <S.CardDataText>396 - Banco Um</S.CardDataText>
+          </S.CardDataContainer>
+          <S.CardDataContainer>
+            <S.CardDataTitle>Agência</S.CardDataTitle>
+            <S.CardDataText>0001</S.CardDataText>
+          </S.CardDataContainer>
+          <S.CardDataContainer>
+            <S.CardDataTitle>Conta</S.CardDataTitle>
+            <S.CardDataText>{formattedBankAccount}</S.CardDataText>
+          </S.CardDataContainer>
+          <S.CardDataContainer>
+            <S.CardDataTitle>Titular</S.CardDataTitle>
+            <S.CardDataText>{holderName}</S.CardDataText>
+          </S.CardDataContainer>
+        </S.Bank>
+        <S.CreditCard>
+          <S.Title>
+            <RiBankCard2Line />
+            Cartão cadastrado
+          </S.Title>
+          <S.CardDataContainer>
+            <S.CardDataTitle>Nome</S.CardDataTitle>
+            <S.CardDataText>{cardName}</S.CardDataText>
+          </S.CardDataContainer>
+          <S.CardDataContainer>
+            <S.CardDataTitle>Cartão</S.CardDataTitle>
+            <S.CardDataText>{cardNumber}</S.CardDataText>
+          </S.CardDataContainer>
+          <S.CardDataContainer>
+            <S.CardDataTitle>CVC</S.CardDataTitle>
+            <S.CardDataText>{cardCVC}</S.CardDataText>
+          </S.CardDataContainer>
+          <S.CardDataContainer>
+            <S.CardDataTitle>Validade</S.CardDataTitle>
+            <S.CardDataText>{expirationDate}</S.CardDataText>
+          </S.CardDataContainer>
+        </S.CreditCard>
+        <S.ConfirmButton
+          onClick={handleSubscriptionSubmit}
+          loading={isCreating}
+        >
+          Finalizar
+        </S.ConfirmButton>
+
+        <S.ReturnButton
+          onClick={onRequestClose}
+          variant="danger_outline"
+          type="button"
+        >
+          Voltar
+        </S.ReturnButton>
+      </S.Container>
+    </Modal>
   );
 }

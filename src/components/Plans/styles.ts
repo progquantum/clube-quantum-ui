@@ -1,6 +1,6 @@
 import styled, { css } from 'styled-components';
-import { VscChromeClose } from 'react-icons/vsc';
-import { FaCheck } from 'react-icons/fa';
+
+import { IoCloseOutline } from 'react-icons/io5';
 
 import { Active } from './types';
 
@@ -21,6 +21,10 @@ export const Container = styled.div`
     &:last-of-type {
       justify-content: center;
       margin-top: 5rem;
+
+      @media (max-width: 500px) {
+        margin-top: 2rem;
+      }
     }
   }
 
@@ -37,7 +41,7 @@ export const Wrapper = styled.div`
   flex-direction: column;
   gap: 1.25rem;
 
-  margin: 30px 0;
+  margin: 1.875rem 0;
 
   @media (max-width: 900px) {
     > span {
@@ -45,20 +49,20 @@ export const Wrapper = styled.div`
     }
   }
 `;
+
 export const Text = styled.p`
   font-weight: 500;
-  font-size: 0.75rem;
-  line-height: 0.9375rem;
-  text-align: center;
+  font-size: 0.8rem;
 `;
+
 export const Subtitle = styled(Text)`
-  color: ${({ theme }) => theme.colors.midnightBlue};
+  color: ${({ theme }) => theme.colors.gray['400']};
 `;
+
 export const PlansWrapper = styled.div`
   width: 100%;
-  padding: 2px;
-  border-radius: 0.625rem;
-  background: ${({ theme }) => theme.gradients.midnightBlueToMediumsLateBlue};
+  border-radius: 0.3rem;
+  background: ${({ theme }) => theme.colors.mediumslateBlue};
   border: 2px solid
     ${({ theme }) => theme.gradients.midnightBlueToMediumsLateBlue};
 
@@ -66,53 +70,58 @@ export const PlansWrapper = styled.div`
   align-items: center;
   justify-content: space-between;
 `;
+
 export const Title = styled.h2`
-  font-weight: 900;
-  font-size: 1rem;
+  font-weight: 700;
+  font-size: 1.1rem;
   line-height: 1.25rem;
-  color: ${({ theme }) => theme.colors.midnightBlue};
+  color: ${({ theme }) => theme.colors.gray['700']};
   display: flex;
   justify-content: center;
   align-items: center;
 `;
+
 export const PlanType = styled.h4<Active>`
   width: 100%;
   text-align: center;
   color: ${({ theme }) => theme.colors.white};
-  border-radius: 0.625rem;
+  border-radius: 0.2rem;
   cursor: pointer;
   font-size: 0.875rem;
-  line-height: 1.0625rem;
   padding: 10px 29px;
 
   ${props =>
     props.isActive &&
     css`
       background-color: ${({ theme }) => theme.colors.white};
-      color: ${({ theme }) => theme.colors.midnightBlue};
+      color: ${({ theme }) => theme.colors.gray['700']};
+      border: 2px solid ${({ theme }) => theme.colors.mediumslateBlue}; ;
     `}
 
   @media (max-width: 525px) {
     font-size: 0.9rem;
   }
 `;
+
 export const Button = styled.button<Active>`
-  padding: 0.625rem 1.8125rem;
-  border-radius: 10px;
-  background-color: ${({ theme }) => theme.colors.midnightBlue};
+  padding: 1rem 1.8125rem;
+  border-radius: 5px;
+  background: ${({ theme }) => theme.colors.mediumslateBlue};
   color: ${({ theme }) => theme.colors.white};
-  font-size: 0.75rem;
-  font-weight: 500;
-  margin-top: 1.5625rem;
+  font-size: 0.9rem;
+  font-weight: 600;
+  margin-top: 1.5rem;
+  margin-bottom: 1.5rem;
 
   ${props =>
     props.isActive &&
     css`
       background: ${({ theme }) => theme.colors.background};
-      color: ${({ theme }) => theme.colors.midnightBlue};
+      color: ${({ theme }) => theme.colors.mediumslateBlue};
       font-weight: 600;
     `}
 `;
+
 export const PlansContents = styled.section`
   color: ${({ theme }) => theme.colors.gray[700]};
   gap: 1.5rem;
@@ -120,28 +129,21 @@ export const PlansContents = styled.section`
   margin-top: 3rem;
   display: flex;
   align-items: center;
-  justify-content: center;
 
   @media (max-width: 1320px) {
     flex-direction: column;
   }
 `;
+
 export const PlanContentsWrapper = styled.div<Active>`
   width: 100%;
-  padding: 2.75rem 1.875rem;
+  padding: 2rem 1.5rem;
   background: #ffffff;
-  box-shadow: 2px 4px 20px rgba(0, 0, 0, 0.15);
-  border-radius: 15px;
+  box-shadow: 2px 4px 20px rgba(0, 0, 0, 0.12);
+  border-radius: 8px;
   cursor: pointer;
   display: flex;
   flex-direction: column;
-  align-items: center;
-
-  h2 {
-    font-size: 1.25rem;
-    margin-top: 1.5625rem;
-    color: ${({ theme }) => theme.colors.midnightBlue};
-  }
 
   @media (max-width: 1320px) {
     width: 21.875rem;
@@ -154,12 +156,11 @@ export const PlanContentsWrapper = styled.div<Active>`
   ${props =>
     props.isActive &&
     css`
-      background: ${({ theme }) =>
-        theme.gradients.midnightBlueToMediumsLateBlue};
-      box-shadow: 2px 4px 20px rgba(0, 31, 128, 0.25);
-      transform: scale(1.1);
+      background: ${({ theme }) => theme.colors.mediumslateBlue};
+      transform: scale(1.2);
+
       margin: 0 1.25rem;
-      transition: 0.4s;
+      transition: 0.3s ease-out;
 
       h3 {
         color: ${({ theme }) => theme.colors.white};
@@ -179,31 +180,48 @@ export const PlanContentsWrapper = styled.div<Active>`
       }
     `}
 `;
+
+export const Price = styled.h2<Active>`
+  margin-top: 1rem;
+  font-size: 2.5rem;
+  color: ${({ theme }) => theme.colors.gray['200']};
+
+  ${props =>
+    props.isActive &&
+    css`
+      color: ${({ theme }) => theme.colors.white};
+    `}
+`;
+
 export const TitlePlan = styled.h3`
-  font-weight: 900;
+  font-weight: 700;
   font-size: 1.25rem;
   line-height: 1.5rem;
-  text-align: center;
+  text-align: start;
   margin-bottom: 0.625rem;
 `;
+
 export const PlanItemsList = styled.ul<Active>`
-  margin-top: 3.125rem;
+  margin-top: 2rem;
 
   li {
     display: flex;
     align-items: flex-start;
     font-weight: 500;
-    font-size: 0.875rem;
-    line-height: 1.0625rem;
+    font-size: 0.8rem;
+    line-height: 1.5;
     justify-content: space-between;
 
     & + li {
-      margin-top: 2.5rem;
+      margin-top: 1rem;
     }
 
     span {
       margin-top: 0.2rem;
       margin-right: 0.5rem;
+      > svg {
+        color: ${({ theme }) => theme.colors.mediumslateBlue};
+      }
     }
   }
 
@@ -222,22 +240,19 @@ export const PlanItemsList = styled.ul<Active>`
       }
     `}
 `;
+
 export const PlanItem = styled.div`
-  margin-right: 0.3125rem;
   display: flex;
-  align-items: stretch;
+  align-items: flex-start;
 `;
 
 export const PlanItemNotIncluded = styled(PlanItem)`
   gap: 8px;
   p {
-    color: ${({ theme }) => theme.colors.gray[200]};
+    color: ${({ theme }) => theme.colors.gray['200']};
   }
 `;
-export const IconChecked = styled(FaCheck)`
-  color: ${({ theme }) => theme.colors.midnightBlue};
-`;
-export const NotIncludedIcon = styled(VscChromeClose)`
-  font-size: 1rem;
-  color: ${({ theme }) => theme.colors.gray[300]};
+
+export const NotIncludedIcon = styled(IoCloseOutline)`
+  color: ${({ theme }) => theme.colors.gray['200']};
 `;

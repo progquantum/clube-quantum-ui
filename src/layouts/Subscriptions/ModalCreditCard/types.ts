@@ -4,3 +4,7 @@ export type FormCreditCardData = {
   expiration_date?: string;
   cvc: string;
 };
+
+export type ModalProps = {
+  onRequestClose: () => void;
+};

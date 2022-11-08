@@ -1,7 +1,7 @@
 import { GetServerSideProps } from 'next';
 
 import { withSSRAuth } from 'helpers/auth/withSSRAuth';
-import { BankAccountPage } from 'layouts/Subscriptions/BankAccount';
+import { BankAccountPage } from 'layouts/Subscriptions/ModalBankAccount';
 
 export const getServerSideProps: GetServerSideProps = withSSRAuth(async () => ({
   props: {},
