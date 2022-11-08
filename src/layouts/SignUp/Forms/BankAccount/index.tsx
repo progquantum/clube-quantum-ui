@@ -1,9 +1,10 @@
 import { useCallback, useRef } from 'react';
 import { AiOutlineBank } from 'react-icons/ai';
-import { FiLogOut, FiUser } from 'react-icons/fi';
+import { FiUser } from 'react-icons/fi';
 import { Form } from '@unform/web';
 import { FormHandles, SubmitHandler } from '@unform/core';
 import noop from 'lodash.noop';
+import { IoReturnDownBackSharp } from 'react-icons/io5';
 
 import { Input } from 'components/Input';
 import { Button } from 'components/Button';
@@ -77,7 +78,7 @@ export function BankAccount({
         <Button type="submit">Continuar</Button>
       </Form>
       <button type="button" onClick={onPreviousFormStep}>
-        <FiLogOut />
+        <IoReturnDownBackSharp size={20} />
         Voltar
       </button>
     </AuthLayout>

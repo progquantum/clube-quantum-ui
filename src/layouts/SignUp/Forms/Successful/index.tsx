@@ -1,6 +1,6 @@
 import Link from 'next/link';
 
-import { FiLogIn } from 'react-icons/fi';
+import { IoReturnDownBackSharp } from 'react-icons/io5';
 
 import { SIGN_IN_PAGE } from 'constants/routesPath';
 
@@ -23,7 +23,7 @@ export function Successful() {
 
       <Link href={SIGN_IN_PAGE} prefetch>
         <a>
-          <FiLogIn />
+          <IoReturnDownBackSharp size={20} />
           Retornar para minha conta
         </a>
       </Link>

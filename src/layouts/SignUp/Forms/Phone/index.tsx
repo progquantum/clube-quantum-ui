@@ -1,8 +1,9 @@
 import { useCallback, useRef } from 'react';
-import { FiPhone, FiLogOut } from 'react-icons/fi';
+import { FiPhone } from 'react-icons/fi';
 import { Form } from '@unform/web';
 import { FormHandles, SubmitHandler } from '@unform/core';
 import noop from 'lodash.noop';
+import { IoReturnDownBackSharp } from 'react-icons/io5';
 
 import { useAuthDispatch } from 'contexts/auth/AuthContext';
 import { Input } from 'components/Input';
@@ -74,7 +75,7 @@ export function Phone({ onUpdateFormStep, onPreviousFormStep }: PhoneProps) {
         </Button>
       </Form>
       <button type="button" onClick={onPreviousFormStep}>
-        <FiLogOut />
+        <IoReturnDownBackSharp size={20} />
         Voltar
       </button>
     </AuthLayout>

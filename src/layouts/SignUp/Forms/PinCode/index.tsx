@@ -1,5 +1,5 @@
 import { useState, FormEvent } from 'react';
-import { FiLogOut } from 'react-icons/fi';
+import { IoReturnDownBackSharp } from 'react-icons/io5';
 
 import { useAuthState } from 'contexts/auth/AuthContext';
 import { PinCodeGrid } from 'components/PinCodeGrid';
@@ -98,7 +98,7 @@ export function PinCode({ onNextFormStep, onPreviousFormStep }: PinCodeProps) {
         </Button>
       </form>
       <button type="button" onClick={onPreviousFormStep}>
-        <FiLogOut />
+        <IoReturnDownBackSharp size={20} />
         Voltar
       </button>
     </AuthLayout>
