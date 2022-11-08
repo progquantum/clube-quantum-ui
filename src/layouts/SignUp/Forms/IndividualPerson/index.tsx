@@ -1,8 +1,9 @@
 import { useCallback, useRef } from 'react';
-import { FiUser, FiMail, FiLock, FiCalendar, FiLogOut } from 'react-icons/fi';
+import { FiUser, FiMail, FiLock, FiCalendar } from 'react-icons/fi';
 import { FormHandles, SubmitHandler } from '@unform/core';
 import { Form } from '@unform/web';
 import noop from 'lodash.noop';
+import { IoReturnDownBackSharp } from 'react-icons/io5';
 
 import { useAuthDispatch } from 'contexts/auth/AuthContext';
 import { Input } from 'components/Input';
@@ -110,7 +111,7 @@ export function IndividualPerson({
         <Button type="submit">Continuar</Button>
       </Form>
       <button type="button" onClick={onPreviousFormStep}>
-        <FiLogOut />
+        <IoReturnDownBackSharp size={20} />
         Voltar
       </button>
     </AuthLayout>
