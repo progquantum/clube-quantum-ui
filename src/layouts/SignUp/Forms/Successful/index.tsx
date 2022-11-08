@@ -16,8 +16,8 @@ export function Successful() {
     >
       <Container>
         <p>
-          Seu cadastro foi finalizado com sucesso! <br /> Aproveite as ofertas e
-          Cashback no Clube Quantum!
+          Seu cadastro foi finalizado com sucesso! <br />
+          Aproveite as ofertas e Cashback no Clube Quantum!
         </p>
       </Container>
 
