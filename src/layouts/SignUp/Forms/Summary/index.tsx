@@ -1,6 +1,6 @@
-import { MdAssignmentInd } from 'react-icons/md';
-import { useTheme } from 'styled-components';
-import { FiLogOut } from 'react-icons/fi';
+import { RiBankCard2Line, RiBankLine, RiStackLine } from 'react-icons/ri';
+
+import { IoReturnDownBackSharp } from 'react-icons/io5';
 
 import { useSubscription } from 'hooks/useSubscription';
 
@@ -24,7 +24,7 @@ export function Summary({
 }: SummaryProps) {
   const { mutate: creatSubscription, isLoading: isCreating } =
     useSubscription();
-  const { colors } = useTheme();
+
   const { plan, bankAccount, creditCard } = useSubscriptionsState();
 
   const handleSubscriptionSubmit = () => {
@@ -77,7 +77,7 @@ export function Summary({
         <S.TitleFinished>Resumo da conta</S.TitleFinished>
         <S.Plan>
           <S.Title>
-            <MdAssignmentInd size={19.87} color={colors.mediumslateBlue} />
+            <RiStackLine size={18} />
             Seu plano escolhido
           </S.Title>
           <S.TitlePlan>{formattedPlanName}</S.TitlePlan>
@@ -91,7 +91,10 @@ export function Summary({
           </S.CardDataContainer>
         </S.Plan>
         <S.Bank>
-          <S.Title>Sua conta do Banco Um</S.Title>
+          <S.Title>
+            <RiBankLine />
+            Sua conta do Banco Um
+          </S.Title>
           <S.CardDataContainer>
             <S.CardDataTitle>Cód. Banco</S.CardDataTitle>
             <S.CardDataText>396 - Banco Um</S.CardDataText>
@@ -110,7 +113,10 @@ export function Summary({
           </S.CardDataContainer>
         </S.Bank>
         <S.CreditCard>
-          <S.Title>Seu cartão cadastrado</S.Title>
+          <S.Title>
+            <RiBankCard2Line />
+            Seu cartão cadastrado
+          </S.Title>
           <S.CardDataContainer>
             <S.CardDataTitle>Nome</S.CardDataTitle>
             <S.CardDataText>{cardName}</S.CardDataText>
@@ -128,17 +134,15 @@ export function Summary({
             <S.CardDataText>{expirationDate}</S.CardDataText>
           </S.CardDataContainer>
         </S.CreditCard>
-        <S.DivButton>
-          <Button onClick={handleSubscriptionSubmit} loading={isCreating}>
-            Finalizar
-          </Button>
-        </S.DivButton>
-      </S.Container>
 
-      <button onClick={onPreviousFormStep} type="button">
-        <FiLogOut />
-        Voltar
-      </button>
+        <Button onClick={handleSubscriptionSubmit} loading={isCreating}>
+          Finalizar
+        </Button>
+        <S.Back onClick={onPreviousFormStep} type="button">
+          <IoReturnDownBackSharp size={20} />
+          Voltar
+        </S.Back>
+      </S.Container>
     </AuthLayout>
   );
 }

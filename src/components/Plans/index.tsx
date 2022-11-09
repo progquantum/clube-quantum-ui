@@ -28,7 +28,7 @@ export function Plans({ children, button }: PlansProps) {
 
   const { data: plans } = usePlans();
   const { data } = useMe();
-  const currentPlanName = data?.subscription.plan_name;
+  const currentPlanName = data?.subscription?.plan_name;
 
   const planFree: PlansData = useMemo(() => (plans ? plans[0] : []), [plans]);
   const planStart: PlansData = useMemo(() => (plans ? plans[1] : []), [plans]);

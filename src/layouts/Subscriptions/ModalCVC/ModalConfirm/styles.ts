@@ -27,7 +27,6 @@ export const TitlePlan = styled.h2`
   font-weight: 900;
   font-size: 1.25rem;
   padding-bottom: 1rem;
-  border-bottom: 1px solid ${({ theme }) => theme.colors.gray[700]};
 `;
 
 export const CardDataTitle = styled.p`

@@ -1,7 +1,6 @@
 /* eslint-disable react/jsx-no-bind */
 import { useState } from 'react';
 
-import { ManagePlans } from 'components/ManagePlans';
 import { Error } from 'components/Error';
 import { Footer } from 'components/Footer';
 import { Header } from 'components/Header';
@@ -10,22 +9,18 @@ import { Plans } from 'components/Plans';
 import { useMe } from 'hooks/user/useMe';
 
 import { ModalCVC } from './ModalCVC';
-import * as S from './styles';
 import { SubscriptionButton } from './SubscriptionButton';
 import { ModalBankAccount } from './ModalBankAccount';
+import * as S from './styles';
 
 export function SubscriptionsPage() {
   const { data } = useMe();
   const hasPlan = data?.subscription?.is_active;
 
-  const [modalIsOpen, setIsOpen] = useState(false);
+  const [showModal, setShowModal] = useState(false);
 
-  function openModal() {
-    setIsOpen(true);
-  }
-
-  function closeModal() {
-    setIsOpen(false);
+  function handleRequestModal() {
+    setShowModal(prevState => !prevState);
   }
 
   const [error, setError] = useState(false);
@@ -43,22 +38,25 @@ export function SubscriptionsPage() {
       <S.Main>
         {hasPlan ? (
           <Plans
-            button={<SubscriptionButton onOpenModalCvcRequest={openModal} />}
+            button={
+              <SubscriptionButton onOpenModalCvcRequest={handleRequestModal} />
+            }
           >
             <ModalCVC
-              modalIsOpen={modalIsOpen}
+              modalIsOpen={showModal}
               onError={onError}
-              onClose={closeModal}
+              onClose={handleRequestModal}
             />
           </Plans>
         ) : (
           <Plans
-            button={<SubscriptionButton onOpenModalCvcRequest={openModal} />}
+            button={
+              <SubscriptionButton onOpenModalCvcRequest={handleRequestModal} />
+            }
           >
-            {modalIsOpen ? (
-              <ModalBankAccount onRequestClose={closeModal} />
+            {showModal ? (
+              <ModalBankAccount onRequestClose={handleRequestModal} />
             ) : null}
-            <ManagePlans width="350" />
           </Plans>
         )}
       </S.Main>
