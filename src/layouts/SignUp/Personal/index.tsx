@@ -9,6 +9,8 @@ import { PinCode } from '../Forms/PinCode';
 import { Phone } from '../Forms/Phone';
 import { CPF } from '../Forms/CPF';
 import { BankAccount } from '../Forms/BankAccount';
+import { SingUpButton } from '../SingUpButton';
+import { Summary } from '../Forms/Summary';
 import { Successful } from '../Forms/Successful';
 
 export function PersonalSignUpPage() {
@@ -23,7 +25,7 @@ export function PersonalSignUpPage() {
   };
 
   const navigateToSuccessfullSignUp = () => {
-    setStep(prevState => prevState + 3);
+    setStep(prevState => prevState + 4);
   };
 
   const stepsMapping = {
@@ -55,8 +57,11 @@ export function PersonalSignUpPage() {
         onPreviousFormStep={previousStep}
       />
     ),
-    7: <Plans onUpdateFormStep={nextStep} />,
-    8: <Successful />,
+    7: <Plans button={<SingUpButton onUpdateFormStep={() => nextStep()} />} />,
+    8: (
+      <Summary onUpdateFormStep={nextStep} onPreviousFormStep={previousStep} />
+    ),
+    9: <Successful />,
   };
 
   const Component = stepsMapping[step];

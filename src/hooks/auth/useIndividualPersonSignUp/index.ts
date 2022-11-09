@@ -6,7 +6,7 @@ import { error } from 'helpers/notify/error';
 
 import { IndividualPersonSingRequest } from './types';
 
-async function individualPersonSingUpResquest(
+async function individualPersonSignUpRequest(
   credentials: IndividualPersonSingRequest,
 ) {
   try {
@@ -29,5 +29,5 @@ async function individualPersonSingUpResquest(
 }
 
 export function useIndividualPersonSignUp() {
-  return useMutation(individualPersonSingUpResquest);
+  return useMutation(individualPersonSignUpRequest);
 }

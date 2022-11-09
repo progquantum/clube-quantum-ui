@@ -1,5 +1,7 @@
 import styled from 'styled-components';
 
+import { Button } from 'components/Button';
+
 export const Container = styled.main`
   max-width: 72.125rem;
   width: 100%;
@@ -14,7 +16,14 @@ export const Container = styled.main`
 export const RightWrapper = styled.div`
   display: flex;
   flex-direction: column;
-  @media (max-width: 414px) {
+  @media (max-width: 460px) {
     align-items: center;
   }
+`;
+export const ButtonManagePlans = styled(Button)`
+  width: 100%;
+  height: 2.3125rem;
+  font-weight: 500;
+  font-size: 0.875rem;
+  line-height: 1.0625rem;
 `;

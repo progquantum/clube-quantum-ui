@@ -6,7 +6,7 @@ import { SIGN_IN_PAGE } from 'constants/routesPath';
 
 import { AuthLayout } from 'layouts/Auth';
 
-import { Container } from './styles';
+import { Container, Account } from './styles';
 
 export function Successful() {
   return (
@@ -22,10 +22,10 @@ export function Successful() {
       </Container>
 
       <Link href={SIGN_IN_PAGE} prefetch>
-        <a>
+        <Account>
           <IoReturnDownBackSharp size={20} />
           Retornar para minha conta
-        </a>
+        </Account>
       </Link>
     </AuthLayout>
   );

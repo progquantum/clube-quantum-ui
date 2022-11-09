@@ -32,6 +32,7 @@ export const colors = {
     danger: '#C53030',
     text: '#161616',
   },
+  black: '#000000',
   yellow: '#FFCA28',
   warning: '#FFC107',
   danger: '#E12B2B',

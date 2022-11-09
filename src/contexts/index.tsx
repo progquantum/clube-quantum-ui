@@ -11,6 +11,7 @@ import SEO from '../../next-seo.config';
 import QueryParamsAdapter from './queryParams';
 import { AuthProvider } from './auth/AuthProvider';
 import { StyledProvider } from './styles';
+import { SubscriptionsProvider } from './subscriptions/SubscriptionsProvider';
 
 export function AppProvider({ children }: PropsWithChildren<unknown>) {
   const [queryClient] = useState(
@@ -36,8 +37,10 @@ export function AppProvider({ children }: PropsWithChildren<unknown>) {
           <ReactQueryDevtools initialIsOpen={false} />
           <StyledProvider>
             <AuthProvider>
-              <Toaster />
-              {children}
+              <SubscriptionsProvider>
+                <Toaster />
+                {children}
+              </SubscriptionsProvider>
             </AuthProvider>
           </StyledProvider>
         </QueryClientProvider>

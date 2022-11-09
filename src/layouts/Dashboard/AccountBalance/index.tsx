@@ -47,7 +47,7 @@ export function AccountBalance({
       </S.Content>
 
       <S.TextValue>
-        {isHiddenAccountBalance ? '.....' : `R$ ${value}`}
+        {isHiddenAccountBalance ? '.....' : `R$ ${value.replace('.', ',')}`}
       </S.TextValue>
       <S.Subtitle>{description}</S.Subtitle>
     </S.Container>

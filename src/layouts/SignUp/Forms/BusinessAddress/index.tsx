@@ -27,6 +27,8 @@ import { Checkbox } from 'components/Checkbox';
 import { formatUF } from 'utils/formatters/formatUF';
 import { getZipCode } from 'services/resources';
 
+import { quantumClientQueue } from 'config/client';
+
 import { BusinessAddressProps, AddressFormValues } from './types';
 import { schema } from './schemas';
 
@@ -81,7 +83,10 @@ export function BusinessAddress({
             },
           },
           {
-            onSuccess: () => onUpdateFormStep(),
+            onSuccess: data => {
+              quantumClientQueue.defaults.headers.common.Authorization = `Bearer ${data.token}`;
+              onUpdateFormStep();
+            },
           },
         );
       });

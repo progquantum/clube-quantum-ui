@@ -11,14 +11,17 @@ import {
   RiUserStarLine,
 } from 'react-icons/ri';
 
-import { INVITE_FRIENDS_PAGE } from 'constants/routesPath';
-import { useAuthState } from 'contexts/auth/AuthContext';
+import { INVITE_FRIENDS_PAGE, SUBSCRIPTIONS_PAGE } from 'constants/routesPath';
+
+import { useMe } from 'hooks/user/useMe';
+
+import { formatFirstLetterToUppercase } from 'utils/formatters/formatFirstLetterToUppercase';
 
 import { AccountBalance } from '../AccountBalance';
 import * as S from './styles';
 
 export function MainContent() {
-  const { user } = useAuthState();
+  const { data } = useMe();
   const balance = faker.finance.amount();
   const balanceInComing = faker.finance.amount();
 
@@ -72,15 +75,19 @@ export function MainContent() {
       <S.DivSelectPlan>
         <S.HeaderSelectPlan>
           <RiStackLine />
-          <S.TitlePlan>{user.subscription?.plan_name}</S.TitlePlan>
+          <S.TitlePlan>Seu Plano</S.TitlePlan>
         </S.HeaderSelectPlan>
         <S.DivStatusPlan>
-          <S.TitleStatusPlan>{user.subscription?.plan_name}</S.TitleStatusPlan>
+          <S.TitleStatusPlan>
+            {formatFirstLetterToUppercase(data?.subscription?.plan_name)}
+          </S.TitleStatusPlan>
           <S.StatusPlan>
-            {user.subscription?.is_active ? 'Ativo' : 'Inativo'}
+            {data?.subscription?.is_active ? 'Ativo' : 'Cancelado'}
           </S.StatusPlan>
         </S.DivStatusPlan>
-        <S.ManageButton disabled>Gerenciar planos</S.ManageButton>
+        <Link href={SUBSCRIPTIONS_PAGE}>
+          <S.ManageButton>Gerenciar planos</S.ManageButton>
+        </Link>
         <S.Deadline>
           <S.TextDeadline>
             Sua assinatura será renovada em 15/xx/xxxx

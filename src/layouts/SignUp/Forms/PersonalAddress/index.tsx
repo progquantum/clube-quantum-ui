@@ -1,5 +1,7 @@
 import { useCallback, useRef, ChangeEvent } from 'react';
+
 import { FiHome, FiPackage, FiMapPin, FiGlobe, FiMap } from 'react-icons/fi';
+
 import { FaRegAddressCard } from 'react-icons/fa';
 import { BiBuildingHouse } from 'react-icons/bi';
 import { BsPinMap } from 'react-icons/bs';
@@ -19,6 +21,8 @@ import { getZipCode } from 'services/resources';
 import { Checkbox } from 'components/Checkbox';
 import { formatCountry } from 'utils/formatters/formatCountry';
 import { formatUF } from 'utils/formatters/formatUF';
+
+import { quantumClientQueue } from 'config/client';
 
 import { PersonalAddressProps, AddressFormValues } from './types';
 import { schema } from './schemas';
@@ -76,7 +80,10 @@ export function PersonalAddress({
             },
           },
           {
-            onSuccess: () => onUpdateFormStep(),
+            onSuccess: data => {
+              quantumClientQueue.defaults.headers.common.Authorization = `Bearer ${data.token}`;
+              onUpdateFormStep();
+            },
           },
         );
       });

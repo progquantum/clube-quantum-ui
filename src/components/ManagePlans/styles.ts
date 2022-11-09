@@ -1,8 +1,8 @@
 import styled from 'styled-components';
 
-import { Button } from 'components/Button';
+import { ContainerProps } from './types';
 
-export const Container = styled.div`
+export const Container = styled.div<ContainerProps>`
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -10,14 +10,12 @@ export const Container = styled.div`
   padding: 1.25rem 1.5rem;
   gap: 1.5rem;
   margin: 2rem 0;
-
   box-shadow: 0rem 0rem 1.25rem rgba(0, 0, 0, 0.1);
   border-radius: 15px;
-
-  width: 44.9375rem;
+  width: ${props => (props.width ? `${props.width}px` : '44.9375rem')};
 
   @media (max-width: 1024px) {
-    width: 27.0625rem;
+    width: ${props => (props.width ? `${props.width}px` : '27.0625rem')};
   }
 
   @media (max-width: 460px) {
@@ -51,12 +49,4 @@ export const Title = styled.h3`
 export const Text = styled.p`
   font-size: 0.875rem;
   color: ${({ theme }) => theme.colors.gray[400]};
-`;
-
-export const ButtonManagePlans = styled(Button)`
-  width: 100%;
-  height: 2.3125rem;
-  font-weight: 500;
-  font-size: 0.875rem;
-  line-height: 1.0625rem;
 `;

@@ -9,6 +9,8 @@ import { LegalPerson } from '../Forms/LegalPerson';
 import { BusinessAddress } from '../Forms/BusinessAddress';
 import { CreditCard } from '../Forms/CreditCard';
 import { BankAccount } from '../Forms/BankAccount';
+import { SingUpButton } from '../SingUpButton';
+import { Summary } from '../Forms/Summary';
 import { Successful } from '../Forms/Successful';
 
 export function BusinessSignUpPage() {
@@ -23,7 +25,7 @@ export function BusinessSignUpPage() {
   };
 
   const navigateToSuccessfullSignUp = () => {
-    setStep(prevState => prevState + 3);
+    setStep(prevState => prevState + 4);
   };
 
   const stepsMapping = {
@@ -55,8 +57,11 @@ export function BusinessSignUpPage() {
         onPreviousFormStep={previousStep}
       />
     ),
-    7: <Plans onUpdateFormStep={nextStep} />,
-    8: <Successful />,
+    7: <Plans button={<SingUpButton onUpdateFormStep={() => nextStep()} />} />,
+    8: (
+      <Summary onUpdateFormStep={nextStep} onPreviousFormStep={previousStep} />
+    ),
+    9: <Successful />,
   };
 
   const Component = stepsMapping[step];

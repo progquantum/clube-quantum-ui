@@ -18,6 +18,7 @@ import {
   DASHBOARD_PAGE,
   UPDATE_USER_ACCOUNT_PAGE,
   INVITE_FRIENDS_PAGE,
+  SUBSCRIPTIONS_PAGE,
 } from 'constants/routesPath';
 import { useAuthDispatch } from 'contexts/auth/AuthContext';
 
@@ -68,7 +69,12 @@ export function SideBar({ loading }: SideBarProps) {
               Atualizar Cadastro
             </S.SubMenuLink>
           </Link>
-          <S.SubMenuLink>PLanos</S.SubMenuLink>
+          <Link href={SUBSCRIPTIONS_PAGE}>
+            <S.SubMenuLink activePath={pathname === SUBSCRIPTIONS_PAGE}>
+              PLanos
+            </S.SubMenuLink>
+          </Link>
+
           <S.SubMenuLink>Extratos</S.SubMenuLink>
           <S.SubMenuLink>Meus Amigos</S.SubMenuLink>
         </S.SubMenu>

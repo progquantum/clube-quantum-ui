@@ -3,6 +3,18 @@ import styled, { css } from 'styled-components';
 import { ButtonProps } from './types';
 
 const variants = {
+  primary: css`
+    color: ${({ theme }) => theme.colors.white};
+    background: ${({ theme }) => theme.colors.midnightBlue};
+    border: 0.1rem solid ${({ theme }) => theme.colors.midnightBlue};
+
+    :hover {
+      background: ${({ theme }) => theme.colors.mediumslateBlue};
+      color: ${({ theme }) => theme.colors.white};
+      border: 0.1rem solid ${({ theme }) => theme.colors.mediumslateBlue};
+    }
+  `,
+
   secondary: css`
     background: transparent;
     color: ${({ theme }) => theme.colors.midnightBlue};
@@ -11,9 +23,9 @@ const variants = {
     &:hover {
       background: ${({ theme }) => theme.colors.midnightBlue};
       color: ${({ theme }) => theme.colors.white};
+      border: 0.1rem solid ${({ theme }) => theme.colors.midnightBlue};
     }
   `,
-
   secondary_degrade: css`
     color: ${({ theme }) => theme.colors.white};
     background: ${({ theme }) => theme.gradients.midnightBlueToMediumsLateBlue};
