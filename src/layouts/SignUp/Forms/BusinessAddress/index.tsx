@@ -7,12 +7,12 @@ import {
   FiMap,
   FiGlobe,
   FiInfo,
-  FiLogOut,
 } from 'react-icons/fi';
 import { BiBuildingHouse } from 'react-icons/bi';
 import { BsPinMap } from 'react-icons/bs';
 import { Form } from '@unform/web';
 import { FormHandles, SubmitHandler } from '@unform/core';
+import { IoReturnDownBackSharp } from 'react-icons/io5';
 
 import { Input } from 'components/Input';
 import { Button } from 'components/Button';
@@ -173,7 +173,7 @@ export function BusinessAddress({
         </Button>
       </Form>
       <button type="button" onClick={onPreviousFormStep}>
-        <FiLogOut />
+        <IoReturnDownBackSharp size={20} />
         Voltar
       </button>
     </AuthLayout>

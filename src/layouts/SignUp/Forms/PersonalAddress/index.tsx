@@ -1,18 +1,13 @@
 import { useCallback, useRef, ChangeEvent } from 'react';
 
-import {
-  FiHome,
-  FiPackage,
-  FiMapPin,
-  FiGlobe,
-  FiMap,
-  FiLogOut,
-} from 'react-icons/fi';
+import { FiHome, FiPackage, FiMapPin, FiGlobe, FiMap } from 'react-icons/fi';
+
 import { FaRegAddressCard } from 'react-icons/fa';
 import { BiBuildingHouse } from 'react-icons/bi';
 import { BsPinMap } from 'react-icons/bs';
 import { Form } from '@unform/web';
 import { FormHandles, SubmitHandler } from '@unform/core';
+import { IoReturnDownBackSharp } from 'react-icons/io5';
 
 import { Input } from 'components/Input';
 import { Button } from 'components/Button';
@@ -166,7 +161,7 @@ export function PersonalAddress({
         </Button>
       </Form>
       <button type="button" onClick={onPreviousFormStep}>
-        <FiLogOut />
+        <IoReturnDownBackSharp size={20} />
         Voltar
       </button>
     </AuthLayout>

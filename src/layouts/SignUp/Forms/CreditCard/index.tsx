@@ -1,14 +1,9 @@
 import { useRef, useCallback } from 'react';
-import {
-  FiCalendar,
-  FiCreditCard,
-  FiLock,
-  FiUser,
-  FiLogOut,
-} from 'react-icons/fi';
+import { FiCalendar, FiCreditCard, FiLock, FiUser } from 'react-icons/fi';
 import { Form } from '@unform/web';
 import { FormHandles, SubmitHandler } from '@unform/core';
 import noop from 'lodash.noop';
+import { IoReturnDownBackSharp } from 'react-icons/io5';
 
 import { Input } from 'components/Input';
 import { Button } from 'components/Button';
@@ -103,7 +98,7 @@ export function CreditCard({
       </Form>
 
       <button type="button" onClick={onPreviousFormStep}>
-        <FiLogOut />
+        <IoReturnDownBackSharp size={20} />
         Voltar
       </button>
     </AuthLayout>

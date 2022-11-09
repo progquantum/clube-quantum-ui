@@ -21,20 +21,6 @@ export function Footer() {
             <Link href="/">Parceiros</Link>
           </S.Nav>
         </div>
-
-        <div>
-          <S.Heading>Deixe-nos lhe ajudar</S.Heading>
-
-          <S.Nav>
-            <Link href="/">Sua conta</Link>
-
-            <Link href="/">Frete e prazo de entrega</Link>
-
-            <Link href="/">Devoluções e reembolsos</Link>
-
-            <Link href="/">Ajuda</Link>
-          </S.Nav>
-        </div>
       </S.About>
 
       <S.Contact>
