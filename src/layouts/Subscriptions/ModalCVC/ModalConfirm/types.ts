@@ -1,5 +1,4 @@
 export type ModalConfirmProps = {
-  onSucessful: () => void;
   onError: () => void;
   onClose: () => void;
 };

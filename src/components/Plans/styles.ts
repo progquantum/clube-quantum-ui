@@ -256,3 +256,17 @@ export const PlanItemNotIncluded = styled(PlanItem)`
 export const NotIncludedIcon = styled(IoCloseOutline)`
   color: ${({ theme }) => theme.colors.gray['200']};
 `;
+
+export const CurrentPlan = styled.div`
+  font-weight: 600;
+  font-size: 0.8rem;
+  color: #5184c8;
+  background: #dbecff;
+  display: flex;
+  align-items: center;
+  gap: 0.3rem;
+  padding: 0.3rem;
+  margin-bottom: 0.5rem;
+  border-radius: 0.2rem;
+  width: 7rem;
+`;

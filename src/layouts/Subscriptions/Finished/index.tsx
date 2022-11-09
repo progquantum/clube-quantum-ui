@@ -1,6 +1,7 @@
 /* eslint-disable no-nested-ternary */
-
 import { RiBankCard2Line, RiBankLine } from 'react-icons/ri';
+
+import { useRouter } from 'next/router';
 
 import { useSubscription } from 'hooks/useSubscription';
 
@@ -14,14 +15,18 @@ import { Modal } from 'components/Modal';
 
 import { success } from 'helpers/notify/success';
 
-import * as S from './styles';
+import { DASHBOARD_PAGE } from 'constants/routesPath';
+
 import { ModalProps } from './types';
+import * as S from './styles';
 
 export function FinishedPage({ onRequestClose }: ModalProps) {
   const { mutate: creatSubscription, isLoading: isCreating } =
     useSubscription();
 
   const { plan, bankAccount, creditCard } = useSubscriptionsState();
+
+  const router = useRouter();
 
   const handleSubscriptionSubmit = () => {
     const { plan_id, plan_duration } = plan;
@@ -48,8 +53,8 @@ export function FinishedPage({ onRequestClose }: ModalProps) {
       },
       {
         onSuccess: () => {
-          success('Plano atualizado com sucesso!');
-          onRequestClose();
+          success('Plano contratado com sucesso!');
+          router.push(DASHBOARD_PAGE);
         },
       },
     );

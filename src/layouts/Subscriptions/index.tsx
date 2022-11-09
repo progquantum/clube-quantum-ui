@@ -5,12 +5,10 @@ import { ManagePlans } from 'components/ManagePlans';
 import { Error } from 'components/Error';
 import { Footer } from 'components/Footer';
 import { Header } from 'components/Header';
-import { Successful } from 'components/Successful';
 import { Plans } from 'components/Plans';
 
 import { useMe } from 'hooks/user/useMe';
 
-import { SelectPlan } from './SelectPlan';
 import { ModalCVC } from './ModalCVC';
 import * as S from './styles';
 import { SubscriptionButton } from './SubscriptionButton';
@@ -30,19 +28,13 @@ export function SubscriptionsPage() {
     setIsOpen(false);
   }
 
-  const [successful, setSuccessful] = useState(false);
   const [error, setError] = useState(false);
 
   function onError() {
     setError(true);
   }
 
-  function onSuccessful() {
-    setSuccessful(true);
-  }
-
   if (error) return <Error />;
-  if (successful) return <Successful />;
 
   return (
     <>
@@ -53,10 +45,7 @@ export function SubscriptionsPage() {
           <Plans
             button={<SubscriptionButton onOpenModalCvcRequest={openModal} />}
           >
-            <SelectPlan />
-
             <ModalCVC
-              onSucessful={onSuccessful}
               modalIsOpen={modalIsOpen}
               onError={onError}
               onClose={closeModal}
@@ -66,7 +55,9 @@ export function SubscriptionsPage() {
           <Plans
             button={<SubscriptionButton onOpenModalCvcRequest={openModal} />}
           >
-            {modalIsOpen ? <ModalBankAccount onClose={closeModal} /> : null}
+            {modalIsOpen ? (
+              <ModalBankAccount onRequestClose={closeModal} />
+            ) : null}
             <ManagePlans width="350" />
           </Plans>
         )}

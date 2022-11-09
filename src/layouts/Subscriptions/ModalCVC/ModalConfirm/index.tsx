@@ -1,6 +1,9 @@
 /* eslint-disable no-nested-ternary */
-import { MdAssignmentInd } from 'react-icons/md';
 import { AxiosError } from 'axios';
+
+import { RiStackLine } from 'react-icons/ri';
+
+import { useRouter } from 'next/router';
 
 import { useSubscriptionsState } from 'contexts/subscriptions/SubscriptionsContext';
 import { theme } from 'styles/theme';
@@ -11,15 +14,19 @@ import { error } from 'helpers/notify/error';
 
 import { Modal } from 'components/Modal';
 
+import { success } from 'helpers/notify/success';
+
+import { DASHBOARD_PAGE } from 'constants/routesPath';
+
+import { Button } from 'components/Button';
+
 import { ErrorResponse, ModalConfirmProps } from './types';
 import * as S from './styles';
 
-export function ModalConfirm({
-  onError,
-  onSucessful,
-  onClose,
-}: ModalConfirmProps) {
+export function ModalConfirm({ onError, onClose }: ModalConfirmProps) {
   const { mutateAsync: updatePlan, isLoading: isUpdating } = usePlanUpdate();
+
+  const router = useRouter();
 
   const { plan, creditCard } = useSubscriptionsState();
   const handleUpdatePlan = () => {
@@ -34,7 +41,10 @@ export function ModalConfirm({
         cvc,
       },
       {
-        onSuccess: () => onSucessful(),
+        onSuccess: () => {
+          success('Plano atualizado com sucesso!');
+          router.push(DASHBOARD_PAGE);
+        },
         onError: (err: AxiosError<ErrorResponse>) => {
           const isUserSubscribed =
             err.response?.data.statusCode === 409 &&
@@ -66,39 +76,37 @@ export function ModalConfirm({
 
   return (
     <Modal onClose={onClose}>
-      <S.Container>
-        <S.Plan>
-          <S.Title>
-            <MdAssignmentInd
-              size={19.87}
-              color={theme.colors.mediumslateBlue}
-            />
-            Seu plano escolhido
-          </S.Title>
-          <S.TitlePlan>{formattedPlanName}</S.TitlePlan>
-          <S.CardDataContainer>
-            <S.CardDataTitle>Período de Cobrança</S.CardDataTitle>
-            <S.CardDataText>
-              {planPeriod === 'monthly'
-                ? 'Mensal'
-                : planPeriod === 'semiannual'
-                ? 'Semestral'
-                : 'Anual'}
-            </S.CardDataText>
-          </S.CardDataContainer>
-          <S.CardDataContainer>
-            <S.CardDataTitle>Total</S.CardDataTitle>
-            <S.CardDataText>{formattedPrice}</S.CardDataText>
-          </S.CardDataContainer>
-        </S.Plan>
-        <S.ButtonConfirm
-          onClick={handleUpdatePlan}
-          loading={isUpdating}
-          disabled={isUpdating}
-        >
-          Finalizar
-        </S.ButtonConfirm>
-      </S.Container>
+      <S.Plan>
+        <S.Title>
+          <RiStackLine size={19.87} color={theme.colors.mediumslateBlue} />
+          Seu plano escolhido
+        </S.Title>
+        <S.TitlePlan>{formattedPlanName}</S.TitlePlan>
+        <S.CardDataContainer>
+          <S.CardDataTitle>Período de Cobrança</S.CardDataTitle>
+          <S.CardDataText>
+            {planPeriod === 'monthly'
+              ? 'Mensal'
+              : planPeriod === 'semiannual'
+              ? 'Semestral'
+              : 'Anual'}
+          </S.CardDataText>
+        </S.CardDataContainer>
+        <S.CardDataContainer>
+          <S.CardDataTitle>Total</S.CardDataTitle>
+          <S.CardDataText>{formattedPrice}</S.CardDataText>
+        </S.CardDataContainer>
+      </S.Plan>
+      <Button
+        onClick={handleUpdatePlan}
+        loading={isUpdating}
+        disabled={isUpdating}
+      >
+        Finalizar
+      </Button>
+      <Button variant="danger_outline" onClick={onClose}>
+        Voltar
+      </Button>
     </Modal>
   );
 }

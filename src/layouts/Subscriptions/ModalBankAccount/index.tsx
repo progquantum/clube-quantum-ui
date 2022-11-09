@@ -10,10 +10,9 @@ import { RiBankLine } from 'react-icons/ri';
 import { formatBankAccount } from 'utils/formatters/formatBankAccount';
 import { useSubscriptionsDispatch } from 'contexts/subscriptions/SubscriptionsContext';
 import { performSchemaValidation } from 'utils/performSchemaValidation';
+
 import { Input } from 'components/Input';
-
 import { Modal } from 'components/Modal';
-
 import { Button } from 'components/Button';
 
 import { ModalCreditCard } from '../ModalCreditCard';
@@ -21,17 +20,12 @@ import { schema } from './schemas';
 import { FormAccountData, ModalProps } from './types';
 import * as S from './styles';
 
-export function ModalBankAccount({ onClose }: ModalProps) {
+export function ModalBankAccount({ onRequestClose }: ModalProps) {
   const { registerBankAccount } = useSubscriptionsDispatch();
   const [showModal, setShowModal] = useState(false);
 
   const handleRequestModal = () => {
     setShowModal(prevState => !prevState);
-  };
-
-  const closeModal = () => {
-    onClose();
-    handleRequestModal();
   };
 
   const formRef = useRef<FormHandles>(null);
@@ -49,7 +43,7 @@ export function ModalBankAccount({ onClose }: ModalProps) {
             current_account_check_number: data.current_account.slice(-1),
             holder_name: data.holder_name,
           });
-          closeModal();
+          handleRequestModal();
         })
         .catch(noop);
     },
@@ -57,7 +51,7 @@ export function ModalBankAccount({ onClose }: ModalProps) {
   );
   return (
     <>
-      <Modal onClose={onClose}>
+      <Modal onClose={onRequestClose}>
         <S.Form as={Form} ref={formRef} onSubmit={handleBankAccountSubmit}>
           <S.Line>
             <RiBankLine size={14} />

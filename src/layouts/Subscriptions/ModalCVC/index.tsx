@@ -1,11 +1,12 @@
 import { useCallback, useRef, useState } from 'react';
-import { BsCreditCardFill } from 'react-icons/bs';
 import { useTheme } from 'styled-components';
 import { Form } from '@unform/web';
 import { FormHandles, SubmitHandler } from '@unform/core';
 import noop from 'lodash.noop';
 
 import { FiLock } from 'react-icons/fi';
+
+import { RiBankCard2Line } from 'react-icons/ri';
 
 import { useWallet } from 'hooks/useWallet';
 import { useSubscriptionsDispatch } from 'contexts/subscriptions/SubscriptionsContext';
@@ -16,17 +17,14 @@ import { formatCVV } from 'utils/formatters/formatCVV';
 
 import { Modal } from 'components/Modal';
 
+import { Button } from 'components/Button';
+
 import { CVCFormValues, ModalCVCProps } from './types';
 import { schema } from './schemas';
 import * as S from './styles';
 import { ModalConfirm } from './ModalConfirm';
 
-export function ModalCVC({
-  onSucessful,
-  onError,
-  onClose,
-  modalIsOpen,
-}: ModalCVCProps) {
+export function ModalCVC({ onError, onClose, modalIsOpen }: ModalCVCProps) {
   const [modalConfirmIsOpen, setModalConfirmIsOpen] = useState(false);
   const { data } = useWallet();
   const expirationDate = data?.credit_card.expiration_date;
@@ -65,7 +63,7 @@ export function ModalCVC({
           <Modal onClose={onClose}>
             <S.CVCform as={Form} ref={formRef} onSubmit={handleSubmitCVC}>
               <S.Title>
-                <BsCreditCardFill size={22} color={colors.mediumslateBlue} />
+                <RiBankCard2Line size={18} color={colors.mediumslateBlue} />
                 Confirmar CVV
               </S.Title>
               <S.Text>
@@ -97,16 +95,12 @@ export function ModalCVC({
                 <S.CardDataTitle>Validade</S.CardDataTitle>
                 <S.CardData>{expirationDate}</S.CardData>
               </S.CardDataContainer>
-              <S.ButtonCVC type="submit">Continuar</S.ButtonCVC>
+              <Button type="submit">Continuar</Button>
             </S.CVCform>
           </Modal>
         )
       ) : (
-        <ModalConfirm
-          onError={onError}
-          onSucessful={onSucessful}
-          onClose={closeModal}
-        />
+        <ModalConfirm onError={onError} onClose={closeModal} />
       )}
     </>
   );

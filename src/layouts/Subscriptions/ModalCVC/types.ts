@@ -1,5 +1,4 @@
 export type ModalCVCProps = {
-  onSucessful: () => void;
   onError: () => void;
   onClose: () => void;
   modalIsOpen: boolean;
