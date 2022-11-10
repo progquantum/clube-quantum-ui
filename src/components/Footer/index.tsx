@@ -1,6 +1,6 @@
 import Link from 'next/link';
 
-import { CONTACT_US_PAGE } from 'constants/routesPath';
+import { CONTACT_US_PAGE, WORK_WITH_US_PAGE } from 'constants/routesPath';
 
 import * as S from './styles';
 
@@ -14,7 +14,7 @@ export function Footer() {
           <S.Nav>
             <Link href="/">Quem somos</Link>
 
-            <Link href="/">Trabalhe conosco</Link>
+            <Link href={WORK_WITH_US_PAGE}>Trabalhe conosco</Link>
 
             <Link href={CONTACT_US_PAGE}>Fale conosco</Link>
 
@@ -25,7 +25,9 @@ export function Footer() {
 
       <S.Contact>
         <S.SocialNetworks>
-          <S.Instagram />
+          <Link href="https://www.instagram.com/banco.um">
+            <S.Instagram />
+          </Link>
           <S.Facebook />
           <S.Twitter />
         </S.SocialNetworks>

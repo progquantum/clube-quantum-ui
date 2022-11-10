@@ -1,5 +1,6 @@
 import { useCallback, useRef } from 'react';
-import { FiLogOut, FiMail } from 'react-icons/fi';
+import { FiMail } from 'react-icons/fi';
+import { IoReturnDownBackSharp } from 'react-icons/io5';
 import { Form } from '@unform/web';
 import { FormHandles, SubmitHandler } from '@unform/core';
 import Link from 'next/link';
@@ -76,7 +77,7 @@ export function ForgotPasswordPage() {
       issue of next/link https://github.com/vercel/next.js/issues/127 */}
       <Link href={SIGN_IN_PAGE} prefetch>
         <a className="anchor">
-          <FiLogOut />
+          <IoReturnDownBackSharp size={20} />
           Voltar para o login
         </a>
       </Link>
