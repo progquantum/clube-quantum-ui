@@ -36,6 +36,7 @@ export const Title = styled.div`
 
   p {
     font-size: 1.2rem;
+
     color: ${({ theme }) => theme.colors.gray['400']};
     margin-bottom: 1rem;
 

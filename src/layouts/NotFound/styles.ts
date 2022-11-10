@@ -3,13 +3,13 @@ import { lighten } from 'polished';
 
 export const Container = styled.div`
   display: flex;
+  flex-direction: column-reverse;
   width: 100%;
   height: 100vh;
   max-width: 72.125rem;
   align-items: center;
   justify-content: center;
   margin: 0 auto;
-  gap: 6.75rem;
 
   @media (max-width: 960px) {
     flex-direction: column-reverse;
@@ -32,7 +32,7 @@ export const Info = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap: 1rem;
+  gap: 2.5rem;
   max-width: 30rem;
 
   h1 {
@@ -53,23 +53,28 @@ export const Info = styled.div`
     font-size: 1.5rem;
 
     @media (max-width: 460px) {
-      font-size: 1rem;
+      font-size: 1.3rem;
       margin: 0 1rem;
     }
   }
 
   a {
-    color: ${({ theme }) => theme.colors.midnightBlue};
     display: flex;
     align-items: center;
-    gap: 1rem;
-    margin-top: 24px;
-    transition: color 200ms;
+    gap: 0.5rem;
+    font-weight: 600;
+    color: ${({ theme }) => theme.colors.mediumslateBlue};
 
     &:hover {
-      ${({ theme }) => css`
-        color: ${lighten(0.2, theme.colors.midnightBlue)};
-      `}
+      color: ${({ theme }) => theme.colors.gray['400']};
+    }
+
+    @media (max-width: 650px) {
+      font-size: 1rem;
+    }
+
+    @media (max-width: 400px) {
+      font-size: 0.9rem;
     }
   }
 `;
