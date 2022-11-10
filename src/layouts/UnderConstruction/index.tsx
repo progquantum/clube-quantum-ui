@@ -10,7 +10,9 @@ import * as S from './styles';
 export function UnderConstructionPage() {
   return (
     <S.Container>
-      <Image src="/images/construction.svg" width={480} height={400} />
+      <S.ImageWrapper>
+        <Image src="/images/construction.svg" width={480} height={400} />
+      </S.ImageWrapper>
       <S.Title>
         <h2>Ops! Página em construção</h2>
         <p>Estamos trabalhando nisso... Aguarde!</p>

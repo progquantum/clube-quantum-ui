@@ -1,5 +1,4 @@
-import styled, { css } from 'styled-components';
-import { lighten } from 'polished';
+import styled from 'styled-components';
 
 export const Container = styled.div`
   display: flex;
@@ -13,18 +12,17 @@ export const Container = styled.div`
 
   @media (max-width: 960px) {
     flex-direction: column-reverse;
-    gap: 1.5rem;
   }
 `;
 
 export const ImageWrapper = styled.div`
   @media (max-width: 960px) {
-    max-width: 340px;
-    margin: 0 2rem;
+    max-width: 400px;
+    margin: 0 1rem;
   }
+
   @media (max-width: 400px) {
-    max-width: 230px;
-    margin: 0 2rem;
+    max-width: 300px;
   }
 `;
 
@@ -33,28 +31,17 @@ export const Info = styled.div`
   flex-direction: column;
   align-items: center;
   gap: 2.5rem;
-  max-width: 30rem;
 
-  h1 {
-    font-weight: 800;
-    font-size: 3rem;
-    color: ${({ theme }) => theme.colors.gray[700]};
-    letter-spacing: 2px;
-
-    @media (max-width: 460px) {
-      font-size: 2.5rem;
-      margin: 0 1rem;
-    }
-  }
-
-  p {
-    font-weight: 600;
+  h2 {
+    font-size: 2.3rem;
     text-align: center;
-    font-size: 1.5rem;
 
-    @media (max-width: 460px) {
+    @media (max-width: 650px) {
+      font-size: 1.8rem;
+    }
+
+    @media (max-width: 400px) {
       font-size: 1.3rem;
-      margin: 0 1rem;
     }
   }
 

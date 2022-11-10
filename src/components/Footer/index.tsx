@@ -1,6 +1,10 @@
 import Link from 'next/link';
 
-import { CONTACT_US_PAGE, WORK_WITH_US_PAGE } from 'constants/routesPath';
+import {
+  CONTACT_US_PAGE,
+  UNDER_CONSTRUCTION_PAGE,
+  WORK_WITH_US_PAGE,
+} from 'constants/routesPath';
 
 import * as S from './styles';
 
@@ -12,13 +16,13 @@ export function Footer() {
           <S.Heading>Institucional</S.Heading>
 
           <S.Nav>
-            <Link href="/">Quem somos</Link>
+            <Link href={UNDER_CONSTRUCTION_PAGE}>Quem somos</Link>
 
             <Link href={WORK_WITH_US_PAGE}>Trabalhe conosco</Link>
 
-            <Link href={CONTACT_US_PAGE}>Fale conosco</Link>
+            <Link href={CONTACT_US_PAGE}>Suporte</Link>
 
-            <Link href="/">Parceiros</Link>
+            <Link href="/">Seja Parceiro</Link>
           </S.Nav>
         </div>
       </S.About>

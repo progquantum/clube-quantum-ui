@@ -3,7 +3,7 @@ import Link from 'next/link';
 import Image from 'next/image';
 import { FiLogIn } from 'react-icons/fi';
 
-import { SIGN_IN_PAGE } from 'constants/routesPath';
+import { FREQUENT_QUESTIONS_PAGE, SIGN_IN_PAGE } from 'constants/routesPath';
 
 import * as S from './styles';
 
@@ -30,7 +30,7 @@ export function Header() {
           <S.Nav>
             <Link href="/">Saiba Mais</Link>
             <Link href="/">Seja um parceiro</Link>
-            <Link href="/">Central de dúvidas</Link>
+            <Link href={FREQUENT_QUESTIONS_PAGE}>Central de dúvidas</Link>
 
             <Link href={SIGN_IN_PAGE} prefetch>
               <S.LoginButton>
@@ -46,7 +46,7 @@ export function Header() {
               <S.Line />
               <Link href="/">Seja um parceiro</Link>
               <S.Line />
-              <Link href="/">Central de dúvidas</Link>
+              <Link href={FREQUENT_QUESTIONS_PAGE}>Central de dúvidas</Link>
               <S.Line />
 
               <Link href={SIGN_IN_PAGE} prefetch>
