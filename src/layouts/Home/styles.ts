@@ -264,7 +264,6 @@ export const Faq = styled.div`
 
 export const ButtonFaq = styled(Button)`
   background: transparent;
-  color: ${({ theme }) => theme.colors.mediumslateBlue};
   font-weight: 600;
   padding: 1.2rem 0;
   height: 0;
@@ -272,6 +271,10 @@ export const ButtonFaq = styled(Button)`
   border-radius: 6px;
   gap: 0.5rem;
   justify-content: flex-start;
+
+  > a {
+    color: ${({ theme }) => theme.colors.mediumslateBlue};
+  }
 
   @media (max-width: 900px) {
     justify-content: center;

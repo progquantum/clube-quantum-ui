@@ -16,6 +16,8 @@ export const SIGN_UP_BUSINESS_PAGE = '/signup/business';
 export const SIGN_UP_PERSONAL_PAGE = '/signup/personal';
 export const CONTACT_US_PAGE = '/contact-us';
 export const WORK_WITH_US_PAGE = '/work-with-us';
+export const FREQUENT_QUESTIONS_PAGE = '/frequent-questions';
+export const UNDER_CONSTRUCTION_PAGE = '/under-construction';
 
 export const RESET_PASSWORD_PAGE = '/reset-password';
 export const FORGOT_PASSWORD_PAGE = '/forgot-password';

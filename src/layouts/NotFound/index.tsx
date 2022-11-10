@@ -10,8 +10,8 @@ export function NotFoundPage() {
   return (
     <S.Container>
       <S.Info>
-        <p>Oops, página não encontrada</p>
-        {/* Should wrap link component with element due to this 
+        <h2>Oops, página não encontrada</h2>
+        {/* Should wrap link component with element due to this
         issue of next/link https://github.com/vercel/next.js/issues/127 */}
         <Link href={HOMEPAGE_PAGE} prefetch>
           <a className="anchor">
@@ -21,7 +21,7 @@ export function NotFoundPage() {
         </Link>
       </S.Info>
       <S.ImageWrapper>
-        <Image width={385} height={286} src="/images/404-not-found.svg" />
+        <Image width={480} height={400} src="/images/404-not-found.svg" />
       </S.ImageWrapper>
     </S.Container>
   );
