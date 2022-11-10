@@ -2,7 +2,7 @@ import Head from 'next/head';
 import Image from 'next/image';
 import Link from 'next/link';
 
-import { SIGN_UP_PAGE } from 'constants/routesPath';
+import { FREQUENT_QUESTIONS_PAGE, SIGN_UP_PAGE } from 'constants/routesPath';
 import { Footer } from 'components/Footer';
 
 import { Header } from './Header';
@@ -101,17 +101,22 @@ export function HomePage() {
                 <S.Faq>
                   <h3>Como indicar amigos?</h3>
                   <p>
-                    Basta acessar a home do app &gt; Indique Amigos &gt; Indicar
-                    Amigos, selecionar um canal para compartilhamento e pronto!
-                    Além do link direto você também poderá ver o seu código de
-                    indicação. Ah, e você também pode copiar e colar o link com
-                    o seu código de indicação nas suas redes sociais.
+                    Basta acessar o seu perfil no Clube QUANTUM
+                    www.quantum.com.vc &gt; Convidar Amigos &gt; clicar no link
+                    de compartilhamento e pronto! Além do link de
+                    compartilhamento você também poderá ver o seu código de
+                    indicação. Ah, e você também pode copiar e colar o seu
+                    código de indicação nas suas redes sociais.
                   </p>
                 </S.Faq>
-                <S.ButtonFaq>Veja mais dúvidas</S.ButtonFaq>
+                <S.ButtonFaq>
+                  <Link href={FREQUENT_QUESTIONS_PAGE}>
+                    <a>Veja mais dúvidas</a>
+                  </Link>
+                </S.ButtonFaq>
               </S.FaqContent>
               <S.FaqImage>
-                <Image src="/images/questions.svg" width={480} height={336} />
+                <Image src="/images/questions.svg" width={480} height={400} />
               </S.FaqImage>
             </S.FaqBox>
           </S.FaqContainer>

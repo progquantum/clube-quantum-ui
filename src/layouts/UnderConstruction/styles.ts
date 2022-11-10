@@ -30,7 +30,7 @@ export const Title = styled.div`
     }
 
     @media (max-width: 400px) {
-      font-size: 1.5rem;
+      font-size: 1.3rem;
     }
   }
 
@@ -67,5 +67,16 @@ export const Title = styled.div`
     @media (max-width: 400px) {
       font-size: 0.9rem;
     }
+  }
+`;
+
+export const ImageWrapper = styled.div`
+  @media (max-width: 960px) {
+    max-width: 400px;
+    margin: 0 1rem;
+  }
+
+  @media (max-width: 400px) {
+    max-width: 300px;
   }
 `;

@@ -50,7 +50,7 @@ export function ContactUsPage() {
   return (
     <AuthLayout
       title="Entre em contato conosco"
-      backgroundImage="/images/contact-us.png"
+      backgroundImage="/images/forgot-password.png"
     >
       <S.Form
         as={Form}
