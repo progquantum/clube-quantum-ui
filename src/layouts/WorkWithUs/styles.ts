@@ -1,50 +1,44 @@
 import styled from 'styled-components';
 
 export const Container = styled.div`
+  width: 100%;
+  height: 56vh;
   max-width: 72.125rem;
-  margin: 10rem auto;
+  margin: 2rem auto;
   display: flex;
-  justify-content: center;
-
-  @media (max-width: 1024px) {
-    max-width: 54rem;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 1rem;
+  @media (max-width: 960px) {
+    justify-content: center;
   }
 `;
 
 export const ContentWrapper = styled.div`
   &:first-of-type {
-    flex: 0.89;
     padding: 1rem;
     display: flex;
     flex-direction: column;
-    justify-content: space-around;
-    @media (max-width: 860px) {
-      align-items: center;
-    }
   }
   &:last-of-type {
-    flex: 0.8;
-    @media (max-width: 860px) {
+    @media (max-width: 960px) {
       display: none;
     }
-  }
-  & button {
-    width: 70%;
   }
 `;
 
 export const Heading = styled.h2`
-  width: 75%;
-  font-weight: 900;
-  text-align: left;
+  max-width: 26ch;
+  font-weight: bold;
+  line-height: 1.6;
 `;
 
 export const ContentText = styled.p`
-  width: 70%;
+  max-width: 33ch;
+  line-height: 1.6;
   margin-top: 2.2rem;
   margin-bottom: 4rem;
   font-size: 1.2rem;
-  text-align: left;
 
   @media (max-width: 1024px) {
     font-size: 0.9rem;
