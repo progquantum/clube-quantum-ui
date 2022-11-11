@@ -5,6 +5,8 @@ import Link from 'next/link';
 import { FREQUENT_QUESTIONS_PAGE, SIGN_UP_PAGE } from 'constants/routesPath';
 import { Footer } from 'components/Footer';
 
+import { ToolTipContact } from 'components/ToolTipContact';
+
 import { Header } from './Header';
 import * as S from './styles';
 
@@ -23,6 +25,7 @@ export function HomePage() {
       </Head>
       <Header />
       <S.Background>
+        <ToolTipContact />
         <S.Container>
           <S.CashBackContainer>
             <div>

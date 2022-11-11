@@ -5,6 +5,7 @@ import { Button } from 'components/Button';
 
 export const Background = styled.main`
   margin: 1rem 0;
+  height: 100%;
 `;
 
 export const Container = styled.main`
@@ -50,6 +51,10 @@ export const CashBackText = styled.p`
   @media (max-width: 1024px) {
     font-size: 1.125rem;
   }
+`;
+
+export const ContactIconWrapper = styled.div`
+  width: min-content;
 `;
 
 export const ArrowDownWrapper = styled.div`

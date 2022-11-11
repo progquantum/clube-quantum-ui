@@ -6,6 +6,8 @@ import { Header } from 'layouts/Home/Header';
 import { Footer } from 'components/Footer';
 import { Button } from 'components/Button';
 
+import { ToolTipContact } from 'components/ToolTipContact';
+
 import { SIGN_UP_PAGE } from 'constants/routesPath';
 
 import * as S from './styles';
@@ -18,6 +20,7 @@ export function WorkWithUsPage() {
       </Head>
       <Header />
       <S.Container>
+        <ToolTipContact />
         <S.ContentWrapper>
           <S.Heading>
             Venha fazer parte do Quantum e dê um Up nos seus rendimentos!

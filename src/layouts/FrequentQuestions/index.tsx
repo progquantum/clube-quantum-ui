@@ -4,6 +4,7 @@ import { useState } from 'react';
 import { MdKeyboardArrowDown, MdKeyboardArrowUp } from 'react-icons/md';
 import { BsHeadphones } from 'react-icons/bs';
 
+import { ToolTipContact } from 'components/ToolTipContact';
 import { Header } from 'layouts/Home/Header';
 import { Footer } from 'components/Footer';
 
@@ -30,6 +31,7 @@ export function FrequentQuestionsPage() {
       </Head>
       <Header />
       <S.Container>
+        <ToolTipContact />
         <h1>Perguntas Frequentes</h1>
         <p>Está com dúvidas? Aqui é o lugar!</p>
         <S.QuestionContainer>
