@@ -92,10 +92,14 @@ export function HomePage() {
                 <S.Faq>
                   <h3>O que é o Clube Quantum?</h3>
                   <p>
-                    Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed
-                    do eiusmod tempor incididunt ut labore et dolore magna
-                    aliqua. Ut enim ad minim veniam, quis nostrud exercitation
-                    ullamco laboris nisi ut aliquip ex ea commodo consequat.
+                    É o marketplace do <strong>BANCO UM</strong>, com
+                    <strong> Programa de Fidelidade</strong> e{' '}
+                    <strong>CashBack</strong> que tem tem como objetivo
+                    fortalecer o mercado local aumentando o faturamento das
+                    empresas e o poder de compra dos consumidores. Consumimos
+                    conteúdo, produtos e serviços 24 horas por dia, por isso
+                    somos criativos, pioneiros e ambiciosos para transformar a
+                    experiência de consumo de nossos clientes.
                   </p>
                 </S.Faq>
                 <S.Faq>
