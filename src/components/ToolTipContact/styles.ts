@@ -36,8 +36,12 @@ export const ToolTipCard = styled.div`
   bottom: 1rem;
   right: 1rem;
   position: fixed;
+  width: 65px;
+  height: 65px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
   background-color: #3d3d3d;
-  padding: 0.7rem;
   border-radius: 50%;
   z-index: 1;
   & svg:hover + ${ToolTipBox} {
