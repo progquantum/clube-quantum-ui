@@ -34,8 +34,11 @@ export function SideBar({ loading }: SideBarProps) {
   const { signOut } = useAuthDispatch();
   const { data: user } = useUserProfile();
   const { pathname } = useRouter();
+  const myAccountRoutes = [UPDATE_USER_ACCOUNT_PAGE];
 
-  const [showMyAccount, setShowMyAccount] = useState<boolean>(false);
+  const [showMyAccount, setShowMyAccount] = useState<boolean>(
+    !!myAccountRoutes.includes(pathname),
+  );
   const [showMarketplace, setShowMarketplace] = useState<boolean>(false);
 
   if (loading) return <Skeleton />;
@@ -52,6 +55,7 @@ export function SideBar({ loading }: SideBarProps) {
       </Link>
 
       <S.NavButton
+        activePath={pathname === UPDATE_USER_ACCOUNT_PAGE}
         onClick={() => {
           setShowMyAccount(prevState => !prevState);
         }}
