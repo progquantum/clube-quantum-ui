@@ -33,7 +33,9 @@ export const Info = styled.div`
   gap: 2.5rem;
 
   h2 {
-    font-size: 2.3rem;
+    font-size: 2rem;
+    font-weight: 800;
+    color: ${({ theme }) => theme.colors.gray['400']};
     text-align: center;
 
     @media (max-width: 650px) {

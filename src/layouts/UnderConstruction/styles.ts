@@ -23,7 +23,9 @@ export const Title = styled.div`
   text-align: center;
 
   h2 {
-    font-size: 2.3rem;
+    font-size: 2rem;
+    font-weight: 800;
+    color: ${({ theme }) => theme.colors.gray['400']};
 
     @media (max-width: 650px) {
       font-size: 1.8rem;
@@ -35,7 +37,7 @@ export const Title = styled.div`
   }
 
   p {
-    font-size: 1.2rem;
+    font-size: 1.1rem;
 
     color: ${({ theme }) => theme.colors.gray['400']};
     margin-bottom: 1rem;
