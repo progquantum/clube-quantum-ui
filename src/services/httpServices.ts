@@ -124,11 +124,11 @@ export function queueInstance(
           });
         });
       }
-      if (process.browser) {
-        logOut();
-      } else {
-        return Promise.reject(new AuthTokenError());
-      }
+      // if (process.browser){
+      //   logOut();
+      // } else {
+      //   return Promise.reject(new AuthTokenError());
+      // }
 
       return Promise.reject(error);
     },
