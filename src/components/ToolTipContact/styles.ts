@@ -27,15 +27,19 @@ export const ToolTipBox = styled.div`
 `;
 
 export const Icon = styled(IoLogoWhatsapp)`
-  width: 64px;
-  height: 64px;
   cursor: pointer;
+  font-size: 2.5rem;
+  color: #fff;
 `;
 
 export const ToolTipCard = styled.div`
-  bottom: 5rem;
-  right: 5rem;
+  bottom: 1rem;
+  right: 1rem;
   position: fixed;
+  background-color: #3d3d3d;
+  padding: 0.7rem;
+  border-radius: 50%;
+  z-index: 1;
   & svg:hover + ${ToolTipBox} {
     visibility: visible;
     color: #fff;
