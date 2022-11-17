@@ -4,8 +4,12 @@ import { useState } from 'react';
 import { MdKeyboardArrowDown, MdKeyboardArrowUp } from 'react-icons/md';
 import { BsHeadphones } from 'react-icons/bs';
 
+import { useMe } from 'hooks/user/useMe';
+
 import { ToolTipContact } from 'components/ToolTipContact';
-import { Header } from 'layouts/Home/Header';
+import { Header as HeaderGuest } from 'layouts/Home/Header';
+import { Header as HeaderAuth } from 'components/Header';
+
 import { Footer } from 'components/Footer';
 
 import { data } from './questions';
@@ -13,6 +17,10 @@ import * as S from './styles';
 
 export function FrequentQuestionsPage() {
   const [questions, setQuestions] = useState(data);
+
+  const { data: user } = useMe();
+
+  const Header = user ? HeaderAuth : HeaderGuest;
 
   const setIsShow = (id: number) => {
     const newQuestions = questions.map(obj => {

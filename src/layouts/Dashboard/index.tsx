@@ -1,6 +1,7 @@
 import { SideBar } from 'components/SideBar';
 import { ServicesBank } from 'components/ServicesBank';
 import { Header } from 'components/Header';
+import { Footer } from 'components/Footer';
 import { ManagePlans } from 'components/ManagePlans';
 
 import { useMe } from 'hooks/user/useMe';
@@ -14,7 +15,6 @@ export function DashboardPage() {
   return (
     <>
       <title>Dashboard - Clube Quantum</title>
-
       <Header />
       <S.Container>
         <SideBar />
@@ -23,6 +23,7 @@ export function DashboardPage() {
           {data?.subscription ? <MainContent /> : <ManagePlans />}
         </S.RightWrapper>
       </S.Container>
+      <Footer />
     </>
   );
 }
