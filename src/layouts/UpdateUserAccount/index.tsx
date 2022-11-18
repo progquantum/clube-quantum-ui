@@ -1,4 +1,5 @@
 import { Header } from 'components/Header';
+import { Footer } from 'components/Footer';
 import { SideBar } from 'components/SideBar';
 import { ServicesBank } from 'components/ServicesBank';
 
@@ -29,6 +30,7 @@ export function UpdateUserAccountPage() {
           </S.ColumnGrid>
         </S.RightWrapper>
       </S.Container>
+      <Footer />
     </>
   );
 }

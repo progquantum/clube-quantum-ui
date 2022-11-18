@@ -11,7 +11,9 @@ export function Header() {
     <S.Container>
       <S.Wrapper>
         <S.LeftNav>
-          <Image src="/images/quantum-logo.svg" width={60} height={60} />
+          <Link href="/">
+            <Image src="/images/quantum-logo.svg" width={60} height={60} />
+          </Link>
         </S.LeftNav>
 
         <S.RightNav>

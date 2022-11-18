@@ -3,7 +3,7 @@ import Link from 'next/link';
 import Image from 'next/image';
 import { FiLogIn } from 'react-icons/fi';
 
-import { FREQUENT_QUESTIONS_PAGE, SIGN_IN_PAGE } from 'constants/routesPath';
+import { WORK_WITH_US_PAGE, SIGN_IN_PAGE } from 'constants/routesPath';
 
 import * as S from './styles';
 
@@ -28,9 +28,8 @@ export function Header() {
 
         {!menuIsOpen ? (
           <S.Nav>
-            <Link href="/">Saiba Mais</Link>
-            <Link href="/">Seja um parceiro</Link>
-            <Link href={FREQUENT_QUESTIONS_PAGE}>Central de dúvidas</Link>
+            <Link href="/">Quem somos</Link>
+            <Link href={WORK_WITH_US_PAGE}>Trabalhe Conosco</Link>
 
             <Link href={SIGN_IN_PAGE} prefetch>
               <S.LoginButton>
@@ -42,11 +41,9 @@ export function Header() {
         ) : (
           <>
             <S.MenuMobile>
-              <Link href="/">Saiba Mais</Link>
+              <Link href="/">Quem somos</Link>
               <S.Line />
-              <Link href="/">Seja um parceiro</Link>
-              <S.Line />
-              <Link href={FREQUENT_QUESTIONS_PAGE}>Central de dúvidas</Link>
+              <Link href={WORK_WITH_US_PAGE}>Trabalhe Conosco</Link>
               <S.Line />
 
               <Link href={SIGN_IN_PAGE} prefetch>
