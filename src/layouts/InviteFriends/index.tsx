@@ -1,11 +1,15 @@
 import Image from 'next/image';
 
+import { useRouter } from 'next/router';
+
 import { Button } from 'components/Button';
 
 import { Footer } from 'components/Footer';
 import { Header } from 'components/Header';
 import { useShare } from 'hooks/useShare';
 import { useAuthState } from 'contexts/auth/AuthContext';
+
+import { SUBSCRIPTIONS_PAGE } from 'constants/routesPath';
 
 import * as S from './styles';
 
@@ -21,6 +25,12 @@ export function InviteFriendsPage() {
       title: 'Cadastre-se a partir do link de convite abaixo.',
       url: linkCode,
     });
+  };
+
+  const { push } = useRouter();
+
+  const handleRedirectPage = () => {
+    push(SUBSCRIPTIONS_PAGE);
   };
 
   return (
@@ -79,7 +89,7 @@ export function InviteFriendsPage() {
                   abaixo para acessar e começar usufruir dos benefícios.
                 </S.HeadingInfo>
 
-                <Button>Aderir a um plano</Button>
+                <Button onClick={handleRedirectPage}>Aderir a um plano</Button>
               </S.ButtonPlan>
             </S.ContainerWrapper>
 

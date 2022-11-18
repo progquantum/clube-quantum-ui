@@ -1,8 +1,12 @@
 import { useState } from 'react';
 import { RiBankCard2Line } from 'react-icons/ri';
 
+import { useRouter } from 'next/router';
+
 import { Button } from 'components/Button';
 import { VISAIcon } from 'components/Illustrations/Visa';
+
+import { SUBSCRIPTIONS_PAGE } from 'constants/routesPath';
 
 import { Skeleton } from '../Skeleton';
 import { Modal } from './Modal';
@@ -14,6 +18,12 @@ export function CreditCard({ user, loading }: CreditCardProps) {
 
   const handleRequestModal = () => {
     setShowModal(prevState => !prevState);
+  };
+
+  const { push } = useRouter();
+
+  const handleRedirectPage = () => {
+    push(SUBSCRIPTIONS_PAGE);
   };
 
   const cardLastDigits = user?.credit_card.last_digits;
@@ -57,7 +67,7 @@ export function CreditCard({ user, loading }: CreditCardProps) {
               Para cadastrar um cartão de crédito e aproveitar os benefícios
               clube quantum é necessário realizar uma assinatura.
             </S.TextContent>
-            <Button>Prosseguir</Button>
+            <Button onClick={handleRedirectPage}>Prosseguir</Button>
           </>
         )}
       </S.Content>
