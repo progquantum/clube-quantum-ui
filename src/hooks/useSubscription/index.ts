@@ -17,7 +17,7 @@ export async function subscriptionRequest(subscription: SubscriptionRequest) {
     if (
       err.response?.data.message[0] === 'This user already owns a bank account'
     ) {
-      error('Este usuário já possui uma conta bancária cadastrada');
+      error('Este usuário já possui uma conta bancária cadastrada.');
     }
 
     return Promise.reject(err);

@@ -17,6 +17,8 @@ import { success } from 'helpers/notify/success';
 
 import { DASHBOARD_PAGE } from 'constants/routesPath';
 
+import { useWallet } from 'hooks/useWallet';
+
 import { ModalProps } from './types';
 import * as S from './styles';
 
@@ -26,9 +28,18 @@ export function FinishedPage({ onRequestClose }: ModalProps) {
 
   const { plan, bankAccount, creditCard } = useSubscriptionsState();
 
+  const {
+    data: { bank_account },
+  } = useWallet();
+
+  const hasBankAccount = bank_account.current_account;
+  const accountNumber = bank_account.current_account;
+  const lastDigit = bank_account.current_account_check_number;
+  const owner = bank_account.holder_name;
+
   const router = useRouter();
 
-  const handleSubscriptionSubmit = () => {
+  const handleSubscription = () => {
     const { plan_id, plan_duration } = plan;
     const { current_account, current_account_check_number, holder_name } =
       bankAccount;
@@ -43,6 +54,31 @@ export function FinishedPage({ onRequestClose }: ModalProps) {
           current_account,
           current_account_check_number,
           holder_name,
+        },
+        credit_card: {
+          card_name,
+          card_number: formatCreditCardRemoveSpace(card_number),
+          expiration_date,
+          cvc,
+        },
+      },
+      {
+        onSuccess: () => {
+          success('Plano contratado com sucesso!');
+          router.push(DASHBOARD_PAGE);
+        },
+      },
+    );
+  };
+
+  const handleSubscriptionWithoutBankAccount = () => {
+    const { plan_id, plan_duration } = plan;
+    const { card_name, card_number, expiration_date, cvc } = creditCard;
+    creatSubscription(
+      {
+        plan: {
+          plan_id,
+          plan_duration,
         },
         credit_card: {
           card_name,
@@ -104,11 +140,17 @@ export function FinishedPage({ onRequestClose }: ModalProps) {
           </S.CardDataContainer>
           <S.CardDataContainer>
             <S.CardDataTitle>Conta</S.CardDataTitle>
-            <S.CardDataText>{formattedBankAccount}</S.CardDataText>
+            <S.CardDataText>
+              {hasBankAccount
+                ? `${accountNumber}-${lastDigit}`
+                : `${formattedBankAccount}`}
+            </S.CardDataText>
           </S.CardDataContainer>
           <S.CardDataContainer>
             <S.CardDataTitle>Titular</S.CardDataTitle>
-            <S.CardDataText>{holderName}</S.CardDataText>
+            <S.CardDataText>
+              {hasBankAccount ? `${owner}` : `${holderName}`}
+            </S.CardDataText>
           </S.CardDataContainer>
         </S.Bank>
         <S.CreditCard>
@@ -134,7 +176,11 @@ export function FinishedPage({ onRequestClose }: ModalProps) {
           </S.CardDataContainer>
         </S.CreditCard>
         <S.ConfirmButton
-          onClick={handleSubscriptionSubmit}
+          onClick={
+            hasBankAccount
+              ? handleSubscriptionWithoutBankAccount
+              : handleSubscription
+          }
           loading={isCreating}
         >
           Finalizar
