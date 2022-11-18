@@ -15,7 +15,11 @@ import {
 } from 'react-icons/ri';
 
 import { useAuthDispatch } from 'contexts/auth/AuthContext';
-import { DASHBOARD_PAGE, SUBSCRIPTIONS_PAGE } from 'constants/routesPath';
+import {
+  DASHBOARD_PAGE,
+  SUBSCRIPTIONS_PAGE,
+  UPDATE_USER_ACCOUNT_PAGE,
+} from 'constants/routesPath';
 
 import { Avatar } from 'components/Avatar';
 
@@ -53,10 +57,12 @@ export function AccountDropdown() {
                 </S.NavButton>
               </Link>
 
-              <S.NavButton>
-                <RiEditBoxLine />
-                Cadastro
-              </S.NavButton>
+              <Link href={UPDATE_USER_ACCOUNT_PAGE}>
+                <S.NavButton>
+                  <RiEditBoxLine />
+                  Cadastro
+                </S.NavButton>
+              </Link>
 
               <S.NavButton>
                 <RiBarChartBoxLine />
@@ -72,6 +78,7 @@ export function AccountDropdown() {
                 <RiInboxArchiveLine />
                 Pedidos
               </S.NavButton>
+
               <Link href={SUBSCRIPTIONS_PAGE}>
                 <S.NavButton>
                   <RiStackLine />

@@ -98,7 +98,7 @@ export const data = [
     question:
       'Como faço para acompanhar se os amigos que eu convidei abriram a conta?',
     answer:
-      'Basta acessar sua conta no QUANTUM > Menu > Meus Amigos. Lembrando que só será possível visualizar amigos que abriram conta usando o seu código e se ATIVAREM de acordo com os Planos e aberturas das contas no QUANTUM e BANCO UM',
+      'Basta acessar sua conta no QUANTUM > Menu > Meus Amigos. Lembrando que só será possível visualizar amigos que abriram conta usando o seu código e se ATIVAREM de acordo com os Planos e aberturas das contas no QUANTUM e BANCO UM.',
     show: false,
   },
 ];

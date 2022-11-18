@@ -40,12 +40,12 @@ export function FrequentQuestionsPage() {
               <S.Question key={question.id}>
                 <h3>{question.question}</h3>
                 {question.show ? (
-                  <MdKeyboardArrowDown
+                  <MdKeyboardArrowUp
                     size={20}
                     onClick={() => setIsShow(question.id)}
                   />
                 ) : (
-                  <MdKeyboardArrowUp
+                  <MdKeyboardArrowDown
                     size={20}
                     onClick={() => setIsShow(question.id)}
                   />
