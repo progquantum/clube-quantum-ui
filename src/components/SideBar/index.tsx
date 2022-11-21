@@ -20,6 +20,7 @@ import {
   INVITE_FRIENDS_PAGE,
   SUBSCRIPTIONS_PAGE,
   MANAGE_PAYMENT_PAGE,
+  MY_FRIENDS_PAGE,
 } from 'constants/routesPath';
 import { useAuthDispatch } from 'contexts/auth/AuthContext';
 
@@ -35,7 +36,11 @@ export function SideBar({ loading }: SideBarProps) {
   const { signOut } = useAuthDispatch();
   const { data: user } = useUserProfile();
   const { pathname } = useRouter();
-  const myAccountRoutes = [UPDATE_USER_ACCOUNT_PAGE];
+  const myAccountRoutes = [
+    UPDATE_USER_ACCOUNT_PAGE,
+    MANAGE_PAYMENT_PAGE,
+    MY_FRIENDS_PAGE,
+  ];
 
   const [showMyAccount, setShowMyAccount] = useState<boolean>(
     !!myAccountRoutes.includes(pathname),
@@ -56,7 +61,7 @@ export function SideBar({ loading }: SideBarProps) {
       </Link>
 
       <S.NavButton
-        activePath={pathname === UPDATE_USER_ACCOUNT_PAGE}
+        activePath={!!myAccountRoutes.includes(pathname)}
         onClick={() => {
           setShowMyAccount(prevState => !prevState);
         }}
@@ -84,8 +89,11 @@ export function SideBar({ loading }: SideBarProps) {
               Dados de Pagamento
             </S.SubMenuLink>
           </Link>
-
-          <S.SubMenuLink>Meus Amigos</S.SubMenuLink>
+          <Link href={MY_FRIENDS_PAGE}>
+            <S.SubMenuLink activePath={pathname === MY_FRIENDS_PAGE}>
+              Meus Amigos
+            </S.SubMenuLink>
+          </Link>
           <S.SubMenuLink>Extratos</S.SubMenuLink>
         </S.SubMenu>
       )}
@@ -119,7 +127,7 @@ export function SideBar({ loading }: SideBarProps) {
       <S.NavButton>
         <div>
           <RiDraftLine />
-          Lincenças
+          Licenças
         </div>
       </S.NavButton>
 
