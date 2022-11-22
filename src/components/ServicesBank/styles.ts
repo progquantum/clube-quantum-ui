@@ -43,6 +43,9 @@ export const ButtonItem = styled.button`
     color: ${({ theme }) => theme.colors.gray[400]};
     cursor: not-allowed;
   }
+  &:disabled svg {
+    color: ${({ theme }) => theme.colors.gray[400]};
+  }
 `;
 
 export const Text = styled.p`
