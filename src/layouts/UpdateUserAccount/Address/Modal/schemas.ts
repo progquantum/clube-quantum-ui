@@ -11,7 +11,7 @@ export const schema = Yup.object().shape({
     .required()
     .min(2)
     .max(2)
-    .matches(/[A-Z]{2,}/gi, 'Esse campo deve conter apenas caracteres.'),
+    .matches(/[A-Z]{2,}/gi, 'Esse campo deve conter apenas caracteres'),
   country: Yup.string()
     .required()
     .matches(/[A-Za-z]/g, ''),
