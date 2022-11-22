@@ -6,6 +6,6 @@ export const schema = Yup.object().shape({
     .required()
     .matches(
       /^[A-Za-záàâãéèêíïóôõöúçñÁÀÂÃÉÈÍÏÓÔÕÖÚÇÑ ]+$/,
-      'O nome não deve conter caracteres especiais.',
+      'O nome não deve conter caracteres especiais',
     ),
 });

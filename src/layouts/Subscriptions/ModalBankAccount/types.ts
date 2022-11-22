@@ -4,5 +4,6 @@ export type FormAccountData = {
 };
 
 export type ModalProps = {
+  onUpdateFormStep: () => void;
   onRequestClose: () => void;
 };

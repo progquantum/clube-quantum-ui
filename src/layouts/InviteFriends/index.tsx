@@ -7,17 +7,18 @@ import { Button } from 'components/Button';
 import { Footer } from 'components/Footer';
 import { Header } from 'components/Header';
 import { useShare } from 'hooks/useShare';
-import { useAuthState } from 'contexts/auth/AuthContext';
 
 import { SUBSCRIPTIONS_PAGE } from 'constants/routesPath';
+
+import { useMe } from 'hooks/user/useMe';
 
 import * as S from './styles';
 
 export function InviteFriendsPage() {
-  const { user } = useAuthState();
+  const { data: user } = useMe();
   const share = useShare();
   const linkCode = `http://localhost:3000/signup?invite=${user.invite_code}`;
-  const hasInviteCode = user.invite_code;
+  const hasInviteCode = user?.invite_code;
 
   const handleShare = () => {
     share({

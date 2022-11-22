@@ -5,7 +5,7 @@ export const schema = Yup.object().shape({
     .required()
     .matches(
       /^[A-Za-záàâãéèêíïóôõöúçñÁÀÂÃÉÈÍÏÓÔÕÖÚÇÑ ]+$/,
-      'O nome não deve conter caracteres especiais.',
+      'O nome não deve conter caracteres especiais',
     ),
   email: Yup.string().email().required(),
   phone: Yup.string().trim().required().min(15),
