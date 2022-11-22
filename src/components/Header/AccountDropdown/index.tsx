@@ -74,11 +74,6 @@ export function AccountDropdown() {
                 Amigos
               </S.NavButton>
 
-              <S.NavButton>
-                <RiInboxArchiveLine />
-                Pedidos
-              </S.NavButton>
-
               <Link href={SUBSCRIPTIONS_PAGE}>
                 <S.NavButton>
                   <RiStackLine />
