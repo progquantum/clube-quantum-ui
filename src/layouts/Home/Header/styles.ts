@@ -76,7 +76,6 @@ export const MenuMobile = styled.nav`
   z-index: 10;
   background-color: ${({ theme }) => theme.colors.white};
   width: 16.25rem;
-  height: 26rem;
   padding: 2.2rem 1.5rem;
   border-radius: 0 0 0 10px;
   box-shadow: 0px 3px 0px rgba(0, 0, 0, 0.07);
