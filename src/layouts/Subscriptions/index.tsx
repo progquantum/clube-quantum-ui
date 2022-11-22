@@ -8,32 +8,55 @@ import { Plans } from 'components/Plans';
 
 import { useMe } from 'hooks/user/useMe';
 
-import { useWallet } from 'hooks/useWallet';
-
 import { ModalCVC } from './ModalCVC';
 import { SubscriptionButton } from './SubscriptionButton';
 import { ModalBankAccount } from './ModalBankAccount';
 import * as S from './styles';
 import { ModalCreditCard } from './ModalCreditCard';
+import { FinishedPage } from './Finished';
 
 export function SubscriptionsPage() {
   const { data } = useMe();
-
-  const { data: account } = useWallet();
-
   const hasPlan = data?.subscription?.is_active;
-  const hasBankAccount = account?.bank_account.current_account;
 
   const [showModal, setShowModal] = useState(false);
-  const [bankAccountModal, setBankAccountModal] = useState(false);
+  const [step, setStep] = useState(0);
 
   function handleRequestModal() {
     setShowModal(prevState => !prevState);
+    setStep(0);
   }
+  const nextStep = () => {
+    setStep(prevState => prevState + 1);
+  };
 
-  function handleRequestBankAccountModal() {
-    setBankAccountModal(prevState => !prevState);
-  }
+  const previousStep = () => {
+    setStep(prevState => prevState - 1);
+  };
+
+  const stepsMapping = {
+    0: (
+      <ModalBankAccount
+        onUpdateFormStep={nextStep}
+        onRequestClose={handleRequestModal}
+      />
+    ),
+    1: (
+      <ModalCreditCard
+        onUpdateFormStep={nextStep}
+        onPreviousFormStep={previousStep}
+        onRequestClose={handleRequestModal}
+      />
+    ),
+    2: (
+      <FinishedPage
+        onPreviousFormStep={previousStep}
+        onRequestClose={handleRequestModal}
+      />
+    ),
+  };
+
+  const Component = stepsMapping[step];
 
   const [error, setError] = useState(false);
 
@@ -63,23 +86,10 @@ export function SubscriptionsPage() {
         ) : (
           <Plans
             button={
-              <SubscriptionButton
-                onOpenModalCvcRequest={
-                  hasBankAccount
-                    ? handleRequestModal
-                    : handleRequestBankAccountModal
-                }
-              />
+              <SubscriptionButton onOpenModalCvcRequest={handleRequestModal} />
             }
           >
-            {bankAccountModal && (
-              <ModalBankAccount
-                onRequestClose={handleRequestBankAccountModal}
-              />
-            )}
-            {showModal && (
-              <ModalCreditCard onRequestClose={handleRequestModal} />
-            )}
+            {showModal ? Component : null}
           </Plans>
         )}
       </S.Main>

@@ -30,11 +30,13 @@ export const Content = styled.div`
 export const Title = styled.p`
   font-weight: 700;
   color: ${({ theme }) => theme.colors.gray['700']};
+  font-size: 0.875rem;
 `;
 
 export const Data = styled.p`
   font-weight: 800;
   color: ${({ theme }) => theme.colors.gray['700']};
+  font-size: 0.875rem;
 `;
 
 export const Description = styled.p`
