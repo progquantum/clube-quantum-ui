@@ -10,6 +10,11 @@ export const Container = styled.div`
   flex-direction: column;
   gap: 1.25rem;
   padding: 0.25rem 1.25rem 1.5rem;
+  width: 22rem;
+
+  @media (max-width: 380px) {
+    width: 19rem;
+  }
 
   h3 {
     font-weight: 700;

@@ -1,8 +1,6 @@
 import { useWallet } from 'hooks/useWallet';
-import { Footer } from 'components/Footer';
-import { Header } from 'components/Header';
-import { SideBar } from 'components/SideBar';
-import { ServicesBank } from 'components/ServicesBank';
+
+import { DashboardLayout } from 'layouts/DashboardLayout';
 
 import { BankAccount } from './BankAccount';
 import { CreditCard } from './CreditCard';
@@ -14,19 +12,12 @@ export function ManagePaymentPage() {
   return (
     <>
       <title>Informações de pagamento - Clube Quantum</title>
-      <Header />
-      <S.Container>
-        <SideBar />
-        <S.RightWrapper>
-          <ServicesBank />
-          <S.MenuGrid />
-          <S.CardsContainer>
-            <BankAccount user={data} loading={isLoading} />
-            <CreditCard user={data} loading={isLoading} />
-          </S.CardsContainer>
-        </S.RightWrapper>
-      </S.Container>
-      <Footer />
+      <DashboardLayout>
+        <S.CardsContainer>
+          <BankAccount user={data} loading={isLoading} />
+          <CreditCard user={data} loading={isLoading} />
+        </S.CardsContainer>
+      </DashboardLayout>
     </>
   );
 }

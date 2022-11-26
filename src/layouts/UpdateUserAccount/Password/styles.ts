@@ -8,6 +8,11 @@ export const Container = styled.div`
   flex-direction: column;
   gap: 2rem;
   padding: 1.25rem 1.5rem;
+  width: 22rem;
+
+  @media (max-width: 380px) {
+    width: 19rem;
+  }
 `;
 
 export const ResetPassword = styled.div`

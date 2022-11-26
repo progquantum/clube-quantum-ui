@@ -42,9 +42,7 @@ export function SideBar({ loading }: SideBarProps) {
     MY_FRIENDS_PAGE,
   ];
 
-  const [showMyAccount, setShowMyAccount] = useState<boolean>(
-    !!myAccountRoutes.includes(pathname),
-  );
+  const [showMyAccount, setShowMyAccount] = useState<boolean>(false);
   const [showMarketplace, setShowMarketplace] = useState<boolean>(false);
 
   if (loading) return <Skeleton />;

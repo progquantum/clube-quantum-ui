@@ -2,7 +2,7 @@ import styled from 'styled-components';
 
 export const Content = styled.div`
   box-shadow: 0px 0px 20px 0px #0000001a;
-  width: 21.844rem;
+  width: 22rem;
   height: 13.625rem;
   padding: 1.25rem 1.5rem;
   display: flex;
@@ -16,6 +16,10 @@ export const Content = styled.div`
 
   @media (max-width: 460px) {
     width: 20.665rem;
+  }
+
+  @media (max-width: 380px) {
+    width: 19rem;
   }
 `;
 
