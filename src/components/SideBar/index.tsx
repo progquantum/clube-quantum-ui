@@ -96,23 +96,23 @@ export function SideBar({ loading }: SideBarProps) {
         </S.SubMenu>
       )}
 
-      <S.NavButton
-        onClick={() => {
-          setShowMarketplace(prevState => !prevState);
-        }}
-      >
-        <div>
-          <RiShoppingBasket2Line />
-          Marketplace
-        </div>
-        {showMarketplace ? <RiArrowUpSLine /> : <RiArrowDownSLine />}
-      </S.NavButton>
-      {showMarketplace && (
-        <S.SubMenu>
-          <S.SubMenuLink>Meus Pedidos</S.SubMenuLink>
-          <S.SubMenuLink>Marketplace</S.SubMenuLink>
-        </S.SubMenu>
-      )}
+      {/* <S.NavButton */}
+      {/*   onClick={() => { */}
+      {/*     setShowMarketplace(prevState => !prevState); */}
+      {/*   }} */}
+      {/* > */}
+      {/*   <div> */}
+      {/*     <RiShoppingBasket2Line /> */}
+      {/*     Marketplace */}
+      {/*   </div> */}
+      {/*   {showMarketplace ? <RiArrowUpSLine /> : <RiArrowDownSLine />} */}
+      {/* </S.NavButton> */}
+      {/* {showMarketplace && ( */}
+      {/*   <S.SubMenu> */}
+      {/*     <S.SubMenuLink>Meus Pedidos</S.SubMenuLink> */}
+      {/*     <S.SubMenuLink>Marketplace</S.SubMenuLink> */}
+      {/*   </S.SubMenu> */}
+      {/* )} */}
       <Link href={INVITE_FRIENDS_PAGE}>
         <S.NavButton>
           <div>

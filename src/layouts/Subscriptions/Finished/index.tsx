@@ -22,20 +22,23 @@ import { useWallet } from 'hooks/useWallet';
 import { ModalProps } from './types';
 import * as S from './styles';
 
-export function FinishedPage({ onRequestClose }: ModalProps) {
+export function FinishedPage({
+  onRequestClose,
+  onPreviousFormStep,
+}: ModalProps) {
   const { mutate: creatSubscription, isLoading: isCreating } =
     useSubscription();
 
   const { plan, bankAccount, creditCard } = useSubscriptionsState();
 
-  const {
-    data: { bank_account },
-  } = useWallet();
+  const { data } = useWallet();
 
-  const hasBankAccount = bank_account.current_account;
-  const accountNumber = bank_account.current_account;
-  const lastDigit = bank_account.current_account_check_number;
-  const owner = bank_account.holder_name;
+  const hasBankAccountRegistered = data?.bank_account.current_account;
+  const accountNumber = data?.bank_account.current_account;
+  const lastDigit = data?.bank_account.current_account_check_number;
+  const owner = data?.bank_account.holder_name;
+
+  const hasBankAccount = bankAccount?.holder_name;
 
   const router = useRouter();
 
@@ -125,34 +128,59 @@ export function FinishedPage({ onRequestClose }: ModalProps) {
             <S.CardDataText>{formattedPrice}</S.CardDataText>
           </S.CardDataContainer>
         </S.Plan>
-        <S.Bank>
-          <S.Title>
-            <RiBankLine />
-            Sua conta do Banco Um
-          </S.Title>
-          <S.CardDataContainer>
-            <S.CardDataTitle>Cód. Banco</S.CardDataTitle>
-            <S.CardDataText>396 - Banco Um</S.CardDataText>
-          </S.CardDataContainer>
-          <S.CardDataContainer>
-            <S.CardDataTitle>Agência</S.CardDataTitle>
-            <S.CardDataText>0001</S.CardDataText>
-          </S.CardDataContainer>
-          <S.CardDataContainer>
-            <S.CardDataTitle>Conta</S.CardDataTitle>
-            <S.CardDataText>
-              {hasBankAccount
-                ? `${accountNumber}-${lastDigit}`
-                : `${formattedBankAccount}`}
-            </S.CardDataText>
-          </S.CardDataContainer>
-          <S.CardDataContainer>
-            <S.CardDataTitle>Titular</S.CardDataTitle>
-            <S.CardDataText>
-              {hasBankAccount ? `${owner}` : `${holderName}`}
-            </S.CardDataText>
-          </S.CardDataContainer>
-        </S.Bank>
+
+        {hasBankAccountRegistered ? (
+          <S.Bank>
+            <S.Title>
+              <RiBankLine />
+              Sua conta do Banco Um
+            </S.Title>
+            <S.CardDataContainer>
+              <S.CardDataTitle>Cód. Banco</S.CardDataTitle>
+              <S.CardDataText>396 - Banco Um</S.CardDataText>
+            </S.CardDataContainer>
+            <S.CardDataContainer>
+              <S.CardDataTitle>Agência</S.CardDataTitle>
+              <S.CardDataText>0001</S.CardDataText>
+            </S.CardDataContainer>
+            <S.CardDataContainer>
+              <S.CardDataTitle>Conta</S.CardDataTitle>
+              <S.CardDataText>
+                {accountNumber}-{lastDigit}
+              </S.CardDataText>
+            </S.CardDataContainer>
+            <S.CardDataContainer>
+              <S.CardDataTitle>Titular</S.CardDataTitle>
+              <S.CardDataText>{owner}</S.CardDataText>
+            </S.CardDataContainer>
+          </S.Bank>
+        ) : null}
+
+        {hasBankAccount ? (
+          <S.Bank>
+            <S.Title>
+              <RiBankLine />
+              Sua conta do Banco Um
+            </S.Title>
+            <S.CardDataContainer>
+              <S.CardDataTitle>Cód. Banco</S.CardDataTitle>
+              <S.CardDataText>396 - Banco Um</S.CardDataText>
+            </S.CardDataContainer>
+            <S.CardDataContainer>
+              <S.CardDataTitle>Agência</S.CardDataTitle>
+              <S.CardDataText>0001</S.CardDataText>
+            </S.CardDataContainer>
+            <S.CardDataContainer>
+              <S.CardDataTitle>Conta</S.CardDataTitle>
+              <S.CardDataText>{formattedBankAccount}</S.CardDataText>
+            </S.CardDataContainer>
+            <S.CardDataContainer>
+              <S.CardDataTitle>Titular</S.CardDataTitle>
+              <S.CardDataText>{holderName}</S.CardDataText>
+            </S.CardDataContainer>
+          </S.Bank>
+        ) : null}
+
         <S.CreditCard>
           <S.Title>
             <RiBankCard2Line />
@@ -177,7 +205,7 @@ export function FinishedPage({ onRequestClose }: ModalProps) {
         </S.CreditCard>
         <S.ConfirmButton
           onClick={
-            hasBankAccount
+            hasBankAccount === undefined
               ? handleSubscriptionWithoutBankAccount
               : handleSubscription
           }
@@ -187,7 +215,7 @@ export function FinishedPage({ onRequestClose }: ModalProps) {
         </S.ConfirmButton>
 
         <S.ReturnButton
-          onClick={onRequestClose}
+          onClick={onPreviousFormStep}
           variant="danger_outline"
           type="button"
         >

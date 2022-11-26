@@ -34,14 +34,10 @@ export function ModalCVC({ onError, onClose, modalIsOpen }: ModalCVCProps) {
 
   const { registerCreditCard } = useSubscriptionsDispatch();
 
-  const openModal = () => {
-    setModalConfirmIsOpen(true);
+  const handleRequestModal = () => {
+    setModalConfirmIsOpen(prevState => !prevState);
   };
 
-  const closeModal = () => {
-    setModalConfirmIsOpen(false);
-    onClose();
-  };
   const handleSubmitCVC: SubmitHandler<CVCFormValues> = useCallback(data => {
     performSchemaValidation({
       data,
@@ -50,7 +46,7 @@ export function ModalCVC({ onError, onClose, modalIsOpen }: ModalCVCProps) {
     })
       .then(() => {
         registerCreditCard({ cvc: data.cvc });
-        openModal();
+        handleRequestModal();
       })
       .catch(noop);
   }, []);
@@ -100,7 +96,7 @@ export function ModalCVC({ onError, onClose, modalIsOpen }: ModalCVCProps) {
           </Modal>
         )
       ) : (
-        <ModalConfirm onError={onError} onClose={closeModal} />
+        <ModalConfirm onError={onError} onClose={handleRequestModal} />
       )}
     </>
   );

@@ -105,7 +105,7 @@ export function ModalConfirm({ onError, onClose }: ModalConfirmProps) {
         Finalizar
       </Button>
       <Button variant="danger_outline" onClick={onClose}>
-        Cancelar
+        Voltar
       </Button>
     </Modal>
   );

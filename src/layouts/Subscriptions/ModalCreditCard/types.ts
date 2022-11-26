@@ -7,4 +7,6 @@ export type FormCreditCardData = {
 
 export type ModalProps = {
   onRequestClose: () => void;
+  onUpdateFormStep: () => void;
+  onPreviousFormStep: () => void;
 };
