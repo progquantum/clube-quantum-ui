@@ -6,7 +6,7 @@ import {
   REFRESH_TOKEN_STORAGE_KEY,
   TOKEN_STORAGE_KEY,
 } from 'constants/storage';
-import { AuthTokenError } from 'shared/errors/AuthTokenError';
+// import { AuthTokenError } from 'shared/errors/AuthTokenError';
 import { error as notifyError } from 'helpers/notify/error';
 import { logOut } from 'helpers/auth/logOut';
 
