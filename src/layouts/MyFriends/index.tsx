@@ -1,16 +1,15 @@
-import { RiUserStarLine } from 'react-icons/ri';
-import { BsFillPersonPlusFill } from 'react-icons/bs';
-
 import ReactPaginate from 'react-paginate';
 
 import { IoIosArrowBack, IoIosArrowForward } from 'react-icons/io';
+import { RiUserStarLine } from 'react-icons/ri';
+import { BsFillPersonPlusFill } from 'react-icons/bs';
 
 import { formatCashback } from 'utils/formatters/formatCashback';
+import { formatDate } from 'utils/formatters/formatDate';
 
 import { useFriends } from 'hooks/useFriends';
 
 import { DashboardLayout } from 'layouts/DashboardLayout';
-
 import { InviteFriends } from 'components/InviteFriends';
 
 import { colors } from 'styles/theme/colors';
@@ -36,7 +35,9 @@ export function MyFriendsPage() {
                 <div>
                   <h5>{friend.name}</h5>
                   {friend.inactivated_at !== null ? (
-                    <span>Inativo(a) desde {friend.inactivated_at}</span>
+                    <span>
+                      Inativo(a) desde {formatDate(friend.inactivated_at)}
+                    </span>
                   ) : (
                     <div>
                       {friend.cashback !== 0 ? (
