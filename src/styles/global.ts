@@ -102,6 +102,37 @@ export default createGlobalStyle`
     height: 4px;
   }
 
+  .paginationContainer {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 1rem;
+    list-style: none;
+
+    svg {
+      cursor: pointer;
+    }
+  }
+
+  .pageLink {
+    width: 1.6875rem;
+    height: 1.6875rem;
+    background: transparent;
+    border-radius: .2rem;
+    color: ${({ theme }) => theme.colors.gray[400]};
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
+  }
+
+  .activeLink {
+    width: 1.6875rem;
+    height: 1.6875rem;
+    background: ${({ theme }) => theme.colors.mediumslateBlue};
+    color: white;
+  }
+
   :root {
     --shape: ${({ theme }) => theme.colors.white};
   }

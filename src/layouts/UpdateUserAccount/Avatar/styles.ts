@@ -11,6 +11,11 @@ export const Container = styled.div`
   align-items: center;
   gap: 2rem;
   padding: 0.25rem 1.25rem 1.5rem;
+  width: 22rem;
+
+  @media (max-width: 380px) {
+    width: 19rem;
+  }
 `;
 
 export const EditAvatar = styled(Button)`

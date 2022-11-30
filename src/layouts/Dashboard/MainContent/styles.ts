@@ -43,6 +43,10 @@ export const DivMarketplace = styled.div`
   @media (max-width: 460px) {
     width: 20.625rem;
   }
+
+  @media (max-width: 380px) {
+    width: 19rem;
+  }
 `;
 
 export const ItemMarket = styled.div`
@@ -139,6 +143,10 @@ export const DivSelectPlan = styled.div`
   @media (max-width: 460px) {
     width: 20.625rem;
   }
+
+  @media (max-width: 380px) {
+    width: 19rem;
+  }
 `;
 
 export const HeaderSelectPlan = styled(HeaderAccessMarket)`
@@ -206,59 +214,5 @@ export const ButtonCancel = styled(Button)`
   &:disabled {
     opacity: 0.6;
     cursor: not-allowed;
-  }
-`;
-
-export const DivInviteFriends = styled.div`
-  grid-area: DivInviteFriends;
-  display: flex;
-  flex-direction: column;
-  align-items: flex-start;
-  padding: 1.25rem 1.5rem;
-  gap: 1.5rem;
-  width: 21.4688rem;
-  height: 15.375rem;
-  background-color: ${({ theme }) => theme.colors.mediumslateBlue};
-  box-shadow: 0px 0px 20px rgba(0, 0, 0, 0.1);
-  border-radius: 0.625rem;
-
-  @media (max-width: 1024px) {
-    width: 27.0625rem;
-  }
-
-  @media (max-width: 460px) {
-    width: 20.625rem;
-  }
-`;
-
-export const HeaderInviteFriends = styled(HeaderAccessMarket)`
-  > svg {
-    font-size: 1.0625rem;
-    color: ${({ theme }) => theme.colors.white};
-  }
-`;
-
-export const TitleFriends = styled(TitlePlan)`
-  color: ${({ theme }) => theme.colors.white};
-`;
-
-export const TitleInviteFriends = styled(TitleStatusPlan)`
-  color: ${({ theme }) => theme.colors.white};
-`;
-
-export const TextInviteFriends = styled(StatusPlan)`
-  color: ${({ theme }) => theme.colors.white};
-`;
-
-export const ButtonInviteFriends = styled(Button)`
-  background: ${({ theme }) => theme.colors.white};
-  color: ${({ theme }) => theme.colors.midnightBlue};
-  border: 2px solid ${({ theme }) => theme.colors.white};
-  width: 100%;
-
-  &:hover {
-    background: ${({ theme }) => theme.colors.lightsteelblue};
-    color: ${({ theme }) => theme.colors.midnightBlue};
-    border: 2px solid ${({ theme }) => theme.colors.lightsteelblue};
   }
 `;

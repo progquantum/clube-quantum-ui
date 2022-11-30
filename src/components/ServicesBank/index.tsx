@@ -1,13 +1,6 @@
 import Link from 'next/link';
 
 import {
-  RiBankCardLine,
-  RiEditBoxLine,
-  RiShoppingBasket2Line,
-  RiUserStarLine,
-} from 'react-icons/ri';
-
-import {
   INVITE_FRIENDS_PAGE,
   MANAGE_PAYMENT_PAGE,
   UPDATE_USER_ACCOUNT_PAGE,
@@ -15,6 +8,7 @@ import {
 
 import { ServicesBankProps } from './types';
 import { Skeleton } from './Skeleton';
+
 import * as S from './styles';
 
 export function ServicesBank({ loading }: ServicesBankProps) {
@@ -24,27 +18,27 @@ export function ServicesBank({ loading }: ServicesBankProps) {
     <S.Container>
       <Link href={UPDATE_USER_ACCOUNT_PAGE}>
         <S.ButtonItem>
-          <RiEditBoxLine />
+          <img src="/images/edit.svg" alt="" />
           <S.Text>Atualizar Cadastro</S.Text>
         </S.ButtonItem>
       </Link>
 
       <Link href={MANAGE_PAYMENT_PAGE}>
         <S.ButtonItem>
-          <RiBankCardLine />
+          <img src="/images/card.svg" alt="" />
           <S.Text>Dados de Pagamento</S.Text>
         </S.ButtonItem>
       </Link>
 
       <Link href={INVITE_FRIENDS_PAGE}>
         <S.ButtonItem>
-          <RiUserStarLine />
+          <img src="/images/friend.svg" alt="" />
           <S.Text>Convidar amigos</S.Text>
         </S.ButtonItem>
       </Link>
 
       <S.ButtonItem disabled>
-        <RiShoppingBasket2Line />
+        <img src="/images/marketplace.svg" alt="" />
         <S.Text>Marketplace</S.Text>
       </S.ButtonItem>
     </S.Container>

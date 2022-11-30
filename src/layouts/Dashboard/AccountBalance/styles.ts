@@ -3,7 +3,6 @@ import styled from 'styled-components';
 export const Container = styled.div`
   box-shadow: 0rem 0rem 1.25rem rgba(0, 0, 0, 0.1);
   border-radius: 0.625rem;
-  min-width: 20.625rem;
   height: 9.5625rem;
   display: flex;
   flex-direction: column;
@@ -14,11 +13,14 @@ export const Container = styled.div`
 
   @media (max-width: 1024px) {
     width: 27.0625rem;
-    height: 8.3125rem;
   }
 
   @media (max-width: 460px) {
     width: 20.625rem;
+  }
+
+  @media (max-width: 380px) {
+    width: 19rem;
   }
 `;
 

@@ -8,16 +8,18 @@ import {
   RiShoppingBagLine,
   RiSmartphoneLine,
   RiStackLine,
-  RiUserStarLine,
 } from 'react-icons/ri';
 
-import { INVITE_FRIENDS_PAGE, SUBSCRIPTIONS_PAGE } from 'constants/routesPath';
+import { SUBSCRIPTIONS_PAGE } from 'constants/routesPath';
 
 import { useMe } from 'hooks/user/useMe';
 
 import { formatFirstLetterToUppercase } from 'utils/formatters/formatFirstLetterToUppercase';
 
+import { InviteFriends } from 'components/InviteFriends';
+
 import { AccountBalance } from '../AccountBalance';
+
 import * as S from './styles';
 
 export function MainContent() {
@@ -97,20 +99,7 @@ export function MainContent() {
           </S.ButtonCancel>
         </S.Deadline>
       </S.DivSelectPlan>
-
-      <S.DivInviteFriends>
-        <S.HeaderInviteFriends>
-          <RiUserStarLine />
-          <S.TitleFriends>Convidar amigos</S.TitleFriends>
-        </S.HeaderInviteFriends>
-        <S.TitleInviteFriends>Não fique sozinho nessa!</S.TitleInviteFriends>
-        <S.TextInviteFriends>
-          Convide seus amigos e ganhe cashback junto com eles!!!
-        </S.TextInviteFriends>
-        <Link href={INVITE_FRIENDS_PAGE}>
-          <S.ButtonInviteFriends>Convidar amigos</S.ButtonInviteFriends>
-        </Link>
-      </S.DivInviteFriends>
+      <InviteFriends />
     </S.Container>
   );
 }

@@ -13,6 +13,10 @@ export const Container = styled.div`
   @media (max-width: 1024px) {
     grid-template-columns: 1fr 1fr;
   }
+
+  @media (max-width: 380px) {
+    width: 95%;
+  }
 `;
 
 export const ButtonItem = styled.button`
@@ -27,15 +31,14 @@ export const ButtonItem = styled.button`
   cursor: pointer;
   position: relative;
   width: 100%;
-  height: 4.5rem;
-  padding: 0.5rem 0.5rem;
+  padding: 0.6rem 1rem;
 
-  > svg {
-    color: ${({ theme }) => theme.colors.mediumslateBlue};
-    font-size: 1.8rem;
-    background-color: ${({ theme }) => theme.colors.ghostwhite};
-    padding: 4px;
-    border-radius: 50%;
+  > img {
+    width: 32px;
+  }
+
+  @media (max-width: 380px) {
+    padding: 0.6rem 0.7rem;
   }
 
   &:disabled {
@@ -52,4 +55,12 @@ export const Text = styled.p`
   font-size: 0.8rem;
   line-height: 1.5;
   color: ${({ theme }) => theme.colors.gray['400']};
+
+  @media (max-width: 1082px) {
+    font-size: 0.7rem;
+  }
+
+  @media (max-width: 380px) {
+    font-size: 0.65rem;
+  }
 `;
