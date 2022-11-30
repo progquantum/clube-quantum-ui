@@ -8,18 +8,30 @@ import { formatCashback } from 'utils/formatters/formatCashback';
 import { formatDate } from 'utils/formatters/formatDate';
 
 import { useFriends } from 'hooks/useFriends';
+import { useIndirectFriends } from 'hooks/useIndirectFriends';
 
 import { DashboardLayout } from 'layouts/DashboardLayout';
 import { InviteFriends } from 'components/InviteFriends';
+import { NoFriends } from 'components/NoFriends';
 
 import { colors } from 'styles/theme/colors';
+
+import { useMe } from 'hooks/user/useMe';
 
 import * as S from './styles';
 
 export function MyFriendsPage() {
-  const { data, onPageChange } = useFriends();
+  const { data, onPageChange, isError } = useFriends();
+  const { data: indirectFriends } = useIndirectFriends();
+  const { data: user } = useMe();
 
   const totalPages = data?.totalPages;
+  const hasPlan = user?.subscription?.is_active;
+  const hasFriends = data?.friends.length >= 1;
+
+  if (!hasFriends && isError && !hasPlan) {
+    return <NoFriends />;
+  }
 
   return (
     <DashboardLayout>
@@ -83,16 +95,26 @@ export function MyFriendsPage() {
 
             <S.TotalFriends>
               <p>Suas conexões indiretas</p>
-              <span>167/250</span>
+              <span>
+                {indirectFriends?.indirectFriendsAmount}/
+                {indirectFriends?.indirectFriendsLimitAmount}
+              </span>
             </S.TotalFriends>
 
-            <progress value="75" max="100" />
+            <progress
+              value={indirectFriends?.indirectFriendsAmount}
+              max={indirectFriends?.indirectFriendsLimitAmount}
+            />
 
             <S.TotalFriends>
               <p>
                 Seu ganho com conexões <br /> indiretas esse mês foi de:
               </p>
-              <span>R$ 12,00</span>
+              <span>
+                {formatCashback(
+                  indirectFriends?.totalCashbackThisMonthByIndirectFriends,
+                )}
+              </span>
             </S.TotalFriends>
           </S.IndirectFriends>
 
