@@ -31,7 +31,7 @@ export function MyFriendsPage() {
   const hasPlan = user?.subscription?.is_active;
   const hasFriends = data?.friends.length > 0;
 
-  if (!hasFriends && isError && !hasPlan) {
+  if (!hasFriends || isError || !hasPlan) {
     return <NoFriends />;
   }
 
