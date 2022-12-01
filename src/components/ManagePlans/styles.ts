@@ -8,7 +8,7 @@ export const Container = styled.div<ContainerProps>`
   justify-content: center;
   align-items: flex-start;
   padding: 1.25rem 1.5rem;
-  gap: 1.5rem;
+  gap: 1rem;
   margin: 2rem 0;
   box-shadow: 0rem 0rem 1.25rem rgba(0, 0, 0, 0.1);
   border-radius: 15px;
@@ -47,6 +47,7 @@ export const Title = styled.h3`
 `;
 
 export const Text = styled.p`
+  margin-top: 0.5rem;
   font-size: 0.875rem;
   color: ${({ theme }) => theme.colors.gray[400]};
 `;

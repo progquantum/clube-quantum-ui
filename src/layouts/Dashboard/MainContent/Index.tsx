@@ -116,9 +116,9 @@ export function MainContent() {
           <S.ManageButton>Gerenciar planos</S.ManageButton>
         </Link>
         <S.Deadline>
-          <S.TextDeadline>
+          {/* <S.TextDeadline>
             Sua assinatura será renovada em 15/xx/xxxx
-          </S.TextDeadline>
+          </S.TextDeadline> */}
           <S.ButtonCancel onClick={handleRequestModal} variant="danger_outline">
             Cancelar
           </S.ButtonCancel>

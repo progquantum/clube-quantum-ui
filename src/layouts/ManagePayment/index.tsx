@@ -1,3 +1,4 @@
+import { Loader } from 'components/Loader';
 import { useWallet } from 'hooks/useWallet';
 
 import { DashboardLayout } from 'layouts/DashboardLayout';
@@ -13,10 +14,14 @@ export function ManagePaymentPage() {
     <>
       <title>Informações de pagamento - Clube Quantum</title>
       <DashboardLayout>
-        <S.CardsContainer>
-          <BankAccount user={data} loading={isLoading} />
-          <CreditCard user={data} loading={isLoading} />
-        </S.CardsContainer>
+        {isLoading ? (
+          <Loader />
+        ) : (
+          <S.CardsContainer>
+            <BankAccount user={data} loading={isLoading} />
+            <CreditCard user={data} loading={isLoading} />
+          </S.CardsContainer>
+        )}
       </DashboardLayout>
     </>
   );

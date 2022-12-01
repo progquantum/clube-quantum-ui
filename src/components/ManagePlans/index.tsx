@@ -1,9 +1,11 @@
 import { RiStackLine } from 'react-icons/ri';
 
+import { Button } from 'components/Button';
+
 import { ManagePlansProps } from './types';
 import * as S from './styles';
 
-export function ManagePlans({ children, width }: ManagePlansProps) {
+export function ManagePlans({ width }: ManagePlansProps) {
   return (
     <S.Container width={width}>
       <S.Content>
@@ -15,7 +17,7 @@ export function ManagePlans({ children, width }: ManagePlansProps) {
         Para tirar o máximo de proveito dos benefícios do clube quantum, você
         precisa aderir a um plano.
       </S.Text>
-      {children}
+      <Button>Gerenciar planos</Button>
     </S.Container>
   );
 }
