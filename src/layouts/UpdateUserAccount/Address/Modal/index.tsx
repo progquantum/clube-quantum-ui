@@ -19,7 +19,7 @@ import { Modal as ModalAddress } from 'components/Modal';
 
 import { Input } from 'components/Input';
 import { Button } from 'components/Button';
-import { QUERY_KEY_PROFILE } from 'hooks/user/useUserProfile';
+import { QUERY_KEY_PROFILE, useUserProfile } from 'hooks/user/useUserProfile';
 import { UpdateUserAddress } from 'hooks/user/useUpdateUserAddress';
 import { formatCEP } from 'utils/formatters/formatCEP';
 import { formatAddressNumber } from 'utils/formatters/formatAddressNumber';
@@ -39,6 +39,8 @@ export function Modal({ onRequestClose }: AddressInformationProps) {
   const { mutateAsync: updateAddress, isLoading: loading } =
     UpdateUserAddress();
   const queryClient = useQueryClient();
+
+  const { data } = useUserProfile();
 
   const formRef = useRef<FormHandles>(null);
 
@@ -100,6 +102,7 @@ export function Modal({ onRequestClose }: AddressInformationProps) {
               icon={FiMapPin}
               name="zip_code"
               onChange={e => handleZipCode(e)}
+              defaultValue={data?.address?.zip_code}
             />
           </S.AddressWrapper>
           <S.AddressWrapper>
@@ -109,6 +112,7 @@ export function Modal({ onRequestClose }: AddressInformationProps) {
               placeholder="Rua"
               name="street"
               icon={FiPackage}
+              defaultValue={data?.address?.street}
             />
           </S.AddressWrapper>
 
@@ -125,6 +129,7 @@ export function Modal({ onRequestClose }: AddressInformationProps) {
                   formatAddressNumber(e.target.value),
                 )
               }
+              defaultValue={data?.address?.number}
             />
           </S.AddressWrapper>
 
@@ -135,6 +140,7 @@ export function Modal({ onRequestClose }: AddressInformationProps) {
               placeholder="Bairro"
               name="neighborhood"
               icon={BiBuildingHouse}
+              defaultValue={data?.address?.neighborhood}
             />
           </S.AddressWrapper>
 
@@ -145,6 +151,9 @@ export function Modal({ onRequestClose }: AddressInformationProps) {
               placeholder="Complemento"
               name="complement"
               icon={FiInfo}
+              defaultValue={
+                data?.address.complement ? `${data.address.complement}` : 'N/A'
+              }
             />
           </S.AddressWrapper>
           <S.AddressWrapper>
@@ -154,6 +163,7 @@ export function Modal({ onRequestClose }: AddressInformationProps) {
               placeholder="Cidade"
               name="city"
               icon={BsPinMap}
+              defaultValue={data?.address?.city}
             />
           </S.AddressWrapper>
           <S.AddressWrapper>
@@ -167,6 +177,7 @@ export function Modal({ onRequestClose }: AddressInformationProps) {
               onChange={e =>
                 formRef.current.setFieldValue('state', formatUF(e.target.value))
               }
+              defaultValue={data?.address?.state}
             />
 
             <Input
@@ -181,6 +192,7 @@ export function Modal({ onRequestClose }: AddressInformationProps) {
                   formatCountry(e.target.value),
                 )
               }
+              defaultValue={data?.address?.country}
             />
           </S.AddressWrapper>
 

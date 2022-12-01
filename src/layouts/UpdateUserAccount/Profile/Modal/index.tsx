@@ -7,7 +7,7 @@ import { FiCalendar, FiMail, FiPhone, FiUser } from 'react-icons/fi';
 import { RiTaskLine } from 'react-icons/ri';
 
 import { useUpdateUserProfile } from 'hooks/user/useUpdateUserProfile';
-import { QUERY_KEY_PROFILE } from 'hooks/user/useUserProfile';
+import { QUERY_KEY_PROFILE, useUserProfile } from 'hooks/user/useUserProfile';
 import { Modal as ModalProfile } from 'components/Modal';
 import { Input } from 'components/Input';
 import { Button } from 'components/Button';
@@ -23,6 +23,13 @@ import * as S from './styles';
 export function Modal({ onRequestClose }: UserProfileProps) {
   const { mutateAsync: updateUserProfile, isLoading: loading } =
     useUpdateUserProfile();
+
+  const { data } = useUserProfile();
+  const formattedBirthDate = data?.birth_date
+    ?.slice(0, 10)
+    .split('-')
+    .reverse()
+    .join('/');
 
   const queryClient = useQueryClient();
 
@@ -69,7 +76,13 @@ export function Modal({ onRequestClose }: UserProfileProps) {
           ref={formRef}
           onSubmit={handleSubmitPersonalInformation}
         >
-          <Input type="text" placeholder="Nome" name="name" icon={FiUser} />
+          <Input
+            type="text"
+            placeholder="Nome"
+            name="name"
+            icon={FiUser}
+            defaultValue={data?.name}
+          />
 
           <Input
             type="text"
@@ -82,6 +95,7 @@ export function Modal({ onRequestClose }: UserProfileProps) {
                 formatBirthDate(e.target.value),
               );
             }}
+            defaultValue={formattedBirthDate}
           />
 
           <Input
@@ -95,9 +109,16 @@ export function Modal({ onRequestClose }: UserProfileProps) {
                 formatPhoneNumber(e.target.value),
               );
             }}
+            defaultValue={data?.phone}
           />
 
-          <Input type="text" placeholder="E-mail" name="email" icon={FiMail} />
+          <Input
+            type="text"
+            placeholder="E-mail"
+            name="email"
+            icon={FiMail}
+            defaultValue={data?.email}
+          />
 
           <Button type="submit" loading={loading} disabled={loading}>
             Confirmar Alterações
