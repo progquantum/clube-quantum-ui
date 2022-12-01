@@ -48,12 +48,12 @@ const variants = {
   `,
 
   danger: css`
-    background-color: ${({ theme }) => theme.colors.danger};
+    background: ${({ theme }) => theme.colors.danger};
     border: 2px solid ${({ theme }) => theme.colors.danger};
     color: ${({ theme }) => theme.colors.white};
 
     &:hover {
-      background-color: ${({ theme }) => theme.colors.dangerDark};
+      background: ${({ theme }) => theme.colors.dangerDark};
       border: 2px solid ${({ theme }) => theme.colors.dangerDark};
       color: ${({ theme }) => theme.colors.white};
     }
