@@ -30,6 +30,7 @@ export const EditPersonalInformation = styled(Button)`
   display: flex;
   align-items: center;
   justify-content: space-between;
+  cursor: auto;
 
   &:hover {
     background: ${({ theme }) => theme.colors.mediumslateBlue};

@@ -1,6 +1,6 @@
 import { useState } from 'react';
 
-import { RiPencilLine } from 'react-icons/ri';
+// import { RiPencilLine } from 'react-icons/ri';
 
 import { useUserProfile } from 'hooks/user/useUserProfile';
 
@@ -25,9 +25,9 @@ export function Profile() {
   return (
     <>
       <S.Container>
-        <S.EditPersonalInformation onClick={handleRequestModal}>
+        <S.EditPersonalInformation>
           <h2>Informações Pessoais</h2>
-          <RiPencilLine />
+          {/* <RiPencilLine /> */}
         </S.EditPersonalInformation>
 
         <h3>Nome</h3>
