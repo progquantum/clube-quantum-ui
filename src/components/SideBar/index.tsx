@@ -7,7 +7,7 @@ import {
   RiDraftLine,
   RiHome6Line,
   RiLock2Line,
-  RiShoppingBasket2Line,
+  // RiShoppingBasket2Line,
   RiUserStarLine,
 } from 'react-icons/ri';
 import { FiLogOut } from 'react-icons/fi';
@@ -43,7 +43,7 @@ export function SideBar({ loading }: SideBarProps) {
   ];
 
   const [showMyAccount, setShowMyAccount] = useState<boolean>(false);
-  const [showMarketplace, setShowMarketplace] = useState<boolean>(false);
+  // const [showMarketplace, setShowMarketplace] = useState<boolean>(false);
 
   if (loading) return <Skeleton />;
 

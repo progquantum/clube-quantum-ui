@@ -6,7 +6,7 @@ import Link from 'next/link';
 import {
   RiDraftLine,
   RiEditBoxLine,
-  RiInboxArchiveLine,
+  // RiInboxArchiveLine,
   RiLock2Line,
   RiStackLine,
   RiUser3Line,
@@ -17,6 +17,7 @@ import {
 import { useAuthDispatch } from 'contexts/auth/AuthContext';
 import {
   DASHBOARD_PAGE,
+  MY_FRIENDS_PAGE,
   SUBSCRIPTIONS_PAGE,
   UPDATE_USER_ACCOUNT_PAGE,
 } from 'constants/routesPath';
@@ -68,11 +69,12 @@ export function AccountDropdown() {
                 <RiBarChartBoxLine />
                 Extratos
               </S.NavButton>
-
-              <S.NavButton>
-                <RiUserStarLine />
-                Amigos
-              </S.NavButton>
+              <Link href={MY_FRIENDS_PAGE}>
+                <S.NavButton>
+                  <RiUserStarLine />
+                  Amigos
+                </S.NavButton>
+              </Link>
 
               <Link href={SUBSCRIPTIONS_PAGE}>
                 <S.NavButton>

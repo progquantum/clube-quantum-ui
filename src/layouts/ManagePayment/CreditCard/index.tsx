@@ -8,12 +8,11 @@ import { VISAIcon } from 'components/Illustrations/Visa';
 
 import { SUBSCRIPTIONS_PAGE } from 'constants/routesPath';
 
-import { Skeleton } from '../Skeleton';
 import { Modal } from './Modal';
 import { CreditCardProps } from './types';
 import * as S from './styles';
 
-export function CreditCard({ user, loading }: CreditCardProps) {
+export function CreditCard({ user }: CreditCardProps) {
   const [showModal, setShowModal] = useState(false);
 
   const handleRequestModal = () => {
@@ -29,8 +28,6 @@ export function CreditCard({ user, loading }: CreditCardProps) {
   const cardLastDigits = user?.credit_card.last_digits;
   const cardExpirationDate = user?.credit_card.expiration_date;
   const hasCreditCard = user?.credit_card.last_digits;
-
-  if (loading) return <Skeleton />;
 
   return (
     <>

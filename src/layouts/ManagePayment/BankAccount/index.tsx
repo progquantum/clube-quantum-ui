@@ -4,12 +4,11 @@ import { RiBankLine } from 'react-icons/ri';
 
 import { Button } from 'components/Button';
 
-import { Skeleton } from '../Skeleton';
 import { Modal } from './Modal';
 import { BankAccountProps } from './types';
 import * as S from './styles';
 
-export function BankAccount({ user, loading }: BankAccountProps) {
+export function BankAccount({ user }: BankAccountProps) {
   const [showModal, setShowModal] = useState(false);
 
   const handleRequestModal = () => {
@@ -20,8 +19,6 @@ export function BankAccount({ user, loading }: BankAccountProps) {
   const currentAccount = user?.bank_account.current_account;
   const lastDigits = user?.bank_account.current_account_check_number;
   const hasBankAccount = user?.bank_account.holder_name;
-
-  if (loading) return <Skeleton />;
 
   return (
     <S.Content>

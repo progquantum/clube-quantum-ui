@@ -129,7 +129,7 @@ export const DivSelectPlan = styled.div`
   flex-direction: column;
   align-items: flex-start;
   padding: 1.25rem 1.5rem;
-  gap: 1.5rem;
+  gap: 1rem;
   width: 21.4688rem;
   height: 15.375rem;
   border-radius: 0.625rem;
@@ -166,6 +166,7 @@ export const DivStatusPlan = styled.div`
   display: flex;
   justify-content: space-between;
   width: 100%;
+  margin: 1rem 0;
 `;
 
 export const TitleStatusPlan = styled.h3`
@@ -183,6 +184,8 @@ export const StatusPlan = styled.span`
 
 export const ManageButton = styled(Button)`
   margin-top: 0;
+  height: 40px;
+
   &:disabled {
     opacity: 0.6;
     cursor: not-allowed;
@@ -208,11 +211,21 @@ export const TextDeadline = styled.p`
 export const ButtonCancel = styled(Button)`
   font-size: 0.875rem;
   line-height: 1.0625rem;
-  height: 37px;
-  width: 135.75px;
+  margin-top: 0;
+  height: 40px;
+  /* width: 135.75px; */
 
   &:disabled {
     opacity: 0.6;
     cursor: not-allowed;
   }
+`;
+
+export const TitleCancelPlan = styled.h4`
+  font-size: 1.5rem;
+  font-weight: 800;
+  line-height: 1.6;
+  margin: 1rem 0;
+  text-align: center;
+  color: ${({ theme }) => theme.colors.gray['400']};
 `;

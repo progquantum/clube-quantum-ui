@@ -21,13 +21,13 @@ export async function getFriends(page: number) {
 export function useFriends() {
   const [page, setPage] = useState(1);
 
-  const { data, isError } = useQuery(
-    [QUERY_KEY_FRIENDS, page],
-    () => getFriends(page),
-    {
-      keepPreviousData: true,
-    },
-  );
+  const {
+    data,
+    isError,
+    isLoading: loading,
+  } = useQuery([QUERY_KEY_FRIENDS, page], () => getFriends(page), {
+    keepPreviousData: true,
+  });
 
   const onPageChange = (selectedItem: { selected: number }) => {
     setPage(selectedItem.selected + 1);
@@ -37,5 +37,6 @@ export function useFriends() {
     data,
     onPageChange,
     isError,
+    loading,
   };
 }

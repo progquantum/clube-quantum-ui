@@ -132,7 +132,7 @@ export const User = styled.div`
 `;
 
 export const SignOut = styled(Button)`
-  background: #ffe7e3;
+  background: ${({ theme }) => theme.colors.dangerLight};
   justify-content: space-between;
   margin-top: 0;
   color: ${({ theme }) => theme.colors.danger};
@@ -140,6 +140,6 @@ export const SignOut = styled(Button)`
 
   &:hover {
     background-color: ${({ theme }) => theme.colors.danger};
-    color: #ffe7e3;
+    color: ${({ theme }) => theme.colors.dangerLight};
   }
 `;
