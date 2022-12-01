@@ -29,8 +29,9 @@ export function MyFriendsPage() {
 
   const totalPages = data?.totalPages;
   const hasPlan = user?.subscription?.is_active;
+  const hasFriends = data?.friends.length > 0;
 
-  if (isError && !hasPlan) {
+  if (!hasFriends || isError || !hasPlan) {
     return <NoFriends />;
   }
 
