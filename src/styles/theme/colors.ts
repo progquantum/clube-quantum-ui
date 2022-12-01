@@ -36,6 +36,7 @@ export const colors = {
   yellow: '#FFCA28',
   warning: '#FFC107',
   danger: '#E12B2B',
+  dangerLight: '#ffe7e3',
   dangerDark: '#B92626',
   success: '#00C851',
 };
