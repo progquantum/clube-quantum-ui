@@ -15,15 +15,13 @@ export function DashboardPage() {
   return (
     <>
       <title>Dashboard - Clube Quantum</title>
-      <DashboardLayout>
-        {isLoading ? (
-          <Loader />
-        ) : `${data?.subscription}` ? (
-          <MainContent />
-        ) : (
-          <ManagePlans />
-        )}
-      </DashboardLayout>
+      {isLoading ? (
+        <Loader />
+      ) : (
+        <DashboardLayout>
+          {data?.subscription ? <MainContent /> : <ManagePlans />}
+        </DashboardLayout>
+      )}
     </>
   );
 }
