@@ -1,4 +1,4 @@
-import { useCallback, useRef } from 'react';
+import { useCallback, useEffect, useRef, useState } from 'react';
 
 import { FiCalendar, FiCreditCard, FiLock } from 'react-icons/fi';
 import { RiBankCard2Line } from 'react-icons/ri';
@@ -6,6 +6,8 @@ import { RiBankCard2Line } from 'react-icons/ri';
 import { Form } from '@unform/web';
 import { FormHandles, SubmitHandler } from '@unform/core';
 import noop from 'lodash.noop';
+
+import { IoCard } from 'react-icons/io5';
 
 import { useSubscriptionsDispatch } from 'contexts/subscriptions/SubscriptionsContext';
 
@@ -15,6 +17,10 @@ import { formatCreditCardAddSpace } from 'utils/formatters/formatCreditCardAddSp
 import { formatCVV } from 'utils/formatters/formatCVV';
 
 import { VISAIcon } from 'components/Illustrations/Visa';
+import { MasterCardIcon } from 'components/Illustrations/MasterCard';
+import EloIcon from 'components/Illustrations/Elo';
+import AmericanExpressIcon from 'components/Illustrations/AmericanExpress';
+
 import { Input } from 'components/Input';
 import { Modal } from 'components/Modal';
 import { Button } from 'components/Button';
@@ -29,6 +35,11 @@ export function ModalCreditCard({
   onUpdateFormStep,
   onPreviousFormStep,
 }: ModalProps) {
+  const [CreditCardIcon, setCreditCardIcon] = useState(() => (
+    <IoCard width="50" height="50" />
+  ));
+  const [firstDigitCardNumber, setFirstDigitCardNumber] = useState<string>();
+
   const { registerCreditCard } = useSubscriptionsDispatch();
 
   const formRef = useRef<FormHandles>(null);
@@ -48,6 +59,26 @@ export function ModalCreditCard({
     },
     [],
   );
+
+  useEffect(() => {
+    switch (firstDigitCardNumber) {
+      case '2':
+      case '5':
+        setCreditCardIcon(() => <MasterCardIcon width="50" height="50" />);
+        break;
+      case '4':
+        setCreditCardIcon(() => <VISAIcon width="50" height="50" />);
+        break;
+      case '3':
+        setCreditCardIcon(() => <AmericanExpressIcon width="50" height="50" />);
+        break;
+      case '6':
+        setCreditCardIcon(() => <EloIcon width="50" height="50" />);
+        break;
+      default:
+        setCreditCardIcon(() => <IoCard size="50" />);
+    }
+  }, [firstDigitCardNumber]);
 
   return (
     <Modal onClose={onRequestClose}>
@@ -69,15 +100,16 @@ export function ModalCreditCard({
             name="card_number"
             placeholder="Número do cartão"
             icon={FiCreditCard}
-            onChange={e =>
+            onChange={e => {
+              setFirstDigitCardNumber(e.target.value.slice(0, 1));
+
               formRef.current.setFieldValue(
                 'card_number',
                 formatCreditCardAddSpace(e.target.value),
-              )
-            }
+              );
+            }}
           />
-
-          <VISAIcon width="50" height="50" />
+          {CreditCardIcon}
         </S.ContentCardNumber>
         <S.ContentCardExpirateCVC>
           <S.DivInput>
