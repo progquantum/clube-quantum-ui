@@ -1,10 +1,15 @@
 import { useState } from 'react';
 import { RiBankCard2Line } from 'react-icons/ri';
-
 import { useRouter } from 'next/router';
 
+import { IoCard } from 'react-icons/io5';
+
 import { Button } from 'components/Button';
+
 import { VISAIcon } from 'components/Illustrations/Visa';
+import { MasterCardIcon } from 'components/Illustrations/MasterCard';
+import AmericanExpressIcon from 'components/Illustrations/AmericanExpress';
+import EloIcon from 'components/Illustrations/Elo';
 
 import { SUBSCRIPTIONS_PAGE } from 'constants/routesPath';
 
@@ -15,12 +20,36 @@ import * as S from './styles';
 export function CreditCard({ user }: CreditCardProps) {
   const [showModal, setShowModal] = useState(false);
 
+  const checkCreditCardType = (brand: string) => {
+    let creditCardIcon: any;
+
+    switch (brand) {
+      case 'VISA':
+        creditCardIcon = <VISAIcon width="80" height="43" />;
+        break;
+      case 'MASTERCARD':
+        creditCardIcon = <MasterCardIcon width="80" height="43" />;
+        break;
+      case 'ELO':
+        creditCardIcon = <EloIcon width="80" height="43" />;
+        break;
+      case 'AMEX':
+        creditCardIcon = <AmericanExpressIcon width="80" height="43" />;
+        break;
+      default:
+        creditCardIcon = <IoCard width="80" height="43" />;
+    }
+
+    return creditCardIcon;
+  };
+
+  const CreditCardIcon = () => checkCreditCardType(user?.credit_card.brand);
+
   const handleRequestModal = () => {
     setShowModal(prevState => !prevState);
   };
 
   const { push } = useRouter();
-
   const handleRedirectPage = () => {
     push(SUBSCRIPTIONS_PAGE);
   };
@@ -43,12 +72,12 @@ export function CreditCard({ user }: CreditCardProps) {
               <S.CardNumber>
                 <p>
                   xxxx xxxx xxxx
-                  <S.LastDigits>{cardLastDigits}</S.LastDigits>
+                  <S.LastDigits> {cardLastDigits}</S.LastDigits>
                 </p>
                 <p>{cardExpirationDate}</p>
               </S.CardNumber>
 
-              <VISAIcon width="80" height="43" />
+              {CreditCardIcon && <CreditCardIcon />}
             </S.CardDetails>
 
             <Button onClick={handleRequestModal}>Atualizar cartão</Button>
