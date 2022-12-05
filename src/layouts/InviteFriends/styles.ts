@@ -52,6 +52,9 @@ export const InviteCodeContainer = styled(Button)`
     transition: none;
   }
 
+  strong {
+    font-size: ${({ theme }) => theme.fontSizes.sm};
+  }
   &:hover {
     background-color: ${({ theme }) => theme.colors.midnightBlue};
     color: ${({ theme }) => theme.colors.white};

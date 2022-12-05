@@ -1,5 +1,4 @@
 import Link from 'next/link';
-import { faker } from '@faker-js/faker';
 
 import {
   RiCursorLine,
@@ -35,8 +34,7 @@ import * as S from './styles';
 export function MainContent() {
   const [showModal, setShowModal] = useState(false);
   const { data } = useMe();
-  const balance = faker.finance.amount();
-  const balanceInComing = faker.finance.amount();
+
   const { mutateAsync: UnsubscribeRequest, isLoading } = useUnsubscribe();
 
   const handleRequestModal = () => {
@@ -57,13 +55,13 @@ export function MainContent() {
       <AccountBalance
         title="Saldo em conta"
         description="Será transferido em 15/xx/xxxx"
-        value={balance}
+        value="0.00"
       />
 
       <AccountBalance
         title="Aguardando liberação"
         description="Disponível em 01/xx/xxxx"
-        value={balanceInComing}
+        value="0.00"
       />
 
       <S.DivMarketplace>
