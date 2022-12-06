@@ -65,7 +65,6 @@ export function PersonalAddress({
       }).then(() => {
         const { name, phone, cpf, email, password, invited_by, birth_date } =
           registerUser;
-
         signUp(
           {
             name,
