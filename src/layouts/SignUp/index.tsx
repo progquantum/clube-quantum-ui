@@ -17,11 +17,7 @@ export function SignUpPage() {
   const { signUp } = useAuthDispatch();
   const router = useRouter();
   const inviteCode = router.query.invite as string;
-
-  const handleSubmit = () =>
-    signUp({
-      inviteCode,
-    });
+  const handleSubmit = () => signUp({ invited_by: inviteCode });
 
   return (
     <AuthLayout
