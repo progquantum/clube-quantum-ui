@@ -71,14 +71,6 @@ export function FinishedPage({
           success('Plano contratado com sucesso!');
           router.push(DASHBOARD_PAGE);
         },
-        onError: err => {
-          const response = err as Response;
-          if (response.status) {
-            error(
-              'Verifique se no seu cartão tem pelo menos R$1,00 para fazermos a verificação da autenticidade do mesmo.',
-            );
-          }
-        },
       },
     );
   };

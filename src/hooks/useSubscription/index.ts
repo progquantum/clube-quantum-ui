@@ -14,6 +14,12 @@ export async function subscriptionRequest(subscription: SubscriptionRequest) {
 
     return data as SubscriptionPayload;
   } catch (err) {
+    if (err.response.status === 400) {
+      error(
+        'Verifique se no seu cartão tem pelo menos R$1,00 para fazermos a verificação da autenticidade do mesmo.',
+        6000,
+      );
+    }
     if (
       err.response?.data.message[0] === 'This user already owns a bank account'
     ) {
