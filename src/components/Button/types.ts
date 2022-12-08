@@ -5,6 +5,7 @@ export type ButtonVariants =
   | 'secondary_degrade'
   | 'transparent'
   | 'rounded'
+  | 'disabled'
   | 'danger'
   | 'danger_outline';
 
