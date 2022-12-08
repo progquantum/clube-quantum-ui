@@ -26,7 +26,13 @@ export function SignUpPage() {
       backgroundImage="/images/signup.png"
     >
       <S.Wrap>
-        <Link href={SIGN_UP_PERSONAL_PAGE} passHref>
+        <Link
+          href={{
+            pathname: SIGN_UP_PERSONAL_PAGE,
+            query: { invite: inviteCode },
+          }}
+          passHref
+        >
           <Button onClick={handleSubmit}>Pessoa Física</Button>
         </Link>
 
