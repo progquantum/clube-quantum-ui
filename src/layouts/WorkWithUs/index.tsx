@@ -25,12 +25,11 @@ export function WorkWithUsPage() {
           <S.Heading>
             Venha fazer parte do Quantum e dê um Up nos seus rendimentos!
           </S.Heading>
-          <S.ContentText>
-            Lorem Ipsum is simply dummy text of the printing and typesetting
-            industry
-          </S.ContentText>
+          <S.ContentText>Em breve...</S.ContentText>
           <Link href={SIGN_UP_PAGE}>
-            <Button>Fazer meu cadastro</Button>
+            <Button variant="disabled" disabled>
+              Em breve
+            </Button>
           </Link>
         </S.ContentWrapper>
         <S.ContentWrapper>

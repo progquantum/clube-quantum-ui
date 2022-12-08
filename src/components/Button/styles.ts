@@ -42,7 +42,16 @@ const variants = {
     border-radius: 100%;
     padding: 0;
   `,
+  disabled: css`
+    color: ${({ theme }) => theme.colors.gray['700']};
+    background: ${({ theme }) => theme.colors.gray['400']};
 
+    &:hover {
+    color: ${({ theme }) => theme.colors.gray['700']};
+    background: ${({ theme }) => theme.colors.gray['400']};
+    }
+    }
+  `,
   transparent: css`
     background: transparent;
   `,
