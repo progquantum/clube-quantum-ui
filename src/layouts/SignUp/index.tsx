@@ -29,7 +29,7 @@ export function SignUpPage() {
         <Link
           href={{
             pathname: SIGN_UP_PERSONAL_PAGE,
-            query: { invite: inviteCode },
+            query: inviteCode && { invite: inviteCode },
           }}
           passHref
         >

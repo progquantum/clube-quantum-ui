@@ -65,6 +65,9 @@ export function PersonalAddress({
       }).then(() => {
         const { name, phone, cpf, email, password, invited_by, birth_date } =
           registerUser;
+
+        const formatedNeighborhood = data.neighborhood.replace('-', '');
+
         signUp(
           {
             name,
@@ -76,6 +79,7 @@ export function PersonalAddress({
             birth_date,
             address: {
               ...data,
+              neighborhood: formatedNeighborhood,
             },
           },
           {
