@@ -12,7 +12,6 @@ export function PinCodeGrid({
 
   function handleChangeInputFocus(pinCodeIndex: number) {
     const input = inputRef.current[pinCodeIndex];
-
     if (input) {
       input.focus();
     }
@@ -28,6 +27,7 @@ export function PinCodeGrid({
     if (!value.length) {
       return;
     }
+    if (Number(pinCodeNumber) > 9) return;
 
     onPinChange(pinCodeNumber, index);
 
