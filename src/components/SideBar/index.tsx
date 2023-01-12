@@ -137,10 +137,10 @@ export function SideBar({ loading }: SideBarProps) {
 
       <S.User>
         <Avatar width="35" height="35" />
-        <div>
+        <S.UserData>
           <strong>{user?.name}</strong>
           <p>{user?.email}</p>
-        </div>
+        </S.UserData>
       </S.User>
 
       <S.SignOut onClick={signOut}>
