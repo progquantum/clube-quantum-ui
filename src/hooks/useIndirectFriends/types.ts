@@ -1,5 +1,5 @@
 export type IndirectFriendsRequest = {
-  indirectFriendsAmount: number;
-  indirectFriendsLimitAmount: number;
-  totalCashbackThisMonthByIndirectFriends: number;
+  indirect_friends_amount: number;
+  indirect_friends_limit_amount: number;
+  total_cashback_this_month_by_indirect_friends: number;
 };
