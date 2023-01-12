@@ -10,7 +10,9 @@ export const QUERY_KEY_FRIENDS = 'me-friends';
 
 export async function getFriends(page: number) {
   try {
-    const { data } = await quantumClientQueue.get(`me/friends?page=${page}`);
+    const { data } = await quantumClientQueue.get(
+      `me/friends?page=${page}&count=6`,
+    );
 
     return data as FriendsRequest;
   } catch (err) {
