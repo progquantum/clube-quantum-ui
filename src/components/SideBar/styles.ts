@@ -115,12 +115,17 @@ export const SubMenuLink = styled.button<NavButtonProps>`
 export const User = styled.div`
   display: flex;
   align-items: center;
+  width: 100%;
   gap: 0.5rem;
   border-top: 2px solid ${({ theme }) => theme.colors.light};
   padding-top: 1.5rem;
   padding: 1rem;
   color: ${({ theme }) => theme.colors.gray['400']};
+`;
 
+export const UserData = styled.div`
+  width: 100%;
+  max-width: 11.8125rem;
   strong {
     font-size: 0.9rem;
     color: ${({ theme }) => theme.colors.gray['700']};
@@ -128,6 +133,7 @@ export const User = styled.div`
 
   p {
     font-size: 0.6rem;
+    overflow-wrap: break-word;
   }
 `;
 

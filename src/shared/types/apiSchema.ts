@@ -1,6 +1,9 @@
 export type Subscription = {
   plan_name: string;
   is_active: boolean;
+  expires_in: Date;
+  monthly_fee: number;
+  price_paid: number;
 };
 
 export type Address = {
@@ -25,11 +28,12 @@ export type Profile = {
 export type User = {
   name: string;
   subscription?: Subscription;
+  invite_code?: string;
+  avatar_url: string;
   address: {
     city: string;
     state: string;
   };
-  invite_code?: string;
 };
 
 export type Session = {

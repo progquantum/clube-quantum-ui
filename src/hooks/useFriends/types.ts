@@ -1,14 +1,14 @@
 export type FriendsRequest = {
-  currentPage: number;
-  totalPages: number;
+  current_page: number;
+  total_pages: number;
   friends: [
     {
       id: string;
       name: string;
-      cashback: number;
-      amountFriends: number;
       avatar_url: string;
+      amount_friends: number;
       inactivated_at: string;
+      cashback: number;
     },
   ];
 };

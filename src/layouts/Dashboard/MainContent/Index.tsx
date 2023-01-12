@@ -1,5 +1,4 @@
 import Link from 'next/link';
-
 import {
   RiCursorLine,
   RiGlobalLine,
@@ -8,27 +7,26 @@ import {
   RiSmartphoneLine,
   RiStackLine,
 } from 'react-icons/ri';
-
 import { useState } from 'react';
 
 import { SUBSCRIPTIONS_PAGE } from 'constants/routesPath';
 
 import { useMe } from 'hooks/user/useMe';
-
-import { formatFirstLetterToUppercase } from 'utils/formatters/formatFirstLetterToUppercase';
-
-import { InviteFriends } from 'components/InviteFriends';
-
+import { useBalances } from 'hooks/useBalances';
 import { useUnsubscribe } from 'hooks/useUnsubscribe';
 
-import { Modal } from 'components/Modal';
+import { formatFirstLetterToUppercase } from 'utils/formatters/formatFirstLetterToUppercase';
+import { formatDate } from 'utils/formatters/formatDate';
+import { generateDeadline } from 'utils/generateDeadline';
+import { formatCashback } from 'utils/formatters/formatCashback';
 
+import { InviteFriends } from 'components/InviteFriends';
+import { Modal } from 'components/Modal';
 import { Button } from 'components/Button';
 
 import { success } from 'helpers/notify/success';
 
 import { AccountBalance } from '../AccountBalance';
-
 import * as S from './styles';
 
 export function MainContent() {
@@ -36,10 +34,27 @@ export function MainContent() {
   const { data } = useMe();
 
   const { mutateAsync: UnsubscribeRequest, isLoading } = useUnsubscribe();
+  const { data: balances } = useBalances();
 
   const handleRequestModal = () => {
     setShowModal(prevState => !prevState);
   };
+
+  const formattedSubscriptionPrice = formatCashback(
+    data?.subscription?.price_paid,
+  );
+
+  const feeOptions = {
+    1: 'Mensal',
+    6: 'Semestral',
+    12: 'Anual',
+  };
+
+  const formattedMonthlyFee = feeOptions[data?.subscription?.monthly_fee];
+
+  const expirationDate = `Sua assinatura será renovada em ${formatDate(
+    data?.subscription.expires_in.toString(),
+  )}`;
 
   const handleCancelPlan = () => {
     UnsubscribeRequest(null, {
@@ -54,14 +69,14 @@ export function MainContent() {
     <S.Container>
       <AccountBalance
         title="Saldo em conta"
-        description="Será transferido em 15/xx/xxxx"
-        value="0.00"
+        description={`Será transferido em ${generateDeadline(15)}`}
+        value={formatCashback(balances?.awaiting_deposit)}
       />
 
       <AccountBalance
         title="Aguardando liberação"
-        description="Disponível em 01/xx/xxxx"
-        value="0.00"
+        description={`Será transferido em ${generateDeadline(1)}`}
+        value={formatCashback(balances?.accumulated_month)}
       />
 
       <S.DivMarketplace>
@@ -107,16 +122,14 @@ export function MainContent() {
             {formatFirstLetterToUppercase(data?.subscription?.plan_name)}
           </S.TitleStatusPlan>
           <S.StatusPlan>
-            {data?.subscription?.is_active ? 'Ativo' : 'Cancelado'}
+            {formattedMonthlyFee} - {formattedSubscriptionPrice}
           </S.StatusPlan>
         </S.DivStatusPlan>
         <Link href={SUBSCRIPTIONS_PAGE}>
           <S.ManageButton>Gerenciar planos</S.ManageButton>
         </Link>
         <S.Deadline>
-          {/* <S.TextDeadline>
-            Sua assinatura será renovada em 15/xx/xxxx
-          </S.TextDeadline> */}
+          <S.TextDeadline>{expirationDate}</S.TextDeadline>
           <S.ButtonCancel onClick={handleRequestModal} variant="danger_outline">
             Cancelar
           </S.ButtonCancel>

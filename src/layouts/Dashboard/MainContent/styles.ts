@@ -129,7 +129,7 @@ export const DivSelectPlan = styled.div`
   flex-direction: column;
   align-items: flex-start;
   padding: 1.25rem 1.5rem;
-  gap: 1rem;
+  gap: 16px;
   width: 21.4688rem;
   height: 15.375rem;
   border-radius: 0.625rem;
@@ -166,7 +166,7 @@ export const DivStatusPlan = styled.div`
   display: flex;
   justify-content: space-between;
   width: 100%;
-  margin: 1rem 0;
+  margin-bottom: 1rem;
 `;
 
 export const TitleStatusPlan = styled.h3`
@@ -205,7 +205,7 @@ export const TextDeadline = styled.p`
   line-height: 0.9375rem;
   color: ${({ theme }) => theme.colors.gray[300]};
   line-height: 1.25rem;
-  width: 135.75px;
+  width: 148px;
 `;
 
 export const ButtonCancel = styled(Button)`
@@ -213,7 +213,7 @@ export const ButtonCancel = styled(Button)`
   line-height: 1.0625rem;
   margin-top: 0;
   height: 40px;
-  /* width: 135.75px; */
+  width: 8.4844rem;
 
   &:disabled {
     opacity: 0.6;
