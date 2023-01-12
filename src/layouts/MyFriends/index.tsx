@@ -1,3 +1,4 @@
+/* eslint-disable no-octal */
 import ReactPaginate from 'react-paginate';
 
 import { IoIosArrowBack, IoIosArrowForward } from 'react-icons/io';
@@ -10,6 +11,7 @@ import { formatDate } from 'utils/formatters/formatDate';
 import { useFriends } from 'hooks/useFriends';
 import { useIndirectFriends } from 'hooks/useIndirectFriends';
 import { useMe } from 'hooks/user/useMe';
+import { useIndirectGains } from 'hooks/useIndirectGains';
 
 import { Loader } from 'components/Loader';
 import { getUserImagePlaceholder } from 'components/Avatar/utils';
@@ -17,7 +19,6 @@ import { InviteFriends } from 'components/InviteFriends';
 import { NoFriends } from 'components/NoFriends';
 
 import { DashboardLayout } from 'layouts/DashboardLayout';
-
 import { colors } from 'styles/theme/colors';
 
 import * as S from './styles';
@@ -26,14 +27,50 @@ export function MyFriendsPage() {
   const { data, onPageChange, isError, loading } = useFriends();
   const { data: indirectFriends, isLoading } = useIndirectFriends();
   const { data: user } = useMe();
+  const { data: indirectGains } = useIndirectGains();
 
-  const totalPages = data?.totalPages;
+  const totalPages = data?.total_pages;
   const hasPlan = user?.subscription?.is_active;
   const hasFriends = data?.friends.length > 0;
 
   if (!hasFriends || isError || !hasPlan) {
     return <NoFriends />;
   }
+
+  const months = {
+    '01': 'Jan',
+    '02': 'Fev',
+    '03': 'Mar',
+    '04': 'Abr',
+    '05': 'Mai',
+    '06': 'Jun',
+    '07': 'Jul',
+    '08': 'Ago',
+    '09': 'Set',
+    '10': 'Out',
+    '11': 'Nov',
+    '12': 'Dez',
+  };
+
+  const formattedIndirectGains = indirectGains.map(item => {
+    const m = item.date.split('-')[1];
+
+    return {
+      total: item.total,
+      month: months[m],
+    };
+  });
+
+  const max = formattedIndirectGains.reduce(
+    (a, b) => Math.max(a, b.total),
+    -Infinity,
+  );
+
+  const graphInformation = formattedIndirectGains.map(item => ({
+    total: item.total,
+    percentage: ((item.total / max) * 100).toFixed(2),
+    month: item.month,
+  }));
 
   return (
     <DashboardLayout>
@@ -77,7 +114,7 @@ export function MyFriendsPage() {
                 </S.TitleFriends>
                 <S.AmountFriends>
                   <BsFillPersonPlusFill size={16} />
-                  <p>{friend.amountFriends}</p>
+                  <p>{friend.amount_friends}</p>
                 </S.AmountFriends>
               </S.Friend>
             ))}
@@ -108,14 +145,14 @@ export function MyFriendsPage() {
               <S.TotalFriends>
                 <p>Suas conexões indiretas</p>
                 <span>
-                  {indirectFriends?.indirectFriendsAmount}/
-                  {indirectFriends?.indirectFriendsLimitAmount}
+                  {indirectFriends?.indirect_friends_amount}/
+                  {indirectFriends?.indirect_friends_limit_amount}
                 </span>
               </S.TotalFriends>
 
               <progress
-                value={indirectFriends?.indirectFriendsAmount}
-                max={indirectFriends?.indirectFriendsLimitAmount}
+                value={indirectFriends?.indirect_friends_amount}
+                max={indirectFriends?.indirect_friends_limit_amount}
               />
 
               <S.TotalFriends>
@@ -124,7 +161,7 @@ export function MyFriendsPage() {
                 </p>
                 <span>
                   {formatCashback(
-                    indirectFriends?.totalCashbackThisMonthByIndirectFriends,
+                    indirectFriends?.total_cashback_this_month_by_indirect_friends,
                   )}
                 </span>
               </S.TotalFriends>
@@ -135,54 +172,12 @@ export function MyFriendsPage() {
                 <RiUserStarLine size={16} /> Ganhos por indicações indiretas
               </S.CardTitle>
               <S.GraphicBar>
-                <S.BarItem>
-                  <S.Bar percentage={100} />
-                  <S.TitleBar>Jan</S.TitleBar>
-                </S.BarItem>
-                <S.BarItem>
-                  <S.Bar percentage={50} />
-                  <S.TitleBar>Fev</S.TitleBar>
-                </S.BarItem>
-                <S.BarItem>
-                  <S.Bar percentage={70} />
-                  <S.TitleBar>Mar</S.TitleBar>
-                </S.BarItem>
-                <S.BarItem>
-                  <S.Bar percentage={40} />
-                  <S.TitleBar>Abr</S.TitleBar>
-                </S.BarItem>
-                <S.BarItem>
-                  <S.Bar percentage={40} />
-                  <S.TitleBar>Mai</S.TitleBar>
-                </S.BarItem>
-                <S.BarItem>
-                  <S.Bar percentage={80} />
-                  <S.TitleBar>Jun</S.TitleBar>
-                </S.BarItem>
-                <S.BarItem>
-                  <S.Bar percentage={90} />
-                  <S.TitleBar>Jul</S.TitleBar>
-                </S.BarItem>
-                <S.BarItem>
-                  <S.Bar percentage={49} />
-                  <S.TitleBar>Ago</S.TitleBar>
-                </S.BarItem>
-                <S.BarItem>
-                  <S.Bar percentage={100} />
-                  <S.TitleBar>Set</S.TitleBar>
-                </S.BarItem>
-                <S.BarItem>
-                  <S.Bar percentage={38} />
-                  <S.TitleBar>Out</S.TitleBar>
-                </S.BarItem>
-                <S.BarItem>
-                  <S.Bar percentage={73} />
-                  <S.TitleBar>Nov</S.TitleBar>
-                </S.BarItem>
-                <S.BarItem>
-                  <S.Bar percentage={87} />
-                  <S.TitleBar>Dez</S.TitleBar>
-                </S.BarItem>
+                {graphInformation.map(item => (
+                  <S.BarItem title={String(item.total)}>
+                    <S.Bar percentage={item.percentage} />
+                    <S.TitleBar>{item.month}</S.TitleBar>
+                  </S.BarItem>
+                ))}
               </S.GraphicBar>
             </S.IndirectFriends>
             <InviteFriends variant="white" />
