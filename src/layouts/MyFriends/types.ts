@@ -1,3 +1,3 @@
 export type BarProps = {
-  percentage: number;
+  percentage: string;
 };

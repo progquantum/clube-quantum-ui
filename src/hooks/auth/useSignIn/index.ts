@@ -15,6 +15,8 @@ export async function signIn(credentials: SignInCredentials) {
     if (err.response.data.message === 'Cpf/Cnpj or password is incorrect') {
       error('Usuário ou senha incorretos');
     }
+
+    return Promise.reject(err);
   }
 }
 
