@@ -18,8 +18,8 @@ export const schema = Yup.object().shape({
         return null;
       }
     })
-    .required()
-    .max(currentDate, 'Data de aniversário inválida'),
+    .required(),
+  // .max(currentDate, 'Data de aniversário inválida'),
   email: Yup.string().email('Formato de email inválido').required(),
   email_confirmation: Yup.string()
     .required()
