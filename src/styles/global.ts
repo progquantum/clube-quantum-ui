@@ -136,4 +136,31 @@ export default createGlobalStyle`
   :root {
     --shape: ${({ theme }) => theme.colors.white};
   }
-`;
+
+  .map-container {
+    height: 400px;
+    margin: 5rem 0;
+  }
+
+  .map-container canvas {
+    border-radius: 0.6rem;
+  }
+
+  .map-container .mapboxgl-ctrl,
+  .map-container .mapboxgl-ctrl-attrib {
+    display: none;
+  }
+
+  .sidebar {
+    background-color: rgba(35, 55, 75, 0.9);
+    color: #fff;
+    padding: 6px 12px;
+    font-family: monospace;
+    z-index: 1;
+    position: absolute;
+    top: 0;
+    left: 0;
+    margin: 12px;
+    border-radius: 4px;
+    }
+ `;
