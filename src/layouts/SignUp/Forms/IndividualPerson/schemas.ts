@@ -1,11 +1,9 @@
-import { currentDate } from 'utils/birthDateValidation';
-
 import Yup from 'settings/yup';
 
 export const schema = Yup.object().shape({
   name: Yup.string().required(),
   birth_date: Yup.date()
-    .transform((value, originalValue) => {
+    .transform((_, originalValue) => {
       try {
         const date = originalValue.split('/');
 
