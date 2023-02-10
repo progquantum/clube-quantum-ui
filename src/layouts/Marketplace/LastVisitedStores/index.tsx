@@ -9,7 +9,7 @@ import * as S from './styles';
 export function LastVisitedStores() {
   return (
     <S.ServiceContainer>
-      <SectionTitle>Serviços</SectionTitle>
+      <SectionTitle>Últimas lojas visitadas</SectionTitle>
       <Link href="https://google.com.br">
         <ServiceCard>
           <Image
