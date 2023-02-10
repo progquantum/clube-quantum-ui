@@ -66,6 +66,7 @@
     "@testing-library/user-event": "^14.2.0",
     "@types/jest": "^27.5.1",
     "@types/lodash.noop": "^3.0.7",
+    "@types/mapbox-gl": "^2.7.10",
     "@types/node": "16.11.11",
     "@types/react": "^18.0.9",
     "@types/react-modal": "^3.13.1",
