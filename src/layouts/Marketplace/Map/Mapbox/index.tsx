@@ -3,8 +3,7 @@ import mapboxgl from 'mapbox-gl';
 
 import { MapboxProps } from './types';
 
-mapboxgl.accessToken =
-  'pk.eyJ1IjoiY2Fpb2Nhc3Ryb2ZycyIsImEiOiJjbGR4ZDUwcHYwMTNoM29wb2RqdzFqNTN2In0.7vVXohS1QKNPCUOVQpWAPw';
+mapboxgl.accessToken = process.env.MAPBOX_API_KEY;
 
 export function Mapbox({ lat, lng }: MapboxProps) {
   const mapContainer = useRef(null);
