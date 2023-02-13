@@ -1,16 +1,17 @@
 import styled from 'styled-components';
 
-export const HeroContainer = styled.div`
+import { HeroContainerProps } from './types';
+
+export const HeroContainer = styled.div<HeroContainerProps>`
   width: 100%;
   height: 100%;
-  background-image: url('/images/Background_blue_01.svg');
+  background-image: url(${p => p.backgroundImageUrl});
   background-size: cover;
   display: flex;
   gap: 4rem;
   justify-content: center;
   align-items: center;
   padding: 5rem 0;
-  point: cursor;
 `;
 
 export const LeftContent = styled.div`
@@ -20,7 +21,9 @@ export const LeftContent = styled.div`
   margin-top: -4rem;
   margin-left: 4rem;
   font-size: 1rem;
-
+  display: flex;
+  justify-content: center;
+  align-items: center;
   @media (max-width: 600px) {
     margin-left: 0;
     margin-top: 0;
