@@ -1,6 +1,9 @@
+import { Header } from 'components/Header';
+
 import { CenterLayout } from './Components/CenterLayout';
 import { FilterTags } from './FilterTags';
-import { Header } from './Header';
+import { AccountCard } from './Components/AccountCard';
+import { ShowOffers } from './Components/ShowOffers';
 import { HeroSection } from './HeroSection';
 import { LastVisitedStores } from './LastVisitedStores';
 import { Map } from './Map';
@@ -10,7 +13,10 @@ import { Stores } from './Stores';
 export function Marketplace() {
   return (
     <>
-      <Header />
+      <Header>
+        <ShowOffers />
+        <AccountCard />
+      </Header>
       <HeroSection />
       <CenterLayout>
         <Services />
