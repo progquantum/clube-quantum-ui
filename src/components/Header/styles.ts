@@ -31,13 +31,15 @@ export const Wrapper = styled.div`
       display: none;
     }
   }
+  justify-content: space-around;
 `;
 
 export const LogoContainer = styled.div`
   width: 60px;
   height: 60px;
-  margin-right: auto;
-
+  @media (min-width: 601px) {
+    margin-right: auto;
+  }
   & img {
     cursor: pointer;
     max-width: 11.2rem;
