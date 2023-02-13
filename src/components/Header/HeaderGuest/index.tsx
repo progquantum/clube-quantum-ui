@@ -5,9 +5,11 @@ import { FiLogIn } from 'react-icons/fi';
 
 import { WORK_WITH_US_PAGE, SIGN_IN_PAGE } from 'constants/routesPath';
 
+import { Header } from '..';
+
 import * as S from './styles';
 
-export function Header() {
+export function HeaderGuest() {
   const [menuIsOpen, setMenuIsOpen] = useState(false);
 
   const handleMenuOpen = () => {
@@ -16,22 +18,13 @@ export function Header() {
 
   return (
     <S.BoxContainer>
-      <S.Container>
-        <S.LogoContainer as="a" href="/">
-          <Image
-            width={50}
-            height={67}
-            src="/images/quantum-logo.svg"
-            alt="Club Quantum logo"
-          />
-        </S.LogoContainer>
-
+      <Header>
         {!menuIsOpen ? (
           <S.Nav>
             <Link href="/">Quem somos</Link>
             <Link href={WORK_WITH_US_PAGE}>Trabalhe Conosco</Link>
 
-            <Link href={SIGN_IN_PAGE} prefetch>
+            <Link href={SIGN_IN_PAGE}>
               <S.LoginButton>
                 <FiLogIn />
                 Login
@@ -68,7 +61,7 @@ export function Header() {
             onClick={handleMenuOpen}
           />
         </S.MenuIconContainer>
-      </S.Container>
+      </Header>
     </S.BoxContainer>
   );
 }

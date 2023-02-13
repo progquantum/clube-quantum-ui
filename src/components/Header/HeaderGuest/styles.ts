@@ -2,38 +2,6 @@ import styled from 'styled-components';
 
 import { Button } from 'components/Button';
 
-export const Container = styled.header`
-  width: 100%;
-  max-width: 72.125rem;
-  margin: 0 auto;
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  padding: 1rem 4rem;
-  position: relative;
-
-  a {
-    font-weight: 600;
-    color: ${({ theme }) => theme.colors.gray[700]};
-
-    @media (max-width: 1024px) {
-      font-size: 0.9rem;
-    }
-  }
-
-  @media (max-width: 860px) {
-    padding: 1rem 3rem;
-  }
-
-  @media (max-width: 700px) {
-    padding: 1rem 2rem;
-  }
-`;
-
-export const BoxContainer = styled.div`
-  box-shadow: 0px 2px 20px rgba(0, 0, 0, 0.07);
-`;
-
 export const Nav = styled.nav`
   display: flex;
   align-items: center;
@@ -63,6 +31,10 @@ export const LoginButton = styled(Button)`
     background: transparent;
     color: ${({ theme }) => theme.colors.mediumslateBlue};
   }
+`;
+
+export const BoxContainer = styled.div`
+  box-shadow: 0px 2px 20px rgba(0, 0, 0, 0.07);
 `;
 
 export const MenuMobile = styled.nav`

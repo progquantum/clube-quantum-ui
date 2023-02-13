@@ -2,7 +2,7 @@ import Head from 'next/head';
 import Image from 'next/image';
 import Link from 'next/link';
 
-import { Header } from 'layouts/Home/Header';
+import { HeaderGuest } from 'components/Header/HeaderGuest';
 import { Footer } from 'components/Footer';
 import { Button } from 'components/Button';
 
@@ -18,7 +18,7 @@ export function WorkWithUsPage() {
       <Head>
         <title>Trabalhe conosco</title>
       </Head>
-      <Header />
+      <HeaderGuest />
       <S.Container>
         <ToolTipContact />
         <S.ContentWrapper>
