@@ -1,6 +1,7 @@
 import { ButtonHTMLAttributes } from 'react';
 
 export type ButtonVariants =
+  | 'primary'
   | 'secondary'
   | 'secondary_degrade'
   | 'transparent'
