@@ -15,6 +15,8 @@ export const RightWrapper = styled.div`
   display: flex;
   flex-direction: column;
   margin: 0 0.5rem;
+  width: 100%;
+  max-width: 736.06px;
 
   @media (max-width: 460px) {
     align-items: center;
