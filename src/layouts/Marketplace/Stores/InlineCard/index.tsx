@@ -15,13 +15,14 @@ export function InlineCard() {
     <S.CardContainer>
       <ServiceCard>
         <Image
-          src="/images/tim-logo.svg"
+          src="/images/dominos_logo.svg"
           alt="TIM logo"
           width="80%"
           height="80%"
           objectFit="contain"
         />
       </ServiceCard>
+
       <S.Content>
         <S.Title>Domino&apos;s Pizzaria</S.Title>
         <S.Rate>
