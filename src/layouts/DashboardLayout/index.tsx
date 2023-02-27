@@ -1,11 +1,10 @@
-import { PropsWithChildren } from 'react';
-
 import { Footer } from 'components/Footer';
 
 import { SideBar } from 'components/SideBar';
 import { ServicesBank } from 'components/ServicesBank';
 
 import { HeaderAuth } from 'components/Header/HeaderAuth';
+
 import { Props } from './types';
 import * as S from './styles';
 
