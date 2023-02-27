@@ -2,9 +2,10 @@ import Image from 'next/image';
 
 import { Footer } from 'components/Footer';
 
-import { CenterLayout } from '../Marketplace/Components/CenterLayout';
+import { CenterLayout } from 'components/CenterLayout';
 
-import { Header } from '../Marketplace/Header';
+import { Header } from 'components/Header';
+
 import { StoreProfile } from './StoreProfile';
 import { Container } from './styles';
 
