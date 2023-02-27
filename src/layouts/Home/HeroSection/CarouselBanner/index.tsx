@@ -2,7 +2,11 @@ import Carousel from 'react-bootstrap/Carousel';
 import Image from 'next/image';
 import Link from 'next/link';
 
-import { MARKETPLACE_PAGE, POS_PAGE } from 'constants/routesPath';
+import {
+  MARKETPLACE_PAGE,
+  PLAN_TIM_PAGE,
+  POS_PAGE,
+} from 'constants/routesPath';
 
 export function CarouselBanner() {
   return (
@@ -33,12 +37,14 @@ export function CarouselBanner() {
       </Carousel.Item>
       <Carousel.Item>
         <div style={{ margin: ' 50px 60px' }}>
-          <Image
-            src="/images/banner_tim.svg"
-            alt="Banner Tim + Banco um"
-            width="1200px"
-            height="520px"
-          />
+          <Link href={PLAN_TIM_PAGE} prefetch>
+            <Image
+              src="/images/banner_tim.svg"
+              alt="Banner Tim + Banco um"
+              width="1200px"
+              height="520px"
+            />
+          </Link>
         </div>
       </Carousel.Item>
     </Carousel>
