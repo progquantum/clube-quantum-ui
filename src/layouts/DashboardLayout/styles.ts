@@ -17,6 +17,7 @@ export const RightWrapper = styled.div`
   margin: 0 0.5rem;
   width: 100%;
   max-width: 736.06px;
+  min-height: 900px;
 
   @media (max-width: 460px) {
     align-items: center;
