@@ -7,7 +7,8 @@ import { Footer } from 'components/Footer';
 
 import { ToolTipContact } from 'components/ToolTipContact';
 
-import { Header } from './Header';
+import { HeaderGuest } from 'components/Header/HeaderGuest';
+
 import * as S from './styles';
 
 export function HomePage() {
@@ -23,7 +24,7 @@ export function HomePage() {
       <Head>
         <title>Clube Quantum</title>
       </Head>
-      <Header />
+      <HeaderGuest />
       <S.Background>
         <ToolTipContact />
         <S.Container>

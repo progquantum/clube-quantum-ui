@@ -16,7 +16,7 @@ export function UnderConstructionPage() {
       <S.Title>
         <h2>Ops! Página em construção</h2>
         <p>Esta página está em fase de desenvolvimento.</p>
-        <Link href={HOMEPAGE_PAGE} prefetch>
+        <Link href={HOMEPAGE_PAGE}>
           <a>
             <IoReturnDownBackSharp size={20} />
             Voltar para homepage
