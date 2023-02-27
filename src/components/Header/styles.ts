@@ -1,7 +1,5 @@
 import styled from 'styled-components';
 
-import { Button } from 'components/Button';
-
 export const Container = styled.header`
   display: flex;
   flex-direction: column;
@@ -10,46 +8,42 @@ export const Container = styled.header`
   width: 100%;
   background: ${({ theme }) => theme.colors.background};
   position: relative;
+
+  a {
+    font-weight: 600;
+    color: ${({ theme }) => theme.colors.gray[700]};
+
+    @media (max-width: 1024px) {
+      font-size: 0.9rem;
+    }
+  }
 `;
 
 export const Wrapper = styled.div`
   max-width: 70.625rem;
-  padding: 0 1rem;
   width: 100%;
-  height: 6.5rem;
   display: flex;
-  justify-content: space-between;
+  padding: 0 1rem;
+  height: 6.5rem;
+  align-items: center;
+  @media (max-width: 470px) {
+    & > button {
+      display: none;
+    }
+  }
+  justify-content: space-around;
 `;
 
-export const LeftNav = styled.div`
-  display: flex;
-  flex-direction: column;
-  align-items: flex-start;
-  justify-content: center;
-
-  > svg {
+export const LogoContainer = styled.div`
+  width: 60px;
+  height: 60px;
+  @media (min-width: 601px) {
+    margin-right: auto;
+  }
+  & img {
     cursor: pointer;
     max-width: 11.2rem;
     height: auto;
     margin: 0 2.4rem 0.4rem -0.4rem;
   }
-`;
-
-export const RightNav = styled.div`
-  display: flex;
-  justify-content: flex-end;
-  align-items: center;
-  flex: 1;
-
-  @media (max-width: 470px) {
-    > button {
-      display: none;
-    }
-  }
-`;
-
-export const InviteFriendsButton = styled(Button)`
-  width: 178px;
-  height: 48px;
-  margin-top: 0;
 `;

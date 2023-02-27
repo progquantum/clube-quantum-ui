@@ -3,10 +3,11 @@ import { useState } from 'react';
 
 import { Error } from 'components/Error';
 import { Footer } from 'components/Footer';
-import { Header } from 'components/Header';
 import { Plans } from 'components/Plans';
 
 import { useMe } from 'hooks/user/useMe';
+
+import { HeaderAuth } from 'components/Header/HeaderAuth';
 
 import { ModalCVC } from './ModalCVC';
 import { SubscriptionButton } from './SubscriptionButton';
@@ -69,7 +70,7 @@ export function SubscriptionsPage() {
   return (
     <>
       <title>Gerenciamento de plano - Clube Quantum</title>
-      <Header />
+      <HeaderAuth />
       <S.Main>
         {hasPlan ? (
           <Plans
