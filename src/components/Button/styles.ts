@@ -47,9 +47,8 @@ const variants = {
     background: ${({ theme }) => theme.colors.gray['400']};
 
     &:hover {
-    color: ${({ theme }) => theme.colors.gray['700']};
-    background: ${({ theme }) => theme.colors.gray['400']};
-    }
+      color: ${({ theme }) => theme.colors.gray['700']};
+      background: ${({ theme }) => theme.colors.gray['400']};
     }
   `,
   transparent: css`

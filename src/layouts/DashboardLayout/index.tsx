@@ -6,17 +6,17 @@ import { SideBar } from 'components/SideBar';
 import { ServicesBank } from 'components/ServicesBank';
 
 import { HeaderAuth } from 'components/Header/HeaderAuth';
-
+import { Props } from './types';
 import * as S from './styles';
 
-export function DashboardLayout({ children }: PropsWithChildren) {
+export function DashboardLayout({ children, withServiceBank = true }: Props) {
   return (
     <>
       <HeaderAuth />
       <S.Container>
         <SideBar />
         <S.RightWrapper>
-          <ServicesBank />
+          {withServiceBank ? <ServicesBank /> : null}
           {children}
         </S.RightWrapper>
       </S.Container>

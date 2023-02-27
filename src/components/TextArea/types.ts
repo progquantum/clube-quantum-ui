@@ -3,7 +3,7 @@ import { IconBaseProps } from 'react-icons';
 
 export type TextAreaProps = TextareaHTMLAttributes<HTMLTextAreaElement> & {
   name: string;
-  icon: React.ComponentType<IconBaseProps>;
+  icon?: React.ComponentType<IconBaseProps>;
 };
 
 export type StyledContainerProps = {

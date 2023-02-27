@@ -5,6 +5,9 @@ import styled, { css } from 'styled-components';
 export const Container = styled.footer`
   width: 100%;
   display: flex;
+  position: fixed;
+  left: 0;
+  bottom: 0;
   align-items: center;
   justify-content: center;
   gap: 40rem;
