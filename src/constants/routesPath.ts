@@ -26,4 +26,6 @@ export const REQUEST_PASSWORD_RESET_SUCCESS = '/request-password-reset-success';
 
 export const INVITE_NOT_FOUND_PAGE = '/invite-not-found';
 
+export const MARKETPLACE_PAGE = '/marketplace';
 export const STORE_DETAILS_PAGE = '/store-details';
+export const POS_PAGE = '/pos';
