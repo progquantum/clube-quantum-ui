@@ -1,5 +1,6 @@
 import { createGlobalStyle } from 'styled-components';
 import 'react-loading-skeleton/dist/skeleton.css';
+import 'bootstrap/dist/css/bootstrap.min.css';
 
 export default createGlobalStyle`
   * {
@@ -163,4 +164,19 @@ export default createGlobalStyle`
     margin: 12px;
     border-radius: 4px;
     }
+
+
+    //style carousel bootstrap
+    .carousel-indicators [data-bs-target] {
+  width: 10px !important;
+  height: 10px !important;
+  border: 1px solid transparent !important;
+  border-radius: 10px;
+}
+
+.carousel-indicators .active {
+  width: 32px !important;
+  background: linear-gradient(90.31deg, #8FC93A -1.94%, #3CD2A2 102.2%) !important;
+}
+
  `;

@@ -1,133 +1,102 @@
 import Head from 'next/head';
 import Image from 'next/image';
+
 import Link from 'next/link';
 
-import { FREQUENT_QUESTIONS_PAGE, SIGN_UP_PAGE } from 'constants/routesPath';
 import { Footer } from 'components/Footer';
 
 import { ToolTipContact } from 'components/ToolTipContact';
 
-import { HeaderGuest } from 'components/Header/HeaderGuest';
+import { SIGN_UP_PAGE } from 'constants/routesPath';
 
+import { Header } from './Header';
 import * as S from './styles';
+import { HeroSection } from './HeroSection';
+import { Plans } from './Plans';
 
 export function HomePage() {
-  const handleScroll = () => {
-    window.scroll({
-      top: 650,
-      behavior: 'smooth',
-    });
-  };
-
   return (
     <>
       <Head>
         <title>Clube Quantum</title>
       </Head>
-      <HeaderGuest />
+      <Header />
+      <HeroSection />
       <S.Background>
         <ToolTipContact />
         <S.Container>
-          <S.CashBackContainer>
-            <div>
-              <S.CashBackTitle>Ganhe cash back todo dia!</S.CashBackTitle>
-              <S.CashBackText>Seja um membro Clube Quantum</S.CashBackText>
-              <Link href={SIGN_UP_PAGE}>
-                <S.HomePageButton>Criar minha conta</S.HomePageButton>
-              </Link>
-            </div>
-            <Image width={480} height={400} src="/images/cashback.svg" alt="" />
-          </S.CashBackContainer>
-
-          <S.ArrowDownWrapper>
+          <S.ContainerRow style={{ marginTop: '49px' }}>
             <Image
-              src="/images/arrow-down.svg"
-              width={42}
-              height={23}
-              onClick={handleScroll}
+              src="/images/banner_woman.svg"
+              alt="Mulher com celular na mão"
+              width="608.49px"
+              height="580px"
             />
-          </S.ArrowDownWrapper>
-
-          <S.Wrapper>
-            <S.ImageWrapper
-              width={439}
-              height={480}
-              src="/images/girl-on-phone.jpg"
-              alt=""
+            <S.ContainerColumn>
+              <S.TitleCard1>Uma parte do que vai...</S.TitleCard1>
+              <S.SubTitleCard1>Com o Quantum volta!</S.SubTitleCard1>
+              <Link href={SIGN_UP_PAGE} prefetch>
+                <S.StyledButton>Conheça</S.StyledButton>
+              </Link>
+              <S.ContainerRowParag>
+                <Image
+                  src="/images/card_homepage.svg"
+                  alt="Cartão"
+                  width="18.91px"
+                  height="13.75px"
+                />
+                <S.TitleParag>
+                  Compras na mão e dinheiro no seu bolso!
+                </S.TitleParag>
+              </S.ContainerRowParag>
+              <S.Parag style={{ marginLeft: '30px' }}>
+                Ao adquirir um serviço ou fazer compra em um de nossos parceiros
+                você recebe uma parte do seu dinheiro de volta.
+              </S.Parag>
+              <S.ContainerRowParag>
+                <Image
+                  src="/images/icon_user_homepage.svg"
+                  alt="Cartão"
+                  width="14.73px"
+                  height="20px"
+                />
+                <S.TitleParag>
+                  Quanto mais convidar, mais você tem a ganhar!
+                </S.TitleParag>
+              </S.ContainerRowParag>
+              <S.Parag style={{ marginLeft: '26px' }}>
+                No Quantum, os amigos que você convida também ganham junto com
+                você e quanto mais você convida, mais você ganha.
+              </S.Parag>
+            </S.ContainerColumn>
+          </S.ContainerRow>
+          <S.ContainerRow style={{ margin: '72px 0' }}>
+            <S.ContainerColumn>
+              <S.TitleCard2>Indique seus amigos</S.TitleCard2>
+              <S.SubTitleCard2>& ganhe R$5,00 por indicação!</S.SubTitleCard2>
+              <S.Parag style={{ marginBottom: '12px' }}>
+                O Plano de Afiliados Quantum garante a você a comissão contínua
+                sobre os ganhos de seus afiliados que utilizam os serviços do
+                Banco UM e do Clube Quantum.
+              </S.Parag>
+              <S.Parag style={{ marginBottom: '12px' }}>
+                O pagamento da comissão é feito sempre sobre os ganhos do seu
+                afiliado, referente ao faturamento do mês anterior.
+              </S.Parag>
+              <S.Parag style={{ marginBottom: '12px' }}>
+                Todos os afiliados que forem indicados diretamente por você,
+                seja através de seu link indicador ou de um convite seu enviado
+                por e-mail, serão sempre inseridos em seu 1º Grau de afiliação.
+              </S.Parag>
+            </S.ContainerColumn>
+            <Image
+              src="/images/banner_man_homepage.svg"
+              alt="Homem pulando"
+              width="580px"
+              height="580px"
             />
-
-            <S.WrapperContent>
-              <S.ContentTitle>
-                E não é só todo dia!
-                <br />É toda hora!
-              </S.ContentTitle>
-              <S.ContentText>
-                Se você já possui uma conta Banco Um, tudo o que você precisa
-                fazer é o pré cadastro!
-              </S.ContentText>
-              <S.ContentTitleLeft>Não fique de fora</S.ContentTitleLeft>
-              <S.ContentTextLeft>
-                Sendo um membro do clube quantum você só tem a ganhar!
-              </S.ContentTextLeft>
-            </S.WrapperContent>
-          </S.Wrapper>
-          <S.WrapperLeft>
-            <S.ImageWrapper
-              src="/images/girl-on-phone-2.jpg"
-              width={439}
-              height={480}
-              alt=""
-            />
-            <S.WrapperContent>
-              <S.ContentTitle>Não tem segredo!</S.ContentTitle>
-              <S.ContentText>
-                Se você já possui uma conta Banco Um, tudo o que você precisa
-                fazer é o pré cadastro!
-              </S.ContentText>
-            </S.WrapperContent>
-          </S.WrapperLeft>
-
-          <S.Line />
-
-          <S.FaqContainer>
-            <h2>F.A.Q.</h2>
-            <S.FaqBox>
-              <S.FaqContent>
-                <S.Faq>
-                  <h3>O que é o Clube Quantum?</h3>
-                  <p>
-                    É o marketplace do <strong>BANCO UM</strong>, com
-                    <strong> Programa de Fidelidade</strong> e{' '}
-                    <strong>CashBack</strong> que tem tem como objetivo
-                    fortalecer o mercado local aumentando o faturamento das
-                    empresas e o poder de compra dos consumidores. Consumimos
-                    conteúdo, produtos e serviços 24 horas por dia, por isso
-                    somos criativos, pioneiros e ambiciosos para transformar a
-                    experiência de consumo de nossos clientes.
-                  </p>
-                </S.Faq>
-                <S.Faq>
-                  <h3>Como indicar amigos?</h3>
-                  <p>
-                    Basta acessar o seu perfil no Clube QUANTUM
-                    www.quantum.com.vc &gt; Convidar Amigos &gt; clicar no link
-                    de compartilhamento e pronto! Além do link de
-                    compartilhamento você também poderá ver o seu código de
-                    indicação. Ah, e você também pode copiar e colar o seu
-                    código de indicação nas suas redes sociais.
-                  </p>
-                </S.Faq>
-                <S.ButtonFaq>
-                  <Link href={FREQUENT_QUESTIONS_PAGE}>
-                    <a>Veja mais dúvidas</a>
-                  </Link>
-                </S.ButtonFaq>
-              </S.FaqContent>
-              <S.FaqImage>
-                <Image src="/images/questions.svg" width={480} height={400} />
-              </S.FaqImage>
-            </S.FaqBox>
-          </S.FaqContainer>
+          </S.ContainerRow>
+          <Plans />
         </S.Container>
       </S.Background>
 

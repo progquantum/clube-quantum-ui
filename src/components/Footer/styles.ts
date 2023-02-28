@@ -5,13 +5,10 @@ import styled, { css } from 'styled-components';
 export const Container = styled.footer`
   width: 100%;
   display: flex;
-  position: fixed;
-  left: 0;
-  bottom: 0;
   align-items: center;
   justify-content: center;
   gap: 40rem;
-  box-shadow: 0 -2px 20px 0px #00000012;
+  box-shadow: 0 -15px 20px 0px #00000012;
   padding: 3.125rem 0;
 
   * {

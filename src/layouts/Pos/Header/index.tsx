@@ -12,7 +12,12 @@ export function Header() {
       <S.Wrapper>
         <S.LeftNav>
           <Link href="/">
-            <Image src="/images/quantum-logo.svg" width={60} height={60} />
+            <Image
+              style={{ cursor: 'pointer' }}
+              src="/images/quantum-logo.svg"
+              width={60}
+              height={60}
+            />
           </Link>
         </S.LeftNav>
         <S.RightNav>
