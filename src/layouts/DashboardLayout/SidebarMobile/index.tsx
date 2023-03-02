@@ -1,5 +1,3 @@
-import { sign } from 'crypto';
-
 import { FiLogOut } from 'react-icons/fi';
 import {
   BsCreditCard2BackFill,
