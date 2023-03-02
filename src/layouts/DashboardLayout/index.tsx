@@ -1,5 +1,3 @@
-import { accessSync } from 'fs';
-
 import { HiMenuAlt1 } from 'react-icons/hi';
 import { motion } from 'framer-motion';
 import { useState } from 'react';

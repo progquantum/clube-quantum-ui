@@ -1,5 +1,3 @@
-import { Button } from 'components/Button';
-
 import * as S from './styles';
 import { Props } from './types';
 

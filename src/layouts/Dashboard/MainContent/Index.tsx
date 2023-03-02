@@ -19,6 +19,7 @@ import { PlanSummary } from '../PlanSummary';
 export function MainContent() {
   const { mutateAsync: UnsubscribeRequest } = useUnsubscribe();
   const { data: balances } = useBalances();
+
   const handleCancelPlan = () => {
     UnsubscribeRequest(null, {
       onSuccess: () => {

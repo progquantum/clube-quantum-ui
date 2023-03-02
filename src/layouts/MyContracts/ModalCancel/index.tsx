@@ -19,9 +19,7 @@ import * as S from './styles';
 export function ModalCancel({ onRequestClose }: Props) {
   const formRef = useRef<FormHandles>(null);
 
-  const handleSendMessage: SubmitHandler = data => {
-    console.log(data);
-  };
+  const handleSendMessage: SubmitHandler = data => data;
   return (
     <Modal onClose={onRequestClose}>
       <S.Container as={Form} ref={formRef} onSubmit={handleSendMessage}>
