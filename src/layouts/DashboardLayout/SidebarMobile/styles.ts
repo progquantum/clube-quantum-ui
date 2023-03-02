@@ -1,4 +1,3 @@
-import Link from 'next/link';
 import styled from 'styled-components';
 
 export const SideBarMobileContainer = styled.div`
@@ -42,5 +41,3 @@ export const LogOutButton = styled.button`
   gap: 1rem;
   align-items: center;
 `;
-
-export const StyledLink = styled(Link)``;
