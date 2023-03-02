@@ -21,12 +21,12 @@ export function DashboardLayout({ children }: Props) {
           style={{ zIndex: 1000, position: 'fixed' }}
           initial={{
             opacity: 1,
-            transform: 'scaleY(0.2)',
+            transform: 'scaleY(0.9)',
           }}
           animate={{
-            transform: isSideBarOpen ? 'scaleY(1)' : 'scaleY(0.8)',
+            transform: isSideBarOpen ? 'scaleY(1)' : 'scaleY(0.9)',
           }}
-          transition={{ duration: 0.1 }}
+          transition={{ duration: 0.2 }}
         >
           <SideBarMobile
             closeMenu={() => setIsSideBarOpen(prevState => !prevState)}
