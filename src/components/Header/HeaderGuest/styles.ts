@@ -4,6 +4,8 @@ import { Button } from 'components/Button';
 
 export const Nav = styled.nav`
   display: flex;
+  width: 100%;
+  max-width: 673px;
   align-items: center;
   gap: 3rem;
 
@@ -12,25 +14,20 @@ export const Nav = styled.nav`
   }
 
   @media (max-width: 860px) {
-    display: none;
+    max-width: 155px;
+  }
+
+  a {
+    @media (max-width: 860px) {
+      display: none;
+    }
   }
 `;
 
 export const LoginButton = styled(Button)`
-  background: transparent;
-  color: ${({ theme }) => theme.colors.mediumslateBlue};
-  font-weight: 600;
-  padding: 1.2rem 0;
-  width: 80px;
-  height: 0;
-  margin-top: 0;
-  border-radius: 6px;
-  gap: 0.5rem;
-
-  &:hover {
-    background: transparent;
-    color: ${({ theme }) => theme.colors.mediumslateBlue};
-  }
+  max-width: 155px;
+  max-height: 45px;
+  margin: 0;
 `;
 
 export const BoxContainer = styled.div`

@@ -42,7 +42,6 @@ export const SideBarMobileTrigger = styled.div`
     margin-right: 5%;
     color: ${({ theme }) => theme.colors.white};
   }
-
   @media (min-width: 780px) {
     display: none;
   }

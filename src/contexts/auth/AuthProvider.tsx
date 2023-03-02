@@ -1,4 +1,10 @@
-import { useMemo, useCallback, PropsWithChildren, useEffect } from 'react';
+import {
+  useMemo,
+  useCallback,
+  PropsWithChildren,
+  useEffect,
+  useState,
+} from 'react';
 import { useRouter } from 'next/router';
 import { useLocalStorage } from '@rehooks/local-storage';
 import { setCookie, destroyCookie, parseCookies } from 'nookies';
@@ -22,6 +28,7 @@ import { SignInCredentials, SignUpData } from './types';
 let authChannel: BroadcastChannel;
 
 export function AuthProvider({ children }: PropsWithChildren<unknown>) {
+  const [previousPage, setPreviousPage] = useState(null);
   const { mutateAsync: signIn, isLoading: loading } = useSignIn();
   const [registerUser, setRegisterUser] = useLocalStorage<SignUpData>(
     REGISTER_USER_STORAGE_KEY,
@@ -85,12 +92,14 @@ export function AuthProvider({ children }: PropsWithChildren<unknown>) {
 
             quantumClientQueue.defaults.headers.common.Authorization = `Bearer ${token}`;
 
-            router.push(DASHBOARD_PAGE);
+            router.push(previousPage || DASHBOARD_PAGE);
+
+            setPreviousPage(null);
           },
         },
       );
     },
-    [signIn, setUser],
+    [signIn, setUser, previousPage],
   );
 
   const handleSignUp = useCallback(
@@ -116,6 +125,7 @@ export function AuthProvider({ children }: PropsWithChildren<unknown>) {
       user,
       loading,
       registerUser,
+      previousPage,
     }),
     [user, loading, registerUser],
   );
@@ -125,6 +135,7 @@ export function AuthProvider({ children }: PropsWithChildren<unknown>) {
       signIn: handleSignIn,
       signUp: handleSignUp,
       signOut,
+      setPreviousPage,
     }),
     [handleSignIn, handleSignUp, signOut],
   );

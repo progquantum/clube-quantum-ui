@@ -4,6 +4,7 @@ import { Button } from 'components/Button';
 
 export const Container = styled.main`
   max-width: 72.125rem;
+  min-height: 800px;
   width: 100%;
   margin: 5rem auto;
   gap: 1rem;
