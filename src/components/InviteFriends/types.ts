@@ -1,4 +1,4 @@
-export type InviteFriendsVariant = 'white';
+export type InviteFriendsVariant = 'limitReached';
 
 export type InviteFriendsPropsStyle = {
   variant: InviteFriendsVariant;

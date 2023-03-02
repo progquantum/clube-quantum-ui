@@ -1,13 +1,111 @@
 import styled, { css } from 'styled-components';
 
+import { HeaderAccessMarket } from 'layouts/Dashboard/MainContent/styles';
+
+import { TitlePlan } from 'components/Plans/styles';
 import {
-  HeaderAccessMarket,
-  TitlePlan,
-  TitleStatusPlan,
   StatusPlan,
-} from 'layouts/Dashboard/MainContent/styles';
+  TitleStatusPlan,
+} from 'layouts/Subscriptions/SelectPlan/styles';
 
 import { InviteFriendsPropsStyle } from './types';
+
+export const HeaderInviteFriends = styled(HeaderAccessMarket)`
+  > svg {
+    font-size: 2rem;
+    color: ${({ theme }) => theme.colors.white};
+  }
+`;
+
+export const TitleFriends = styled(TitlePlan)`
+  font-size: 98%;
+  color: ${({ theme }) => theme.colors.white};
+`;
+
+export const TitleInviteFriends = styled(TitleStatusPlan)`
+  color: ${({ theme }) => theme.colors.white};
+`;
+
+export const TextInviteFriends = styled(StatusPlan)`
+  color: ${({ theme }) => theme.colors.white};
+`;
+
+export const ButtonInviteFriends = styled.button`
+  background: ${({ theme }) => theme.colors.white};
+  color: ${({ theme }) => theme.colors.midnightBlue};
+  width: 100%;
+  padding: 1rem;
+  border-radius: 10px;
+
+  &:hover {
+    background: ${({ theme }) => theme.colors.lightsteelblue};
+    color: ${({ theme }) => theme.colors.midnightBlue};
+  }
+`;
+
+export const InviteBox = styled.button`
+  background-color: transparent;
+  border: 2px solid ${({ theme }) => theme.colors.white};
+  color: ${({ theme }) => theme.colors.white};
+  padding: 1.5rem;
+  border-radius: 0.5rem;
+  transition: all 0.1s ease;
+  &:hover {
+    background-color: ${({ theme }) => theme.colors.white};
+    color: ${({ theme }) => theme.colors.midnightBlue};
+  }
+
+  & span:last-child {
+    display: block;
+  }
+`;
+
+export const SocialIconsBox = styled.div`
+  display: flex;
+  gap: 1rem;
+  margin: 0 auto;
+  justify-content: center;
+  & > div {
+    border-radius: 50%;
+    padding: 0.4rem 0.5rem;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: ${({ theme }) => theme.colors.midnightBlue};
+    background-color: ${({ theme }) => theme.colors.white};
+  }
+  & div {
+    cursor: pointer;
+  }
+`;
+
+export const InvitationsAcceptedBox = styled.div`
+  width: 100%;
+  & div:first-child {
+    margin: 0.5rem 0;
+    display: flex;
+    justify-content: space-between;
+    color: ${({ theme }) => theme.colors.white};
+    font-weight: 700;
+  }
+`;
+
+export const ProgressBar = styled.div<{ quantityFilledInPercent: string }>`
+  width: 100%;
+  height: 15px;
+  border-radius: 1rem;
+  background: ${({ theme }) => theme.colors.midnightBlue};
+  & div {
+    width: ${({ quantityFilledInPercent }) => quantityFilledInPercent};
+    background-color: ${({ theme }) => theme.colors.white};
+    border-radius: inherit;
+    height: inherit;
+  }
+`;
+
+export const Bold = styled.span`
+  font-weight: 700;
+`;
 
 export const DivInviteFriends = styled.div<InviteFriendsPropsStyle>`
   grid-area: DivInviteFriends;
@@ -15,21 +113,51 @@ export const DivInviteFriends = styled.div<InviteFriendsPropsStyle>`
   flex-direction: column;
   align-items: flex-start;
   padding: 1.25rem 1.5rem;
-  gap: 1.5rem;
-  width: 21.4688rem;
-  height: 15.375rem;
+  gap: 2rem;
+  height: max-content;
   background-color: ${({ theme }) => theme.colors.mediumslateBlue};
   box-shadow: 0px 0px 20px rgba(0, 0, 0, 0.1);
   border-radius: 0.625rem;
-
   ${({ variant }) =>
-    variant === 'white' &&
+    variant === 'limitReached' &&
     css`
-      background-color: ${({ theme }) => theme.colors.white};
+      background-color: ${({ theme }) => theme.colors.gray[50]};
+
+      & ${HeaderInviteFriends} {
+        & > svg,
+        ${TitleFriends} {
+          color: ${({ theme }) => theme.colors.gray[400]};
+        }
+      }
+      & ${TitleInviteFriends}, ${TextInviteFriends}, ${InviteBox} {
+        color: ${({ theme }) => theme.colors.gray[400]};
+      }
+      & ${InviteBox} {
+        border-color: ${({ theme }) => theme.colors.gray[400]};
+      }
+
+      & ${SocialIconsBox} {
+        & div {
+          color: ${({ theme }) => theme.colors.gray[400]};
+          background-color: ${({ theme }) => theme.colors.gray[100]};
+        }
+      }
+
+      & ${InvitationsAcceptedBox} {
+        & span {
+          color: ${({ theme }) => theme.colors.gray[400]};
+        }
+
+        & div:last-child {
+          background: ${({ theme }) => theme.colors.gray[400]};
+          &::before {
+            background-color: inherit;
+          }
+        }
+      }
     `};
 
   @media (max-width: 1024px) {
-    width: 27.0625rem;
   }
 
   @media (max-width: 460px) {
@@ -38,80 +166,5 @@ export const DivInviteFriends = styled.div<InviteFriendsPropsStyle>`
 
   @media (max-width: 380px) {
     width: 19rem;
-  }
-`;
-
-export const HeaderInviteFriends = styled(
-  HeaderAccessMarket,
-)<InviteFriendsPropsStyle>`
-  > svg {
-    font-size: 1.0625rem;
-    color: ${({ theme }) => theme.colors.white};
-
-    ${({ variant }) =>
-      variant === 'white' &&
-      css`
-        color: ${({ theme }) => theme.colors.gray[200]};
-      `};
-  }
-`;
-
-export const TitleFriends = styled(TitlePlan)<InviteFriendsPropsStyle>`
-  color: ${({ theme }) => theme.colors.white};
-
-  ${({ variant }) =>
-    variant === 'white' &&
-    css`
-      color: ${({ theme }) => theme.colors.gray[400]};
-    `};
-`;
-
-export const TitleInviteFriends = styled(
-  TitleStatusPlan,
-)<InviteFriendsPropsStyle>`
-  color: ${({ theme }) => theme.colors.white};
-
-  ${({ variant }) =>
-    variant === 'white' &&
-    css`
-      color: ${({ theme }) => theme.colors.gray[700]};
-    `};
-`;
-
-export const TextInviteFriends = styled(StatusPlan)<InviteFriendsPropsStyle>`
-  color: ${({ theme }) => theme.colors.white};
-
-  ${({ variant }) =>
-    variant === 'white' &&
-    css`
-      color: ${({ theme }) => theme.colors.gray[400]};
-    `};
-`;
-
-export const ButtonInviteFriends = styled.button<InviteFriendsPropsStyle>`
-  background: ${({ theme }) => theme.colors.white};
-  color: ${({ theme }) => theme.colors.midnightBlue};
-  width: 100%;
-  padding: 1rem;
-  border-radius: 10px;
-
-  ${({ variant }) =>
-    variant === 'white' &&
-    css`
-      background: ${({ theme }) =>
-        theme.gradients.mediumsLateBlueToMidnightBlue};
-      color: ${({ theme }) => theme.colors.white};
-    `};
-
-  &:hover {
-    background: ${({ theme }) => theme.colors.lightsteelblue};
-    color: ${({ theme }) => theme.colors.midnightBlue};
-
-    ${({ variant }) =>
-      variant === 'white' &&
-      css`
-        background: ${({ theme }) => theme.colors.mediumslateBlue};
-        color: ${({ theme }) => theme.colors.white};
-      `}
   }
 `;

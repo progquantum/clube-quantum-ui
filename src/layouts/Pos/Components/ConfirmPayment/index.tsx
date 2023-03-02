@@ -6,8 +6,6 @@ import { useTheme } from 'styled-components';
 
 import { useRef } from 'react';
 
-import { FiLock } from 'react-icons/fi';
-
 import { Button } from 'components/Button';
 
 import { Input } from 'components/Input';
@@ -24,7 +22,6 @@ export function ConfirmPayment({ onNextStep, onPreviousStep }: Props) {
 
   const handleSubmitCVV: SubmitHandler = async data => {
     onNextStep();
-    console.log(data);
   };
 
   return (

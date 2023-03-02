@@ -1,32 +1,20 @@
-import Link from 'next/link';
-import { useState } from 'react';
-import { BiUserPin } from 'react-icons/bi';
-import {
-  RiArrowDownSLine,
-  RiArrowUpSLine,
-  RiDraftLine,
-  RiHome6Line,
-  RiLock2Line,
-  // RiShoppingBasket2Line,
-  RiUserStarLine,
-} from 'react-icons/ri';
 import { FiLogOut } from 'react-icons/fi';
-
-import { useRouter } from 'next/router';
-
 import {
-  DASHBOARD_PAGE,
-  UPDATE_USER_ACCOUNT_PAGE,
-  INVITE_FRIENDS_PAGE,
-  SUBSCRIPTIONS_PAGE,
-  MANAGE_PAYMENT_PAGE,
-  MY_FRIENDS_PAGE,
-} from 'constants/routesPath';
+  BsCreditCard2BackFill,
+  BsFillPersonFill,
+  BsPeopleFill,
+} from 'react-icons/bs';
+
+import { HiMenuAlt1 } from 'react-icons/hi';
+
+import { FaDollarSign, FaShoppingBag } from 'react-icons/fa';
+
+import { AiFillFile } from 'react-icons/ai';
+
+import { useState } from 'react';
+
+import { DASHBOARD_PAGE, INVITE_FRIENDS_PAGE } from 'constants/routesPath';
 import { useAuthDispatch } from 'contexts/auth/AuthContext';
-
-import { Avatar } from 'components/Avatar';
-
-import { useUserProfile } from 'hooks/user/useUserProfile';
 
 import { Skeleton } from './Skeleton';
 import { SideBarProps } from './types';
@@ -34,118 +22,70 @@ import * as S from './styles';
 
 export function SideBar({ loading }: SideBarProps) {
   const { signOut } = useAuthDispatch();
-  const { data: user } = useUserProfile();
-  const { pathname } = useRouter();
-  const myAccountRoutes = [
-    UPDATE_USER_ACCOUNT_PAGE,
-    MANAGE_PAYMENT_PAGE,
-    MY_FRIENDS_PAGE,
-  ];
-
-  const [showMyAccount, setShowMyAccount] = useState<boolean>(false);
-  // const [showMarketplace, setShowMarketplace] = useState<boolean>(false);
+  const [isExpanded, setIsExpanded] = useState(false);
 
   if (loading) return <Skeleton />;
 
   return (
-    <S.Container>
-      <Link href={DASHBOARD_PAGE}>
-        <S.NavButton activePath={pathname === DASHBOARD_PAGE}>
-          <div>
-            <RiHome6Line />
-            Dashboard
-          </div>
+    <S.Container isExpanded={isExpanded}>
+      <S.ToggleButtonBox isExpanded={isExpanded}>
+        <HiMenuAlt1 onClick={() => setIsExpanded(prevState => !prevState)} />
+      </S.ToggleButtonBox>
+      <S.StyledLink href={DASHBOARD_PAGE}>
+        <S.NavButton isExpanded={isExpanded}>
+          <S.IconBox isExpanded={isExpanded}>
+            <BsFillPersonFill />
+          </S.IconBox>
+          <S.TitleBox>Minha Conta</S.TitleBox>
         </S.NavButton>
-      </Link>
-
-      <S.NavButton
-        activePath={!!myAccountRoutes.includes(pathname)}
-        onClick={() => {
-          setShowMyAccount(prevState => !prevState);
-        }}
-      >
-        <div>
-          <BiUserPin />
-          Minha Conta
-        </div>
-        {showMyAccount ? <RiArrowUpSLine /> : <RiArrowDownSLine />}
-      </S.NavButton>
-      {showMyAccount && (
-        <S.SubMenu>
-          <Link href={UPDATE_USER_ACCOUNT_PAGE}>
-            <S.SubMenuLink activePath={pathname === UPDATE_USER_ACCOUNT_PAGE}>
-              Atualizar Cadastro
-            </S.SubMenuLink>
-          </Link>
-          <Link href={SUBSCRIPTIONS_PAGE}>
-            <S.SubMenuLink activePath={pathname === SUBSCRIPTIONS_PAGE}>
-              Planos
-            </S.SubMenuLink>
-          </Link>
-          <Link href={MANAGE_PAYMENT_PAGE}>
-            <S.SubMenuLink activePath={pathname === MANAGE_PAYMENT_PAGE}>
-              Dados de Pagamento
-            </S.SubMenuLink>
-          </Link>
-          <Link href={MY_FRIENDS_PAGE}>
-            <S.SubMenuLink activePath={pathname === MY_FRIENDS_PAGE}>
-              Meus Amigos
-            </S.SubMenuLink>
-          </Link>
-          <S.SubMenuLink>Extratos</S.SubMenuLink>
-        </S.SubMenu>
-      )}
-
-      {/* <S.NavButton */}
-      {/*   onClick={() => { */}
-      {/*     setShowMarketplace(prevState => !prevState); */}
-      {/*   }} */}
-      {/* > */}
-      {/*   <div> */}
-      {/*     <RiShoppingBasket2Line /> */}
-      {/*     Marketplace */}
-      {/*   </div> */}
-      {/*   {showMarketplace ? <RiArrowUpSLine /> : <RiArrowDownSLine />} */}
-      {/* </S.NavButton> */}
-      {/* {showMarketplace && ( */}
-      {/*   <S.SubMenu> */}
-      {/*     <S.SubMenuLink>Meus Pedidos</S.SubMenuLink> */}
-      {/*     <S.SubMenuLink>Marketplace</S.SubMenuLink> */}
-      {/*   </S.SubMenu> */}
-      {/* )} */}
-      <Link href={INVITE_FRIENDS_PAGE}>
-        <S.NavButton>
-          <div>
-            <RiUserStarLine />
-            Convidar Amigos
-          </div>
+      </S.StyledLink>
+      <S.StyledLink href={DASHBOARD_PAGE}>
+        <S.NavButton isExpanded={isExpanded}>
+          <S.IconBox isExpanded={isExpanded}>
+            <FaDollarSign />
+          </S.IconBox>
+          <S.TitleBox>Extratos</S.TitleBox>
         </S.NavButton>
-      </Link>
+      </S.StyledLink>
+      <S.StyledLink href={INVITE_FRIENDS_PAGE}>
+        <S.NavButton isExpanded={isExpanded}>
+          <S.IconBox isExpanded={isExpanded}>
+            <BsPeopleFill />
+          </S.IconBox>
+          <S.TitleBox>Meus Amigos</S.TitleBox>
+        </S.NavButton>
+      </S.StyledLink>
 
-      <S.NavButton>
-        <div>
-          <RiDraftLine />
-          Licenças
-        </div>
-      </S.NavButton>
+      <S.StyledLink href="/">
+        <S.NavButton isExpanded={isExpanded}>
+          <S.IconBox isExpanded={isExpanded}>
+            <BsCreditCard2BackFill />
+          </S.IconBox>
+          <S.TitleBox>Dados de Pagamento</S.TitleBox>
+        </S.NavButton>
+      </S.StyledLink>
 
-      <S.NavButton>
-        <div>
-          <RiLock2Line /> Privacidade
-        </div>
-      </S.NavButton>
-
-      <S.User>
-        <Avatar width="35" height="35" />
-        <S.UserData>
-          <strong>{user?.name}</strong>
-          <p>{user?.email}</p>
-        </S.UserData>
-      </S.User>
-
-      <S.SignOut onClick={signOut}>
-        Sair
-        <FiLogOut />
+      <S.StyledLink href="/">
+        <S.NavButton isExpanded={isExpanded}>
+          <S.IconBox isExpanded={isExpanded}>
+            <AiFillFile />
+          </S.IconBox>
+          <S.TitleBox>Meus Contratos</S.TitleBox>
+        </S.NavButton>
+      </S.StyledLink>
+      <S.StyledLink href="/">
+        <S.NavButton isExpanded={isExpanded}>
+          <S.IconBox isExpanded={isExpanded}>
+            <FaShoppingBag />
+          </S.IconBox>
+          <S.TitleBox>Minhas Vendas</S.TitleBox>
+        </S.NavButton>
+      </S.StyledLink>
+      <S.SignOut onClick={signOut} isExpanded={isExpanded}>
+        <S.IconBox isExpanded={isExpanded}>
+          <FiLogOut />
+        </S.IconBox>
+        <S.TitleBox>Sair</S.TitleBox>
       </S.SignOut>
     </S.Container>
   );

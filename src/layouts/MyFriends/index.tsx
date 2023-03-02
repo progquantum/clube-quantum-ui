@@ -180,7 +180,7 @@ export function MyFriendsPage() {
                 ))}
               </S.GraphicBar>
             </S.IndirectFriends>
-            <InviteFriends variant="white" />
+            <InviteFriends />
           </S.FlexCards>
         </S.CardsContainer>
       )}

@@ -10,7 +10,7 @@ export const Container = styled.div`
   align-items: flex-start;
   padding: 1.25rem 1.5rem;
   gap: 1rem;
-
+  flex-grow: 1;
   @media (max-width: 1024px) {
     width: 27.0625rem;
   }

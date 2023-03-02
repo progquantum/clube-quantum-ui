@@ -26,6 +26,12 @@ export const Wrapper = styled.div`
   padding: 0 1rem;
   height: 6.5rem;
   align-items: center;
+  @media (max-width: 1024px) {
+    margin-left: 2rem;
+  }
+  @media (max-width: 780px) {
+    margin-left: 0;
+  }
   @media (max-width: 470px) {
     & > button {
       display: none;
