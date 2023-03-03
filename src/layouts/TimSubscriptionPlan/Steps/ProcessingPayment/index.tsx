@@ -1,4 +1,4 @@
-import Image from 'next/image';
+import Image from 'next/legacy/image';
 import { useEffect } from 'react';
 
 import { PlanSectionTitle } from 'layouts/TimSubscriptionPlan/Components/PlanSectionTitle';
@@ -20,8 +20,8 @@ export function ProcessingPayment() {
       <S.LoadingContainer>
         <Image
           src="/images/Loading-v2.svg"
-          width="100px"
-          height="100px"
+          width={100}
+          height={100}
           alt="Animação de carregamento"
         />
         <S.Title>Aguarde enquanto processamos o seu pagamento</S.Title>

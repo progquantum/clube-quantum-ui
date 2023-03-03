@@ -1,9 +1,11 @@
 import { PropsWithChildren, useState } from 'react';
-import { QueryClient, QueryClientProvider } from 'react-query';
+import { Hydrate, QueryClient, QueryClientProvider } from 'react-query';
 import { QueryParamProvider } from 'use-query-params';
 import { ReactQueryDevtools } from 'react-query/devtools';
 import { Toaster } from 'react-hot-toast';
 import { DefaultSeo } from 'next-seo';
+
+import { AppProps } from 'next/app';
 
 import { useHasMounted } from 'hooks/useHasMounted';
 
@@ -13,7 +15,7 @@ import { AuthProvider } from './auth/AuthProvider';
 import { StyledProvider } from './styles';
 import { SubscriptionsProvider } from './subscriptions/SubscriptionsProvider';
 
-export function AppProvider({ children }: PropsWithChildren<unknown>) {
+export function AppProvider({ children }: PropsWithChildren) {
   const [queryClient] = useState(
     () =>
       new QueryClient({

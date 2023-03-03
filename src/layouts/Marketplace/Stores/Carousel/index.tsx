@@ -1,6 +1,6 @@
 import { FcPrevious, FcNext } from 'react-icons/fc';
 
-import Image from 'next/image';
+import Image from 'next/legacy/image';
 
 import { useRef } from 'react';
 
@@ -35,8 +35,8 @@ export function Carousel({ slides }: CarouselProps) {
             <Image
               src={item}
               alt={`carousel item number ${index + 1}`}
-              width="500px"
-              height="270px"
+              width={500}
+              height={270}
             />
           </S.Slide>
         ))}

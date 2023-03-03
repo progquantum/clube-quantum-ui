@@ -6,7 +6,7 @@ import { AppProvider } from 'contexts';
 
 export default function MyApp({ Component, pageProps }: AppProps) {
   return (
-    <AppProvider>
+    <AppProvider {...pageProps}>
       <Component {...pageProps} />
       <Progress />
     </AppProvider>

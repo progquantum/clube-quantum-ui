@@ -1,4 +1,4 @@
-import Image from 'next/image';
+import Image from 'next/legacy/image';
 
 import { RiStarFill } from 'react-icons/ri';
 
@@ -17,8 +17,8 @@ export function InlineCard() {
         <Image
           src="/images/dominos_logo.svg"
           alt="TIM logo"
-          width="80%"
-          height="80%"
+          width={90}
+          height={25}
           objectFit="contain"
         />
       </ServiceCard>

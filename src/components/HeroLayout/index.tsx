@@ -1,4 +1,4 @@
-import Image from 'next/image';
+import Image from 'next/legacy/image';
 import { PropsWithChildren } from 'react';
 
 import * as S from './styles';
@@ -15,7 +15,7 @@ export function HeroLayout({
       <S.LeftContent>{children}</S.LeftContent>
       <S.RightContent>
         <S.ImageContainer>
-          <Image src={imgSrc} alt={imgAlt} width="800px" height="660px" />
+          <Image src={imgSrc} alt={imgAlt} width={800} height={660} />
         </S.ImageContainer>
       </S.RightContent>
     </S.HeroContainer>

@@ -1,7 +1,7 @@
 import { useCallback, useEffect, useRef, useState } from 'react';
 import { useField } from '@unform/core';
 
-import Image from 'next/image';
+import Image from 'next/legacy/image';
 
 import * as S from './styles';
 import { InputProps } from './types';
@@ -55,8 +55,8 @@ export function FilterInput({ name, ...rest }: InputProps) {
           <Image
             src="/images/magnifier.svg"
             alt="search icon"
-            width="20px"
-            height="20px"
+            width={20}
+            height={20}
           />
         </S.Button>
       </S.ContainerInput>

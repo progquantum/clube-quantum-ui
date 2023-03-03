@@ -1,4 +1,4 @@
-import Image from 'next/image';
+import Image from 'next/legacy/image';
 
 import * as S from './styles';
 
@@ -9,8 +9,8 @@ export function HeroSection() {
         <Image
           src="/images/banner_pos.svg"
           alt="Máquina Pos"
-          width="1280px"
-          height="720.31px"
+          width={1280}
+          height={720.31}
         />
       </S.ImageContainer>
     </S.HeroContainer>

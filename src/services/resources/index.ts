@@ -1,11 +1,5 @@
-import { quantumClientQueue, quantumClientBase } from 'config/client';
-import { User, InviteCodePayload, ZipCode } from 'shared/types/apiSchema';
-
-export async function getMe() {
-  const { data } = await quantumClientQueue.get('/me');
-
-  return data as User;
-}
+import { quantumClientBase } from 'config/client';
+import { InviteCodePayload, ZipCode } from 'shared/types/apiSchema';
 
 export async function checkInviteCode(code: string | string[]) {
   const { data } = await quantumClientBase.get(`/validate-invite/${code}`);

@@ -1,5 +1,5 @@
 import Carousel from 'react-bootstrap/Carousel';
-import Image from 'next/image';
+import Image from 'next/legacy/image';
 import Link from 'next/link';
 
 import {
@@ -21,8 +21,8 @@ export function CarouselBanner() {
               style={{ cursor: 'pointer' }}
               src="/images/banner_pos.svg"
               alt="Máquina Pos"
-              width="1280px"
-              height="520px"
+              width={1280}
+              height={520}
             />
           </Link>
         </div>
@@ -35,8 +35,8 @@ export function CarouselBanner() {
               style={{ cursor: 'pointer' }}
               src="/images/banner_marketplace.svg"
               alt="Marketplace"
-              width="1200px"
-              height="520px"
+              width={1200}
+              height={520}
             />
           </Link>
         </div>
@@ -49,8 +49,8 @@ export function CarouselBanner() {
               style={{ cursor: 'pointer' }}
               src="/images/banner_tim.svg"
               alt="Banner Tim + Banco um"
-              width="1200px"
-              height="520px"
+              width={1200}
+              height={520}
             />
           </Link>
         </div>

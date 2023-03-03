@@ -10,16 +10,30 @@ import {
 import { error as notifyError } from 'helpers/notify/error';
 import { logOut } from 'helpers/auth/logOut';
 
+export type ErrorResponse = {
+  error: string;
+  message: string;
+  statusCode: number;
+};
+
 let isRefreshing = false;
 let failedRequestsQueue: {
   onSuccess(token: string): void;
   onFailure(error: AxiosError): void;
 }[] = [];
 
-export function baseInstance() {
+export function baseInstance(
+  ctx: GetServerSidePropsContext | undefined = undefined,
+) {
   const api = axios.create({
     baseURL: process.env.NEXT_PUBLIC_API_HOST,
   });
+
+  const cookies = parseCookies(ctx);
+
+  const token = cookies[TOKEN_STORAGE_KEY];
+
+  api.defaults.headers.common.Authorization = `Bearer ${token}`;
 
   api.interceptors.response.use(
     response => response,
@@ -53,9 +67,21 @@ export function queueInstance(
 
   api.defaults.headers.common.Authorization = `Bearer ${token}`;
 
+  api.interceptors.request.use(
+    config => {
+      cookies = parseCookies(ctx);
+
+      api.defaults.headers.common.Authorization = `Bearer ${cookies[TOKEN_STORAGE_KEY]}`;
+
+      return config;
+    },
+
+    error => Promise.reject(error),
+  );
+
   api.interceptors.response.use(
     response => response,
-    (error: AxiosError) => {
+    (error: AxiosError<ErrorResponse>) => {
       const expectedError =
         error.response &&
         error.response.status >= 400 &&
@@ -66,8 +92,13 @@ export function queueInstance(
       }
 
       if (error.response.status === 401) {
+        if (
+          error.response.data.message === 'Refresh token is expired' ||
+          error.response.data.message === 'Refresh token not found'
+        ) {
+          logOut();
+        }
         cookies = parseCookies(ctx);
-
         const { '@ClubeQuantum:refresh_token': refresh_token } = cookies;
         const originalConfig = error.config;
 

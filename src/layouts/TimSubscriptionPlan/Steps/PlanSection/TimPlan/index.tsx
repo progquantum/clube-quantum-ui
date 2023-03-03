@@ -1,4 +1,4 @@
-import Image from 'next/image';
+import Image from 'next/legacy/image';
 import { AiOutlineCheck } from 'react-icons/ai';
 
 import { useTimPlanStore } from 'store/tim';
@@ -32,20 +32,20 @@ export function TimPlan({ planData }: TimPlanProps) {
         <div>
           <Image
             src="/images/facebook.svg"
-            width="40px"
-            height="40px"
+            width={40}
+            height={40}
             alt="facebook logo"
           />
           <Image
             src="/images/whatsapp.svg"
-            width="40px"
-            height="40px"
+            width={40}
+            height={40}
             alt="whatsapp logo"
           />
           <Image
             src="/images/waze.svg"
-            width="40px"
-            height="40px"
+            width={40}
+            height={40}
             alt="waze logo"
           />
         </div>

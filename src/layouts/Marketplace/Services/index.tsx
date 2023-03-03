@@ -1,4 +1,4 @@
-import Image from 'next/image';
+import Image from 'next/legacy/image';
 import Link from 'next/link';
 
 import { SectionTitle } from '../Components/SectionTitle';
@@ -15,8 +15,8 @@ export function Services() {
           <Image
             src="/images/tim-logo.svg"
             alt="TIM logo"
-            width="80%"
-            height="80%"
+            width={90}
+            height={25}
             objectFit="contain"
           />
         </ServiceCard>
@@ -25,9 +25,9 @@ export function Services() {
         <ServiceCard>
           <Image
             src="/images/quantum-smart.svg"
-            alt="TIM logo"
-            width="80%"
-            height="80%"
+            alt="Quantum smart Logo"
+            width={90}
+            height={35}
             objectFit="contain"
           />
         </ServiceCard>
@@ -36,9 +36,9 @@ export function Services() {
         <ServiceCard>
           <Image
             src="/images/menu-fraterno.svg"
-            alt="TIM logo"
-            width="80%"
-            height="80%"
+            alt="Menu Fraterno Logo"
+            width={50}
+            height={48}
             objectFit="contain"
           />
         </ServiceCard>

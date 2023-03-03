@@ -1,5 +1,3 @@
-import Image from 'next/image';
-
 import { CarouselBanner } from './CarouselBanner';
 
 import * as S from './styles';

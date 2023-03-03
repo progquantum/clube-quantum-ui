@@ -1,4 +1,4 @@
-import Image from 'next/image';
+import Image from 'next/legacy/image';
 
 import { Header } from 'components/Header';
 
@@ -29,8 +29,8 @@ export function Marketplace() {
         <Image
           src="/images/marketplace-hero-title.svg"
           alt="Quantum marketplace logo"
-          width="480px"
-          height="207px"
+          width={480}
+          height={207}
         />
         <p>
           Aproveite as melhores ofertas e estabelecimentos da cidade e receba

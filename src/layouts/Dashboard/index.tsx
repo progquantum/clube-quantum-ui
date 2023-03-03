@@ -1,5 +1,3 @@
-/* eslint-disable react/jsx-no-comment-textnodes */
-/* eslint-disable no-nested-ternary */
 import { ManagePlans } from 'components/ManagePlans';
 
 import { useMe } from 'hooks/user/useMe';

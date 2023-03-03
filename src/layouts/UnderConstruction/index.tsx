@@ -1,4 +1,4 @@
-import Image from 'next/image';
+import Image from 'next/legacy/image';
 import Link from 'next/link';
 
 import { IoReturnDownBackSharp } from 'react-icons/io5';
@@ -16,7 +16,7 @@ export function UnderConstructionPage() {
       <S.Title>
         <h2>Ops! Página em construção</h2>
         <p>Esta página está em fase de desenvolvimento.</p>
-        <Link href={HOMEPAGE_PAGE}>
+        <Link href={HOMEPAGE_PAGE} legacyBehavior>
           <a>
             <IoReturnDownBackSharp size={20} />
             Voltar para homepage

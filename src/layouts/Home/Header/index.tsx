@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import Link from 'next/link';
-import Image from 'next/image';
+import Image from 'next/legacy/image';
 
 import { WORK_WITH_US_PAGE, SIGN_IN_PAGE } from 'constants/routesPath';
 
