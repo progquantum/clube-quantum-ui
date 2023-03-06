@@ -1,11 +1,9 @@
 import { PropsWithChildren, useState } from 'react';
-import { Hydrate, QueryClient, QueryClientProvider } from 'react-query';
+import { QueryClient, QueryClientProvider } from 'react-query';
 import { QueryParamProvider } from 'use-query-params';
 import { ReactQueryDevtools } from 'react-query/devtools';
 import { Toaster } from 'react-hot-toast';
 import { DefaultSeo } from 'next-seo';
-
-import { AppProps } from 'next/app';
 
 import { useHasMounted } from 'hooks/useHasMounted';
 

@@ -78,6 +78,7 @@ export const NavButton = styled.button<NavButtonProps>`
   > div {
     display: flex;
     align-items: center;
+    justify-content: center;
     gap: 0.5rem;
 
     > svg {

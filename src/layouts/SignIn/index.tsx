@@ -30,7 +30,9 @@ export function SignInPage() {
         data,
         schema,
       })
-        .then(() => signIn(data))
+        .then(() => {
+          signIn(data);
+        })
         .catch(noop);
     },
     [signIn],
