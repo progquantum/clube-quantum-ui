@@ -1,6 +1,7 @@
 import { useState } from 'react';
 
 import { RiPencilLine } from 'react-icons/ri';
+import { BsPersonBadge } from 'react-icons/bs';
 
 import { Avatar } from 'components/Avatar';
 
@@ -16,6 +17,10 @@ export function UploadAvatar() {
 
   return (
     <S.Container>
+      <S.HeaderTitle>
+        <BsPersonBadge />
+        <span>Informações pessoais</span>
+      </S.HeaderTitle>
       <S.EditAvatar onClick={handleRequestModal}>
         <h2>Foto do Perfil</h2>
         <RiPencilLine />

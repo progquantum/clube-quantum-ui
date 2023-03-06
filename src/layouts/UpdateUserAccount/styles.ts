@@ -2,10 +2,10 @@ import styled from 'styled-components';
 
 export const ColumnGrid = styled.div`
   display: flex;
-  gap: 0.5rem;
+  gap: 2rem;
   justify-content: space-between;
   margin: 2rem 0;
-
+  flex-wrap: wrap;
   @media (max-width: 1024px) {
     flex-direction: column;
     justify-content: center;
@@ -15,5 +15,5 @@ export const ColumnGrid = styled.div`
 export const FLex = styled.div`
   display: flex;
   flex-direction: column;
-  gap: 1rem;
+  gap: 2rem;
 `;

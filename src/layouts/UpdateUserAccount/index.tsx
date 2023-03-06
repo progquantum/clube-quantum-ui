@@ -21,10 +21,10 @@ export function UpdateUserAccountPage() {
         <S.ColumnGrid>
           <S.FLex>
             <UploadAvatar />
-            <Address />
+            <Profile />
           </S.FLex>
           <S.FLex>
-            <Profile />
+            <Address />
             <Password />
           </S.FLex>
         </S.ColumnGrid>
