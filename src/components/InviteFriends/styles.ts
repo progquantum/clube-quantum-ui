@@ -23,6 +23,7 @@ export const TitleFriends = styled(TitlePlan)`
 `;
 
 export const TitleInviteFriends = styled(TitleStatusPlan)`
+  font-size: 1.7rem;
   color: ${({ theme }) => theme.colors.white};
 `;
 
@@ -111,10 +112,10 @@ export const DivInviteFriends = styled.div<InviteFriendsPropsStyle>`
   grid-area: DivInviteFriends;
   display: flex;
   flex-direction: column;
-  align-items: flex-start;
   padding: 1.25rem 1.5rem;
   gap: 2rem;
   height: max-content;
+  width: 100%;
   background-color: ${({ theme }) => theme.colors.mediumslateBlue};
   box-shadow: 0px 0px 20px rgba(0, 0, 0, 0.1);
   border-radius: 0.625rem;
@@ -161,10 +162,8 @@ export const DivInviteFriends = styled.div<InviteFriendsPropsStyle>`
   }
 
   @media (max-width: 460px) {
-    width: 20.625rem;
   }
 
   @media (max-width: 380px) {
-    width: 19rem;
   }
 `;

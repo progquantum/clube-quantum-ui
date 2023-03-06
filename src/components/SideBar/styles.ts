@@ -9,7 +9,6 @@ import { NavButtonProps, IsExpanded } from './types';
 export const Container = styled.nav<IsExpanded>`
   display: flex;
   flex-direction: column;
-  gap: 1rem;
   box-shadow: 0rem 0rem 2rem rgba(41, 40, 40, 0.1);
   padding: 1rem;
   border-radius: 0.5rem;
@@ -36,12 +35,12 @@ export const ToggleButtonBox = styled(IconBox)`
   margin: 1rem 0 0;
   font-size: 1.8rem;
   width: max-content;
-  padding: 0 0.3rem 0.3rem;
+  padding: 0 0.4rem 0.3rem;
   color: ${({ theme }) => theme.colors.mediumslateBlue};
   cursor: pointer;
   transition: all 0.1s ease;
+  border-radius: 0.3rem;
   &:hover {
-    border-radius: 0.3rem;
     background-color: ${({ theme }) => theme.colors.mediumslateBlue};
     color: ${({ theme }) => theme.colors.white};
   }
@@ -56,7 +55,7 @@ export const NavButton = styled.button<NavButtonProps>`
   align-items: center;
   gap: 1rem;
   background: none;
-  padding: 1.3rem 0;
+  padding: 1.3rem 0.2rem;
   margin: 0 0.3rem;
   color: ${({ theme }) => theme.colors.gray[700]};
   border-bottom: 0.5px solid ${({ theme }) => theme.colors.gray[100]};
@@ -89,10 +88,6 @@ export const NavButton = styled.button<NavButtonProps>`
       font-size: 1.8rem;
       color: ${({ theme }) => theme.colors.mediumslateBlue};
     }
-  }
-
-  &:first-of-type {
-    border-radius: 0.5rem 0.5rem 0 0;
   }
 
   ${props =>
@@ -129,5 +124,3 @@ export const SignOut = styled(Button)<IsExpanded>`
           }
         `}
 `;
-
-export const StyledLink = styled(Link)``;
