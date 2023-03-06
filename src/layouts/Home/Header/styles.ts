@@ -11,7 +11,6 @@ export const Container = styled.header`
   justify-content: space-between;
   padding: 1rem 4rem;
   position: relative;
-
   a {
     font-weight: 600;
     color: ${({ theme }) => theme.colors.gray[700]};

@@ -16,6 +16,7 @@ export function Header({ children }: { children?: ReactNode | ReactNode[] }) {
               width={60}
               height={60}
               alt=""
+              quality={100}
             />
           </Link>
         </S.LogoContainer>
