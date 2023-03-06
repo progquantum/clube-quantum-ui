@@ -1,6 +1,6 @@
 import React, { PropsWithChildren } from 'react';
 import Link from 'next/link';
-import Image from 'next/image';
+import Image from 'next/legacy/image';
 
 import { SIGN_IN_PAGE } from 'constants/routesPath';
 
@@ -24,9 +24,7 @@ export function AuthLayout({
       />
 
       <S.Content>
-        {/* Should wrap link component with element due to this
-          issue of next/link https://github.com/vercel/next.js/issues/127 */}
-        <Link href={SIGN_IN_PAGE}>
+        <Link href={SIGN_IN_PAGE} legacyBehavior>
           <a>
             <Image
               src="/images/quantum-logo.svg"

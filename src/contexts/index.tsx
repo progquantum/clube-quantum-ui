@@ -13,7 +13,7 @@ import { AuthProvider } from './auth/AuthProvider';
 import { StyledProvider } from './styles';
 import { SubscriptionsProvider } from './subscriptions/SubscriptionsProvider';
 
-export function AppProvider({ children }: PropsWithChildren<unknown>) {
+export function AppProvider({ children }: PropsWithChildren) {
   const [queryClient] = useState(
     () =>
       new QueryClient({

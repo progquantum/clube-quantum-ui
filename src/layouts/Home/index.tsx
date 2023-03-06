@@ -1,5 +1,5 @@
 import Head from 'next/head';
-import Image from 'next/image';
+import Image from 'next/legacy/image';
 
 import Link from 'next/link';
 
@@ -29,8 +29,8 @@ export function HomePage() {
             <Image
               src="/images/banner_woman.svg"
               alt="Mulher com celular na mão"
-              width="608.49px"
-              height="580px"
+              width={608.49}
+              height={580}
             />
             <S.ContainerColumn>
               <S.TitleCard1>Uma parte do que vai...</S.TitleCard1>
@@ -42,8 +42,8 @@ export function HomePage() {
                 <Image
                   src="/images/card_homepage.svg"
                   alt="Cartão"
-                  width="18.91px"
-                  height="13.75px"
+                  width={18.91}
+                  height={13.75}
                 />
                 <S.TitleParag>
                   Compras na mão e dinheiro no seu bolso!
@@ -57,8 +57,8 @@ export function HomePage() {
                 <Image
                   src="/images/icon_user_homepage.svg"
                   alt="Cartão"
-                  width="14.73px"
-                  height="20px"
+                  width={14.73}
+                  height={20}
                 />
                 <S.TitleParag>
                   Quanto mais convidar, mais você tem a ganhar!
@@ -92,8 +92,8 @@ export function HomePage() {
             <Image
               src="/images/banner_man_homepage.svg"
               alt="Homem pulando"
-              width="580px"
-              height="580px"
+              width={580}
+              height={580}
             />
           </S.ContainerRow>
           <Plans />

@@ -70,6 +70,7 @@ export default createGlobalStyle`
   h6,
   strong {
     font-weight: 600;
+    margin-bottom: 0;
   }
 
   body,

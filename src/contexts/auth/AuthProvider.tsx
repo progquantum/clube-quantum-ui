@@ -20,7 +20,8 @@ import {
 import { DASHBOARD_PAGE, SIGN_IN_PAGE } from 'constants/routesPath';
 import { quantumClientQueue } from 'config/client';
 import { logOut } from 'helpers/auth/logOut';
-import { getMe } from 'services/resources';
+
+import { getMe } from 'hooks/user/useMe';
 
 import { AuthStateProvider, AuthDispatchProvider } from './AuthContext';
 import { SignInCredentials, SignUpData } from './types';
@@ -57,7 +58,6 @@ export function AuthProvider({ children }: PropsWithChildren<unknown>) {
     async function getSession() {
       const cookies = parseCookies();
       const session = cookies[TOKEN_STORAGE_KEY];
-
       if (session) {
         const user = await getMe();
 

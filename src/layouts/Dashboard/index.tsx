@@ -1,16 +1,11 @@
-/* eslint-disable react/jsx-no-comment-textnodes */
-/* eslint-disable no-nested-ternary */
 import { ManagePlans } from 'components/ManagePlans';
 
-import { useMe } from 'hooks/user/useMe';
-
+import { User } from 'shared/types/apiSchema';
 import { DashboardLayout } from 'layouts/DashboardLayout';
 
 import { MainContent } from './MainContent/Index';
 
-export function DashboardPage() {
-  const { data } = useMe();
-
+export function DashboardPage({ data }: { data: User }) {
   return (
     <>
       <title>Dashboard - Clube Quantum</title>

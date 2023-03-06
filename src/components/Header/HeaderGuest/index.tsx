@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import Link from 'next/link';
-import Image from 'next/image';
+import Image from 'next/legacy/image';
 
 import { WORK_WITH_US_PAGE, SIGN_IN_PAGE } from 'constants/routesPath';
 
@@ -38,7 +38,7 @@ export function HeaderGuest() {
               <Link href={WORK_WITH_US_PAGE}>Trabalhe Conosco</Link>
               <S.Line />
 
-              <Link href={SIGN_IN_PAGE} prefetch>
+              <Link href={SIGN_IN_PAGE} legacyBehavior>
                 <S.LoginButtonMobile>Fazer Login</S.LoginButtonMobile>
               </Link>
             </S.MenuMobile>

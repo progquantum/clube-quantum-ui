@@ -1,10 +1,22 @@
-import { useQuery, UseQueryOptions } from 'react-query';
+import { useQuery } from 'react-query';
 
-import { getMe } from 'services/resources';
+import { quantumClientQueue } from 'config/client';
+
 import { User } from 'shared/types/apiSchema';
 
-const QUERY_KEY_FIND_ME = 'me';
+export const QUERY_KEY_FIND_ME = 'me';
 
-export function useMe(options?: UseQueryOptions<User>) {
-  return useQuery(QUERY_KEY_FIND_ME, getMe, options);
+export async function getMe() {
+  try {
+    const { data } = await quantumClientQueue.get('/me');
+    return data as User;
+  } catch (error: unknown) {
+    if (error instanceof Error) {
+      return Promise.reject(error);
+    }
+  }
+}
+
+export function useMe() {
+  return useQuery([QUERY_KEY_FIND_ME], getMe);
 }

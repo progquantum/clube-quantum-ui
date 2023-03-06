@@ -1,4 +1,4 @@
-import Image from 'next/image';
+import Image from 'next/legacy/image';
 import { ChangeEvent, FormEvent, useState } from 'react';
 import { useQueryClient } from 'react-query';
 import { RiImageAddLine } from 'react-icons/ri';

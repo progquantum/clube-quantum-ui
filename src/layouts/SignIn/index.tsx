@@ -30,7 +30,9 @@ export function SignInPage() {
         data,
         schema,
       })
-        .then(() => signIn(data))
+        .then(() => {
+          signIn(data);
+        })
         .catch(noop);
     },
     [signIn],
@@ -76,12 +78,12 @@ export function SignInPage() {
 
           {/* Should wrap link component with element due to this 
           issue of next/link https://github.com/vercel/next.js/issues/127 */}
-          <Link href={FORGOT_PASSWORD_PAGE} prefetch>
+          <Link href={FORGOT_PASSWORD_PAGE} legacyBehavior>
             <a className="form-anchor">Esqueceu a sua senha?</a>
           </Link>
         </Form>
 
-        <Link href={SIGN_UP_PAGE} prefetch>
+        <Link href={SIGN_UP_PAGE} legacyBehavior>
           <a className="anchor">
             <FiLogIn />
             Criar uma conta

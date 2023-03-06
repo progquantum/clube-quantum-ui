@@ -1,4 +1,4 @@
-import Image from 'next/image';
+import Image from 'next/legacy/image';
 
 import { PlanSectionTitle } from 'layouts/TimSubscriptionPlan/Components/PlanSectionTitle';
 
@@ -13,8 +13,8 @@ export function PaymentFailed() {
       <S.PaymentFailedContainer>
         <Image
           src="/images/red-x.svg"
-          width="100px"
-          height="100px"
+          width={100}
+          height={100}
           alt="Um Xis vermelho indicando falha"
         />
         <S.Title>

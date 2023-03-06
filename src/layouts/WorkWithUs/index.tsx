@@ -1,5 +1,5 @@
 import Head from 'next/head';
-import Image from 'next/image';
+import Image from 'next/legacy/image';
 import Link from 'next/link';
 
 import { HeaderGuest } from 'components/Header/HeaderGuest';
@@ -33,7 +33,7 @@ export function WorkWithUsPage() {
           </Link>
         </S.ContentWrapper>
         <S.ContentWrapper>
-          <Image src="/images/group.svg" width="450" height="400" />
+          <Image src="/images/group.svg" width={450} height={400} />
         </S.ContentWrapper>
       </S.Container>
       <Footer />

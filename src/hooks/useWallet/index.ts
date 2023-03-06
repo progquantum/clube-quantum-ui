@@ -1,4 +1,4 @@
-import { useQuery, UseQueryOptions } from 'react-query';
+import { useQuery } from 'react-query';
 
 import { Wallet } from 'shared/types/apiSchema';
 import { quantumClientQueue } from 'config/client';
@@ -11,6 +11,6 @@ export async function getWallet() {
   return data as Wallet;
 }
 
-export function useWallet(options?: UseQueryOptions<Wallet>) {
-  return useQuery(QUERY_KEY_WALLET, getWallet, options);
+export function useWallet() {
+  return useQuery(QUERY_KEY_WALLET, getWallet);
 }

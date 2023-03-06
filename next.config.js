@@ -1,15 +1,10 @@
-module.exports = {
+/** @type {import('next').NextConfig} */
+const nextConfig = {
   reactStrictMode: true,
   swcMinify: true,
   compiler: {
     styledComponents: true,
   },
-  webpack: (config, { isServer }) => {
-    if (isServer) {
-      // eslint-disable-next-line global-require
-      require('./src/scripts/sitemap-generator');
-    }
-
-    return config;
-  },
 };
+
+module.exports = nextConfig;

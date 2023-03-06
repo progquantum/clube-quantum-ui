@@ -1,6 +1,6 @@
 import styled, { css } from 'styled-components';
 import { lighten, shade } from 'polished';
-import Image from 'next/image';
+import Image from 'next/legacy/image';
 
 import { ContainerProps } from './types';
 

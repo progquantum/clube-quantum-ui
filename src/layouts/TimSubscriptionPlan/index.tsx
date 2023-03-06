@@ -1,4 +1,4 @@
-import Image from 'next/image';
+import Image from 'next/legacy/image';
 
 import { Header } from 'components/Header';
 
@@ -55,20 +55,20 @@ export function TimSubscriptionPlan() {
           <Image
             src="/images/tim_logo.svg"
             alt="Logo da TIM"
-            width="500px"
-            height="300px"
+            width={500}
+            height={300}
           />
           <Image
             src="/images/plus.svg"
             alt="Ícone de Mais"
-            width="370px"
-            height="107px"
+            width={370}
+            height={107}
           />
           <Image
             src="/images/bancoUm_logo.svg"
             alt="Logo do Banco UM"
-            width="500px"
-            height="300px"
+            width={500}
+            height={300}
           />
         </S.LeftContent>
       </HeroLayout>

@@ -3,8 +3,6 @@ import { useEffect, useMemo, useState } from 'react';
 
 import { FaCheck } from 'react-icons/fa';
 
-import { AiOutlineSelect } from 'react-icons/ai';
-
 import Link from 'next/link';
 
 import { usePlans } from 'hooks/usePlans';
@@ -12,8 +10,6 @@ import { useSubscriptionsDispatch } from 'contexts/subscriptions/SubscriptionsCo
 import { formatPrice } from 'utils/formatters/formatPrice';
 
 import { formatFirstLetterToUppercase } from 'utils/formatters/formatFirstLetterToUppercase';
-
-import { useMe } from 'hooks/user/useMe';
 
 import { SIGN_UP_PAGE } from 'constants/routesPath';
 
@@ -31,8 +27,6 @@ export function Plans({ children, button }: PlansProps) {
   const [selectedPlan, setSelectedPlan] = useState<Plans>('start');
 
   const { data: plans } = usePlans();
-  const { data } = useMe();
-  const currentPlanName = data?.subscription?.plan_name;
 
   const planFree: PlansData = useMemo(() => (plans ? plans[0] : []), [plans]);
   const planStart: PlansData = useMemo(() => (plans ? plans[1] : []), [plans]);
@@ -158,11 +152,6 @@ export function Plans({ children, button }: PlansProps) {
               handleChoosePlan('free');
             }}
           >
-            {currentPlanName === 'QUANTUM GRATUITO' ? (
-              <S.CurrentPlan>
-                <AiOutlineSelect size={16} fontWeight={600} /> Plano atual
-              </S.CurrentPlan>
-            ) : null}
             <S.TitlePlan>
               {formatFirstLetterToUppercase(planFree.name)}
             </S.TitlePlan>
@@ -226,12 +215,6 @@ export function Plans({ children, button }: PlansProps) {
               handleChoosePlan('start');
             }}
           >
-            {currentPlanName === 'QUANTUM START' ? (
-              <S.CurrentPlan>
-                <AiOutlineSelect size={16} fontWeight={600} />
-                Plano atual
-              </S.CurrentPlan>
-            ) : null}
             <S.TitlePlan>
               {formatFirstLetterToUppercase(planStart.name)}
             </S.TitlePlan>
@@ -305,12 +288,6 @@ export function Plans({ children, button }: PlansProps) {
               handleChoosePlan('select');
             }}
           >
-            {currentPlanName === 'QUANTUM SELECT' ? (
-              <S.CurrentPlan>
-                <AiOutlineSelect size={16} fontWeight={600} />
-                Plano atual
-              </S.CurrentPlan>
-            ) : null}
             <S.TitlePlan>
               {formatFirstLetterToUppercase(planSelect.name)}
             </S.TitlePlan>

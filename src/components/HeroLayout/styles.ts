@@ -22,6 +22,7 @@ export const LeftContent = styled.div`
   margin-left: 4rem;
   font-size: 1rem;
   display: flex;
+  flex-direction: column;
   justify-content: center;
   align-items: center;
   @media (max-width: 600px) {
