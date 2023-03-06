@@ -16,6 +16,7 @@ export const Container = styled.nav<IsExpanded>`
   width: max-content;
   margin-top: 2rem;
   align-self: flex-start;
+  justify-content: center;
   background-color: ${({ theme }) => theme.colors.white};
 
   @media (max-width: 780px) {
@@ -32,9 +33,10 @@ export const IconBox = styled.div<IsExpanded>`
 `;
 
 export const ToggleButtonBox = styled(IconBox)`
-  margin-top: 1rem;
+  margin: 1rem 0 0;
   font-size: 1.8rem;
   width: max-content;
+  padding: 0 0.3rem 0.3rem;
   color: ${({ theme }) => theme.colors.mediumslateBlue};
   cursor: pointer;
   transition: all 0.1s ease;
@@ -56,10 +58,10 @@ export const NavButton = styled.button<NavButtonProps>`
   background: none;
   padding: 1.3rem 0;
   margin: 0 0.3rem;
-  border-bottom: 0.5px solid ${({ theme }) => theme.colors.gray[100]};
   color: ${({ theme }) => theme.colors.gray[700]};
+  border-bottom: 0.5px solid ${({ theme }) => theme.colors.gray[100]};
   font-weight: 500;
-  ${({ isExpanded, theme }) =>
+  ${({ isExpanded }) =>
     !isExpanded
       ? css`
           & ${TitleBox} {
@@ -72,7 +74,9 @@ export const NavButton = styled.button<NavButtonProps>`
           & ${TitleBox} {
             display: block;
           }
-          border-bottom: 0.8px solid ${theme.colors.gray[100]};
+          &:hover {
+            background-color: ${({ theme }) => theme.colors.gray[100]};
+          }
         `}
 
   > div {
