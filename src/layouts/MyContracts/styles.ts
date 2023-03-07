@@ -39,3 +39,14 @@ export const InputSearch = styled.input`
   width: 100%;
   padding: 1rem 0;
 `;
+
+export const MyContractsContainer = styled.div`
+  margin: 2rem 1rem;
+  width: 100%;
+
+  & > div:nth-child(2) {
+    max-width: 736.06px;
+    width: 100%;
+    margin: 0 auto;
+  }
+`;

@@ -26,33 +26,36 @@ export function MyContracts() {
 
   return (
     <DashboardLayout withServiceBank={false}>
-      <div
-        style={{
-          display: 'flex',
-          alignItems: 'center',
-          width: '100%',
-          justifyContent: 'center',
-        }}
-      >
-        <S.ContainerInput>
-          <S.InputSearch placeholder="Pesquisar por contrato" />
-          <S.ContainerIcon>
-            <BiSearchAlt size={25} color={colors.background} />
-          </S.ContainerIcon>
-        </S.ContainerInput>
-      </div>
+      <S.MyContractsContainer>
+        <div
+          style={{
+            display: 'flex',
+            alignItems: 'center',
+            width: '100%',
+            justifyContent: 'center',
+          }}
+        >
+          <S.ContainerInput>
+            <S.InputSearch placeholder="Pesquisar por contrato" />
+            <S.ContainerIcon>
+              <BiSearchAlt size={25} color={colors.background} />
+            </S.ContainerIcon>
+          </S.ContainerInput>
+        </div>
+        <div>
+          <Accordion onRequestModalContract={handleRequestModalContract} />
+          {showModalContract && (
+            <ModalContract
+              onRequestClose={handleRequestModalContract}
+              onRequestModalCancel={handleRequestModalCancel}
+            />
+          )}
 
-      <Accordion onRequestModalContract={handleRequestModalContract} />
-      {showModalContract && (
-        <ModalContract
-          onRequestClose={handleRequestModalContract}
-          onRequestModalCancel={handleRequestModalCancel}
-        />
-      )}
-
-      {showModalCancel && (
-        <ModalCancel onRequestClose={handleRequestModalCancel} />
-      )}
+          {showModalCancel && (
+            <ModalCancel onRequestClose={handleRequestModalCancel} />
+          )}
+        </div>
+      </S.MyContractsContainer>
     </DashboardLayout>
   );
 }
