@@ -48,12 +48,33 @@ export default function DraggableScrollContainer({
     scrollContainerRef.current!.scrollLeft = scrollLeft - walk;
   }
 
+  function handleTouchStart(e: React.TouchEvent<HTMLDivElement>) {
+    setIsDragging(true);
+    setStartX(e.touches[0].pageX - scrollContainerRef.current!.offsetLeft);
+    setScrollLeft(scrollContainerRef.current!.scrollLeft);
+  }
+
+  function handleTouchEnd() {
+    setIsDragging(false);
+  }
+
+  function handleTouchMove(e: React.TouchEvent<HTMLDivElement>) {
+    if (!isDragging) return;
+    e.preventDefault();
+    const x = e.touches[0].pageX - scrollContainerRef.current!.offsetLeft;
+    const walk = (x - startX) * 2;
+    scrollContainerRef.current!.scrollLeft = scrollLeft - walk;
+  }
+
   return (
     <ScrollContainer
       ref={scrollContainerRef}
       onMouseDown={handleMouseDown}
       onMouseUp={handleMouseUp}
       onMouseMove={handleMouseMove}
+      onTouchStart={handleTouchStart}
+      onTouchEnd={handleTouchEnd}
+      onTouchMove={handleTouchMove}
     >
       {children}
     </ScrollContainer>

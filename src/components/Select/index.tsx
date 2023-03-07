@@ -91,6 +91,7 @@ export function Select({ name, label, placeholder, options }: SelectProps) {
           className="basic-single"
           classNamePrefix="select"
           styles={customStyle}
+          isClearable
           onFocus={handleInputFocus}
           onBlur={handleInputBlur}
           onChange={handleInputChange}
