@@ -12,7 +12,6 @@ export const Container = styled.main`
   gap: 5rem;
   color: ${({ theme }) => theme.colors.gray[700]};
   display: flex;
-  align-items: center;
   position: relative;
   max-width: 70.625rem;
   width: 100%;

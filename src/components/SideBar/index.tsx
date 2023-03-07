@@ -15,7 +15,12 @@ import { useState } from 'react';
 
 import Link from 'next/link';
 
-import { DASHBOARD_PAGE, INVITE_FRIENDS_PAGE } from 'constants/routesPath';
+import {
+  DASHBOARD_PAGE,
+  MANAGE_PAYMENT_PAGE,
+  MY_CONTRACTS_PAGE,
+  MY_FRIENDS_PAGE,
+} from 'constants/routesPath';
 import { useAuthDispatch } from 'contexts/auth/AuthContext';
 
 import { Skeleton } from './Skeleton';
@@ -49,7 +54,7 @@ export function SideBar({ loading }: SideBarProps) {
           <S.TitleBox>Extratos</S.TitleBox>
         </S.NavButton>
       </Link>
-      <Link href={INVITE_FRIENDS_PAGE}>
+      <Link href={MY_FRIENDS_PAGE}>
         <S.NavButton isExpanded={isExpanded}>
           <S.IconBox isExpanded={isExpanded}>
             <BsPeopleFill />
@@ -58,7 +63,7 @@ export function SideBar({ loading }: SideBarProps) {
         </S.NavButton>
       </Link>
 
-      <Link href="/">
+      <Link href={MANAGE_PAYMENT_PAGE}>
         <S.NavButton isExpanded={isExpanded}>
           <S.IconBox isExpanded={isExpanded}>
             <BsCreditCard2BackFill />
@@ -67,7 +72,7 @@ export function SideBar({ loading }: SideBarProps) {
         </S.NavButton>
       </Link>
 
-      <Link href="/">
+      <Link href={MY_CONTRACTS_PAGE}>
         <S.NavButton isExpanded={isExpanded}>
           <S.IconBox isExpanded={isExpanded}>
             <AiFillFile />
