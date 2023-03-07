@@ -16,7 +16,7 @@ export function BarChart() {
   const options = {
     colors: ['#F86624'],
     legend: { position: 'none' },
-    bar: { groupWidth: '50%' },
+    bars: 'horizontal',
   };
   return (
     <Container>
