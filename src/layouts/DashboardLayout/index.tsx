@@ -12,7 +12,7 @@ import { Props } from './types';
 import * as S from './styles';
 import { SideBarMobile } from './SidebarMobile';
 
-export function DashboardLayout({ children }: Props) {
+export function DashboardLayout({ children, maxWidth }: Props) {
   const [isSideBarOpen, setIsSideBarOpen] = useState(false);
   return (
     <>
@@ -40,7 +40,7 @@ export function DashboardLayout({ children }: Props) {
           onClick={() => setIsSideBarOpen(prevState => !prevState)}
         />
       </S.SideBarMobileTrigger>
-      <S.Container>
+      <S.Container maxWidth={maxWidth}>
         <SideBar />
         <S.RightWrapper>{children}</S.RightWrapper>
       </S.Container>

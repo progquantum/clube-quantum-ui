@@ -8,15 +8,10 @@ export const Container = styled.div`
   background: #ffffff;
   box-shadow: 0px 2px 20px rgba(0, 0, 0, 0.07);
   border-radius: 4px;
-  max-width: 505.5px;
-  max-height: 322px;
-  min-width: 300px;
+  flex: 1;
   min-height: 322px;
-  height: 100vh;
+  height: 100%;
   width: 100%;
-  @media (max-width: 1765px) {
-    max-width: 423.67px;
-  }
 `;
 
 export const Title = styled.h2`

@@ -7,11 +7,10 @@ import { ButtonProps } from './types';
 export const Container = styled.div`
   display: flex;
   width: 100%;
-  max-width: 1564px;
   flex-direction: column;
+  margin: 0 auto;
 
   @media (max-width: 780px) {
-    margin: 0 auto;
     max-width: 450px;
   }
   @media (max-width: 600px) {
@@ -30,6 +29,7 @@ export const DivColumn = styled.div`
 
 export const DivRow = styled.div`
   width: 100%;
+  max-width: 497.5px;
   display: flex;
   align-items: center;
   gap: 12px;
@@ -78,7 +78,7 @@ export const DivBalance = styled.div`
   align-items: flex-start;
   padding: 12px;
   gap: 4px;
-  width: 97.75px;
+  width: 115px;
   height: 61px;
   background: #ffffff;
   box-shadow: 0px 0px 12px rgba(0, 0, 0, 0.1);
@@ -116,6 +116,8 @@ export const DivTop = styled.div`
 
 export const DivCnpj = styled.div`
   display: flex;
+  width: 100%;
+  max-width: 497.5px;
   gap: 12px;
   @media (max-width: 782px) {
     flex-direction: column;
@@ -162,43 +164,29 @@ export const ButtonUnderline = styled(Button)<ButtonProps>`
   `}
 `;
 
-export const DivPie = styled.div`
-  width: 100%;
-  height: 100%;
-  max-width: 1035px;
-  display: flex;
-  align-items: center;
-  gap: 24px;
-  @media (max-width: 1765px) {
-    max-width: 871.34px;
-  }
-  @media (max-width: 1191px) {
-    flex-direction: column;
-    align-items: flex-start;
-  }
-`;
-
 export const DivGraphics = styled.div`
   width: 100%;
   height: 100%;
+  flex-wrap: wrap;
+  max-width: 1564.5px;
   margin-top: 24px;
   display: flex;
   align-items: center;
   gap: 24px;
 
-  @media (max-width: 1584px) {
-    flex-direction: column;
-    align-items: flex-start;
+  @media (max-width: 1775px) {
+    max-width: 1035px;
   }
 `;
 
 export const ContentRow = styled.div`
   width: 100%;
   height: 100%;
+  max-width: 1564.5px;
   margin-top: 24px;
   display: flex;
   gap: 24px;
-  @media (max-width: 1584px) {
+  @media (max-width: 1775px) {
     flex-direction: column-reverse;
     align-items: flex-start;
   }
@@ -207,23 +195,23 @@ export const ContentRow = styled.div`
 export const ContainerTable = styled.div`
   width: 100%;
   @media (max-width: 1765px) {
-    width: 871px;
+    width: 1035px;
   }
 `;
 
 export const TopTable = styled.div`
   max-width: 1035px;
+  width: 100%;
   padding: 0px 10px;
   gap: 10px;
   display: flex;
   align-items: center;
   justify-content: space-around;
-  width: 100%;
   height: 40px;
   background: ${({ theme }) => theme.colors.ghostwhite};
   border-radius: 10px 10px 0 0;
   @media (max-width: 1765px) {
-    width: 871px;
+    width: 1035px;
   }
 `;
 
@@ -265,7 +253,7 @@ export const Table = styled.div`
   box-shadow: 0px 1px 20px rgba(0, 0, 0, 0.07);
   border-radius: 0px 0px 10px 10px;
   @media (max-width: 1765px) {
-    width: 871px;
+    width: 1035px;
   }
 `;
 
@@ -345,8 +333,8 @@ export const ContainerFlag = styled.div`
   max-width: 505px;
   display: flex;
   flex-direction: column;
-  @media (max-width: 1584px) {
-    max-width: 871px;
+  @media (max-width: 1775px) {
+    max-width: 1035px;
   }
 `;
 export const TopTableSealsByFlag = styled.div`
@@ -361,8 +349,8 @@ export const TopTableSealsByFlag = styled.div`
   height: 40px;
   background: ${({ theme }) => theme.colors.ghostwhite};
   border-radius: 10px 10px 0 0;
-  @media (max-width: 1584px) {
-    max-width: 871px;
+  @media (max-width: 1775px) {
+    max-width: 1035px;
   }
 `;
 
@@ -407,8 +395,8 @@ export const TableFlag = styled.div`
   background: ${({ theme }) => theme.colors.background};
   box-shadow: 0px 1px 20px rgba(0, 0, 0, 0.07);
   border-radius: 0px 0px 10px 10px;
-  @media (max-width: 1584px) {
-    max-width: 871px;
+  @media (max-width: 1775px) {
+    max-width: 1035px;
   }
 `;
 

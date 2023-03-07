@@ -13,11 +13,12 @@ import AmericanExpressIcon from 'components/Illustrations/AmericanExpress';
 
 import EloIcon from 'components/Illustrations/Elo';
 
+import { DashboardLayout } from 'layouts/DashboardLayout';
+
 import * as S from './styles';
 import { PieChart } from './PieChart';
 import { BarChart } from './BarChart';
 import { PieChartSales } from './PieChartSales';
-import { DashboardLayout } from './DashboardLayout';
 import DraggableScrollContainer from './DraggableScrollContainer';
 
 export function DashboardPos() {
@@ -28,7 +29,7 @@ export function DashboardPos() {
     console.log('Select');
   };
   return (
-    <DashboardLayout>
+    <DashboardLayout maxWidth="1736px">
       <S.Container
         as={Form}
         ref={formRef}
@@ -89,10 +90,8 @@ export function DashboardPos() {
         </div>
 
         <S.DivGraphics>
-          <S.DivPie>
-            <PieChart />
-            <PieChartSales />
-          </S.DivPie>
+          <PieChart />
+          <PieChartSales />
           <BarChart />
         </S.DivGraphics>
         <S.ContentRow>
