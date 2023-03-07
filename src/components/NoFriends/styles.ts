@@ -6,8 +6,9 @@ export const Container = styled.div`
   box-shadow: 0rem 0rem 2rem rgba(41, 40, 40, 0.1);
   border-radius: 0.625rem;
   padding: 1rem 1.5rem;
-  margin-top: 1.875rem;
-
+  margin: 2rem auto;
+  align-self: flex-start;
+  flex: 1;
   p {
     color: ${({ theme }) => theme.colors.gray['700']};
     text-align: center;

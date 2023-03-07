@@ -3,7 +3,7 @@ import ReactPaginate from 'react-paginate';
 
 import { IoIosArrowBack, IoIosArrowForward } from 'react-icons/io';
 import { RiUserStarLine } from 'react-icons/ri';
-import { BsFillPersonPlusFill } from 'react-icons/bs';
+import { BsFillPersonPlusFill, BsPersonBadge } from 'react-icons/bs';
 
 import { formatCashback } from 'utils/formatters/formatCashback';
 import { formatDate } from 'utils/formatters/formatDate';
@@ -15,7 +15,6 @@ import { useIndirectGains } from 'hooks/useIndirectGains';
 
 import { Loader } from 'components/Loader';
 import { getUserImagePlaceholder } from 'components/Avatar/utils';
-import { InviteFriends } from 'components/InviteFriends';
 import { NoFriends } from 'components/NoFriends';
 
 import { DashboardLayout } from 'layouts/DashboardLayout';
@@ -80,7 +79,7 @@ export function MyFriendsPage() {
         <S.CardsContainer>
           <S.CardFriends>
             <S.CardTitle>
-              <RiUserStarLine size={16} /> Amigos
+              <BsPersonBadge size={24} /> Amigos
             </S.CardTitle>
             {data?.friends.map(friend => (
               <S.Friend key={friend.id}>
@@ -139,7 +138,7 @@ export function MyFriendsPage() {
           <S.FlexCards>
             <S.IndirectFriends>
               <S.CardTitle>
-                <RiUserStarLine size={16} /> Ganhos por indicações indiretas
+                <BsPersonBadge size={24} /> Ganhos por indicações indiretas
               </S.CardTitle>
 
               <S.TotalFriends>
@@ -169,7 +168,7 @@ export function MyFriendsPage() {
 
             <S.IndirectFriends>
               <S.CardTitle>
-                <RiUserStarLine size={16} /> Ganhos por indicações indiretas
+                <BsPersonBadge size={24} /> Ganhos por indicações indiretas
               </S.CardTitle>
               <S.GraphicBar>
                 {graphInformation.map(item => (
@@ -180,7 +179,16 @@ export function MyFriendsPage() {
                 ))}
               </S.GraphicBar>
             </S.IndirectFriends>
-            <InviteFriends />
+            <S.InviteFriends>
+              <S.CardTitle>
+                <BsPersonBadge size={24} /> Convidar amigos
+              </S.CardTitle>
+              <S.InviteFriendsBody>
+                <h4>Não fique sozinho nessa!</h4>
+                <p>Convide seus amigos e ganhe cashback junto com eles!!!</p>
+                <S.InviteFriendsButton>Convidar amigos</S.InviteFriendsButton>
+              </S.InviteFriendsBody>
+            </S.InviteFriends>
           </S.FlexCards>
         </S.CardsContainer>
       )}
