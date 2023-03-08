@@ -1,7 +1,5 @@
 import styled, { css } from 'styled-components';
 
-import Link from 'next/link';
-
 import { Button } from 'components/Button';
 
 import { NavButtonProps, IsExpanded } from './types';
@@ -17,7 +15,6 @@ export const Container = styled.nav<IsExpanded>`
   align-self: flex-start;
   justify-content: center;
   background-color: ${({ theme }) => theme.colors.white};
-
   @media (max-width: 780px) {
     display: none;
   }

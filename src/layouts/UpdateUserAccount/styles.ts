@@ -6,7 +6,7 @@ export const ColumnGrid = styled.div`
   justify-content: space-between;
   margin: 2rem 0;
   flex-wrap: wrap;
-  @media (max-width: 1024px) {
+  @media (max-width: 980px) {
     flex-direction: column;
     justify-content: center;
   }

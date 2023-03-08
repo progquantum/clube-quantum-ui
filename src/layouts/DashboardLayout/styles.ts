@@ -1,41 +1,29 @@
-import styled, { css } from 'styled-components';
+import styled from 'styled-components';
 
 import { ContainerProps } from './types';
 
-export const RightWrapper = styled.div<ContainerProps>`
-  width: 100%;
+export const RightWrapper = styled.div`
   display: flex;
-  justify-content: space-around;
+  justify-content: center;
   margin: 0 auto;
+  flex: 1;
 `;
 
 export const Container = styled.main<ContainerProps>`
-  ${({ maxWidth }) => css`
-    margin: 2rem auto 15rem;
-    gap: 5rem;
-    color: ${({ theme }) => theme.colors.gray[700]};
-    display: flex;
-    align-items: center;
-    position: relative;
-    max-width: ${maxWidth || '70.625rem'};
-    width: 100%;
-    @media (max-width: 1140px) {
-      margin-left: 1rem;
-      margin-right: 1rem;
-    }
-    @media (max-width: 1024px) {
-      margin-left: 3rem;
-      margin-right: 3rem;
-      gap: 1rem;
-    }
-    @media (max-width: 840px) {
-      gap: 0;
-      margin-left: 2rem;
-    }
-    @media (max-width: 750px) {
-      margin: 2rem 0 15rem;
-    }
-  `}
+  margin: 2rem auto 3rem;
+  padding: 1rem;
+  color: ${({ theme }) => theme.colors.gray[700]};
+  display: flex;
+  position: relative;
+  gap: 5rem;
+  max-width: ${({ maxWidth }) => maxWidth || '70rem'};
+  width: 100%;
+  @media (max-width: 850px) {
+    gap: 2rem;
+  }
+  @media (max-width: 360px) {
+    padding: 0;
+  }
 `;
 
 export const SideBarMobileTrigger = styled.div`

@@ -4,9 +4,9 @@ import { BarProps } from './types';
 
 export const CardsContainer = styled.div`
   display: flex;
-  justify-content: space-between;
   margin: 2rem 0;
   gap: 1rem;
+  width: 100%;
   @media (max-width: 1024px) {
     justify-content: center;
     gap: 1rem;
@@ -207,7 +207,6 @@ export const InviteFriends = styled.div`
   border-radius: 0.9rem;
   box-shadow: 0rem 0rem 2rem rgba(41, 40, 40, 0.1);
   padding: 1rem 1.5rem;
-  width: max-content;
 `;
 
 export const InviteFriendsBody = styled.div`
