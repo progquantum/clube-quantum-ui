@@ -42,3 +42,11 @@ export const EditAddress = styled(Button)`
     color: ${({ theme }) => theme.colors.white};
   }
 `;
+export const HeaderTitle = styled.div`
+  display: flex;
+  width: 100%;
+  font-size: 0.9rem;
+  gap: 1rem;
+  padding: 1rem 0.3rem 0;
+  color: ${({ theme }) => theme.colors.gray[400]};
+`;

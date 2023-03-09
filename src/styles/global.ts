@@ -10,6 +10,8 @@ export default createGlobalStyle`
   }
 
   html {
+    margin: 0;
+    padding: 0;
     @media (max-width: 1080px) {
       font-size: 93, 75%; //15px
     }
@@ -20,6 +22,8 @@ export default createGlobalStyle`
   }
 
   body {
+    margin: 0;
+    padding: 0;
     height: auto;
     font-size: ${({ theme }) => theme.fontSizes.base};
     color: ${({ theme }) => theme.colors.gray[700]};

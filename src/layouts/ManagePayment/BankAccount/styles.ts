@@ -9,6 +9,11 @@ export const Content = styled.div`
   flex-direction: column;
   gap: 1.5rem;
   border-radius: 0.9rem;
+  justify-content: space-around;
+  & button {
+    margin: 0;
+    padding: 1.3rem 0;
+  }
 
   @media (max-width: 1024px) {
     width: 26.688rem;
