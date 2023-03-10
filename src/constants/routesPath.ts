@@ -9,6 +9,7 @@ export const BANK_ACCOUNT_PAGE = '/subscriptions/bank-account';
 export const CREDIT_CARD_PAGE = '/subscriptions/credit-card';
 export const FINISHED_SUBSCRIPTION = '/subscriptions/finished';
 export const MY_CONTRACTS_PAGE = '/my-contracts';
+export const MY_STATEMENTS_PAGE = '/my-statements';
 
 export const HOMEPAGE_PAGE = '/';
 export const ADVANTAGES_PAGE = '/advantages';
