@@ -20,6 +20,7 @@ import {
   MANAGE_PAYMENT_PAGE,
   MY_CONTRACTS_PAGE,
   MY_FRIENDS_PAGE,
+  MY_STATEMENTS_PAGE,
 } from 'constants/routesPath';
 import { useAuthDispatch } from 'contexts/auth/AuthContext';
 
@@ -46,7 +47,7 @@ export function SideBar({ loading }: SideBarProps) {
           <S.TitleBox>Minha Conta</S.TitleBox>
         </S.NavButton>
       </Link>
-      <Link href={DASHBOARD_PAGE}>
+      <Link href={MY_STATEMENTS_PAGE}>
         <S.NavButton isExpanded={isExpanded}>
           <S.IconBox isExpanded={isExpanded}>
             <FaDollarSign />
