@@ -1,7 +1,7 @@
 import { create } from 'zustand';
 import { persist } from 'zustand/middleware';
 
-import { Plan } from 'layouts/TimSubscriptionPlan/Steps/PlanSection/TimPlan/types';
+import { Plan } from 'hooks/usePartners/types';
 
 import { TimPlanStore } from './types';
 
