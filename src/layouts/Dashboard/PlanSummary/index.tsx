@@ -1,7 +1,11 @@
 import { BsCheck2 } from 'react-icons/bs';
 import { AiOutlineClose } from 'react-icons/ai';
 
+import Link from 'next/link';
+
 import { useMe } from 'hooks/user/useMe';
+
+import { SUBSCRIPTIONS_PAGE } from 'constants/routesPath';
 
 import * as S from './styles';
 
@@ -73,8 +77,9 @@ export function PlanSummary() {
           </S.PlanCheckMark>
         </S.AdvantageBox>
       ))}
-
-      <S.UpgradePlanButton>Upgrade de plano</S.UpgradePlanButton>
+      <Link href={SUBSCRIPTIONS_PAGE}>
+        <S.UpgradePlanButton>Upgrade de plano</S.UpgradePlanButton>
+      </Link>
     </S.PlanContainer>
   );
 }
