@@ -75,7 +75,7 @@ export function WhichNumber() {
             {Intl.NumberFormat('pt-BR', {
               style: 'currency',
               currency: 'BRL',
-            }).format(selectedPlan.price)}
+            }).format(Number(selectedPlan.price))}
           </S.PlanPrice>
           <S.PriceSubtitle>Cobrança mensal no Cartão Banco UM</S.PriceSubtitle>
         </S.CardContainer>
