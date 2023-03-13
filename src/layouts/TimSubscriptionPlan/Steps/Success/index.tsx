@@ -13,6 +13,7 @@ export function Success() {
 
   const cleanStateFromLocalStorage = () => {
     localStorage.removeItem('timPlan');
+    window.location.reload();
   };
 
   return (
