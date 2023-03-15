@@ -3,7 +3,7 @@ import { FieldInfo } from 'layouts/TimSubscriptionPlan/Components/FieldInfo';
 import { GenericCard } from '../GenericCard';
 
 export function PersonalInfo() {
-  const isCNPJ = false;
+  const isCNPJ = true;
   return (
     <GenericCard title="Informações pessoais">
       <FieldInfo>
@@ -14,22 +14,12 @@ export function PersonalInfo() {
         <span>{isCNPJ ? 'CNPJ' : 'CPF'}</span>
         <span>{isCNPJ ? '29.489.143/0001-90' : '000.000.000-00'}</span>
       </FieldInfo>
-      {isCNPJ && (
-        <>
-          <FieldInfo>
-            <span>Nome do responsável</span>
-            <span>Rafael Gael Caio Teixeira</span>
-          </FieldInfo>
-          <FieldInfo>
-            <span>CPF do responsável</span>
-            <span>000.000.000-00</span>
-          </FieldInfo>
-        </>
+      {!isCNPJ && (
+        <FieldInfo>
+          <span>Data de Nasc.</span>
+          <span>06/07/1981</span>
+        </FieldInfo>
       )}
-      <FieldInfo>
-        <span>{isCNPJ ? 'Data de Nasc. Responsável' : 'Data de Nasc.'}</span>
-        <span>06/07/1981</span>
-      </FieldInfo>
       <FieldInfo>
         <span>Telefone Atual</span>
         <span>(48) 9 8452-8944</span>
