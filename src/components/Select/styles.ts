@@ -86,9 +86,8 @@ export const Option = styled.option`
 export const Error = styled.span`
   color: ${({ theme }) => theme.colors.danger};
   display: block;
-  font-size: ${({ theme }) => theme.fontSizes.sm};
-  font-weight: 900;
-  width: 100%;
+  font-size: 0.875rem;
+  width: 90%;
   text-align: start;
-  margin: 0.3125rem 0;
+  margin: 5px 0;
 `;
