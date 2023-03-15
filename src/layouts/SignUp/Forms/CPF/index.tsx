@@ -51,7 +51,7 @@ export function CPF({ onUpdateFormStep }: CPFProps) {
 
         <Button type="submit">Continuar</Button>
       </Form>
-      <Link href={SIGN_UP_PAGE}>
+      <Link href={SIGN_UP_PAGE} legacyBehavior>
         <a className="anchor">
           <IoReturnDownBackSharp size={20} />
           Voltar
