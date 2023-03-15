@@ -10,7 +10,7 @@ interface ScrollContainerProps {
 const ScrollContainer = styled.div`
   width: 100%;
 
-  @media (max-width: 1584px) {
+  @media (max-width: 1135px) {
     overflow-x: hidden;
     cursor: grab;
     transition: transform 0.3s ease-out; /* Adiciona uma transição suave */
