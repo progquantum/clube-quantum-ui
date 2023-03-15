@@ -166,7 +166,7 @@ export function BusinessAddress({
           }
         />
 
-        <Checkbox type="checkbox" name="terms" />
+        <Checkbox type="checkbox" name="terms" style={{ margin: '24px 0' }} />
 
         <Button type="submit" loading={isSignuping} disabled={isSignuping}>
           Continuar
