@@ -45,14 +45,14 @@ export const ContainerInput = styled.div<StyledContainerProps>`
   ${({ isFocused, theme }) =>
     isFocused &&
     css`
-      border: 2px solid ${theme.colors.midnightBlue};
+      border: 2px solid ${theme.colors.mediumslateBlue};
     `}
 
   ${({ isFilled, theme }) =>
     isFilled &&
     css`
       svg {
-        color: ${theme.colors.midnightBlue};
+        color: ${theme.colors.mediumslateBlue};
       }
     `}
 
