@@ -7,6 +7,8 @@ import { FormHandles, SubmitHandler } from '@unform/core';
 import Image from 'next/legacy/image';
 import { useTheme } from 'styled-components';
 
+import { useRouter } from 'next/router';
+
 import { formatPhoneNumber } from 'utils/formatters/formatPhoneNumber';
 
 import { Select } from 'components/Select';
@@ -20,8 +22,10 @@ import { usePartnerStore } from 'store/partner-registration';
 
 import { performSchemaValidation } from 'utils/performSchemaValidation';
 
-import * as S from './styles';
+import { DASHBOARD_PAGE } from 'constants/routesPath';
+
 import { schema } from './schemas';
+import * as S from './styles';
 
 export function InfoEstablishment() {
   const {
@@ -115,6 +119,11 @@ export function InfoEstablishment() {
     });
   }, []);
 
+  const router = useRouter();
+  const handleCancel = () => {
+    window.localStorage.removeItem('partnerStore');
+    router.push(DASHBOARD_PAGE);
+  };
   return (
     <S.Container>
       <S.Steps>
@@ -325,7 +334,9 @@ export function InfoEstablishment() {
           </S.DivColumn>
         </S.DivRow>
         <S.ContainerButton>
-          <Button variant="secondary">Cancelar</Button>
+          <Button onClick={handleCancel} variant="secondary">
+            Cancelar
+          </Button>
           <Button type="submit">Confirmar</Button>
         </S.ContainerButton>
       </S.Form>
