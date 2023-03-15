@@ -43,7 +43,7 @@ export function SignUpPage() {
 
       {/* Should wrap link component with element due to this 
       issue of next/link https://github.com/vercel/next.js/issues/127 */}
-      <Link href={SIGN_IN_PAGE} prefetch>
+      <Link href={SIGN_IN_PAGE} legacyBehavior>
         <a className="anchor">
           <FiLogIn />
           Já possuo uma conta

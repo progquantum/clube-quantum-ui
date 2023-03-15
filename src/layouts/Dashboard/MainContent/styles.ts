@@ -16,7 +16,6 @@ export const Container = styled.div`
   @media (max-width: 1230px) {
     display: flex;
     flex-direction: column;
-    margin: 2rem 5rem;
   }
   @media (max-width: 590px) {
     margin: 2rem 1rem;
@@ -85,6 +84,7 @@ export const ButtonMarketplace = styled(Button)`
   color: ${({ theme }) => theme.colors.midnightBlue};
   height: 2.5rem;
   padding: 1.5rem 6rem;
+  width: 100%;
   align-self: center;
   @media (max-width: 550px) {
     width: 100%;

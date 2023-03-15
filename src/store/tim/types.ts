@@ -1,4 +1,4 @@
-import { Plan } from 'layouts/TimSubscriptionPlan/Steps/PlanSection/TimPlan/types';
+import { Plan } from 'hooks/usePartners/types';
 
 export type TimPlanStore = {
   selectedPlan: Plan;

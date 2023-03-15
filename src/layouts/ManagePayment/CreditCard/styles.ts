@@ -7,9 +7,12 @@ export const Content = styled.div`
   padding: 1.25rem 1.5rem;
   display: flex;
   flex-direction: column;
-  gap: 1.5rem;
+  justify-content: space-around;
   border-radius: 0.9rem;
-
+  & button {
+    margin: 0 0 0.5rem;
+    padding: 1rem 0;
+  }
   @media (max-width: 1024px) {
     width: 26.688rem;
   }

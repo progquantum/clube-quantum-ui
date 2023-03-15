@@ -11,6 +11,11 @@ import * as S from './styles';
 export function Success() {
   const phoneNumber = useTimPlanStore(state => state.phoneNumber);
 
+  const cleanStateFromLocalStorage = () => {
+    localStorage.removeItem('timPlan');
+    window.location.reload();
+  };
+
   return (
     <>
       <PlanSectionTitle>Sucesso!</PlanSectionTitle>
@@ -26,7 +31,9 @@ export function Success() {
           <span>{formatPhoneNumber(phoneNumber.concat('55'))}</span>
         </S.PhoneNumber>
       </S.SuccessContainer>
-      <S.FinishButton>Finalizar</S.FinishButton>
+      <S.FinishButton onClick={cleanStateFromLocalStorage}>
+        Finalizar
+      </S.FinishButton>
     </>
   );
 }

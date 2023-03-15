@@ -13,27 +13,24 @@ export const Container = styled.div`
 `;
 
 export const AnimatedDropdown = styled(motion.nav)`
-  ${({ theme }) => css`
-    position: absolute;
-    z-index: 10;
-    top: 148%;
-    right: 0;
-    min-width: 9.123rem;
-    border-radius: ${theme.radiis.small};
-    background: ${theme.colors.ghostwhite};
-    box-shadow: 0 0rem 0.6rem rgba(0, 0, 0, 0.1);
+  position: absolute;
+  z-index: 10;
+  top: 148%;
+  right: 0;
+  width: 13rem;
+  box-shadow: 0 0rem 0.6rem rgba(0, 0, 0, 0.1);
 
-    &::before {
-      content: '';
-      display: block;
-      position: absolute;
-      top: -24%;
-      right: 8%;
-      border-color: ${`transparent transparent ${theme.colors.ghostwhite} transparent `};
-      border-style: solid;
-      border-width: 0.8rem;
-    }
-  `}
+  &::before {
+    content: '';
+    display: block;
+    position: absolute;
+    width: 1rem;
+    height: 1rem;
+    clip-path: polygon(50% 30%, 0% 100%, 100% 100%);
+    top: -12%;
+    right: 0.2rem;
+    background-color: ${({ theme }) => theme.colors.white};
+  }
 `;
 
 export const NavButton = styled(Button)`
@@ -41,27 +38,24 @@ export const NavButton = styled(Button)`
     width: 100%;
     margin-top: 0;
     height: 50px;
-    justify-content: space-between;
+    display: flex;
+    align-items: center;
     font-size: ${theme.fontSizes.sm};
-    background: ${theme.colors.ghostwhite};
-    color: ${theme.colors.midnightBlue};
-
+    background: ${theme.colors.white};
+    color: ${theme.colors.mediumslateBlue};
+    font-weight: 700;
+    gap: 1rem;
+    border-radius: 0;
+    justify-content: space-between;
+    transition: color, background 0.1s ease;
+    & span {
+      display: inline-block;
+      width: 100%;
+      text-align: left;
+    }
     &:hover {
-      color: ${theme.colors.midnightBlue};
-      background: ${theme.colors.background};
-    }
-
-    &:first-child {
-      border-radius: ${theme.radiis.smallTop};
-    }
-
-    &:nth-child(n + 2):nth-child(-n + 8) {
-      border-radius: 0px;
-    }
-
-    &:last-child {
-      color: ${theme.colors.danger};
-      border-radius: ${theme.radiis.smallBottom};
+      color: ${theme.colors.white};
+      background: ${theme.colors.mediumslateBlue};
     }
   `}
 `;

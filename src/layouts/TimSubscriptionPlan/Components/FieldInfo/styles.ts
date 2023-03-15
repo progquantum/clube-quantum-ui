@@ -6,8 +6,11 @@ export const FieldInfo = styled.div`
   align-items: center;
   & span:first-child {
     font-weight: 600;
+    margin-right: auto;
   }
-
+  & span:last-child {
+    text-align: right;
+  }
   @media (max-width: 430px) {
     flex-direction: column;
   }

@@ -14,7 +14,7 @@ export function SelectedPlan() {
         {new Intl.NumberFormat('pt-BR', {
           style: 'currency',
           currency: 'BRL',
-        }).format(selectedPlan.price)}
+        }).format(Number(selectedPlan.price))}
       </S.PlanPrice>
       <S.PlanPriceSubtitle>
         Cobrança mensal no Cartão Banco UM

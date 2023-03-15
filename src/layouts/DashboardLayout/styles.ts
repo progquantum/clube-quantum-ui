@@ -2,7 +2,7 @@ import styled from 'styled-components';
 
 import { ContainerProps } from './types';
 
-export const RightWrapper = styled.div<ContainerProps>`
+export const RightWrapper = styled.div`
   display: flex;
   justify-content: center;
   margin: 0 auto;

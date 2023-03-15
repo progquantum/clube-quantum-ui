@@ -11,7 +11,7 @@ export const SideBarMobileContainer = styled.div`
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  gap: 2rem;
+  gap: 1rem;
   z-index: 1000;
 `;
 
@@ -28,9 +28,10 @@ export const ItemMenu = styled.div`
 
 export const CloseButton = styled.button`
   all: unset;
-  align-self: flex-end;
   color: ${({ theme }) => theme.colors.danger};
-  margin-right: 4rem;
+  position: absolute;
+  top: 2rem;
+  right: 3rem;
 `;
 
 export const LogOutButton = styled.button`
@@ -39,5 +40,6 @@ export const LogOutButton = styled.button`
   text-align: center;
   display: flex;
   gap: 1rem;
+  margin: 1rem;
   align-items: center;
 `;
