@@ -6,14 +6,14 @@ export const Container = styled.div<StyledContainerProps>`
   position: relative;
   display: flex;
   align-items: flex-start;
-  background: ${({ theme }) => theme.colors.input.background[1]};
+  background: ${({ theme }) => theme.colors.white};
   color: ${({ theme }) => theme.colors.input.text};
   border-radius: 0.625rem;
-  border: 2px solid ${({ theme }) => theme.colors.input.background[1]};
+  border: 2px solid ${({ theme }) => theme.colors.gray[700]};
   width: 100%;
   padding: 1rem;
   transition: all 100ms;
-  margin-top: 8px;
+  margin-top: 5px;
 
   svg {
     font-size: 1.25rem;
@@ -27,14 +27,14 @@ export const Container = styled.div<StyledContainerProps>`
   ${({ isFocused, theme }) =>
     isFocused &&
     css`
-      border: 2px solid ${theme.colors.midnightBlue};
+      border: 2px solid ${theme.colors.mediumslateBlue};
     `}
 
   ${({ isFilled, theme }) =>
     isFilled &&
     css`
       svg {
-        color: ${theme.colors.midnightBlue};
+        color: ${theme.colors.mediumslateBlue};
       }
     `}
 
@@ -56,6 +56,7 @@ export const Message = styled.textarea`
   height: 8rem;
   width: 100%;
   resize: none;
+  font-size: 12px;
 `;
 
 export const Error = styled.span`
@@ -65,4 +66,15 @@ export const Error = styled.span`
   width: 90%;
   text-align: start;
   margin: 5px 0;
+`;
+
+export const Label = styled.label`
+  color: ${({ theme }) => theme.colors.gray[700]};
+  font-weight: 600;
+  font-size: 14px;
+  line-height: 150%;
+  width: 100%;
+  display: flex;
+  justify-content: flex-start !important;
+  align-items: center;
 `;
