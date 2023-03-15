@@ -4,7 +4,7 @@ import { useField } from '@unform/core';
 import { TextAreaProps } from './types';
 import * as S from './styles';
 
-export function TextArea({ name, icon: Icon, ...rest }: TextAreaProps) {
+export function TextArea({ name, icon: Icon, label, ...rest }: TextAreaProps) {
   const [isFocused, setIsFocused] = useState(false);
   const [isFilled, setIsFilled] = useState(false);
 
@@ -33,23 +33,26 @@ export function TextArea({ name, icon: Icon, ...rest }: TextAreaProps) {
   }, []);
 
   return (
-    <S.Container
-      isFocused={isFocused}
-      isFilled={isFilled}
-      hasError={!!error}
-      aria-label={`${name}-container`}
-    >
-      {Icon && <Icon />}
-      <S.Message
-        name={name}
-        ref={textAreaRef}
-        onFocus={handleInputFocus}
-        onBlur={handleInputBlur}
-        onChange={handleInputChange}
-        {...rest}
-        required
-      />
-      {error && <S.Error title={error} />}
-    </S.Container>
+    <>
+      {label && <S.Label htmlFor={name}>{label}</S.Label>}
+      <S.Container
+        isFocused={isFocused}
+        isFilled={isFilled}
+        hasError={!!error}
+        aria-label={`${name}-container`}
+      >
+        {Icon && <Icon />}
+        <S.Message
+          name={name}
+          ref={textAreaRef}
+          onFocus={handleInputFocus}
+          onBlur={handleInputBlur}
+          onChange={handleInputChange}
+          {...rest}
+          required
+        />
+        {error && <S.Error title={error} />}
+      </S.Container>
+    </>
   );
 }

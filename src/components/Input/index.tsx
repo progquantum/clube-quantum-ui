@@ -14,6 +14,7 @@ export function Input({
   type,
   typePassword,
   variant,
+  label,
   ...rest
 }: InputProps) {
   const [isFocused, setIsFocused] = useState(false);
@@ -59,6 +60,7 @@ export function Input({
 
   return (
     <S.Container>
+      {label && <S.Label htmlFor={name}>{label}</S.Label>}
       <S.ContainerInput
         isFocused={isFocused}
         isFilled={isFilled}

@@ -34,6 +34,7 @@
     "date-fns": "^2.29.3",
     "eslint-config-next": "^13.2.3",
     "framer-motion": "^6.3.13",
+    "immer": "^9.0.19",
     "lodash.noop": "^3.0.1",
     "mapbox-gl": "^2.12.1",
     "next": "13.0.2",
@@ -59,6 +60,7 @@
     "rsuite": "^5.13.1",
     "styled-components": "^5.3.5",
     "use-query-params": "^2.1.2",
+    "uuidv4": "^6.2.13",
     "yup": "^0.29.1",
     "zustand": "^4.3.3"
   },
