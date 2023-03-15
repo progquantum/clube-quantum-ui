@@ -14,12 +14,12 @@ export const Container = styled.div`
 export const ContainerInput = styled.div<StyledContainerProps>`
   display: flex;
   align-items: center;
-  background: ${({ theme }) => theme.colors.input.background[1]};
+  background: ${({ theme }) => theme.colors.white};
   color: ${({ theme }) => theme.colors.input.text};
   border-radius: 0.625rem;
-  border: 2px solid ${({ theme }) => theme.colors.input.background[1]};
+  border: 2px solid ${({ theme }) => theme.colors.gray[700]};
   width: 100%;
-  padding-left: 16px;
+  padding-left: 20px;
   padding-right: ${({ typePassword }) => (typePassword ? 0 : '16px')};
   transition: all 100ms;
 
@@ -73,7 +73,8 @@ export const Input = styled.input<InputProps>`
   border: none;
   height: 100%;
   width: 100%;
-  padding: 1rem 0;
+  padding: 1.0938rem 0;
+  font-size: 0.75rem;
 `;
 
 export const Error = styled.span`
@@ -107,4 +108,16 @@ export const HidePasswordButtonContainer = styled.div`
       margin-right: 0 !important;
     }
   }
+`;
+
+export const Label = styled.label`
+  color: ${({ theme }) => theme.colors.gray[700]};
+  font-weight: 600;
+  font-size: 14px;
+  line-height: 150%;
+  width: 100%;
+  display: flex;
+  justify-content: flex-start !important;
+  align-items: center;
+  margin-bottom: 5px;
 `;

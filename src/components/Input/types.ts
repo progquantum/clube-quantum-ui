@@ -6,6 +6,7 @@ export type InputProps = InputHTMLAttributes<HTMLInputElement> & {
   icon?: React.ComponentType<IconBaseProps>;
   variant?: InputVariant;
   typePassword?: boolean;
+  label?: string;
 };
 
 export type InputVariant = 'secundary';
