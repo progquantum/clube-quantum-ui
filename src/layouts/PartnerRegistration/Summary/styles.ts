@@ -82,7 +82,7 @@ export const Card = styled.div`
   justify-content: center;
   flex-direction: column;
   background: #ffffff;
-  box-shadow: 2px 4px 20px rgba(0, 31, 128, 0.25);
+  box-shadow: 0px 0px 20px rgba(0, 0, 0, 0.1);
   border-radius: 15px;
   padding: 20px 24px;
 `;
@@ -163,6 +163,8 @@ export const Content = styled.div`
 
 export const ContainerTable = styled.div`
   width: 100%;
+  box-shadow: 0px 0px 20px rgba(0, 0, 0, 0.1);
+  border-radius: 15px;
   margin-top: 32px;
   @media (max-width: 1135px) {
     width: 678px;

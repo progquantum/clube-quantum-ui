@@ -108,10 +108,18 @@ export function Summary() {
                 <S.TextStrong>Telefone celular</S.TextStrong>
                 <S.TextData>{state.phoneNumber1}</S.TextData>
               </S.ContentRow>
-              <S.ContentRow>
-                <S.TextStrong>Celular WhatsApp</S.TextStrong>
-                <S.TextData>{state.phoneNumber3}</S.TextData>
-              </S.ContentRow>
+              {state.phoneNumber2 && (
+                <S.ContentRow>
+                  <S.TextStrong>Telefone celular</S.TextStrong>
+                  <S.TextData>{state.phoneNumber2}</S.TextData>
+                </S.ContentRow>
+              )}
+              {state.phoneNumber3 && (
+                <S.ContentRow>
+                  <S.TextStrong>Celular WhatsApp</S.TextStrong>
+                  <S.TextData>{state.phoneNumber3}</S.TextData>
+                </S.ContentRow>
+              )}
               <S.ContentRow>
                 <S.TextStrong>Categoria</S.TextStrong>
                 <S.TextData>{state.categoryValue}</S.TextData>
@@ -146,6 +154,31 @@ export function Summary() {
                   <S.TextData>{schedule.days}</S.TextData>
                   <S.TextData>{schedule.time}</S.TextData>
                 </S.ContentRow>
+              ))}
+            </div>
+          </S.Card>
+          <S.Card>
+            <S.Text>
+              <MdAssignmentInd size={19.87} color={colors.mediumslateBlue} />
+              Maquininha POS
+            </S.Text>
+            <div
+              style={{
+                display: 'flex',
+                marginTop: '26.44px',
+                flexDirection: 'column',
+                gap: '16px',
+              }}
+            >
+              {state.machinePos.map(schedule => (
+                <div>
+                  <S.TitleOpeningHours style={{ marginBottom: '16px' }}>
+                    Número de série
+                  </S.TitleOpeningHours>
+                  <S.ContentRow key={schedule.id}>
+                    <S.TextData>{schedule.serie}</S.TextData>
+                  </S.ContentRow>
+                </div>
               ))}
             </div>
           </S.Card>
