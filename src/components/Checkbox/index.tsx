@@ -5,7 +5,7 @@ import { useField } from '@unform/core';
 import { InputProps } from './types';
 import * as S from './styles';
 
-export function Checkbox({ name, value, ...rest }: InputProps) {
+export function Checkbox({ name, value, text, ...rest }: InputProps) {
   const inputRef = useRef();
   const { fieldName, defaultValue, registerField, error } = useField(name);
 
@@ -36,12 +36,18 @@ export function Checkbox({ name, value, ...rest }: InputProps) {
           {...rest}
         />
         <S.TextTerm>
-          Para continuar você precisa ler e concordar com nossos{' '}
-          <strong>termos e condições</strong> e
-          <strong> política de privacidade. </strong>
+          {text ? (
+            <S.Text>{text}</S.Text>
+          ) : (
+            <>
+              Para continuar você precisa ler e concordar com nossos{' '}
+              <strong>termos e condições</strong> e
+              <strong> política de privacidade. </strong>
+            </>
+          )}
         </S.TextTerm>
       </S.Terms>
-      <div>{error && <S.Error>{error}</S.Error>}</div>
+      {error && <S.Error>{error}</S.Error>}
     </>
   );
 }
