@@ -78,6 +78,39 @@ const variants = {
       color: ${({ theme }) => theme.colors.white};
     }
   `,
+
+  degrade: css`
+    background: ${({ theme }) => theme.colors.white};
+    color: ${({ theme }) => theme.colors.royalblue};
+    border: 2px solid ${({ theme }) => theme.colors.royalblue};
+
+    &:hover {
+      color: ${({ theme }) => theme.colors.white};
+      background: ${({ theme }) =>
+        theme.gradients.midnightBlueToMediumsLateBlue};
+      border: 2px solid
+        ${({ theme }) => theme.gradients.midnightBlueToMediumsLateBlue};
+    }
+
+    &:active {
+      color: ${({ theme }) => theme.colors.white};
+      background: ${({ theme }) =>
+        theme.gradients.midnightBlueToMediumsLateBlue};
+      border: 2px solid
+        ${({ theme }) => theme.gradients.midnightBlueToMediumsLateBlue};
+    }
+  `,
+
+  link: css`
+    background: ${({ theme }) => theme.colors.white};
+    color: ${({ theme }) => theme.colors.midnightBlue};
+
+    &:hover {
+      background: ${({ theme }) => theme.colors.white};
+      color: ${({ theme }) => theme.colors.midnightBlue};
+      text-decoration-line: underline;
+    }
+  `,
 };
 
 export const Container = styled.button<ButtonProps>`
