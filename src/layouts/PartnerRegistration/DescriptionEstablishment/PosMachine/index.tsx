@@ -14,7 +14,10 @@ export function PosMachine({ id, handleRemovePosMachine }: Props) {
   const { colors } = useTheme();
   const state = usePartnerStore(state => state);
 
-  const index = state.machinePos.findIndex(item => item.id === id);
+  const index =
+    state.machinePos.findIndex(item => item.id === id) !== -1
+      ? state.machinePos.findIndex(item => item.id === id)
+      : Number(id);
 
   const inputDefaultValue = state.machinePos[index]?.serie;
 
