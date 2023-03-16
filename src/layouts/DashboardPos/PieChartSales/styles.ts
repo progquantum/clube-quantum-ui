@@ -10,6 +10,7 @@ export const Container = styled.div`
   border-radius: 4px;
   flex: 1;
   min-height: 322px;
+  max-height: 322px;
   height: 100%;
   width: 100%;
 `;
