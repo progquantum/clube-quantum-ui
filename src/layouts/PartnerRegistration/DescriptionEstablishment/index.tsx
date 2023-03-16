@@ -18,10 +18,10 @@ import { error } from 'helpers/notify/error';
 
 import { OpeningHours } from './OpeningHours';
 import { CashBackRules } from './CashBackRules';
-import * as S from './styles';
 import { List } from './types';
 import { schema } from './schemas';
 import { PosMachine } from './PosMachine';
+import * as S from './styles';
 
 export function DescriptionEstablishment() {
   const previousStep = usePartnerStore(state => state.previousStep);
@@ -263,7 +263,7 @@ export function DescriptionEstablishment() {
   }, [cashBackRules]);
 
   const handleSubmit: SubmitHandler = useCallback(
-    data => {
+    data =>
       performSchemaValidation({
         formRef,
         data,
@@ -280,8 +280,7 @@ export function DescriptionEstablishment() {
         if (!hasEmptySDOpenHours && !hasEmptySDCashBack) {
           nextStep();
         }
-      });
-    },
+      }),
     [hasEmptySDOpenHours, hasEmptySDCashBack],
   );
 

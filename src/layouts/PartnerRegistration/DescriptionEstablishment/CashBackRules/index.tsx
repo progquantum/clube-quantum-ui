@@ -18,7 +18,10 @@ export function CashBackRules({ id, handleRemoveCashBackRules }: Props) {
   const setRateCliente = usePartnerStore(state => state.setRateCliente);
   const setRateAdm = usePartnerStore(state => state.setRateAdm);
 
-  const index = cashBackRules.findIndex(item => item.id === id);
+  const index =
+    cashBackRules.findIndex(item => item.id === id) !== -1
+      ? cashBackRules.findIndex(item => item.id === id)
+      : Number(id);
 
   const AlreadySelect = (day: string) => {
     const AlredySet =

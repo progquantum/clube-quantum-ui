@@ -16,7 +16,10 @@ export function OpeningHours({ id, handleRemoveOpenHours }: Props) {
   const setOpenHours = usePartnerStore(state => state.setOpenHours);
   const setOpenDays = usePartnerStore(state => state.setOpenDays);
 
-  const index = openHours.findIndex(item => item.id === id);
+  const index =
+    openHours.findIndex(item => item.id === id) !== -1
+      ? openHours.findIndex(item => item.id === id)
+      : Number(id);
 
   const AlreadySelect = (day: string) => {
     const AlredySet =
@@ -25,7 +28,7 @@ export function OpeningHours({ id, handleRemoveOpenHours }: Props) {
 
     return AlredySet;
   };
-
+  console.log(openHours);
   const inputValueOpeningHours = openHours[index]?.time;
 
   return (
