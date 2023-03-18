@@ -2,7 +2,7 @@ import { useQuery } from 'react-query';
 
 import { quantumClientQueue } from 'config/client';
 
-import { Plan, ResponsePayload } from './types';
+import { ResponsePayload } from './types';
 
 const QUERY_KEY_GET_PRODUCT_OF_PARTNER_BY_ID = 'get-product-of-partner-by-id';
 export async function getProductOfPartnerById({ queryKey }) {
@@ -11,7 +11,6 @@ export async function getProductOfPartnerById({ queryKey }) {
     const { data } = await quantumClientQueue.get(
       `/partners/get-partner-product-list/${id}`,
     );
-    console.log(data);
     return data as ResponsePayload;
   } catch (err: unknown) {
     if (err instanceof Error) {
