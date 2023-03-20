@@ -23,7 +23,9 @@ export const TitleFriends = styled(TitlePlan)`
 `;
 
 export const TitleInviteFriends = styled(TitleStatusPlan)`
-  font-size: 1.7rem;
+  font-size: 1.25rem;
+  font-style: normal;
+  font-weight: 600;
   color: ${({ theme }) => theme.colors.white};
 `;
 
