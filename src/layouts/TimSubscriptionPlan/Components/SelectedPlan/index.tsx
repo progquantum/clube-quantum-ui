@@ -6,6 +6,7 @@ import * as S from './styles';
 
 export function SelectedPlan() {
   const selectedPlan = useTimPlanStore(state => state.selectedPlan);
+  const selectedDDD = useTimPlanStore(state => state.selectedDDD);
   const phoneNumber = useTimPlanStore(state => state.phoneNumber);
   return (
     <GenericCard title="Seu plano escolhido">
@@ -21,7 +22,7 @@ export function SelectedPlan() {
       </S.PlanPriceSubtitle>
       <S.PhoneNumber>
         <span>Número de telefone</span>
-        <span>{formatPhoneNumber(phoneNumber)}</span>
+        <span>{formatPhoneNumber(selectedDDD.concat(phoneNumber))}</span>
       </S.PhoneNumber>
     </GenericCard>
   );
