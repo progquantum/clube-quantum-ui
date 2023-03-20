@@ -184,4 +184,30 @@ export default createGlobalStyle`
   background: linear-gradient(90.31deg, #8FC93A -1.94%, #3CD2A2 102.2%) !important;
 }
 
+// style recharts graphics
+.custom-legend {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+}
+
+.custom-legend li {
+  display: flex;
+  align-items: center;
+  margin-right: 10px;
+  font-size: 14px;
+  color: #666;
+  border-radius: 5px;
+  padding: 2px 10px;
+}
+
+.legend-color {
+  width: 12px;
+  height: 2px;
+  display: inline-block;
+  margin-right: 5px;
+}
+
+
  `;
