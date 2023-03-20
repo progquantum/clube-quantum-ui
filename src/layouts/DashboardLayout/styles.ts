@@ -4,6 +4,7 @@ import { ContainerProps } from './types';
 
 export const RightWrapper = styled.div`
   display: flex;
+  height: 100%;
   justify-content: center;
   margin: 0 auto;
   flex: 1;
