@@ -1,3 +1,5 @@
+import { useEffect } from 'react';
+
 import { PlanSectionTitle } from 'layouts/TimSubscriptionPlan/Components/PlanSectionTitle';
 import { useTimPlanStore } from 'store/tim';
 
@@ -10,7 +12,6 @@ import * as S from './styles';
 
 export function WhichNumber() {
   const selectedPlan = useTimPlanStore(state => state.selectedPlan);
-  const hasDDD = !!useTimPlanStore(state => state.selectedDDD);
   const setDDD = useTimPlanStore(state => state.setDDD);
   const phoneNumber = useTimPlanStore(state => state.phoneNumber);
   const setPhoneNumber = useTimPlanStore(state => state.setPhoneNumber);
@@ -23,6 +24,8 @@ export function WhichNumber() {
 
   const hasPhoneNumber = phoneNumber.length > 0;
   const hasPinCode = pinCode.length === 6;
+  const selectedDDD = !!useTimPlanStore(state => state.selectedDDD);
+  const hasDDD = !!selectedDDD;
 
   const handlePathOnePreviousStep = () => {
     const isInPartOne = !hasPhoneNumber;
@@ -48,6 +51,7 @@ export function WhichNumber() {
     setPinCode('');
     nextStep();
   };
+
   return (
     <>
       <S.WhichNumberContainer>

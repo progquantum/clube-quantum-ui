@@ -2,14 +2,15 @@ import { useQuery } from 'react-query';
 
 import { quantumClientQueue } from 'config/client';
 
-import { ResponseData } from './types';
+import { TimNumber } from './types';
 
 export const QUERY_KEY_GET_TIM_NUMBERS = 'get-tim-numbers';
 
 export async function getTimNumbers({ queryKey }) {
   const [_, code] = queryKey;
+  if (!code) return;
   try {
-    const { data } = await quantumClientQueue.get<ResponseData>(
+    const { data } = await quantumClientQueue.get<TimNumber[]>(
       `/tim/tim-numbers/${code}`,
     );
 
@@ -23,5 +24,9 @@ export async function getTimNumbers({ queryKey }) {
 }
 
 export function useGetTimNumbers(code: string) {
-  return useQuery([QUERY_KEY_GET_TIM_NUMBERS, code], getTimNumbers);
+  return useQuery({
+    queryKey: [QUERY_KEY_GET_TIM_NUMBERS, code],
+    queryFn: getTimNumbers,
+    retry: 1,
+  });
 }

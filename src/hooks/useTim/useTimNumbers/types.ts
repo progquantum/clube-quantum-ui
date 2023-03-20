@@ -5,7 +5,3 @@ export type TimNumber = {
   taken_at: null | string;
   created_at: Date;
 };
-
-export type ResponseData = {
-  tim_numbers: TimNumber[];
-};
