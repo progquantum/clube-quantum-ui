@@ -37,6 +37,9 @@ export default class MyDocument extends Document {
       <Html>
         <Head>
           <meta charSet="utf-8" />
+          <script src="https://unpkg.com/react/umd/react.production.min.js" />
+          <script src="https://unpkg.com/react-dom/umd/react-dom.production.min.js" />
+          <script src="https://unpkg.com/recharts/umd/Recharts.min.js" />
 
           <link rel="preconnect" href="https://fonts.googleapis.com" />
           <link rel="preconnect" href="https://fonts.gstatic.com" />
