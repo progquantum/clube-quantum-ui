@@ -7,6 +7,8 @@ import { useMe } from 'hooks/user/useMe';
 
 import { SUBSCRIPTIONS_PAGE } from 'constants/routesPath';
 
+import { formatFirstLetterToUppercase } from 'utils/formatters/formatFirstLetterToUppercase';
+
 import * as S from './styles';
 
 const quantumFreeAdvantages = [
@@ -27,9 +29,15 @@ const quantumSelectAdvantages = [
 ];
 
 const advantages = {
-  'QUANTUM FREE': quantumFreeAdvantages,
+  'QUANTUM GRATUITO': quantumFreeAdvantages,
   'QUANTUM START': quantumStartAdvantages,
   'QUANTUM SELECT': quantumSelectAdvantages,
+};
+
+const monthly_fee = {
+  1: 'Mensal',
+  6: 'Semestral',
+  12: 'Anual',
 };
 
 export function PlanSummary() {
@@ -44,9 +52,10 @@ export function PlanSummary() {
       </S.PlanHeaderOutline>
       <S.PlanHeaderBox>
         <div>
-          <h2>{subscription.plan_name}</h2>
+          <h2>{formatFirstLetterToUppercase(subscription.plan_name)}</h2>
           <span>
-            Mensal -{' '}
+            {monthly_fee[subscription.monthly_fee]}
+            {' - '}
             {new Intl.NumberFormat('pt-BR', {
               style: 'currency',
               currency: 'BRL',
@@ -64,7 +73,7 @@ export function PlanSummary() {
           </span>
         </S.PlanCheckMark>
       </S.PlanHeaderBox>
-      {advantages[subscription.plan_name].map((advantage: string) => (
+      {advantages[subscription.plan_name]?.map((advantage: string) => (
         <S.AdvantageBox>
           <div>{advantage}</div>
           {}
