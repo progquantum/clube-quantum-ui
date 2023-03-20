@@ -7,6 +7,7 @@ export const PlanHeaderBox = styled.div`
   align-items: center;
   justify-content: space-between;
   & h2 {
+    font-size: 1.25rem;
     margin: 0.5rem 0;
     background-image: ${({ theme }) =>
       theme.gradients.midnightBlueToMediumsLateBlue};
