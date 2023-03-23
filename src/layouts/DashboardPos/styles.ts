@@ -10,6 +10,29 @@ export const Container = styled.div`
   flex-direction: column;
   margin: 0 auto;
 
+  @media (max-width: 1440px) {
+    max-width: 680px;
+  }
+  @media (max-width: 1105px) {
+    max-width: 600px;
+  }
+
+  @media (max-width: 1014px) {
+    max-width: 580px;
+  }
+
+  @media (max-width: 985px) {
+    max-width: 550px;
+  }
+
+  @media (max-width: 960px) {
+    max-width: 500px;
+  }
+
+  @media (max-width: 905px) {
+    max-width: 470px;
+  }
+
   @media (max-width: 780px) {
     max-width: 450px;
   }
@@ -331,6 +354,7 @@ export const ContainerFlag = styled.div`
   width: 100%;
   height: 100%;
   max-width: 505px;
+  max-height: 352px;
   display: flex;
   flex-direction: column;
   @media (max-width: 1775px) {

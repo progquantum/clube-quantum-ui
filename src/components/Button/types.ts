@@ -8,7 +8,9 @@ export type ButtonVariants =
   | 'rounded'
   | 'disabled'
   | 'danger'
-  | 'danger_outline';
+  | 'danger_outline'
+  | 'degrade'
+  | 'link';
 
 export type ButtonProps = ButtonHTMLAttributes<HTMLButtonElement> & {
   variant?: ButtonVariants;
