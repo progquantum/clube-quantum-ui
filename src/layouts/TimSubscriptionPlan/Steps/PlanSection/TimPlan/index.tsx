@@ -49,10 +49,12 @@ export function TimPlan({ plan }: { plan: Plan }) {
           />
         </div>
       </S.FreeAppsContainer>
-      <S.PlanAdvantage>
-        <AiOutlineCheck size={15} />
-        <span>{plan.details}</span>
-      </S.PlanAdvantage>
+      {Object.keys(plan.details).map(key => (
+        <S.PlanAdvantage key={key}>
+          <AiOutlineCheck size={15} />
+          <span>{plan.details[key]}</span>
+        </S.PlanAdvantage>
+      ))}
     </S.PlanContainer>
   );
 }
