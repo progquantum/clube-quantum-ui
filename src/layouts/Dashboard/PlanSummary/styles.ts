@@ -25,6 +25,10 @@ export const PlanHeaderBox = styled.div`
   }
 
   & span {
+    font-style: normal;
+    font-weight: 500;
+    font-size: 14px;
+    line-height: 150%;
     color: ${({ theme }) => theme.colors.gray[400]};
   }
 `;
@@ -67,7 +71,7 @@ export const AdvantageBox = styled.div`
     color: ${({ theme }) => theme.colors.white};
     border-radius: 0.5rem;
     padding: 0.5rem 1rem;
-    font-size: 0.9rem;
+    font-size: 0.875rem;
   }
 
   & div:last-child {
@@ -94,6 +98,7 @@ export const UpgradePlanButton = styled.button`
 `;
 
 export const PlanContainer = styled.div<{ isActive: boolean }>`
+  flex: 1;
   box-shadow: 0 0 1.2rem rgba(0, 0, 0, 0.1);
   border-radius: 0.9rem;
   padding: 1.2rem;
@@ -134,4 +139,23 @@ export const PlanContainer = styled.div<{ isActive: boolean }>`
         color: ${({ theme }) => theme.colors.danger};
       }
     `}
+`;
+
+export const TitleCondition = styled.h3`
+  font-style: normal;
+  font-weight: 600;
+  font-size: 14px;
+  line-height: 150%;
+  color: ${({ theme }) => theme.colors.gray[400]};
+  margin-top: 10px;
+`;
+
+export const ConditionParagraph = styled.div`
+  font-style: normal;
+  font-weight: 500;
+  font-size: 12px;
+  line-height: 150%;
+  color: ${({ theme }) => theme.colors.gray[400]};
+  margin-top: 2px;
+  margin-bottom: 10px;
 `;
