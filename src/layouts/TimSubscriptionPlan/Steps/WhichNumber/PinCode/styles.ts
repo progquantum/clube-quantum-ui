@@ -31,3 +31,10 @@ export const PinCodeSpan = styled.span``;
 export const Bold = styled.span`
   font-weight: 700;
 `;
+
+export const ButtonPinCode = styled.button`
+  font-weight: bold;
+  color: ${({ theme }) => theme.colors.gray[700]};
+  background-color: transparent;
+  line-height: 1.6;
+`;

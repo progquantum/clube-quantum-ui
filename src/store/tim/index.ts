@@ -30,11 +30,11 @@ export const useTimPlanStore = create<TimPlanStore>(set => ({
   phoneNumber: '',
   setPhoneNumber: (phone: string) => set(() => ({ phoneNumber: phone })),
   pinCode: '',
-  setPinCode: (pinCode: string) =>
-    set(state => ({
-      pinCode:
-        state.pinCode.length === 6 ? pinCode : state.pinCode.concat(pinCode),
-    })),
+  setPinCode: (pinCode: string) => {
+    set(() => ({
+      pinCode,
+    }));
+  },
   isPaymentFailed: false,
   setPaymentToggle: () =>
     set(state => ({ isPaymentFailed: !state.isPaymentFailed })),
