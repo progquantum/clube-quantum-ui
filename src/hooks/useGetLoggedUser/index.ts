@@ -9,7 +9,7 @@ export const QUERY_KEY_GET_LOGGED_USER = 'get-logged-user';
 export async function getLoggedUser() {
   try {
     const { data } = await quantumClientQueue.get<LoggedUser>(
-      '/tim/get-logged-user',
+      '/me/ordering-data',
     );
 
     return data;
