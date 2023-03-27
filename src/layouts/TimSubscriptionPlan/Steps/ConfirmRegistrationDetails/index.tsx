@@ -1,3 +1,4 @@
+import { useGetLoggedUser } from 'hooks/useGetLoggedUser';
 import { FlowButton } from 'layouts/TimSubscriptionPlan/Components/FlowButton';
 import { PlanSectionTitle } from 'layouts/TimSubscriptionPlan/Components/PlanSectionTitle';
 import { SelectedPlan } from 'layouts/TimSubscriptionPlan/Components/SelectedPlan';
@@ -10,6 +11,7 @@ import * as S from './styles';
 export function ConfirmRegistrationDetails() {
   const previousStep = useTimPlanStore(state => state.previousStep);
   const nextStep = useTimPlanStore(state => state.nextStep);
+  const { data: loggedUser } = useGetLoggedUser();
 
   return (
     <>
@@ -17,9 +19,9 @@ export function ConfirmRegistrationDetails() {
       <S.DetailsContainer>
         <div>
           <SelectedPlan />
-          <PersonalInfo />
+          <PersonalInfo loggedUser={loggedUser} />
         </div>
-        <AddressInfo />
+        <AddressInfo loggedUser={loggedUser} />
         <S.ButtonContainer>
           <FlowButton variant="primary_outline" onClick={previousStep}>
             Voltar
