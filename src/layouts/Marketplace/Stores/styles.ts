@@ -7,7 +7,7 @@ export const FilterForm = styled.form``;
 export const CommerceContainer = styled.div`
   display: grid;
   grid-template-columns: repeat(3, 1fr);
-  column-gap: 3rem;
+  column-gap: 2rem;
   row-gap: 2rem;
 
   @media (max-width: 1476px) {
