@@ -1,14 +1,27 @@
 import { MdAssignmentInd } from 'react-icons/md';
+import dayjs from 'dayjs';
 
 import { useTheme } from 'styled-components';
 
 import { Button } from 'components/Button';
 
-import * as S from './styles';
+import { useMeOrderingData } from 'hooks/user/useOrderingData';
+
+import { useGetProductsOfPartnerById } from 'hooks/usePartners';
+
+import { formatPrice } from 'utils/formatters/formatPrice';
+
 import { Props } from './types';
+import * as S from './styles';
 
 export function ConfirmRegistration({ onNextStep, onPreviousStep }: Props) {
   const { colors } = useTheme();
+
+  const { data: smart } = useGetProductsOfPartnerById(
+    'da1cee85-714a-4842-a1ec-c3506fbf8e2f',
+  );
+
+  const { data: OrderingData } = useMeOrderingData();
 
   return (
     <S.Container>
@@ -31,8 +44,12 @@ export function ConfirmRegistration({ onNextStep, onPreviousStep }: Props) {
                 justifyContent: 'center',
               }}
             >
-              <S.PlanType>Quantum </S.PlanType>
-              <S.PlanTypeWeight> Smart</S.PlanTypeWeight>
+              <S.PlanType>
+                {smart?.productList[0].name.split(' ')[0]}
+              </S.PlanType>
+              <S.PlanTypeWeight>
+                {smart?.productList[0].name.split(' ')[1]}
+              </S.PlanTypeWeight>
             </div>
             <div
               style={{
@@ -42,10 +59,13 @@ export function ConfirmRegistration({ onNextStep, onPreviousStep }: Props) {
                 justifyContent: 'center',
               }}
             >
-              <S.PlanPrice>R$ 44,90 </S.PlanPrice>
+              <S.PlanPrice>
+                {' '}
+                {formatPrice(smart?.productList[0].price)}
+              </S.PlanPrice>
               <S.TypeCharge>/Mês</S.TypeCharge>
             </div>
-            <S.Info>Cobrança mensal no Cartão Banco UM</S.Info>
+            <S.Info>{smart?.productList[0].description}</S.Info>
           </S.Card>
           <S.Card>
             <S.Text>
@@ -62,23 +82,25 @@ export function ConfirmRegistration({ onNextStep, onPreviousStep }: Props) {
             >
               <S.ContentRow>
                 <S.TextStrong>Nome</S.TextStrong>
-                <S.TextData>Rafael Gael Caio Teixeira</S.TextData>
+                <S.TextData>{OrderingData?.name}</S.TextData>
               </S.ContentRow>
               <S.ContentRow>
                 <S.TextStrong>CPF</S.TextStrong>
-                <S.TextData>000.000.000-00</S.TextData>
+                <S.TextData>{OrderingData?.document}</S.TextData>
               </S.ContentRow>
               <S.ContentRow>
                 <S.TextStrong>Data de Nasc.</S.TextStrong>
-                <S.TextData>06/07/1981</S.TextData>
+                <S.TextData>
+                  {dayjs(OrderingData?.birth_date).format('DD/MM/YYYY')}
+                </S.TextData>
               </S.ContentRow>
               <S.ContentRow>
                 <S.TextStrong>Telefone Atual</S.TextStrong>
-                <S.TextData>(48) 9 8452-8944</S.TextData>
+                <S.TextData>{OrderingData?.phone}</S.TextData>
               </S.ContentRow>
               <S.ContentRow>
                 <S.TextStrong>E-mail</S.TextStrong>
-                <S.TextData>rafaelgaelteixeira@maptec.com.br</S.TextData>
+                <S.TextData>{OrderingData?.email}</S.TextData>
               </S.ContentRow>
             </div>
           </S.Card>
@@ -99,35 +121,35 @@ export function ConfirmRegistration({ onNextStep, onPreviousStep }: Props) {
           >
             <S.ContentRow>
               <S.TextStrong>Rua</S.TextStrong>
-              <S.TextData>Servidão Maria Goreti Matias</S.TextData>
+              <S.TextData>{OrderingData?.address.street}</S.TextData>
             </S.ContentRow>
             <S.ContentRow>
               <S.TextStrong>Número</S.TextStrong>
-              <S.TextData>861</S.TextData>
+              <S.TextData>{OrderingData?.address.number}</S.TextData>
             </S.ContentRow>
             <S.ContentRow>
               <S.TextStrong>Complemento</S.TextStrong>
-              <S.TextData>N/A</S.TextData>
+              <S.TextData>{OrderingData?.address.complement}</S.TextData>
             </S.ContentRow>
             <S.ContentRow>
               <S.TextStrong>Bairro</S.TextStrong>
-              <S.TextData>Vendaval</S.TextData>
+              <S.TextData>{OrderingData?.address.neighborhood}</S.TextData>
             </S.ContentRow>
             <S.ContentRow>
               <S.TextStrong>Cidade</S.TextStrong>
-              <S.TextData>Biguaçu</S.TextData>
+              <S.TextData>{OrderingData?.address.city}</S.TextData>
             </S.ContentRow>
             <S.ContentRow>
               <S.TextStrong>UF</S.TextStrong>
-              <S.TextData>SC</S.TextData>
+              <S.TextData>{OrderingData?.address.state}</S.TextData>
             </S.ContentRow>
             <S.ContentRow>
               <S.TextStrong>CEP</S.TextStrong>
-              <S.TextData>88.164-130</S.TextData>
+              <S.TextData>{OrderingData?.address.zip_code}</S.TextData>
             </S.ContentRow>
             <S.ContentRow>
               <S.TextStrong>País</S.TextStrong>
-              <S.TextData>Brasil</S.TextData>
+              <S.TextData>{OrderingData?.address.country}</S.TextData>
             </S.ContentRow>
           </div>
         </S.Card>
