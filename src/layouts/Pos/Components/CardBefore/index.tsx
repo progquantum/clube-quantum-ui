@@ -1,9 +1,15 @@
 import { Button } from 'components/Button';
+import { useGetProductsOfPartnerById } from 'hooks/usePartners';
 
-import * as S from './styles';
+import { formatPrice } from 'utils/formatters/formatPrice';
+
 import { Props } from './types';
+import * as S from './styles';
 
 export function CardBefore({ onNextStep, onPreviousStep }: Props) {
+  const { data: smart } = useGetProductsOfPartnerById(
+    'da1cee85-714a-4842-a1ec-c3506fbf8e2f',
+  );
   return (
     <S.Container>
       <S.ContentTitle>
@@ -18,14 +24,18 @@ export function CardBefore({ onNextStep, onPreviousStep }: Props) {
           </S.Text>
           <S.Title>Detalhes do plano</S.Title>
           <div style={{ display: 'flex', gap: '10px' }}>
-            <S.PlanType>Quantum </S.PlanType>
-            <S.PlanTypeWeight> Smart</S.PlanTypeWeight>
+            <S.PlanType>{smart?.productList[0].name.split(' ')[0]}</S.PlanType>
+            <S.PlanTypeWeight>
+              {smart?.productList[0].name.split(' ')[1]}
+            </S.PlanTypeWeight>
           </div>
           <div style={{ display: 'flex', alignItems: 'center' }}>
-            <S.PlanPrice>R$ 44,90 </S.PlanPrice>
+            <S.PlanPrice>
+              {formatPrice(smart?.productList[0].price)}
+            </S.PlanPrice>
             <S.TypeCharge>/Mês</S.TypeCharge>
           </div>
-          <S.Info>Cobrança mensal no Cartão Banco UM</S.Info>
+          <S.Info>{smart?.productList[0].description}</S.Info>
           <S.Text>
             Ao clicar em prosseguir, você confirma estar compartilhando seus
             dados cadastrados no Quantum para realizar a aquisição de sua

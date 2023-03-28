@@ -31,19 +31,9 @@ export function Success() {
         </S.Text>
       </S.Card>
 
-      <div
-        style={{
-          display: 'flex',
-          width: '100%',
-          maxWidth: '420px',
-          gap: '12px',
-          margin: '16px auto 0 auto',
-        }}
-      >
-        <Link href={DASHBOARD_PAGE}>
-          <Button variant="primary">Finalizar</Button>
-        </Link>
-      </div>
+      <Link style={{ width: '100%', maxWidth: '420px' }} href={DASHBOARD_PAGE}>
+        <Button variant="primary">Finalizar</Button>
+      </Link>
     </S.Container>
   );
 }
