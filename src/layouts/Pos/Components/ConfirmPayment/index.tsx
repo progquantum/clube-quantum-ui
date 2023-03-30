@@ -12,6 +12,14 @@ import { Input } from 'components/Input';
 
 import { formatCVV } from 'utils/formatters/formatCVV';
 
+import { useGetProductsOfPartnerById } from 'hooks/usePartners';
+
+import { formatPrice } from 'utils/formatters/formatPrice';
+
+import { useMeOrderingData } from 'hooks/user/useOrderingData';
+
+import { useWallet } from 'hooks/useWallet';
+
 import * as S from './styles';
 import { Props } from './types';
 
@@ -24,6 +32,13 @@ export function ConfirmPayment({ onNextStep, onPreviousStep }: Props) {
     onNextStep();
   };
 
+  const { data: smart } = useGetProductsOfPartnerById(
+    'da1cee85-714a-4842-a1ec-c3506fbf8e2f',
+  );
+
+  const { data: OrderingData } = useMeOrderingData();
+
+  const { data: billing } = useWallet();
   return (
     <S.Container as={Form} ref={formRef} onSubmit={handleSubmitCVV}>
       <S.ContentTitle>
@@ -45,8 +60,11 @@ export function ConfirmPayment({ onNextStep, onPreviousStep }: Props) {
               justifyContent: 'center',
             }}
           >
-            <S.PlanType>Quantum </S.PlanType>
-            <S.PlanTypeWeight> Smart</S.PlanTypeWeight>
+            <S.PlanType>{smart?.productList[0].name.split(' ')[0]} </S.PlanType>
+            <S.PlanTypeWeight>
+              {' '}
+              {smart?.productList[0].name.split(' ')[1]}
+            </S.PlanTypeWeight>
           </div>
           <div
             style={{
@@ -56,10 +74,13 @@ export function ConfirmPayment({ onNextStep, onPreviousStep }: Props) {
               justifyContent: 'center',
             }}
           >
-            <S.PlanPrice>R$ 44,90 </S.PlanPrice>
+            <S.PlanPrice>
+              {' '}
+              {formatPrice(smart?.productList[0].price)}
+            </S.PlanPrice>
             <S.TypeCharge>/Mês</S.TypeCharge>
           </div>
-          <S.Info>Cobrança mensal no Cartão Banco UM</S.Info>
+          <S.Info>{smart?.productList[0].description}</S.Info>
         </S.Card>
         <S.Card>
           <S.Text>
@@ -76,11 +97,13 @@ export function ConfirmPayment({ onNextStep, onPreviousStep }: Props) {
           >
             <S.ContentRow>
               <S.TextStrong>Nome</S.TextStrong>
-              <S.TextData>Rafael Gael Caio Teixeira</S.TextData>
+              <S.TextData>{OrderingData.name}</S.TextData>
             </S.ContentRow>
             <S.ContentRow>
               <S.TextStrong>Cartão</S.TextStrong>
-              <S.TextData>**** **** **** 0768</S.TextData>
+              <S.TextData>
+                **** **** **** {billing?.credit_card.last_digits}
+              </S.TextData>
             </S.ContentRow>
             <S.ContentRow>
               <S.TextStrong>Confirme o CVV</S.TextStrong>
@@ -101,7 +124,7 @@ export function ConfirmPayment({ onNextStep, onPreviousStep }: Props) {
             </S.ContentRow>
             <S.ContentRow>
               <S.TextStrong>Validade</S.TextStrong>
-              <S.TextData>03/29</S.TextData>
+              <S.TextData>{billing?.credit_card.expiration_date}</S.TextData>
             </S.ContentRow>
           </div>
         </S.Card>

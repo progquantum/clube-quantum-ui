@@ -1,7 +1,11 @@
+import { useMeOrderingData } from 'hooks/user/useOrderingData';
+
 import * as S from './styles';
 import { Props } from './types';
 
 export function ContractSigning({ onNextStep }: Props) {
+  const { data: OrderingData } = useMeOrderingData();
+
   return (
     <S.Container>
       <S.ContentTitle>
@@ -26,7 +30,7 @@ export function ContractSigning({ onNextStep }: Props) {
           gap: '12px',
         }}
       >
-        <S.Name>Rafael Gael Caio Teixeira:</S.Name>
+        <S.Name>{OrderingData?.name}:</S.Name>
         <S.Status>Pendente</S.Status>
       </div>
     </S.Container>

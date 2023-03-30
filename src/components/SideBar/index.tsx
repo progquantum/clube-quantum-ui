@@ -24,20 +24,23 @@ import {
 } from 'constants/routesPath';
 import { useAuthDispatch } from 'contexts/auth/AuthContext';
 
+import { useSidebarStore } from 'store/sidebar';
+
 import { Skeleton } from './Skeleton';
 import { SideBarProps } from './types';
 import * as S from './styles';
 
 export function SideBar({ loading }: SideBarProps) {
   const { signOut } = useAuthDispatch();
-  const [isExpanded, setIsExpanded] = useState(false);
+  const isExpanded = useSidebarStore(state => state.isExpanded);
+  const setIsExpanded = useSidebarStore(state => state.setIsExpanded);
 
   if (loading) return <Skeleton />;
 
   return (
     <S.Container isExpanded={isExpanded}>
       <S.ToggleButtonBox isExpanded={isExpanded}>
-        <HiMenuAlt1 onClick={() => setIsExpanded(prevState => !prevState)} />
+        <HiMenuAlt1 onClick={setIsExpanded} />
       </S.ToggleButtonBox>
       <Link href={DASHBOARD_PAGE}>
         <S.NavButton isExpanded={isExpanded}>

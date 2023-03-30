@@ -8,11 +8,20 @@ import EloIcon from 'components/Illustrations/Elo';
 import { MasterCardIcon } from 'components/Illustrations/MasterCard';
 import { VISAIcon } from 'components/Illustrations/Visa';
 
+import { useGetProductsOfPartnerById } from 'hooks/usePartners';
+
+import { formatPrice } from 'utils/formatters/formatPrice';
+
 import * as S from './styles';
 import { Props } from './types';
 
 export function PLan({ onNextStep }: Props) {
   const { colors } = useTheme();
+
+  const { data: smart } = useGetProductsOfPartnerById(
+    'da1cee85-714a-4842-a1ec-c3506fbf8e2f',
+  );
+
   return (
     <S.Container>
       <S.ContentTitle>
@@ -22,8 +31,11 @@ export function PLan({ onNextStep }: Props) {
       <div style={{ display: 'flex', width: '100%', justifyContent: 'center' }}>
         <S.Card>
           <div style={{ display: 'flex', gap: '10px', marginBottom: '24px' }}>
-            <S.PlanType>Quantum </S.PlanType>
-            <S.PlanTypeWeight> Smart</S.PlanTypeWeight>
+            <S.PlanType>{smart?.productList[0].name.split(' ')[0]} </S.PlanType>
+            <S.PlanTypeWeight>
+              {' '}
+              {smart?.productList[0].name.split(' ')[1]}
+            </S.PlanTypeWeight>
           </div>
           <div
             style={{
@@ -32,10 +44,12 @@ export function PLan({ onNextStep }: Props) {
               marginBottom: '12px',
             }}
           >
-            <S.PlanPrice>R$ 44,90 </S.PlanPrice>
+            <S.PlanPrice>
+              {formatPrice(smart?.productList[0].price)}
+            </S.PlanPrice>
             <S.TypeCharge>/Mês</S.TypeCharge>
           </div>
-          <S.Info>Cobrança mensal no Cartão Banco UM</S.Info>
+          <S.Info> {smart?.productList[0].description}</S.Info>
           <S.P>Bandeiras aceitas</S.P>
           <div style={{ display: 'flex', gap: '24px', marginBottom: '32px' }}>
             <VISAIcon width="75" height="24" />
@@ -44,36 +58,13 @@ export function PLan({ onNextStep }: Props) {
             <AmericanExpressIcon width="24" height="24" />
           </div>
           <div>
-            <S.ContentBenefits>
-              <BiCheck size={15} color={colors.mediumslateBlue} />
-              <S.Benefits>
-                Fidelize seus Clientes com o <strong>CLUBE QUANTUM</strong>
-              </S.Benefits>
-            </S.ContentBenefits>
-            <S.ContentBenefits>
-              <BiCheck size={15} color={colors.mediumslateBlue} />
-              <S.Benefits>
-                As <strong>melhores taxas</strong> do mercado
-              </S.Benefits>
-            </S.ContentBenefits>
-            <S.ContentBenefits>
-              <BiCheck size={15} color={colors.mediumslateBlue} />
-              <S.Benefits>
-                <strong>Dinheiro</strong> na mão <strong>em 1 dia útil</strong>
-              </S.Benefits>
-            </S.ContentBenefits>
-            <S.ContentBenefits>
-              <BiCheck size={15} color={colors.mediumslateBlue} />
-              <S.Benefits>
-                <strong>Conta digital Inclusa</strong> com Cartão VISA Débito
-              </S.Benefits>
-            </S.ContentBenefits>
-            <S.ContentBenefits>
-              <BiCheck size={15} color={colors.mediumslateBlue} />
-              <S.Benefits>
-                <strong>Link de pagamento</strong> para você vender online
-              </S.Benefits>
-            </S.ContentBenefits>
+            {smart?.productList[0]?.details &&
+              Object.keys(smart?.productList[0]?.details).map(key => (
+                <S.ContentBenefits key={key}>
+                  <BiCheck size={15} color={colors.mediumslateBlue} />
+                  <S.Benefits>{smart?.productList[0].details[key]}</S.Benefits>
+                </S.ContentBenefits>
+              ))}
           </div>
         </S.Card>
       </div>

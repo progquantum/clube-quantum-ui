@@ -13,12 +13,12 @@ export function InlineCard() {
 
   return (
     <S.CardContainer>
-      <ServiceCard>
+      <ServiceCard height="90px">
         <Image
           src="/images/dominos_logo.svg"
           alt="TIM logo"
-          width={90}
-          height={25}
+          width={50.06}
+          height={48}
           objectFit="contain"
         />
       </ServiceCard>

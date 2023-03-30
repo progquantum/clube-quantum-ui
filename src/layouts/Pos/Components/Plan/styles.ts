@@ -110,6 +110,7 @@ export const TypeCharge = styled.p`
   display: flex;
   align-items: center;
   text-align: center;
+  margin-bottom: 0;
 `;
 
 export const Info = styled.p`
@@ -137,6 +138,7 @@ export const Benefits = styled.p`
   font-size: 14px;
   line-height: 150%;
   color: ${({ theme }) => theme.colors.gray[700]};
+  margin-bottom: 0;
 
   @media (max-width: 545px) {
     font-size: 10px;

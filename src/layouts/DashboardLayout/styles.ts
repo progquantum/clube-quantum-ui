@@ -17,7 +17,7 @@ export const Container = styled.main<ContainerProps>`
   display: flex;
   position: relative;
   gap: 5rem;
-  max-width: ${({ maxWidth }) => maxWidth || '70rem'};
+  max-width: ${({ maxWidth }) => maxWidth || '70.625rem'};
   width: 100%;
   @media (max-width: 850px) {
     gap: 2rem;

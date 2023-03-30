@@ -129,6 +129,7 @@ export const TypeCharge = styled.p`
   display: flex;
   align-items: center;
   text-align: center;
+  margin-bottom: 0;
 `;
 
 export const Info = styled.p`

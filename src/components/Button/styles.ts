@@ -5,13 +5,13 @@ import { ButtonProps } from './types';
 const variants = {
   primary: css`
     color: ${({ theme }) => theme.colors.white};
-    background: ${({ theme }) => theme.colors.midnightBlue};
-    border: 0.1rem solid ${({ theme }) => theme.colors.midnightBlue};
+    background: ${({ theme }) => theme.colors.mediumslateBlue};
+    border: 0.1rem solid ${({ theme }) => theme.colors.mediumslateBlue};
 
     :hover {
-      background: ${({ theme }) => theme.colors.mediumslateBlue};
       color: ${({ theme }) => theme.colors.white};
-      border: 0.1rem solid ${({ theme }) => theme.colors.mediumslateBlue};
+      background: ${({ theme }) => theme.colors.midnightBlue};
+      border: 0.1rem solid ${({ theme }) => theme.colors.midnightBlue};
     }
   `,
 
