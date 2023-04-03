@@ -9,6 +9,8 @@ export type ButtonProps = {
 };
 
 export type ButtonFCProps = {
-  onClick: () => void;
+  onClick?: () => void;
+  type?: 'button' | 'reset' | 'submit';
+  form?: string;
   variant: ButtonVariants;
 };

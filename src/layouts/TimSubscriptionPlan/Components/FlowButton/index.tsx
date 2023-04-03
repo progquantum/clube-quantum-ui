@@ -7,9 +7,10 @@ export function FlowButton({
   variant,
   onClick,
   children,
+  ...rest
 }: PropsWithChildren<ButtonFCProps>) {
   return (
-    <S.Button variant={variant} onClick={onClick}>
+    <S.Button variant={variant} onClick={onClick} {...rest}>
       {children}
     </S.Button>
   );

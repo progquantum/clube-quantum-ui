@@ -2,41 +2,42 @@ import { FieldInfo } from 'layouts/TimSubscriptionPlan/Components/FieldInfo';
 
 import { GenericCard } from '../GenericCard';
 import * as S from './styles';
+import { AddressInfoProps } from './types';
 
-export function AddressInfo() {
+export function AddressInfo({ loggedUser }: AddressInfoProps) {
   return (
     <GenericCard title="Informações de endereço">
       <FieldInfo>
         <span>Rua</span>
-        <span>Servidão Maria Goreti Matias</span>
+        <span>{loggedUser?.address?.street}</span>
       </FieldInfo>
       <FieldInfo>
         <span>Número</span>
-        <span>861</span>
+        <span>{loggedUser?.address?.number}</span>
       </FieldInfo>
       <FieldInfo>
         <span>Complemento</span>
-        <span>N/A</span>
+        <span>{loggedUser?.address?.complement}</span>
       </FieldInfo>
       <FieldInfo>
         <span>Bairro</span>
-        <span>Vendaval</span>
+        <span>{loggedUser?.address?.neighborhood}</span>
       </FieldInfo>
       <FieldInfo>
         <span>Cidade</span>
-        <span>Biguaçu</span>
+        <span>{loggedUser?.address?.city}</span>
       </FieldInfo>
       <FieldInfo>
         <span>UF</span>
-        <span>SC</span>
+        <span>{loggedUser?.address?.state}</span>
       </FieldInfo>
       <FieldInfo>
         <span>CEP</span>
-        <span>88.164-130</span>
+        <span>{loggedUser?.address?.zip_code}</span>
       </FieldInfo>
       <FieldInfo>
         <span>País</span>
-        <span>Brasil</span>
+        <span>{loggedUser?.address?.country}</span>
       </FieldInfo>
       <S.Text>
         O chip será enviado no endereço cadastrado na plataforma, caso seja

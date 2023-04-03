@@ -1,32 +1,39 @@
 import { FieldInfo } from 'layouts/TimSubscriptionPlan/Components/FieldInfo';
 
 import { GenericCard } from '../GenericCard';
+import { PersonalInfoProps } from './types';
 
-export function PersonalInfo() {
-  const isCNPJ = true;
+export function PersonalInfo({ loggedUser }: PersonalInfoProps) {
+  const regexCpf =
+    /([0-9]{2}[.]?[0-9]{3}[.]?[0-9]{3}[/]?[0-9]{4}[-]?[0-9]{2})|([0-9]{3}[.]?[0-9]{3}[.]?[0-9]{3}[-]?[0-9]{2})/;
+  const isCpf = regexCpf.test(loggedUser?.document);
+
   return (
     <GenericCard title="Informações pessoais">
       <FieldInfo>
-        <span>{isCNPJ ? 'Razão Social' : 'Nome'}</span>
-        <span>Rafael Gael Caio Teixeira</span>
+        <span>{isCpf ? 'Nome' : 'Razão Social'}</span>
+        <span>{loggedUser?.name}</span>
       </FieldInfo>
       <FieldInfo>
-        <span>{isCNPJ ? 'CNPJ' : 'CPF'}</span>
-        <span>{isCNPJ ? '29.489.143/0001-90' : '000.000.000-00'}</span>
+        <span>{isCpf ? 'CPF' : 'CNPJ'}</span>
+        <span>{loggedUser?.document}</span>
       </FieldInfo>
-      {!isCNPJ && (
-        <FieldInfo>
-          <span>Data de Nasc.</span>
-          <span>06/07/1981</span>
-        </FieldInfo>
-      )}
+      <FieldInfo>
+        <span>Data de Nasc.</span>
+        <span>
+          {loggedUser &&
+            new Intl.DateTimeFormat('pt-BR').format(
+              new Date(loggedUser?.birth_date),
+            )}
+        </span>
+      </FieldInfo>
       <FieldInfo>
         <span>Telefone Atual</span>
-        <span>(48) 9 8452-8944</span>
+        <span>{loggedUser?.phone}</span>
       </FieldInfo>
       <FieldInfo>
         <span>E-mail</span>
-        <span>rafaelgaelteixeira@maptec.com.br</span>
+        <span>{loggedUser?.email}</span>
       </FieldInfo>
     </GenericCard>
   );

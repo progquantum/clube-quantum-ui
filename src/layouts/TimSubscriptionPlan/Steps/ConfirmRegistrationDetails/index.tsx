@@ -7,7 +7,7 @@ import { AddressInfo } from './AddressInfo';
 import { PersonalInfo } from './PersonalInfo';
 import * as S from './styles';
 
-export function ConfirmRegistrationDetails() {
+export function ConfirmRegistrationDetails({ loggedUser }) {
   const previousStep = useTimPlanStore(state => state.previousStep);
   const nextStep = useTimPlanStore(state => state.nextStep);
 
@@ -17,9 +17,9 @@ export function ConfirmRegistrationDetails() {
       <S.DetailsContainer>
         <div>
           <SelectedPlan />
-          <PersonalInfo />
+          <PersonalInfo loggedUser={loggedUser} />
         </div>
-        <AddressInfo />
+        <AddressInfo loggedUser={loggedUser} />
         <S.ButtonContainer>
           <FlowButton variant="primary_outline" onClick={previousStep}>
             Voltar

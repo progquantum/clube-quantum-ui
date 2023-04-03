@@ -12,28 +12,27 @@ import { useTimPlanStore } from 'store/tim';
 
 import { Footer } from 'components/Footer';
 
+import { useGetLoggedUser } from 'hooks/useGetLoggedUser';
+
 import * as S from './styles';
 import { PlanSection } from './Steps/PlanSection';
 import { WhichNumber } from './Steps/WhichNumber';
 import { ConfirmRegistrationDetails } from './Steps/ConfirmRegistrationDetails';
 import { ConfirmPaymentsDetails } from './Steps/ConfirmPaymentsDetails';
-import { ProcessingPayment } from './Steps/ProcessingPayment';
-import { PaymentFailed } from './Steps/PaymentFailed';
 import { ContractSigning } from './Steps/ContractSigning';
 import { Success } from './Steps/Success';
 
 export function TimSubscriptionPlan() {
   const currentStep = useTimPlanStore(state => state.currentStep);
+  const { data: loggedUser } = useGetLoggedUser();
 
   const Steps = {
     0: <PlanSection />,
     1: <WhichNumber />,
-    2: <ConfirmRegistrationDetails />,
+    2: <ConfirmRegistrationDetails loggedUser={loggedUser} />,
     3: <ConfirmPaymentsDetails />,
-    4: <ProcessingPayment />,
-    5: <PaymentFailed />,
-    6: <ContractSigning />,
-    7: <Success />,
+    4: <ContractSigning loggedUser={loggedUser} />,
+    5: <Success />,
   };
 
   const component = Steps[currentStep];

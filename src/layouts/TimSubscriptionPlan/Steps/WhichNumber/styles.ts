@@ -79,12 +79,9 @@ export const Select = styled.select`
 `;
 
 export const Option = styled.option`
-  display: block;
-  outline: none;
-  padding: 1rem;
-  cursor: pointer;
-  &:not(:first-of-type) {
+  &[value='none'] {
     color: ${({ theme }) => theme.colors.gray[700]};
+    background-color: ${({ theme }) => theme.colors.lightsteelblueice};
   }
 `;
 

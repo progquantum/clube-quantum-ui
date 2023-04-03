@@ -1,17 +1,69 @@
-import { useState } from 'react';
+import { useCallback, useRef, useState } from 'react';
+
+import { Form } from '@unform/web';
+
+import { FormHandles, SubmitHandler } from '@unform/core';
 
 import { useTimPlanStore } from 'store/tim';
 
+import { useCheckPhoneCode } from 'hooks/useCheckPhoneCode';
+
+import { error } from 'helpers/notify/error';
+
+import { PinCodeGrid } from 'components/PinCodeGrid';
+
+import { success } from 'helpers/notify/success';
+
+import { useSendPhoneCode } from 'hooks/useSendPhoneCode';
+
+import { formatPhoneNumber } from 'utils/formatters/formatPhoneNumber';
+
 import * as S from './styles';
+import { PinCodeValue } from './types';
 
 export function PinCode() {
-  const setPinCode = useTimPlanStore(state => state.setPinCode);
-  const [currentCell, setCurrentCell] = useState(0);
+  const phoneNumber = useTimPlanStore(state => state.phoneNumber);
+  const setPinCodeStore = useTimPlanStore(state => state.setPinCode);
+  const nextStep = useTimPlanStore(state => state.nextStep);
+  const { mutate: validateCode } = useCheckPhoneCode();
+  const formRef = useRef<FormHandles>(null);
+  const [pinCode, setPinCode] = useState<Array<string>>(new Array(6).fill(''));
+  const { mutate: requestSendPhoneCode } = useSendPhoneCode();
 
-  const validatePinCode = (pinCode: number | string) => {
-    if (!Number.isNaN(pinCode)) {
-      setPinCode(String(pinCode));
-    }
+  const handlePinChange = (pinEntry: string, index: number) => {
+    const pinsCode = [...pinCode];
+    pinsCode[index] = pinEntry ?? '';
+    setPinCode(pinsCode);
+    setPinCodeStore(pinsCode.join(''));
+  };
+
+  const handleCheckPinCode: SubmitHandler<PinCodeValue> = useCallback(() => {
+    const phone = '55'.concat(phoneNumber);
+    validateCode(
+      { phone, code: pinCode.join('') },
+      {
+        onSuccess: () => {
+          nextStep();
+          setPinCodeStore('');
+          success('Número validado com sucesso');
+        },
+        onError: () => {
+          error('Código inválido');
+        },
+      },
+    );
+  }, [pinCode, phoneNumber]);
+
+  const handleSendAnotherCode = () => {
+    const phone = '55'.concat(phoneNumber);
+    requestSendPhoneCode(
+      { phone },
+      {
+        onSuccess: () => {
+          success(`Código enviado novamente para o número ${phoneNumber}`);
+        },
+      },
+    );
   };
 
   return (
@@ -20,64 +72,25 @@ export function PinCode() {
         Para continuar, insira o código de 6 dígitos enviado por SMS para o
         número que você digitou
       </S.PinCodeText>
-      <S.PinCodeGrid>
-        <S.PinCodeCell
-          type="text"
-          maxLength={1}
-          inputMode="numeric"
-          pattern="\d*"
-          onBlur={e => validatePinCode(e.target.value)}
-          onChange={() => setCurrentCell(1)}
+      <Form
+        ref={formRef}
+        onSubmit={handleCheckPinCode}
+        className="form"
+        id="pin-form"
+      >
+        <PinCodeGrid
+          pinCode={pinCode}
+          onPinChange={handlePinChange}
+          pinLength={6}
         />
-        <S.PinCodeCell
-          type="text"
-          maxLength={1}
-          inputMode="numeric"
-          pattern="\d*"
-          onBlur={e => validatePinCode(e.target.value)}
-          onChange={() => setCurrentCell(2)}
-          {...(currentCell === 1 && 'autoFocus')}
-        />
-        <S.PinCodeCell
-          type="text"
-          maxLength={1}
-          inputMode="numeric"
-          pattern="\d*"
-          onBlur={e => validatePinCode(e.target.value)}
-          onChange={() => setCurrentCell(3)}
-          {...(currentCell === 2 && 'autoFocus')}
-        />
-        <S.PinCodeCell
-          type="text"
-          maxLength={1}
-          inputMode="numeric"
-          pattern="\d*"
-          onBlur={e => validatePinCode(e.target.value)}
-          onChange={() => setCurrentCell(4)}
-          {...(currentCell === 3 && 'autoFocus')}
-        />
-        <S.PinCodeCell
-          type="text"
-          maxLength={1}
-          inputMode="numeric"
-          pattern="\d*"
-          onBlur={e => validatePinCode(e.target.value)}
-          onChange={() => setCurrentCell(5)}
-          {...(currentCell === 4 && 'autoFocus')}
-        />
-        <S.PinCodeCell
-          type="text"
-          maxLength={1}
-          inputMode="numeric"
-          pattern="\d*"
-          onBlur={e => validatePinCode(e.target.value)}
-          {...(currentCell === 5 && 'autoFocus')}
-        />
-      </S.PinCodeGrid>
+      </Form>
       <S.PinCodeNotReceived>Não recebeu?</S.PinCodeNotReceived>
       <S.PinCodeSpan>
-        Clique aqui para <S.Bold>receber outro código</S.Bold> ou{' '}
-        <S.Bold>digite outro número.</S.Bold>
+        Clique aqui para{' '}
+        <S.ButtonPinCode onClick={handleSendAnotherCode}>
+          receber outro código
+        </S.ButtonPinCode>{' '}
+        ou <S.Bold>digite outro número.</S.Bold>
       </S.PinCodeSpan>
     </S.PinCodeContainer>
   );
