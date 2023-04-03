@@ -2,7 +2,7 @@ import { useTimPlanStore } from 'store/tim';
 
 import * as S from './styles';
 
-export function ContractSigning() {
+export function ContractSigning({ loggedUser }) {
   const nextStep = useTimPlanStore(state => state.nextStep);
 
   return (
@@ -13,7 +13,7 @@ export function ContractSigning() {
       </S.ShowContractBtn>
       <S.ContractFile>Contrato_de_prestação_de_serviços.docx</S.ContractFile>
       <S.ContractorName>
-        Rafael Gael Caio Teixeira: <S.YellowText>Pendente</S.YellowText>
+        {loggedUser.name}: <S.YellowText>Pendente</S.YellowText>
       </S.ContractorName>
     </S.ContractSigningContainer>
   );

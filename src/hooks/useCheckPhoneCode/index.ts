@@ -9,7 +9,6 @@ export async function checkPhoneCodeRequest(
   checkPhoneCode: CheckPhoneCodeRequest,
 ) {
   try {
-    console.log(checkPhoneCode);
     await quantumClientBase.put<unknown>('/phones/check-code', checkPhoneCode);
   } catch (err) {
     if (err.message === 'Invalid code') error('Código inválido!');

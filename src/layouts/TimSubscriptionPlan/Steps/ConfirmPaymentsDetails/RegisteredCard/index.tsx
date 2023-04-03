@@ -1,14 +1,17 @@
 import { useGetLoggedUser } from 'hooks/useGetLoggedUser';
-import { useWallet } from 'hooks/useWallet';
 import { FieldInfo } from 'layouts/TimSubscriptionPlan/Components/FieldInfo';
+import { formatCVV } from 'utils/formatters/formatCVV';
 
 import { GenericCard } from '../../ConfirmRegistrationDetails/GenericCard';
 import * as S from './styles';
+import { RegisteredCardProps } from './types';
 
-export function RegisteredCard() {
+export function RegisteredCard({
+  cvvValue,
+  getCVV,
+  paymentInfo,
+}: RegisteredCardProps) {
   const { data: loggedUser } = useGetLoggedUser();
-  const { data: paymentInfo } = useWallet();
-
   return (
     <GenericCard title="Seu cartão cadastrado">
       <FieldInfo>
@@ -21,7 +24,11 @@ export function RegisteredCard() {
       </FieldInfo>
       <FieldInfo>
         <span>Confirme o CVV</span>
-        <S.InputCVV type="text" />
+        <S.InputCVV
+          type="text"
+          value={cvvValue ?? cvvValue}
+          onChange={e => getCVV(formatCVV(e.target.value))}
+        />
       </FieldInfo>
       <FieldInfo>
         <span>Validade</span>

@@ -6,6 +6,7 @@ export type TimPlanStore = {
   currentStep: number;
   nextStep: () => void;
   previousStep: () => void;
+  setStep: (step: number) => void;
   whichPath: 'pathOne' | 'pathTwo' | 'default';
   setPath: (path: string) => void;
   selectedDDD: string;
@@ -14,6 +15,4 @@ export type TimPlanStore = {
   setPhoneNumber: (phone: string) => void;
   pinCode: string;
   setPinCode: (pinCode: string) => void;
-  isPaymentFailed: boolean;
-  setPaymentToggle: () => void;
 };

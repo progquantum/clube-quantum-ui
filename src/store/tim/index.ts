@@ -19,6 +19,7 @@ export const useTimPlanStore = create<TimPlanStore>(set => ({
       currentStep: Math.min(7, state.currentStep + 1),
     })),
   previousStep: () => set(state => ({ currentStep: state.currentStep - 1 })),
+  setStep: (step: number) => set(() => ({ currentStep: step })),
   whichPath: 'default',
   setPath: (path: 'pathOne' | 'pathTwo' | 'default') => {
     set(() => ({ whichPath: path }));
@@ -35,7 +36,4 @@ export const useTimPlanStore = create<TimPlanStore>(set => ({
       pinCode,
     }));
   },
-  isPaymentFailed: false,
-  setPaymentToggle: () =>
-    set(state => ({ isPaymentFailed: !state.isPaymentFailed })),
 }));

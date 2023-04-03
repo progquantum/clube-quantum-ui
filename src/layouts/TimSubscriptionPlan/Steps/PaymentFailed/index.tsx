@@ -2,9 +2,11 @@ import Image from 'next/legacy/image';
 
 import { PlanSectionTitle } from 'layouts/TimSubscriptionPlan/Components/PlanSectionTitle';
 
+import { FlowButton } from 'layouts/TimSubscriptionPlan/Components/FlowButton';
+
 import * as S from './styles';
 
-export function PaymentFailed() {
+export function PaymentFailed({ reset }: { reset: () => void }) {
   return (
     <>
       <PlanSectionTitle variant="error">
@@ -21,6 +23,9 @@ export function PaymentFailed() {
           Houve um problema no pagamento da sua assinatura TIM, verifique seus
           dados de pagamento e tente novamente.
         </S.Title>
+        <FlowButton variant="primary_outline" onClick={reset}>
+          Voltar
+        </FlowButton>
       </S.PaymentFailedContainer>
     </>
   );

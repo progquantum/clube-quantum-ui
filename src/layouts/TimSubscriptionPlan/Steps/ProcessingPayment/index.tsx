@@ -1,19 +1,10 @@
 import Image from 'next/legacy/image';
-import { useEffect } from 'react';
 
 import { PlanSectionTitle } from 'layouts/TimSubscriptionPlan/Components/PlanSectionTitle';
-
-import { useTimPlanStore } from 'store/tim';
 
 import * as S from './styles';
 
 export function ProcessingPayment() {
-  const nextStep = useTimPlanStore(state => state.nextStep);
-
-  useEffect(() => {
-    setTimeout(nextStep, 3000);
-  }, []);
-
   return (
     <>
       <PlanSectionTitle>Aguarde! Processando pagamento</PlanSectionTitle>
