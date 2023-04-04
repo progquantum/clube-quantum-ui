@@ -8,19 +8,13 @@ import EloIcon from 'components/Illustrations/Elo';
 import { MasterCardIcon } from 'components/Illustrations/MasterCard';
 import { VISAIcon } from 'components/Illustrations/Visa';
 
-import { useGetProductsOfPartnerById } from 'hooks/usePartners';
-
 import { formatPrice } from 'utils/formatters/formatPrice';
 
 import * as S from './styles';
 import { Props } from './types';
 
-export function PLan({ onNextStep }: Props) {
+export function PLan({ onNextStep, smart }: Props) {
   const { colors } = useTheme();
-
-  const { data: smart } = useGetProductsOfPartnerById(
-    'da1cee85-714a-4842-a1ec-c3506fbf8e2f',
-  );
 
   return (
     <S.Container>

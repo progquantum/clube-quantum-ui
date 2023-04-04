@@ -6,35 +6,58 @@ import { useTheme } from 'styled-components';
 
 import { useRef } from 'react';
 
+import { AxiosError } from 'axios';
+
 import { Button } from 'components/Button';
 
 import { Input } from 'components/Input';
 
 import { formatCVV } from 'utils/formatters/formatCVV';
 
-import { useGetProductsOfPartnerById } from 'hooks/usePartners';
-
 import { formatPrice } from 'utils/formatters/formatPrice';
 
+import { usePostSubscriptionMarketplace } from 'hooks/useSubscriptionMarketplace';
 import { useMeOrderingData } from 'hooks/user/useOrderingData';
 
 import { useWallet } from 'hooks/useWallet';
 
+import { information } from 'helpers/notify/information';
+
 import * as S from './styles';
 import { Props } from './types';
 
-export function ConfirmPayment({ onNextStep, onPreviousStep }: Props) {
+export function ConfirmPayment({ onNextStep, onPreviousStep, smart }: Props) {
   const { colors } = useTheme();
+  const { mutate: subscribeMarketplace } = usePostSubscriptionMarketplace();
 
   const formRef = useRef<FormHandles>(null);
 
   const handleSubmitCVV: SubmitHandler = async data => {
-    onNextStep();
+    subscribeMarketplace(
+      {
+        partner_product: {
+          partner_product_id: smart.productList[0].id,
+        },
+        cvc: data.cvc,
+      },
+      {
+        onSuccess: () => {
+          onNextStep();
+        },
+        onError: (error: unknown) => {
+          if (error instanceof AxiosError) {
+            if (
+              error.response.data.message ===
+              'This user already has a subscription to this plan'
+            ) {
+              information('Você já tem um plano POS cadastrado');
+              window.location.reload();
+            }
+          }
+        },
+      },
+    );
   };
-
-  const { data: smart } = useGetProductsOfPartnerById(
-    'da1cee85-714a-4842-a1ec-c3506fbf8e2f',
-  );
 
   const { data: OrderingData } = useMeOrderingData();
 
