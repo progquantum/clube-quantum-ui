@@ -1,15 +1,11 @@
 import { Button } from 'components/Button';
-import { useGetProductsOfPartnerById } from 'hooks/usePartners';
 
 import { formatPrice } from 'utils/formatters/formatPrice';
 
 import { Props } from './types';
 import * as S from './styles';
 
-export function CardBefore({ onNextStep, onPreviousStep }: Props) {
-  const { data: smart } = useGetProductsOfPartnerById(
-    'da1cee85-714a-4842-a1ec-c3506fbf8e2f',
-  );
+export function CardBefore({ onNextStep, onPreviousStep, smart }: Props) {
   return (
     <S.Container>
       <S.ContentTitle>

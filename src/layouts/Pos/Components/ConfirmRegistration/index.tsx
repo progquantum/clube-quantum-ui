@@ -7,19 +7,17 @@ import { Button } from 'components/Button';
 
 import { useMeOrderingData } from 'hooks/user/useOrderingData';
 
-import { useGetProductsOfPartnerById } from 'hooks/usePartners';
-
 import { formatPrice } from 'utils/formatters/formatPrice';
 
 import { Props } from './types';
 import * as S from './styles';
 
-export function ConfirmRegistration({ onNextStep, onPreviousStep }: Props) {
+export function ConfirmRegistration({
+  onNextStep,
+  onPreviousStep,
+  smart,
+}: Props) {
   const { colors } = useTheme();
-
-  const { data: smart } = useGetProductsOfPartnerById(
-    'da1cee85-714a-4842-a1ec-c3506fbf8e2f',
-  );
 
   const { data: OrderingData } = useMeOrderingData();
 
