@@ -7,12 +7,11 @@ export const ContainerInput = styled.div<StyledContainerProps>`
   color: ${({ theme }) => theme.colors.input.text};
   border: 2px solid ${({ theme }) => theme.colors.input.background[1]};
   border-radius: 50px;
-  margin: 1rem 2rem;
   width: 30rem;
+  height: 100%;
 
-  @media (max-width: 700px) {
+  @media (max-width: 920px) {
     width: 100%;
-    margin: 1rem 0;
   }
   ${({ isFocused, theme }) =>
     isFocused &&
@@ -42,7 +41,7 @@ export const ContainerInput = styled.div<StyledContainerProps>`
 export const Input = styled.input<InputProps>`
   background: transparent;
   border: none;
-  padding: 0 2rem;
+  padding: 0.8rem 2rem;
   width: 100%;
 `;
 

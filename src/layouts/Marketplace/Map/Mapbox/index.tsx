@@ -36,7 +36,11 @@ export function Mapbox({ lat, lng }: MapboxProps) {
       <div className="sidebar">
         Longitude: {currentLng} | Latitude: {currentLat} | Zoom: {zoom}
       </div>
-      <div ref={mapContainer} className="map-container" />
+      <div
+        ref={mapContainer}
+        className="map-container"
+        style={{ width: '100%' }}
+      />
     </div>
   );
 }
