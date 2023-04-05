@@ -1,5 +1,6 @@
 /* eslint-disable jsx-a11y/label-has-associated-control */
-import { ChangeEvent, useCallback, useRef } from 'react';
+import { ChangeEvent, useCallback, useEffect, useRef } from 'react';
+import dayjs from 'dayjs';
 import { BsCircle, BsFillCheckCircleFill } from 'react-icons/bs';
 import { AiOutlineClose } from 'react-icons/ai';
 import { Form } from '@unform/web';
@@ -23,6 +24,10 @@ import { usePartnerStore } from 'store/partner-registration';
 import { performSchemaValidation } from 'utils/performSchemaValidation';
 
 import { DASHBOARD_PAGE } from 'constants/routesPath';
+
+import { usePosSubscriptions } from 'hooks/user/usePosSubscriptions';
+
+import { useEstablishmentAllCategories } from 'hooks/useEstablishmentAllCategories';
 
 import { schema } from './schemas';
 import * as S from './styles';
@@ -94,20 +99,41 @@ export function InfoEstablishment() {
     if (!allowedImageFormats) return error('Arquivo não suportado');
   };
 
-  const options = [
-    {
-      value: 'João de Paula',
-      label: 'João de Paula Advogacia LTDA. - 00.000.000/0001-00',
-    },
-    {
-      value: 'João Augusto de Lima',
-      label: 'João Augusto de Lima - 000.000.000-00',
-    },
-    {
-      value: 'João da Costa Pereira',
-      label: 'João da Costa Pereira - 000.000.000-00',
-    },
-  ];
+  const { data } = usePosSubscriptions({ name: '' });
+
+  const options = data?.map(subscription => {
+    const { legal_person, individual_person } = subscription;
+    const value = legal_person?.company_name || individual_person?.name;
+    const label = legal_person
+      ? `${legal_person.company_name} - ${legal_person.cnpj}`
+      : `${individual_person.name} - ${individual_person.cpf}`;
+
+    return { value, label };
+  });
+
+  const { data: userSelect } = usePosSubscriptions({ name: user });
+
+  useEffect(() => {
+    if (userSelect && userSelect.length > 0 && userSelect[0].phone) {
+      setPhoneNumber1(userSelect[0].phone);
+    }
+  }, [userSelect]);
+
+  const ClearUser = () => {
+    setUser('');
+    setPhoneNumber1('');
+  };
+
+  const { data: categories } = useEstablishmentAllCategories();
+
+  const AllCategories = categories?.map(categorie => {
+    const value = categorie.id;
+    const label = categorie.name;
+
+    return { value, label };
+  });
+
+  console.log(categories);
 
   const handleSubmit: SubmitHandler = useCallback(data => {
     performSchemaValidation({
@@ -169,19 +195,27 @@ export function InfoEstablishment() {
           <S.SelectUser>
             <S.UserData>
               <S.UserName>{user}</S.UserName>
-              <S.Text500>CPF: 981.238.109-25</S.Text500>
+              <S.Text500>
+                {userSelect?.[0]?.legal_person ? 'CNPJ: ' : 'CPF: '}
+                {userSelect?.[0]?.legal_person
+                  ? userSelect?.[0]?.legal_person.cnpj
+                  : userSelect?.[0]?.individual_person.cpf}
+              </S.Text500>
             </S.UserData>
             <S.UserStatus>
               <S.Status>Ativo</S.Status>
               <S.UserDataSince>
                 <S.Text500>Usuário desde</S.Text500>
-                <S.Text600>20/02/2020</S.Text600>
+                <S.Text600>
+                  {' '}
+                  {dayjs(userSelect?.[0]?.created_at).format('DD/MM/YYYY')}
+                </S.Text600>
               </S.UserDataSince>
               <AiOutlineClose
                 style={{ cursor: 'pointer' }}
                 size={20}
                 color={colors.danger}
-                onClick={() => setUser('')}
+                onClick={ClearUser}
               />
             </S.UserStatus>
           </S.SelectUser>
@@ -202,7 +236,7 @@ export function InfoEstablishment() {
               name="phone"
               placeholder="(00) 0 0000-0000"
               label="Telefone celular"
-              defaultValue={phoneNumber1 || ''}
+              value={phoneNumber1}
               onChange={e => {
                 setPhoneNumber1(e.target.value);
                 formRef.current.setFieldValue(
@@ -261,13 +295,7 @@ export function InfoEstablishment() {
               placeholder="Escolha uma opção"
               defaultValue={categoryValue || ''}
               onChange={e => setCategoryValue(e.target.value)}
-              options={[
-                {
-                  value: 'Loja de Eletronicos',
-                  label: 'Loja de Eletronicos',
-                },
-                { value: 'Comercio', label: 'Comercio' },
-              ]}
+              options={AllCategories}
             />
             <Input
               type="text"
