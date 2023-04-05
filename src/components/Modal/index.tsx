@@ -12,7 +12,11 @@ import {
 import { ModalProps } from './types';
 import * as S from './styles';
 
-export function Modal({ children, onClose }: PropsWithChildren<ModalProps>) {
+export function Modal({
+  children,
+  onClose,
+  noDragBehavior,
+}: PropsWithChildren<ModalProps>) {
   const modalRef = useRef<HTMLDivElement>(null);
 
   const { start } = useAnimation();
@@ -36,6 +40,34 @@ export function Modal({ children, onClose }: PropsWithChildren<ModalProps>) {
     } else {
       start({ y: 0, transition: DEFAULT_TRANSITION });
     }
+  }
+
+  if (noDragBehavior) {
+    return (
+      <AnimatePresence>
+        <S.AnimatedContainer
+          variants={MODAL_ANIMATION}
+          initial="visible"
+          animate="animate"
+          exit="hidden"
+          transition={DEFAULT_TRANSITION}
+          key="modal"
+        >
+          <>
+            <S.CloseButton
+              type="button"
+              onClick={onClose}
+              title="Fechar Modal"
+              aria-label="Fechar Modal"
+            >
+              <RiCloseLine size={24} />
+            </S.CloseButton>
+            {children}
+          </>
+        </S.AnimatedContainer>
+        <S.AnimatedModalOverlay onClick={onClose} />
+      </AnimatePresence>
+    );
   }
 
   return (

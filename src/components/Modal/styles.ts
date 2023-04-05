@@ -7,8 +7,8 @@ export const AnimatedContainer = styled(motion.div)`
   z-index: 99999;
   background-color: ${({ theme }) => theme.colors.background};
   width: 100%;
-  max-width: 33rem;
-  height: fit-content;
+  max-width: 50rem;
+  height: max-content;
   margin: auto auto;
   padding: 2rem;
   border-radius: 1rem;

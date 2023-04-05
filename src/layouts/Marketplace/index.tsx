@@ -6,11 +6,10 @@ import { CenterLayout } from 'components/CenterLayout';
 
 import { HeroLayout } from 'components/HeroLayout';
 
-import { FilterTags } from './FilterTags';
+import { Footer } from 'components/Footer';
+
 import { AccountCard } from './Components/AccountCard';
 import { ShowOffers } from './Components/ShowOffers';
-import { LastVisitedStores } from './LastVisitedStores';
-import { Map } from './Map';
 import { Services } from './Services';
 import { Stores } from './Stores';
 
@@ -40,10 +39,8 @@ export function Marketplace() {
       <CenterLayout>
         <Services />
         <Stores />
-        <LastVisitedStores />
-        <FilterTags />
-        <Map />
       </CenterLayout>
+      <Footer />
     </>
   );
 }

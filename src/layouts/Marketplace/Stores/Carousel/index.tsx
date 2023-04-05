@@ -31,7 +31,7 @@ export function Carousel({ slides }: CarouselProps) {
     <S.CarouselContainer>
       <S.Slides ref={carouselRef}>
         {slides.map((item: string, index: number) => (
-          <S.Slide>
+          <S.Slide key={item.concat(String(index))}>
             <Image
               src={item}
               alt={`carousel item number ${index + 1}`}
