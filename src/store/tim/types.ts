@@ -15,4 +15,6 @@ export type TimPlanStore = {
   setPhoneNumber: (phone: string) => void;
   pinCode: string;
   setPinCode: (pinCode: string) => void;
+  isPortability: boolean;
+  setIsPortability: (isPortability: boolean) => void;
 };

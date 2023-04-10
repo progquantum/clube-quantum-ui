@@ -15,6 +15,7 @@ export function PathTwo() {
   const selectedDDD = useTimPlanStore(state => state.selectedDDD);
   const setDDD = useTimPlanStore(state => state.setDDD);
   const setPhoneNumber = useTimPlanStore(state => state.setPhoneNumber);
+  const setIsPortability = useTimPlanStore(state => state.setIsPortability);
   const selectedPlan = useTimPlanStore(state => state.selectedPlan);
   const setPath = useTimPlanStore(state => state.setPath);
   const phoneNumber = useTimPlanStore(state => state.phoneNumber);
@@ -38,6 +39,11 @@ export function PathTwo() {
     setPath('default');
     setDDD('');
     setPhoneNumber('');
+  };
+
+  const handleNextStep = () => {
+    setIsPortability(true);
+    nextStep();
   };
 
   return (
@@ -123,7 +129,7 @@ export function PathTwo() {
         </FlowButton>
         <FlowButton
           variant={!hasPhoneNumber ? 'disabled' : 'primary'}
-          onClick={!hasDDD ? null : nextStep}
+          onClick={!hasDDD ? null : handleNextStep}
         >
           Seguir
         </FlowButton>

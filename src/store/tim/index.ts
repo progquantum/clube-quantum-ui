@@ -36,4 +36,6 @@ export const useTimPlanStore = create<TimPlanStore>(set => ({
       pinCode,
     }));
   },
+  isPortability: false,
+  setIsPortability: (isPortability: boolean) => set(() => ({ isPortability })),
 }));

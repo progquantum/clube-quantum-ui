@@ -16,14 +16,13 @@ import { success } from 'helpers/notify/success';
 
 import { useSendPhoneCode } from 'hooks/useSendPhoneCode';
 
-import { formatPhoneNumber } from 'utils/formatters/formatPhoneNumber';
-
 import * as S from './styles';
 import { PinCodeValue } from './types';
 
 export function PinCode() {
   const phoneNumber = useTimPlanStore(state => state.phoneNumber);
   const setPinCodeStore = useTimPlanStore(state => state.setPinCode);
+  const setIsPortability = useTimPlanStore(state => state.setIsPortability);
   const nextStep = useTimPlanStore(state => state.nextStep);
   const { mutate: validateCode } = useCheckPhoneCode();
   const formRef = useRef<FormHandles>(null);
@@ -43,6 +42,7 @@ export function PinCode() {
       { phone, code: pinCode.join('') },
       {
         onSuccess: () => {
+          setIsPortability(false);
           nextStep();
           setPinCodeStore('');
           success('Número validado com sucesso');
