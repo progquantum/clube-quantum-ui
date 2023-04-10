@@ -2,6 +2,8 @@ import { useState } from 'react';
 
 import { AxiosError } from 'axios';
 
+import { useRouter } from 'next/router';
+
 import { FlowButton } from 'layouts/TimSubscriptionPlan/Components/FlowButton';
 import { PlanSectionTitle } from 'layouts/TimSubscriptionPlan/Components/PlanSectionTitle';
 import { SelectedPlan } from 'layouts/TimSubscriptionPlan/Components/SelectedPlan';
@@ -23,6 +25,7 @@ export function ConfirmPaymentsDetails() {
   const nextStep = useTimPlanStore(state => state.nextStep);
   const selectedPlan = useTimPlanStore(state => state.selectedPlan);
   const [cvvValue, setCVVValue] = useState('');
+  const router = useRouter();
 
   const {
     mutate: subscribeMarketplace,
@@ -56,6 +59,14 @@ export function ConfirmPaymentsDetails() {
           ) {
             information('Você já tem um plano TIM cadastrado');
             window.location.reload();
+          }
+
+          if (
+            error.response.data.message ===
+            'This user does not have a subscription'
+          ) {
+            information('É necessário aderir à um plano Quantum');
+            router.push('/subscriptions');
           }
         }
       },
