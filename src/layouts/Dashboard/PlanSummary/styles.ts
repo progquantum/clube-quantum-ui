@@ -34,7 +34,7 @@ export const PlanHeaderBox = styled.div`
 `;
 
 export const PlanHeaderOutline = styled.div`
-  font-size: 0.9rem;
+  font-size: 0.7688rem;
   padding: 0.8rem;
   font-weight: 600;
   border-radius: 0.5rem;
@@ -45,6 +45,13 @@ export const PlanHeaderOutline = styled.div`
   -webkit-background-clip: text;
   background-clip: text;
   -webkit-text-fill-color: transparent;
+  @media (max-width: 780px) {
+    font-size: 14px;
+  }
+
+  @media (max-width: 480px) {
+    font-size: 12px;
+  }
 `;
 
 export const PlanCheckMark = styled.div`
