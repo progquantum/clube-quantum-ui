@@ -74,3 +74,11 @@ export type ZipCode = {
   street: string;
   country: string;
 };
+
+export type TokenPayload = {
+  sub: string;
+  user_type: string;
+  user_role: string;
+  iat: number;
+  exp: number;
+};
