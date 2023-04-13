@@ -32,3 +32,7 @@ export const MARKETPLACE_PAGE = '/marketplace';
 export const STORE_DETAILS_PAGE = '/store-details';
 export const POS_PAGE = '/pos';
 export const PLAN_TIM_PAGE = '/plano-tim';
+
+export const DASHBOARD_ADM_PAGE = '/dashboard-adm';
+export const PARTNER_REGISTRATION_PAGE = '/partner-registration';
+export const MANAGE_BANNER_PAGE = '/manage-banner';
