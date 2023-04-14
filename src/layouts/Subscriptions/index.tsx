@@ -5,7 +5,7 @@ import { Error } from 'components/Error';
 import { Footer } from 'components/Footer';
 import { Plans } from 'components/Plans';
 
-import { useMe } from 'hooks/user/useMe';
+import { useMe } from 'hooks/me/useMe';
 
 import { HeaderAuth } from 'components/Header/HeaderAuth';
 

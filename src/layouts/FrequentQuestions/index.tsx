@@ -4,7 +4,7 @@ import { useState } from 'react';
 import { MdKeyboardArrowDown, MdKeyboardArrowUp } from 'react-icons/md';
 import { BsHeadphones } from 'react-icons/bs';
 
-import { useMe } from 'hooks/user/useMe';
+import { useMe } from 'hooks/me/useMe';
 
 import { ToolTipContact } from 'components/ToolTipContact';
 import { HeaderGuest } from 'components/Header/HeaderGuest';

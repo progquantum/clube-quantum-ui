@@ -7,9 +7,9 @@ import { PlanSectionTitle } from 'layouts/TimSubscriptionPlan/Components/PlanSec
 import { SelectedPlan } from 'layouts/TimSubscriptionPlan/Components/SelectedPlan';
 import { useTimPlanStore } from 'store/tim';
 
-import { usePostSubscriptionMarketplace } from 'hooks/useSubscriptionMarketplace';
+import { usePostSubscriptionMarketplace } from 'hooks/subscriptions/useSubscriptionMarketplace';
 
-import { useWallet } from 'hooks/useWallet';
+import { useWallet } from 'hooks/me/useWallet';
 
 import { information } from 'helpers/notify/information';
 

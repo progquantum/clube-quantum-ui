@@ -9,7 +9,7 @@ import { useShare } from 'hooks/useShare';
 
 import { SUBSCRIPTIONS_PAGE } from 'constants/routesPath';
 
-import { useMe } from 'hooks/user/useMe';
+import { useMe } from 'hooks/me/useMe';
 
 import { HeaderAuth } from 'components/Header/HeaderAuth';
 

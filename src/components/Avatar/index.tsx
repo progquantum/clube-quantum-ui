@@ -1,6 +1,6 @@
 import { Suspense } from 'react';
 
-import { useUserProfile } from 'hooks/user/useUserProfile';
+import { useUserProfile } from 'hooks/me/useUserProfile';
 
 import { getUserImagePlaceholder } from './utils';
 import { AvatarProps } from './types';

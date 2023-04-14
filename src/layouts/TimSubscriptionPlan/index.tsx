@@ -12,7 +12,7 @@ import { useTimPlanStore } from 'store/tim';
 
 import { Footer } from 'components/Footer';
 
-import { useGetLoggedUser } from 'hooks/useGetLoggedUser';
+import { useGetLoggedUser } from 'hooks/me/useGetLoggedUser';
 
 import * as S from './styles';
 import { PlanSection } from './Steps/PlanSection';

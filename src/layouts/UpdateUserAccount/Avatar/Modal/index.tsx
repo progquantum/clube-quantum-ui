@@ -3,7 +3,7 @@ import { ChangeEvent, FormEvent, useState } from 'react';
 import { useQueryClient } from 'react-query';
 import { RiImageAddLine } from 'react-icons/ri';
 
-import { QUERY_KEY_PROFILE } from 'hooks/user/useUserProfile';
+import { QUERY_KEY_PROFILE } from 'hooks/me/useUserProfile';
 import { useUpdateUserAvatar } from 'hooks/user/useUpdateUserAvatar';
 import { error } from 'helpers/notify/error';
 import { success } from 'helpers/notify/success';

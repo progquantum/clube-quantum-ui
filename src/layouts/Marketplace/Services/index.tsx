@@ -1,7 +1,7 @@
 import Image from 'next/legacy/image';
 import Link from 'next/link';
 
-import { usePartnersList } from 'hooks/usePartnersList';
+import { usePartnersList } from 'hooks/partners/usePartnersList';
 
 import { SectionTitle } from '../Components/SectionTitle';
 

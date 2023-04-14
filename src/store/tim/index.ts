@@ -1,6 +1,6 @@
 import { create } from 'zustand';
 
-import { Plan } from 'hooks/usePartners/types';
+import { Plan } from 'hooks/partners/usePartners/types';
 
 import { TimPlanStore } from './types';
 
