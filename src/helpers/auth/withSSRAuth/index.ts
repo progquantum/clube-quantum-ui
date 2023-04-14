@@ -1,3 +1,4 @@
+import decode from 'jwt-decode';
 import {
   GetServerSideProps,
   GetServerSidePropsContext,
@@ -10,8 +11,18 @@ import {
   REFRESH_TOKEN_STORAGE_KEY,
 } from 'constants/storage';
 import { SIGN_IN_PAGE } from 'constants/routesPath';
+import { TokenPayload } from 'shared/types/apiSchema';
 
-export function withSSRAuth<P>(fn: GetServerSideProps<P>) {
+import { validateUserPermissions } from '../validateUserPermissions';
+
+interface WithSSRAuthOptions {
+  roles: string[];
+}
+
+export function withSSRAuth<P>(
+  fn: GetServerSideProps<P>,
+  options?: WithSSRAuthOptions,
+) {
   return async (
     ctx: GetServerSidePropsContext,
   ): Promise<GetServerSidePropsResult<P>> => {
@@ -26,6 +37,24 @@ export function withSSRAuth<P>(fn: GetServerSideProps<P>) {
           permanent: false,
         },
       };
+    }
+
+    if (options) {
+      const { user_role } = decode<TokenPayload>(token);
+      const { roles } = options;
+      const userHasPermissions = validateUserPermissions({
+        user: user_role,
+        roles,
+      });
+
+      if (!userHasPermissions) {
+        return {
+          redirect: {
+            destination: SIGN_IN_PAGE,
+            permanent: false,
+          },
+        };
+      }
     }
 
     try {
