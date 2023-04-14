@@ -8,10 +8,20 @@ import { colors } from 'styles/theme/colors';
 
 import { Button } from 'components/Button';
 
+import { useGetLoggedUser } from 'hooks/useGetLoggedUser';
+
+import { formatDate } from 'utils/formatters/formatDate';
+
 import { Props } from './types';
 import * as S from './styles';
 
-export function ModalContract({ onRequestClose, onRequestModalCancel }: Props) {
+export function ModalContract({
+  onRequestClose,
+  onRequestModalCancel,
+  contract,
+}: Props) {
+  const { data: loggedUser } = useGetLoggedUser();
+
   const handleOpenModalCancel = () => {
     onRequestClose();
     onRequestModalCancel();
@@ -28,15 +38,15 @@ export function ModalContract({ onRequestClose, onRequestModalCancel }: Props) {
           <S.Text>ID - 09S8G12</S.Text>
           <S.ContentRow>
             <S.TextStrong>Nome</S.TextStrong>
-            <S.TextData>Rafael Gael Caio Teixeira</S.TextData>
+            <S.TextData>{loggedUser.name}</S.TextData>
           </S.ContentRow>
           <S.ContentRow>
             <S.TextStrong>Data de Nasc.</S.TextStrong>
-            <S.TextData>06/07/1981</S.TextData>
+            <S.TextData>{formatDate(loggedUser.birth_date)}</S.TextData>
           </S.ContentRow>
           <S.ContentRow>
             <S.TextStrong>E-mail</S.TextStrong>
-            <S.TextData>rafaelgaelteixeira@maptec.com.br</S.TextData>
+            <S.TextData>{loggedUser.email}</S.TextData>
           </S.ContentRow>
         </S.Column>
         <S.Column>
