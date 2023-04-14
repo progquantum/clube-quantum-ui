@@ -97,12 +97,12 @@ export function AuthProvider({ children }: PropsWithChildren<unknown>) {
 
             quantumClientQueue.defaults.headers.common.Authorization = `Bearer ${token}`;
 
-            if (previousPage) {
+            if (previousPage !== null) {
               router.push(previousPage);
               setPreviousPage(null);
+            } else {
+              authRedirect(user_role);
             }
-
-            authRedirect(user_role);
           },
         },
       );
