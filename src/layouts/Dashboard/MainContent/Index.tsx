@@ -2,8 +2,8 @@ import Link from 'next/link';
 
 import { FaShoppingBag } from 'react-icons/fa';
 
-import { useBalances } from 'hooks/useBalances';
-import { useUnsubscribe } from 'hooks/useUnsubscribe';
+import { useBalances } from 'hooks/me/useBalances';
+import { useUnsubscribe } from 'hooks/subscriptions/useUnsubscribe';
 
 import { generateDeadline } from 'utils/generateDeadline';
 import { formatCashback } from 'utils/formatters/formatCashback';

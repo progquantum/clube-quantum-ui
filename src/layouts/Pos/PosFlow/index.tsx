@@ -1,6 +1,6 @@
 import { useState } from 'react';
 
-import { useGetProductsOfPartnerById } from 'hooks/usePartners';
+import { useGetProductsOfPartnerById } from 'hooks/partners/usePartners';
 
 import { CardBefore } from '../Components/CardBefore';
 import { ConfirmPayment } from '../Components/ConfirmPayment';

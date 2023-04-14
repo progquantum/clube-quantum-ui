@@ -14,7 +14,7 @@ import { Modal as ModalBankAccount } from 'components/Modal';
 import { formatBankAccount } from 'utils/formatters/formatBankAccount';
 import { performSchemaValidation } from 'utils/performSchemaValidation';
 import { useRegisterBankAccount } from 'hooks/useRegisterBankAccount';
-import { QUERY_KEY_WALLET } from 'hooks/useWallet';
+import { QUERY_KEY_WALLET } from 'hooks/me/useWallet';
 
 import {
   BankAccount,

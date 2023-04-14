@@ -1,7 +1,7 @@
 import Image from 'next/legacy/image';
 import { AiOutlineCheck } from 'react-icons/ai';
 
-import { Plan } from 'hooks/usePartners/types';
+import { Plan } from 'hooks/partners/usePartners/types';
 
 import { useTimPlanStore } from 'store/tim';
 

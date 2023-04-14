@@ -22,7 +22,7 @@ import { DASHBOARD_PAGE, SIGN_IN_PAGE } from 'constants/routesPath';
 import { quantumClientQueue } from 'config/client';
 import { logOut } from 'helpers/auth/logOut';
 
-import { getMe } from 'hooks/user/useMe';
+import { getMe } from 'hooks/me/useMe';
 
 import { authRedirect } from 'helpers/auth/authRedirect';
 

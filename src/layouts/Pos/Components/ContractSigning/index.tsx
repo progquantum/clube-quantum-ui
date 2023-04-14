@@ -1,4 +1,4 @@
-import { useMeOrderingData } from 'hooks/user/useOrderingData';
+import { useMeOrderingData } from 'hooks/me/useOrderingData';
 
 import * as S from './styles';
 import { Props } from './types';

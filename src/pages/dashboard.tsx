@@ -2,7 +2,7 @@ import { GetServerSideProps } from 'next';
 
 import { withSSRAuth } from 'helpers/auth/withSSRAuth';
 import { DashboardPage } from 'layouts/Dashboard';
-import { useMe } from 'hooks/user/useMe';
+import { useMe } from 'hooks/me/useMe';
 import { roles } from 'constants/roles';
 
 export const getServerSideProps: GetServerSideProps = withSSRAuth(

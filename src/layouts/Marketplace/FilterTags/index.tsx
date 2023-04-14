@@ -5,8 +5,8 @@ import { MdOutlineNavigateBefore, MdOutlineNavigateNext } from 'react-icons/md';
 
 import { useLayoutEffect, useRef, useState } from 'react';
 
-import { useGetFilterCategories } from 'hooks/useEstablishment/useGetCategories';
-import { Category } from 'hooks/useEstablishment/useGetCategories/types';
+import { useGetFilterCategories } from 'hooks/pos/useGetCategories';
+import { Category } from 'hooks/pos/useGetCategories/types';
 
 import { SectionTitle } from '../Components/SectionTitle';
 import * as S from './styles';
