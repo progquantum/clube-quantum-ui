@@ -18,6 +18,7 @@ import { MdPeopleAlt } from 'react-icons/md';
 import {
   DASHBOARD_ADM_PAGE,
   DASHBOARD_PAGE,
+  DASHBOARD_POS_PAGE,
   MANAGE_BANNER_PAGE,
   MANAGE_PAYMENT_PAGE,
   MY_CONTRACTS_PAGE,
@@ -102,7 +103,7 @@ export function SideBar({ loading }: SideBarProps) {
               <S.TitleBox>Meus Contratos</S.TitleBox>
             </S.NavButton>
           </Link>
-          <Link href="/">
+          <Link href={DASHBOARD_POS_PAGE}>
             <S.NavButton isExpanded={isExpanded}>
               <S.IconBox isExpanded={isExpanded}>
                 <FaShoppingBag />
