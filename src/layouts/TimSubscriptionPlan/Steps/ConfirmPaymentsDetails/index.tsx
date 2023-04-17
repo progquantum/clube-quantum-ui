@@ -22,6 +22,9 @@ import { PaymentFailed } from '../PaymentFailed';
 
 export function ConfirmPaymentsDetails() {
   const previousStep = useTimPlanStore(state => state.previousStep);
+  const isPortability = useTimPlanStore(state => state.isPortability);
+  const phoneNumber = useTimPlanStore(state => state.phoneNumber);
+  const selectedDDD = useTimPlanStore(state => state.selectedDDD);
   const nextStep = useTimPlanStore(state => state.nextStep);
   const selectedPlan = useTimPlanStore(state => state.selectedPlan);
   const [cvvValue, setCVVValue] = useState('');
@@ -46,7 +49,11 @@ export function ConfirmPaymentsDetails() {
         partner_product_id: selectedPlan.id,
       },
       cvc: cvvValue,
+      tim_number: phoneNumber,
+      area_code: selectedDDD,
+      is_portability: isPortability,
     };
+
     subscribeMarketplace(requestBody, {
       onSuccess: () => {
         nextStep();

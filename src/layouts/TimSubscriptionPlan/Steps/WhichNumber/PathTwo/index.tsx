@@ -14,14 +14,15 @@ import * as S from '../styles';
 export function PathTwo() {
   const selectedDDD = useTimPlanStore(state => state.selectedDDD);
   const setDDD = useTimPlanStore(state => state.setDDD);
+  const phoneNumber = useTimPlanStore(state => state.phoneNumber);
   const setPhoneNumber = useTimPlanStore(state => state.setPhoneNumber);
   const setIsPortability = useTimPlanStore(state => state.setIsPortability);
   const selectedPlan = useTimPlanStore(state => state.selectedPlan);
   const setPath = useTimPlanStore(state => state.setPath);
-  const phoneNumber = useTimPlanStore(state => state.phoneNumber);
+  const nextStep = useTimPlanStore(state => state.nextStep);
+
   const hasPhoneNumber = phoneNumber.length > 0;
   const hasDDD = !!selectedDDD;
-  const nextStep = useTimPlanStore(state => state.nextStep);
 
   const { data: listOfPhoneNumbers, isLoading } = useQuery(
     [QUERY_KEY_GET_TIM_NUMBERS, selectedDDD],

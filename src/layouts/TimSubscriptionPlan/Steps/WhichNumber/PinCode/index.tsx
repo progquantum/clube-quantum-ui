@@ -21,6 +21,7 @@ import { PinCodeValue } from './types';
 
 export function PinCode() {
   const phoneNumber = useTimPlanStore(state => state.phoneNumber);
+  const selectedDDD = useTimPlanStore(state => state.selectedDDD);
   const setPinCodeStore = useTimPlanStore(state => state.setPinCode);
   const setIsPortability = useTimPlanStore(state => state.setIsPortability);
   const nextStep = useTimPlanStore(state => state.nextStep);
@@ -37,7 +38,10 @@ export function PinCode() {
   };
 
   const handleCheckPinCode: SubmitHandler<PinCodeValue> = useCallback(() => {
-    const phone = '55'.concat(phoneNumber);
+    const phone = '55'
+      .concat(selectedDDD)
+      .concat(phoneNumber.replace(/ /g, ''));
+
     validateCode(
       { phone, code: pinCode.join('') },
       {
@@ -55,7 +59,7 @@ export function PinCode() {
   }, [pinCode, phoneNumber]);
 
   const handleSendAnotherCode = () => {
-    const phone = '55'.concat(phoneNumber);
+    const phone = '55'.concat(selectedDDD).concat(phoneNumber);
     requestSendPhoneCode(
       { phone },
       {
