@@ -5,7 +5,7 @@ import { useTheme } from 'styled-components';
 
 import { Button } from 'components/Button';
 
-import { useMeOrderingData } from 'hooks/user/useOrderingData';
+import { useMeOrderingData } from 'hooks/me/useOrderingData';
 
 import { formatPrice } from 'utils/formatters/formatPrice';
 

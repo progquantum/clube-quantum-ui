@@ -3,7 +3,7 @@ import { RiBankCard2Line, RiBankLine } from 'react-icons/ri';
 
 import { useRouter } from 'next/router';
 
-import { useSubscription } from 'hooks/useSubscription';
+import { useSubscription } from 'hooks/subscriptions/useSubscription';
 
 import { formatFirstLetterToUppercase } from 'utils/formatters/formatFirstLetterToUppercase';
 import { formatPrice } from 'utils/formatters/formatPrice';
@@ -18,7 +18,7 @@ import { error } from 'helpers/notify/error';
 
 import { DASHBOARD_PAGE } from 'constants/routesPath';
 
-import { useWallet } from 'hooks/useWallet';
+import { useWallet } from 'hooks/me/useWallet';
 
 import { ModalProps } from './types';
 import * as S from './styles';

@@ -19,7 +19,7 @@ import { Modal as ModalAddress } from 'components/Modal';
 
 import { Input } from 'components/Input';
 import { Button } from 'components/Button';
-import { QUERY_KEY_PROFILE, useUserProfile } from 'hooks/user/useUserProfile';
+import { QUERY_KEY_PROFILE, useUserProfile } from 'hooks/me/useUserProfile';
 import { UpdateUserAddress } from 'hooks/user/useUpdateUserAddress';
 import { formatCEP } from 'utils/formatters/formatCEP';
 import { formatAddressNumber } from 'utils/formatters/formatAddressNumber';

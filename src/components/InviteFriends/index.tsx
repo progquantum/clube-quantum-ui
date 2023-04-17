@@ -4,9 +4,9 @@ import { FaFacebookF } from 'react-icons/fa';
 
 import { ImWhatsapp } from 'react-icons/im';
 
-import { useMe } from 'hooks/user/useMe';
+import { useMe } from 'hooks/me/useMe';
 
-import { useFriends } from 'hooks/useFriends';
+import { useFriends } from 'hooks/me/useFriends';
 
 import * as S from './styles';
 import { InviteFriendsProps } from './types';

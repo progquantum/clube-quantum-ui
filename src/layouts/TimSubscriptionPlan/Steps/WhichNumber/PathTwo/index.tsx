@@ -4,7 +4,7 @@ import { useTimPlanStore } from 'store/tim';
 import {
   getTimNumbers,
   QUERY_KEY_GET_TIM_NUMBERS,
-} from 'hooks/useTim/useTimNumbers';
+} from 'hooks/tim/useTimNumbers';
 
 import { FlowButton } from 'layouts/TimSubscriptionPlan/Components/FlowButton';
 

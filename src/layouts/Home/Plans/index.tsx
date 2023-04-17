@@ -5,7 +5,7 @@ import { FaCheck } from 'react-icons/fa';
 
 import Link from 'next/link';
 
-import { usePlans } from 'hooks/usePlans';
+import { usePlans } from 'hooks/helpers/usePlans';
 import { useSubscriptionsDispatch } from 'contexts/subscriptions/SubscriptionsContext';
 import { formatPrice } from 'utils/formatters/formatPrice';
 

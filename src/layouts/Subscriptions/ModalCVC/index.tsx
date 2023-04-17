@@ -8,7 +8,7 @@ import { FiLock } from 'react-icons/fi';
 
 import { RiBankCard2Line } from 'react-icons/ri';
 
-import { useWallet } from 'hooks/useWallet';
+import { useWallet } from 'hooks/me/useWallet';
 import { useSubscriptionsDispatch } from 'contexts/subscriptions/SubscriptionsContext';
 import { performSchemaValidation } from 'utils/performSchemaValidation';
 import { Input } from 'components/Input';

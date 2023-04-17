@@ -1,6 +1,6 @@
 import { DashboardLayout } from 'layouts/DashboardLayout';
 
-import { useUserProfile } from 'hooks/user/useUserProfile';
+import { useUserProfile } from 'hooks/me/useUserProfile';
 
 import { Loader } from 'components/Loader';
 

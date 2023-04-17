@@ -7,7 +7,7 @@ import { FormHandles, SubmitHandler } from '@unform/core';
 import noop from 'lodash.noop';
 
 import { success } from 'helpers/notify/success';
-import { useSendPhoneCode } from 'hooks/useSendPhoneCode';
+import { useSendPhoneCode } from 'hooks/phones/useSendPhoneCode';
 import { FlowButton } from 'layouts/TimSubscriptionPlan/Components/FlowButton';
 import { useTimPlanStore } from 'store/tim';
 

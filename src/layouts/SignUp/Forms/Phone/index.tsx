@@ -9,7 +9,7 @@ import { useAuthDispatch } from 'contexts/auth/AuthContext';
 import { Input } from 'components/Input';
 import { Button } from 'components/Button';
 import { formatPhoneNumber } from 'utils/formatters/formatPhoneNumber';
-import { useSendPhoneCode } from 'hooks/useSendPhoneCode';
+import { useSendPhoneCode } from 'hooks/phones/useSendPhoneCode';
 import { performSchemaValidation } from 'utils/performSchemaValidation';
 import { AuthLayout } from 'layouts/Auth';
 import { success } from 'helpers/notify/success';

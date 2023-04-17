@@ -1,5 +1,5 @@
 import { Loader } from 'components/Loader';
-import { useWallet } from 'hooks/useWallet';
+import { useWallet } from 'hooks/me/useWallet';
 
 import { DashboardLayout } from 'layouts/DashboardLayout';
 

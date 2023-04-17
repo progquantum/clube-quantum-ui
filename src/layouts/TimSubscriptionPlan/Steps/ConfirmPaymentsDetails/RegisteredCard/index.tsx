@@ -1,4 +1,4 @@
-import { useGetLoggedUser } from 'hooks/useGetLoggedUser';
+import { useGetLoggedUser } from 'hooks/me/useGetLoggedUser';
 import { FieldInfo } from 'layouts/TimSubscriptionPlan/Components/FieldInfo';
 import { formatCVV } from 'utils/formatters/formatCVV';
 

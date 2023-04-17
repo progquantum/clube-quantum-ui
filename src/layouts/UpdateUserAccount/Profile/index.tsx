@@ -4,7 +4,7 @@ import { useState } from 'react';
 
 import { BsPersonBadge } from 'react-icons/bs';
 
-import { useUserProfile } from 'hooks/user/useUserProfile';
+import { useUserProfile } from 'hooks/me/useUserProfile';
 
 import { Modal } from './Modal';
 import * as S from './styles';

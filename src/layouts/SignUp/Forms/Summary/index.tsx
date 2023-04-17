@@ -2,7 +2,7 @@ import { RiBankCard2Line, RiBankLine, RiStackLine } from 'react-icons/ri';
 
 import { IoReturnDownBackSharp } from 'react-icons/io5';
 
-import { useSubscription } from 'hooks/useSubscription';
+import { useSubscription } from 'hooks/subscriptions/useSubscription';
 
 import { formatFirstLetterToUppercase } from 'utils/formatters/formatFirstLetterToUppercase';
 import { formatPrice } from 'utils/formatters/formatPrice';

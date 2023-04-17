@@ -8,7 +8,7 @@ import { FiCalendar, FiCreditCard, FiUser, FiLock } from 'react-icons/fi';
 import { RiBankCard2Line } from 'react-icons/ri';
 
 import { useUpdateCreditCard } from 'hooks/useUpdateCreditCard';
-import { QUERY_KEY_WALLET } from 'hooks/useWallet';
+import { QUERY_KEY_WALLET } from 'hooks/me/useWallet';
 import { formatCreditCardAddSpace } from 'utils/formatters/formatCreditCardAddSpace';
 import { formatCreditCardExpiration } from 'utils/formatters/formatCreditCardExpiration';
 import { performSchemaValidation } from 'utils/performSchemaValidation';

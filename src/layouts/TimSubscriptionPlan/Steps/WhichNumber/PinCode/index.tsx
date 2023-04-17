@@ -6,7 +6,7 @@ import { FormHandles, SubmitHandler } from '@unform/core';
 
 import { useTimPlanStore } from 'store/tim';
 
-import { useCheckPhoneCode } from 'hooks/useCheckPhoneCode';
+import { useCheckPhoneCode } from 'hooks/phones/useCheckPhoneCode';
 
 import { error } from 'helpers/notify/error';
 
@@ -14,7 +14,7 @@ import { PinCodeGrid } from 'components/PinCodeGrid';
 
 import { success } from 'helpers/notify/success';
 
-import { useSendPhoneCode } from 'hooks/useSendPhoneCode';
+import { useSendPhoneCode } from 'hooks/phones/useSendPhoneCode';
 
 import { formatPhoneNumber } from 'utils/formatters/formatPhoneNumber';
 
