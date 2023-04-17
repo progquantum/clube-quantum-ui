@@ -15,7 +15,7 @@ import { Input } from 'components/Input';
 import { Modal } from 'components/Modal';
 import { Button } from 'components/Button';
 
-import { useWallet } from 'hooks/useWallet';
+import { useWallet } from 'hooks/me/useWallet';
 
 import { schema } from './schemas';
 import { FormAccountData, ModalProps } from './types';

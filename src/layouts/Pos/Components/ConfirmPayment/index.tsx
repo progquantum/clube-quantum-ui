@@ -16,10 +16,10 @@ import { formatCVV } from 'utils/formatters/formatCVV';
 
 import { formatPrice } from 'utils/formatters/formatPrice';
 
-import { usePostSubscriptionMarketplace } from 'hooks/useSubscriptionMarketplace';
-import { useMeOrderingData } from 'hooks/user/useOrderingData';
+import { usePostSubscriptionMarketplace } from 'hooks/subscriptions/useSubscriptionMarketplace';
+import { useMeOrderingData } from 'hooks/me/useOrderingData';
 
-import { useWallet } from 'hooks/useWallet';
+import { useWallet } from 'hooks/me/useWallet';
 
 import { information } from 'helpers/notify/information';
 

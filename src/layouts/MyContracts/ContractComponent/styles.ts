@@ -19,6 +19,7 @@ export const Title = styled.h2`
   font-weight: 600;
   font-size: 20px;
   line-height: 150%;
+  text-align: left;
   background: ${({ theme }) => theme.gradients.midnightBlueToMediumsLateBlue};
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;

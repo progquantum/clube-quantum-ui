@@ -27,7 +27,7 @@ import { DASHBOARD_PAGE } from 'constants/routesPath';
 
 import { usePosSubscriptions } from 'hooks/user/usePosSubscriptions';
 
-import { useEstablishmentAllCategories } from 'hooks/useEstablishmentAllCategories';
+import { useGetFilterCategories } from 'hooks/pos/useGetCategories';
 
 import { schema } from './schemas';
 import * as S from './styles';
@@ -124,7 +124,7 @@ export function InfoEstablishment() {
     setPhoneNumber1('');
   };
 
-  const { data: categories } = useEstablishmentAllCategories();
+  const { data: categories } = useGetFilterCategories();
 
   const AllCategories = categories?.map(categorie => {
     const value = categorie.id;

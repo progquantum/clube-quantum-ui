@@ -8,10 +8,10 @@ import { BsFillPersonPlusFill, BsPersonBadge } from 'react-icons/bs';
 import { formatCashback } from 'utils/formatters/formatCashback';
 import { formatDate } from 'utils/formatters/formatDate';
 
-import { useFriends } from 'hooks/useFriends';
-import { useIndirectFriends } from 'hooks/useIndirectFriends';
-import { useMe } from 'hooks/user/useMe';
-import { useIndirectGains } from 'hooks/useIndirectGains';
+import { useFriends } from 'hooks/me/useFriends';
+import { useIndirectFriends } from 'hooks/me/useIndirectFriends';
+import { useMe } from 'hooks/me/useMe';
+import { useIndirectGains } from 'hooks/me/useIndirectGains';
 
 import { Loader } from 'components/Loader';
 import { getUserImagePlaceholder } from 'components/Avatar/utils';

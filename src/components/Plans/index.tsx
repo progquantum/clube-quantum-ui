@@ -5,13 +5,13 @@ import { FaCheck } from 'react-icons/fa';
 
 import { AiOutlineSelect } from 'react-icons/ai';
 
-import { usePlans } from 'hooks/usePlans';
+import { usePlans } from 'hooks/helpers/usePlans';
 import { useSubscriptionsDispatch } from 'contexts/subscriptions/SubscriptionsContext';
 import { formatPrice } from 'utils/formatters/formatPrice';
 
 import { formatFirstLetterToUppercase } from 'utils/formatters/formatFirstLetterToUppercase';
 
-import { useMe } from 'hooks/user/useMe';
+import { useMe } from 'hooks/me/useMe';
 
 import {
   Periods,

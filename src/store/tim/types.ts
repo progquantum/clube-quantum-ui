@@ -1,4 +1,4 @@
-import { Plan } from 'hooks/usePartners/types';
+import { Plan } from 'hooks/partners/usePartners/types';
 
 export type TimPlanStore = {
   selectedPlan: Plan;

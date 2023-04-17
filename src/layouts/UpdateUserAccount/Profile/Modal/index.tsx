@@ -7,7 +7,7 @@ import { FiCalendar, FiMail, FiPhone, FiUser } from 'react-icons/fi';
 import { RiTaskLine } from 'react-icons/ri';
 
 import { useUpdateUserProfile } from 'hooks/user/useUpdateUserProfile';
-import { QUERY_KEY_PROFILE, useUserProfile } from 'hooks/user/useUserProfile';
+import { QUERY_KEY_PROFILE, useUserProfile } from 'hooks/me/useUserProfile';
 import { Modal as ModalProfile } from 'components/Modal';
 import { Input } from 'components/Input';
 import { Button } from 'components/Button';

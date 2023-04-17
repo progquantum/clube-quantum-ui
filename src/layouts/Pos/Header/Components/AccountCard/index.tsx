@@ -1,7 +1,7 @@
 import Link from 'next/link';
 
 import { Avatar } from 'components/Avatar';
-import { useUserProfile } from 'hooks/user/useUserProfile';
+import { useUserProfile } from 'hooks/me/useUserProfile';
 
 import * as S from '../styles';
 

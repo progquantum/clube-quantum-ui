@@ -9,7 +9,7 @@ import { useSubscriptionsState } from 'contexts/subscriptions/SubscriptionsConte
 import { theme } from 'styles/theme';
 import { formatPrice } from 'utils/formatters/formatPrice';
 import { formatFirstLetterToUppercase } from 'utils/formatters/formatFirstLetterToUppercase';
-import { usePlanUpdate } from 'hooks/usePlanUpdate';
+import { usePlanUpdate } from 'hooks/subscriptions/usePlanUpdate';
 import { error } from 'helpers/notify/error';
 
 import { Modal } from 'components/Modal';

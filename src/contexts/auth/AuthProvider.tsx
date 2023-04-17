@@ -8,9 +8,10 @@ import {
 import { useRouter } from 'next/router';
 import { useLocalStorage } from '@rehooks/local-storage';
 import { setCookie, destroyCookie, parseCookies } from 'nookies';
+import decode from 'jwt-decode';
 
 import { useSignIn } from 'hooks/auth/useSignIn';
-import { User } from 'shared/types/apiSchema';
+import { TokenPayload, User } from 'shared/types/apiSchema';
 import {
   USER_STORAGE_KEY,
   TOKEN_STORAGE_KEY,
@@ -21,7 +22,9 @@ import { DASHBOARD_PAGE, SIGN_IN_PAGE } from 'constants/routesPath';
 import { quantumClientQueue } from 'config/client';
 import { logOut } from 'helpers/auth/logOut';
 
-import { getMe } from 'hooks/user/useMe';
+import { getMe } from 'hooks/me/useMe';
+
+import { authRedirect } from 'helpers/auth/authRedirect';
 
 import { AuthStateProvider, AuthDispatchProvider } from './AuthContext';
 import { SignInCredentials, SignUpData } from './types';
@@ -78,6 +81,8 @@ export function AuthProvider({ children }: PropsWithChildren<unknown>) {
           onSuccess: data => {
             const { token, refresh_token, user } = data;
 
+            const { user_role } = decode<TokenPayload>(token);
+
             setCookie(undefined, TOKEN_STORAGE_KEY, token, {
               maxAge: 60 * 60 * 24 * 30,
               path: `/`,
@@ -92,9 +97,12 @@ export function AuthProvider({ children }: PropsWithChildren<unknown>) {
 
             quantumClientQueue.defaults.headers.common.Authorization = `Bearer ${token}`;
 
-            router.push(previousPage || DASHBOARD_PAGE);
-
-            setPreviousPage(null);
+            if (previousPage !== null) {
+              router.push(previousPage);
+              setPreviousPage(null);
+            } else {
+              authRedirect(user_role);
+            }
           },
         },
       );

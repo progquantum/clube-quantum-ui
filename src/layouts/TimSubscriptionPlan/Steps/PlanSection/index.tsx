@@ -1,5 +1,5 @@
-import { useGetProductsOfPartnerById } from 'hooks/usePartners';
-import { Plan } from 'hooks/usePartners/types';
+import { useGetProductsOfPartnerById } from 'hooks/partners/usePartners';
+import { Plan } from 'hooks/partners/usePartners/types';
 import { PlanSectionTitle } from 'layouts/TimSubscriptionPlan/Components/PlanSectionTitle';
 import { useTimPlanStore } from 'store/tim';
 

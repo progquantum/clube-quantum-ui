@@ -8,7 +8,7 @@ import Link from 'next/link';
 
 import { useEffect, useState } from 'react';
 
-import { useMe } from 'hooks/user/useMe';
+import { useMe } from 'hooks/me/useMe';
 
 import { SUBSCRIPTIONS_PAGE } from 'constants/routesPath';
 
