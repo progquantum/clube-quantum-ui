@@ -6,6 +6,8 @@ import { useState } from 'react';
 
 import { DashboardLayout } from 'layouts/DashboardLayout';
 
+import { useGetContractsLoggedUser } from 'hooks/useContracts/useFindContractByUserId';
+
 import Accordion from './Accordion';
 import { ModalContract } from './ModalContract';
 import * as S from './styles';
@@ -13,9 +15,9 @@ import { ModalCancel } from './ModalCancel';
 
 export function MyContracts() {
   const { colors } = useTheme();
+  const { data: contracts } = useGetContractsLoggedUser();
   const [showModalContract, setShowModalContract] = useState(false);
   const [showModalCancel, setShowModalCancel] = useState(false);
-  const hasContracts = false;
 
   const handleRequestModalContract = () => {
     setShowModalContract(prevState => !prevState);
@@ -27,7 +29,7 @@ export function MyContracts() {
 
   return (
     <DashboardLayout withServiceBank={false}>
-      {hasContracts ? (
+      {contracts && contracts.length > 0 ? (
         <S.MyContractsContainer>
           <div
             style={{
@@ -45,7 +47,10 @@ export function MyContracts() {
             </S.ContainerInput>
           </div>
           <div>
-            <Accordion onRequestModalContract={handleRequestModalContract} />
+            <Accordion
+              contracts={contracts}
+              onRequestModalContract={handleRequestModalContract}
+            />
             {showModalContract && (
               <ModalContract
                 onRequestClose={handleRequestModalContract}

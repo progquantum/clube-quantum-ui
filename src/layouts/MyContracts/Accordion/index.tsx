@@ -8,11 +8,14 @@ import {
 
 import { colors } from 'styles/theme/colors';
 
+import { Contract } from 'hooks/useContracts/useFindContractByUserId/types';
+
 import { ContractComponent } from '../ContractComponent';
 import { Props } from './types';
 
-const Accordion = ({ onRequestModalContract }: Props) => {
+const Accordion = ({ onRequestModalContract, contracts }: Props) => {
   const [isOpen, setIsOpen] = useState(false);
+  console.log(contracts);
   return (
     <div>
       <motion.div
@@ -91,15 +94,12 @@ const Accordion = ({ onRequestModalContract }: Props) => {
               },
             }}
           >
-            <ContractComponent
-              onRequestModalContract={onRequestModalContract}
-            />
-            <ContractComponent
-              onRequestModalContract={onRequestModalContract}
-            />
-            <ContractComponent
-              onRequestModalContract={onRequestModalContract}
-            />
+            {contracts.map((contract: Contract) => (
+              <ContractComponent
+                contract={contract}
+                onRequestModalContract={onRequestModalContract}
+              />
+            ))}
           </motion.div>
         ) : (
           ''

@@ -1,18 +1,19 @@
 import { AiFillInfoCircle } from 'react-icons/ai';
 
 import { colors } from 'styles/theme/colors';
+import { formatDate } from 'utils/formatters/formatDate';
 
 import * as S from './styles';
 import { Props } from './types';
 
-export function ContractComponent({ onRequestModalContract }: Props) {
+export function ContractComponent({ onRequestModalContract, contract }: Props) {
   return (
     <S.Container onClick={onRequestModalContract}>
       <S.Column>
-        <S.Title>Contrato TIM 10GB</S.Title>
-        <S.Text>ID - 09S8G12</S.Text>
+        <S.Title>Contrato {contract.plan_name}</S.Title>
+        <S.Text>ID - {contract.document_key}</S.Text>
         <S.Text>Data de aquisição</S.Text>
-        <S.DueDate>19/08/2023</S.DueDate>
+        <S.DueDate>{formatDate(contract.date_of_acquisition)}</S.DueDate>
       </S.Column>
       <S.ContainerIcon>
         <AiFillInfoCircle size={20} color={colors.mediumslateBlue} />
