@@ -2,13 +2,13 @@ import { MdAssignmentInd } from 'react-icons/md';
 
 import { FaShoppingBag } from 'react-icons/fa';
 
+import { useGetLoggedUser } from 'hooks/me/useGetLoggedUser';
+
 import { Modal } from 'components/Modal';
 
 import { colors } from 'styles/theme/colors';
 
 import { Button } from 'components/Button';
-
-import { useGetLoggedUser } from 'hooks/useGetLoggedUser';
 
 import { formatDate } from 'utils/formatters/formatDate';
 
