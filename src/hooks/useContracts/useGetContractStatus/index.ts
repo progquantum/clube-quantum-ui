@@ -10,7 +10,6 @@ const QUERY_KEY_GET_CONTRACT_STATUS = 'get-contract-status';
 
 export async function getContractStatus({ queryKey }) {
   const [_, documentKey] = queryKey;
-
   try {
     const { data } = await quantumClientQueue.get<ResponseData>(
       '/contracts/status/',
@@ -26,6 +25,7 @@ export async function getContractStatus({ queryKey }) {
 }
 
 export function useGetContractStatus(documentKey: string) {
+  if (!documentKey) return;
   return useQuery(
     [QUERY_KEY_GET_CONTRACT_STATUS, documentKey],
     getContractStatus,
