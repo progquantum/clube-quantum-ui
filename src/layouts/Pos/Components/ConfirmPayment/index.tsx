@@ -23,12 +23,24 @@ import { useWallet } from 'hooks/me/useWallet';
 
 import { information } from 'helpers/notify/information';
 
+import { useCreateDocumentRequestSignaturePos } from 'hooks/useContracts/useCreateDocumentRequestSignaturePos';
+
 import * as S from './styles';
 import { Props } from './types';
 
-export function ConfirmPayment({ onNextStep, onPreviousStep, smart }: Props) {
+export function ConfirmPayment({
+  onNextStep,
+  onPreviousStep,
+  smart,
+  handleGetContractData,
+}: Props) {
   const { colors } = useTheme();
-  const { mutate: subscribeMarketplace } = usePostSubscriptionMarketplace();
+  const { mutate: subscribeMarketplace, isLoading: isMutatingSubscribe } =
+    usePostSubscriptionMarketplace();
+  const { mutate: postContract, isLoading: isMutatingContract } =
+    useCreateDocumentRequestSignaturePos();
+
+  const { data: orderingData } = useMeOrderingData();
 
   const formRef = useRef<FormHandles>(null);
 
@@ -42,8 +54,31 @@ export function ConfirmPayment({ onNextStep, onPreviousStep, smart }: Props) {
       },
       {
         onSuccess: () => {
-          onNextStep();
+          const {
+            birth_date: birthDate,
+            address: { zip_code: cep, state: uf, ...restAddress },
+            ...restUser
+          } = orderingData;
+
+          const requestBody = {
+            birthDate,
+            cep,
+            uf,
+            ...restAddress,
+            ...restUser,
+          };
+
+          postContract(requestBody, {
+            onSuccess: data => {
+              handleGetContractData(data);
+              onNextStep();
+            },
+            onError: error => {
+              console.log(error);
+            },
+          });
         },
+
         onError: (error: unknown) => {
           if (error instanceof AxiosError) {
             if (
@@ -58,10 +93,10 @@ export function ConfirmPayment({ onNextStep, onPreviousStep, smart }: Props) {
       },
     );
   };
-
-  const { data: OrderingData } = useMeOrderingData();
-
   const { data: billing } = useWallet();
+
+  const isLoading = isMutatingSubscribe || isMutatingContract;
+  console.log('carregando: ', isLoading);
   return (
     <S.Container as={Form} ref={formRef} onSubmit={handleSubmitCVV}>
       <S.ContentTitle>
@@ -120,7 +155,7 @@ export function ConfirmPayment({ onNextStep, onPreviousStep, smart }: Props) {
           >
             <S.ContentRow>
               <S.TextStrong>Nome</S.TextStrong>
-              <S.TextData>{OrderingData.name}</S.TextData>
+              <S.TextData>{orderingData.name}</S.TextData>
             </S.ContentRow>
             <S.ContentRow>
               <S.TextStrong>Cartão</S.TextStrong>
@@ -165,7 +200,7 @@ export function ConfirmPayment({ onNextStep, onPreviousStep, smart }: Props) {
         <Button variant="secondary" onClick={onPreviousStep}>
           Voltar
         </Button>
-        <Button type="submit" variant="primary">
+        <Button type="submit" variant="primary" loading={isLoading}>
           Seguir
         </Button>
       </div>
