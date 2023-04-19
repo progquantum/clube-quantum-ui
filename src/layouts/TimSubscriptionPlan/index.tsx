@@ -1,5 +1,7 @@
 import Image from 'next/legacy/image';
 
+import { useState } from 'react';
+
 import { Header } from 'components/Header';
 
 import { CenterLayout } from 'components/CenterLayout';
@@ -13,6 +15,8 @@ import { useTimPlanStore } from 'store/tim';
 import { Footer } from 'components/Footer';
 
 import { useGetLoggedUser } from 'hooks/me/useGetLoggedUser';
+
+import { ResponseData } from 'hooks/useContracts/useCreateDocumentRequestSignaturePos/types';
 
 import * as S from './styles';
 import { PlanSection } from './Steps/PlanSection';
@@ -36,6 +40,7 @@ export function TimSubscriptionPlan() {
   };
 
   const component = Steps[currentStep];
+
   return (
     <>
       <Header>

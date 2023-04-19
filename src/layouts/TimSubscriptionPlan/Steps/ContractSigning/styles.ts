@@ -38,6 +38,6 @@ export const ContractorName = styled.div`
   color: ${({ theme }) => theme.colors.gray[700]};
 `;
 
-export const YellowText = styled.span`
+export const ContractStatus = styled.span`
   color: ${({ theme }) => theme.colors.yellow};
 `;

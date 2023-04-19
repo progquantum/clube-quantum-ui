@@ -15,6 +15,11 @@ import { useWallet } from 'hooks/me/useWallet';
 
 import { information } from 'helpers/notify/information';
 
+import { useCreateDocumentRequestSignatureTim } from 'hooks/useContracts/useCreateDocumentRequestSignatureTim';
+
+import { useMeOrderingData } from 'hooks/me/useOrderingData';
+import { ResponseData as SubscriptionResponseData } from 'hooks/subscriptions/useSubscriptionMarketplace/types';
+
 import { RegisteredCard } from './RegisteredCard';
 import * as S from './styles';
 import { ProcessingPayment } from '../ProcessingPayment';
@@ -27,24 +32,34 @@ export function ConfirmPaymentsDetails() {
   const selectedDDD = useTimPlanStore(state => state.selectedDDD);
   const nextStep = useTimPlanStore(state => state.nextStep);
   const selectedPlan = useTimPlanStore(state => state.selectedPlan);
+  const setContract = useTimPlanStore(state => state.setContract);
+
   const [cvvValue, setCVVValue] = useState('');
+
   const router = useRouter();
+
+  const { data: orderingData } = useMeOrderingData();
 
   const {
     mutate: subscribeMarketplace,
-    isLoading,
+    isLoading: isMutatingSubscription,
     isError,
     reset,
     error,
   } = usePostSubscriptionMarketplace();
+
+  const { mutate: postContract, isLoading: isMutatingContract } =
+    useCreateDocumentRequestSignatureTim();
+
   const { data: paymentInfo } = useWallet();
+
   const getCVVNumber = async (cvv: string) => {
     if (cvv === cvvValue) return;
     setCVVValue(cvv);
   };
 
   const handleSubscribeMarketplace = () => {
-    const requestBody = {
+    const requestBodySubscription = {
       partner_product: {
         partner_product_id: selectedPlan.id,
       },
@@ -54,8 +69,38 @@ export function ConfirmPaymentsDetails() {
       is_portability: isPortability,
     };
 
-    subscribeMarketplace(requestBody, {
-      onSuccess: () => {
+    subscribeMarketplace(requestBodySubscription, {
+      onSuccess: (data: SubscriptionResponseData) => {
+        const { plan_name: plan, price_paid } = data;
+
+        const planValue = String(price_paid);
+
+        const {
+          birth_date: birthDate,
+          address: { zip_code: cep, state: uf, ...restAddress },
+          ...restUser
+        } = orderingData;
+
+        const requestBodyContract = {
+          birthDate,
+          cep,
+          uf,
+          isPortability,
+          plan,
+          planValue,
+          ...restAddress,
+          ...restUser,
+        };
+
+        postContract(requestBodyContract, {
+          onSuccess: data => {
+            setContract(data.document);
+            nextStep();
+          },
+          onError: error => {
+            console.log(error);
+          },
+        });
         nextStep();
       },
       onError: (error: unknown) => {
@@ -79,6 +124,8 @@ export function ConfirmPaymentsDetails() {
       },
     });
   };
+
+  const isLoading = isMutatingSubscription || isMutatingContract;
 
   if (isLoading) return <ProcessingPayment />;
 
