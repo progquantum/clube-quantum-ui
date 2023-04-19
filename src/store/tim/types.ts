@@ -1,4 +1,5 @@
 import { Plan } from 'hooks/partners/usePartners/types';
+import { Document } from 'hooks/useContracts/useCreateDocumentRequestSignatureTim/types';
 
 export type TimPlanStore = {
   selectedPlan: Plan;
@@ -17,4 +18,6 @@ export type TimPlanStore = {
   setPinCode: (pinCode: string) => void;
   isPortability: boolean;
   setIsPortability: (isPortability: boolean) => void;
+  contract: Document;
+  setContract: (contract: Document) => void;
 };
