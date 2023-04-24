@@ -2,18 +2,15 @@ import { useGetLoggedUser } from 'hooks/me/useGetLoggedUser';
 import { useGetContractStatus } from 'hooks/useContracts/useGetContractStatus';
 
 import * as S from './styles';
-import { Props } from './types';
+import { ContractStatus, Props } from './types';
 
 export function ContractSigning({ onNextStep, contract }: Props) {
   const { data: loggedUser } = useGetLoggedUser();
   const { data: contractStatus } = useGetContractStatus(contract.document.key);
 
-  console.log('contractStatus: ', contractStatus);
-
   const status =
     (contractStatus && contractStatus?.document?.status) ?? 'Pendente';
 
-  console.log('Status: ', status);
   return (
     <S.Container>
       <S.ContentTitle>
@@ -39,7 +36,7 @@ export function ContractSigning({ onNextStep, contract }: Props) {
         }}
       >
         <S.Name>{loggedUser?.name}:</S.Name>
-        <S.Status>{status}</S.Status>
+        <S.Status status={status}>{ContractStatus[status]}</S.Status>
       </div>
     </S.Container>
   );
