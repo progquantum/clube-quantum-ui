@@ -76,7 +76,7 @@ export function TimSubscriptionPlan() {
           />
         </S.LeftContent>
       </HeroLayout>
-      <CenterLayout>{component} </CenterLayout>
+      <CenterLayout>{component}</CenterLayout>
       <Footer />
     </>
   );
