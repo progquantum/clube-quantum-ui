@@ -15,6 +15,7 @@ export type RequestBodyTim = {
   phone: string;
   plan: string;
   planValue: string;
+  marketPlaceSubscriptionId: string;
 };
 
 export type ResponseData = {

@@ -88,6 +88,7 @@ export function ConfirmPaymentsDetails() {
           isPortability,
           plan,
           planValue,
+          marketPlaceSubscriptionId: data.marketplace_subscription_id,
           ...restAddress,
           ...restUser,
         };

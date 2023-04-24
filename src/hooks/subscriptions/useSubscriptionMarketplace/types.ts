@@ -13,4 +13,5 @@ export type ResponseData = {
   expires_in: Date;
   monthly_fee: number;
   is_active: boolean;
+  marketplace_subscription_id: string;
 };
