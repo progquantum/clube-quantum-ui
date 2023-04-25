@@ -13,8 +13,7 @@ export async function getContractByKey({ queryKey }) {
 
   try {
     const { data } = await quantumClientQueue.get<ResponseData>(
-      '/contracts/find-contract-by-key/',
-      documentKey,
+      `/contracts/find-contract-by-key/${documentKey}`,
     );
 
     return data;
