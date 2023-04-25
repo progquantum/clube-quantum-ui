@@ -159,7 +159,7 @@ export function Plans({ children, button }: PlansProps) {
             <S.Price>
               <span>R$</span> 0
             </S.Price>
-            <Link href={SIGN_UP_PAGE} prefetch>
+            <Link href={SIGN_UP_PAGE}>
               <S.Button isActive={selectedPlan === 'free'}>
                 Criar minha conta quantum
               </S.Button>
@@ -228,7 +228,7 @@ export function Plans({ children, button }: PlansProps) {
                 ? formatPrice(planStart.monthly_price)
                 : formatPrice(planStart.annual_price)}
             </S.Price>
-            <Link href={SIGN_UP_PAGE} prefetch>
+            <Link href={SIGN_UP_PAGE}>
               <S.Button isActive={selectedPlan === 'start'}>
                 Criar minha conta quantum
               </S.Button>
@@ -299,7 +299,7 @@ export function Plans({ children, button }: PlansProps) {
                 ? formatPrice(planSelect.monthly_price)
                 : formatPrice(planSelect.annual_price)}
             </S.Price>
-            <Link href={SIGN_UP_PAGE} prefetch>
+            <Link href={SIGN_UP_PAGE}>
               <S.Button isActive={selectedPlan === 'select'}>
                 Criar minha conta quantum
               </S.Button>
