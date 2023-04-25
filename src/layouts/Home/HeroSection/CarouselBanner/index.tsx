@@ -15,7 +15,7 @@ export function CarouselBanner() {
     <Carousel>
       <Carousel.Item>
         <div style={{ margin: ' 50px 0px' }}>
-          <Link href={POS_PAGE} prefetch>
+          <Link href={POS_PAGE}>
             <Image
               onClick={() => setPreviousPage(POS_PAGE)}
               style={{ cursor: 'pointer' }}
@@ -29,7 +29,7 @@ export function CarouselBanner() {
       </Carousel.Item>
       <Carousel.Item>
         <div style={{ margin: ' 50px 60px' }}>
-          <Link href={MARKETPLACE_PAGE} prefetch>
+          <Link href={MARKETPLACE_PAGE}>
             <Image
               onClick={() => setPreviousPage(MARKETPLACE_PAGE)}
               style={{ cursor: 'pointer' }}
@@ -43,7 +43,7 @@ export function CarouselBanner() {
       </Carousel.Item>
       <Carousel.Item>
         <div style={{ margin: ' 50px 60px' }}>
-          <Link href={PLAN_TIM_PAGE} prefetch>
+          <Link href={PLAN_TIM_PAGE}>
             <Image
               onClick={() => setPreviousPage(PLAN_TIM_PAGE)}
               style={{ cursor: 'pointer' }}

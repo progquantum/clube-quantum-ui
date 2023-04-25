@@ -35,7 +35,7 @@ export function HomePage() {
             <S.ContainerColumn>
               <S.TitleCard1>Uma parte do que vai...</S.TitleCard1>
               <S.SubTitleCard1>Com o Quantum volta!</S.SubTitleCard1>
-              <Link href={SIGN_UP_PAGE} prefetch>
+              <Link href={SIGN_UP_PAGE}>
                 <S.StyledButton>Conheça</S.StyledButton>
               </Link>
               <S.ContainerRowParag>
@@ -100,7 +100,7 @@ export function HomePage() {
         </S.Container>
       </S.Background>
 
-      <Footer />
+      {/* <Footer /> */}
     </>
   );
 }
