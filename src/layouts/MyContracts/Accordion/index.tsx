@@ -13,9 +13,12 @@ import { Contract } from 'hooks/useContracts/useFindContractByUserId/types';
 import { ContractComponent } from '../ContractComponent';
 import { Props } from './types';
 
-const Accordion = ({ onRequestModalContract, contracts }: Props) => {
+const Accordion = ({
+  onRequestModalContract,
+  contracts,
+  getSelectedContract,
+}: Props) => {
   const [isOpen, setIsOpen] = useState(false);
-  console.log(contracts);
   return (
     <div>
       <motion.div
@@ -96,7 +99,9 @@ const Accordion = ({ onRequestModalContract, contracts }: Props) => {
           >
             {contracts.map((contract: Contract) => (
               <ContractComponent
+                key={contract.id}
                 contract={contract}
+                getSelectedContract={getSelectedContract}
                 onRequestModalContract={onRequestModalContract}
               />
             ))}
