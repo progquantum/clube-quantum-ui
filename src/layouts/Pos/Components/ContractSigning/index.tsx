@@ -8,8 +8,7 @@ export function ContractSigning({ onNextStep, contract }: Props) {
   const { data: loggedUser } = useGetLoggedUser();
   const { data: contractStatus } = useGetContractStatus(contract.document.key);
 
-  const status =
-    (contractStatus && contractStatus?.document?.status) ?? 'Pendente';
+  const status = contractStatus && contractStatus?.document?.status;
 
   return (
     <S.Container>
