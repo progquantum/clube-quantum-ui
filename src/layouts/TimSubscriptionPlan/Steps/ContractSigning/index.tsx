@@ -3,12 +3,13 @@ import { useGetContractStatus } from 'hooks/useContracts/useGetContractStatus';
 import { useTimPlanStore } from 'store/tim';
 
 import * as S from './styles';
+import { ContractStatus } from './types';
 
 export function ContractSigning({ loggedUser }) {
   const contract = useTimPlanStore(state => state.contract);
   const { data: contractStatus } = useGetContractStatus(contract.key);
 
-  const status = contractStatus?.document?.status || 'Pendente';
+  const status = contractStatus && contractStatus?.document?.status;
 
   return (
     <S.ContractSigningContainer>
@@ -18,7 +19,10 @@ export function ContractSigning({ loggedUser }) {
       </a>
       <S.ContractFile>{contract.file_name}</S.ContractFile>
       <S.ContractorName>
-        {loggedUser.name}: <S.ContractStatus>{status}</S.ContractStatus>
+        {loggedUser.name}:{' '}
+        <S.ContractStatus status={status}>
+          {ContractStatus[status]}
+        </S.ContractStatus>
       </S.ContractorName>
     </S.ContractSigningContainer>
   );

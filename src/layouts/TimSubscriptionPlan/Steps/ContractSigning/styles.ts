@@ -1,5 +1,9 @@
 import styled from 'styled-components';
 
+import { StatusProps } from 'layouts/Pos/Components/ContractSigning/types';
+
+import { StatusEnum } from './types';
+
 export const ContractSigningContainer = styled.div`
   display: flex;
   flex-direction: column;
@@ -38,6 +42,6 @@ export const ContractorName = styled.div`
   color: ${({ theme }) => theme.colors.gray[700]};
 `;
 
-export const ContractStatus = styled.span`
-  color: ${({ theme }) => theme.colors.yellow};
+export const ContractStatus = styled.span<StatusProps>`
+  color: ${({ theme, status }) => theme.colors[StatusEnum[status]]};
 `;
