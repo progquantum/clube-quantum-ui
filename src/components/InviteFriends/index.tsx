@@ -5,19 +5,17 @@ import { FaFacebookF } from 'react-icons/fa';
 import { ImWhatsapp } from 'react-icons/im';
 
 import { useMe } from 'hooks/me/useMe';
-
-import { useFriends } from 'hooks/me/useFriends';
+import { formatSepareteNumbers } from 'utils/formatters/formatSepareteNumbers';
 
 import * as S from './styles';
 import { InviteFriendsProps } from './types';
 
 export function InviteFriends({ variant }: InviteFriendsProps) {
   const {
-    data: { invite_code },
+    data: { invite_code, invites_accepted },
   } = useMe();
-  const { data } = useFriends();
 
-  const totalFriends = (data && data.friends.length) ?? 0;
+  const [totalFriends, limite] = formatSepareteNumbers(invites_accepted);
 
   const inviteLink = `quantum.com.vc/signup?invite-code=${invite_code}`;
 
@@ -59,13 +57,15 @@ export function InviteFriends({ variant }: InviteFriendsProps) {
       <S.InvitationsAcceptedBox>
         <div>
           <span>Convites aceitos</span>
-          <span>{totalFriends ?? 0}/250</span>
+          <span>
+            {totalFriends ?? 0}/{limite}
+          </span>
         </div>
         <S.ProgressBar
           quantityFilledInPercent={
-            totalFriends > 250
+            totalFriends > limite
               ? '100%'
-              : String((totalFriends / 250) * 100).concat('%')
+              : String((totalFriends / limite) * 100).concat('%')
           }
         >
           <div />

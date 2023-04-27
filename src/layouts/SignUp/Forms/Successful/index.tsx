@@ -21,7 +21,7 @@ export function Successful() {
         </p>
       </Container>
 
-      <Link href={SIGN_IN_PAGE} prefetch>
+      <Link href={SIGN_IN_PAGE}>
         <Account>
           <IoReturnDownBackSharp size={20} />
           Retornar para minha conta

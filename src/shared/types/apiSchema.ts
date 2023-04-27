@@ -34,6 +34,7 @@ export type User = {
     city: string;
     state: string;
   };
+  invites_accepted: string;
 };
 
 export type Session = {

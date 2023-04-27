@@ -78,6 +78,7 @@ export function PlanSummary() {
   const isExpanded = useSidebarStore(state => state.isExpanded);
 
   const advantage = document.querySelector('.advantage');
+
   function updateMaxLength() {
     if (!advantage) {
       return;
