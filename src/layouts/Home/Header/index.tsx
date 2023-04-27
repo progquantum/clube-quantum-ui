@@ -31,7 +31,7 @@ export function Header() {
             <Link href="/">Seja um parceiro</Link>
             <Link href={WORK_WITH_US_PAGE}>Trabalhe Conosco</Link>
 
-            <Link href={SIGN_IN_PAGE} prefetch>
+            <Link href={SIGN_IN_PAGE}>
               <S.LoginButton>Fazer Login</S.LoginButton>
             </Link>
           </S.Nav>
@@ -45,7 +45,7 @@ export function Header() {
               <Link href={WORK_WITH_US_PAGE}>Trabalhe Conosco</Link>
               <S.Line />
 
-              <Link href={SIGN_IN_PAGE} prefetch>
+              <Link href={SIGN_IN_PAGE}>
                 <S.LoginButtonMobile>Fazer Login</S.LoginButtonMobile>
               </Link>
             </S.MenuMobile>
