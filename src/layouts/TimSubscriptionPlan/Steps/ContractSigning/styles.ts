@@ -1,8 +1,6 @@
 import styled from 'styled-components';
 
-import { StatusProps } from 'layouts/Pos/Components/ContractSigning/types';
-
-import { StatusEnum } from './types';
+import { StatusEnum, StatusProps } from './types';
 
 export const ContractSigningContainer = styled.div`
   display: flex;
