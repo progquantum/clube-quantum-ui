@@ -6,7 +6,8 @@ import { quantumClientQueue } from 'config/client';
 
 import { SalesProgression } from './types';
 
-const QUERY_KEY_GET_POS_SALES_PROGRESION = 'QUERY_KEY_GET_POS_SALES_PROGRESION';
+export const QUERY_KEY_GET_POS_SALES_PROGRESION =
+  'QUERY_KEY_GET_POS_SALES_PROGRESION';
 
 export async function getSalesProgression() {
   try {

@@ -9,8 +9,8 @@ import { quantumClientQueue } from 'config/client';
 import { signIn } from 'hooks/auth/useSignIn';
 
 export const setup = async () => {
-  const login = '485.180.138-60';
-  const password = '12345678';
+  const login = process.env.NEXT_PUBLIC_LOGIN;
+  const password = process.env.NEXT_PUBLIC_PASSWORD;
   const data = await signIn({ login, password });
   const { token, refresh_token } = data;
   const ONE_MONTH_IN_SECONDS = 60 * 60 * 24 * 30;

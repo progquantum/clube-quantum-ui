@@ -29,14 +29,16 @@ export function BarChart() {
 
   useEffect(() => {
     const fetchData = async () => {
-      const transformedData: Array<[string, string]> = data?.map(
-        ({ month, total }) => {
-          const monthName = getMonthName(month);
-          return [monthName, total.toString()];
-        },
-      );
+      if (data) {
+        const transformedData: Array<[string, string]> = data?.map(
+          ({ month, total }) => {
+            const monthName = getMonthName(month);
+            return [monthName, total.toString()];
+          },
+        );
 
-      setSalesData([['Mês', 'Vendas'], ...transformedData]);
+        setSalesData([['Mês', 'Vendas'], ...transformedData]);
+      }
     };
     fetchData();
   }, []);
@@ -46,17 +48,35 @@ export function BarChart() {
     legend: { position: 'none' },
     bars: 'horizontal',
   };
+
+  const dataWithoutSale = [
+    ['Mês', 'Vendas'],
+    ['Jan', 100],
+    ['Fev', 200],
+    ['Mar', 300],
+    ['Abr', 400],
+  ];
   return (
     <Container>
       <Title>Progressão geral de vendas</Title>
       <SubTitle>primeiro semestre de 2022</SubTitle>
-      <Chart
-        chartType="Bar"
-        width="100%"
-        height="218px"
-        data={salesData}
-        options={options}
-      />
+      {data?.length > 0 ? (
+        <Chart
+          chartType="Bar"
+          width="100%"
+          height="100%"
+          data={salesData}
+          options={options}
+        />
+      ) : (
+        <Chart
+          chartType="Bar"
+          width="100%"
+          height="100%"
+          data={dataWithoutSale}
+          options={options}
+        />
+      )}
     </Container>
   );
 }
