@@ -14,6 +14,8 @@ import { formatDate } from 'utils/formatters/formatDate';
 
 import { useGetContractByKey } from 'hooks/useContracts/useGetContractByKey';
 
+import { formatPrice } from 'utils/formatters/formatPrice';
+
 import { Props } from './types';
 import * as S from './styles';
 
@@ -87,7 +89,9 @@ export function ModalContract({
           <S.ContentRow>
             <S.TextStrong>Valor da mensalidade</S.TextStrong>
             <S.TextData>
-              {contractDetailedInfo?.contract_information.monthly_fee}
+              {formatPrice(
+                String(contractDetailedInfo?.contract_information.monthly_fee),
+              )}
             </S.TextData>
           </S.ContentRow>
           <S.ContentRow>
