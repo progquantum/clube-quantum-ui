@@ -6,9 +6,18 @@ import { formatDate } from 'utils/formatters/formatDate';
 import * as S from './styles';
 import { Props } from './types';
 
-export function ContractComponent({ onRequestModalContract, contract }: Props) {
+export function ContractComponent({
+  onRequestModalContract,
+  contract,
+  getSelectedContract,
+}: Props) {
+  const handleClickOnContract = () => {
+    getSelectedContract(contract);
+    onRequestModalContract();
+  };
+
   return (
-    <S.Container onClick={onRequestModalContract}>
+    <S.Container onClick={handleClickOnContract}>
       <S.Column>
         <S.Title>Contrato {contract.plan_name}</S.Title>
         <S.Text>ID - {contract.document_key}</S.Text>

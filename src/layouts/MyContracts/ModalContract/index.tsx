@@ -12,6 +12,10 @@ import { Button } from 'components/Button';
 
 import { formatDate } from 'utils/formatters/formatDate';
 
+import { useGetContractByKey } from 'hooks/useContracts/useGetContractByKey';
+
+import { formatPrice } from 'utils/formatters/formatPrice';
+
 import { Props } from './types';
 import * as S from './styles';
 
@@ -21,11 +25,17 @@ export function ModalContract({
   contract,
 }: Props) {
   const { data: loggedUser } = useGetLoggedUser();
+  const { data: contractDetailedInfo } = useGetContractByKey(
+    contract.document_key,
+  );
 
   const handleOpenModalCancel = () => {
     onRequestClose();
     onRequestModalCancel();
   };
+
+  const isQuantumSmart = contract.plan_name.match(/quantum smart/i);
+
   return (
     <Modal onClose={onRequestClose}>
       <S.Container>
@@ -34,19 +44,23 @@ export function ModalContract({
             <MdAssignmentInd size={19.87} color={colors.mediumslateBlue} />
             Informações pessoais
           </S.Text>
-          <S.Title>Contrato TIM 10GB</S.Title>
-          <S.Text>ID - 09S8G12</S.Text>
+          <S.Title>
+            Contrato {contractDetailedInfo?.contract_information.plan_name}
+          </S.Title>
+          <S.Text>ID - {contract.id}</S.Text>
           <S.ContentRow>
             <S.TextStrong>Nome</S.TextStrong>
-            <S.TextData>{loggedUser.name}</S.TextData>
+            <S.TextData>{loggedUser?.name}</S.TextData>
           </S.ContentRow>
           <S.ContentRow>
             <S.TextStrong>Data de Nasc.</S.TextStrong>
-            <S.TextData>{formatDate(loggedUser.birth_date)}</S.TextData>
+            <S.TextData>
+              {loggedUser?.birth_date && formatDate(loggedUser?.birth_date)}
+            </S.TextData>
           </S.ContentRow>
           <S.ContentRow>
             <S.TextStrong>E-mail</S.TextStrong>
-            <S.TextData>{loggedUser.email}</S.TextData>
+            <S.TextData>{loggedUser?.email}</S.TextData>
           </S.ContentRow>
         </S.Column>
         <S.Column>
@@ -56,23 +70,41 @@ export function ModalContract({
           </S.Text>
           <S.ContentRow>
             <S.TextStrong>Produto</S.TextStrong>
-            <S.TextData>Plano TIM 10GB</S.TextData>
+            <S.TextData>
+              Plano {contractDetailedInfo?.contract_information.plan_name}
+            </S.TextData>
           </S.ContentRow>
-          <S.ContentRow>
-            <S.TextStrong>Número do telefone</S.TextStrong>
-            <S.TextData>9 9921 8371</S.TextData>
-          </S.ContentRow>
-          <S.ContentRow>
-            <S.TextStrong>DDD</S.TextStrong>
-            <S.TextData>44</S.TextData>
-          </S.ContentRow>
+          {!isQuantumSmart && (
+            <>
+              <S.ContentRow>
+                <S.TextStrong>Número do telefone</S.TextStrong>
+                <S.TextData>9 9921 8371</S.TextData>
+              </S.ContentRow>
+              <S.ContentRow>
+                <S.TextStrong>DDD</S.TextStrong>
+                <S.TextData>44</S.TextData>
+              </S.ContentRow>
+            </>
+          )}
           <S.ContentRow>
             <S.TextStrong>Valor da mensalidade</S.TextStrong>
-            <S.TextData>R$ 44,90</S.TextData>
+            <S.TextData>
+              {formatPrice(
+                String(contractDetailedInfo?.contract_information.monthly_fee),
+              )}
+            </S.TextData>
           </S.ContentRow>
           <S.ContentRow>
             <S.TextStrong>Data da aquisição</S.TextStrong>
-            <S.TextData>19/08/2023</S.TextData>
+            <S.TextData>
+              {contractDetailedInfo?.contract_information.date_of_acquisition &&
+                formatDate(
+                  String(
+                    contractDetailedInfo?.contract_information
+                      .date_of_acquisition,
+                  ),
+                )}
+            </S.TextData>
           </S.ContentRow>
         </S.Column>
         <Button style={{ marginTop: '0px', height: '50px' }}>
