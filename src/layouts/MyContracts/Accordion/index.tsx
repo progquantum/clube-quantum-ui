@@ -20,7 +20,7 @@ const Accordion = ({
 }: Props) => {
   const [isOpen, setIsOpen] = useState(false);
   return (
-    <div>
+    <div data-testid="accordion">
       <motion.div
         style={{
           background: '#ffffff',
@@ -62,9 +62,17 @@ const Accordion = ({
             Contratos
           </motion.div>
           {isOpen ? (
-            <IoMdArrowDropleft size={35} color={colors.gray[700]} />
+            <IoMdArrowDropleft
+              data-testid="arrowDropLeft"
+              size={35}
+              color={colors.gray[700]}
+            />
           ) : (
-            <IoMdArrowDropdown size={35} color={colors.gray[700]} />
+            <IoMdArrowDropdown
+              data-testid="arrowDropDown"
+              size={35}
+              color={colors.gray[700]}
+            />
           )}
         </motion.div>
       </motion.div>
