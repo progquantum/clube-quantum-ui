@@ -7,11 +7,17 @@ import { PlansPayload } from './types';
 const QUERY_KEY_PLANS = 'plans';
 
 export async function getPlans() {
-  const { data } = await quantumClientBase.get('/plans');
+  try {
+    const { data } = await quantumClientBase.get('/plans');
 
-  return data as PlansPayload;
+    return data as PlansPayload;
+  } catch (error: unknown) {
+    if (error instanceof Error) {
+      return Promise.reject(error);
+    }
+  }
 }
 
 export function usePlans() {
-  return useQuery(QUERY_KEY_PLANS, getPlans);
+  return useQuery([QUERY_KEY_PLANS], getPlans);
 }
