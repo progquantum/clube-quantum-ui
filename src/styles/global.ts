@@ -114,7 +114,9 @@ export default createGlobalStyle`
     align-items: center;
     gap: 1rem;
     list-style: none;
-
+    padding: 0.5rem;
+    box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.06);
+    border-radius: 10px;
     svg {
       cursor: pointer;
     }
@@ -208,6 +210,4 @@ export default createGlobalStyle`
   display: inline-block;
   margin-right: 5px;
 }
-
-
- `;
+  `;
