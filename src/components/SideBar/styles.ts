@@ -45,6 +45,8 @@ export const ToggleButtonBox = styled(IconBox)`
 
 export const TitleBox = styled.span`
   display: block;
+  width: 100%;
+  text-align: left;
 `;
 
 export const NavButton = styled.button<NavButtonProps>`
@@ -54,6 +56,7 @@ export const NavButton = styled.button<NavButtonProps>`
   background: none;
   padding: 1.3rem 0.2rem;
   margin: 0 0.3rem;
+  max-width: 240px;
   color: ${({ theme }) => theme.colors.gray[700]};
   border-bottom: 0.5px solid ${({ theme }) => theme.colors.gray[100]};
   font-weight: 500;
