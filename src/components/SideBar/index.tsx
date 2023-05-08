@@ -16,6 +16,7 @@ import { AiFillFile } from 'react-icons/ai';
 import { MdPeopleAlt } from 'react-icons/md';
 
 import {
+  CANCELLATION_REQUEST_PAGE,
   DASHBOARD_ADM_PAGE,
   DASHBOARD_PAGE,
   DASHBOARD_POS_PAGE,
@@ -155,12 +156,12 @@ export function SideBar({ loading }: SideBarProps) {
               <S.TitleBox>Gerenciar Banner</S.TitleBox>
             </S.NavButton>
           </Link>
-          <Link href={DASHBOARD_ADM_PAGE}>
+          <Link href={CANCELLATION_REQUEST_PAGE}>
             <S.NavButton isExpanded={isExpanded}>
               <S.IconBox isExpanded={isExpanded}>
                 <AiFillFile />
               </S.IconBox>
-              <S.TitleBox>Contratos Ativos</S.TitleBox>
+              <S.TitleBox>Solicitações de Cancelamento</S.TitleBox>
             </S.NavButton>
           </Link>
         </>
