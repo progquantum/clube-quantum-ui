@@ -2,30 +2,32 @@ import styled from 'styled-components';
 
 export const MainContainer = styled.div`
   margin: 2rem 0;
-  width: 100%;
   display: flex;
   flex-direction: column;
-  align-items: center;
-  gap: 2rem;
+  width: 100%;
 `;
 
 export const RequestsContainer = styled.div`
   width: 100%;
-`;
-
-export const Title = styled.h3`
-  width: 100%;
-  padding-left: 8rem;
-`;
-
-export const PaginationContainer = styled.div`
-  box-shadow: 0px 0.25rem 0.25rem rgba(0, 0, 0, 0.06);
-  border-radius: 0.625rem;
-  border: 1px solid red;
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
   padding: 1rem;
+  max-width: 736.06px;
+
+  & .paginationContainer {
+    margin: 0 auto;
+  }
+`;
+
+export const Title = styled.h4`
+  width: 100%;
+  margin: 2rem 0;
 `;
 
 export const ClickableContainer = styled.div`
   all: unset;
+  display: block;
   width: 100%;
+  max-width: 736.06px;
 `;

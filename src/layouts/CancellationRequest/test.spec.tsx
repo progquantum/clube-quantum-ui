@@ -6,6 +6,8 @@ import { ProviderMock } from '../../../__test__/__mocks__/provider';
 import { RequestInfo } from './RequestInfo';
 
 describe('CancellationRequest', () => {
+  afterEach(() => jest.clearAllMocks());
+
   it(' should render one request properly and show the correct color of status', () => {
     const mockedRequest: RequestType = {
       name: 'Test User',
@@ -15,21 +17,21 @@ describe('CancellationRequest', () => {
       planName: 'Test Plan',
       birthDate: '05/05/2023',
       email: 'test@test.test',
-      requestStatus: 'pending',
+      requestStatus: 'verified',
     };
     render(
       <ProviderMock>
         <Request request={mockedRequest} />
       </ProviderMock>,
     );
-    const requestStatusComponent = screen.getByText('Pendente');
+    const requestStatusComponent = screen.getByText('Verificado');
     const stylesRequestStatusComponent = getComputedStyle(
       requestStatusComponent,
     );
 
     expect(screen.getByText('Test Plan')).toBeInTheDocument();
     expect(requestStatusComponent).toBeInTheDocument();
-    expect(stylesRequestStatusComponent.color).toBe('rgb(255, 202, 40)');
+    expect(stylesRequestStatusComponent.color).toBe('rgb(0, 200, 81)');
   });
 
   it(' should render the correct plan name', () => {
@@ -49,7 +51,10 @@ describe('CancellationRequest', () => {
 
     render(
       <ProviderMock>
-        <RequestInfo requestInfo={mockedRequestInfo} />
+        <RequestInfo
+          requestInfo={mockedRequestInfo}
+          removeSelectedRequest={jest.fn()}
+        />
       </ProviderMock>,
     );
 

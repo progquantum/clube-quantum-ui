@@ -1,11 +1,10 @@
 import styled from 'styled-components';
 
 export const Container = styled.div`
-  margin: 1rem 8rem;
   box-shadow: 0px 0px 0.4rem rgba(0, 0, 0, 0.2);
   border-radius: 0.9rem;
   padding: 1.7rem;
-
+  max-width: 46rem;
   & > p:first-of-type {
     margin: 2rem 0;
   }
@@ -24,10 +23,12 @@ export const TitleContainer = styled.div`
   }
 `;
 
-export const Title = styled.h5``;
+export const Title = styled.h5`
+  font-size: 1rem;
+`;
 
 export const ContractName = styled.h3`
-  margin: 1.5rem 0 0.5rem;
+  margin: 2.5rem 0 0.5rem;
   background-image: ${({ theme }) =>
     theme.gradients.mediumsLateBlueToMidnightBlue};
   background-clip: text
@@ -58,6 +59,7 @@ export const Bold = styled.span`
 export const TextAreaReport = styled.textarea`
   resize: none;
   width: 100%;
+  height: 12rem;
   margin: 1rem 0;
   border: 2px solid ${({ theme }) => theme.colors.gray[700]};
   border-radius: 0.6rem;

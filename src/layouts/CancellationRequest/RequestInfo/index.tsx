@@ -6,16 +6,17 @@ import { formatPrice } from 'utils/formatters/formatPrice';
 
 import { Button } from 'components/Button';
 
-import { formatPhoneNumber } from 'utils/formatters/formatPhoneNumber';
-
 import * as S from './styles';
 import { RequestInfoProps } from './types';
 
-export function RequestInfo({ requestInfo }: RequestInfoProps) {
+export function RequestInfo({
+  requestInfo,
+  removeSelectedRequest,
+}: RequestInfoProps) {
   return (
     <S.Container>
       <S.TitleContainer>
-        <MdArrowBackIos size={24} />
+        <MdArrowBackIos size={24} onClick={removeSelectedRequest} />
         <S.Title>Solicitações de Cancelamento</S.Title>
       </S.TitleContainer>
       <S.ContractName>{requestInfo.contractName}</S.ContractName>
@@ -56,7 +57,7 @@ export function RequestInfo({ requestInfo }: RequestInfoProps) {
         Mas antes de continuar, entre em contato com o usuário para saber mais
         sobre o motivo do cancelamento.
       </p>
-      <h5>Justificativa do cancelamento</h5>
+      <h6>Justificativa do cancelamento</h6>
       <p>{requestInfo.cancellationJustification}</p>
       <h5>Relatório ADM</h5>
       <S.TextAreaReport placeholder="Digite seu relatório " />

@@ -3,7 +3,6 @@ import styled from 'styled-components';
 import { RequestStatusProps, RequestStatusStyleEnum } from './types';
 
 export const Container = styled.div`
-  margin: 1rem 8rem;
   box-shadow: 0px 0px 0.4rem rgba(0, 0, 0, 0.2);
   border-radius: 0.2rem;
   padding: 1.7rem;
@@ -28,13 +27,14 @@ export const GrayLabel = styled.span`
   margin: 0.135rem 0;
 `;
 
-export const ContractId = styled(GrayLabel)``;
+export const ContractId = styled(GrayLabel)`
+  margin-bottom: 1rem;
+`;
 
 export const RequestDateLabel = styled(GrayLabel)``;
 
 export const RequestDate = styled.span`
   display: block;
-  margin: 0.7rem 0;
 `;
 
 export const DataRow = styled.span`
@@ -50,6 +50,10 @@ export const Email = styled(DataRow)``;
 
 export const RequestStatus = styled.span<RequestStatusProps>`
   color: ${({ theme, status }) => theme.colors[RequestStatusStyleEnum[status]]};
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  font-weight: 700;
 `;
 
 export const Bold = styled.span`

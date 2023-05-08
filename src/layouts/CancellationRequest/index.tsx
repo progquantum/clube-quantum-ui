@@ -71,48 +71,55 @@ export function CancellationRequestPage() {
   );
 
   const { colors } = useTheme();
-  const totalPages = 15;
+  const totalPages = 1;
 
   const onPageChange = () => {
     console.log('teste');
   };
 
+  const removeSelectedRequest = () => {
+    setRequestInfo(null);
+  };
+
   return (
     <DashboardLayout>
       <S.MainContainer>
-        {!requestInfo ? (
-          <RequestInfo requestInfo={mockedRequestInfo} />
+        {requestInfo ? (
+          <RequestInfo
+            requestInfo={requestInfo}
+            removeSelectedRequest={removeSelectedRequest}
+          />
         ) : (
           <>
             <InputSearch placeholder="Pesquisar por nome do usuário" />
-            <S.Title>Solicitações de cancelamento</S.Title>
             <S.RequestsContainer>
+              <S.Title>Solicitações de cancelamento</S.Title>
               {requests.map((request: RequestType) => (
                 <S.ClickableContainer
                   as="button"
-                  onClick={() => setRequestInfo(null)}
+                  onClick={() => setRequestInfo(mockedRequestInfo)}
                 >
                   <Request key={request.id} request={request} />
                 </S.ClickableContainer>
               ))}
+              <ReactPaginate
+                breakLabel="..."
+                nextLabel={
+                  <IoIosArrowRoundForward
+                    size={20}
+                    color={colors.mediumslateBlue}
+                  />
+                }
+                onPageChange={onPageChange}
+                pageCount={totalPages}
+                previousLabel={
+                  <IoIosArrowBack size={20} color={colors.mediumslateBlue} />
+                }
+                containerClassName="paginationContainer"
+                pageLinkClassName="pageLink"
+                activeLinkClassName="activeLink"
+              />
             </S.RequestsContainer>
-            <ReactPaginate
-              breakLabel="..."
-              nextLabel={
-                <IoIosArrowRoundForward
-                  size={20}
-                  color={colors.mediumslateBlue}
-                />
-              }
-              onPageChange={onPageChange}
-              pageCount={totalPages}
-              previousLabel={
-                <IoIosArrowBack size={20} color={colors.mediumslateBlue} />
-              }
-              containerClassName="paginationContainer"
-              pageLinkClassName="pageLink"
-              activeLinkClassName="activeLink"
-            />
           </>
         )}
       </S.MainContainer>

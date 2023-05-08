@@ -14,4 +14,5 @@ export type RequestInfo = {
 
 export type RequestInfoProps = {
   requestInfo: RequestInfo;
+  removeSelectedRequest: () => void;
 };
