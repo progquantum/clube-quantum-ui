@@ -27,7 +27,7 @@ import { DASHBOARD_PAGE } from 'constants/routesPath';
 
 import { usePosSubscriptions } from 'hooks/user/usePosSubscriptions';
 
-import { useGetFilterCategories } from 'hooks/pos/useGetCategories';
+import { useGetFilterCategories } from 'hooks/establishment/useGetCategories';
 
 import { schema } from './schemas';
 import * as S from './styles';
