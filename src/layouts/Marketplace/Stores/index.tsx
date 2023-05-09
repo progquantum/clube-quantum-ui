@@ -41,7 +41,7 @@ export function Stores() {
   const cards = [];
 
   for (let i = 0; i < cardsToRender; i += 1) {
-    cards.push(<InlineCard />);
+    cards.push(<InlineCard key={i} />);
   }
 
   const { colors } = useTheme();
