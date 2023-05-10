@@ -1,6 +1,6 @@
 export type PersonalInformation = {
   name: string;
-  birth_date: Date;
+  birth_date: string;
   email: string;
 };
 
@@ -16,4 +16,5 @@ export type ContractInformation = {
 export type ResponseData = {
   personal_information: PersonalInformation;
   contract_information: ContractInformation;
+  download_document: string;
 };
