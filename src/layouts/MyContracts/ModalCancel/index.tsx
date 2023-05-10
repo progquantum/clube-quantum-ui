@@ -1,4 +1,5 @@
 import { ImCross } from 'react-icons/im';
+import dayjs from 'dayjs';
 
 import { useRef } from 'react';
 import { Form } from '@unform/web';
@@ -13,11 +14,17 @@ import { Button } from 'components/Button';
 
 import { TextArea } from 'components/TextArea';
 
+import { useGetContractByKey } from 'hooks/useContracts/useGetContractByKey';
+
 import { Props } from './types';
 import * as S from './styles';
 
-export function ModalCancel({ onRequestClose }: Props) {
+export function ModalCancel({ onRequestClose, contract }: Props) {
   const formRef = useRef<FormHandles>(null);
+
+  const { data: contractDetailedInfo } = useGetContractByKey(
+    contract.document_key,
+  );
 
   const handleSendMessage: SubmitHandler = data => data;
   return (
@@ -28,22 +35,33 @@ export function ModalCancel({ onRequestClose }: Props) {
           Cancelamento de contrato
         </S.Text>
         <div style={{ display: 'flex', gap: '4px', flexDirection: 'column' }}>
-          <S.Title>Contrato TIM 10GB</S.Title>
-          <S.Text>ID - 09S8G12</S.Text>
+          <S.Title>
+            Contrato {contractDetailedInfo?.contract_information.plan_name}
+          </S.Title>
+          <S.Text>ID - {contract.id}</S.Text>
         </div>
 
         <div style={{ display: 'flex', gap: '16px', flexDirection: 'column' }}>
           <S.ContentRow>
             <S.TextStrong>Nome</S.TextStrong>
-            <S.TextData>Rafael Gael Caio Teixeira</S.TextData>
+            <S.TextData>
+              {' '}
+              {contractDetailedInfo?.personal_information.name}
+            </S.TextData>
           </S.ContentRow>
           <S.ContentRow>
             <S.TextStrong>Data de Nasc.</S.TextStrong>
-            <S.TextData>06/07/1981</S.TextData>
+            <S.TextData>
+              {dayjs(contractDetailedInfo?.personal_information.birth_date)
+                .add(1, 'day')
+                .format('DD/MM/YYYY')}
+            </S.TextData>
           </S.ContentRow>
           <S.ContentRow>
             <S.TextStrong>E-mail</S.TextStrong>
-            <S.TextData>rafaelgaelteixeira@maptec.com.br</S.TextData>
+            <S.TextData>
+              {contractDetailedInfo?.personal_information.email}
+            </S.TextData>
           </S.ContentRow>
         </div>
 
