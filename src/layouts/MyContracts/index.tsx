@@ -63,7 +63,10 @@ export function MyContracts() {
             )}
 
             {showModalCancel && (
-              <ModalCancel onRequestClose={handleRequestModalCancel} />
+              <ModalCancel
+                contract={contract}
+                onRequestClose={handleRequestModalCancel}
+              />
             )}
           </div>
         </S.MyContractsContainer>

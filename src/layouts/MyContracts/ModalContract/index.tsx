@@ -2,7 +2,9 @@ import { MdAssignmentInd } from 'react-icons/md';
 
 import { FaShoppingBag } from 'react-icons/fa';
 
-import { useGetLoggedUser } from 'hooks/me/useGetLoggedUser';
+import { useRouter } from 'next/router';
+
+import dayjs from 'dayjs';
 
 import { Modal } from 'components/Modal';
 
@@ -24,7 +26,6 @@ export function ModalContract({
   onRequestModalCancel,
   contract,
 }: Props) {
-  const { data: loggedUser } = useGetLoggedUser();
   const { data: contractDetailedInfo } = useGetContractByKey(
     contract.document_key,
   );
@@ -35,6 +36,11 @@ export function ModalContract({
   };
 
   const isQuantumSmart = contract.plan_name.match(/quantum smart/i);
+
+  const router = useRouter();
+  const handleDownloadContract = () => {
+    router.push(contractDetailedInfo.download_document);
+  };
 
   return (
     <Modal onClose={onRequestClose}>
@@ -50,17 +56,23 @@ export function ModalContract({
           <S.Text>ID - {contract.id}</S.Text>
           <S.ContentRow>
             <S.TextStrong>Nome</S.TextStrong>
-            <S.TextData>{loggedUser?.name}</S.TextData>
+            <S.TextData>
+              {contractDetailedInfo?.personal_information.name}
+            </S.TextData>
           </S.ContentRow>
           <S.ContentRow>
             <S.TextStrong>Data de Nasc.</S.TextStrong>
             <S.TextData>
-              {loggedUser?.birth_date && formatDate(loggedUser?.birth_date)}
+              {dayjs(contractDetailedInfo?.personal_information.birth_date)
+                .add(1, 'day')
+                .format('DD/MM/YYYY')}
             </S.TextData>
           </S.ContentRow>
           <S.ContentRow>
             <S.TextStrong>E-mail</S.TextStrong>
-            <S.TextData>{loggedUser?.email}</S.TextData>
+            <S.TextData>
+              {contractDetailedInfo?.personal_information.email}
+            </S.TextData>
           </S.ContentRow>
         </S.Column>
         <S.Column>
@@ -78,11 +90,15 @@ export function ModalContract({
             <>
               <S.ContentRow>
                 <S.TextStrong>Número do telefone</S.TextStrong>
-                <S.TextData>9 9921 8371</S.TextData>
+                <S.TextData>
+                  {contractDetailedInfo?.contract_information.phone_number}
+                </S.TextData>
               </S.ContentRow>
               <S.ContentRow>
                 <S.TextStrong>DDD</S.TextStrong>
-                <S.TextData>44</S.TextData>
+                <S.TextData>
+                  {contractDetailedInfo?.contract_information.area_code}
+                </S.TextData>
               </S.ContentRow>
             </>
           )}
@@ -107,7 +123,10 @@ export function ModalContract({
             </S.TextData>
           </S.ContentRow>
         </S.Column>
-        <Button style={{ marginTop: '0px', height: '50px' }}>
+        <Button
+          onClick={handleDownloadContract}
+          style={{ marginTop: '0px', height: '50px' }}
+        >
           Visualizar contrato
         </Button>
         <Button
