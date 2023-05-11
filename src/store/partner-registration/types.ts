@@ -52,12 +52,12 @@ export type PartnerStore = {
   setCompanyName: (name: string) => void;
   phoneNumber1: string;
   setPhoneNumber1: (phone: string) => void;
-  phoneNumber1HasWhat: boolean;
-  setPhoneNumber1HasWhat: (event: boolean) => void;
+  phoneNumber1HasWhatsApp: boolean;
+  setPhoneNumber1HasWhatsApp: (event: boolean) => void;
   phoneNumber2: string;
   setPhoneNumber2: (phone: string) => void;
-  phoneNumber2HasWhat: boolean;
-  setPhoneNumber2HasWhat: (event: boolean) => void;
+  phoneNumber2HasWhatsApp: boolean;
+  setPhoneNumber2HasWhatsApp: (event: boolean) => void;
   phoneNumber3: string;
   setPhoneNumber3: (phone: string) => void;
   categoryValue: string;
