@@ -2,7 +2,7 @@ import styled, { css } from 'styled-components';
 
 import { Button } from 'components/Button';
 
-import { ButtonProps } from './types';
+import { ButtonProps, StateProps } from './types';
 
 export const Container = styled.div`
   display: flex;
@@ -63,6 +63,7 @@ export const Title = styled.h3`
   font-weight: 600;
   font-size: 14px;
   line-height: 150%;
+  margin-bottom: 12px;
   color: ${({ theme }) => theme.colors.gray[700]};
 
   @media (max-width: 469px) {
@@ -82,16 +83,19 @@ export const PjName = styled.h2`
   }
 `;
 
-export const StatePJ = styled.h3`
-  font-style: normal;
-  font-weight: 700;
-  font-size: 12px;
-  line-height: 150%;
-  color: ${({ theme }) => theme.colors.successLight};
+export const StatePJ = styled.h3<StateProps>`
+  ${({ state }) => css`
+    font-style: normal;
+    font-weight: 700;
+    font-size: 12px;
+    line-height: 150%;
+    color: ${({ theme }) =>
+      state ? theme.colors.successLight : theme.colors.danger};
 
-  @media (max-width: 469px) {
-    font-size: 10px;
-  }
+    @media (max-width: 469px) {
+      font-size: 10px;
+    }
+  `}
 `;
 
 export const DivBalance = styled.div`
