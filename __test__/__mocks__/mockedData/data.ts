@@ -7,6 +7,8 @@ export const mockUser = {
     monthly_fee: 10,
     price_paid: 100,
   },
+  invite_code: '123123',
+  invites_accepted: '123',
   avatar_url: 'https://example.com/avatar.jpg',
   address: {
     city: 'New York',

@@ -27,7 +27,9 @@ import { DASHBOARD_PAGE } from 'constants/routesPath';
 
 import { usePosSubscriptions } from 'hooks/user/usePosSubscriptions';
 
-import { useGetFilterCategories } from 'hooks/pos/useGetCategories';
+import { useGetFilterCategories } from 'hooks/establishment/useGetCategories';
+
+import { useUpsertEstablishment } from 'hooks/establishment/useUpsertEstablishment';
 
 import { schema } from './schemas';
 import * as S from './styles';
@@ -41,12 +43,12 @@ export function InfoEstablishment() {
     companyName,
     phoneNumber1,
     setPhoneNumber1,
-    phoneNumber1HasWhat,
-    setPhoneNumber1HasWhat,
+    phoneNumber1HasWhatsApp,
+    setPhoneNumber1HasWhatsApp,
     phoneNumber2,
     setPhoneNumber2,
-    phoneNumber2HasWhat,
-    setPhoneNumber2HasWhat,
+    phoneNumber2HasWhatsApp,
+    setPhoneNumber2HasWhatsApp,
     phoneNumber3,
     setPhoneNumber3,
     categoryValue,
@@ -58,9 +60,72 @@ export function InfoEstablishment() {
     setBanner,
     banner,
   } = usePartnerStore(state => state);
-
   const { colors } = useTheme();
+  const { data } = usePosSubscriptions({ name: '' });
+  const { data: userSelect } = usePosSubscriptions({ name: user });
+  const { data: categories } = useGetFilterCategories();
+  const { mutate: upsertEstablishment, isLoading } = useUpsertEstablishment();
+  const router = useRouter();
   const formRef = useRef<FormHandles>(null);
+  const ClearUser = () => {
+    setUser('');
+    setPhoneNumber1('');
+  };
+
+  const AllCategories = categories?.map(categorie => {
+    const value = categorie.id;
+    const label = categorie.name;
+
+    return { value, label };
+  });
+
+  const options = data?.map(subscription => {
+    const { legal_person, individual_person, id } = subscription;
+    const value = id;
+    const label = legal_person
+      ? `${legal_person.company_name} - ${legal_person.cnpj}`
+      : `${individual_person.name} - ${individual_person.cpf}`;
+
+    return { value, label };
+  });
+
+  const handleSubmit: SubmitHandler = useCallback(data => {
+    performSchemaValidation({
+      formRef,
+      data,
+      schema,
+    }).then(() => {
+      const {
+        cel_phone,
+        cel_phone_has_whatsapp,
+        main_phone_has_whatsapp,
+        whatsapp_phone,
+        ...rest
+      } = data;
+
+      upsertEstablishment(
+        {
+          ...rest,
+          contacts: {
+            cel_phone,
+            cel_phone_has_whatsapp,
+            main_phone_has_whatsapp,
+            whatsapp_phone,
+          },
+        },
+        {
+          onSuccess: () => {
+            nextStep();
+          },
+        },
+      );
+    });
+  }, []);
+
+  const handleCancel = () => {
+    window.localStorage.removeItem('partnerStore');
+    router.push(DASHBOARD_PAGE);
+  };
 
   const handleBannerPreview = (event: ChangeEvent<HTMLInputElement>) => {
     const newImg = event.target.files[0];
@@ -80,6 +145,7 @@ export function InfoEstablishment() {
 
     if (!allowedImageFormats) return error('Arquivo não suportado');
   };
+
   const handleLogoPreview = (event: ChangeEvent<HTMLInputElement>) => {
     const newImg = event.target.files[0];
 
@@ -99,57 +165,12 @@ export function InfoEstablishment() {
     if (!allowedImageFormats) return error('Arquivo não suportado');
   };
 
-  const { data } = usePosSubscriptions({ name: '' });
-
-  const options = data?.map(subscription => {
-    const { legal_person, individual_person } = subscription;
-    const value = legal_person?.company_name || individual_person?.name;
-    const label = legal_person
-      ? `${legal_person.company_name} - ${legal_person.cnpj}`
-      : `${individual_person.name} - ${individual_person.cpf}`;
-
-    return { value, label };
-  });
-
-  const { data: userSelect } = usePosSubscriptions({ name: user });
-
   useEffect(() => {
     if (userSelect && userSelect.length > 0 && userSelect[0].phone) {
       setPhoneNumber1(userSelect[0].phone);
     }
   }, [userSelect]);
 
-  const ClearUser = () => {
-    setUser('');
-    setPhoneNumber1('');
-  };
-
-  const { data: categories } = useGetFilterCategories();
-
-  const AllCategories = categories?.map(categorie => {
-    const value = categorie.id;
-    const label = categorie.name;
-
-    return { value, label };
-  });
-
-  console.log(categories);
-
-  const handleSubmit: SubmitHandler = useCallback(data => {
-    performSchemaValidation({
-      formRef,
-      data,
-      schema,
-    }).then(() => {
-      nextStep();
-    });
-  }, []);
-
-  const router = useRouter();
-  const handleCancel = () => {
-    window.localStorage.removeItem('partnerStore');
-    router.push(DASHBOARD_PAGE);
-  };
   return (
     <S.Container>
       <S.Steps>
@@ -183,7 +204,7 @@ export function InfoEstablishment() {
       </S.HeadTitle>
       <S.Form as={Form} ref={formRef} onSubmit={handleSubmit} className="form">
         <Select
-          name="user"
+          name="user_id"
           label="Pesquisar usuário"
           placeholder="Pesquisar usuário cadastrado"
           options={options}
@@ -224,7 +245,7 @@ export function InfoEstablishment() {
           <S.DivColumn>
             <Input
               type="text"
-              name="company_name"
+              name="fantasy_name"
               placeholder="Digite o nome do estabelecimento"
               label="Nome fantasia"
               defaultValue={companyName || ''}
@@ -233,9 +254,10 @@ export function InfoEstablishment() {
             <Input
               type="text"
               inputMode="tel"
-              name="phone"
+              name="cel_phone"
               placeholder="(00) 0 0000-0000"
               label="Telefone celular"
+              readOnly
               value={phoneNumber1}
               onChange={e => {
                 setPhoneNumber1(e.target.value);
@@ -247,20 +269,20 @@ export function InfoEstablishment() {
             />
             <Checkbox
               type="checkbox"
-              name="hasWhatsApp1"
+              name="main_phone_has_whatsapp"
               text="Este telefone possui WhatsApp"
-              checked={phoneNumber1HasWhat || false}
-              onChange={e => setPhoneNumber1HasWhat(e.target.checked)}
+              checked={phoneNumber1HasWhatsApp || false}
+              onChange={e => setPhoneNumber1HasWhatsApp(e.target.checked)}
             />
             <Input
               type="text"
               inputMode="tel"
-              name="phone2"
-              placeholder="(00) 0 0000-0000"
+              name="phone"
+              placeholder="(00) 00000-0000"
               label="Telefone celular (opcional)"
-              defaultValue={phoneNumber2 || ''}
+              value={phoneNumber2 || ''}
               onChange={e => {
-                setPhoneNumber2(e.target.value);
+                setPhoneNumber2(formatPhoneNumber(e.target.value));
                 formRef.current.setFieldValue(
                   'phone2',
                   formatPhoneNumber(e.target.value),
@@ -269,18 +291,18 @@ export function InfoEstablishment() {
             />
             <Checkbox
               type="checkbox"
-              name="hasWhatsApp2"
+              name="cel_phone_has_whatsapp"
               text="Este telefone possui WhatsApp"
-              checked={phoneNumber2HasWhat || false}
-              onChange={e => setPhoneNumber2HasWhat(e.target.checked)}
+              checked={phoneNumber2HasWhatsApp || false}
+              onChange={e => setPhoneNumber2HasWhatsApp(e.target.checked)}
             />
             <Input
               type="text"
               inputMode="tel"
-              name="phone3"
-              placeholder="(00) 0 0000-0000"
+              name="whatsapp_phone"
+              placeholder="(00) 00000-0000"
               label="Celular WhatsApp (opcional)"
-              defaultValue={phoneNumber3 || ''}
+              value={formatPhoneNumber(phoneNumber3) || ''}
               onChange={e => {
                 setPhoneNumber3(e.target.value);
                 formRef.current.setFieldValue(
@@ -290,7 +312,7 @@ export function InfoEstablishment() {
               }}
             />
             <Select
-              name="category"
+              name="category_id"
               label="Categoria"
               placeholder="Escolha uma opção"
               defaultValue={categoryValue || ''}
@@ -299,9 +321,9 @@ export function InfoEstablishment() {
             />
             <Input
               type="text"
-              name="link_geo"
-              placeholder="Informe o Link da Geolocalização"
-              label="Link da geolocalização"
+              name="coordinates"
+              placeholder="Ex: -15.584010, -56.085562"
+              label="Coordenadas"
               defaultValue={linkGeolocalizacao || ''}
               onChange={e => setLinkGeolocalizacao(e.target.value)}
             />
@@ -362,10 +384,16 @@ export function InfoEstablishment() {
           </S.DivColumn>
         </S.DivRow>
         <S.ContainerButton>
-          <Button onClick={handleCancel} variant="secondary">
+          <Button
+            loading={isLoading}
+            onClick={handleCancel}
+            variant="secondary"
+          >
             Cancelar
           </Button>
-          <Button type="submit">Confirmar</Button>
+          <Button type="submit" loading={isLoading}>
+            Confirmar
+          </Button>
         </S.ContainerButton>
       </S.Form>
     </S.Container>

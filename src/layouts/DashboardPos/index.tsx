@@ -15,6 +15,10 @@ import EloIcon from 'components/Illustrations/Elo';
 
 import { DashboardLayout } from 'layouts/DashboardLayout';
 
+import { useGetEstablishment } from 'hooks/dashboard-pos/useGetEstablishment';
+
+import { formatPrice } from 'utils/formatters/formatPrice';
+
 import * as S from './styles';
 import { PieChart } from './PieChart';
 import { BarChart } from './BarChart';
@@ -24,6 +28,7 @@ import DraggableScrollContainer from './DraggableScrollContainer';
 export function DashboardPos() {
   const formRef = useRef<FormHandles>(null);
   const [underline, setUnderline] = useState('Geral');
+  const { data } = useGetEstablishment();
 
   const handleSelect = () => {
     console.log('Select');
@@ -40,21 +45,29 @@ export function DashboardPos() {
           <S.DivColumn>
             <S.Title>Você está no estabelecimento</S.Title>
             <S.DivRow>
-              <S.PjName>Mercearia Pão de Ló -</S.PjName>
-              <S.StatePJ>Habilitado</S.StatePJ>
+              <S.PjName>{data?.corporate_name} -</S.PjName>
+              <S.StatePJ state={data?.is_active}>
+                {data?.is_active ? 'Habilitado' : 'Desabilitado'}
+              </S.StatePJ>
             </S.DivRow>
           </S.DivColumn>
           <S.DivBalance>
             <S.BalanceTitle>Saldo atual</S.BalanceTitle>
-            <S.BalanceValue>R$ 1.200,00</S.BalanceValue>
+            <S.BalanceValue>
+              {formatPrice(
+                data?.total_balance === null
+                  ? '0.0'
+                  : String(data?.total_balance),
+              )}
+            </S.BalanceValue>
           </S.DivBalance>
         </S.DivTop>
         <S.DivCnpj>
-          <S.CNPJData>CNPJ: 17.218.098/0001-50</S.CNPJData>
-          <S.Hifen>-</S.Hifen>
           <S.CNPJData>
-            ID: 0182SD3082qeq2177918929281718990ww10123qc1
+            {data?.document.length > 14 ? `CNPJ:` : `CPF:`} {data?.document}
           </S.CNPJData>
+          <S.Hifen>-</S.Hifen>
+          <S.CNPJData>ID: {data?.id}</S.CNPJData>
         </S.DivCnpj>
 
         <S.DivRow>

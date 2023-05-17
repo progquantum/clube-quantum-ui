@@ -284,17 +284,17 @@ export const usePartnerStore = create(
       setPhoneNumber1: (phone: string) => {
         set(() => ({ phoneNumber1: phone }));
       },
-      phoneNumber1HasWhat: false,
-      setPhoneNumber1HasWhat: (event: boolean) => {
-        set(() => ({ phoneNumber1HasWhat: event }));
+      phoneNumber1HasWhatsApp: false,
+      setPhoneNumber1HasWhatsApp: (event: boolean) => {
+        set(() => ({ phoneNumber1HasWhatsApp: event }));
       },
       phoneNumber2: '',
       setPhoneNumber2: (phone: string) => {
         set(() => ({ phoneNumber2: phone }));
       },
-      phoneNumber2HasWhat: false,
-      setPhoneNumber2HasWhat: (event: boolean) => {
-        set(() => ({ phoneNumber2HasWhat: event }));
+      phoneNumber2HasWhatsApp: false,
+      setPhoneNumber2HasWhatsApp: (event: boolean) => {
+        set(() => ({ phoneNumber2HasWhatsApp: event }));
       },
       phoneNumber3: '',
       setPhoneNumber3: (phone: string) => {
