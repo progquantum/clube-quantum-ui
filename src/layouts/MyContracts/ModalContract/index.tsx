@@ -38,6 +38,7 @@ export function ModalContract({
   const isQuantumSmart = contract.plan_name.match(/quantum smart/i);
 
   const router = useRouter();
+
   const handleDownloadContract = () => {
     router.push(contractDetailedInfo.download_document);
   };

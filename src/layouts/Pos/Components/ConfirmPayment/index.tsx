@@ -97,7 +97,6 @@ export function ConfirmPayment({
   const { data: billing } = useWallet();
 
   const isLoading = isMutatingSubscribe || isMutatingContract;
-  console.log('carregando: ', isLoading);
   return (
     <S.Container as={Form} ref={formRef} onSubmit={handleSubmitCVV}>
       <S.ContentTitle>
