@@ -56,6 +56,7 @@ export function IndividualPerson({
     >
       <Form ref={formRef} onSubmit={handleSignUp} className="form">
         <Input
+          data-cy="signup_name"
           type="text"
           name="name"
           placeholder="Nome completo"
@@ -63,6 +64,7 @@ export function IndividualPerson({
         />
 
         <Input
+          data-cy="signup_birthDate"
           type="text"
           inputMode="numeric"
           name="birth_date"
@@ -77,6 +79,7 @@ export function IndividualPerson({
         />
 
         <Input
+          data-cy="signup_email"
           type="email"
           name="email"
           placeholder="Preencha seu email"
@@ -85,6 +88,7 @@ export function IndividualPerson({
         />
 
         <Input
+          data-cy="signup_confirmEmail"
           type="email"
           name="email_confirmation"
           placeholder="Confirme seu email"
@@ -94,6 +98,7 @@ export function IndividualPerson({
         />
 
         <Input
+          data-cy="signup_password"
           typePassword
           name="password"
           icon={FiLock}
@@ -101,6 +106,7 @@ export function IndividualPerson({
         />
 
         <Input
+          data-cy="signup_confirmPassword"
           typePassword
           name="password_confirmation"
           icon={FiLock}
@@ -108,7 +114,9 @@ export function IndividualPerson({
           onPaste={e => e.preventDefault()}
         />
 
-        <Button type="submit">Continuar</Button>
+        <Button type="submit" data-cy="next-step-button">
+          Continuar
+        </Button>
       </Form>
       <button type="button" onClick={onPreviousFormStep}>
         <IoReturnDownBackSharp size={20} />

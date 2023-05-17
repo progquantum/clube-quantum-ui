@@ -16,7 +16,7 @@ export function PartnerRegistration() {
     2: <Summary />,
   };
 
-  const component = Steps[currentStep];
+  const component = Steps[1];
   return (
     <DashboardLayout>
       <Container>{component}</Container>

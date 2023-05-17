@@ -41,4 +41,3 @@ describe('Pos', () => {
     cy.contains(/pendente/i).should('be.visible');
   });
 });
-
