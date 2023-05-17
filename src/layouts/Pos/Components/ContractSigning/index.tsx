@@ -2,13 +2,13 @@ import { useGetLoggedUser } from 'hooks/me/useGetLoggedUser';
 import { useGetContractStatus } from 'hooks/useContracts/useGetContractStatus';
 
 import * as S from './styles';
-import { ContractStatus, Props } from './types';
+import { ContractStatus, Props, StatusProps } from './types';
 
 export function ContractSigning({ onNextStep, contract }: Props) {
   const { data: loggedUser } = useGetLoggedUser();
   const { data: contractStatus } = useGetContractStatus(contract.document.key);
 
-  const status = contractStatus && contractStatus?.document?.status;
+  const status = contractStatus || 'pending';
 
   return (
     <S.Container>
