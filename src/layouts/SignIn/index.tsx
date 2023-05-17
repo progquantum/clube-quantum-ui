@@ -84,7 +84,7 @@ export function SignInPage() {
         </Form>
 
         <Link href={SIGN_UP_PAGE} legacyBehavior>
-          <a className="anchor">
+          <a className="anchor" data-cy="signup-link">
             <FiLogIn />
             Criar uma conta
           </a>

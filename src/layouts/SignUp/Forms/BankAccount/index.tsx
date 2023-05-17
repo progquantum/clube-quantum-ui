@@ -14,6 +14,8 @@ import { AuthLayout } from 'layouts/Auth';
 
 import { useSubscriptionsDispatch } from 'contexts/subscriptions/SubscriptionsContext';
 
+import { quantumClientQueue } from 'config/client';
+
 import { BankAccountProps, FormValues } from './types';
 import { schema } from './schemas';
 import * as S from './styles';
@@ -33,6 +35,10 @@ export function BankAccount({
         schema,
       })
         .then(() => {
+          console.log(
+            'bank account: ',
+            quantumClientQueue.defaults.headers.common.Authorization,
+          );
           registerBankAccount({
             current_account: data.current_account.slice(0, -2),
             current_account_check_number: data.current_account.slice(-1),
@@ -61,6 +67,7 @@ export function BankAccount({
           <S.BankData>0001</S.BankData>
         </S.Content>
         <Input
+          data-cy="signup_checkingAccount"
           type="text"
           inputMode="numeric"
           name="current_account"
@@ -74,6 +81,7 @@ export function BankAccount({
           }
         />
         <Input
+          data-cy="signup_holderName"
           type="text"
           name="holder_name"
           placeholder="Nome completo do titular"
@@ -84,7 +92,9 @@ export function BankAccount({
           informado anteriormente está vinculado.
         </S.BankInfo>
 
-        <Button type="submit">Continuar</Button>
+        <Button data-cy="next-step-button" type="submit">
+          Continuar
+        </Button>
       </Form>
       <button type="button" onClick={onPreviousFormStep}>
         <IoReturnDownBackSharp size={20} />

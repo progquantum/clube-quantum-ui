@@ -39,6 +39,7 @@ export function CPF({ onUpdateFormStep }: CPFProps) {
     <AuthLayout backgroundImage="/images/signup.png" title="Insira seu CPF">
       <Form ref={formRef} onSubmit={handleCPFSubmit} className="form">
         <Input
+          data-cy="cpf-input"
           type="text"
           inputMode="numeric"
           name="cpf"
@@ -49,7 +50,9 @@ export function CPF({ onUpdateFormStep }: CPFProps) {
           }
         />
 
-        <Button type="submit">Continuar</Button>
+        <Button type="submit" data-cy="next-step-button">
+          Continuar
+        </Button>
       </Form>
       <Link href={SIGN_UP_PAGE} legacyBehavior>
         <a className="anchor">

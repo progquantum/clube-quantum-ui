@@ -9,12 +9,14 @@ import { Form } from '@unform/web';
 import { FormHandles, SubmitHandler } from '@unform/core';
 import { IoReturnDownBackSharp } from 'react-icons/io5';
 
+import { setCookie } from 'nookies';
+
 import { Input } from 'components/Input';
 import { Button } from 'components/Button';
 import { formatCEP } from 'utils/formatters/formatCEP';
 import { formatAddressNumber } from 'utils/formatters/formatAddressNumber';
 import { useIndividualPersonSignUp } from 'hooks/auth/useIndividualPersonSignUp';
-import { useAuthState } from 'contexts/auth/AuthContext';
+import { useAuthDispatch, useAuthState } from 'contexts/auth/AuthContext';
 import { performSchemaValidation } from 'utils/performSchemaValidation';
 import { AuthLayout } from 'layouts/Auth';
 import { getZipCode } from 'services/resources';
@@ -23,6 +25,11 @@ import { formatCountry } from 'utils/formatters/formatCountry';
 import { formatUF } from 'utils/formatters/formatUF';
 
 import { quantumClientQueue } from 'config/client';
+
+import {
+  REFRESH_TOKEN_STORAGE_KEY,
+  TOKEN_STORAGE_KEY,
+} from 'constants/storage';
 
 import { PersonalAddressProps, AddressFormValues } from './types';
 import { schema } from './schemas';
@@ -83,8 +90,17 @@ export function PersonalAddress({
             },
           },
           {
-            onSuccess: data => {
-              quantumClientQueue.defaults.headers.common.Authorization = `Bearer ${data.token}`;
+            onSuccess: ({ token, refresh_token }) => {
+              setCookie(undefined, TOKEN_STORAGE_KEY, token, {
+                maxAge: 60 * 60 * 24 * 30,
+                path: `/`,
+              });
+
+              setCookie(undefined, REFRESH_TOKEN_STORAGE_KEY, refresh_token, {
+                maxAge: 60 * 60 * 24 * 30,
+                path: `/`,
+              });
+
               onUpdateFormStep();
             },
           },
@@ -101,6 +117,7 @@ export function PersonalAddress({
     >
       <Form ref={formRef} onSubmit={handleAddressSubmit} className="form">
         <Input
+          data-cy="signup_zipCode"
           type="text"
           inputMode="numeric"
           name="zip_code"
@@ -108,14 +125,22 @@ export function PersonalAddress({
           icon={FiMapPin}
           onChange={e => handleZipCode(e)}
         />
-        <Input type="text" name="street" placeholder="Rua" icon={FiPackage} />
         <Input
+          data-cy="signup_street"
+          type="text"
+          name="street"
+          placeholder="Rua"
+          icon={FiPackage}
+        />
+        <Input
+          data-cy="signup_neighborhood"
           type="text"
           name="neighborhood"
           placeholder="Bairro"
           icon={BiBuildingHouse}
         />
         <Input
+          data-cy="signup_number"
           type="text"
           inputMode="numeric"
           name="number"
@@ -129,13 +154,21 @@ export function PersonalAddress({
           }
         />
         <Input
+          data-cy="signup_complement"
           type="text"
           name="complement"
           placeholder="Complemento"
           icon={FaRegAddressCard}
         />
-        <Input type="text" name="city" placeholder="Cidade" icon={BsPinMap} />
         <Input
+          data-cy="signup_city"
+          type="text"
+          name="city"
+          placeholder="Cidade"
+          icon={BsPinMap}
+        />
+        <Input
+          data-cy="signup_state"
           type="text"
           name="state"
           placeholder="Estado"
@@ -145,6 +178,7 @@ export function PersonalAddress({
           }
         />
         <Input
+          data-cy="signup_country"
           type="text"
           name="country"
           placeholder="Pais"
@@ -157,9 +191,19 @@ export function PersonalAddress({
           }
         />
 
-        <Checkbox type="checkbox" name="terms" style={{ margin: '24px 0' }} />
+        <Checkbox
+          data-cy="signup_terms"
+          type="checkbox"
+          name="terms"
+          style={{ margin: '24px 0' }}
+        />
 
-        <Button type="submit" loading={isSignuping} disabled={isSignuping}>
+        <Button
+          data-cy="next-step-button"
+          type="submit"
+          loading={isSignuping}
+          disabled={isSignuping}
+        >
           Continuar
         </Button>
       </Form>

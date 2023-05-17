@@ -32,7 +32,7 @@ export function Header() {
             <Link href={WORK_WITH_US_PAGE}>Trabalhe Conosco</Link>
 
             <Link href={SIGN_IN_PAGE}>
-              <S.LoginButton>Fazer Login</S.LoginButton>
+              <S.LoginButton data-cy="signin-button">Fazer Login</S.LoginButton>
             </Link>
           </S.Nav>
         ) : (
@@ -46,7 +46,9 @@ export function Header() {
               <S.Line />
 
               <Link href={SIGN_IN_PAGE}>
-                <S.LoginButtonMobile>Fazer Login</S.LoginButtonMobile>
+                <S.LoginButtonMobile data-cy="signin">
+                  Fazer Login
+                </S.LoginButtonMobile>
               </Link>
             </S.MenuMobile>
             <S.Overlay onClick={handleMenuOpen} />

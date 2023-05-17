@@ -13,6 +13,8 @@ import { formatFirstLetterToUppercase } from 'utils/formatters/formatFirstLetter
 
 import { useMe } from 'hooks/me/useMe';
 
+import { quantumClientQueue } from 'config/client';
+
 import {
   Periods,
   PlanDurationProps,
@@ -25,11 +27,10 @@ import * as S from './styles';
 export function Plans({ children, button }: PlansProps) {
   const [selectedPeriod, setSelectedPeriod] = useState<Periods>('semiannual');
   const [selectedPlan, setSelectedPlan] = useState<Plans>('start');
-
   const { data: plans } = usePlans();
   const { data } = useMe();
-  const currentPlanName = data?.subscription?.plan_name;
 
+  const currentPlanName = data?.subscription?.plan_name;
   const planFree: PlansData = useMemo(() => (plans ? plans[0] : []), [plans]);
   const planStart: PlansData = useMemo(() => (plans ? plans[1] : []), [plans]);
   const planSelect: PlansData = useMemo(() => (plans ? plans[2] : []), [plans]);
@@ -136,6 +137,7 @@ export function Plans({ children, button }: PlansProps) {
 
       <S.PlansContents>
         <S.PlanContentsWrapper
+          data-cy="planFree"
           isActive={selectedPlan === 'free'}
           onClick={() => {
             handleChoosePlan('free');
@@ -204,6 +206,7 @@ export function Plans({ children, button }: PlansProps) {
         </S.PlanContentsWrapper>
 
         <S.PlanContentsWrapper
+          data-cy="planStart"
           isActive={selectedPlan === 'start'}
           onClick={() => {
             handleChoosePlan('start');
@@ -284,6 +287,7 @@ export function Plans({ children, button }: PlansProps) {
         </S.PlanContentsWrapper>
 
         <S.PlanContentsWrapper
+          data-cy="planSelect"
           isActive={selectedPlan === 'select'}
           onClick={() => {
             handleChoosePlan('select');

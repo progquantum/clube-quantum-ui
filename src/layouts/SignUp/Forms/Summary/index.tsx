@@ -2,6 +2,10 @@ import { RiBankCard2Line, RiBankLine, RiStackLine } from 'react-icons/ri';
 
 import { IoReturnDownBackSharp } from 'react-icons/io5';
 
+import { useCookie } from 'react-use';
+
+import { parseCookies } from 'nookies';
+
 import { useSubscription } from 'hooks/subscriptions/useSubscription';
 
 import { formatFirstLetterToUppercase } from 'utils/formatters/formatFirstLetterToUppercase';
@@ -15,6 +19,10 @@ import { AuthLayout } from 'layouts/Auth';
 
 import { Button } from 'components/Button';
 
+import { TOKEN_STORAGE_KEY } from 'constants/storage';
+
+import { quantumClientQueue } from 'config/client';
+
 import { SummaryProps } from './types';
 import * as S from './styles';
 
@@ -24,7 +32,7 @@ export function Summary({
 }: SummaryProps) {
   const { mutate: creatSubscription, isLoading: isCreating } =
     useSubscription();
-
+  const cookies = parseCookies();
   const { plan, bankAccount, creditCard } = useSubscriptionsState();
 
   const handleSubscriptionSubmit = () => {
@@ -32,6 +40,8 @@ export function Summary({
     const { current_account, current_account_check_number, holder_name } =
       bankAccount;
     const { card_name, card_number, expiration_date, cvc } = creditCard;
+
+    quantumClientQueue.defaults.headers.common.Authorization = `Bearer ${cookies[TOKEN_STORAGE_KEY]}`;
     creatSubscription(
       {
         plan: {
@@ -80,7 +90,9 @@ export function Summary({
             <RiStackLine size={18} />
             Seu plano escolhido
           </S.Title>
-          <S.TitlePlan>{formattedPlanName}</S.TitlePlan>
+          <S.TitlePlan data-cy="signup_planName">
+            {formattedPlanName}
+          </S.TitlePlan>
           <S.CardDataContainer>
             <S.CardDataTitle>Período de Cobrança</S.CardDataTitle>
             <S.CardDataText>{planDuration}</S.CardDataText>
@@ -135,7 +147,11 @@ export function Summary({
           </S.CardDataContainer>
         </S.CreditCard>
 
-        <Button onClick={handleSubscriptionSubmit} loading={isCreating}>
+        <Button
+          data-cy="next-step-button"
+          onClick={handleSubscriptionSubmit}
+          loading={isCreating}
+        >
           Finalizar
         </Button>
         <S.Back onClick={onPreviousFormStep} type="button">
