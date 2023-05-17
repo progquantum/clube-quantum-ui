@@ -15,8 +15,6 @@ import { formatCVV } from 'utils/formatters/formatCVV';
 
 import { useSubscriptionsDispatch } from 'contexts/subscriptions/SubscriptionsContext';
 
-import { quantumClientQueue } from 'config/client';
-
 import { BankCardProps, CreditCardFormValues } from './types';
 import * as S from './styles';
 import { schema } from './schemas';
@@ -28,10 +26,6 @@ export function CreditCard({
 }: BankCardProps) {
   const { registerCreditCard } = useSubscriptionsDispatch();
   const formRef = useRef<FormHandles>(null);
-  console.log(
-    'credit card: ',
-    quantumClientQueue.defaults.headers.common.Authorization,
-  );
 
   const handleSubmitCreditCard: SubmitHandler<CreditCardFormValues> =
     useCallback(data => {
@@ -41,10 +35,6 @@ export function CreditCard({
         formRef,
       })
         .then(() => {
-          console.log(
-            'credit card: ',
-            quantumClientQueue.defaults.headers.common.Authorization,
-          );
           registerCreditCard(data);
           onUpdateFormStep();
         })
