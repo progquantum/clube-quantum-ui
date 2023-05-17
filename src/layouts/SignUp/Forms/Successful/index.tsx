@@ -22,7 +22,7 @@ export function Successful() {
       </Container>
 
       <Link href={SIGN_IN_PAGE}>
-        <Account>
+        <Account data-cy="signup_goToDashboard">
           <IoReturnDownBackSharp size={20} />
           Retornar para minha conta
         </Account>

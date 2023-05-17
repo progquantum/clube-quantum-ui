@@ -58,6 +58,7 @@ export function PinCodeGrid({
     <div>
       {Array.from({ length: pinLength }, (_, index) => (
         <StyledPinInput
+          data-cy="pin-code-cell"
           type="text"
           inputMode="numeric"
           onKeyDown={event => handleOnKeyDown(event, index)}

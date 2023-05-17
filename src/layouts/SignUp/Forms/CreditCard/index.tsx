@@ -15,6 +15,8 @@ import { formatCVV } from 'utils/formatters/formatCVV';
 
 import { useSubscriptionsDispatch } from 'contexts/subscriptions/SubscriptionsContext';
 
+import { quantumClientQueue } from 'config/client';
+
 import { BankCardProps, CreditCardFormValues } from './types';
 import * as S from './styles';
 import { schema } from './schemas';
@@ -26,6 +28,10 @@ export function CreditCard({
 }: BankCardProps) {
   const { registerCreditCard } = useSubscriptionsDispatch();
   const formRef = useRef<FormHandles>(null);
+  console.log(
+    'credit card: ',
+    quantumClientQueue.defaults.headers.common.Authorization,
+  );
 
   const handleSubmitCreditCard: SubmitHandler<CreditCardFormValues> =
     useCallback(data => {
@@ -35,6 +41,10 @@ export function CreditCard({
         formRef,
       })
         .then(() => {
+          console.log(
+            'credit card: ',
+            quantumClientQueue.defaults.headers.common.Authorization,
+          );
           registerCreditCard(data);
           onUpdateFormStep();
         })
@@ -49,12 +59,14 @@ export function CreditCard({
     >
       <Form ref={formRef} onSubmit={handleSubmitCreditCard} className="form">
         <Input
+          data-cy="signup_fullName"
           type="text"
           name="card_name"
           placeholder="Nome completo do titular"
           icon={FiUser}
         />
         <Input
+          data-cy="signup_creditCardNumber"
           type="text"
           inputMode="numeric"
           name="card_number"
@@ -68,6 +80,7 @@ export function CreditCard({
           }
         />
         <Input
+          data-cy="signup_expirationDate"
           type="text"
           inputMode="numeric"
           name="expiration_date"
@@ -81,6 +94,7 @@ export function CreditCard({
           }
         />
         <Input
+          data-cy="signup_cvv"
           type="text"
           name="cvc"
           inputMode="numeric"
@@ -91,7 +105,9 @@ export function CreditCard({
           }
         />
 
-        <Button type="submit">Continuar</Button>
+        <Button data-cy="next-step-button" type="submit">
+          Continuar
+        </Button>
         <S.JumpStepButton onClick={onNavigateToSuccessfulSignUp}>
           Pular etapa
         </S.JumpStepButton>
