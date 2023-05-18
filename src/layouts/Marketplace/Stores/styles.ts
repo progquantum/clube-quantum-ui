@@ -1,5 +1,7 @@
 import styled from 'styled-components';
 
+import { CardContainer } from './InlineCard/styles';
+
 export const StoresContainer = styled.div``;
 
 export const FilterForm = styled.form`
@@ -60,4 +62,20 @@ export const LoadingContainer = styled.div`
   color: ${({ theme }) => theme.colors.midnightBlue};
   margin: 2rem auto;
   text-align: center;
+`;
+
+export const SearchResultsContainer = styled.div`
+  margin: 1rem 0;
+
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+
+  & ${CardContainer} {
+    justify-content: flex-start;
+  }
+  & > p {
+    color: ${({ theme }) => theme.colors.gray[400]};
+    margin: 2rem 0;
+  }
 `;

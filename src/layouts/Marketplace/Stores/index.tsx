@@ -28,6 +28,7 @@ export function Stores() {
   const [cardsToRender, setCardsToRender] = useState(3);
   const [isFetching, setIsFetching] = useInfiniteScroll(fetchMoreListItems);
   const [modalStatus, setModalStatus] = useState(false);
+  const [isFetched, setIsFetched] = useState(false);
 
   function fetchMoreListItems() {
     setTimeout(() => {
@@ -46,7 +47,13 @@ export function Stores() {
 
   const { colors } = useTheme();
 
-  const handleFilter: SubmitHandler = data => data;
+  const handleFilter: SubmitHandler = data => {
+    if (data.filter === 'domino') {
+      setIsFetched(prevState => !prevState);
+    } else {
+      setIsFetched(prevState => !prevState);
+    }
+  };
 
   const slidesContent = [
     '/images/slide-content.jpeg',
@@ -67,25 +74,34 @@ export function Stores() {
         >
           <FilterInput
             name="filter"
-            placeholder="Pesquisar por produto ou loja"
+            placeholder="Pesquisar por estabelecimentos"
           />
         </S.FilterForm>
         <S.MapButton type="button" onClick={handleModalStatus}>
           <FaMapMarkerAlt size={24} /> Mapa
         </S.MapButton>
       </S.InlineContainer>
-      <Carousel slides={slidesContent} />
-      <FilterTags />
-      <S.CommerceContainer>{[...cards]}</S.CommerceContainer>
-      {isFetching && (
-        <S.LoadingContainer>
-          <Loading
-            icon={PulseLoader}
-            color={colors.mediumslateBlue}
-            size={10}
-          />{' '}
-          Carregando
-        </S.LoadingContainer>
+      {isFetched ? (
+        <S.SearchResultsContainer>
+          <p>Resultados da pesquisa feita</p>
+          <InlineCard />
+        </S.SearchResultsContainer>
+      ) : (
+        <>
+          <Carousel slides={slidesContent} />
+          <FilterTags />
+          <S.CommerceContainer>{[...cards]}</S.CommerceContainer>
+          {isFetching && (
+            <S.LoadingContainer>
+              <Loading
+                icon={PulseLoader}
+                color={colors.mediumslateBlue}
+                size={10}
+              />{' '}
+              Carregando
+            </S.LoadingContainer>
+          )}
+        </>
       )}
 
       {modalStatus && (
