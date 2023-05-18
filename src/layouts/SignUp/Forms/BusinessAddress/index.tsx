@@ -14,6 +14,8 @@ import { Form } from '@unform/web';
 import { FormHandles, SubmitHandler } from '@unform/core';
 import { IoReturnDownBackSharp } from 'react-icons/io5';
 
+import { setCookie } from 'nookies';
+
 import { Input } from 'components/Input';
 import { Button } from 'components/Button';
 import { formatCEP } from 'utils/formatters/formatCEP';
@@ -28,6 +30,11 @@ import { formatUF } from 'utils/formatters/formatUF';
 import { getZipCode } from 'services/resources';
 
 import { quantumClientQueue } from 'config/client';
+
+import {
+  REFRESH_TOKEN_STORAGE_KEY,
+  TOKEN_STORAGE_KEY,
+} from 'constants/storage';
 
 import { BusinessAddressProps, AddressFormValues } from './types';
 import { schema } from './schemas';
@@ -83,8 +90,17 @@ export function BusinessAddress({
             },
           },
           {
-            onSuccess: data => {
-              quantumClientQueue.defaults.headers.common.Authorization = `Bearer ${data.token}`;
+            onSuccess: ({ token, refresh_token }) => {
+              setCookie(undefined, TOKEN_STORAGE_KEY, token, {
+                maxAge: 60 * 60 * 24 * 30,
+                path: `/`,
+              });
+
+              setCookie(undefined, REFRESH_TOKEN_STORAGE_KEY, refresh_token, {
+                maxAge: 60 * 60 * 24 * 30,
+                path: `/`,
+              });
+
               onUpdateFormStep();
             },
           },
