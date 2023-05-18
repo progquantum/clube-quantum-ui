@@ -11,7 +11,8 @@ describe('CreatePersonalAccount', () => {
     // Seleciona o tipo de cadastro de Pessoa Física
     cy.get('[data-cy="personal-link"]').click();
 
-    cy.get('[data-cy="cpf-input"]').type(cpf.generate());
+    const generatedCPF = cpf.generate();
+    cy.get('[data-cy="cpf-input"]').type('48518013860');
 
     cy.get('[data-cy="next-step-button"]').as('nextStepButton');
 
@@ -54,9 +55,8 @@ describe('CreatePersonalAccount', () => {
     cy.get('[data-cy="signup_email"]').type(email);
     cy.get('[data-cy="signup_confirmEmail"]').type(email);
 
-    const password = faker.internet.password({ length: 8 });
-    cy.get('[data-cy="signup_password"]').type(password);
-    cy.get('[data-cy="signup_confirmPassword"]').type(password);
+    cy.get('[data-cy="signup_password"]').type('12345678');
+    cy.get('[data-cy="signup_confirmPassword"]').type('12345678');
 
     cy.get('@nextStepButton').click();
 
