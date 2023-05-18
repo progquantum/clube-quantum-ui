@@ -20,7 +20,7 @@ const Accordion = ({
 }: Props) => {
   const [isOpen, setIsOpen] = useState(false);
   return (
-    <div data-testid="accordion">
+    <div data-cy="accordion" data-testid="accordion">
       <motion.div
         style={{
           background: '#ffffff',
