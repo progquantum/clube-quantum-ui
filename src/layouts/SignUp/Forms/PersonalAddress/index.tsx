@@ -16,15 +16,13 @@ import { Button } from 'components/Button';
 import { formatCEP } from 'utils/formatters/formatCEP';
 import { formatAddressNumber } from 'utils/formatters/formatAddressNumber';
 import { useIndividualPersonSignUp } from 'hooks/auth/useIndividualPersonSignUp';
-import { useAuthDispatch, useAuthState } from 'contexts/auth/AuthContext';
+import { useAuthState } from 'contexts/auth/AuthContext';
 import { performSchemaValidation } from 'utils/performSchemaValidation';
 import { AuthLayout } from 'layouts/Auth';
 import { getZipCode } from 'services/resources';
 import { Checkbox } from 'components/Checkbox';
 import { formatCountry } from 'utils/formatters/formatCountry';
 import { formatUF } from 'utils/formatters/formatUF';
-
-import { quantumClientQueue } from 'config/client';
 
 import {
   REFRESH_TOKEN_STORAGE_KEY,
