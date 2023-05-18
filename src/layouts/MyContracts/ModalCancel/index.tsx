@@ -16,6 +16,10 @@ import { TextArea } from 'components/TextArea';
 
 import { useGetContractByKey } from 'hooks/useContracts/useGetContractByKey';
 
+import { usePostPlanCancellation } from 'hooks/useContracts/useRequestPlanCancellation';
+
+import { error } from 'helpers/notify/error';
+
 import { Props } from './types';
 import * as S from './styles';
 
@@ -26,10 +30,33 @@ export function ModalCancel({ onRequestClose, contract }: Props) {
     contract.document_key,
   );
 
-  const handleSendMessage: SubmitHandler = data => data;
+  const { mutate: requestPlanCancellation, isLoading } =
+    usePostPlanCancellation();
+
+  const handleSendMessage: SubmitHandler = data => {
+    const requestBody = {
+      document_key: contract.document_key,
+      justification: data.message,
+    };
+
+    requestPlanCancellation(requestBody, {
+      onSuccess: () => {
+        onRequestClose();
+      },
+      onError: () => {
+        error('Algo deu errado');
+      },
+    });
+  };
+
   return (
-    <Modal onClose={onRequestClose}>
-      <S.Container as={Form} ref={formRef} onSubmit={handleSendMessage}>
+    <Modal data-cy="modalCancel" onClose={onRequestClose}>
+      <S.Container
+        as={Form}
+        ref={formRef}
+        id="cancel-form"
+        onSubmit={handleSendMessage}
+      >
         <S.Text>
           <ImCross size={16} color={colors.danger} />
           Cancelamento de contrato
@@ -74,6 +101,7 @@ export function ModalCancel({ onRequestClose, contract }: Props) {
           {' '}
           <S.Label>Justificativa</S.Label>
           <TextArea
+            data-cy="justificationTextArea"
             name="message"
             placeholder="Digite a sua justificativa"
             id="message"
@@ -82,6 +110,9 @@ export function ModalCancel({ onRequestClose, contract }: Props) {
 
         <div>
           <Button
+            data-cy="requestCancellationButton"
+            loading={isLoading}
+            type="submit"
             style={{ marginTop: '0px', height: '50px' }}
             variant="danger_outline"
           >
@@ -89,7 +120,7 @@ export function ModalCancel({ onRequestClose, contract }: Props) {
           </Button>
           <Button
             style={{ marginTop: '12px', height: '50px' }}
-            variant="secondary"
+            variant={isLoading ? 'disabled' : 'secondary'}
             onClick={onRequestClose}
           >
             Sair
