@@ -17,7 +17,7 @@ export function ContractComponent({
   };
 
   return (
-    <S.Container onClick={handleClickOnContract}>
+    <S.Container data-cy="contract" onClick={handleClickOnContract}>
       <S.Column>
         <S.Title>Contrato {contract.plan_name}</S.Title>
         <S.Text>ID - {contract.document_key}</S.Text>

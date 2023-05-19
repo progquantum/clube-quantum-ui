@@ -97,7 +97,7 @@ export function SideBar({ loading }: SideBarProps) {
           </Link>
 
           <Link href={MY_CONTRACTS_PAGE}>
-            <S.NavButton isExpanded={isExpanded}>
+            <S.NavButton isExpanded={isExpanded} data-cy="sidebar_my-contracts">
               <S.IconBox isExpanded={isExpanded}>
                 <AiFillFile />
               </S.IconBox>

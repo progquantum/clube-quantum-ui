@@ -44,7 +44,7 @@ export function ModalContract({
   };
 
   return (
-    <Modal onClose={onRequestClose}>
+    <Modal data-cy="modalContract" onClose={onRequestClose}>
       <S.Container>
         <S.Column>
           <S.Text>
@@ -131,6 +131,7 @@ export function ModalContract({
           Visualizar contrato
         </Button>
         <Button
+          data-cy="requestCancellationButton"
           style={{ marginTop: '0px', height: '50px' }}
           variant="danger_outline"
           onClick={handleOpenModalCancel}
