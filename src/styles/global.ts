@@ -210,4 +210,73 @@ export default createGlobalStyle`
   display: inline-block;
   margin-right: 5px;
 }
+
+
+  //customStyle for sweetalert2 modal delete
+  .sweetContainer {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 0 auto;
+    font-family: 'Montserrat';
+  }
+  .sweetPopup {
+    // border-radius: 20px;
+  }
+
+  .sweetTitle {
+    font-family: 'Montserrat';
+    font-style: normal;
+    font-weight: 500;
+    font-size: 20px;
+    line-height: 150%;
+    text-align: center;
+  }
+  .swal2-action {
+    display: flex;
+    flex-direction: row !important;
+  }
+  .sweetConfirmButton {
+    border: none;
+    border-radius: 10px;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    padding: 10px 30px;
+    gap: 10px;
+    height: 56px;
+    margin-bottom: 10px;
+    background: ${({ theme }) => theme.colors.danger};
+    border: 2px solid ${({ theme }) => theme.colors.danger};
+    color: ${({ theme }) => theme.colors.white};
+
+    &:hover {
+      background: ${({ theme }) => theme.colors.dangerDark};
+      border: 2px solid ${({ theme }) => theme.colors.dangerDark};
+      color: ${({ theme }) => theme.colors.white};
+    }
+  }
+
+  .sweetCancelButton {
+    border-radius: 10px;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    padding: 10px 30px;
+    gap: 10px;
+    height: 56px;
+    margin-bottom: 10px;
+    margin-left: 24px;
+    background: ${({ theme }) => theme.colors.white};
+    color: ${({ theme }) => theme.colors.danger};
+    border: 2px solid ${({ theme }) => theme.colors.danger};
+
+    &:hover {
+      background-color: ${({ theme }) => theme.colors.danger};
+      border: 2px solid ${({ theme }) => theme.colors.danger};
+      color: ${({ theme }) => theme.colors.white};
+    }
+  }
   `;
