@@ -64,6 +64,7 @@
     "recharts": "^2.5.0",
     "rsuite": "^5.13.1",
     "styled-components": "^5.3.5",
+    "sweetalert2": "^11.7.5",
     "use-query-params": "^2.1.2",
     "uuidv4": "^6.2.13",
     "yup": "^0.29.1",
