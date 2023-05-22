@@ -18,18 +18,25 @@ export const UploadPhotoContainer = styled.div`
 `;
 
 export const UploadPhotoBox = styled.div`
-  width: 19rem;
+  width: 14.5625rem;
   display: flex;
+  padding: 0px 0px 10px;
   align-items: center;
   flex-direction: column;
   position: relative;
   padding-top: 2rem;
+  background: ${({ theme }) => theme.colors.ghostwhite};
   & svg {
     color: ${({ theme }) => theme.colors.danger};
     position: absolute;
-    top: 0;
-    right: 0;
+    top: 10px;
+    right: 22px;
     cursor: pointer;
+    &:hover {
+      border: 2px solid red;
+      border-radius: 20px;
+      font-size: 5px;
+    }
   }
 `;
 
@@ -51,19 +58,24 @@ export const ButtonContainer = styled.div`
     max-width: 8.5rem;
   }
 `;
+export const FileInputWrapper = styled.div`
+  position: relative;
+`;
 
-export const FileInput = styled.input`
-  color: transparent;
-  width: 100%;
-  &::-webkit-file-upload-button {
-    width: inherit;
-    background: ${({ theme }) => theme.gradients.mediumsLateBlueToMidnightBlue};
-    color: ${({ theme }) => theme.colors.white};
-    font-weight: 700;
-    padding: 0.8rem 0;
-    margin-top: 0.5rem;
-    border-radius: 0.7rem;
-    border: none;
-    cursor: pointer;
-  }
+export const FileInputButton = styled.span`
+  width: 209px;
+  justify-content: center;
+  display: flex;
+  background: ${({ theme }) => theme.gradients.midnightBlueToMediumsLateBlue};
+  color: ${({ theme }) => theme.colors.white};
+  font-weight: 700;
+  padding: 0.8rem 1rem;
+  margin-top: 0.5rem;
+  border-radius: 0.7rem;
+  cursor: pointer;
+  margin-top: 12px;
+`;
+
+export const ActualFileInput = styled.input`
+  display: none;
 `;

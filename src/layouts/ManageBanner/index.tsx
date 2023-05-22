@@ -1,12 +1,15 @@
+/* eslint-disable jsx-a11y/label-has-associated-control */
 import Image from 'next/image';
 
-import { AiFillCloseCircle } from 'react-icons/ai';
+import { MdClose } from 'react-icons/md';
 
-import { ChangeEvent, useState } from 'react';
+import { ChangeEvent, useRef, useState } from 'react';
 
 import { DashboardLayout } from 'layouts/DashboardLayout';
 
 import { Button } from 'components/Button';
+
+import { modalDelete } from 'components/ModalDelete';
 
 import * as S from './styles';
 
@@ -25,10 +28,25 @@ export function ManageBannerPage() {
   };
 
   const removeBannerFromArray = (index: number) => {
-    const newArray = [...photos];
-    newArray[index] = index;
-    setPhotos(newArray);
+    modalDelete(
+      'Você tem certeza que deseja remover este banner ??',
+      null,
+    ).then(result => {
+      if (result.isConfirmed) {
+        const newArray = [...photos];
+        newArray[index] = index;
+        setPhotos(newArray);
+      }
+    });
   };
+
+  const fileInputRef = useRef(null);
+
+  const handleClick = () => {
+    fileInputRef.current.click();
+  };
+
+  console.log(photos);
 
   return (
     <DashboardLayout>
@@ -41,16 +59,26 @@ export function ManageBannerPage() {
             >
               <Image
                 src="/images/upload-photo.png"
-                width="118"
-                height="118"
+                width="150"
+                height="131"
                 priority
+                style={{ marginTop: '20px' }}
                 alt="Upload photo icon"
               />
-              <S.FileInput type="file" onChange={e => handleChange(e, index)} />
-              <AiFillCloseCircle
-                size={24}
-                onClick={() => removeBannerFromArray(index)}
-              />
+              <S.FileInputWrapper>
+                <S.FileInputButton onClick={handleClick}>
+                  Adicionar fotos
+                </S.FileInputButton>
+                <S.ActualFileInput
+                  ref={fileInputRef}
+                  id="fupload"
+                  name="fupload"
+                  type="file"
+                  accept="image/*"
+                  onChange={e => handleChange(e, index)}
+                />
+              </S.FileInputWrapper>
+              <MdClose size={24} onClick={() => removeBannerFromArray(index)} />
             </S.UploadPhotoBox>
           ))}
         </S.UploadPhotoContainer>
