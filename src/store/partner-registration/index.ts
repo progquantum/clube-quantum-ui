@@ -302,11 +302,14 @@ export const usePartnerStore = create(
       setCategoryId: (category: string) => {
         set(() => ({ categoryId: category }));
       },
+      categoryName: '',
+      setCategoryName: (categoryName: string) => {
+        set(() => ({ categoryName }));
+      },
       coordinates: '',
       setCoordinates: (coordinates: string) => {
         set(() => ({ coordinates }));
       },
-
       logo: {} as Logo,
       setLogo: (url: string, file: File) => {
         set(() => ({ logo: { logoURL: url, logoFile: file } }));

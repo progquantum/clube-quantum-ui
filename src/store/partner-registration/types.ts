@@ -62,6 +62,8 @@ export type PartnerStore = {
   setWhatsAppPhone: (phone: string) => void;
   categoryId: string;
   setCategoryId: (category: string) => void;
+  categoryName: string;
+  setCategoryName: (categoryName: string) => void;
   coordinates: string;
   setCoordinates: (link: string) => void;
   logo: Logo;
