@@ -11,7 +11,7 @@ export async function putAvatar(requestBody: FormData) {
       },
     });
   } catch (err) {
-    if (err.response.status === 400) {
+    if (err.response.status === 415) {
       error('Arquivo não suportado');
     }
   }

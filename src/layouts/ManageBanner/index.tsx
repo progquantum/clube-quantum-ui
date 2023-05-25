@@ -11,6 +11,8 @@ import { Button } from 'components/Button';
 
 import { modalDelete } from 'components/ModalDelete';
 
+import { error } from 'helpers/notify/error';
+
 import * as S from './styles';
 
 export function ManageBannerPage() {
@@ -20,11 +22,25 @@ export function ManageBannerPage() {
 
   const handleChange = (e: ChangeEvent<HTMLInputElement>, index: number) => {
     const file = e.target.files[0];
-    const newArray = [...photos];
-    const formData = new FormData();
-    formData.set('file', file);
-    newArray[index] = formData;
-    setPhotos(newArray);
+
+    const currentFile = e.target.files[0].size;
+    const allowedSize = 5242880; // 5mb
+    const allowedTypes = ['image/png', 'image/jpeg', 'image/jpg'];
+
+    const allowedImageFormats =
+      e.target.files.length &&
+      allowedTypes.includes(file.type) &&
+      currentFile <= allowedSize;
+
+    if (allowedImageFormats) {
+      const newArray = [...photos];
+      const formData = new FormData();
+      formData.append('file', file);
+      newArray[index] = formData;
+      setPhotos(newArray);
+    }
+
+    if (!allowedImageFormats) return error('Arquivo não suportado');
   };
 
   const removeBannerFromArray = (index: number) => {
@@ -45,8 +61,6 @@ export function ManageBannerPage() {
   const handleClick = () => {
     fileInputRef.current.click();
   };
-
-  console.log(photos);
 
   return (
     <DashboardLayout>
