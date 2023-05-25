@@ -1,5 +1,5 @@
 /* eslint-disable jsx-a11y/label-has-associated-control */
-import { ChangeEvent, useCallback, useEffect, useRef } from 'react';
+import { ChangeEvent, useCallback, useEffect, useRef, useState } from 'react';
 import dayjs from 'dayjs';
 import { BsCircle, BsFillCheckCircleFill } from 'react-icons/bs';
 import { AiOutlineClose } from 'react-icons/ai';
@@ -9,6 +9,10 @@ import Image from 'next/legacy/image';
 import { useTheme } from 'styled-components';
 
 import { useRouter } from 'next/router';
+
+import { ValidationError } from 'yup';
+
+import { AxiosError } from 'axios';
 
 import { formatPhoneNumber } from 'utils/formatters/formatPhoneNumber';
 
@@ -31,105 +35,164 @@ import { useGetFilterCategories } from 'hooks/establishment/useGetCategories';
 
 import { useUpsertEstablishment } from 'hooks/establishment/useUpsertEstablishment';
 
+import { useUpsertEstablishmentImage } from 'hooks/establishment/useUpsertEstablishmentImage';
+
+import { success } from 'helpers/notify/success';
+
 import { schema } from './schemas';
 import * as S from './styles';
 
 export function InfoEstablishment() {
   const {
     nextStep,
-    setCompanyName,
     user,
     setUser,
-    companyName,
-    phoneNumber1,
-    setPhoneNumber1,
-    phoneNumber1HasWhatsApp,
-    setPhoneNumber1HasWhatsApp,
-    phoneNumber2,
-    setPhoneNumber2,
-    phoneNumber2HasWhatsApp,
-    setPhoneNumber2HasWhatsApp,
-    phoneNumber3,
-    setPhoneNumber3,
-    categoryValue,
-    setCategoryValue,
-    linkGeolocalizacao,
-    setLinkGeolocalizacao,
-    setLogo,
+    fantasyName,
+    setFantasyName,
+    mainPhoneHasWhatsApp,
+    setMainPhoneHasWhatsApp,
+    cellPhone,
+    setCellPhone,
+    cellPhoneHasWhatsApp,
+    setCellPhoneHasWhatsApp,
+    whatsAppPhone,
+    setWhatsAppPhone,
+    categoryId,
+    setCategoryId,
+    coordinates,
+    setCoordinates,
     logo,
-    setBanner,
+    setLogo,
     banner,
+    setBanner,
   } = usePartnerStore(state => state);
   const { colors } = useTheme();
   const { data } = usePosSubscriptions({ name: '' });
-  const { data: userSelect } = usePosSubscriptions({ name: user });
   const { data: categories } = useGetFilterCategories();
-  const { mutate: upsertEstablishment, isLoading } = useUpsertEstablishment();
+  const { mutate: upsertEstablishment, isLoading: isUpserting } =
+    useUpsertEstablishment();
+  const { mutate: upsertEstablishmentImage, isLoading: isUploadingImages } =
+    useUpsertEstablishmentImage();
   const router = useRouter();
   const formRef = useRef<FormHandles>(null);
-  const ClearUser = () => {
-    setUser('');
-    setPhoneNumber1('');
+
+  const clearUser = () => {
+    setUser(null);
+    formRef.current.clearField('user');
   };
 
-  const AllCategories = categories?.map(categorie => {
-    const value = categorie.id;
-    const label = categorie.name;
-
+  const establishmentCategories = categories?.map(category => {
+    const value = category.id;
+    const label = category.name;
     return { value, label };
   });
 
-  const options = data?.map(subscription => {
-    const { legal_person, individual_person, id } = subscription;
-    const value = id;
+  const registeredUsers = data?.map(subscription => {
+    const { legal_person, individual_person } = subscription;
+    const value = JSON.stringify(subscription);
     const label = legal_person
       ? `${legal_person.company_name} - ${legal_person.cnpj}`
       : `${individual_person.name} - ${individual_person.cpf}`;
-
     return { value, label };
   });
 
-  const handleSubmit: SubmitHandler = useCallback(data => {
-    performSchemaValidation({
-      formRef,
-      data,
-      schema,
-    }).then(() => {
-      const {
-        cel_phone,
-        cel_phone_has_whatsapp,
-        main_phone_has_whatsapp,
-        whatsapp_phone,
-        ...rest
-      } = data;
-
-      upsertEstablishment(
-        {
-          ...rest,
-          contacts: {
-            cel_phone,
-            cel_phone_has_whatsapp,
+  const handleSubmit: SubmitHandler = useCallback(
+    data => {
+      performSchemaValidation({
+        formRef,
+        data,
+        schema,
+      })
+        .then(() => {
+          const {
+            cell_phone,
+            cell_phone_has_whatsapp,
             main_phone_has_whatsapp,
             whatsapp_phone,
-          },
-        },
-        {
-          onSuccess: () => {
-            nextStep();
-          },
-        },
-      );
-    });
-  }, []);
+            user,
+            category_id,
+            // not needed on request body
+            main_phone,
+            ...rest
+          } = data;
+
+          const parsedUser = JSON.parse(user);
+
+          upsertEstablishment(
+            {
+              ...rest,
+              user_id: parsedUser.id,
+              category_id,
+              contacts: {
+                main_phone_has_whatsapp,
+                cel_phone_has_whatsapp: cell_phone_has_whatsapp,
+                ...(cell_phone ? { cel_phone: cell_phone } : {}),
+                ...(whatsapp_phone ? { whatsapp_phone } : {}),
+              },
+            },
+            {
+              onSuccess: () => {
+                if (logo.logoFile) {
+                  const requestBody = {
+                    image: logo.logoFile,
+                    user_id: parsedUser.id,
+                    image_type: 'logo',
+                  };
+
+                  upsertEstablishmentImage(requestBody, {
+                    onSuccess: () => {
+                      success('Imagem enviada com sucesso');
+                    },
+                    onError: err => {
+                      if (err instanceof AxiosError) {
+                        error(err.message);
+                      }
+                    },
+                  });
+                }
+
+                if (banner.bannerFile) {
+                  const requestBody = {
+                    image: banner.bannerFile,
+                    user_id: parsedUser.id,
+                    image_type: 'cover',
+                  };
+
+                  upsertEstablishmentImage(requestBody, {
+                    onSuccess: () => {
+                      success('Imagem enviada com sucesso');
+                    },
+                    onError: err => {
+                      if (err instanceof AxiosError) {
+                        error(err.message);
+                      }
+                    },
+                  });
+                }
+                nextStep();
+              },
+            },
+          );
+        })
+        .catch(err => {
+          if (err instanceof ValidationError) {
+            error(err.errors[0]);
+          }
+        });
+    },
+    [logo.logoFile, banner.bannerFile],
+  );
 
   const handleCancel = () => {
     window.localStorage.removeItem('partnerStore');
     router.push(DASHBOARD_PAGE);
   };
 
-  const handleBannerPreview = (event: ChangeEvent<HTMLInputElement>) => {
+  const handleImagePreview = (
+    event: ChangeEvent<HTMLInputElement>,
+    whichPreview: string,
+  ) => {
     const newImg = event.target.files[0];
-
     const currentFile = event.target.files[0].size;
     const allowedSize = 5242880; // 5mb
     const allowedTypes = ['image/png', 'image/jpeg', 'image/jpg'];
@@ -140,36 +203,22 @@ export function InfoEstablishment() {
       currentFile <= allowedSize;
 
     if (allowedImageFormats) {
-      setBanner(URL.createObjectURL(newImg), newImg);
+      if (whichPreview === 'banner') {
+        setBanner(URL.createObjectURL(newImg), newImg);
+      } else {
+        setLogo(URL.createObjectURL(newImg), newImg);
+      }
     }
 
     if (!allowedImageFormats) return error('Arquivo não suportado');
   };
 
-  const handleLogoPreview = (event: ChangeEvent<HTMLInputElement>) => {
-    const newImg = event.target.files[0];
+  const userDocument =
+    user && user.legal_person
+      ? `CNPJ: ${user?.legal_person?.cnpj}`
+      : `CPF: ${user?.individual_person?.cpf}`;
 
-    const currentFile = event.target.files[0].size;
-    const allowedSize = 5242880; // 5mb
-    const allowedTypes = ['image/png', 'image/jpeg', 'image/jpg'];
-
-    const allowedImageFormats =
-      event.target.files.length &&
-      allowedTypes.includes(newImg.type) &&
-      currentFile <= allowedSize;
-
-    if (allowedImageFormats) {
-      setLogo(URL.createObjectURL(newImg), newImg);
-    }
-
-    if (!allowedImageFormats) return error('Arquivo não suportado');
-  };
-
-  useEffect(() => {
-    if (userSelect && userSelect.length > 0 && userSelect[0].phone) {
-      setPhoneNumber1(userSelect[0].phone);
-    }
-  }, [userSelect]);
+  const isLoading = isUpserting || isUploadingImages;
 
   return (
     <S.Container>
@@ -204,39 +253,38 @@ export function InfoEstablishment() {
       </S.HeadTitle>
       <S.Form as={Form} ref={formRef} onSubmit={handleSubmit} className="form">
         <Select
-          name="user_id"
+          name="user"
           label="Pesquisar usuário"
           placeholder="Pesquisar usuário cadastrado"
-          options={options}
-          value={user}
-          defaultValue={user || ''}
-          onChange={e => setUser(e.target.value)}
+          options={registeredUsers}
+          value={JSON.stringify(user)}
+          onChange={e => {
+            if (e.target.value === 'default') {
+              clearUser();
+              return;
+            }
+            setUser(JSON.parse(e.target.value));
+          }}
         />
-        {user && (
+        {user && Object.keys(user).length > 1 && (
           <S.SelectUser>
             <S.UserData>
-              <S.UserName>{user}</S.UserName>
-              <S.Text500>
-                {userSelect?.[0]?.legal_person ? 'CNPJ: ' : 'CPF: '}
-                {userSelect?.[0]?.legal_person
-                  ? userSelect?.[0]?.legal_person.cnpj
-                  : userSelect?.[0]?.individual_person.cpf}
-              </S.Text500>
+              <S.UserName>{user.id}</S.UserName>
+              <S.Text500>{userDocument}</S.Text500>
             </S.UserData>
             <S.UserStatus>
               <S.Status>Ativo</S.Status>
               <S.UserDataSince>
                 <S.Text500>Usuário desde</S.Text500>
                 <S.Text600>
-                  {' '}
-                  {dayjs(userSelect?.[0]?.created_at).format('DD/MM/YYYY')}
+                  {dayjs(user.created_at).format('DD/MM/YYYY')}
                 </S.Text600>
               </S.UserDataSince>
               <AiOutlineClose
                 style={{ cursor: 'pointer' }}
                 size={20}
                 color={colors.danger}
-                onClick={ClearUser}
+                onClick={clearUser}
               />
             </S.UserStatus>
           </S.SelectUser>
@@ -248,53 +296,42 @@ export function InfoEstablishment() {
               name="fantasy_name"
               placeholder="Digite o nome do estabelecimento"
               label="Nome fantasia"
-              defaultValue={companyName || ''}
-              onChange={e => setCompanyName(e.target.value)}
+              defaultValue={fantasyName || ''}
+              onChange={e => setFantasyName(e.target.value)}
             />
             <Input
               type="text"
               inputMode="tel"
-              name="cel_phone"
+              name="main_phone"
               placeholder="(00) 0 0000-0000"
               label="Telefone celular"
               readOnly
-              value={phoneNumber1}
-              onChange={e => {
-                setPhoneNumber1(e.target.value);
-                formRef.current.setFieldValue(
-                  'phone',
-                  formatPhoneNumber(e.target.value),
-                );
-              }}
+              value={user?.phone || ''}
             />
             <Checkbox
               type="checkbox"
               name="main_phone_has_whatsapp"
               text="Este telefone possui WhatsApp"
-              checked={phoneNumber1HasWhatsApp || false}
-              onChange={e => setPhoneNumber1HasWhatsApp(e.target.checked)}
+              defaultChecked={mainPhoneHasWhatsApp}
+              onChange={e => setMainPhoneHasWhatsApp(e.target.checked)}
             />
             <Input
               type="text"
               inputMode="tel"
-              name="phone"
+              name="cell_phone"
               placeholder="(00) 00000-0000"
               label="Telefone celular (opcional)"
-              value={phoneNumber2 || ''}
+              value={cellPhone || ''}
               onChange={e => {
-                setPhoneNumber2(formatPhoneNumber(e.target.value));
-                formRef.current.setFieldValue(
-                  'phone2',
-                  formatPhoneNumber(e.target.value),
-                );
+                setCellPhone(formatPhoneNumber(e.target.value));
               }}
             />
             <Checkbox
               type="checkbox"
-              name="cel_phone_has_whatsapp"
+              name="cell_phone_has_whatsapp"
               text="Este telefone possui WhatsApp"
-              checked={phoneNumber2HasWhatsApp || false}
-              onChange={e => setPhoneNumber2HasWhatsApp(e.target.checked)}
+              defaultChecked={cellPhoneHasWhatsApp}
+              onChange={e => setCellPhoneHasWhatsApp(e.target.checked)}
             />
             <Input
               type="text"
@@ -302,30 +339,33 @@ export function InfoEstablishment() {
               name="whatsapp_phone"
               placeholder="(00) 00000-0000"
               label="Celular WhatsApp (opcional)"
-              value={formatPhoneNumber(phoneNumber3) || ''}
+              value={formatPhoneNumber(whatsAppPhone) || ''}
               onChange={e => {
-                setPhoneNumber3(e.target.value);
-                formRef.current.setFieldValue(
-                  'phone3',
-                  formatPhoneNumber(e.target.value),
-                );
+                setWhatsAppPhone(e.target.value);
               }}
             />
             <Select
               name="category_id"
               label="Categoria"
               placeholder="Escolha uma opção"
-              defaultValue={categoryValue || ''}
-              onChange={e => setCategoryValue(e.target.value)}
-              options={AllCategories}
+              defaultValue={categoryId || ''}
+              onChange={e => {
+                if (e.target.value === 'default') {
+                  formRef.current.setFieldValue('category_id', '');
+                  return;
+                }
+
+                setCategoryId(e.target.value);
+              }}
+              options={establishmentCategories}
             />
             <Input
               type="text"
               name="coordinates"
               placeholder="Ex: -15.584010, -56.085562"
               label="Coordenadas"
-              defaultValue={linkGeolocalizacao || ''}
-              onChange={e => setLinkGeolocalizacao(e.target.value)}
+              defaultValue={coordinates || ''}
+              onChange={e => setCoordinates(e.target.value)}
             />
           </S.DivColumn>
           <S.DivColumn>
@@ -352,7 +392,7 @@ export function InfoEstablishment() {
                 type="file"
                 name="banner"
                 id="banner"
-                onChange={handleBannerPreview}
+                onChange={event => handleImagePreview(event, 'banner')}
               />
             </S.Banner>
             <S.Logo>
@@ -378,7 +418,9 @@ export function InfoEstablishment() {
                 type="file"
                 name="logo"
                 id="logo"
-                onChange={handleLogoPreview}
+                onChange={event => {
+                  handleImagePreview(event, 'logo');
+                }}
               />
             </S.Logo>
           </S.DivColumn>
