@@ -1,5 +1,12 @@
 /* eslint-disable jsx-a11y/label-has-associated-control */
-import { ChangeEvent, useCallback, useEffect, useRef, useState } from 'react';
+import {
+  ChangeEvent,
+  ChangeEventHandler,
+  useCallback,
+  useEffect,
+  useRef,
+  useState,
+} from 'react';
 import dayjs from 'dayjs';
 import { BsCircle, BsFillCheckCircleFill } from 'react-icons/bs';
 import { AiOutlineClose } from 'react-icons/ai';
@@ -57,6 +64,7 @@ export function InfoEstablishment() {
     setCellPhoneHasWhatsApp,
     whatsAppPhone,
     setWhatsAppPhone,
+    setCategoryName,
     categoryId,
     setCategoryId,
     coordinates,
@@ -349,12 +357,16 @@ export function InfoEstablishment() {
               label="Categoria"
               placeholder="Escolha uma opção"
               defaultValue={categoryId || ''}
-              onChange={e => {
+              onChange={(e: ChangeEvent<HTMLSelectElement>) => {
+                const selectedOptionText =
+                  e.target[e.target.selectedIndex].innerText;
+
                 if (e.target.value === 'default') {
                   formRef.current.setFieldValue('category_id', '');
                   return;
                 }
 
+                setCategoryName(selectedOptionText);
                 setCategoryId(e.target.value);
               }}
               options={establishmentCategories}
