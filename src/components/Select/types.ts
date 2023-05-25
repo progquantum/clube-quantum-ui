@@ -5,7 +5,7 @@ export type SelectProps = InputHTMLAttributes<HTMLSelectElement> & {
   label?: string;
   placeholder: string;
   options: {
-    value: string;
+    value: any;
     label: string;
   }[];
 };

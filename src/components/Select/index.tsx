@@ -56,13 +56,12 @@ export function Select({
           onFocus={handleInputFocus}
           onBlur={handleInputBlur}
           onChange={handleInputChange}
+          defaultValue={defaultValue}
           placeholder={placeholder}
           ref={selectRef}
           {...rest}
         >
-          <S.Option key="" value="">
-            {placeholder}
-          </S.Option>
+          <S.Option value="default">{placeholder}</S.Option>
           {options?.map(option => (
             <S.Option key={option.label} value={option.value}>
               {option.label}
