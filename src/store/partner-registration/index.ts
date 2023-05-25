@@ -2,6 +2,8 @@ import { create } from 'zustand';
 import { persist } from 'zustand/middleware';
 import produce, { enableMapSet } from 'immer';
 
+import { PosUser } from 'hooks/user/usePosSubscriptions/types';
+
 import {
   Banner,
   CashBackRules,
@@ -272,42 +274,39 @@ export const usePartnerStore = create(
         })),
       previousStep: () =>
         set(state => ({ currentStep: state.currentStep - 1 })),
-      user: '',
-      setUser: (user: string) => {
+      user: {} as PosUser,
+      setUser: (user: PosUser) => {
         set(() => ({ user }));
       },
-      companyName: '',
-      setCompanyName: (name: string) => {
-        set(() => ({ companyName: name }));
+      fantasyName: '',
+      setFantasyName: (name: string) => {
+        set(() => ({ fantasyName: name }));
       },
-      phoneNumber1: '',
-      setPhoneNumber1: (phone: string) => {
-        set(() => ({ phoneNumber1: phone }));
+      mainPhoneHasWhatsApp: false,
+      setMainPhoneHasWhatsApp: (event: boolean) => {
+        set(() => ({ mainPhoneHasWhatsApp: event }));
       },
-      phoneNumber1HasWhatsApp: false,
-      setPhoneNumber1HasWhatsApp: (event: boolean) => {
-        set(() => ({ phoneNumber1HasWhatsApp: event }));
+      cellPhone: '',
+      setCellPhone: (phone: string) => {
+        set(() => ({ cellPhone: phone }));
       },
-      phoneNumber2: '',
-      setPhoneNumber2: (phone: string) => {
-        set(() => ({ phoneNumber2: phone }));
+      cellPhoneHasWhatsApp: false,
+      setCellPhoneHasWhatsApp: (event: boolean) => {
+        set(() => ({ cellPhoneHasWhatsApp: event }));
       },
-      phoneNumber2HasWhatsApp: false,
-      setPhoneNumber2HasWhatsApp: (event: boolean) => {
-        set(() => ({ phoneNumber2HasWhatsApp: event }));
+      whatsAppPhone: '',
+      setWhatsAppPhone: (phone: string) => {
+        set(() => ({ whatsAppPhone: phone }));
       },
-      phoneNumber3: '',
-      setPhoneNumber3: (phone: string) => {
-        set(() => ({ phoneNumber3: phone }));
+      categoryId: '',
+      setCategoryId: (category: string) => {
+        set(() => ({ categoryId: category }));
       },
-      categoryValue: '',
-      setCategoryValue: (category: string) => {
-        set(() => ({ categoryValue: category }));
+      coordinates: '',
+      setCoordinates: (coordinates: string) => {
+        set(() => ({ coordinates }));
       },
-      linkGeolocalizacao: '',
-      setLinkGeolocalizacao: (link: string) => {
-        set(() => ({ linkGeolocalizacao: link }));
-      },
+
       logo: {} as Logo,
       setLogo: (url: string, file: File) => {
         set(() => ({ logo: { logoURL: url, logoFile: file } }));

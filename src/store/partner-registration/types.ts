@@ -1,3 +1,5 @@
+import { PosUser } from 'hooks/user/usePosSubscriptions/types';
+
 export type OpenHours = {
   id: string;
   selectDays?: string[];
@@ -19,7 +21,7 @@ export type MachinePos = {
 
 export type Logo = {
   logoURL: string;
-  logoFile: File;
+  logoFile: any;
 };
 
 export type Banner = {
@@ -46,24 +48,22 @@ export type PartnerStore = {
   currentStep: number;
   nextStep: () => void;
   previousStep: () => void;
-  user: string;
-  setUser: (user: string) => void;
-  companyName: string;
-  setCompanyName: (name: string) => void;
-  phoneNumber1: string;
-  setPhoneNumber1: (phone: string) => void;
-  phoneNumber1HasWhatsApp: boolean;
-  setPhoneNumber1HasWhatsApp: (event: boolean) => void;
-  phoneNumber2: string;
-  setPhoneNumber2: (phone: string) => void;
-  phoneNumber2HasWhatsApp: boolean;
-  setPhoneNumber2HasWhatsApp: (event: boolean) => void;
-  phoneNumber3: string;
-  setPhoneNumber3: (phone: string) => void;
-  categoryValue: string;
-  setCategoryValue: (category: string) => void;
-  linkGeolocalizacao: string;
-  setLinkGeolocalizacao: (link: string) => void;
+  user: PosUser;
+  setUser: (user: PosUser) => void;
+  fantasyName: string;
+  setFantasyName: (name: string) => void;
+  mainPhoneHasWhatsApp: boolean;
+  setMainPhoneHasWhatsApp: (event: boolean) => void;
+  cellPhone: string;
+  setCellPhone: (phone: string) => void;
+  cellPhoneHasWhatsApp: boolean;
+  setCellPhoneHasWhatsApp: (event: boolean) => void;
+  whatsAppPhone: string;
+  setWhatsAppPhone: (phone: string) => void;
+  categoryId: string;
+  setCategoryId: (category: string) => void;
+  coordinates: string;
+  setCoordinates: (link: string) => void;
   logo: Logo;
   setLogo: (url: string, file: File) => void;
   banner: Banner;
