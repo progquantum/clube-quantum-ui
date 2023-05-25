@@ -102,33 +102,31 @@ export function Summary() {
             >
               <S.ContentRow>
                 <S.TextStrong>Nome fantasia</S.TextStrong>
-                <S.TextData>{state.companyName}</S.TextData>
+                <S.TextData>{state.fantasyName}</S.TextData>
               </S.ContentRow>
               <S.ContentRow>
                 <S.TextStrong>Telefone celular</S.TextStrong>
-                <S.TextData>{state.phoneNumber1}</S.TextData>
+                <S.TextData>{state.user.phone}</S.TextData>
               </S.ContentRow>
-              {state.phoneNumber2 && (
+              {state.cellPhone && (
                 <S.ContentRow>
                   <S.TextStrong>Telefone celular</S.TextStrong>
-                  <S.TextData>{state.phoneNumber2}</S.TextData>
+                  <S.TextData>{state.cellPhone}</S.TextData>
                 </S.ContentRow>
               )}
-              {state.phoneNumber3 && (
+              {state.whatsAppPhone && (
                 <S.ContentRow>
                   <S.TextStrong>Celular WhatsApp</S.TextStrong>
-                  <S.TextData>{state.phoneNumber3}</S.TextData>
+                  <S.TextData>{state.whatsAppPhone}</S.TextData>
                 </S.ContentRow>
               )}
               <S.ContentRow>
                 <S.TextStrong>Categoria</S.TextStrong>
-                <S.TextData>{state.categoryValue}</S.TextData>
+                <S.TextData>{state.categoryName}</S.TextData>
               </S.ContentRow>
               <S.ContentRow>
                 <S.TextStrong>Geolocalização</S.TextStrong>
-                <S.TextData>
-                  {formatTruncateText(state.linkGeolocalizacao, 25)}
-                </S.TextData>
+                <S.TextData>{state.coordinates}</S.TextData>
               </S.ContentRow>
             </div>
           </S.Card>
