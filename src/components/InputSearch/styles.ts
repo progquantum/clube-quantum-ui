@@ -28,6 +28,13 @@ export const ContainerIcon = styled.button`
   right: 0%;
   top: 0%;
   bottom: 0%;
+
+  @media (max-width: 340px) {
+    width: 80px;
+  }
+  @media (max-width: 300px) {
+    width: 60px;
+  }
 `;
 
 export const InputSearch = styled.input`
