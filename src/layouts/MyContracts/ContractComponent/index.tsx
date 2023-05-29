@@ -4,7 +4,7 @@ import { colors } from 'styles/theme/colors';
 import { formatDate } from 'utils/formatters/formatDate';
 
 import * as S from './styles';
-import { Props } from './types';
+import { Props, Status } from './types';
 
 export function ContractComponent({
   onRequestModalContract,
@@ -14,6 +14,11 @@ export function ContractComponent({
   const handleClickOnContract = () => {
     getSelectedContract(contract);
     onRequestModalContract();
+  };
+
+  const cancellationStatusText = {
+    CANCELED: 'Cancelamento efetuado',
+    PENDING: 'Solicitação de cancelamento em andamento',
   };
 
   return (
@@ -27,6 +32,11 @@ export function ContractComponent({
       <S.ContainerIcon>
         <AiFillInfoCircle size={20} color={colors.mediumslateBlue} />
       </S.ContainerIcon>
+      {contract.cancelled_status && (
+        <S.CancellationStatus status={contract.cancelled_status as Status}>
+          {cancellationStatusText[contract.cancelled_status as Status]}
+        </S.CancellationStatus>
+      )}
     </S.Container>
   );
 }
