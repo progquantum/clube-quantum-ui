@@ -100,7 +100,7 @@ export function HomePage() {
         </S.Container>
       </S.Background>
 
-      {/* <Footer /> */}
+      <Footer />
     </>
   );
 }
