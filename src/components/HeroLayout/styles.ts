@@ -7,24 +7,38 @@ export const HeroContainer = styled.div<HeroContainerProps>`
   height: 100%;
   background-image: url(${p => p.backgroundImageUrl});
   background-size: cover;
+  background-position: center;
   display: flex;
   gap: 4rem;
   justify-content: center;
   align-items: center;
-  padding: 5rem 0;
+  padding: 1rem 0;
 `;
 
 export const LeftContent = styled.div`
   width: 480px;
   height: 207px;
   color: ${({ theme }) => theme.colors.white};
-  margin-top: -4rem;
   margin-left: 4rem;
   font-size: 1rem;
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
+
+  & > p {
+    text-align: left;
+  }
+  @media (max-width: 1100px) {
+    & > p {
+      font-size: 90%;
+    }
+  }
+  @media (max-width: 900px) {
+    & > p {
+      font-size: 80%;
+    }
+  }
   @media (max-width: 600px) {
     margin-left: 0;
     margin-top: 0;
