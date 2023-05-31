@@ -5,10 +5,6 @@ export const HeroContainer = styled.div`
   height: 100%;
   background-image: url('/images/Background_blue_01.svg');
   background-size: cover;
-  display: flex;
-  gap: 4rem;
-  justify-content: center;
-  align-items: center;
   padding: 5rem 0;
 
   @media (max-width: 425px) {

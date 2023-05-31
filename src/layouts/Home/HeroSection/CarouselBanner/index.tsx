@@ -9,26 +9,28 @@ import {
 } from 'constants/routesPath';
 import { useAuthDispatch } from 'contexts/auth/AuthContext';
 
+import * as S from './styles';
+
 export function CarouselBanner() {
   const { setPreviousPage } = useAuthDispatch();
   return (
     <Carousel>
       <Carousel.Item>
-        <div style={{ margin: ' 50px 0px' }}>
+        <S.CenterContainer>
           <Link href={POS_PAGE}>
             <Image
               onClick={() => setPreviousPage(POS_PAGE)}
               style={{ cursor: 'pointer' }}
               src="/images/banner_pos.svg"
               alt="Máquina Pos"
-              width={1280}
+              width={1200}
               height={520}
             />
           </Link>
-        </div>
+        </S.CenterContainer>
       </Carousel.Item>
       <Carousel.Item>
-        <div style={{ margin: ' 50px 60px' }}>
+        <S.CenterContainer>
           <Link href={MARKETPLACE_PAGE}>
             <Image
               onClick={() => setPreviousPage(MARKETPLACE_PAGE)}
@@ -39,10 +41,10 @@ export function CarouselBanner() {
               height={520}
             />
           </Link>
-        </div>
+        </S.CenterContainer>
       </Carousel.Item>
       <Carousel.Item>
-        <div style={{ margin: ' 50px 60px' }}>
+        <S.CenterContainer>
           <Link href={PLAN_TIM_PAGE}>
             <Image
               onClick={() => setPreviousPage(PLAN_TIM_PAGE)}
@@ -53,7 +55,7 @@ export function CarouselBanner() {
               height={520}
             />
           </Link>
-        </div>
+        </S.CenterContainer>
       </Carousel.Item>
     </Carousel>
   );
