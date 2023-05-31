@@ -124,7 +124,6 @@ export function DashboardPos() {
                   <S.TableColumn>
                     <S.StatusTrans>Aprovada</S.StatusTrans>
                     <S.Font14>João Augusto de Lima</S.Font14>
-                    <S.FontGray400>CPF: 981.238.109-25</S.FontGray400>
                   </S.TableColumn>
                   <S.TableColumn2>
                     <S.Font14>VISA</S.Font14>
@@ -141,7 +140,6 @@ export function DashboardPos() {
                   <S.TableColumn>
                     <S.StatusTrans>Aprovada</S.StatusTrans>
                     <S.Font14>João Augusto de Lima</S.Font14>
-                    <S.FontGray400>CPF: 981.238.109-25</S.FontGray400>
                   </S.TableColumn>
                   <S.TableColumn2>
                     <S.Font14>VISA</S.Font14>
@@ -158,7 +156,6 @@ export function DashboardPos() {
                   <S.TableColumn>
                     <S.StatusTrans>Aprovada</S.StatusTrans>
                     <S.Font14>João Augusto de Lima</S.Font14>
-                    <S.FontGray400>CPF: 981.238.109-25</S.FontGray400>
                   </S.TableColumn>
                   <S.TableColumn2>
                     <S.Font14>VISA</S.Font14>
@@ -191,7 +188,7 @@ export function DashboardPos() {
                 </S.TableFlagRow>
                 <S.TableColumn4>
                   <S.Font14>R$ 230,00</S.Font14>
-                  <S.FontGray400>10 Vendas - 50%</S.FontGray400>
+                  <S.FontGray400>10 Vendas</S.FontGray400>
                 </S.TableColumn4>
               </S.ContentCards>
               <S.ContentCards>
@@ -200,7 +197,7 @@ export function DashboardPos() {
                 </S.TableFlagRow>
                 <S.TableColumn4>
                   <S.Font14>R$ 230,00</S.Font14>
-                  <S.FontGray400>10 Vendas - 50%</S.FontGray400>
+                  <S.FontGray400>10 Vendas</S.FontGray400>
                 </S.TableColumn4>
               </S.ContentCards>
               <S.ContentCards>
@@ -209,7 +206,7 @@ export function DashboardPos() {
                 </S.TableFlagRow>
                 <S.TableColumn4>
                   <S.Font14>R$ 230,00</S.Font14>
-                  <S.FontGray400>10 Vendas - 50%</S.FontGray400>
+                  <S.FontGray400>10 Vendas</S.FontGray400>
                 </S.TableColumn4>
               </S.ContentCards>
               <S.ContentCards>
@@ -218,7 +215,7 @@ export function DashboardPos() {
                 </S.TableFlagRow>
                 <S.TableColumn4>
                   <S.Font14>R$ 230,00</S.Font14>
-                  <S.FontGray400>10 Vendas - 50%</S.FontGray400>
+                  <S.FontGray400>10 Vendas</S.FontGray400>
                 </S.TableColumn4>
               </S.ContentCards>
             </S.TableFlag>
