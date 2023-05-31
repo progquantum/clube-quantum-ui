@@ -19,12 +19,8 @@ export function RequestInfo({
         <MdArrowBackIos size={24} onClick={removeSelectedRequest} />
         <S.Title>Solicitações de Cancelamento</S.Title>
       </S.TitleContainer>
-      <S.ContractName>{requestInfo.contractName}</S.ContractName>
+      <S.ContractName>{requestInfo.userName}</S.ContractName>
       <S.DocumentKey>ID - {requestInfo.contractDocumentKey}</S.DocumentKey>
-      <S.DataRow>
-        <S.Bold>Tipo: </S.Bold>
-        {requestInfo.contractType}
-      </S.DataRow>
       <S.DataRow>
         <S.Bold>Data de Nasc.: </S.Bold>
         {formatDate(requestInfo.birthDate)}

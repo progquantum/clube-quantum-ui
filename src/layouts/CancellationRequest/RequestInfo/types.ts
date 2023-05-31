@@ -1,7 +1,7 @@
 export type RequestInfo = {
+  userName: string;
   contractName: string;
   contractDocumentKey: string;
-  contractType: string;
   birthDate: string;
   email: string;
   productName: string;
