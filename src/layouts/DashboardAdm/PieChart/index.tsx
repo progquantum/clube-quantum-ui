@@ -7,6 +7,7 @@ import {
   Legend,
   ResponsiveContainer,
   Surface,
+  Tooltip,
 } from 'recharts';
 
 import * as S from './styles';
@@ -61,7 +62,7 @@ export function PieChart() {
             fill="#8884d8"
             dataKey="value"
           >
-            {data?.map((entry, index) => (
+            {data?.map((_, index) => (
               <Cell
                 key={`cell-${index}`}
                 fill={COLORS[index % COLORS.length]}
@@ -109,6 +110,7 @@ export function PieChart() {
               );
             }}
           />
+          <Tooltip />
         </PieChar>
       </ResponsiveContainer>
     </S.Pie>

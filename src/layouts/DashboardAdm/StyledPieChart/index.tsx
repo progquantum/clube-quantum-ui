@@ -7,6 +7,7 @@ import {
   Cell,
   Legend,
   ResponsiveContainer,
+  Tooltip,
 } from 'recharts';
 
 import * as S from './styles';
@@ -23,7 +24,7 @@ const total = data.reduce((sum, entry) => sum + entry.value, 0);
 const CenterLabel = ({ children }) => (
   <text
     x="50%"
-    y="50%"
+    y="40%"
     fill="black"
     textAnchor="middle"
     dominantBaseline="middle"
@@ -31,12 +32,10 @@ const CenterLabel = ({ children }) => (
     {children}
   </text>
 );
+
 const centerLabel = (
   <CenterLabel>
-    {' '}
-    <tspan x="50%" dy="0">
-      {total}
-    </tspan>
+    <tspan x="50%">{total}</tspan>
     <tspan x="50%" dy="1.2em" fontSize="14px">
       Clientes
     </tspan>
@@ -106,6 +105,7 @@ export function StyledPieChart() {
               );
             }}
           />
+          <Tooltip />
         </PieChart>
       </ResponsiveContainer>
     </S.StyledPie>
