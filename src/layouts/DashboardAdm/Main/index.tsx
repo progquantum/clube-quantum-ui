@@ -1,6 +1,8 @@
 import { useState } from 'react';
 import { MdOutlineAttachMoney } from 'react-icons/md';
 
+import { useSidebarStore } from 'store/sidebar';
+
 import { BarChart } from '../BarChart';
 import { BarChart2 } from '../BarChart2';
 
@@ -12,8 +14,10 @@ import * as S from './styles';
 
 export function Main() {
   const [underline, setUnderline] = useState('Geral');
+  const isSideBarExpanded = useSidebarStore(state => state.isExpanded);
+
   return (
-    <S.Container>
+    <S.Container isSideBarExpanded={isSideBarExpanded}>
       <S.Head>
         <S.TitleAdm>Olá, Administrador</S.TitleAdm>
         <S.DivRow>
@@ -34,11 +38,10 @@ export function Main() {
         </S.DivRow>
       </S.Head>
 
-      <S.Balance>
+      <S.Balance isSideBarExpanded={isSideBarExpanded}>
         <S.RowContent>
           <S.ContentBalance>
             <S.TitleBalance>
-              {' '}
               <MdOutlineAttachMoney size={19.87} />
               Faturamento Quantum
             </S.TitleBalance>
@@ -46,7 +49,6 @@ export function Main() {
           </S.ContentBalance>
           <S.ContentBalance>
             <S.TitleBalance>
-              {' '}
               <MdOutlineAttachMoney size={19.87} />
               Faturamento Diário
             </S.TitleBalance>
@@ -56,7 +58,6 @@ export function Main() {
         <S.RowContent>
           <S.ContentBalance>
             <S.TitleBalance>
-              {' '}
               <MdOutlineAttachMoney size={19.87} />
               Repasse ao cliente
             </S.TitleBalance>
@@ -64,7 +65,6 @@ export function Main() {
           </S.ContentBalance>
           <S.ContentBalance>
             <S.TitleBalance>
-              {' '}
               <MdOutlineAttachMoney size={19.87} />
               Total de cliente
             </S.TitleBalance>

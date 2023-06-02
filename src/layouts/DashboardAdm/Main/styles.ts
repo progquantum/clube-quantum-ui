@@ -4,7 +4,7 @@ import { Button } from 'components/Button';
 
 import { ButtonProps } from './types';
 
-export const Container = styled.div`
+export const Container = styled.div<{ isSideBarExpanded: boolean }>`
   display: grid;
   width: 100%;
   grid-template-columns: 1fr 1fr 1fr;
@@ -14,54 +14,60 @@ export const Container = styled.div`
     'Balance Balance Balance'
     'Line Line Pie'
     'StyledPie Bar Bar2';
-  margin-top: 36px;
-  gap: 24px;
+  margin-top: 2.25rem;
+  gap: 1.5rem;
 
-  @media (max-width: 2230px) {
+  ${({ isSideBarExpanded }) =>
+    isSideBarExpanded &&
+    css`
+      grid-template-columns: 1fr 1fr;
+      grid-template-areas:
+        'Head Head'
+        'Balance Balance'
+        'Line Line'
+        'Pie StyledPie'
+        'Bar Bar2';
+    `}
+
+  @media (max-width: 1250px) {
     grid-template-columns: 1fr 1fr;
     grid-template-areas:
       'Head Head'
       'Balance Balance'
       'Line Line'
       'Pie StyledPie'
-      ' Bar Bar2';
-  }
-  @media (max-width: 1820px) {
-    display: flex;
-    flex-direction: column;
-    max-width: 691px;
+      'Bar Bar2';
   }
 
-  @media (max-width: 1130px) {
-    max-width: 433px;
-  }
-
-  @media (max-width: 475px) {
-    max-width: 400px;
-  }
-
-  @media (max-width: 445px) {
-    max-width: 370px;
-  }
-
-  @media (max-width: 415px) {
-    max-width: 330px;
-  }
-
-  @media (max-width: 375px) {
-    max-width: 300px;
+  @media (max-width: 850px) {
+    grid-template-columns: 1fr 1fr;
+    grid-template-areas:
+      'Head Head'
+      'Balance Balance'
+      'Line Line'
+      'Pie Pie'
+      'StyledPie StyledPie'
+      'Bar Bar'
+      'Bar2 Bar2';
   }
 `;
 
 export const Head = styled.div`
   grid-area: Head;
 `;
-export const Balance = styled.div`
+export const Balance = styled.div<{ isSideBarExpanded: boolean }>`
   width: 100%;
   grid-area: Balance;
-  gap: 24px;
+  gap: 1.5rem;
   display: flex;
-  @media (max-width: 1820px) {
+  ${({ isSideBarExpanded }) =>
+    isSideBarExpanded &&
+    css`
+      @media (max-width: 1500px) {
+        flex-direction: column;
+      }
+    `}
+  @media (max-width: 1070px) {
     flex-direction: column;
   }
 `;
@@ -69,8 +75,8 @@ export const Balance = styled.div`
 export const RowContent = styled.div`
   display: flex;
   width: 100%;
-  gap: 24px;
-  @media (max-width: 1130px) {
+  gap: 1.5rem;
+  @media (max-width: 550px) {
     flex-direction: column;
   }
 `;

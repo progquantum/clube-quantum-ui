@@ -8,6 +8,7 @@ import {
   CartesianGrid,
   Tooltip,
   ResponsiveContainer,
+  Legend,
 } from 'recharts';
 
 import * as S from './styles';
@@ -35,7 +36,7 @@ export function BarChart2() {
   return (
     <S.Bar2>
       <S.Title>Clientes por dia</S.Title>
-      <ResponsiveContainer>
+      <ResponsiveContainer width="99%" height="100%">
         <BarChar
           width={400}
           height={300}
@@ -54,6 +55,8 @@ export function BarChart2() {
           <Tooltip />
           <CartesianGrid strokeDasharray="3 3" />
           <Bar dataKey="faturamento" fill="#F86624" />
+          <Tooltip />
+          <Legend />
         </BarChar>
       </ResponsiveContainer>
     </S.Bar2>

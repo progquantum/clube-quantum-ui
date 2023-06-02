@@ -51,7 +51,7 @@ export function PieChart() {
     <S.Pie>
       <S.Title>Vendas Quantum Smart</S.Title>
 
-      <ResponsiveContainer>
+      <ResponsiveContainer width="99%" height="100%">
         <PieChar width={400} height={400}>
           <Pie
             data={data}
