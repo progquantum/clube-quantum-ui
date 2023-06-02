@@ -19,20 +19,24 @@ import { useGetEstablishment } from 'hooks/dashboard-pos/useGetEstablishment';
 
 import { formatPrice } from 'utils/formatters/formatPrice';
 
+import { useSidebarStore } from 'store/sidebar';
+
 import * as S from './styles';
-import { PieChart } from './PieChart';
-import { BarChart } from './BarChart';
-import { PieChartSales } from './PieChartSales';
 import DraggableScrollContainer from './DraggableScrollContainer';
+import { PaymentMethodPieChart } from './PaymentMethodPieChart';
+import { SalesByClientPieChart } from './SalesByClientPieChart';
+import { OverallSalesProgressionBarChart } from './OverallSalesProgressionBarChart';
 
 export function DashboardPos() {
   const formRef = useRef<FormHandles>(null);
   const [underline, setUnderline] = useState('Geral');
   const { data } = useGetEstablishment();
 
+  const isSideBarExpanded = useSidebarStore(state => state.isExpanded);
   const handleSelect = () => {
     console.log('Select');
   };
+
   return (
     <DashboardLayout maxWidth="1736px">
       <S.Container
@@ -102,10 +106,10 @@ export function DashboardPos() {
           />
         </div>
 
-        <S.DivGraphics>
-          <PieChart />
-          <PieChartSales />
-          <BarChart />
+        <S.DivGraphics isSideBarExpanded={isSideBarExpanded}>
+          <PaymentMethodPieChart />
+          <SalesByClientPieChart />
+          <OverallSalesProgressionBarChart />
         </S.DivGraphics>
         <S.ContentRow>
           <DraggableScrollContainer>

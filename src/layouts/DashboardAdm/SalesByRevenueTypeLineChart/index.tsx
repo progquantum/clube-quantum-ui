@@ -52,11 +52,11 @@ const data = [
   },
 ];
 
-export function LineChart() {
+export function SalesByRevenueTypeLineChart() {
   return (
-    <S.Line>
+    <S.ChartContainer>
       <S.Title>Comparação de vendas por tipo de receita.</S.Title>
-      <ResponsiveContainer>
+      <ResponsiveContainer width="99%" height="100%">
         <LineChar
           data={data}
           margin={{
@@ -105,8 +105,10 @@ export function LineChart() {
             activeDot={{ r: 8 }}
           />
           <Line type="monotone" dataKey="Planos" stroke="#0C61FF" />
+          <Tooltip />
+          <Legend />
         </LineChar>
       </ResponsiveContainer>
-    </S.Line>
+    </S.ChartContainer>
   );
 }
