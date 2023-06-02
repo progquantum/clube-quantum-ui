@@ -1,4 +1,4 @@
 export type RequestBody = {
-  file: string;
+  file: FormData;
   image_id?: string;
 };

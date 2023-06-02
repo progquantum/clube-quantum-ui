@@ -19,6 +19,9 @@ export async function uploadBanners(requestBody: RequestBody) {
       if (err.response.status === 415) {
         error('Arquivo não suportado');
       }
+      if (err.response.status === 400) {
+        error('Imagem obrigatórtia!');
+      }
     }
   }
 }
