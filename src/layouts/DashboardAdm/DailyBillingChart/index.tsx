@@ -8,6 +8,7 @@ import {
   CartesianGrid,
   Tooltip,
   ResponsiveContainer,
+  Legend,
 } from 'recharts';
 
 import * as S from './styles';
@@ -31,11 +32,11 @@ const data = [
   },
 ];
 
-export function BarChart2() {
+export function DailyBillingChart() {
   return (
-    <S.Bar2>
-      <S.Title>Clientes por dia</S.Title>
-      <ResponsiveContainer>
+    <S.ChartContainer>
+      <S.Title>Faturamento diário</S.Title>
+      <ResponsiveContainer width="99%" height="100%">
         <BarChar
           width={400}
           height={300}
@@ -53,9 +54,11 @@ export function BarChart2() {
           <YAxis dataKey="name" type="category" />
           <Tooltip />
           <CartesianGrid strokeDasharray="3 3" />
-          <Bar dataKey="faturamento" fill="#F86624" />
+          <Bar dataKey="faturamento" fill="#0C61FF" />
+          <Tooltip />
+          <Legend />
         </BarChar>
       </ResponsiveContainer>
-    </S.Bar2>
+    </S.ChartContainer>
   );
 }

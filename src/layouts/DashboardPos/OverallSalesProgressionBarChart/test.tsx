@@ -2,8 +2,8 @@ import { render } from '@testing-library/react';
 
 import { useGetSalesProgression } from 'hooks/dashboard-pos/useSalesProgression';
 
-import { BarChart } from '.';
 import { ProviderMock } from '../../../../__test__/__mocks__/provider';
+import { OverallSalesProgressionBarChart } from '.';
 
 jest.mock('hooks/dashboard-pos/useSalesProgression');
 
@@ -35,7 +35,7 @@ describe('BarChart', () => {
     });
     const { getByText, getByRole } = render(
       <ProviderMock>
-        <BarChart />
+        <OverallSalesProgressionBarChart />
       </ProviderMock>,
     );
     setTimeout(() => {

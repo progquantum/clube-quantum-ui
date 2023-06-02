@@ -16,6 +16,7 @@ export const colors = {
   cherryPie: '#190252',
   white: '#ffffff',
   ghostwhite: '#F5F6FA',
+  orangeRed: '#F86624',
   gray: {
     50: '#E6E6E6',
     100: '#DBDBDB',

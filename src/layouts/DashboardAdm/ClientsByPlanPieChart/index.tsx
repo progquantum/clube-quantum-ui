@@ -44,11 +44,11 @@ const centerLabel = (
 
 // ...
 
-export function StyledPieChart() {
+export function ClientsByPlanPieChart() {
   return (
-    <S.StyledPie>
+    <S.ChartContainer>
       <S.Title>Clientes por plano</S.Title>
-      <ResponsiveContainer>
+      <ResponsiveContainer width="99%" height="100%">
         <PieChart width={800} height={400}>
           <Pie
             data={data}
@@ -60,7 +60,7 @@ export function StyledPieChart() {
             label={centerLabel}
             labelLine={false}
           >
-            {data.map((entry, index) => (
+            {data.map((_, index) => (
               <Cell
                 key={`cell-${index}`}
                 fill={COLORS[index % COLORS.length]}
@@ -108,6 +108,6 @@ export function StyledPieChart() {
           <Tooltip />
         </PieChart>
       </ResponsiveContainer>
-    </S.StyledPie>
+    </S.ChartContainer>
   );
 }

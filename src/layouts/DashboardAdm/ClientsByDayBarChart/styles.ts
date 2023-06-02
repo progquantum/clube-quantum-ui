@@ -1,7 +1,7 @@
 import styled from 'styled-components';
 
-export const StyledPie = styled.div`
-  grid-area: StyledPie;
+export const ChartContainer = styled.div`
+  grid-area: ClientsByDayBarChart;
   width: 100%;
   height: 352px;
   display: flex;
@@ -9,9 +9,9 @@ export const StyledPie = styled.div`
   align-items: flex-start;
   padding: 0px;
   background: #ffffff;
-  box-shadow: 0px 2px 20px rgba(0, 0, 0, 0.07);
   border-radius: 4px;
   padding: 20px;
+  box-shadow: 0px 1px 4px rgba(0, 0, 0, 0.09);
 `;
 
 export const Title = styled.h2`
@@ -20,4 +20,5 @@ export const Title = styled.h2`
   font-size: 18px;
   line-height: 150%;
   color: ${({ theme }) => theme.colors.gray[700]};
+  margin-bottom: 10px;
 `;
