@@ -9,7 +9,7 @@ export const ChartContainer = styled.div`
   align-items: flex-start;
   padding: 0px;
   background: #ffffff;
-  box-shadow: 0px 2px 20px rgba(0, 0, 0, 0.07);
+  box-shadow: 0px 1px 4px rgba(0, 0, 0, 0.09);
   border-radius: 4px;
   padding: 20px;
 `;

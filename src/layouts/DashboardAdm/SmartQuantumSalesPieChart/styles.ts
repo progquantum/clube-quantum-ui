@@ -8,7 +8,7 @@ export const ChartContainer = styled.div`
   flex-direction: column;
   align-items: flex-start;
   background: #ffffff;
-  box-shadow: 0px 2px 20px rgba(0, 0, 0, 0.07);
+  box-shadow: 0px 1px 4px rgba(0, 0, 0, 0.09);
   border-radius: 4px;
   padding: 20px;
 `;
