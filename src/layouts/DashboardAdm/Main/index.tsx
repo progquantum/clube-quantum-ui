@@ -3,14 +3,12 @@ import { MdOutlineAttachMoney } from 'react-icons/md';
 
 import { useSidebarStore } from 'store/sidebar';
 
-import { BarChart } from '../BarChart';
-import { BarChart2 } from '../BarChart2';
-
-import { LineChart } from '../LineChart';
-import { PieChart } from '../PieChart';
-import { StyledPieChart } from '../StyledPieChart';
-
 import * as S from './styles';
+import { SalesByRevenueTypeLineChart } from '../SalesByRevenueTypeLineChart';
+import { SmartQuantumSalesPieChart } from '../SmartQuantumSalesPieChart';
+import { ClientsByPlanPieChart } from '../ClientsByPlanPieChart';
+import { DailyBillingChart } from '../DailyBillingChart';
+import { ClientsByDayBarChart } from '../ClientsByDayBarChart';
 
 export function Main() {
   const [underline, setUnderline] = useState('Geral');
@@ -72,11 +70,11 @@ export function Main() {
           </S.ContentBalance>
         </S.RowContent>
       </S.Balance>
-      <LineChart />
-      <PieChart />
-      <StyledPieChart />
-      <BarChart />
-      <BarChart2 />
+      <SalesByRevenueTypeLineChart />
+      <SmartQuantumSalesPieChart />
+      <ClientsByPlanPieChart />
+      <DailyBillingChart />
+      <ClientsByDayBarChart />
     </S.Container>
   );
 }

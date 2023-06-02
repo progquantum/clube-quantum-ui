@@ -1,9 +1,9 @@
 import styled from 'styled-components';
 
-export const StyledPie = styled.div`
-  grid-area: StyledPie;
+export const ChartContainer = styled.div`
+  grid-area: SalesByRevenueTypeLineChart;
   width: 100%;
-  height: 352px;
+  height: 358px;
   display: flex;
   flex-direction: column;
   align-items: flex-start;
@@ -12,6 +12,10 @@ export const StyledPie = styled.div`
   box-shadow: 0px 2px 20px rgba(0, 0, 0, 0.07);
   border-radius: 4px;
   padding: 20px;
+
+  @media (max-width: 445px) {
+    height: 390px;
+  }
 `;
 
 export const Title = styled.h2`
@@ -20,4 +24,5 @@ export const Title = styled.h2`
   font-size: 18px;
   line-height: 150%;
   color: ${({ theme }) => theme.colors.gray[700]};
+  margin-bottom: 10px;
 `;

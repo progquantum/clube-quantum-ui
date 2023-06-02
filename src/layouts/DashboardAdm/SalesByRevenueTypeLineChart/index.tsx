@@ -52,9 +52,9 @@ const data = [
   },
 ];
 
-export function LineChart() {
+export function SalesByRevenueTypeLineChart() {
   return (
-    <S.Line>
+    <S.ChartContainer>
       <S.Title>Comparação de vendas por tipo de receita.</S.Title>
       <ResponsiveContainer width="99%" height="100%">
         <LineChar
@@ -109,6 +109,6 @@ export function LineChart() {
           <Legend />
         </LineChar>
       </ResponsiveContainer>
-    </S.Line>
+    </S.ChartContainer>
   );
 }

@@ -45,9 +45,9 @@ const centerLabel = (
 
 // ...
 
-export function StyledPieChart() {
+export function ClientsByPlanPieChart() {
   return (
-    <S.StyledPie>
+    <S.ChartContainer>
       <S.Title>Clientes por plano</S.Title>
       <ResponsiveContainer width="99%" height="100%">
         <PieChart width={800} height={400}>
@@ -108,6 +108,6 @@ export function StyledPieChart() {
           />
         </PieChart>
       </ResponsiveContainer>
-    </S.StyledPie>
+    </S.ChartContainer>
   );
 }

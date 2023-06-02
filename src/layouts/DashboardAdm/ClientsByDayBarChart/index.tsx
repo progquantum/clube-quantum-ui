@@ -32,10 +32,10 @@ const data = [
   },
 ];
 
-export function BarChart() {
+export function ClientsByDayBarChart() {
   return (
-    <S.Bar>
-      <S.Title>Faturamento diário</S.Title>
+    <S.ChartContainer>
+      <S.Title>Clientes por dia</S.Title>
       <ResponsiveContainer width="99%" height="100%">
         <BarChar
           width={400}
@@ -54,11 +54,11 @@ export function BarChart() {
           <YAxis dataKey="name" type="category" />
           <Tooltip />
           <CartesianGrid strokeDasharray="3 3" />
-          <Bar dataKey="faturamento" fill="#0C61FF" />
+          <Bar dataKey="faturamento" fill="#F86624" />
           <Tooltip />
           <Legend />
         </BarChar>
       </ResponsiveContainer>
-    </S.Bar>
+    </S.ChartContainer>
   );
 }

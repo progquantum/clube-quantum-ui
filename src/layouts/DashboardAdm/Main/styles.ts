@@ -12,8 +12,8 @@ export const Container = styled.div<{ isSideBarExpanded: boolean }>`
   grid-template-areas:
     'Head Head Head'
     'Balance Balance Balance'
-    'Line Line Pie'
-    'StyledPie Bar Bar2';
+    'SalesByRevenueTypeLineChart SalesByRevenueTypeLineChart  SmartQuantumSalesPieChart'
+    'ClientsByPlanPieChart DailyBillingChart ClientsByDayBarChart';
   margin-top: 2.25rem;
   gap: 1.5rem;
 
@@ -24,9 +24,9 @@ export const Container = styled.div<{ isSideBarExpanded: boolean }>`
       grid-template-areas:
         'Head Head'
         'Balance Balance'
-        'Line Line'
-        'Pie StyledPie'
-        'Bar Bar2';
+        'SalesByRevenueTypeLineChart SalesByRevenueTypeLineChart'
+        'SmartQuantumSalesPieChart ClientsByPlanPieChart'
+        'DailyBillingChart ClientsByDayBarChart';
     `}
 
   @media (max-width: 1250px) {
@@ -34,9 +34,9 @@ export const Container = styled.div<{ isSideBarExpanded: boolean }>`
     grid-template-areas:
       'Head Head'
       'Balance Balance'
-      'Line Line'
-      'Pie StyledPie'
-      'Bar Bar2';
+      'SalesByRevenueTypeLineChart SalesByRevenueTypeLineChart'
+      'SmartQuantumSalesPieChart ClientsByPlanPieChart'
+      'DailyBillingChart ClientsByDayBarChart';
   }
 
   @media (max-width: 850px) {
@@ -44,11 +44,11 @@ export const Container = styled.div<{ isSideBarExpanded: boolean }>`
     grid-template-areas:
       'Head Head'
       'Balance Balance'
-      'Line Line'
-      'Pie Pie'
-      'StyledPie StyledPie'
-      'Bar Bar'
-      'Bar2 Bar2';
+      'SalesByRevenueTypeLineChart SalesByRevenueTypeLineChart'
+      'SmartQuantumSalesPieChart SmartQuantumSalesPieChart'
+      'ClientsByPlanPieChart ClientsByPlanPieChart'
+      'DailyBillingChart DailyBillingChart'
+      'ClientsByDayBarChart ClientsByDayBarChart';
   }
 `;
 

@@ -1,7 +1,7 @@
 import styled from 'styled-components';
 
-export const Bar2 = styled.div`
-  grid-area: Bar2;
+export const ChartContainer = styled.div`
+  grid-area: ClientsByPlanPieChart;
   width: 100%;
   height: 352px;
   display: flex;
@@ -20,5 +20,4 @@ export const Title = styled.h2`
   font-size: 18px;
   line-height: 150%;
   color: ${({ theme }) => theme.colors.gray[700]};
-  margin-bottom: 10px;
 `;

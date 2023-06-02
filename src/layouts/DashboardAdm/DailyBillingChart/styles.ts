@@ -1,7 +1,7 @@
 import styled from 'styled-components';
 
-export const Bar = styled.div`
-  grid-area: Bar;
+export const ChartContainer = styled.div`
+  grid-area: DailyBillingChart;
   width: 100%;
   height: 352px;
   display: flex;
