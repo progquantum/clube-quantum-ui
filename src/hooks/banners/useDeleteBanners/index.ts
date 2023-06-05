@@ -13,6 +13,7 @@ export const bannerDeleteRequest = async (id: string) => {
         error('Id da imagem não encontrado');
       }
     }
+    return Promise.reject(err);
   }
 };
 

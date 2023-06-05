@@ -23,6 +23,7 @@ export async function uploadBanners(requestBody: RequestBody) {
         error('Imagem obrigatórtia!');
       }
     }
+    return Promise.reject(err);
   }
 }
 
