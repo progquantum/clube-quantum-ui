@@ -22,6 +22,23 @@ export const UploadPhotoBox = styled.div`
     }
   }
 
+  & .edit {
+    position: absolute;
+    top: 5px;
+    left: 60px;
+    cursor: pointer;
+
+    & svg {
+      color: ${({ theme }) => theme.colors.black};
+      cursor: pointer;
+      &:hover {
+        border: 2px solid black;
+        border-radius: 20px;
+        font-size: 5px;
+      }
+    }
+  }
+
   @media (max-width: 374px) {
     width: 310px;
   }
