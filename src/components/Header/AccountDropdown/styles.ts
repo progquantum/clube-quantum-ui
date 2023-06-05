@@ -19,7 +19,6 @@ export const AnimatedDropdown = styled(motion.nav)`
   right: 0;
   width: 13rem;
   box-shadow: 0 0rem 0.6rem rgba(0, 0, 0, 0.1);
-
   &::before {
     content: '';
     display: block;
@@ -58,4 +57,13 @@ export const NavButton = styled(Button)`
       background: ${theme.colors.mediumslateBlue};
     }
   `}
+`;
+
+export const SignOutButton = styled(NavButton)`
+  color: ${({ theme }) => theme.colors.danger};
+
+  &:hover {
+    color: ${({ theme }) => theme.colors.white};
+    background: ${({ theme }) => theme.colors.danger};
+  }
 `;

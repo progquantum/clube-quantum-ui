@@ -48,10 +48,10 @@ export function AccountDropdown() {
                 <span>Atualizar Cadastro</span>
               </S.NavButton>
             </Link>
-            <S.NavButton onClick={signOut}>
+            <S.SignOutButton onClick={signOut}>
               <FiLogOut />
               <span>Sair</span>
-            </S.NavButton>
+            </S.SignOutButton>
           </S.AnimatedDropdown>
         )}
       </AnimatePresence>
