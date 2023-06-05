@@ -7,6 +7,7 @@ import {
   Legend,
   ResponsiveContainer,
   Surface,
+  Tooltip,
 } from 'recharts';
 
 import * as S from './styles';
@@ -81,6 +82,7 @@ export function SmartQuantumSalesPieChart() {
               );
             }}
           />
+          <Tooltip />
         </PieChar>
       </ResponsiveContainer>
     </S.ChartContainer>

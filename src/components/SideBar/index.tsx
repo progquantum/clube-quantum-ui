@@ -124,14 +124,6 @@ export function SideBar({ loading }: SideBarProps) {
               <S.TitleBox>Minha Conta</S.TitleBox>
             </S.NavButton>
           </Link>
-          <Link href={DASHBOARD_ADM_PAGE}>
-            <S.NavButton isExpanded={isExpanded}>
-              <S.IconBox isExpanded={isExpanded}>
-                <FaDollarSign />
-              </S.IconBox>
-              <S.TitleBox>Setor Financeiro</S.TitleBox>
-            </S.NavButton>
-          </Link>
           <Link href={PARTNER_REGISTRATION_PAGE}>
             <S.NavButton isExpanded={isExpanded}>
               <S.IconBox isExpanded={isExpanded}>

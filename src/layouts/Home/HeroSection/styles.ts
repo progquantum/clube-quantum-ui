@@ -3,17 +3,9 @@ import styled from 'styled-components';
 export const HeroContainer = styled.div`
   width: 100%;
   height: 100%;
-  background-image: url('/images/Background_blue_01.svg');
-  background-size: cover;
-  display: flex;
-  gap: 4rem;
-  justify-content: center;
-  align-items: center;
-  padding: 5rem 0;
-
-  @media (max-width: 425px) {
-    display: none;
+  @media (min-width: 600px) {
+    background-image: url('/images/Background_blue_01.svg');
+    padding: 5rem 0 0;
   }
+  background-size: cover;
 `;
-
-export const ImageContainer = styled.div``;

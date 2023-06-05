@@ -34,8 +34,9 @@ describe('CancellationRequest', () => {
     expect(stylesRequestStatusComponent.color).toBe('rgb(0, 200, 81)');
   });
 
-  it(' should render the correct plan name', () => {
+  it(' should render the correct plan name and user name', () => {
     const mockedRequestInfo = {
+      userName: 'User Test',
       contractName: 'Test Plan',
       contractDocumentKey: '123',
       contractType: 'Test Plan',
@@ -59,5 +60,6 @@ describe('CancellationRequest', () => {
     );
 
     expect(screen.getByText('Generic Plan')).toBeInTheDocument();
+    expect(screen.getByText('User Test')).toBeInTheDocument();
   });
 });
