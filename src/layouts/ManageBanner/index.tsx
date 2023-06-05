@@ -16,7 +16,7 @@ export function ManageBannerPage() {
         <S.Title>Gerenciar Banner</S.Title>
         <S.UploadPhotoContainer>
           {data?.map(banner => (
-            <UploadPhotoBox data={banner} />
+            <UploadPhotoBox key={banner.id} data={banner} />
           ))}
           {data?.length < 6 && <UploadPhotoBox />}
         </S.UploadPhotoContainer>
