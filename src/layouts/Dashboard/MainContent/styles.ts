@@ -45,7 +45,7 @@ export const DivMarketplace = styled.div`
   padding: 0.6rem;
   border-radius: 0.9rem;
   gap: 1rem;
-  @media (max-width: 1230px) {
+  @media (max-width: 1000px) {
     flex-direction: column;
     align-items: center;
     justify-content: center;
@@ -76,6 +76,7 @@ export const MarketText = styled.p`
   font-weight: 500;
   font-size: 0.8rem;
   line-height: 0.9375rem;
+  margin-bottom: 0;
   color: ${({ theme }) => theme.colors.white};
 `;
 
