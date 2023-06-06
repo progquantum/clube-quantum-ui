@@ -124,27 +124,32 @@ export function ModalContract({
             </S.TextData>
           </S.ContentRow>
         </S.Column>
-        <Button
-          onClick={handleDownloadContract}
-          style={{ marginTop: '0px', height: '50px' }}
-        >
-          Visualizar contrato
-        </Button>
-        <Button
-          data-cy="requestCancellationButton"
-          style={{ marginTop: '0px', height: '50px' }}
-          variant="danger_outline"
-          onClick={handleOpenModalCancel}
-        >
-          Solicitar cancelamento
-        </Button>
-        <Button
-          style={{ marginTop: '0px', height: '50px' }}
-          variant="secondary"
-          onClick={onRequestClose}
-        >
-          Sair
-        </Button>
+        <S.ButtonContainer>
+          <Button
+            onClick={handleDownloadContract}
+            style={{ marginTop: '0px', height: '50px' }}
+          >
+            Visualizar contrato
+          </Button>
+          <Button
+            data-cy="requestCancellationButton"
+            style={{ marginTop: '0px', height: '50px' }}
+            variant={
+              contract.cancelled_status !== null ? 'disabled' : 'danger_outline'
+            }
+            onClick={handleOpenModalCancel}
+            disabled={contract.cancelled_status !== null}
+          >
+            Solicitar cancelamento
+          </Button>
+          <Button
+            style={{ marginTop: '0px', height: '50px' }}
+            variant="secondary"
+            onClick={onRequestClose}
+          >
+            Sair
+          </Button>
+        </S.ButtonContainer>
       </S.Container>
     </Modal>
   );
