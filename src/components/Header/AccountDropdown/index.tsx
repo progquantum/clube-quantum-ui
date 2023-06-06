@@ -10,8 +10,8 @@ import { DASHBOARD_PAGE, UPDATE_USER_ACCOUNT_PAGE } from 'constants/routesPath';
 
 import { Avatar } from 'components/Avatar';
 
-import { DROP_DOWN_ANIMATION } from './animations';
 import * as S from './styles';
+import { DROP_DOWN_ANIMATION } from '../animation';
 
 export function AccountDropdown() {
   const { signOut } = useAuthDispatch();

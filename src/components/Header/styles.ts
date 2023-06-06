@@ -6,6 +6,7 @@ export const Container = styled.header`
   justify-content: center;
   align-items: center;
   width: 100%;
+  border-bottom: 1px solid #dbdbdb;
   background: ${({ theme }) => theme.colors.background};
   position: relative;
 
