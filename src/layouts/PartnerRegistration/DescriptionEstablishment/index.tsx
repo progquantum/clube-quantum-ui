@@ -24,11 +24,9 @@ import { List } from './types';
 import { schema } from './schemas';
 import { PosMachine } from './PosMachine';
 import * as S from './styles';
-import {
-  convertCashBackRulesToRulesCashback,
-  convertMachinePosToPosSerialNumbers,
-  convertOpenHoursToHoursOpening,
-} from './formatter';
+import { convertOpenHoursToHoursOpening } from './formatters/convertOpenHoursToHoursOpening';
+import { convertCashBackRulesToRulesCashback } from './formatters/convertCashBackRulesToRulesCashback';
+import { convertMachinePosToPosSerialNumbers } from './formatters/convertMachinePosToPosSerialNumbers';
 
 export function DescriptionEstablishment() {
   const previousStep = usePartnerStore(state => state.previousStep);
