@@ -28,8 +28,8 @@ export function Marketplace() {
         <Image
           src="/images/marketplace-hero-title.svg"
           alt="Quantum marketplace logo"
-          width={480}
-          height={207}
+          width={380}
+          height={150}
         />
         <p>
           Aproveite as melhores ofertas e estabelecimentos da cidade e receba

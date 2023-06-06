@@ -6,12 +6,7 @@ export function HeroSection() {
   return (
     <S.HeroContainer>
       <S.ImageContainer>
-        <Image
-          src="/images/banner_pos.svg"
-          alt="Máquina Pos"
-          width={1280}
-          height={720.31}
-        />
+        <Image src="/images/banner_pos.svg" alt="Máquina Pos" layout="fill" />
       </S.ImageContainer>
     </S.HeroContainer>
   );

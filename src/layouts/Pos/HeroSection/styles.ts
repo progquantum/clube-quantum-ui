@@ -3,7 +3,8 @@ import styled from 'styled-components';
 export const HeroContainer = styled.div`
   width: 100%;
   height: 100%;
-  background-image: url('/images/Background_blue_01.svg');
+  background-image: url('/images/pos_background_blue.png');
+  background-position: bottom;
   background-size: cover;
   display: flex;
   gap: 4rem;
@@ -16,4 +17,8 @@ export const HeroContainer = styled.div`
   }
 `;
 
-export const ImageContainer = styled.div``;
+export const ImageContainer = styled.div`
+  position: relative;
+  width: 100%;
+  height: 45vh;
+`;

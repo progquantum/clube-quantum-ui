@@ -13,7 +13,7 @@ export function Request({ request }: RequestProps) {
       <S.RequestDateLabel>Data de pedido</S.RequestDateLabel>
       <S.RequestDate>{formatDate(request.requestDate)}</S.RequestDate>
       <S.ContractName>
-        <S.Bold>Tipo:</S.Bold> {request.planName}
+        <S.Bold>Produto:</S.Bold> {request.planName}
       </S.ContractName>
       <S.BirthDate>
         <S.Bold>Data de Nasc.: </S.Bold>

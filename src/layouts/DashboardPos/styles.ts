@@ -6,31 +6,26 @@ import { ButtonProps, StateProps } from './types';
 
 export const Container = styled.div`
   display: flex;
-  width: 100%;
   flex-direction: column;
-  margin: 0 auto;
-
+  width: 100%;
+  max-width: 1400px;
   @media (max-width: 1440px) {
-    max-width: 680px;
+    max-width: 1000px;
   }
-  @media (max-width: 1105px) {
-    max-width: 600px;
-  }
-
-  @media (max-width: 1014px) {
-    max-width: 580px;
+  @media (max-width: 1250px) {
+    max-width: 900px;
   }
 
-  @media (max-width: 985px) {
-    max-width: 550px;
+  @media (max-width: 1100px) {
+    max-width: 800px;
   }
 
-  @media (max-width: 960px) {
-    max-width: 500px;
+  @media (max-width: 1000px) {
+    max-width: 700px;
   }
 
-  @media (max-width: 905px) {
-    max-width: 470px;
+  @media (max-width: 900px) {
+    max-width: 650px;
   }
 
   @media (max-width: 780px) {
@@ -191,36 +186,10 @@ export const ButtonUnderline = styled(Button)<ButtonProps>`
   `}
 `;
 
-export const DivGraphics = styled.div`
-  width: 100%;
-  height: 100%;
-  flex-wrap: wrap;
-  max-width: 1564.5px;
-  margin-top: 24px;
-  display: flex;
-  align-items: center;
-  gap: 24px;
-
-  @media (max-width: 1775px) {
-    max-width: 1035px;
-  }
-`;
-
-export const ContentRow = styled.div`
-  width: 100%;
-  height: 100%;
-  max-width: 1564.5px;
-  margin-top: 24px;
-  display: flex;
-  gap: 24px;
-  @media (max-width: 1775px) {
-    flex-direction: column-reverse;
-    align-items: flex-start;
-  }
-`;
-
 export const ContainerTable = styled.div`
   width: 100%;
+
+  box-shadow: 0px 1px 4px rgba(0, 0, 0, 0.09);
   @media (max-width: 1765px) {
     width: 1035px;
   }
@@ -277,7 +246,7 @@ export const Table = styled.div`
   max-width: 1035px;
   width: 100%;
   background: ${({ theme }) => theme.colors.background};
-  box-shadow: 0px 1px 20px rgba(0, 0, 0, 0.07);
+  box-shadow: 0px 1px 4px rgba(0, 0, 0, 0.09);
   border-radius: 0px 0px 10px 10px;
   @media (max-width: 1765px) {
     width: 1035px;
@@ -421,7 +390,7 @@ export const TableFlag = styled.div`
   max-width: 505px;
   width: 100%;
   background: ${({ theme }) => theme.colors.background};
-  box-shadow: 0px 1px 20px rgba(0, 0, 0, 0.07);
+  box-shadow: 0px 1px 4px rgba(0, 0, 0, 0.09);
   border-radius: 0px 0px 10px 10px;
   @media (max-width: 1775px) {
     max-width: 1035px;
@@ -447,4 +416,113 @@ export const TableFlagRow = styled.div`
 export const TableColumn4 = styled.div`
   display: flex;
   flex-direction: column;
+`;
+
+export const ChartContainer = styled.div<{ isSideBarExpanded: boolean }>`
+  flex: 1;
+  padding: 1rem;
+  background-color: ${({ theme }) => theme.colors.white};
+  box-shadow: 0px 1px 4px rgba(0, 0, 0, 0.09);
+  border-radius: 0.3rem;
+  height: 21.5rem;
+  position: relative;
+`;
+
+export const PaymentMethodPieChartContainer = styled(ChartContainer)`
+  grid-area: PaymentMethodPieChart;
+`;
+
+export const SalesByClientPieChartContainer = styled(ChartContainer)`
+  grid-area: SalesByClientPieChart;
+`;
+
+export const OverallSalesProgressionBarChartContainer = styled(ChartContainer)`
+  grid-area: OverallSalesProgressionBarChart;
+`;
+
+export const ChartContainerTitle = styled.h2`
+  font-size: 1.2rem;
+  position: absolute;
+  left: 1rem;
+  top: 1rem;
+  color: ${({ theme }) => theme.colors.gray[700]};
+  @media (max-width: 469px) {
+    font-size: 0.9rem;
+  }
+`;
+
+export const DivGraphics = styled.div<{ isSideBarExpanded: boolean }>`
+  width: 100%;
+  height: 100%;
+  margin-top: 2rem;
+  align-items: center;
+  display: grid;
+  gap: 0.5rem;
+  ${({ isSideBarExpanded }) =>
+    isSideBarExpanded
+      ? css`
+          grid-template-columns: repeat(2, 1fr);
+          grid-template-areas:
+            'PaymentMethodPieChart SalesByClientPieChart'
+            'OverallSalesProgressionBarChart OverallSalesProgressionBarChart';
+
+          @media (max-width: 1400px) {
+            max-width: 850px;
+          }
+          @media (max-width: 1250px) {
+            max-width: 650px;
+          }
+
+          @media (max-width: 1050px) {
+            max-width: 550px;
+            grid-template-columns: 1fr;
+            grid-template-areas:
+              'PaymentMethodPieChart'
+              'SalesByClientPieChart'
+              'OverallSalesProgressionBarChart';
+          }
+        `
+      : css`
+          grid-template-columns: repeat(3, 33%);
+          grid-template-areas: 'PaymentMethodPieChart SalesByClientPieChart OverallSalesProgressionBarChart';
+
+          @media (max-width: 1775px) {
+            grid-template-columns: repeat(2, 1fr);
+            grid-template-areas:
+              'PaymentMethodPieChart SalesByClientPieChart'
+              'OverallSalesProgressionBarChart OverallSalesProgressionBarChart';
+            max-width: 1035px;
+          }
+
+          @media (max-width: 850px) {
+            grid-template-columns: 1fr;
+            grid-template-areas:
+              'PaymentMethodPieChart'
+              'SalesByClientPieChart'
+              'OverallSalesProgressionBarChart';
+          }
+        `}
+`;
+
+export const ContentRow = styled.div`
+  width: 100%;
+  height: 100%;
+  max-width: 100%;
+  margin-top: 24px;
+  display: flex;
+  gap: 24px;
+  @media (max-width: 1775px) {
+    flex-direction: column-reverse;
+    align-items: flex-start;
+  }
+  @media (max-width: 1400px) {
+    max-width: 850px;
+  }
+  @media (max-width: 1250px) {
+    max-width: 650px;
+  }
+
+  @media (max-width: 1050px) {
+    max-width: 550px;
+  }
 `;

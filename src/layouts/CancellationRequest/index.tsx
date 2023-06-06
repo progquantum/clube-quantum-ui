@@ -52,9 +52,9 @@ const requestThree = {
 const requests = [requestOne, requestTwo, requestThree];
 
 const mockedRequestInfo = {
+  userName: 'Usuário Teste',
   contractName: 'Test Plan',
   contractDocumentKey: '123',
-  contractType: 'Test Plan',
   birthDate: '05/05/2023',
   email: 'test@test.test',
   productName: 'Test Plan',
