@@ -34,7 +34,7 @@ import { usePartnerStore } from 'store/partner-registration';
 
 import { performSchemaValidation } from 'utils/performSchemaValidation';
 
-import { DASHBOARD_PAGE } from 'constants/routesPath';
+import { DASHBOARD_ADM_PAGE } from 'constants/routesPath';
 
 import { usePosSubscriptions } from 'hooks/user/usePosSubscriptions';
 
@@ -45,6 +45,8 @@ import { useUpsertEstablishment } from 'hooks/establishment/useUpsertEstablishme
 import { useUpsertEstablishmentImage } from 'hooks/establishment/useUpsertEstablishmentImage';
 
 import { success } from 'helpers/notify/success';
+
+import { PosUser } from 'hooks/user/usePosSubscriptions/types';
 
 import { schema } from './schemas';
 import * as S from './styles';
@@ -94,7 +96,6 @@ export function InfoEstablishment() {
     const label = category.name;
     return { value, label };
   });
-
   const registeredUsers = data?.map(subscription => {
     const { legal_person, individual_person } = subscription;
     const value = JSON.stringify(subscription);
@@ -191,9 +192,27 @@ export function InfoEstablishment() {
     [logo.logoFile, banner.bannerFile],
   );
 
+  const state = usePartnerStore(state => state);
+
   const handleCancel = () => {
+    router.push(DASHBOARD_ADM_PAGE);
     window.localStorage.removeItem('partnerStore');
-    router.push(DASHBOARD_PAGE);
+    state.resetOpenHours();
+    state.resetCashBackRules();
+    state.resetMachinePos();
+    state.setAbout('');
+    state.setUser({} as PosUser);
+    state.setFantasyName('');
+    state.setMainPhoneHasWhatsApp(false);
+    state.setCellPhone('');
+    state.setCellPhoneHasWhatsApp(false);
+    state.setWhatsAppPhone('');
+    state.setCategoryId('');
+    state.setCategoryName('');
+    state.setCoordinates('');
+    state.setLogo('', {} as File);
+    state.setBanner('', {} as File);
+    state.resetCurrentStep();
   };
 
   const handleImagePreview = (
