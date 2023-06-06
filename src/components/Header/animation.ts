@@ -7,7 +7,7 @@ export const DROP_DOWN_ANIMATION = {
     transition: DEFAULT_TRANSITION,
   },
   hidden: {
-    y: -20,
+    y: -10,
     opacity: 0,
     transition: DEFAULT_TRANSITION,
   },
