@@ -15,6 +15,8 @@ import { useInfiniteScroll } from 'hooks/useInfiniteScroll';
 
 import { Modal } from 'components/Modal';
 
+import { useBannersFindAll } from 'hooks/banners/useBannersFindAll';
+
 import { SectionTitle } from '../Components/SectionTitle';
 import { FilterInput } from './FilterInput';
 import * as S from './styles';
@@ -55,12 +57,7 @@ export function Stores() {
     }
   };
 
-  const slidesContent = [
-    '/images/slide-content.jpeg',
-    '/images/slide-content.jpeg',
-    '/images/slide-content.jpeg',
-    '/images/slide-content.jpeg',
-  ];
+  const { data } = useBannersFindAll();
 
   return (
     <S.StoresContainer>
@@ -88,7 +85,7 @@ export function Stores() {
         </S.SearchResultsContainer>
       ) : (
         <>
-          <Carousel slides={slidesContent} />
+          <Carousel slides={data} />
           <FilterTags />
           <S.CommerceContainer>{[...cards]}</S.CommerceContainer>
           {isFetching && (
