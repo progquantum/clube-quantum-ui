@@ -30,11 +30,11 @@ export function Carousel({ slides }: CarouselProps) {
   return (
     <S.CarouselContainer>
       <S.Slides ref={carouselRef}>
-        {slides.map((item: string, index: number) => (
-          <S.Slide key={item.concat(String(index))}>
+        {slides?.map(item => (
+          <S.Slide key={item.id}>
             <Image
-              src={item}
-              alt={`carousel item number ${index + 1}`}
+              src={item.url}
+              alt={`carousel item number ${item.id + 1}`}
               width={500}
               height={270}
             />
