@@ -6,7 +6,7 @@ export type Props = {
   getSelectedContract: (contract: Contract) => void;
 };
 
-export type Status = 'canceled' | 'pending';
+export type Status = 'APPROVED' | 'PENDING' | 'DENIED' | null;
 
 export type CancellationStatusProps = {
   status: Status;

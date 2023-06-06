@@ -17,10 +17,12 @@ export function ContractComponent({
   };
 
   const cancellationStatusText = {
-    CANCELED: 'Cancelamento efetuado',
+    APPROVED: 'Cancelamento efetuado',
     PENDING: 'Solicitação de cancelamento em andamento',
+    DENIED: 'Solicitação de cancelamento negado',
   };
 
+  console.log(contract.cancelled_status);
   return (
     <S.Container data-cy="contract" onClick={handleClickOnContract}>
       <S.Column>
