@@ -31,6 +31,7 @@ export function Stores() {
   const [isFetching, setIsFetching] = useInfiniteScroll(fetchMoreListItems);
   const [modalStatus, setModalStatus] = useState(false);
   const [isFetched, setIsFetched] = useState(false);
+  const { data } = useBannersFindAll();
 
   function fetchMoreListItems() {
     setTimeout(() => {
@@ -56,8 +57,6 @@ export function Stores() {
       setIsFetched(prevState => !prevState);
     }
   };
-
-  const { data } = useBannersFindAll();
 
   return (
     <S.StoresContainer>
