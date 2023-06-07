@@ -9,7 +9,8 @@ import { ToolTipContact } from 'components/ToolTipContact';
 
 import { SIGN_UP_PAGE } from 'constants/routesPath';
 
-import { Header } from './Header';
+import { HeaderGuest } from 'components/Header/HeaderGuest';
+
 import * as S from './styles';
 import { HeroSection } from './HeroSection';
 import { Plans } from './Plans';
@@ -20,7 +21,7 @@ export function HomePage() {
       <Head>
         <title>Clube Quantum</title>
       </Head>
-      <Header />
+      <HeaderGuest />
       <HeroSection />
       <S.Background>
         <ToolTipContact />

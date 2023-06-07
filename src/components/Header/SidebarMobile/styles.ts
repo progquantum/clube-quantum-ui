@@ -67,7 +67,7 @@ export const SignOutButton = styled.button`
   }
 `;
 
-export const MarketplaceLink = styled(Link)`
+export const StyledButton = styled(Link)`
   background: ${({ theme }) => theme.gradients.midnightBlueToMediumsLateBlue};
   width: max-content;
   margin: 0 0.5rem;

@@ -28,11 +28,6 @@ export const Wrapper = styled.div`
   height: 6.5rem;
   align-items: center;
 
-  @media (max-width: 470px) {
-    & > button {
-      display: none;
-    }
-  }
   justify-content: space-around;
 `;
 

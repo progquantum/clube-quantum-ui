@@ -4,8 +4,8 @@ import { MARKETPLACE_PAGE } from 'constants/routesPath';
 
 import * as S from './styles';
 import { Header } from '..';
-import { AccountDropdown } from '../AccountDropdown';
-import { SideBarMobile } from '../SidebarMobile';
+import { SideBarMobileAuth } from './SidebarMobileAuth';
+import { AccountDropdown } from './AccountDropdown';
 
 export function HeaderAuth() {
   const { width } = useWindowSize();
@@ -13,7 +13,7 @@ export function HeaderAuth() {
   return (
     <Header>
       {width <= 600 ? (
-        <SideBarMobile key="sidebarMobile" />
+        <SideBarMobileAuth key="sidebarMobileAuth" />
       ) : (
         <S.MarketplaceLink href={MARKETPLACE_PAGE} key="marketplaceLink">
           <span>Acessar o Marketplace</span>
