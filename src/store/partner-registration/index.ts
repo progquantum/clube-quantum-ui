@@ -19,6 +19,9 @@ export const usePartnerStore = create(
   persist<PartnerStore>(
     set => ({
       openHours: [] as OpenHours,
+      resetOpenHours: () => {
+        set({ openHours: [] as OpenHours });
+      },
       setOpenDays: (id: string, day: string) => {
         set(state => {
           const nextState = produce(state.openHours, draft => {
@@ -88,6 +91,9 @@ export const usePartnerStore = create(
         });
       },
       cashBackRules: [] as CashBackRules,
+      resetCashBackRules: () => {
+        set({ cashBackRules: [] as CashBackRules });
+      },
       setCashBackDays: (id: string, day: string) => {
         set(state => {
           const nextState = produce(state.cashBackRules, draft => {
@@ -233,6 +239,9 @@ export const usePartnerStore = create(
         });
       },
       machinePos: [] as MachinePos,
+      resetMachinePos: () => {
+        set({ machinePos: [] as MachinePos });
+      },
       setMachinePos: (id: string, serie: string) => {
         set(state => {
           const nextState = produce(state.machinePos, draft => {
@@ -274,6 +283,9 @@ export const usePartnerStore = create(
         })),
       previousStep: () =>
         set(state => ({ currentStep: state.currentStep - 1 })),
+      resetCurrentStep: () => {
+        set({ currentStep: 0 });
+      },
       user: {} as PosUser,
       setUser: (user: PosUser) => {
         set(() => ({ user }));

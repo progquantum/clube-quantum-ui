@@ -31,16 +31,19 @@ export type Banner = {
 
 export type PartnerStore = {
   openHours: OpenHours;
+  resetOpenHours: () => void;
   setOpenDays: (id: string, day: string) => void;
   setOpenHours: (id: string, time: string) => void;
   setRemoveOpenHours: (id: string) => void;
   cashBackRules: CashBackRules;
+  resetCashBackRules: () => void;
   setCashBackDays: (id: string, day: string) => void;
   setRateCashBack: (id: string, rateCashBack: string) => void;
   setRateCliente: (id: string, rateCliente: string) => void;
   setRateAdm: (id: string, rateAdm: string) => void;
   setRemoveCashBackRules: (id: string) => void;
   machinePos: MachinePos;
+  resetMachinePos: () => void;
   setMachinePos: (id: string, serie: string) => void;
   setRemoveMachinePos: (id: string) => void;
   aboutEstablishment: string;
@@ -48,6 +51,7 @@ export type PartnerStore = {
   currentStep: number;
   nextStep: () => void;
   previousStep: () => void;
+  resetCurrentStep: () => void;
   user: PosUser;
   setUser: (user: PosUser) => void;
   fantasyName: string;

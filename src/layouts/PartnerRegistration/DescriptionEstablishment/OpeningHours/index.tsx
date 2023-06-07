@@ -28,7 +28,7 @@ export function OpeningHours({ id, handleRemoveOpenHours }: Props) {
 
     return AlredySet;
   };
-  console.log(openHours);
+
   const inputValueOpeningHours = openHours[index]?.time;
 
   return (
@@ -172,7 +172,7 @@ export function OpeningHours({ id, handleRemoveOpenHours }: Props) {
         <Input
           type="text"
           name={`openingHours[${index}].opening_hours`}
-          placeholder="EX: 8H ÀS 18H"
+          placeholder="EX: 08:00 ÀS 18:00"
           label="Horário de funcionamento"
           onChange={e => setOpenHours(id, e.target.value)}
           defaultValue={inputValueOpeningHours || ''}

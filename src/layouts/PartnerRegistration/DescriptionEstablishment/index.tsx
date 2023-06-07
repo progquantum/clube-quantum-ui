@@ -16,12 +16,17 @@ import { performSchemaValidation } from 'utils/performSchemaValidation';
 
 import { error } from 'helpers/notify/error';
 
+import { useUpsertDescriptionCashback } from 'hooks/establishment/useUpsertDescriptionCashback';
+
 import { OpeningHours } from './OpeningHours';
 import { CashBackRules } from './CashBackRules';
 import { List } from './types';
 import { schema } from './schemas';
 import { PosMachine } from './PosMachine';
 import * as S from './styles';
+import { convertOpenHoursToHoursOpening } from './formatters/convertOpenHoursToHoursOpening';
+import { convertCashBackRulesToRulesCashback } from './formatters/convertCashBackRulesToRulesCashback';
+import { convertMachinePosToPosSerialNumbers } from './formatters/convertMachinePosToPosSerialNumbers';
 
 export function DescriptionEstablishment() {
   const previousStep = usePartnerStore(state => state.previousStep);
@@ -40,6 +45,8 @@ export function DescriptionEstablishment() {
   const setAbout = usePartnerStore(state => state.setAbout);
   const aboutEstablishment = usePartnerStore(state => state.aboutEstablishment);
   const setRemoveOpenHours = usePartnerStore(state => state.setRemoveOpenHours);
+  const user = usePartnerStore(state => state.user);
+  const machinePos = usePartnerStore(state => state.machinePos);
   const allWeekdaysExist = weekdays.reduce(
     (acc, day) => acc && openHours.some(item => item.selectDays.includes(day)),
     true,
@@ -262,6 +269,14 @@ export function DescriptionEstablishment() {
     setEmptySDCashBack(hasEmptySelectDaysCB);
   }, [cashBackRules]);
 
+  const { mutate: upsertDescriptionCashback, isLoading: loading } =
+    useUpsertDescriptionCashback();
+
+  const { hoursOpening, closedDaysOfWeek } =
+    convertOpenHoursToHoursOpening(openHours);
+  const rules_cashback = convertCashBackRulesToRulesCashback(cashBackRules);
+  const pos_serial_numbers = convertMachinePosToPosSerialNumbers(machinePos);
+
   const handleSubmit: SubmitHandler = useCallback(
     data =>
       performSchemaValidation({
@@ -278,10 +293,31 @@ export function DescriptionEstablishment() {
         }
 
         if (!hasEmptySDOpenHours && !hasEmptySDCashBack) {
-          nextStep();
+          upsertDescriptionCashback(
+            {
+              user_id: user.id,
+              about: aboutEstablishment,
+              hours_opening: hoursOpening,
+              closed_days_of_week: closedDaysOfWeek,
+              pos_serial_numbers,
+              rules_cashback,
+            },
+            {
+              onSuccess: () => {
+                nextStep();
+              },
+            },
+          );
         }
       }),
-    [hasEmptySDOpenHours, hasEmptySDCashBack],
+    [
+      hasEmptySDOpenHours,
+      hasEmptySDCashBack,
+      openHours,
+      cashBackRules,
+      machinePos,
+      aboutEstablishment,
+    ],
   );
 
   return (
@@ -350,7 +386,9 @@ export function DescriptionEstablishment() {
           <Button variant="secondary" onClick={previousStep}>
             Voltar
           </Button>
-          <Button type="submit">Confirmar</Button>
+          <Button loading={loading} type="submit">
+            Confirmar
+          </Button>
         </S.ContainerButton>
       </S.Form>
     </S.Container>
