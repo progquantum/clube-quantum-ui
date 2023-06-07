@@ -19,10 +19,8 @@ export function ContractComponent({
   const cancellationStatusText = {
     APPROVED: 'Cancelamento efetuado',
     PENDING: 'Solicitação de cancelamento em andamento',
-    DENIED: 'Solicitação de cancelamento negado',
   };
 
-  console.log(contract.cancelled_status);
   return (
     <S.Container data-cy="contract" onClick={handleClickOnContract}>
       <S.Column>
@@ -34,7 +32,7 @@ export function ContractComponent({
       <S.ContainerIcon>
         <AiFillInfoCircle size={20} color={colors.mediumslateBlue} />
       </S.ContainerIcon>
-      {contract.cancelled_status && (
+      {contract.cancelled_status && contract.cancelled_status !== 'DENIED' && (
         <S.CancellationStatus status={contract.cancelled_status as Status}>
           {cancellationStatusText[contract.cancelled_status as Status]}
         </S.CancellationStatus>

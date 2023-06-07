@@ -63,8 +63,7 @@ export const CancellationStatus = styled.div<CancellationStatusProps>`
   margin: 1rem 0;
   background-color: ${({ theme, status }) =>
     (status === 'APPROVED' && theme.colors.success) ||
-    (status === 'PENDING' && theme.colors.yellow) ||
-    (status === 'DENIED' && theme.colors.danger)};
+    (status === 'PENDING' && theme.colors.gray[400])};
 
   color: ${({ theme }) => theme.colors.white};
   text-align: left;
