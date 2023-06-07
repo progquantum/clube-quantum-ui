@@ -1,3 +1,4 @@
+/* eslint-disable react/jsx-no-useless-fragment */
 import { FcPrevious, FcNext } from 'react-icons/fc';
 
 import Image from 'next/legacy/image';
@@ -30,16 +31,39 @@ export function Carousel({ slides }: CarouselProps) {
   return (
     <S.CarouselContainer>
       <S.Slides ref={carouselRef}>
-        {slides.map((item: string, index: number) => (
-          <S.Slide key={item.concat(String(index))}>
-            <Image
-              src={item}
-              alt={`carousel item number ${index + 1}`}
-              width={500}
-              height={270}
-            />
-          </S.Slide>
-        ))}
+        {slides?.length === 0 ? (
+          <>
+            <S.Slide>
+              <Image
+                src="/images/banner_cashback_marketplace.svg"
+                alt="banner cashback quantum"
+                width={500}
+                height={270}
+              />
+            </S.Slide>
+            <S.Slide>
+              <Image
+                src="/images/banner_cashback_marketplace.svg"
+                alt="banner cashback quantum"
+                width={500}
+                height={270}
+              />
+            </S.Slide>
+          </>
+        ) : (
+          <>
+            {slides?.map(item => (
+              <S.Slide key={item.id}>
+                <Image
+                  src={item.url}
+                  alt={`carousel item number ${item.id + 1}`}
+                  width={500}
+                  height={270}
+                />
+              </S.Slide>
+            ))}
+          </>
+        )}
       </S.Slides>
       <S.Button onClick={() => handleScrollToRight()}>
         <FcPrevious size={20} />
