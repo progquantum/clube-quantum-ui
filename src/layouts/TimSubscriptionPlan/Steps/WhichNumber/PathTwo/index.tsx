@@ -43,7 +43,7 @@ export function PathTwo() {
   };
 
   const handleNextStep = () => {
-    setIsPortability(true);
+    setIsPortability(false);
     nextStep();
   };
 

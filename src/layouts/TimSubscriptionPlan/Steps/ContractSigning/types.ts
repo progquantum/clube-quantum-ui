@@ -9,7 +9,3 @@ export enum StatusEnum {
   'closed' = 'success',
   'canceled' = 'danger',
 }
-
-export type StatusProps = {
-  status: string;
-};

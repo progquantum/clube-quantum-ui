@@ -1,16 +1,22 @@
+import { PulseLoader } from 'react-spinners';
+
+import { useTheme } from 'styled-components';
+
 import { useGetContractStatus } from 'hooks/useContracts/useGetContractStatus';
 
 import { useTimPlanStore } from 'store/tim';
+
+import { Loading } from 'components/Loading';
 
 import * as S from './styles';
 import { ContractStatus } from './types';
 
 export function ContractSigning({ loggedUser }) {
   const contract = useTimPlanStore(state => state.contract);
-  const { data: contractStatus } = useGetContractStatus(contract.key);
-
-  const status = contractStatus && contractStatus?.document?.status;
-
+  const { colors } = useTheme();
+  const { data: contractStatus, isLoading } = useGetContractStatus(
+    contract.key,
+  );
   return (
     <S.ContractSigningContainer>
       <S.Title>Solicitação de assinatura de contrato</S.Title>
@@ -20,8 +26,16 @@ export function ContractSigning({ loggedUser }) {
       <S.ContractFile>{contract.file_name}</S.ContractFile>
       <S.ContractorName>
         {loggedUser.name}:{' '}
-        <S.ContractStatus status={status}>
-          {ContractStatus[status]}
+        <S.ContractStatus status={contractStatus}>
+          {isLoading ? (
+            <Loading
+              icon={PulseLoader}
+              color={colors.mediumslateBlue}
+              size={10}
+            />
+          ) : (
+            ContractStatus[contractStatus]
+          )}
         </S.ContractStatus>
       </S.ContractorName>
     </S.ContractSigningContainer>

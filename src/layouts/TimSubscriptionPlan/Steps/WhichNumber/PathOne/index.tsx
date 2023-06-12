@@ -55,7 +55,6 @@ export function PathOne() {
     if (!phone) return;
     const firstHalf = phone.slice(0, 5);
     const secondHalf = phone.slice(5, phone.length);
-    console.log(firstHalf.concat(' ').concat(secondHalf));
     return firstHalf.concat(' ').concat(secondHalf);
   };
 

@@ -92,17 +92,15 @@ export function ConfirmPaymentsDetails() {
           ...restAddress,
           ...restUser,
         };
-
         postContract(requestBodyContract, {
           onSuccess: data => {
             setContract(data.document);
             nextStep();
           },
           onError: error => {
-            console.log(error);
+            console.log('erro: ', error);
           },
         });
-        nextStep();
       },
       onError: (error: unknown) => {
         if (error instanceof AxiosError) {

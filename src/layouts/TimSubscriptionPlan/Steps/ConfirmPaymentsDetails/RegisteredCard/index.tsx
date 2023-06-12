@@ -12,7 +12,6 @@ export function RegisteredCard({
   paymentInfo,
 }: RegisteredCardProps) {
   const { data: loggedUser } = useGetLoggedUser();
-  console.log(loggedUser);
   return (
     <GenericCard title="Seu cartão cadastrado">
       <FieldInfo>

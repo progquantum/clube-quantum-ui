@@ -11,7 +11,7 @@ export async function createDocumentRequestSignatureTim(
 ) {
   try {
     const { data } = await quantumClientQueue.post<ResponseData>(
-      '/contracts/create-document-and-request-signature-pos',
+      '/contracts/create-document-and-request-signature-tim',
       requestBody,
     );
 
@@ -25,5 +25,5 @@ export async function createDocumentRequestSignatureTim(
 }
 
 export function useCreateDocumentRequestSignatureTim() {
-  return useMutation(createDocumentRequestSignatureTim, { retry: 0 });
+  return useMutation(createDocumentRequestSignatureTim);
 }
