@@ -5,9 +5,7 @@ import * as S from './styles';
 export function HeroSection() {
   return (
     <S.HeroContainer>
-      <S.ImageContainer>
-        <CarouselBanner />
-      </S.ImageContainer>
+      <CarouselBanner />
     </S.HeroContainer>
   );
 }

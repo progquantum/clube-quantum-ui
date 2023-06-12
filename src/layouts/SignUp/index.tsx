@@ -27,6 +27,7 @@ export function SignUpPage() {
     >
       <S.Wrap>
         <Link
+          data-cy="personal-link"
           href={{
             pathname: SIGN_UP_PERSONAL_PAGE,
             query: inviteCode && { invite: inviteCode },

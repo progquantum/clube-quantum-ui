@@ -5,6 +5,15 @@ const nextConfig = {
   compiler: {
     styledComponents: true,
   },
+  images: {
+    remotePatterns: [
+      {
+        protocol: 'http',
+        hostname: 'localhost',
+        port: '3333',
+      },
+    ],
+  },
 };
 
 module.exports = nextConfig;

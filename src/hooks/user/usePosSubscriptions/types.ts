@@ -2,7 +2,7 @@ export type Filter = {
   name?: string;
 };
 
-export type PosSubscriptionsProps = {
+export type PosUser = {
   id: string;
   created_at: string;
   legal_person: {
@@ -15,4 +15,5 @@ export type PosSubscriptionsProps = {
   };
   login: string;
   phone: string;
-}[];
+};
+export type PosSubscriptionsProps = PosUser[];

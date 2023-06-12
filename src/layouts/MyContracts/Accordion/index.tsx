@@ -13,11 +13,14 @@ import { Contract } from 'hooks/useContracts/useFindContractByUserId/types';
 import { ContractComponent } from '../ContractComponent';
 import { Props } from './types';
 
-const Accordion = ({ onRequestModalContract, contracts }: Props) => {
+const Accordion = ({
+  onRequestModalContract,
+  contracts,
+  getSelectedContract,
+}: Props) => {
   const [isOpen, setIsOpen] = useState(false);
-  console.log(contracts);
   return (
-    <div>
+    <div data-cy="accordion" data-testid="accordion">
       <motion.div
         style={{
           background: '#ffffff',
@@ -59,9 +62,17 @@ const Accordion = ({ onRequestModalContract, contracts }: Props) => {
             Contratos
           </motion.div>
           {isOpen ? (
-            <IoMdArrowDropleft size={35} color={colors.gray[700]} />
+            <IoMdArrowDropleft
+              data-testid="arrowDropLeft"
+              size={35}
+              color={colors.gray[700]}
+            />
           ) : (
-            <IoMdArrowDropdown size={35} color={colors.gray[700]} />
+            <IoMdArrowDropdown
+              data-testid="arrowDropDown"
+              size={35}
+              color={colors.gray[700]}
+            />
           )}
         </motion.div>
       </motion.div>
@@ -96,7 +107,9 @@ const Accordion = ({ onRequestModalContract, contracts }: Props) => {
           >
             {contracts.map((contract: Contract) => (
               <ContractComponent
+                key={contract.id}
                 contract={contract}
+                getSelectedContract={getSelectedContract}
                 onRequestModalContract={onRequestModalContract}
               />
             ))}

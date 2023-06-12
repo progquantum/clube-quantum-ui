@@ -1,3 +1,5 @@
+import { PosUser } from 'hooks/user/usePosSubscriptions/types';
+
 export type OpenHours = {
   id: string;
   selectDays?: string[];
@@ -19,7 +21,7 @@ export type MachinePos = {
 
 export type Logo = {
   logoURL: string;
-  logoFile: File;
+  logoFile: any;
 };
 
 export type Banner = {
@@ -29,16 +31,19 @@ export type Banner = {
 
 export type PartnerStore = {
   openHours: OpenHours;
+  resetOpenHours: () => void;
   setOpenDays: (id: string, day: string) => void;
   setOpenHours: (id: string, time: string) => void;
   setRemoveOpenHours: (id: string) => void;
   cashBackRules: CashBackRules;
+  resetCashBackRules: () => void;
   setCashBackDays: (id: string, day: string) => void;
   setRateCashBack: (id: string, rateCashBack: string) => void;
   setRateCliente: (id: string, rateCliente: string) => void;
   setRateAdm: (id: string, rateAdm: string) => void;
   setRemoveCashBackRules: (id: string) => void;
   machinePos: MachinePos;
+  resetMachinePos: () => void;
   setMachinePos: (id: string, serie: string) => void;
   setRemoveMachinePos: (id: string) => void;
   aboutEstablishment: string;
@@ -46,24 +51,25 @@ export type PartnerStore = {
   currentStep: number;
   nextStep: () => void;
   previousStep: () => void;
-  user: string;
-  setUser: (user: string) => void;
-  companyName: string;
-  setCompanyName: (name: string) => void;
-  phoneNumber1: string;
-  setPhoneNumber1: (phone: string) => void;
-  phoneNumber1HasWhat: boolean;
-  setPhoneNumber1HasWhat: (event: boolean) => void;
-  phoneNumber2: string;
-  setPhoneNumber2: (phone: string) => void;
-  phoneNumber2HasWhat: boolean;
-  setPhoneNumber2HasWhat: (event: boolean) => void;
-  phoneNumber3: string;
-  setPhoneNumber3: (phone: string) => void;
-  categoryValue: string;
-  setCategoryValue: (category: string) => void;
-  linkGeolocalizacao: string;
-  setLinkGeolocalizacao: (link: string) => void;
+  resetCurrentStep: () => void;
+  user: PosUser;
+  setUser: (user: PosUser) => void;
+  fantasyName: string;
+  setFantasyName: (name: string) => void;
+  mainPhoneHasWhatsApp: boolean;
+  setMainPhoneHasWhatsApp: (event: boolean) => void;
+  cellPhone: string;
+  setCellPhone: (phone: string) => void;
+  cellPhoneHasWhatsApp: boolean;
+  setCellPhoneHasWhatsApp: (event: boolean) => void;
+  whatsAppPhone: string;
+  setWhatsAppPhone: (phone: string) => void;
+  categoryId: string;
+  setCategoryId: (category: string) => void;
+  categoryName: string;
+  setCategoryName: (categoryName: string) => void;
+  coordinates: string;
+  setCoordinates: (link: string) => void;
   logo: Logo;
   setLogo: (url: string, file: File) => void;
   banner: Banner;

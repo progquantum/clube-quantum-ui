@@ -4,13 +4,17 @@ import Image from 'next/legacy/image';
 
 import { BsFillCheckCircleFill } from 'react-icons/bs';
 
+import router from 'next/router';
+
 import { Button } from 'components/Button';
 
 import { usePartnerStore } from 'store/partner-registration';
 
 import { formatNumber } from 'utils/formatters/formatNumber';
 
-import { formatTruncateText } from 'utils/formatters/formatTruncateText';
+import { DASHBOARD_ADM_PAGE } from 'constants/routesPath';
+
+import { PosUser } from 'hooks/user/usePosSubscriptions/types';
 
 import * as S from './styles';
 import DraggableScrollContainer from '../DraggableScrollContainer';
@@ -63,6 +67,27 @@ export function Summary() {
     return { days: abbreviatedDays, time };
   });
 
+  const handleFinish = () => {
+    router.push(DASHBOARD_ADM_PAGE);
+    window.localStorage.removeItem('partnerStore');
+    state.resetOpenHours();
+    state.resetCashBackRules();
+    state.resetMachinePos();
+    state.setAbout('');
+    state.setUser({} as PosUser);
+    state.setFantasyName('');
+    state.setMainPhoneHasWhatsApp(false);
+    state.setCellPhone('');
+    state.setCellPhoneHasWhatsApp(false);
+    state.setWhatsAppPhone('');
+    state.setCategoryId('');
+    state.setCategoryName('');
+    state.setCoordinates('');
+    state.setLogo('', {} as File);
+    state.setBanner('', {} as File);
+    state.resetCurrentStep();
+  };
+
   return (
     <S.Container>
       <S.Steps>
@@ -102,33 +127,31 @@ export function Summary() {
             >
               <S.ContentRow>
                 <S.TextStrong>Nome fantasia</S.TextStrong>
-                <S.TextData>{state.companyName}</S.TextData>
+                <S.TextData>{state.fantasyName}</S.TextData>
               </S.ContentRow>
               <S.ContentRow>
                 <S.TextStrong>Telefone celular</S.TextStrong>
-                <S.TextData>{state.phoneNumber1}</S.TextData>
+                <S.TextData>{state.user.phone}</S.TextData>
               </S.ContentRow>
-              {state.phoneNumber2 && (
+              {state.cellPhone && (
                 <S.ContentRow>
                   <S.TextStrong>Telefone celular</S.TextStrong>
-                  <S.TextData>{state.phoneNumber2}</S.TextData>
+                  <S.TextData>{state.cellPhone}</S.TextData>
                 </S.ContentRow>
               )}
-              {state.phoneNumber3 && (
+              {state.whatsAppPhone && (
                 <S.ContentRow>
                   <S.TextStrong>Celular WhatsApp</S.TextStrong>
-                  <S.TextData>{state.phoneNumber3}</S.TextData>
+                  <S.TextData>{state.whatsAppPhone}</S.TextData>
                 </S.ContentRow>
               )}
               <S.ContentRow>
                 <S.TextStrong>Categoria</S.TextStrong>
-                <S.TextData>{state.categoryValue}</S.TextData>
+                <S.TextData>{state.categoryName}</S.TextData>
               </S.ContentRow>
               <S.ContentRow>
                 <S.TextStrong>Geolocalização</S.TextStrong>
-                <S.TextData>
-                  {formatTruncateText(state.linkGeolocalizacao, 25)}
-                </S.TextData>
+                <S.TextData>{state.coordinates}</S.TextData>
               </S.ContentRow>
             </div>
           </S.Card>
@@ -276,7 +299,7 @@ export function Summary() {
         <Button variant="secondary" onClick={state.previousStep}>
           Voltar
         </Button>
-        <Button>Finalizar</Button>
+        <Button onClick={handleFinish}>Finalizar</Button>
       </S.ContainerButton>
     </S.Container>
   );

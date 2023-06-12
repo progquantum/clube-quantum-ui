@@ -15,19 +15,28 @@ import EloIcon from 'components/Illustrations/Elo';
 
 import { DashboardLayout } from 'layouts/DashboardLayout';
 
+import { useGetEstablishment } from 'hooks/dashboard-pos/useGetEstablishment';
+
+import { formatPrice } from 'utils/formatters/formatPrice';
+
+import { useSidebarStore } from 'store/sidebar';
+
 import * as S from './styles';
-import { PieChart } from './PieChart';
-import { BarChart } from './BarChart';
-import { PieChartSales } from './PieChartSales';
 import DraggableScrollContainer from './DraggableScrollContainer';
+import { PaymentMethodPieChart } from './PaymentMethodPieChart';
+import { SalesByClientPieChart } from './SalesByClientPieChart';
+import { OverallSalesProgressionBarChart } from './OverallSalesProgressionBarChart';
 
 export function DashboardPos() {
   const formRef = useRef<FormHandles>(null);
   const [underline, setUnderline] = useState('Geral');
+  const { data } = useGetEstablishment();
 
+  const isSideBarExpanded = useSidebarStore(state => state.isExpanded);
   const handleSelect = () => {
     console.log('Select');
   };
+
   return (
     <DashboardLayout maxWidth="1736px">
       <S.Container
@@ -40,21 +49,29 @@ export function DashboardPos() {
           <S.DivColumn>
             <S.Title>Você está no estabelecimento</S.Title>
             <S.DivRow>
-              <S.PjName>Mercearia Pão de Ló -</S.PjName>
-              <S.StatePJ>Habilitado</S.StatePJ>
+              <S.PjName>{data?.corporate_name} -</S.PjName>
+              <S.StatePJ state={data?.is_active}>
+                {data?.is_active ? 'Habilitado' : 'Desabilitado'}
+              </S.StatePJ>
             </S.DivRow>
           </S.DivColumn>
           <S.DivBalance>
             <S.BalanceTitle>Saldo atual</S.BalanceTitle>
-            <S.BalanceValue>R$ 1.200,00</S.BalanceValue>
+            <S.BalanceValue>
+              {formatPrice(
+                data?.total_balance === null
+                  ? '0.0'
+                  : String(data?.total_balance),
+              )}
+            </S.BalanceValue>
           </S.DivBalance>
         </S.DivTop>
         <S.DivCnpj>
-          <S.CNPJData>CNPJ: 17.218.098/0001-50</S.CNPJData>
-          <S.Hifen>-</S.Hifen>
           <S.CNPJData>
-            ID: 0182SD3082qeq2177918929281718990ww10123qc1
+            {data?.document.length > 14 ? `CNPJ:` : `CPF:`} {data?.document}
           </S.CNPJData>
+          <S.Hifen>-</S.Hifen>
+          <S.CNPJData>ID: {data?.id}</S.CNPJData>
         </S.DivCnpj>
 
         <S.DivRow>
@@ -89,10 +106,10 @@ export function DashboardPos() {
           />
         </div>
 
-        <S.DivGraphics>
-          <PieChart />
-          <PieChartSales />
-          <BarChart />
+        <S.DivGraphics isSideBarExpanded={isSideBarExpanded}>
+          <PaymentMethodPieChart />
+          <SalesByClientPieChart />
+          <OverallSalesProgressionBarChart />
         </S.DivGraphics>
         <S.ContentRow>
           <DraggableScrollContainer>
@@ -111,7 +128,6 @@ export function DashboardPos() {
                   <S.TableColumn>
                     <S.StatusTrans>Aprovada</S.StatusTrans>
                     <S.Font14>João Augusto de Lima</S.Font14>
-                    <S.FontGray400>CPF: 981.238.109-25</S.FontGray400>
                   </S.TableColumn>
                   <S.TableColumn2>
                     <S.Font14>VISA</S.Font14>
@@ -128,7 +144,6 @@ export function DashboardPos() {
                   <S.TableColumn>
                     <S.StatusTrans>Aprovada</S.StatusTrans>
                     <S.Font14>João Augusto de Lima</S.Font14>
-                    <S.FontGray400>CPF: 981.238.109-25</S.FontGray400>
                   </S.TableColumn>
                   <S.TableColumn2>
                     <S.Font14>VISA</S.Font14>
@@ -145,7 +160,6 @@ export function DashboardPos() {
                   <S.TableColumn>
                     <S.StatusTrans>Aprovada</S.StatusTrans>
                     <S.Font14>João Augusto de Lima</S.Font14>
-                    <S.FontGray400>CPF: 981.238.109-25</S.FontGray400>
                   </S.TableColumn>
                   <S.TableColumn2>
                     <S.Font14>VISA</S.Font14>
@@ -178,7 +192,7 @@ export function DashboardPos() {
                 </S.TableFlagRow>
                 <S.TableColumn4>
                   <S.Font14>R$ 230,00</S.Font14>
-                  <S.FontGray400>10 Vendas - 50%</S.FontGray400>
+                  <S.FontGray400>10 Vendas</S.FontGray400>
                 </S.TableColumn4>
               </S.ContentCards>
               <S.ContentCards>
@@ -187,7 +201,7 @@ export function DashboardPos() {
                 </S.TableFlagRow>
                 <S.TableColumn4>
                   <S.Font14>R$ 230,00</S.Font14>
-                  <S.FontGray400>10 Vendas - 50%</S.FontGray400>
+                  <S.FontGray400>10 Vendas</S.FontGray400>
                 </S.TableColumn4>
               </S.ContentCards>
               <S.ContentCards>
@@ -196,7 +210,7 @@ export function DashboardPos() {
                 </S.TableFlagRow>
                 <S.TableColumn4>
                   <S.Font14>R$ 230,00</S.Font14>
-                  <S.FontGray400>10 Vendas - 50%</S.FontGray400>
+                  <S.FontGray400>10 Vendas</S.FontGray400>
                 </S.TableColumn4>
               </S.ContentCards>
               <S.ContentCards>
@@ -205,7 +219,7 @@ export function DashboardPos() {
                 </S.TableFlagRow>
                 <S.TableColumn4>
                   <S.Font14>R$ 230,00</S.Font14>
-                  <S.FontGray400>10 Vendas - 50%</S.FontGray400>
+                  <S.FontGray400>10 Vendas</S.FontGray400>
                 </S.TableColumn4>
               </S.ContentCards>
             </S.TableFlag>

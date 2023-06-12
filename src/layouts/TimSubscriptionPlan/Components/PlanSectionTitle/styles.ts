@@ -21,6 +21,7 @@ export const TitleContainer = styled.div<TitleContainerProps>`
   width: 100%;
   margin: 3rem 0;
   text-align: center;
+
   @media (max-width: 500px) {
     font-size: 1.3rem;
   }

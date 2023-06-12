@@ -93,6 +93,7 @@ export function PinCode({ onNextFormStep, onPreviousFormStep }: PinCodeProps) {
           type="submit"
           loading={isCheckingPhone}
           disabled={isButtonDisabled}
+          data-cy="next-step-button"
         >
           Confirmar
         </Button>

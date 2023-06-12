@@ -12,6 +12,7 @@ export type RequestBodyPos = {
   complement: string;
   cep: string;
   phone: string;
+  marketPlaceSubscriptionId: string;
 };
 
 export type ResponseData = {

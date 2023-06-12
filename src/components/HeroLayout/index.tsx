@@ -15,7 +15,7 @@ export function HeroLayout({
       <S.LeftContent>{children}</S.LeftContent>
       <S.RightContent>
         <S.ImageContainer>
-          <Image src={imgSrc} alt={imgAlt} width={800} height={660} />
+          <Image src={imgSrc} alt={imgAlt} width={600} height={500} />
         </S.ImageContainer>
       </S.RightContent>
     </S.HeroContainer>

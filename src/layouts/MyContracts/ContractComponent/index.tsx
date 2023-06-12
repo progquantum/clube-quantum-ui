@@ -4,11 +4,25 @@ import { colors } from 'styles/theme/colors';
 import { formatDate } from 'utils/formatters/formatDate';
 
 import * as S from './styles';
-import { Props } from './types';
+import { Props, Status } from './types';
 
-export function ContractComponent({ onRequestModalContract, contract }: Props) {
+export function ContractComponent({
+  onRequestModalContract,
+  contract,
+  getSelectedContract,
+}: Props) {
+  const handleClickOnContract = () => {
+    getSelectedContract(contract);
+    onRequestModalContract();
+  };
+
+  const cancellationStatusText = {
+    APPROVED: 'Cancelamento efetuado',
+    PENDING: 'Solicitação de cancelamento em andamento',
+  };
+
   return (
-    <S.Container onClick={onRequestModalContract}>
+    <S.Container data-cy="contract" onClick={handleClickOnContract}>
       <S.Column>
         <S.Title>Contrato {contract.plan_name}</S.Title>
         <S.Text>ID - {contract.document_key}</S.Text>
@@ -18,6 +32,11 @@ export function ContractComponent({ onRequestModalContract, contract }: Props) {
       <S.ContainerIcon>
         <AiFillInfoCircle size={20} color={colors.mediumslateBlue} />
       </S.ContainerIcon>
+      {contract.cancelled_status && contract.cancelled_status !== 'DENIED' && (
+        <S.CancellationStatus status={contract.cancelled_status as Status}>
+          {cancellationStatusText[contract.cancelled_status as Status]}
+        </S.CancellationStatus>
+      )}
     </S.Container>
   );
 }

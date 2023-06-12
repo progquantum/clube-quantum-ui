@@ -2,6 +2,8 @@ import styled from 'styled-components';
 
 import { Button } from 'components/Button';
 
+import { StatusEnum, StatusProps } from './types';
+
 export const Container = styled.div`
   width: 100%;
   display: flex;
@@ -115,13 +117,13 @@ export const Name = styled.p`
   }
 `;
 
-export const Status = styled.p`
+export const Status = styled.p<StatusProps>`
   font-family: 'Arial';
   font-style: normal;
   font-weight: 400;
   font-size: 26px;
   line-height: 150%;
-  color: ${({ theme }) => theme.colors.yellow};
+  color: ${({ theme, status }) => theme.colors[StatusEnum[status]]};
 
   @media (max-width: 700px) {
     font-size: 20px;

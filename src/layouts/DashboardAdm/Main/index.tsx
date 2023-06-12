@@ -1,19 +1,21 @@
 import { useState } from 'react';
 import { MdOutlineAttachMoney } from 'react-icons/md';
 
-import { BarChart } from '../BarChart';
-import { BarChart2 } from '../BarChart2';
-
-import { LineChart } from '../LineChart';
-import { PieChart } from '../PieChart';
-import { StyledPieChart } from '../StyledPieChart';
+import { useSidebarStore } from 'store/sidebar';
 
 import * as S from './styles';
+import { SalesByRevenueTypeLineChart } from '../SalesByRevenueTypeLineChart';
+import { SmartQuantumSalesPieChart } from '../SmartQuantumSalesPieChart';
+import { ClientsByPlanPieChart } from '../ClientsByPlanPieChart';
+import { DailyBillingChart } from '../DailyBillingChart';
+import { ClientsByDayBarChart } from '../ClientsByDayBarChart';
 
 export function Main() {
   const [underline, setUnderline] = useState('Geral');
+  const isSideBarExpanded = useSidebarStore(state => state.isExpanded);
+
   return (
-    <S.Container>
+    <S.Container isSideBarExpanded={isSideBarExpanded}>
       <S.Head>
         <S.TitleAdm>Olá, Administrador</S.TitleAdm>
         <S.DivRow>
@@ -34,11 +36,10 @@ export function Main() {
         </S.DivRow>
       </S.Head>
 
-      <S.Balance>
+      <S.Balance isSideBarExpanded={isSideBarExpanded}>
         <S.RowContent>
           <S.ContentBalance>
             <S.TitleBalance>
-              {' '}
               <MdOutlineAttachMoney size={19.87} />
               Faturamento Quantum
             </S.TitleBalance>
@@ -46,7 +47,6 @@ export function Main() {
           </S.ContentBalance>
           <S.ContentBalance>
             <S.TitleBalance>
-              {' '}
               <MdOutlineAttachMoney size={19.87} />
               Faturamento Diário
             </S.TitleBalance>
@@ -56,7 +56,6 @@ export function Main() {
         <S.RowContent>
           <S.ContentBalance>
             <S.TitleBalance>
-              {' '}
               <MdOutlineAttachMoney size={19.87} />
               Repasse ao cliente
             </S.TitleBalance>
@@ -64,7 +63,6 @@ export function Main() {
           </S.ContentBalance>
           <S.ContentBalance>
             <S.TitleBalance>
-              {' '}
               <MdOutlineAttachMoney size={19.87} />
               Total de cliente
             </S.TitleBalance>
@@ -72,11 +70,11 @@ export function Main() {
           </S.ContentBalance>
         </S.RowContent>
       </S.Balance>
-      <LineChart />
-      <PieChart />
-      <StyledPieChart />
-      <BarChart />
-      <BarChart2 />
+      <SalesByRevenueTypeLineChart />
+      <SmartQuantumSalesPieChart />
+      <ClientsByPlanPieChart />
+      <DailyBillingChart />
+      <ClientsByDayBarChart />
     </S.Container>
   );
 }

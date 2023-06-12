@@ -9,7 +9,7 @@ export const getServerSideProps: GetServerSideProps = withSSRAuth(
     props: {},
   }),
   {
-    roles: [roles.user.id],
+    roles: [roles.user.id, roles.admin.id],
   },
 );
 

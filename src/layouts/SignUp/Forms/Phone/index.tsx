@@ -58,6 +58,7 @@ export function Phone({ onUpdateFormStep, onPreviousFormStep }: PhoneProps) {
     >
       <Form ref={formRef} onSubmit={handlePhoneCode} className="form">
         <Input
+          data-cy="phone-input"
           type="text"
           inputMode="tel"
           name="phone"
@@ -70,7 +71,11 @@ export function Phone({ onUpdateFormStep, onPreviousFormStep }: PhoneProps) {
             )
           }
         />
-        <Button type="submit" loading={isSendingPhoneCode}>
+        <Button
+          type="submit"
+          loading={isSendingPhoneCode}
+          data-cy="next-step-button"
+        >
           Continuar
         </Button>
       </Form>

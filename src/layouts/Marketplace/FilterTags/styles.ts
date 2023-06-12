@@ -41,7 +41,9 @@ export const TagButton = styled.button<{ isSelected: boolean }>`
   padding: 0.6rem 1rem;
   border-radius: 2rem;
   width: max-content;
+  box-shadow: 0px 0px 4px rgba(0, 0, 0, 0.15);
   flex-shrink: 0;
+  margin: 0.3rem 0;
   & svg {
     margin-right: 0.5rem;
   }

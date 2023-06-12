@@ -15,6 +15,8 @@ import { useInfiniteScroll } from 'hooks/useInfiniteScroll';
 
 import { Modal } from 'components/Modal';
 
+import { useBannersFindAll } from 'hooks/banners/useBannersFindAll';
+
 import { SectionTitle } from '../Components/SectionTitle';
 import { FilterInput } from './FilterInput';
 import * as S from './styles';
@@ -28,6 +30,8 @@ export function Stores() {
   const [cardsToRender, setCardsToRender] = useState(3);
   const [isFetching, setIsFetching] = useInfiniteScroll(fetchMoreListItems);
   const [modalStatus, setModalStatus] = useState(false);
+  const [isFetched, setIsFetched] = useState(false);
+  const { data } = useBannersFindAll();
 
   function fetchMoreListItems() {
     setTimeout(() => {
@@ -41,19 +45,18 @@ export function Stores() {
   const cards = [];
 
   for (let i = 0; i < cardsToRender; i += 1) {
-    cards.push(<InlineCard />);
+    cards.push(<InlineCard key={i} />);
   }
 
   const { colors } = useTheme();
 
-  const handleFilter: SubmitHandler = data => data;
-
-  const slidesContent = [
-    '/images/slide-content.jpeg',
-    '/images/slide-content.jpeg',
-    '/images/slide-content.jpeg',
-    '/images/slide-content.jpeg',
-  ];
+  const handleFilter: SubmitHandler = data => {
+    if (data.filter === 'domino') {
+      setIsFetched(prevState => !prevState);
+    } else {
+      setIsFetched(prevState => !prevState);
+    }
+  };
 
   return (
     <S.StoresContainer>
@@ -67,25 +70,34 @@ export function Stores() {
         >
           <FilterInput
             name="filter"
-            placeholder="Pesquisar por produto ou loja"
+            placeholder="Pesquisar por estabelecimentos"
           />
         </S.FilterForm>
         <S.MapButton type="button" onClick={handleModalStatus}>
           <FaMapMarkerAlt size={24} /> Mapa
         </S.MapButton>
       </S.InlineContainer>
-      <Carousel slides={slidesContent} />
-      <FilterTags />
-      <S.CommerceContainer>{[...cards]}</S.CommerceContainer>
-      {isFetching && (
-        <S.LoadingContainer>
-          <Loading
-            icon={PulseLoader}
-            color={colors.mediumslateBlue}
-            size={10}
-          />{' '}
-          Carregando
-        </S.LoadingContainer>
+      {isFetched ? (
+        <S.SearchResultsContainer>
+          <p>Resultados da pesquisa feita</p>
+          <InlineCard />
+        </S.SearchResultsContainer>
+      ) : (
+        <>
+          <Carousel slides={data} />
+          <FilterTags />
+          <S.CommerceContainer>{[...cards]}</S.CommerceContainer>
+          {isFetching && (
+            <S.LoadingContainer>
+              <Loading
+                icon={PulseLoader}
+                color={colors.mediumslateBlue}
+                size={10}
+              />{' '}
+              Carregando
+            </S.LoadingContainer>
+          )}
+        </>
       )}
 
       {modalStatus && (

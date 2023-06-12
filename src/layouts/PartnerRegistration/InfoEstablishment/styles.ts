@@ -147,10 +147,10 @@ export const TitleLogo = styled(TitleBanner)``;
 export const SubTitleBanner = styled.div`
   font-style: normal;
   font-weight: 500;
-  font-size: 10px;
+  font-size: 12px;
   line-height: 150%;
   color: ${({ theme }) => theme.colors.gray[400]};
-  margin-bottom: 12px;
+  margin-bottom: 0.4rem;
 `;
 
 export const SubTitleLogo = styled(SubTitleBanner)``;

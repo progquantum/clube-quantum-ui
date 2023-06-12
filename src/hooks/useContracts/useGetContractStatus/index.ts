@@ -4,8 +4,6 @@ import { useQuery } from 'react-query';
 
 import { quantumClientQueue } from 'config/client';
 
-import { ResponseData } from './types';
-
 const QUERY_KEY_GET_CONTRACT_STATUS = 'get-contract-status';
 
 export async function getContractStatus({ queryKey }) {

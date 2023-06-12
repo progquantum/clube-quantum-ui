@@ -1,27 +1,28 @@
-import { BiRestaurant } from 'react-icons/bi';
-
-import { FaGasPump } from 'react-icons/fa';
 import { MdOutlineNavigateBefore, MdOutlineNavigateNext } from 'react-icons/md';
 
 import { useLayoutEffect, useRef, useState } from 'react';
 
-import { useGetFilterCategories } from 'hooks/pos/useGetCategories';
-import { Category } from 'hooks/pos/useGetCategories/types';
+import { useGetFilterCategories } from 'hooks/establishment/useGetCategories';
+
+import { Category } from 'hooks/establishment/useGetCategories/types';
 
 import { SectionTitle } from '../Components/SectionTitle';
 import * as S from './styles';
+import { allIcons } from './allIcons';
+
+function getIcon(iconName: string) {
+  const Icon = allIcons[iconName];
+  if (Icon) {
+    return <Icon size={24} />;
+  }
+  return <allIcons.MdFiberManualRecord size={24} />;
+}
 
 export function FilterTags() {
   const { data: categories } = useGetFilterCategories();
 
   const containerRef = useRef(null);
   const [isOverflowing, setIsOverflowing] = useState(false);
-  const currentCategory = 'Restaurante';
-
-  const categoriesIcons = {
-    Restaurante: <BiRestaurant size={24} />,
-    'Posto de Gasolina': <FaGasPump size={24} />,
-  };
 
   useLayoutEffect(() => {
     if (containerRef.current.clientWidth < containerRef.current.scrollWidth) {
@@ -53,11 +54,8 @@ export function FilterTags() {
       <S.ScrollContainer ref={containerRef}>
         {categories &&
           categories.map((category: Category) => (
-            <S.TagButton
-              key={category.id}
-              isSelected={currentCategory === category.name}
-            >
-              {categoriesIcons[category.name]}
+            <S.TagButton key={category.id} isSelected={false}>
+              {getIcon(category.icon_name)}
               {category.name}
             </S.TagButton>
           ))}

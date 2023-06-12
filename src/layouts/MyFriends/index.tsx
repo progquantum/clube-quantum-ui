@@ -1,3 +1,4 @@
+/* eslint-disable react/no-array-index-key */
 /* eslint-disable no-octal */
 import ReactPaginate from 'react-paginate';
 
@@ -90,7 +91,7 @@ export function MyFriendsPage() {
                         ? friend.avatar_url
                         : getUserImagePlaceholder(friend.name)
                     }
-                    alt=""
+                    alt={friend.name}
                   />
                   <div>
                     <h5>{friend.name}</h5>
@@ -171,8 +172,8 @@ export function MyFriendsPage() {
                 <BsPersonBadge size={24} /> Ganhos por indicações indiretas
               </S.CardTitle>
               <S.GraphicBar>
-                {graphInformation.map(item => (
-                  <S.BarItem title={String(item.total)}>
+                {graphInformation.map((item, index) => (
+                  <S.BarItem key={index} title={String(item.total)}>
                     <S.Bar percentage={item.percentage} />
                     <S.TitleBar>{item.month}</S.TitleBar>
                   </S.BarItem>

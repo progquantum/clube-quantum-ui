@@ -1,6 +1,7 @@
 export const colors = {
   background: '#fff',
   light: '#eeeeee',
+  blue: '#1D5C9E',
   midnightBlue: '#001F80',
   mediumslateBlue: '#0C61FF',
   royalblue: '#0E5AE4',
@@ -16,6 +17,7 @@ export const colors = {
   cherryPie: '#190252',
   white: '#ffffff',
   ghostwhite: '#F5F6FA',
+  orangeRed: '#F86624',
   gray: {
     50: '#E6E6E6',
     100: '#DBDBDB',

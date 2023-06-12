@@ -6,7 +6,7 @@ import { quantumClientQueue } from 'config/client';
 
 import { ResponseData } from './types';
 
-const QUERY_KEY_GET_CONTRACTS_LOGGED_USER = 'get-contracts-logged-user';
+export const QUERY_KEY_GET_CONTRACTS_LOGGED_USER = 'get-contracts-logged-user';
 
 export async function getContractsLoggedUser() {
   try {
