@@ -405,6 +405,10 @@ export function InfoEstablishment() {
               <S.SubTitleBanner>
                 Instruções para o envio da imagem
               </S.SubTitleBanner>
+              <S.SubTitleBanner>Dimensão: 642px X 321px</S.SubTitleBanner>
+              <S.SubTitleBanner>
+                Jpeg, Jpg e Png. Limite Máximo: 15MB
+              </S.SubTitleBanner>
               {banner.bannerURL ? (
                 <Image
                   src={banner.bannerURL}
@@ -431,6 +435,10 @@ export function InfoEstablishment() {
                 Enviar imagem para o logo do estabelecimento
               </S.TitleLogo>
               <S.SubTitleLogo>Instruções para o envio da imagem</S.SubTitleLogo>
+              <S.SubTitleBanner>Dimensão: 642px X 321px</S.SubTitleBanner>
+              <S.SubTitleBanner>
+                Jpeg, Jpg e Png. Limite Máximo: 15MB
+              </S.SubTitleBanner>
               {logo.logoURL ? (
                 <Image
                   src={logo.logoURL}
