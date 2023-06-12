@@ -6,6 +6,8 @@ import { Form } from '@unform/web';
 
 import { FormHandles, SubmitHandler } from '@unform/core';
 
+import { useQueryClient } from 'react-query';
+
 import { Modal } from 'components/Modal';
 
 import { colors } from 'styles/theme/colors';
@@ -20,11 +22,14 @@ import { usePostPlanCancellation } from 'hooks/useContracts/useRequestPlanCancel
 
 import { error } from 'helpers/notify/error';
 
+import { QUERY_KEY_GET_CONTRACTS_LOGGED_USER } from 'hooks/useContracts/useFindContractByUserId';
+
 import { Props } from './types';
 import * as S from './styles';
 
 export function ModalCancel({ onRequestClose, contract }: Props) {
   const formRef = useRef<FormHandles>(null);
+  const queryClient = useQueryClient();
 
   const { data: contractDetailedInfo } = useGetContractByKey(
     contract.document_key,
@@ -41,6 +46,9 @@ export function ModalCancel({ onRequestClose, contract }: Props) {
 
     requestPlanCancellation(requestBody, {
       onSuccess: () => {
+        queryClient.invalidateQueries({
+          queryKey: [QUERY_KEY_GET_CONTRACTS_LOGGED_USER],
+        });
         onRequestClose();
       },
       onError: () => {
@@ -49,6 +57,7 @@ export function ModalCancel({ onRequestClose, contract }: Props) {
     });
   };
 
+  console.log(contract);
   return (
     <Modal data-cy="modalCancel" onClose={onRequestClose}>
       <S.Container
@@ -98,7 +107,6 @@ export function ModalCancel({ onRequestClose, contract }: Props) {
           cancelar este contrato.
         </S.P>
         <div>
-          {' '}
           <S.Label>Justificativa</S.Label>
           <TextArea
             data-cy="justificationTextArea"

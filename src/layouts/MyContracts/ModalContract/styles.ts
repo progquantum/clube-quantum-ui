@@ -2,9 +2,14 @@ import styled from 'styled-components';
 
 export const Container = styled.div`
   display: flex;
-  flex-direction: column;
   margin-top: 12px;
+  flex-wrap: wrap;
   gap: 12px;
+  margin: 1.2rem 0 0;
+
+  @media (max-width: 700px) {
+    flex-direction: column;
+  }
 `;
 
 export const Column = styled.div`
@@ -12,8 +17,9 @@ export const Column = styled.div`
   flex-direction: column;
   box-shadow: 0px 0px 20px rgba(0, 0, 0, 0.1);
   border-radius: 15px;
-  padding: 20px 20px;
-  gap: 16px;
+  padding: 16px 16px;
+  gap: 8px;
+  flex: 1;
 `;
 
 export const ContentRow = styled.div`
@@ -76,5 +82,24 @@ export const Text = styled.p`
 
   @media (max-width: 414px) {
     font-size: 10px;
+  }
+`;
+
+export const ButtonContainer = styled.div`
+  display: flex;
+  width: 100%;
+  justify-content: flex-end;
+  gap: 1rem;
+
+  @media (min-width: 550px) {
+    & > button:nth-child(1) {
+      width: 30%;
+    }
+    & > button:nth-child(2) {
+      width: 35%;
+    }
+    & > button:nth-child(3) {
+      width: 15%;
+    }
   }
 `;
