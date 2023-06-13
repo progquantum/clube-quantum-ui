@@ -29,11 +29,17 @@ export function PathOne() {
   const selectedPlan = useTimPlanStore(state => state.selectedPlan);
   const phoneNumber = useTimPlanStore(state => state.phoneNumber);
   const pinCode = useTimPlanStore(state => state.pinCode);
-  const hasPhoneNumber = phoneNumber.length > 0;
   const setPath = useTimPlanStore(state => state.setPath);
+  const setDDD = useTimPlanStore(state => state.setDDD);
+
+  const hasPhoneNumber = phoneNumber.length > 0;
 
   const { mutate: sendPhoneCodeRequest } = useSendPhoneCode();
 
+  const setDDDToContext = (phone: string) => {
+    const ddd = phone.slice(0, 2);
+    setDDD(ddd);
+  };
   const formRef = useRef<FormHandles>(null);
 
   const handlePathOnePreviousStep = () => {
@@ -43,6 +49,13 @@ export function PathOne() {
     } else {
       setPhoneNumber('');
     }
+  };
+
+  const formatContextPhoneNumber = (phone: string) => {
+    if (!phone) return;
+    const firstHalf = phone.slice(0, 5);
+    const secondHalf = phone.slice(5, phone.length);
+    return firstHalf.concat(' ').concat(secondHalf);
   };
 
   const handlePhoneNumber: SubmitHandler<PhoneFormValues> = useCallback(
@@ -59,7 +72,12 @@ export function PathOne() {
             { phone },
             {
               onSuccess: (_, variables) => {
-                setPhoneNumber(phoneNumber);
+                setDDDToContext(phoneNumber);
+                const phoneNumberWithoutDDD = phoneNumber.slice(
+                  2,
+                  phoneNumber.length,
+                );
+                setPhoneNumber(formatContextPhoneNumber(phoneNumberWithoutDDD));
                 success(`Codigo enviado para o numero ${variables.phone}`);
               },
             },

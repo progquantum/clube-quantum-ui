@@ -1,17 +1,12 @@
 import Image from 'next/legacy/image';
 
 import { Header } from 'components/Header';
-
 import { CenterLayout } from 'components/CenterLayout';
-
 import { HeroLayout } from 'components/HeroLayout';
 import { ShowOffers } from 'layouts/Marketplace/Components/ShowOffers';
 import { AccountCard } from 'layouts/Marketplace/Components/AccountCard';
-
 import { useTimPlanStore } from 'store/tim';
-
 import { Footer } from 'components/Footer';
-
 import { useGetLoggedUser } from 'hooks/me/useGetLoggedUser';
 
 import * as S from './styles';
@@ -36,6 +31,7 @@ export function TimSubscriptionPlan() {
   };
 
   const component = Steps[currentStep];
+
   return (
     <>
       <Header>
@@ -71,7 +67,7 @@ export function TimSubscriptionPlan() {
           />
         </S.LeftContent>
       </HeroLayout>
-      <CenterLayout>{component} </CenterLayout>
+      <CenterLayout>{component}</CenterLayout>
       <Footer />
     </>
   );

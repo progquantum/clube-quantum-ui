@@ -1,5 +1,7 @@
 import { create } from 'zustand';
 
+import { Document } from 'hooks/useContracts/useCreateDocumentRequestSignatureTim/types';
+
 import { Plan } from 'hooks/partners/usePartners/types';
 
 import { TimPlanStore } from './types';
@@ -36,4 +38,8 @@ export const useTimPlanStore = create<TimPlanStore>(set => ({
       pinCode,
     }));
   },
+  isPortability: false,
+  setIsPortability: (isPortability: boolean) => set(() => ({ isPortability })),
+  contract: {} as Document,
+  setContract: (contract: Document) => set(() => ({ contract })),
 }));

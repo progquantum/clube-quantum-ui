@@ -16,15 +16,16 @@ import { success } from 'helpers/notify/success';
 
 import { useSendPhoneCode } from 'hooks/phones/useSendPhoneCode';
 
-import { formatPhoneNumber } from 'utils/formatters/formatPhoneNumber';
-
 import * as S from './styles';
 import { PinCodeValue } from './types';
 
 export function PinCode() {
   const phoneNumber = useTimPlanStore(state => state.phoneNumber);
+  const selectedDDD = useTimPlanStore(state => state.selectedDDD);
   const setPinCodeStore = useTimPlanStore(state => state.setPinCode);
+  const setIsPortability = useTimPlanStore(state => state.setIsPortability);
   const nextStep = useTimPlanStore(state => state.nextStep);
+  const setPhoneNumber = useTimPlanStore(state => state.setPhoneNumber);
   const { mutate: validateCode } = useCheckPhoneCode();
   const formRef = useRef<FormHandles>(null);
   const [pinCode, setPinCode] = useState<Array<string>>(new Array(6).fill(''));
@@ -38,11 +39,15 @@ export function PinCode() {
   };
 
   const handleCheckPinCode: SubmitHandler<PinCodeValue> = useCallback(() => {
-    const phone = '55'.concat(phoneNumber);
+    const phone = '55'
+      .concat(selectedDDD)
+      .concat(phoneNumber.replace(/ /g, ''));
+
     validateCode(
       { phone, code: pinCode.join('') },
       {
         onSuccess: () => {
+          setIsPortability(true);
           nextStep();
           setPinCodeStore('');
           success('Número validado com sucesso');
@@ -55,7 +60,10 @@ export function PinCode() {
   }, [pinCode, phoneNumber]);
 
   const handleSendAnotherCode = () => {
-    const phone = '55'.concat(phoneNumber);
+    const phone = '55'
+      .concat(selectedDDD)
+      .concat(phoneNumber)
+      .replace(/ /g, '');
     requestSendPhoneCode(
       { phone },
       {
@@ -90,7 +98,8 @@ export function PinCode() {
         <S.ButtonPinCode onClick={handleSendAnotherCode}>
           receber outro código
         </S.ButtonPinCode>{' '}
-        ou <S.Bold>digite outro número.</S.Bold>
+        ou{' '}
+        <S.Bold onClick={() => setPhoneNumber('')}>digite outro número.</S.Bold>
       </S.PinCodeSpan>
     </S.PinCodeContainer>
   );
