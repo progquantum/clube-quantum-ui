@@ -12,7 +12,6 @@ export function Success() {
   const phoneNumber = useTimPlanStore(state => state.phoneNumber);
 
   const cleanStateFromLocalStorage = () => {
-    localStorage.removeItem('timPlan');
     window.location.reload();
   };
 

@@ -26,5 +26,8 @@ export function useGetContractStatus(documentKey: string) {
   return useQuery(
     [QUERY_KEY_GET_CONTRACT_STATUS, documentKey],
     getContractStatus,
+    {
+      refetchInterval: 1500,
+    },
   );
 }
