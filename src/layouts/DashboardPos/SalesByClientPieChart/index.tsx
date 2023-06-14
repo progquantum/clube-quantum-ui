@@ -1,5 +1,3 @@
-import React, { useEffect, useState } from 'react';
-
 import {
   Cell,
   Legend,
@@ -7,26 +5,29 @@ import {
   PieChart,
   ResponsiveContainer,
   Tooltip,
+  Text,
 } from 'recharts';
 import { useTheme } from 'styled-components';
 
 import { useSidebarStore } from 'store/sidebar';
 
-import {
-  ChartContainer,
-  ChartContainerTitle,
-  SalesByClientPieChartContainer,
-} from '../styles';
+import { ChartContainerTitle, SalesByClientPieChartContainer } from '../styles';
+import { SalesByClientProps } from './types';
 
-export function SalesByClientPieChart() {
+export function SalesByClientPieChart({ sales_by_client }: SalesByClientProps) {
   const { colors } = useTheme();
 
   const CHART_COLORS = [colors.gray[400], colors.mediumslateBlue];
   const data = [
-    { name: 'Clientes não associados', value: 5 },
-    { name: 'Clientes Quantum', value: 15 },
+    {
+      name: 'Clientes não associados',
+      value: sales_by_client?.non_affiliated_client,
+    },
+    { name: 'Clientes Quantum', value: sales_by_client?.client_quantum },
   ];
 
+  const areAllValuesZero = data.every(item => Number(item.value) === 0);
+  console.log(data);
   const isSidebarOpen = useSidebarStore(state => state.isExpanded);
 
   const RADIAN = Math.PI / 180;
@@ -58,29 +59,42 @@ export function SalesByClientPieChart() {
   return (
     <SalesByClientPieChartContainer isSideBarExpanded={isSidebarOpen}>
       <ChartContainerTitle>Vendas por cliente</ChartContainerTitle>
-      <ResponsiveContainer width="95%">
-        <PieChart width={400} height={400}>
-          <Pie
-            data={data}
-            cx="50%"
-            cy="50%"
-            labelLine={false}
-            label={renderCustomizedLabel}
-            outerRadius={80}
-            fill="#8884d8"
-            dataKey="value"
-          >
-            {data.map((item, index) => (
-              <Cell
-                key={`cell-${item.name}`}
-                fill={CHART_COLORS[index % CHART_COLORS.length]}
-              />
-            ))}
-          </Pie>
-          <Tooltip />
-          <Legend />
-        </PieChart>
-      </ResponsiveContainer>
+      {areAllValuesZero ? (
+        <Text
+          style={{
+            display: 'flex',
+            alignItems: 'center',
+            justifyContent: 'center',
+            marginTop: '150px',
+          }}
+        >
+          Sem dados
+        </Text>
+      ) : (
+        <ResponsiveContainer width="95%">
+          <PieChart width={400} height={400}>
+            <Pie
+              data={data}
+              cx="50%"
+              cy="50%"
+              labelLine={false}
+              label={renderCustomizedLabel}
+              outerRadius={80}
+              fill="#8884d8"
+              dataKey="value"
+            >
+              {data.map((item, index) => (
+                <Cell
+                  key={`cell-${item.name}`}
+                  fill={CHART_COLORS[index % CHART_COLORS.length]}
+                />
+              ))}
+            </Pie>
+            <Tooltip />
+            <Legend />
+          </PieChart>
+        </ResponsiveContainer>
+      )}
     </SalesByClientPieChartContainer>
   );
 }

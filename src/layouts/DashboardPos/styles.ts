@@ -164,25 +164,26 @@ export const Hifen = styled(CNPJData)`
 `;
 
 export const ButtonUnderline = styled(Button)<ButtonProps>`
-  ${({ underline }) => css`
-    margin-top: 0;
-    max-width: 137px;
+  ${({ filter }) => css`
+    margin-top: 10px;
+    max-width: 200px;
     font-style: normal;
-    font-weight: 500;
+    font-weight: 600;
     font-size: 14px;
-    line-height: 17px;
+    height: 30px;
     display: flex;
     align-items: center;
-    text-align: center;
-    text-decoration-line: ${underline ? 'underline' : 'none'};
+    justify-content: flex-start;
+    padding: 0;
+    color: ${({ theme }) =>
+      filter ? theme.colors.midnightBlue : theme.colors.gray[300]};
+
     background: transparent;
     &:hover {
       background: transparent;
       color: ${({ theme }) => theme.colors.midnightBlue};
       opacity: 0.7;
     }
-
-    color: ${({ theme }) => theme.colors.midnightBlue};
   `}
 `;
 
@@ -524,5 +525,20 @@ export const ContentRow = styled.div`
 
   @media (max-width: 1050px) {
     max-width: 550px;
+  }
+`;
+
+export const PaginationContainer = styled.div`
+  margin: 1rem 0 0 0;
+`;
+
+export const ContainerDatePicker = styled.div`
+  display: flex;
+  margin-top: 18px;
+  gap: 24px;
+
+  @media (max-width: 780px) {
+    flex-direction: column;
+    gap: 10px;
   }
 `;

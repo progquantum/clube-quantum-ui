@@ -1,4 +1,4 @@
-import React from 'react';
+import dayjs from 'dayjs';
 
 import {
   Bar,
@@ -19,32 +19,56 @@ import { useSidebarStore } from 'store/sidebar';
 
 import { SubTitle } from './styles';
 import {
-  ChartContainer,
   ChartContainerTitle,
   OverallSalesProgressionBarChartContainer,
 } from '../styles';
 
 export function OverallSalesProgressionBarChart() {
   const { data } = useGetSalesProgression();
+  const year = dayjs().year();
 
   const { colors } = useTheme();
   const isSidebarOpen = useSidebarStore(state => state.isExpanded);
 
   const dataWithoutSale = [
-    { month: 'Jan', total: 100 },
-    { month: 'Fev', total: 200 },
-    { month: 'Mar', total: 300 },
-    { month: 'Jan', total: 100 },
-    { month: 'Fev', total: 200 },
-    { month: 'Abr', total: 400 },
+    { month: 'Jan', total: 0 },
+    { month: 'Fev', total: 0 },
+    { month: 'Mar', total: 0 },
+    { month: 'Jan', total: 0 },
+    { month: 'Fev', total: 0 },
+    { month: 'Abr', total: 0 },
   ];
+
+  function convertData(data) {
+    const months = [
+      'Jan',
+      'Fev',
+      'Mar',
+      'Abr',
+      'Mai',
+      'Jun',
+      'Jul',
+      'Ago',
+      'Set',
+      'Out',
+      'Nov',
+      'Dez',
+    ];
+    return data?.map(item => ({
+      month: months[item.month - 1],
+      total: parseInt(item.total, 10),
+    }));
+  }
+
+  const dataConvert = convertData(data);
+
   return (
     <OverallSalesProgressionBarChartContainer isSideBarExpanded={isSidebarOpen}>
       <ChartContainerTitle>Progressão geral de vendas</ChartContainerTitle>
-      <SubTitle>primeiro semestre de 2022</SubTitle>
+      <SubTitle>primeiro semestre de {year}</SubTitle>
       <ResponsiveContainer width="99%" height="100%">
         <BarChart
-          data={dataWithoutSale}
+          data={dataConvert?.length === 0 ? dataWithoutSale : dataConvert}
           margin={{
             top: 60,
             right: 5,
@@ -52,12 +76,12 @@ export function OverallSalesProgressionBarChart() {
             bottom: -10,
           }}
         >
+          <Tooltip />
           <CartesianGrid strokeDasharray="3 3" />
+          <Bar dataKey="total" fill={colors.orangeRed} />
           <XAxis dataKey="month" />
           <YAxis />
-          <Bar dataKey="total" fill={colors.orangeRed} />
           <Legend />
-          <Tooltip />
         </BarChart>
       </ResponsiveContainer>
     </OverallSalesProgressionBarChartContainer>
