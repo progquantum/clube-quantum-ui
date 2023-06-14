@@ -1,3 +1,4 @@
 export function formatPrice(price = '') {
-  return `R$ ${price.replace('.', ',')}0`;
+  const number = parseFloat(price.replace(',', '.'));
+  return number.toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' });
 }
