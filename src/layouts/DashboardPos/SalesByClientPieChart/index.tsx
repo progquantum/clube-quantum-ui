@@ -12,19 +12,19 @@ import { useTheme } from 'styled-components';
 
 import { useSidebarStore } from 'store/sidebar';
 
-import {
-  ChartContainer,
-  ChartContainerTitle,
-  SalesByClientPieChartContainer,
-} from '../styles';
+import { ChartContainerTitle, SalesByClientPieChartContainer } from '../styles';
+import { SalesByClientProps } from './types';
 
-export function SalesByClientPieChart() {
+export function SalesByClientPieChart({ sales_by_client }: SalesByClientProps) {
   const { colors } = useTheme();
 
   const CHART_COLORS = [colors.gray[400], colors.mediumslateBlue];
   const data = [
-    { name: 'Clientes não associados', value: 5 },
-    { name: 'Clientes Quantum', value: 15 },
+    {
+      name: 'Clientes não associados',
+      value: sales_by_client?.non_affiliated_client,
+    },
+    { name: 'Clientes Quantum', value: sales_by_client?.client_quantum },
   ];
 
   const isSidebarOpen = useSidebarStore(state => state.isExpanded);
