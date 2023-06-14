@@ -91,6 +91,10 @@ export const ButtonContainer = styled.div`
   justify-content: flex-end;
   gap: 1rem;
 
+  @media (max-width: 549px) {
+    flex-direction: column;
+  }
+
   @media (min-width: 550px) {
     & > button:nth-child(1) {
       width: 30%;
