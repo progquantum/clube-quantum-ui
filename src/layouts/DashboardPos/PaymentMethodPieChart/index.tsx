@@ -11,17 +11,20 @@ import {
 
 import { useSidebarStore } from 'store/sidebar';
 
-import {
-  ChartContainer,
-  ChartContainerTitle,
-  PaymentMethodPieChartContainer,
-} from '../styles';
+import { ChartContainerTitle, PaymentMethodPieChartContainer } from '../styles';
+import { PaymentMethodProps } from './types';
 
-export function PaymentMethodPieChart() {
+export function PaymentMethodPieChart({ payment_method }: PaymentMethodProps) {
   const data = [
-    { name: 'Crédito Parcelado', value: 2 },
+    { name: 'Crédito Parcelado', value: payment_method?.installment_credit },
+    { name: 'Débito', value: payment_method?.debit },
+    { name: 'Crédito à Vista', value: payment_method?.credit },
+  ];
+
+  const dataExample = [
+    { name: 'Crédito Parcelado', value: 1 },
     { name: 'Débito', value: 2 },
-    { name: 'Crédito à Vista', value: 7 },
+    { name: 'Crédito à Vista', value: 3 },
   ];
 
   const isSidebarOpen = useSidebarStore(state => state.isExpanded);
