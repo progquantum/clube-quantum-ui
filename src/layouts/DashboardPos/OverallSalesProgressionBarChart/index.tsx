@@ -1,4 +1,4 @@
-import React from 'react';
+import dayjs from 'dayjs';
 
 import {
   Bar,
@@ -25,6 +25,7 @@ import {
 
 export function OverallSalesProgressionBarChart() {
   const { data } = useGetSalesProgression();
+  const year = dayjs().year();
 
   const { colors } = useTheme();
   const isSidebarOpen = useSidebarStore(state => state.isExpanded);
@@ -64,7 +65,7 @@ export function OverallSalesProgressionBarChart() {
   return (
     <OverallSalesProgressionBarChartContainer isSideBarExpanded={isSidebarOpen}>
       <ChartContainerTitle>Progressão geral de vendas</ChartContainerTitle>
-      <SubTitle>primeiro semestre de 2023</SubTitle>
+      <SubTitle>primeiro semestre de {year}</SubTitle>
       <ResponsiveContainer width="99%" height="100%">
         <BarChart
           data={dataConvert?.length === 0 ? dataWithoutSale : dataConvert}
