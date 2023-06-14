@@ -31,6 +31,10 @@ export const Container = styled.div`
   @media (max-width: 1320px) {
     width: 24.0625rem;
   }
+
+  @media (max-width: 400px) {
+    width: 100%;
+  }
 `;
 
 export const Wrapper = styled.div`
@@ -46,6 +50,9 @@ export const Wrapper = styled.div`
     margin: 0;
   }
 
+  @media (max-width: 400px) {
+    width: 100%;
+  }
   @media (max-width: 900px) {
     > span {
       display: none !important;
@@ -96,7 +103,7 @@ export const PlanType = styled.h4<Active>`
   border-radius: 8px;
   cursor: pointer;
   font-size: 0.875rem;
-  padding: 10px 29px;
+  padding: 10px 0;
   margin: 0 auto;
   text-align: center;
 
