@@ -139,7 +139,7 @@ export function DashboardPos() {
             </S.DivRow>
           </S.DivColumn>
           <S.DivBalance>
-            <S.BalanceTitle>Saldo atual</S.BalanceTitle>
+            <S.BalanceTitle>Vendas por período</S.BalanceTitle>
             <S.BalanceValue>
               {formatPrice(
                 data?.total_balance === null || undefined
@@ -232,7 +232,7 @@ export function DashboardPos() {
           <SalesByClientPieChart sales_by_client={sales?.sales_by_client} />
           <OverallSalesProgressionBarChart />
         </S.DivGraphics>
-        <S.ContentRow>
+        <S.ContentRow isExpanded={isSideBarExpanded}>
           <DraggableScrollContainer>
             <S.ContainerTable>
               <S.TopTable>
@@ -253,7 +253,6 @@ export function DashboardPos() {
                           ? 'Aprovada'
                           : 'Recusada'}
                       </S.StatusTrans>
-                      <S.Font14>João Augusto de Lima</S.Font14>
                     </S.TableColumn>
                     <S.TableColumn2>
                       <S.Font14>{transaction.card_brand}</S.Font14>
