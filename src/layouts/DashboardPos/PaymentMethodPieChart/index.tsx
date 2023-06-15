@@ -7,22 +7,21 @@ import {
   ResponsiveContainer,
   Tooltip,
   Legend,
+  Text,
 } from 'recharts';
 
 import { useSidebarStore } from 'store/sidebar';
 
-import {
-  ChartContainer,
-  ChartContainerTitle,
-  PaymentMethodPieChartContainer,
-} from '../styles';
+import { ChartContainerTitle, PaymentMethodPieChartContainer } from '../styles';
+import { PaymentMethodProps } from './types';
 
-export function PaymentMethodPieChart() {
+export function PaymentMethodPieChart({ payment_method }: PaymentMethodProps) {
   const data = [
-    { name: 'Crédito Parcelado', value: 2 },
-    { name: 'Débito', value: 2 },
-    { name: 'Crédito à Vista', value: 7 },
+    { name: 'Crédito Parcelado', value: payment_method?.installment_credit },
+    { name: 'Débito', value: payment_method?.debit },
+    { name: 'Crédito à Vista', value: payment_method?.credit },
   ];
+  const areAllValuesZero = data.every(item => item.value === 0);
 
   const isSidebarOpen = useSidebarStore(state => state.isExpanded);
 
@@ -52,33 +51,45 @@ export function PaymentMethodPieChart() {
       </text>
     );
   };
-
   return (
     <PaymentMethodPieChartContainer isSideBarExpanded={isSidebarOpen}>
       <ChartContainerTitle>Histórico por tipo de pagamento</ChartContainerTitle>
-      <ResponsiveContainer width="99%">
-        <PieChart width={400} height={400}>
-          <Pie
-            data={data}
-            cx="50%"
-            cy="50%"
-            labelLine={false}
-            label={renderCustomizedLabel}
-            outerRadius={80}
-            fill="#8884d8"
-            dataKey="value"
-          >
-            {data.map((item, index) => (
-              <Cell
-                key={`cell-${item.name}`}
-                fill={COLORS[index % COLORS.length]}
-              />
-            ))}
-          </Pie>
-          <Tooltip />
-          <Legend />
-        </PieChart>
-      </ResponsiveContainer>
+      {areAllValuesZero ? (
+        <Text
+          style={{
+            display: 'flex',
+            alignItems: 'center',
+            justifyContent: 'center',
+            marginTop: '150px',
+          }}
+        >
+          Sem dados
+        </Text>
+      ) : (
+        <ResponsiveContainer width="99%">
+          <PieChart width={400} height={400}>
+            <Pie
+              data={data}
+              cx="50%"
+              cy="50%"
+              labelLine={false}
+              label={renderCustomizedLabel}
+              outerRadius={80}
+              fill="#8884d8"
+              dataKey="value"
+            >
+              {data.map((item, index) => (
+                <Cell
+                  key={`cell-${item.name}`}
+                  fill={COLORS[index % COLORS.length]}
+                />
+              ))}
+            </Pie>
+            <Tooltip />
+            <Legend />
+          </PieChart>
+        </ResponsiveContainer>
+      )}
     </PaymentMethodPieChartContainer>
   );
 }

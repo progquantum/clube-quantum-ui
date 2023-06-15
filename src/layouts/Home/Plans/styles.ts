@@ -112,7 +112,7 @@ export const PlanType = styled.h4<Active>`
     css`
       background-color: ${({ theme }) => theme.colors.white};
       color: ${({ theme }) => theme.colors.gray['700']};
-      border: 2px solid ${({ theme }) => theme.colors.mediumslateBlue}; ;
+      border: 2px solid ${({ theme }) => theme.colors.mediumslateBlue};
     `}
 
   @media (max-width: 525px) {

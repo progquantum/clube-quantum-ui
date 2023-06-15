@@ -4,6 +4,9 @@ import { QueryParamProvider } from 'use-query-params';
 import { ReactQueryDevtools } from 'react-query/devtools';
 import { Toaster } from 'react-hot-toast';
 import { DefaultSeo } from 'next-seo';
+import { LocalizationProvider } from '@mui/x-date-pickers';
+import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
+import 'dayjs/locale/pt-br';
 
 import { useHasMounted } from 'hooks/useHasMounted';
 
@@ -39,7 +42,12 @@ export function AppProvider({ children }: PropsWithChildren) {
             <AuthProvider>
               <SubscriptionsProvider>
                 <Toaster />
-                {children}
+                <LocalizationProvider
+                  dateAdapter={AdapterDayjs}
+                  adapterLocale="pt-br"
+                >
+                  {children}
+                </LocalizationProvider>
               </SubscriptionsProvider>
             </AuthProvider>
           </StyledProvider>
