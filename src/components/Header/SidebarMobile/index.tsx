@@ -24,9 +24,10 @@ export function SideBarMobile({ isAuthed, links }: SidebarMobileProps) {
   useEffect(() => {
     if (isSidebarOpen) {
       document.body.style.overflow = 'hidden';
-    } else {
-      document.body.style.overflow = 'unset';
     }
+    return () => {
+      document.body.style.overflow = 'unset';
+    };
   }, [isSidebarOpen]);
 
   return (
@@ -48,7 +49,10 @@ export function SideBarMobile({ isAuthed, links }: SidebarMobileProps) {
                     <span>Acessar o Marketplace</span>
                   </S.StyledButton>
                   {links.map((link: AuthLink) => (
-                    <S.MenuItem href={link.href} key={link.href}>
+                    <S.MenuItem
+                      href={link.href}
+                      key={`item-${link.title}-${link.href}`}
+                    >
                       {link.icon} <p>{link.title}</p>
                     </S.MenuItem>
                   ))}
@@ -64,7 +68,10 @@ export function SideBarMobile({ isAuthed, links }: SidebarMobileProps) {
                     <span>Fazer Login</span>
                   </S.StyledButton>
                   {links.map((link: GuestLink) => (
-                    <S.MenuItem href={link.href} key={link.href}>
+                    <S.MenuItem
+                      href={link.href}
+                      key={`item-${link.title}-${link.href}`}
+                    >
                       <p>{link.title}</p>
                     </S.MenuItem>
                   ))}
