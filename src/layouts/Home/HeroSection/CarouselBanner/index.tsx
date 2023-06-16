@@ -13,6 +13,9 @@ import { useAuthDispatch } from 'contexts/auth/AuthContext';
 
 import * as S from './styles';
 
+const sizes =
+  '(max-width: 1200px) 1000px, (max-width: 1000px) 800px,(max-width: 800px) width: 600px, (max-width: 600px) 100vw, 1200px';
+
 export function CarouselBanner() {
   const { setPreviousPage } = useAuthDispatch();
   const windowSize = useWindowSize();
@@ -44,8 +47,10 @@ export function CarouselBanner() {
               <Image
                 src={banners.pos}
                 alt="Máquina Pos"
-                style={{ cursor: 'pointer', objectFit: 'contain' }}
+                style={{ cursor: 'pointer', objectFit: 'fill' }}
                 fill
+                sizes={sizes}
+                priority
               />
             </S.ImageContainer>
           </Link>
@@ -57,10 +62,12 @@ export function CarouselBanner() {
             <S.ImageContainer>
               <Image
                 onClick={() => setPreviousPage(MARKETPLACE_PAGE)}
-                style={{ cursor: 'pointer', objectFit: 'contain' }}
+                style={{ cursor: 'pointer', objectFit: 'fill' }}
                 src={banners.marketplace}
                 alt="Marketplace"
                 fill
+                sizes={sizes}
+                priority
               />
             </S.ImageContainer>
           </Link>
@@ -72,10 +79,12 @@ export function CarouselBanner() {
             <S.ImageContainer>
               <Image
                 onClick={() => setPreviousPage(PLAN_TIM_PAGE)}
-                style={{ cursor: 'pointer', objectFit: 'contain' }}
+                style={{ cursor: 'pointer', objectFit: 'fill' }}
                 src={banners.tim}
                 alt="Banner Tim + Banco um"
                 fill
+                sizes={sizes}
+                priority
               />
             </S.ImageContainer>
           </Link>

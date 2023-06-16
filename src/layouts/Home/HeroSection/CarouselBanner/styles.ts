@@ -2,10 +2,14 @@ import styled from 'styled-components';
 
 export const CenterContainer = styled.div`
   width: 100%;
+  height: 100%;
   display: flex;
   justify-content: center;
   align-items: flex-start;
-  padding-bottom: 2rem;
+
+  @media (min-width: 600px) {
+    padding-bottom: 2rem;
+  }
 `;
 
 export const ImageContainer = styled.div`

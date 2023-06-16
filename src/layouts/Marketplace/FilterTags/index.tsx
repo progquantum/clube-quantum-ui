@@ -2,6 +2,8 @@ import { MdOutlineNavigateBefore, MdOutlineNavigateNext } from 'react-icons/md';
 
 import { useLayoutEffect, useRef, useState } from 'react';
 
+import { useWindowSize } from 'react-use';
+
 import { useGetFilterCategories } from 'hooks/establishment/useGetCategories';
 
 import { Category } from 'hooks/establishment/useGetCategories/types';
@@ -20,7 +22,7 @@ function getIcon(iconName: string) {
 
 export function FilterTags() {
   const { data: categories } = useGetFilterCategories();
-
+  const { width } = useWindowSize();
   const containerRef = useRef(null);
   const [isOverflowing, setIsOverflowing] = useState(false);
 
@@ -48,6 +50,8 @@ export function FilterTags() {
     });
   }
 
+  const isMobile = width <= 450;
+
   return (
     <S.Container>
       <SectionTitle>Filtrar</SectionTitle>
@@ -60,7 +64,7 @@ export function FilterTags() {
             </S.TagButton>
           ))}
       </S.ScrollContainer>
-      {isOverflowing && (
+      {isOverflowing && !isMobile && (
         <>
           <S.RightButton onClick={() => handleScrollToRight()}>
             <MdOutlineNavigateBefore size={20} />

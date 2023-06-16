@@ -14,7 +14,7 @@ export function HeaderGuest() {
   return (
     <S.BoxContainer>
       <Header>
-        {width <= 600 ? (
+        {width <= 781 ? (
           <SideBarMobileGuest key="sidebarMobileGuest" />
         ) : (
           <S.Nav>

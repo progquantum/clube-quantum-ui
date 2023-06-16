@@ -482,6 +482,14 @@ export const DivGraphics = styled.div<{ isSideBarExpanded: boolean }>`
               'SalesByClientPieChart'
               'OverallSalesProgressionBarChart';
           }
+          @media (max-width: 950px) {
+            max-width: 450px;
+            grid-template-columns: 1fr;
+            grid-template-areas:
+              'PaymentMethodPieChart'
+              'SalesByClientPieChart'
+              'OverallSalesProgressionBarChart';
+          }
         `
       : css`
           grid-template-columns: repeat(3, 33%);
@@ -505,27 +513,43 @@ export const DivGraphics = styled.div<{ isSideBarExpanded: boolean }>`
         `}
 `;
 
-export const ContentRow = styled.div`
+export const ContentRow = styled.div<{ isExpanded: boolean }>`
   width: 100%;
   height: 100%;
   max-width: 100%;
   margin-top: 24px;
   display: flex;
   gap: 24px;
-  @media (max-width: 1775px) {
-    flex-direction: column-reverse;
-    align-items: flex-start;
-  }
-  @media (max-width: 1400px) {
-    max-width: 850px;
-  }
-  @media (max-width: 1250px) {
-    max-width: 650px;
-  }
 
-  @media (max-width: 1050px) {
-    max-width: 550px;
-  }
+  ${({ isExpanded }) =>
+    isExpanded
+      ? css`
+          @media (max-width: 1775px) {
+            flex-direction: column-reverse;
+            align-items: flex-start;
+          }
+          @media (max-width: 1400px) {
+            max-width: 850px;
+          }
+          @media (max-width: 1250px) {
+            max-width: 650px;
+          }
+
+          @media (max-width: 1050px) {
+            max-width: 550px;
+          }
+          @media (max-width: 950px) {
+            max-width: 450px;
+          }
+        `
+      : css`
+          @media (max-width: 1775px) {
+            flex-direction: column-reverse;
+            align-items: flex-start;
+          }
+
+          max-width: 100%;
+        `}
 `;
 
 export const PaginationContainer = styled.div`

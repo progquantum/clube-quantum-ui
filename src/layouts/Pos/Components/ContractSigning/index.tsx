@@ -1,14 +1,22 @@
+import { useEffect } from 'react';
+
 import { useGetLoggedUser } from 'hooks/me/useGetLoggedUser';
 import { useGetContractStatus } from 'hooks/useContracts/useGetContractStatus';
 
 import * as S from './styles';
-import { ContractStatus, Props, StatusProps } from './types';
+import { ContractStatus, Props } from './types';
 
 export function ContractSigning({ onNextStep, contract }: Props) {
   const { data: loggedUser } = useGetLoggedUser();
-  const { data: contractStatus } = useGetContractStatus(contract.document.key);
+  const { data: contractStatus, isLoading } = useGetContractStatus(
+    contract.document.key,
+  );
 
-  const status = contractStatus || 'pending';
+  useEffect(() => {
+    if (contractStatus === 'closed' && !isLoading) {
+      onNextStep();
+    }
+  }, [contractStatus]);
 
   return (
     <S.Container>
@@ -35,7 +43,9 @@ export function ContractSigning({ onNextStep, contract }: Props) {
         }}
       >
         <S.Name>{loggedUser?.name}:</S.Name>
-        <S.Status status={status}>{ContractStatus[status]}</S.Status>
+        <S.Status status={contractStatus}>
+          {ContractStatus[contractStatus]}
+        </S.Status>
       </div>
     </S.Container>
   );

@@ -27,14 +27,13 @@ export const Wrapper = styled.div`
   padding: 0 1rem;
   height: 6.5rem;
   align-items: center;
-
   justify-content: space-around;
 `;
 
 export const LogoContainer = styled.div`
   width: 60px;
   height: 60px;
-  @media (min-width: 601px) {
+  @media (min-width: 781px) {
     margin-right: auto;
   }
   & img {

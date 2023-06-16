@@ -15,7 +15,7 @@ export function ConfirmRegistrationDetails({ loggedUser }) {
     <>
       <PlanSectionTitle>Confirmar dados de cadastro</PlanSectionTitle>
       <S.DetailsContainer>
-        <div>
+        <div style={{ maxWidth: '25.26rem', width: '100%' }}>
           <SelectedPlan />
           <PersonalInfo loggedUser={loggedUser} />
         </div>

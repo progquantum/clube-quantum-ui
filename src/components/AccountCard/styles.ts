@@ -30,27 +30,9 @@ export const TextContainer = styled.div`
 `;
 
 export const MobileLayout = styled.div`
-  display: flex;
-  align-items: center;
   @media (max-width: 600px) {
     & > ${TextContainer} {
       display: none;
     }
-
-    & > svg {
-      display: none;
-    }
-  }
-`;
-
-export const ButtonContainer = styled.div`
-  display: none;
-
-  > bottom {
-    font-size: 14px;
-  }
-
-  @media (max-width: 414px) {
-    display: block;
   }
 `;

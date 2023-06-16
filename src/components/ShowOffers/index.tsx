@@ -1,6 +1,6 @@
 import { FaMapMarkerAlt } from 'react-icons/fa';
 
-import * as S from '../styles';
+import * as S from './styles';
 
 export function ShowOffers() {
   return (
