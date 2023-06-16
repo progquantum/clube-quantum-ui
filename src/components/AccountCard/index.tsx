@@ -3,7 +3,7 @@ import Link from 'next/link';
 import { Avatar } from 'components/Avatar';
 import { useUserProfile } from 'hooks/me/useUserProfile';
 
-import * as S from '../styles';
+import * as S from './styles';
 
 export function AccountCard() {
   const { data: user } = useUserProfile();
