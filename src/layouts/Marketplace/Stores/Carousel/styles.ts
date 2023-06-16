@@ -45,11 +45,12 @@ export const Slides = styled.div`
 `;
 
 export const Slide = styled.div`
-  width: max-content;
   display: inline-block;
-  height: 100%;
   margin: 0 1rem;
   transition: transform 0.1s ease;
+  width: 500px;
+  height: 270px;
+  position: relative;
   &:hover {
     transform: scale(1.02);
   }

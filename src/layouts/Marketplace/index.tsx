@@ -8,8 +8,10 @@ import { HeroLayout } from 'components/HeroLayout';
 
 import { Footer } from 'components/Footer';
 
-import { AccountCard } from './Components/AccountCard';
-import { ShowOffers } from './Components/ShowOffers';
+import { ShowOffers } from 'components/ShowOffers';
+
+import { AccountCard } from 'components/AccountCard';
+
 import { Services } from './Services';
 import { Stores } from './Stores';
 
@@ -17,7 +19,7 @@ export function Marketplace() {
   return (
     <>
       <Header>
-        <ShowOffers />
+        <ShowOffers key="showOffers" />
         <AccountCard />
       </Header>
       <HeroLayout

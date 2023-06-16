@@ -1,13 +1,19 @@
 import Image from 'next/legacy/image';
 
+import { useWindowSize } from 'react-use';
+
 import { Header } from 'components/Header';
 import { CenterLayout } from 'components/CenterLayout';
 import { HeroLayout } from 'components/HeroLayout';
-import { ShowOffers } from 'layouts/Marketplace/Components/ShowOffers';
-import { AccountCard } from 'layouts/Marketplace/Components/AccountCard';
 import { useTimPlanStore } from 'store/tim';
 import { Footer } from 'components/Footer';
 import { useGetLoggedUser } from 'hooks/me/useGetLoggedUser';
+
+import { HeaderAuth } from 'components/Header/HeaderAuth';
+
+import { ShowOffers } from 'components/ShowOffers';
+
+import { AccountCard } from 'components/AccountCard';
 
 import * as S from './styles';
 import { PlanSection } from './Steps/PlanSection';
@@ -20,6 +26,7 @@ import { Success } from './Steps/Success';
 export function TimSubscriptionPlan() {
   const currentStep = useTimPlanStore(state => state.currentStep);
   const { data: loggedUser } = useGetLoggedUser();
+  const { width } = useWindowSize();
 
   const Steps = {
     0: <PlanSection />,
@@ -32,15 +39,17 @@ export function TimSubscriptionPlan() {
 
   const component = Steps[currentStep];
 
+  const isMobile = width <= 780;
   return (
     <>
-      <Header>
-        <S.MobileLayout>
+      {isMobile ? (
+        <HeaderAuth />
+      ) : (
+        <Header>
           <ShowOffers />
-          <S.MarketplaceButton>Acessar o Marketplace</S.MarketplaceButton>
-        </S.MobileLayout>
-        <AccountCard />
-      </Header>
+          <AccountCard />
+        </Header>
+      )}
       <HeroLayout
         imgSrc="/images/girl-with-a-phone.png"
         imgAlt="Uma mulher "

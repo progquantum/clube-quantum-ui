@@ -2,7 +2,7 @@ import React, { PropsWithChildren } from 'react';
 import Link from 'next/link';
 import Image from 'next/legacy/image';
 
-import { SIGN_IN_PAGE } from 'constants/routesPath';
+import { HOMEPAGE_PAGE } from 'constants/routesPath';
 
 import { AuthLayoutProps } from './types';
 import * as S from './styles';
@@ -24,7 +24,7 @@ export function AuthLayout({
       />
 
       <S.Content>
-        <Link href={SIGN_IN_PAGE} legacyBehavior>
+        <Link href={HOMEPAGE_PAGE} legacyBehavior>
           <a>
             <Image
               src="/images/quantum-logo.svg"

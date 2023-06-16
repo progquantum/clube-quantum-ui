@@ -58,4 +58,8 @@ export const FinishButton = styled.button`
     background: transparent;
     color: ${({ theme }) => theme.colors.mediumslateBlue};
   }
+
+  @media (max-width: 500px) {
+    width: 100%;
+  }
 `;

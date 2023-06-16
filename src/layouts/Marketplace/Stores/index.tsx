@@ -101,7 +101,7 @@ export function Stores() {
       )}
 
       {modalStatus && (
-        <Modal onClose={handleModalStatus} noDragBehavior>
+        <Modal onClose={handleModalStatus}>
           <FilterTags />
           <Map />
         </Modal>
