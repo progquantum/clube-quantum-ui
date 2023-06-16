@@ -1,16 +1,20 @@
 import Image from 'next/legacy/image';
 import Link from 'next/link';
 
-import { ReactNode, useEffect } from 'react';
+import { ReactElement, useEffect } from 'react';
 
 import { useWindowSize } from 'react-use';
 
 import * as S from './styles';
 
-export function Header({ children }: { children?: ReactNode | ReactNode[] }) {
+export function Header({
+  children,
+}: {
+  children?: ReactElement | ReactElement[];
+}) {
   const { width } = useWindowSize();
 
-  const isMobile = width <= 600;
+  const isMobile = width <= 780;
 
   useEffect(() => {
     if (!isMobile) document.body.style.overflow = 'unset';
@@ -29,7 +33,7 @@ export function Header({ children }: { children?: ReactNode | ReactNode[] }) {
                     src="/images/quantum-logo.svg"
                     width={60}
                     height={60}
-                    alt=""
+                    alt="Logo Quantum"
                     quality={100}
                   />
                 </Link>
@@ -44,7 +48,7 @@ export function Header({ children }: { children?: ReactNode | ReactNode[] }) {
                     src="/images/quantum-logo.svg"
                     width={60}
                     height={60}
-                    alt=""
+                    alt="Logo Quantum"
                     quality={100}
                   />
                 </Link>
@@ -56,10 +60,13 @@ export function Header({ children }: { children?: ReactNode | ReactNode[] }) {
       </S.Container>
     );
   }
+
+  const isMarketplaceHeader = children[0]?.key === 'showOffers';
+
   return (
     <S.Container>
       <S.Wrapper>
-        {isMobile ? (
+        {isMobile && !isMarketplaceHeader ? (
           <>
             {children[0]}
             <S.LogoContainer>
@@ -68,7 +75,7 @@ export function Header({ children }: { children?: ReactNode | ReactNode[] }) {
                   src="/images/quantum-logo.svg"
                   width={60}
                   height={60}
-                  alt=""
+                  alt="Logo Quantum"
                   quality={100}
                 />
               </Link>
@@ -83,7 +90,7 @@ export function Header({ children }: { children?: ReactNode | ReactNode[] }) {
                   src="/images/quantum-logo.svg"
                   width={60}
                   height={60}
-                  alt=""
+                  alt="Logo Quantum"
                   quality={100}
                 />
               </Link>
