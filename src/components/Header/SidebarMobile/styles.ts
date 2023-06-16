@@ -28,7 +28,7 @@ export const Backdrop = styled.div`
 export const Container = styled.div`
   position: relative;
 
-  @media (min-width: 601px) {
+  @media (min-width: 780px) {
     display: none;
   }
 `;

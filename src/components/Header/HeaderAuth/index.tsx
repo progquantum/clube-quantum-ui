@@ -12,7 +12,7 @@ export function HeaderAuth() {
 
   return (
     <Header>
-      {width <= 600 ? (
+      {width <= 781 ? (
         <SideBarMobileAuth key="sidebarMobileAuth" />
       ) : (
         <S.MarketplaceLink href={MARKETPLACE_PAGE} key="marketplaceLink">
