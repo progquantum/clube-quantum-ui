@@ -6,6 +6,8 @@ import { IoIosArrowBack, IoIosArrowForward } from 'react-icons/io';
 import { RiUserStarLine } from 'react-icons/ri';
 import { BsFillPersonPlusFill, BsPersonBadge } from 'react-icons/bs';
 
+import Link from 'next/link';
+
 import { formatCashback } from 'utils/formatters/formatCashback';
 import { formatDate } from 'utils/formatters/formatDate';
 
@@ -20,6 +22,8 @@ import { NoFriends } from 'components/NoFriends';
 
 import { DashboardLayout } from 'layouts/DashboardLayout';
 import { colors } from 'styles/theme/colors';
+
+import { INVITE_FRIENDS_PAGE } from 'constants/routesPath';
 
 import * as S from './styles';
 
@@ -118,22 +122,27 @@ export function MyFriendsPage() {
                 </S.AmountFriends>
               </S.Friend>
             ))}
-            <S.PaginationContainer>
-              <ReactPaginate
-                breakLabel="..."
-                nextLabel={
-                  <IoIosArrowForward size={20} color={colors.mediumslateBlue} />
-                }
-                onPageChange={onPageChange}
-                pageCount={totalPages}
-                previousLabel={
-                  <IoIosArrowBack size={20} color={colors.mediumslateBlue} />
-                }
-                containerClassName="paginationContainer"
-                pageLinkClassName="pageLink"
-                activeLinkClassName="activeLink"
-              />
-            </S.PaginationContainer>
+            {totalPages > 1 && (
+              <S.PaginationContainer>
+                <ReactPaginate
+                  breakLabel="..."
+                  nextLabel={
+                    <IoIosArrowForward
+                      size={20}
+                      color={colors.mediumslateBlue}
+                    />
+                  }
+                  onPageChange={onPageChange}
+                  pageCount={totalPages}
+                  previousLabel={
+                    <IoIosArrowBack size={20} color={colors.mediumslateBlue} />
+                  }
+                  containerClassName="paginationContainer"
+                  pageLinkClassName="pageLink"
+                  activeLinkClassName="activeLink"
+                />
+              </S.PaginationContainer>
+            )}
           </S.CardFriends>
 
           <S.FlexCards>
@@ -187,7 +196,9 @@ export function MyFriendsPage() {
               <S.InviteFriendsBody>
                 <h4>Não fique sozinho nessa!</h4>
                 <p>Convide seus amigos e ganhe cashback junto com eles!!!</p>
-                <S.InviteFriendsButton>Convidar amigos</S.InviteFriendsButton>
+                <Link href={INVITE_FRIENDS_PAGE}>
+                  <S.InviteFriendsButton>Convidar amigos</S.InviteFriendsButton>
+                </Link>
               </S.InviteFriendsBody>
             </S.InviteFriends>
           </S.FlexCards>
