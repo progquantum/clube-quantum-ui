@@ -100,12 +100,14 @@ export function StoreProfile() {
       <Map />
       <S.SubTitle>Você também pode gostar de</S.SubTitle>
       <S.CommerceContainer>
-        <InlineCard />
-        <InlineCard />
-        <InlineCard />
-        <InlineCard />
-        <InlineCard />
-        <InlineCard />
+        {/*
+      <InlineCard />
+      <InlineCard />
+      <InlineCard />
+      <InlineCard />
+      <InlineCard />
+      <InlineCard />
+        */}
       </S.CommerceContainer>
     </S.Container>
   );
