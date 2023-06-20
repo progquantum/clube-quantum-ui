@@ -12,7 +12,7 @@ describe('CreatePersonalAccount', () => {
     cy.get('[data-cy="personal-link"]').click();
 
     const generatedCPF = cpf.generate();
-    cy.get('[data-cy="cpf-input"]').type('48518013860');
+    cy.get('[data-cy="cpf-input"]').type(generatedCPF);
 
     cy.get('[data-cy="next-step-button"]').as('nextStepButton');
 
@@ -51,7 +51,8 @@ describe('CreatePersonalAccount', () => {
       new Intl.DateTimeFormat('pt-BR').format(birthDate),
     );
 
-    const email = faker.internet.email({ firstName: fullName });
+    // const email = faker.internet.email({ firstName: fullName });
+    const email = 'caiocastrofrs@gmail.com';
     cy.get('[data-cy="signup_email"]').type(email);
     cy.get('[data-cy="signup_confirmEmail"]').type(email);
 
