@@ -33,7 +33,7 @@ export function MainContent() {
       <S.AccountBalanceContainer>
         <AccountBalance
           title="Saldo em conta"
-          description={`Será transferido em ${generateDeadline(15)}`}
+          description={`Será transferido em ${generateDeadline(10)}`}
           value={formatCashback(balances?.awaiting_deposit)}
         />
 
