@@ -60,6 +60,8 @@ export const EarningsHistoryContainer = styled.div`
   flex-direction: column;
 `;
 export const EarningsHistoryByPartner = styled(EarningsHistoryContainer)`
+  min-height: 511.98px;
+  height: 100%;
   grid-area: ByPartner;
 `;
 export const EarningsHistoryByIndication = styled(EarningsHistoryContainer)`
@@ -76,7 +78,17 @@ export const TotalEarningText = styled.h4`
   color: ${({ theme }) => theme.colors.gray[700]};
   margin: 0.2rem 0 1rem;
 `;
-export const PartnerContainer = styled.div``;
+export const PartnerContainer = styled.div`
+  height: 100%;
+  min-height: 280px;
+  width: 100%;
+  min-width: 393.5px;
+
+  @media (max-width: 498px) {
+    width: 100%;
+    min-width: 250px;
+  }
+`;
 
 export const PartnerRow = styled.div`
   display: flex;
