@@ -43,7 +43,7 @@ export function Carousel({ slides }: CarouselProps) {
                 alt="banner cashback quantum"
                 fill
                 priority
-                sizes="(max-width: 700px) 70vw, 30vw"
+                sizes="(max-width: 700px) 100vw, 30vw"
               />
             </S.Slide>
             <S.Slide>
@@ -52,6 +52,7 @@ export function Carousel({ slides }: CarouselProps) {
                 alt="banner cashback quantum"
                 fill
                 priority
+                sizes="(max-width: 700px) 100vw, 30vw"
               />
             </S.Slide>
           </>
@@ -64,7 +65,7 @@ export function Carousel({ slides }: CarouselProps) {
                   alt={`carousel item number ${item.id + 1}`}
                   fill
                   priority
-                  sizes="(max-width: 700px) 70vw, 30vw"
+                  sizes="(max-width: 700px) 100vw, 30vw"
                 />
               </S.Slide>
             ))}
