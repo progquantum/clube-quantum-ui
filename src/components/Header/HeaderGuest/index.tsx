@@ -22,7 +22,7 @@ export function HeaderGuest() {
             <Link href="/">Seja um parceiro</Link>
             <Link href={WORK_WITH_US_PAGE}>Trabalhe Conosco</Link>
             <Link href={SIGN_IN_PAGE}>
-              <S.LoginButton>Fazer Login</S.LoginButton>
+              <S.LoginButton data-cy="signin-button">Fazer Login</S.LoginButton>
             </Link>
           </S.Nav>
         )}
