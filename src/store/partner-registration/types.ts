@@ -56,6 +56,8 @@ export type PartnerStore = {
   setUser: (user: PosUser) => void;
   fantasyName: string;
   setFantasyName: (name: string) => void;
+  mainPhone: string;
+  setMainPhone: (phone: string) => void;
   mainPhoneHasWhatsApp: boolean;
   setMainPhoneHasWhatsApp: (event: boolean) => void;
   cellPhone: string;

@@ -294,6 +294,10 @@ export const usePartnerStore = create(
       setFantasyName: (name: string) => {
         set(() => ({ fantasyName: name }));
       },
+      mainPhone: '',
+      setMainPhone: (phone: string) => {
+        set(() => ({ mainPhone: phone }));
+      },
       mainPhoneHasWhatsApp: false,
       setMainPhoneHasWhatsApp: (event: boolean) => {
         set(() => ({ mainPhoneHasWhatsApp: event }));
