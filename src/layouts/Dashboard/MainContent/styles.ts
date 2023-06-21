@@ -84,7 +84,7 @@ export const ButtonMarketplace = styled(Button)`
   background: ${({ theme }) => theme.colors.white};
   color: ${({ theme }) => theme.colors.midnightBlue};
   height: 2.5rem;
-  padding: 1.5rem 6rem;
+  padding: 1rem;
   width: 100%;
   align-self: center;
   @media (max-width: 550px) {
