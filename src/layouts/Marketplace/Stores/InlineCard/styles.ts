@@ -1,9 +1,21 @@
-import styled from 'styled-components';
+import styled, { keyframes } from 'styled-components';
 
+const entry = keyframes`
+  from {
+    opacity: 0.5;
+    transform: translateX(-3rem);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+`;
 export const CardContainer = styled.div`
   display: flex;
   gap: 1rem;
   justify-content: center;
+  animation: ${entry} 0.2s ease;
+
   @media (max-width: 767px) {
     max-width: 300px;
   }
@@ -26,12 +38,14 @@ export const Title = styled.h4`
 `;
 
 export const Rate = styled.div`
+  display: flex;
+  align-items: center;
   color: ${({ theme }) => theme.colors.gray[400]};
   & svg {
     margin-right: 0.5rem;
   }
 
-  margin-right: 0.5rem;
+  margin-right: 1rem;
 
   @media (max-width: 767px) {
     font-style: normal;
@@ -42,7 +56,7 @@ export const Rate = styled.div`
 `;
 
 export const Distance = styled.div`
-  margin-right: 0.5rem;
+  margin-right: 1rem;
   font-weight: 500;
 
   @media (max-width: 767px) {

@@ -1,6 +1,17 @@
-import styled from 'styled-components';
+import styled, { keyframes } from 'styled-components';
 
 import { CardContainer } from './InlineCard/styles';
+
+const entry = keyframes`
+  from {
+    opacity: 0.5;
+    transform: translateX(-3rem);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+`;
 
 export const StoresContainer = styled.div``;
 
@@ -61,6 +72,7 @@ export const LoadingContainer = styled.div`
   font-weight: 700;
   color: ${({ theme }) => theme.colors.midnightBlue};
   margin: 2rem auto;
+  animation: ${entry} 0.2s ease;
   text-align: center;
 `;
 
@@ -78,4 +90,12 @@ export const SearchResultsContainer = styled.div`
     color: ${({ theme }) => theme.colors.gray[400]};
     margin: 2rem 0;
   }
+`;
+
+export const FallbackEstablishmentText = styled.h3`
+  text-align: center;
+  margin: 4rem auto;
+  animation: ${entry} 0.2s ease;
+  grid-area: 1 / 1 / -1 / -1;
+  color: ${({ theme }) => theme.colors.midnightBlue};
 `;
