@@ -24,7 +24,7 @@ import { Map } from '../Map';
 
 export function Stores() {
   const filterInitialState = {
-    itemsPerPage: 1,
+    itemsPerPage: 6,
     page: 1,
   };
   const [filterInput, setFilterInput] =
@@ -39,11 +39,10 @@ export function Stores() {
   const { colors } = useTheme();
 
   const handleRefetch = useCallback(() => {
-    console.log(currentCursor);
     setFilterInput(prevState => ({
       ...prevState,
       id_cursor: currentCursor,
-      itemsPerPage: prevState.itemsPerPage + 1,
+      itemsPerPage: prevState.itemsPerPage + 3,
     }));
   }, [establishments]);
 
