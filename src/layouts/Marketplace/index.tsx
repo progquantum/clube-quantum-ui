@@ -14,6 +14,8 @@ import { ShowOffers } from 'components/ShowOffers';
 
 import { AccountCard } from 'components/AccountCard';
 
+import { AccountDropdown } from 'components/Header/HeaderAuth/AccountDropdown';
+
 import { Services } from './Services';
 import { Stores } from './Stores';
 import * as S from './styles';
@@ -25,7 +27,7 @@ export function Marketplace() {
     <>
       <Header>
         <ShowOffers key="showOffers" />
-        <AccountCard />
+        {isMobile ? <AccountDropdown /> : <AccountCard />}
       </Header>
       {isMobile ? (
         <S.HeroLayoutMobile>
