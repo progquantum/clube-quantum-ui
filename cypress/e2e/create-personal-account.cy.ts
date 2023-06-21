@@ -12,7 +12,7 @@ describe('CreatePersonalAccount', () => {
     cy.get('[data-cy="personal-link"]').click();
 
     const generatedCPF = cpf.generate();
-    cy.get('[data-cy="cpf-input"]').type('48518013860');
+    cy.get('[data-cy="cpf-input"]').type(generatedCPF);
 
     cy.get('[data-cy="next-step-button"]').as('nextStepButton');
 
