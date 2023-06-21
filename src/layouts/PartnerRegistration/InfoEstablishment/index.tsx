@@ -1,5 +1,5 @@
 /* eslint-disable jsx-a11y/label-has-associated-control */
-import { ChangeEvent, useCallback, useRef } from 'react';
+import { ChangeEvent, useCallback, useEffect, useRef } from 'react';
 import dayjs from 'dayjs';
 import { BsCircle, BsFillCheckCircleFill } from 'react-icons/bs';
 import { AiOutlineClose } from 'react-icons/ai';
@@ -7,8 +7,6 @@ import { Form } from '@unform/web';
 import { FormHandles, SubmitHandler } from '@unform/core';
 import Image from 'next/legacy/image';
 import { useTheme } from 'styled-components';
-
-import { useRouter } from 'next/router';
 
 import { ValidationError } from 'yup';
 
@@ -26,8 +24,6 @@ import { error } from 'helpers/notify/error';
 import { usePartnerStore } from 'store/partner-registration';
 
 import { performSchemaValidation } from 'utils/performSchemaValidation';
-
-import { DASHBOARD_ADM_PAGE } from 'constants/routesPath';
 
 import { usePosSubscriptions } from 'hooks/user/usePosSubscriptions';
 
@@ -51,6 +47,8 @@ export function InfoEstablishment() {
     setUser,
     fantasyName,
     setFantasyName,
+    mainPhone,
+    setMainPhone,
     mainPhoneHasWhatsApp,
     setMainPhoneHasWhatsApp,
     cellPhone,
@@ -68,6 +66,14 @@ export function InfoEstablishment() {
     setLogo,
     banner,
     setBanner,
+    setAbout,
+    setOpenDays,
+    setOpenHours,
+    setCashBackDays,
+    setRateCashBack,
+    setRateCliente,
+    setRateAdm,
+    setMachinePos,
   } = usePartnerStore(state => state);
   const { colors } = useTheme();
   const { data } = usePosSubscriptions({ name: '' });
@@ -76,7 +82,6 @@ export function InfoEstablishment() {
     useUpsertEstablishment();
   const { mutate: upsertEstablishmentImage, isLoading: isUploadingImages } =
     useUpsertEstablishmentImage();
-  const router = useRouter();
   const formRef = useRef<FormHandles>(null);
 
   const clearUser = () => {
@@ -92,9 +97,17 @@ export function InfoEstablishment() {
   const registeredUsers = data?.map(subscription => {
     const { legal_person, individual_person } = subscription;
     const value = JSON.stringify(subscription);
-    const label = legal_person
-      ? `${legal_person.company_name} - ${legal_person.cnpj}`
-      : `${individual_person.name} - ${individual_person.cpf}`;
+    let label = '';
+
+    if (legal_person && legal_person.company_name && legal_person.cnpj) {
+      label = `${legal_person.company_name} - ${legal_person.cnpj}`;
+    } else if (
+      individual_person &&
+      individual_person.name &&
+      individual_person.cpf
+    ) {
+      label = `${individual_person.name} - ${individual_person.cpf}`;
+    }
     return { value, label };
   });
 
@@ -114,7 +127,7 @@ export function InfoEstablishment() {
             user,
             category_id,
             // not needed on request body
-            main_phone,
+            // main_phone,
             ...rest
           } = data;
 
@@ -134,7 +147,7 @@ export function InfoEstablishment() {
             },
             {
               onSuccess: () => {
-                if (logo.logoFile) {
+                if (logo.logoFile instanceof File) {
                   const requestBody = {
                     image: logo.logoFile,
                     user_id: parsedUser.id,
@@ -153,7 +166,7 @@ export function InfoEstablishment() {
                   });
                 }
 
-                if (banner.bannerFile) {
+                if (banner.bannerFile instanceof File) {
                   const requestBody = {
                     image: banner.bannerFile,
                     user_id: parsedUser.id,
@@ -171,7 +184,13 @@ export function InfoEstablishment() {
                     },
                   });
                 }
-                nextStep();
+                if (logo.logoURL && banner.bannerURL) {
+                  nextStep();
+                } else {
+                  error(
+                    'Insira um banner e um logo para seguir para próxima tela!',
+                  );
+                }
               },
             },
           );
@@ -182,13 +201,12 @@ export function InfoEstablishment() {
           }
         });
     },
-    [logo.logoFile, banner.bannerFile],
+    [logo.logoFile, banner.bannerFile, user?.MarketplaceImages],
   );
 
   const state = usePartnerStore(state => state);
 
   const handleCancel = () => {
-    router.push(DASHBOARD_ADM_PAGE);
     window.localStorage.removeItem('partnerStore');
     state.resetOpenHours();
     state.resetCashBackRules();
@@ -196,6 +214,7 @@ export function InfoEstablishment() {
     state.setAbout('');
     state.setUser({} as PosUser);
     state.setFantasyName('');
+    state.setMainPhone('');
     state.setMainPhoneHasWhatsApp(false);
     state.setCellPhone('');
     state.setCellPhoneHasWhatsApp(false);
@@ -206,6 +225,7 @@ export function InfoEstablishment() {
     state.setLogo('', {} as File);
     state.setBanner('', {} as File);
     state.resetCurrentStep();
+    clearUser();
   };
 
   const handleImagePreview = (
@@ -234,11 +254,64 @@ export function InfoEstablishment() {
   };
 
   const userDocument =
-    user && user.legal_person
+    user &&
+    user.legal_person &&
+    user.legal_person.company_name &&
+    user.legal_person.cnpj
       ? `CNPJ: ${user?.legal_person?.cnpj}`
       : `CPF: ${user?.individual_person?.cpf}`;
 
   const isLoading = isUpserting || isUploadingImages;
+
+  const handleEstablishments = (e: PosUser) => {
+    setUser(e);
+    setFantasyName(e.establishment_pos.corporate_name);
+    setMainPhone(e.phone);
+    setCategoryName(e.category?.name);
+    setCategoryId(e.category?.id);
+    const lat = e.establishment_pos.lat_location;
+    const long = e.establishment_pos.long_location;
+    setCoordinates(`${lat}, ${long}`);
+    setLogo(e.MarketplaceImages[0].url, {} as File);
+    setBanner(e.MarketplaceImages[1].url, {} as File);
+
+    setAbout(e.establishment_pos.about);
+    e.establishment_pos_working_hours.map(item =>
+      setOpenDays(item.id, item.day_of_week),
+    );
+    e.establishment_pos_working_hours.map(item =>
+      setOpenHours(item.id, `${item.opening_time} AS ${item.closing_time}`),
+    );
+
+    e.establishment_pos_working_hours.map(item =>
+      setCashBackDays(item.cashback_split.id, item.day_of_week),
+    );
+
+    e.establishment_pos_working_hours.map(item =>
+      setRateCashBack(
+        item.cashback_split.id,
+        item.cashback_split.total_cashback,
+      ),
+    );
+
+    e.establishment_pos_working_hours.map(item =>
+      setRateCliente(
+        item.cashback_split.id,
+        item.cashback_split.client_cashback,
+      ),
+    );
+    e.establishment_pos_working_hours.map(item =>
+      setRateAdm(item.cashback_split.id, item.cashback_split.quantum_cashback),
+    );
+
+    e.PosSerialNumber.map(item => setMachinePos(item.id, item.serial_number));
+  };
+
+  useEffect(() => {
+    if (user !== null) {
+      formRef.current.setFieldValue('user', JSON.stringify(user));
+    }
+  });
 
   return (
     <S.Container>
@@ -277,13 +350,15 @@ export function InfoEstablishment() {
           label="Pesquisar usuário"
           placeholder="Pesquisar usuário cadastrado"
           options={registeredUsers}
-          value={JSON.stringify(user)}
+          value={JSON.stringify(user) || 'default'}
+          disabled={user !== null}
           onChange={e => {
             if (e.target.value === 'default') {
               clearUser();
               return;
             }
-            setUser(JSON.parse(e.target.value));
+
+            handleEstablishments(JSON.parse(e.target.value));
           }}
         />
         {user && Object.keys(user).length > 1 && (
@@ -304,7 +379,7 @@ export function InfoEstablishment() {
                 style={{ cursor: 'pointer' }}
                 size={20}
                 color={colors.danger}
-                onClick={clearUser}
+                onClick={handleCancel}
               />
             </S.UserStatus>
           </S.SelectUser>
@@ -316,7 +391,7 @@ export function InfoEstablishment() {
               name="fantasy_name"
               placeholder="Digite o nome do estabelecimento"
               label="Nome fantasia"
-              defaultValue={fantasyName || ''}
+              value={fantasyName}
               onChange={e => setFantasyName(e.target.value)}
             />
             <Input
@@ -325,14 +400,14 @@ export function InfoEstablishment() {
               name="main_phone"
               placeholder="(00) 0 0000-0000"
               label="Telefone celular"
-              readOnly
-              value={user?.phone || ''}
+              value={mainPhone}
+              onChange={e => setMainPhone(formatPhoneNumber(e.target.value))}
             />
             <Checkbox
               type="checkbox"
               name="main_phone_has_whatsapp"
               text="Este telefone possui WhatsApp"
-              defaultChecked={mainPhoneHasWhatsApp}
+              checked={mainPhoneHasWhatsApp}
               onChange={e => setMainPhoneHasWhatsApp(e.target.checked)}
             />
             <Input
@@ -341,7 +416,7 @@ export function InfoEstablishment() {
               name="cell_phone"
               placeholder="(00) 00000-0000"
               label="Telefone celular (opcional)"
-              value={cellPhone || ''}
+              value={cellPhone}
               onChange={e => {
                 setCellPhone(formatPhoneNumber(e.target.value));
               }}
@@ -350,7 +425,7 @@ export function InfoEstablishment() {
               type="checkbox"
               name="cell_phone_has_whatsapp"
               text="Este telefone possui WhatsApp"
-              defaultChecked={cellPhoneHasWhatsApp}
+              checked={cellPhoneHasWhatsApp}
               onChange={e => setCellPhoneHasWhatsApp(e.target.checked)}
             />
             <Input
@@ -359,7 +434,7 @@ export function InfoEstablishment() {
               name="whatsapp_phone"
               placeholder="(00) 00000-0000"
               label="Celular WhatsApp (opcional)"
-              value={formatPhoneNumber(whatsAppPhone) || ''}
+              value={formatPhoneNumber(whatsAppPhone)}
               onChange={e => {
                 setWhatsAppPhone(e.target.value);
               }}
@@ -368,7 +443,7 @@ export function InfoEstablishment() {
               name="category_id"
               label="Categoria"
               placeholder="Escolha uma opção"
-              defaultValue={categoryId || ''}
+              value={categoryId}
               onChange={(e: ChangeEvent<HTMLSelectElement>) => {
                 const selectedOptionText =
                   e.target[e.target.selectedIndex].innerText;
@@ -388,7 +463,7 @@ export function InfoEstablishment() {
               name="coordinates"
               placeholder="Ex: -15.584010, -56.085562"
               label="Coordenadas"
-              defaultValue={coordinates || ''}
+              value={coordinates}
               onChange={e => setCoordinates(e.target.value)}
             />
           </S.DivColumn>
