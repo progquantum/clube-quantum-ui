@@ -53,16 +53,16 @@ export function CashBackRules({ id, handleRemoveCashBackRules }: Props) {
         <S.LineButton>
           <S.RowButton>
             <S.StyledButton
-              disabled={AlreadySelect('Domingo')}
-              onClick={() => setCashBackDays(id, 'Domingo')}
+              disabled={AlreadySelect('SUNDAY')}
+              onClick={() => setCashBackDays(id, 'SUNDAY')}
               style={{
                 height: '45px',
                 marginTop: '0',
                 backgroundColor:
-                  cashBackRules[index]?.selectDays?.includes('Domingo') &&
+                  cashBackRules[index]?.selectDays?.includes('SUNDAY') &&
                   '#0C61FF',
                 color:
-                  cashBackRules[index]?.selectDays?.includes('Domingo') &&
+                  cashBackRules[index]?.selectDays?.includes('SUNDAY') &&
                   'white',
               }}
               variant="degrade"
@@ -70,16 +70,16 @@ export function CashBackRules({ id, handleRemoveCashBackRules }: Props) {
               Domingo
             </S.StyledButton>
             <S.StyledButton
-              disabled={AlreadySelect('Segunda')}
-              onClick={() => setCashBackDays(id, 'Segunda')}
+              disabled={AlreadySelect('MONDAY')}
+              onClick={() => setCashBackDays(id, 'MONDAY')}
               style={{
                 height: '45px',
                 marginTop: '0',
                 backgroundColor:
-                  cashBackRules[index]?.selectDays?.includes('Segunda') &&
+                  cashBackRules[index]?.selectDays?.includes('MONDAY') &&
                   '#0C61FF',
                 color:
-                  cashBackRules[index]?.selectDays?.includes('Segunda') &&
+                  cashBackRules[index]?.selectDays?.includes('MONDAY') &&
                   'white',
               }}
               variant="degrade"
@@ -90,16 +90,16 @@ export function CashBackRules({ id, handleRemoveCashBackRules }: Props) {
           <S.RowButton>
             {' '}
             <S.StyledButton
-              disabled={AlreadySelect('Terça')}
-              onClick={() => setCashBackDays(id, 'Terça')}
+              disabled={AlreadySelect('TUESDAY')}
+              onClick={() => setCashBackDays(id, 'TUESDAY')}
               style={{
                 height: '45px',
                 marginTop: '0',
                 backgroundColor:
-                  cashBackRules[index]?.selectDays?.includes('Terça') &&
+                  cashBackRules[index]?.selectDays?.includes('TUESDAY') &&
                   '#0C61FF',
                 color:
-                  cashBackRules[index]?.selectDays?.includes('Terça') &&
+                  cashBackRules[index]?.selectDays?.includes('TUESDAY') &&
                   'white',
               }}
               variant="degrade"
@@ -107,16 +107,16 @@ export function CashBackRules({ id, handleRemoveCashBackRules }: Props) {
               Terça
             </S.StyledButton>
             <S.StyledButton
-              disabled={AlreadySelect('Quarta')}
-              onClick={() => setCashBackDays(id, 'Quarta')}
+              disabled={AlreadySelect('WEDNESDAY')}
+              onClick={() => setCashBackDays(id, 'WEDNESDAY')}
               style={{
                 height: '45px',
                 marginTop: '0',
                 backgroundColor:
-                  cashBackRules[index]?.selectDays?.includes('Quarta') &&
+                  cashBackRules[index]?.selectDays?.includes('WEDNESDAY') &&
                   '#0C61FF',
                 color:
-                  cashBackRules[index]?.selectDays?.includes('Quarta') &&
+                  cashBackRules[index]?.selectDays?.includes('WEDNESDAY') &&
                   'white',
               }}
               variant="degrade"
@@ -128,16 +128,16 @@ export function CashBackRules({ id, handleRemoveCashBackRules }: Props) {
         <S.LineButton>
           <S.RowButton>
             <S.StyledButton
-              disabled={AlreadySelect('Quinta')}
-              onClick={() => setCashBackDays(id, 'Quinta')}
+              disabled={AlreadySelect('THURSDAY')}
+              onClick={() => setCashBackDays(id, 'THURSDAY')}
               style={{
                 height: '45px',
                 marginTop: '0',
                 backgroundColor:
-                  cashBackRules[index]?.selectDays?.includes('Quinta') &&
+                  cashBackRules[index]?.selectDays?.includes('THURSDAY') &&
                   '#0C61FF',
                 color:
-                  cashBackRules[index]?.selectDays?.includes('Quinta') &&
+                  cashBackRules[index]?.selectDays?.includes('THURSDAY') &&
                   'white',
               }}
               variant="degrade"
@@ -145,16 +145,16 @@ export function CashBackRules({ id, handleRemoveCashBackRules }: Props) {
               Quinta
             </S.StyledButton>
             <S.StyledButton
-              disabled={AlreadySelect('Sexta')}
-              onClick={() => setCashBackDays(id, 'Sexta')}
+              disabled={AlreadySelect('FRIDAY')}
+              onClick={() => setCashBackDays(id, 'FRIDAY')}
               style={{
                 height: '45px',
                 marginTop: '0',
                 backgroundColor:
-                  cashBackRules[index]?.selectDays?.includes('Sexta') &&
+                  cashBackRules[index]?.selectDays?.includes('FRIDAY') &&
                   '#0C61FF',
                 color:
-                  cashBackRules[index]?.selectDays?.includes('Sexta') &&
+                  cashBackRules[index]?.selectDays?.includes('FRIDAY') &&
                   'white',
               }}
               variant="degrade"
@@ -164,16 +164,16 @@ export function CashBackRules({ id, handleRemoveCashBackRules }: Props) {
           </S.RowButton>
           <S.RowButton>
             <S.StyledButton
-              disabled={AlreadySelect('Sábado')}
-              onClick={() => setCashBackDays(id, 'Sábado')}
+              disabled={AlreadySelect('SATURDAY')}
+              onClick={() => setCashBackDays(id, 'SATURDAY')}
               style={{
                 height: '45px',
                 marginTop: '0',
                 backgroundColor:
-                  cashBackRules[index]?.selectDays?.includes('Sábado') &&
+                  cashBackRules[index]?.selectDays?.includes('SATURDAY') &&
                   '#0C61FF',
                 color:
-                  cashBackRules[index]?.selectDays?.includes('Sábado') &&
+                  cashBackRules[index]?.selectDays?.includes('SATURDAY') &&
                   'white',
               }}
               variant="degrade"
