@@ -51,17 +51,12 @@ export const Slide = styled.div`
   width: 500px;
   height: 270px;
   position: relative;
-
-  @media (max-width: 700px) {
-    width: 95%;
-  }
-
   &:hover {
-    transform: scale(1.01);
+    transform: scale(1.02);
   }
 
   & img {
-    object-fit: fill;
+    object-fit: cover;
     border-radius: 1.8rem;
   }
 `;
