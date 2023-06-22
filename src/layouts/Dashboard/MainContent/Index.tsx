@@ -3,30 +3,18 @@ import Link from 'next/link';
 import { FaShoppingBag } from 'react-icons/fa';
 
 import { useBalances } from 'hooks/me/useBalances';
-import { useUnsubscribe } from 'hooks/subscriptions/useUnsubscribe';
 
 import { generateDeadline } from 'utils/generateDeadline';
 import { formatCashback } from 'utils/formatters/formatCashback';
 
 import { InviteFriends } from 'components/InviteFriends';
 
-import { success } from 'helpers/notify/success';
-
 import { AccountBalance } from '../AccountBalance';
 import * as S from './styles';
 import { PlanSummary } from '../PlanSummary';
 
 export function MainContent() {
-  const { mutateAsync: UnsubscribeRequest } = useUnsubscribe();
   const { data: balances } = useBalances();
-
-  const handleCancelPlan = () => {
-    UnsubscribeRequest(null, {
-      onSuccess: () => {
-        success('Plano cancelado com sucesso! Verifique seu e-mail.');
-      },
-    });
-  };
 
   return (
     <S.Container>
