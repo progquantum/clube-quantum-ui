@@ -106,6 +106,18 @@ export const AccountBalanceContainer = styled.div`
   flex-wrap: wrap;
   gap: 2rem;
   grid-area: Container;
+
+  @media (max-width: 780px) {
+    flex-wrap: nowrap;
+  }
+
+  @media (max-width: 560px) {
+    gap: 1rem;
+  }
+
+  @media (max-width: 400px) {
+    gap: 0.5rem;
+  }
 `;
 
 export const Wrapper = styled.div`

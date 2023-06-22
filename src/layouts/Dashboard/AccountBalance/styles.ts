@@ -8,19 +8,14 @@ export const Container = styled.div`
   flex-direction: column;
   justify-content: center;
   align-items: flex-start;
-  padding: 1.25rem 1.5rem;
-  gap: 1rem;
+  padding: 1.5rem;
   flex-grow: 1;
-  @media (max-width: 1024px) {
-    width: 27.0625rem;
-  }
 
-  @media (max-width: 460px) {
-    width: 20.625rem;
+  @media (max-width: 1000px) {
+    padding: 1.2rem;
   }
-
-  @media (max-width: 380px) {
-    width: 19rem;
+  @media (max-width: 650px) {
+    padding: 1rem;
   }
 `;
 
@@ -28,11 +23,14 @@ export const Content = styled.div`
   display: flex;
   justify-content: space-between;
   width: 100%;
+  margin: 0.5rem 0;
 `;
 
 export const ContentHeader = styled.div`
   display: flex;
-  gap: 0.625rem;
+  gap: 0.325rem;
+  align-items: center;
+  justify-content: center;
 `;
 
 export const AccountBalanceButton = styled.button`
@@ -41,10 +39,18 @@ export const AccountBalanceButton = styled.button`
 `;
 
 export const Title = styled.p`
-  font-weight: 500;
-  font-size: 0.625rem;
-  line-height: 1.25rem;
+  font-size: 0.8rem;
+  text-justify: left;
+  margin-bottom: 0;
   color: ${({ theme }) => theme.colors.gray[400]};
+
+  @media (max-width: 450px) {
+    font-size: 0.7rem;
+  }
+
+  @media (max-width: 400px) {
+    font-size: 0.6rem;
+  }
 `;
 
 export const TextValue = styled.p`
