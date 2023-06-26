@@ -28,7 +28,7 @@ export const getServerSideProps: GetServerSideProps = withSSRAuth(
     };
   },
   {
-    roles: [roles.user.id],
+    roles: [roles.user.id, roles.admin.id],
   },
 );
 
