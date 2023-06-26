@@ -153,8 +153,41 @@ export function StoreProfile({
         </S.ContentInfo>
         <S.ContentInfo>
           <S.SubTitle>Contato</S.SubTitle>
-          <S.TextInfo>Telefone: (11) 9 9999 999</S.TextInfo>
-          <S.TextInfo>Telefone: (11) 9 9999 999</S.TextInfo>
+          <S.TextInfo>
+            <span>{establishment.user.phone}</span>
+            <Image
+              src="/images/whatsapp.svg"
+              width={24}
+              height={24}
+              alt="Ícone do WhatsApp"
+            />
+          </S.TextInfo>
+          {Object.hasOwn(establishment.contacts, 'cel_phone') && (
+            <S.TextInfo>
+              <span>{establishment.contacts.cel_phone}</span>
+              {establishment.contacts.cel_phone_has_whatsapp && (
+                <Image
+                  src="/images/whatsapp.svg"
+                  width={24}
+                  height={24}
+                  alt="Ícone do WhatsApp"
+                />
+              )}
+            </S.TextInfo>
+          )}
+          {Object.hasOwn(establishment.contacts, 'whatsapp_phone') && (
+            <S.TextInfo>
+              <span>{establishment.contacts.whatsapp_phone}</span>
+              {establishment.contacts.cel_phone_has_whatsapp && (
+                <Image
+                  src="/images/whatsapp.svg"
+                  width={24}
+                  height={24}
+                  alt="Ícone do WhatsApp"
+                />
+              )}
+            </S.TextInfo>
+          )}
           <S.SubTitle>Horário de funcionamento</S.SubTitle>
           {groupedOpeningHours.map(openingHours => (
             <>

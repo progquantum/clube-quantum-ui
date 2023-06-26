@@ -220,6 +220,8 @@ export const ContentInfo = styled(ContentColumn)`
 
 export const TextInfo = styled(StoreOpeningHours)`
   max-width: 450px;
+  display: flex;
+  gap: 0.3rem;
 `;
 
 export const CommerceContainer = styled.div`
