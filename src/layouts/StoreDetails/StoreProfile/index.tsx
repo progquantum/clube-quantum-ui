@@ -155,12 +155,14 @@ export function StoreProfile({
           <S.SubTitle>Contato</S.SubTitle>
           <S.TextInfo>
             <span>{establishment.user.phone}</span>
-            <Image
-              src="/images/whatsapp.svg"
-              width={24}
-              height={24}
-              alt="Ícone do WhatsApp"
-            />
+            {establishment.contacts.main_phone_has_whatsapp && (
+              <Image
+                src="/images/whatsapp.svg"
+                width={24}
+                height={24}
+                alt="Ícone do WhatsApp"
+              />
+            )}
           </S.TextInfo>
           {Object.hasOwn(establishment.contacts, 'cel_phone') && (
             <S.TextInfo>
