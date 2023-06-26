@@ -1,3 +1,4 @@
+import Link from 'next/link';
 import styled, { keyframes } from 'styled-components';
 
 const entry = keyframes`
@@ -10,14 +11,21 @@ const entry = keyframes`
     transform: translateX(0);
   }
 `;
-export const CardContainer = styled.div`
+export const CardContainer = styled(Link)`
   display: flex;
   gap: 1rem;
   justify-content: center;
   animation: ${entry} 0.2s ease;
+  cursor: pointer;
+  flex: 1;
+  max-width: 300px;
 
-  @media (max-width: 767px) {
-    max-width: 300px;
+  text-decoration: none;
+  color: ${({ theme }) => theme.colors.gray[700]};
+  padding: 0.2rem;
+  border-radius: 25px 0 0 25px;
+  &:hover {
+    box-shadow: 0 0 1px ${({ theme }) => theme.colors.gray[700]};
   }
 `;
 

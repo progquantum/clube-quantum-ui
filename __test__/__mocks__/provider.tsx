@@ -10,6 +10,6 @@ import { MockBroadcastChannel } from './broadcast';
 
 export const ProviderMock = ({ children }) => (
   <RouterContext.Provider value={createMockRouter({})}>
-    <AppProvider>{children}</AppProvider>
+    <AppProvider dehydratedState={jest.fn()}>{children}</AppProvider>
   </RouterContext.Provider>
 );

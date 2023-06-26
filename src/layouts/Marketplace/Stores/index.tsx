@@ -174,7 +174,7 @@ export function Stores() {
             toggleSelectedCategory={toggleSelectedCategory}
             selectedCategory={filterInput.category_id}
           />
-          <Map />
+          <Map isEstablishmentProfile={false} />
         </Modal>
       )}
     </S.StoresContainer>
