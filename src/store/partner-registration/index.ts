@@ -286,7 +286,7 @@ export const usePartnerStore = create(
       resetCurrentStep: () => {
         set({ currentStep: 0 });
       },
-      user: {} as PosUser,
+      user: null,
       setUser: (user: PosUser) => {
         set(() => ({ user }));
       },
