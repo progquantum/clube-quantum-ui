@@ -14,16 +14,6 @@ interface HoursDetails {
 export const convertOpenHoursToHoursOpening = (
   openHours: OpenHours,
 ): HoursDetails => {
-  const daysOfWeekMap: { [key: string]: string } = {
-    Segunda: 'MONDAY',
-    Terça: 'TUESDAY',
-    Quarta: 'WEDNESDAY',
-    Quinta: 'THURSDAY',
-    Sexta: 'FRIDAY',
-    Sábado: 'SATURDAY',
-    Domingo: 'SUNDAY',
-  };
-
   const daysOfWeekSet: Set<string> = new Set();
   openHours.forEach(({ selectDays }) => {
     selectDays.forEach(day => daysOfWeekSet.add(day));
@@ -41,7 +31,7 @@ export const convertOpenHoursToHoursOpening = (
 
   const hoursOpening: HoursOpening[] = openHours.map(({ selectDays, time }) => {
     const [openingTime, closingTime] = time?.split(' AS ') || ['', ''];
-    const daysOfWeek = selectDays.map(day => daysOfWeekMap[day]);
+    const daysOfWeek = selectDays.map(day => day);
 
     return {
       opening_time: openingTime,

@@ -51,32 +51,30 @@ export function OpeningHours({ id, handleRemoveOpenHours }: Props) {
         <S.ContentRow>
           <S.ContentDays>
             <S.StyledButton
-              disabled={AlreadySelect('Domingo')}
-              onClick={() => setOpenDays(id, 'Domingo')}
+              disabled={AlreadySelect('SUNDAY')}
+              onClick={() => setOpenDays(id, 'SUNDAY')}
               style={{
                 height: '45px',
                 marginTop: '0',
                 backgroundColor:
-                  openHours[index]?.selectDays?.includes('Domingo') &&
-                  '#0C61FF',
+                  openHours[index]?.selectDays?.includes('SUNDAY') && '#0C61FF',
                 color:
-                  openHours[index]?.selectDays?.includes('Domingo') && 'white',
+                  openHours[index]?.selectDays?.includes('SUNDAY') && 'white',
               }}
               variant="degrade"
             >
               Domingo
             </S.StyledButton>
             <S.StyledButton
-              disabled={AlreadySelect('Segunda')}
-              onClick={() => setOpenDays(id, 'Segunda')}
+              disabled={AlreadySelect('MONDAY')}
+              onClick={() => setOpenDays(id, 'MONDAY')}
               style={{
                 height: '45px',
                 marginTop: '0',
                 backgroundColor:
-                  openHours[index]?.selectDays?.includes('Segunda') &&
-                  '#0C61FF',
+                  openHours[index]?.selectDays?.includes('MONDAY') && '#0C61FF',
                 color:
-                  openHours[index]?.selectDays?.includes('Segunda') && 'white',
+                  openHours[index]?.selectDays?.includes('MONDAY') && 'white',
               }}
               variant="degrade"
             >
@@ -85,30 +83,33 @@ export function OpeningHours({ id, handleRemoveOpenHours }: Props) {
           </S.ContentDays>
           <S.ContentDays>
             <S.StyledButton
-              disabled={AlreadySelect('Terça')}
-              onClick={() => setOpenDays(id, 'Terça')}
+              disabled={AlreadySelect('TUESDAY')}
+              onClick={() => setOpenDays(id, 'TUESDAY')}
               style={{
                 height: '45px',
                 marginTop: '0',
                 backgroundColor:
-                  openHours[index]?.selectDays?.includes('Terça') && '#0C61FF',
+                  openHours[index]?.selectDays?.includes('TUESDAY') &&
+                  '#0C61FF',
                 color:
-                  openHours[index]?.selectDays?.includes('Terça') && 'white',
+                  openHours[index]?.selectDays?.includes('TUESDAY') && 'white',
               }}
               variant="degrade"
             >
               Terça
             </S.StyledButton>
             <S.StyledButton
-              disabled={AlreadySelect('Quarta')}
-              onClick={() => setOpenDays(id, 'Quarta')}
+              disabled={AlreadySelect('WEDNESDAY')}
+              onClick={() => setOpenDays(id, 'WEDNESDAY')}
               style={{
                 height: '45px',
                 marginTop: '0',
                 backgroundColor:
-                  openHours[index]?.selectDays?.includes('Quarta') && '#0C61FF',
+                  openHours[index]?.selectDays?.includes('WEDNESDAY') &&
+                  '#0C61FF',
                 color:
-                  openHours[index]?.selectDays?.includes('Quarta') && 'white',
+                  openHours[index]?.selectDays?.includes('WEDNESDAY') &&
+                  'white',
               }}
               variant="degrade"
             >
@@ -119,30 +120,31 @@ export function OpeningHours({ id, handleRemoveOpenHours }: Props) {
         <S.ContentRow>
           <S.ContentDays>
             <S.StyledButton
-              disabled={AlreadySelect('Quinta')}
-              onClick={() => setOpenDays(id, 'Quinta')}
+              disabled={AlreadySelect('THURSDAY')}
+              onClick={() => setOpenDays(id, 'THURSDAY')}
               style={{
                 height: '45px',
                 marginTop: '0',
                 backgroundColor:
-                  openHours[index]?.selectDays?.includes('Quinta') && '#0C61FF',
+                  openHours[index]?.selectDays?.includes('THURSDAY') &&
+                  '#0C61FF',
                 color:
-                  openHours[index]?.selectDays?.includes('Quinta') && 'white',
+                  openHours[index]?.selectDays?.includes('THURSDAY') && 'white',
               }}
               variant="degrade"
             >
               Quinta
             </S.StyledButton>
             <S.StyledButton
-              disabled={AlreadySelect('Sexta')}
-              onClick={() => setOpenDays(id, 'Sexta')}
+              disabled={AlreadySelect('FRIDAY')}
+              onClick={() => setOpenDays(id, 'FRIDAY')}
               style={{
                 height: '45px',
                 marginTop: '0',
                 backgroundColor:
-                  openHours[index]?.selectDays?.includes('Sexta') && '#0C61FF',
+                  openHours[index]?.selectDays?.includes('FRIDAY') && '#0C61FF',
                 color:
-                  openHours[index]?.selectDays?.includes('Sexta') && 'white',
+                  openHours[index]?.selectDays?.includes('FRIDAY') && 'white',
               }}
               variant="degrade"
             >
@@ -151,15 +153,16 @@ export function OpeningHours({ id, handleRemoveOpenHours }: Props) {
           </S.ContentDays>
           <S.ContentDays>
             <S.StyledButton
-              disabled={AlreadySelect('Sábado')}
-              onClick={() => setOpenDays(id, 'Sábado')}
+              disabled={AlreadySelect('SATURDAY')}
+              onClick={() => setOpenDays(id, 'SATURDAY')}
               style={{
                 height: '45px',
                 marginTop: '0',
                 backgroundColor:
-                  openHours[index]?.selectDays?.includes('Sábado') && '#0C61FF',
+                  openHours[index]?.selectDays?.includes('SATURDAY') &&
+                  '#0C61FF',
                 color:
-                  openHours[index]?.selectDays?.includes('Sábado') && 'white',
+                  openHours[index]?.selectDays?.includes('SATURDAY') && 'white',
               }}
               variant="degrade"
             >

@@ -52,10 +52,12 @@ export type PartnerStore = {
   nextStep: () => void;
   previousStep: () => void;
   resetCurrentStep: () => void;
-  user: PosUser;
+  user: PosUser | null;
   setUser: (user: PosUser) => void;
   fantasyName: string;
   setFantasyName: (name: string) => void;
+  mainPhone: string;
+  setMainPhone: (phone: string) => void;
   mainPhoneHasWhatsApp: boolean;
   setMainPhoneHasWhatsApp: (event: boolean) => void;
   cellPhone: string;

@@ -23,30 +23,35 @@ import { CashBackRules } from './CashBackRules';
 import { List } from './types';
 import { schema } from './schemas';
 import { PosMachine } from './PosMachine';
-import * as S from './styles';
 import { convertOpenHoursToHoursOpening } from './formatters/convertOpenHoursToHoursOpening';
 import { convertCashBackRulesToRulesCashback } from './formatters/convertCashBackRulesToRulesCashback';
 import { convertMachinePosToPosSerialNumbers } from './formatters/convertMachinePosToPosSerialNumbers';
+import * as S from './styles';
 
 export function DescriptionEstablishment() {
-  const previousStep = usePartnerStore(state => state.previousStep);
-  const nextStep = usePartnerStore(state => state.nextStep);
   // OPENINGHOURS**************************************************
   const weekdays = [
-    'Domingo',
-    'Segunda',
-    'Terça',
-    'Quarta',
-    'Quinta',
-    'Sexta',
-    'Sábado',
+    'SUNDAY',
+    'MONDAY',
+    'TUESDAY',
+    'WEDNESDAY',
+    'THURSDAY',
+    'FRIDAY',
+    'SATURDAY',
   ];
-  const openHours = usePartnerStore(state => state.openHours);
-  const setAbout = usePartnerStore(state => state.setAbout);
-  const aboutEstablishment = usePartnerStore(state => state.aboutEstablishment);
-  const setRemoveOpenHours = usePartnerStore(state => state.setRemoveOpenHours);
-  const user = usePartnerStore(state => state.user);
-  const machinePos = usePartnerStore(state => state.machinePos);
+  const {
+    previousStep,
+    nextStep,
+    openHours,
+    setAbout,
+    aboutEstablishment,
+    setRemoveOpenHours,
+    user,
+    machinePos,
+    cashBackRules,
+    setRemoveCashBackRules,
+  } = usePartnerStore(state => state);
+
   const allWeekdaysExist = weekdays.reduce(
     (acc, day) => acc && openHours.some(item => item.selectDays.includes(day)),
     true,
@@ -115,10 +120,6 @@ export function DescriptionEstablishment() {
   // CLOSE OPENINGHOURS**************************************************
 
   // CASHBACK************************************************************
-  const cashBackRules = usePartnerStore(state => state.cashBackRules);
-  const setRemoveCashBackRules = usePartnerStore(
-    state => state.setRemoveCashBackRules,
-  );
   const allWeekdaysExistOnCashBack = weekdays.reduce(
     (acc, day) =>
       acc && cashBackRules.some(item => item.selectDays.includes(day)),

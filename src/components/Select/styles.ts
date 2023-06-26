@@ -65,6 +65,9 @@ export const SelectStyle = styled.select`
   appearance: none;
   text-indent: 1px;
   text-overflow: '';
+  &:disabled {
+    cursor: not-allowed;
+  }
 
   &:target {
     background-color: ${({ theme }) => theme.colors.success};
