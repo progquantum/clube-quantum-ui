@@ -15,7 +15,7 @@ describe('Home page', () => {
   it('should render properly', () => {
     render(
       <RouterContext.Provider value={createMockRouter({})}>
-        <AppProvider>
+        <AppProvider dehydratedState={jest.fn()}>
           <HomePage />
         </AppProvider>
       </RouterContext.Provider>,
