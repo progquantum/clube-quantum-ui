@@ -271,40 +271,51 @@ export function InfoEstablishment() {
     setCategoryId(e.category?.id);
     const lat = e.establishment_pos.lat_location;
     const long = e.establishment_pos.long_location;
-    setCoordinates(`${lat}, ${long}`);
-    setLogo(e.MarketplaceImages[0].url, {} as File);
-    setBanner(e.MarketplaceImages[1].url, {} as File);
+    if (lat && long) {
+      setCoordinates(`${lat}, ${long}`);
+    }
+
+    if (e.MarketplaceImages) {
+      setLogo(e.MarketplaceImages[0].url, {} as File);
+      setBanner(e.MarketplaceImages[1].url, {} as File);
+    }
 
     setAbout(e.establishment_pos.about);
-    e.establishment_pos_working_hours.map(item =>
-      setOpenDays(item.id, item.day_of_week),
-    );
-    e.establishment_pos_working_hours.map(item =>
-      setOpenHours(item.id, `${item.opening_time} AS ${item.closing_time}`),
-    );
+    if (e.establishment_pos_working_hours) {
+      e.establishment_pos_working_hours.map(item =>
+        setOpenDays(item.id, item.day_of_week),
+      );
+      e.establishment_pos_working_hours.map(item =>
+        setOpenHours(item.id, `${item.opening_time} AS ${item.closing_time}`),
+      );
 
-    e.establishment_pos_working_hours.map(item =>
-      setCashBackDays(item.cashback_split.id, item.day_of_week),
-    );
+      e.establishment_pos_working_hours.map(item =>
+        setCashBackDays(item.cashback_split.id, item.day_of_week),
+      );
 
-    e.establishment_pos_working_hours.map(item =>
-      setRateCashBack(
-        item.cashback_split.id,
-        item.cashback_split.total_cashback,
-      ),
-    );
+      e.establishment_pos_working_hours.map(item =>
+        setRateCashBack(
+          item.cashback_split.id,
+          item.cashback_split.total_cashback,
+        ),
+      );
 
-    e.establishment_pos_working_hours.map(item =>
-      setRateCliente(
-        item.cashback_split.id,
-        item.cashback_split.client_cashback,
-      ),
-    );
-    e.establishment_pos_working_hours.map(item =>
-      setRateAdm(item.cashback_split.id, item.cashback_split.quantum_cashback),
-    );
-
-    e.PosSerialNumber.map(item => setMachinePos(item.id, item.serial_number));
+      e.establishment_pos_working_hours.map(item =>
+        setRateCliente(
+          item.cashback_split.id,
+          item.cashback_split.client_cashback,
+        ),
+      );
+      e.establishment_pos_working_hours.map(item =>
+        setRateAdm(
+          item.cashback_split.id,
+          item.cashback_split.quantum_cashback,
+        ),
+      );
+    }
+    if (e.PosSerialNumber) {
+      e.PosSerialNumber.map(item => setMachinePos(item.id, item.serial_number));
+    }
   };
 
   useEffect(() => {
