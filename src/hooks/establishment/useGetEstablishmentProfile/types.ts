@@ -1,6 +1,4 @@
-export type ResponseData = {
-  data: Establishment;
-};
+export type ResponseData = Establishment;
 
 export type Establishment = {
   id: string;

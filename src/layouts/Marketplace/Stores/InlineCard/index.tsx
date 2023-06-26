@@ -13,7 +13,14 @@ export function InlineCard({ establishment }: InlineCardProps) {
   const { colors } = useTheme();
 
   return (
-    <S.CardContainer>
+    <S.CardContainer
+      href={{
+        pathname: '/establishment',
+        query: {
+          id: establishment.id,
+        },
+      }}
+    >
       <ServiceCard height="90px">
         <Image
           src={establishment.logo_url}

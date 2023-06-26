@@ -49,7 +49,7 @@ export function Stores() {
   useEffect(() => {
     const observer = new IntersectionObserver(
       entries => {
-        if (entries[0].isIntersecting) {
+        if (entries[0].isIntersecting && !isLoading) {
           handleRefetch();
         }
       },
@@ -174,7 +174,7 @@ export function Stores() {
             toggleSelectedCategory={toggleSelectedCategory}
             selectedCategory={filterInput.category_id}
           />
-          <Map />
+          <Map isEstablishmentProfile={false} />
         </Modal>
       )}
     </S.StoresContainer>

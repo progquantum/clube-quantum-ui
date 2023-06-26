@@ -6,15 +6,14 @@ import { quantumClientQueue } from 'config/client';
 
 import { ResponseData } from './types';
 
-const QUERY_KEY_GET_ESTABLISHMENT_PROFILE = 'get-establishment-profile';
+export const QUERY_KEY_GET_ESTABLISHMENT_PROFILE = 'get-establishment-profile';
 
 export async function getEstablishmentProfile({ queryKey }) {
   const [_, establishmentId] = queryKey;
 
   try {
     const { data } = await quantumClientQueue.get<ResponseData>(
-      '/establishment/profile/',
-      establishmentId,
+      `/establishment/profile/${establishmentId}`,
     );
     return data;
   } catch (err: unknown) {

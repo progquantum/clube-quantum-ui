@@ -1,5 +1,5 @@
 /* eslint-disable react/no-unescaped-entities */
-import Image from 'next/legacy/image';
+import Image from 'next/image';
 
 import { BiTimeFive } from 'react-icons/bi';
 
@@ -7,44 +7,129 @@ import { FaStar } from 'react-icons/fa';
 
 import { useTheme } from 'styled-components';
 
+import { getHours } from 'date-fns';
+
+import { PulseLoader } from 'react-spinners';
+
 import AmericanExpressIcon from 'components/Illustrations/AmericanExpress';
 import EloIcon from 'components/Illustrations/Elo';
 import { MasterCardIcon } from 'components/Illustrations/MasterCard';
 import { VISAIcon } from 'components/Illustrations/Visa';
+
+import {
+  Establishment,
+  EstablishmentPosWorkingHour,
+} from 'hooks/establishment/useGetEstablishmentProfile/types';
+
+import { useGetEstablishments } from 'hooks/establishment/useGetEstablishments';
+
+import { Loading } from 'components/Loading';
 
 import { InlineCard } from 'layouts/Marketplace/Stores/InlineCard';
 
 import { Map } from '../../Marketplace/Map';
 
 import * as S from './styles';
+import { DaysOfWeek } from './types';
 
-export function StoreProfile() {
+export function StoreProfile({
+  establishment,
+}: {
+  establishment: Establishment;
+}) {
   const { colors } = useTheme();
+  const { data: recommendedEstablishments, isLoading } = useGetEstablishments({
+    itemsPerPage: 6,
+    page: 1,
+    category_id: establishment.category.id,
+  });
+  const currentTime = getHours(new Date());
+
+  const isEstablishmentOpen =
+    currentTime <
+      Number(
+        establishment.establishment_pos_working_hours_today.closing_time.slice(
+          0,
+          2,
+        ),
+      ) &&
+    currentTime >=
+      Number(
+        establishment.establishment_pos_working_hours_today.opening_time.slice(
+          0,
+          2,
+        ),
+      );
+
+  function groupOpeningHours(workingHours: EstablishmentPosWorkingHour[]) {
+    const groups = {};
+
+    workingHours.forEach(obj => {
+      const key = `${obj.opening_time}-${obj.closing_time}`;
+
+      if (!groups[key]) {
+        groups[key] = [];
+      }
+
+      groups[key].push(obj);
+    });
+
+    const result = Object.keys(groups).map(key => {
+      const firstDay = groups[key][0];
+      const lastDay = groups[key][groups[key].length - 1];
+
+      const openingTime = groups[key][0].opening_time;
+      const closingTime = groups[key][0].closing_time;
+      return {
+        opening_time: openingTime,
+        closing_time: closingTime,
+        first_day: firstDay.day_of_week,
+        last_day: lastDay.day_of_week,
+      };
+    });
+
+    return result;
+  }
+
+  const groupedOpeningHours = groupOpeningHours(
+    establishment.establishment_pos_working_hours,
+  );
+
   return (
     <S.Container>
       <S.Top>
         <S.TopContent>
           <S.Logo>
             <Image
-              width={54}
-              height={51.78}
-              src="/images/dominos_logo.svg"
-              alt=""
+              fill
+              src={establishment.MarketplaceImages[0].url}
+              alt={establishment.corporate_name}
+              title={establishment.corporate_name}
             />
           </S.Logo>
-
-          <S.ContentColumm>
-            <S.StoreName>Domino's Pizzaria</S.StoreName>
-            <S.StoreType>Restaurante</S.StoreType>
-          </S.ContentColumm>
-          <S.ContentCashBack>3% de cashback hoje</S.ContentCashBack>
+          <S.TopInfo>
+            <S.StoreName>{establishment.corporate_name}</S.StoreName>
+            <S.ContentCashBack>
+              {establishment.cashback_split.client_cashback}% de cashback hoje
+            </S.ContentCashBack>
+            <S.StoreType>{establishment.category.name}</S.StoreType>
+          </S.TopInfo>
         </S.TopContent>
 
         <S.StoreHoursData>
-          <S.StoreStatus>Estabelecimento aberto</S.StoreStatus>
+          <S.StoreStatus>
+            {isEstablishmentOpen
+              ? 'Estabelecimento aberto'
+              : 'Estabelecimento fechado'}
+          </S.StoreStatus>
           <S.ContentRow>
             <BiTimeFive size={20} color={colors.mediumslateBlue} />
-            <S.StoreOpeningHours>Aberto das 10h às 23h</S.StoreOpeningHours>
+            <S.StoreOpeningHours>
+              Aberto das{' '}
+              {establishment.establishment_pos_working_hours_today.opening_time}{' '}
+              às{' '}
+              {establishment.establishment_pos_working_hours_today.closing_time}
+            </S.StoreOpeningHours>
           </S.ContentRow>
         </S.StoreHoursData>
       </S.Top>
@@ -56,35 +141,36 @@ export function StoreProfile() {
           <FaStar size={24} color={colors.yellowStar} />
           <FaStar size={24} color={colors.yellowStar} />
           <FaStar size={24} color={colors.yellowStar} />
-          <S.StoreGrade>5,0</S.StoreGrade>
-          <S.QuantEvaluations>125 Avaliações</S.QuantEvaluations>
+          <S.StoreGrade>0,0</S.StoreGrade>
+          <S.QuantEvaluations>0 Avaliações</S.QuantEvaluations>
         </S.ContentStar>
       </S.ContainerEvaluations>
       <S.SubTitle>Informações</S.SubTitle>
       <S.ContainerInfo>
         <S.ContentInfo>
           <S.SubTitle>Sobre este estabelecimento</S.SubTitle>
-          <S.TextInfo>
-            Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
-            eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim
-            ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut
-            aliquip ex ea commodo consequat. Duis aute irure dolor in
-            reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla
-            pariatur.
-          </S.TextInfo>
+          <S.TextInfo>{establishment.about}</S.TextInfo>
         </S.ContentInfo>
         <S.ContentInfo>
           <S.SubTitle>Contato</S.SubTitle>
           <S.TextInfo>Telefone: (11) 9 9999 999</S.TextInfo>
           <S.TextInfo>Telefone: (11) 9 9999 999</S.TextInfo>
           <S.SubTitle>Horário de funcionamento</S.SubTitle>
-          <S.TextInfo>Segunda à Sábado</S.TextInfo>
-          <S.TextInfo>Das 10h às 23h</S.TextInfo>
+          {groupedOpeningHours.map(openingHours => (
+            <>
+              <S.TextInfo>
+                {DaysOfWeek[openingHours.first_day]} à{' '}
+                {DaysOfWeek[openingHours.last_day]}
+              </S.TextInfo>
+              <S.TextInfo>
+                Das {openingHours.opening_time} às {openingHours.closing_time}
+              </S.TextInfo>
+            </>
+          ))}
         </S.ContentInfo>
         <S.ContentInfo>
           <S.SubTitle>Opções de pagamento</S.SubTitle>
           <div style={{ display: 'flex', gap: '24px' }}>
-            {' '}
             <VISAIcon width="75" height="25" />
             <MasterCardIcon width="40" height="25" />
             <EloIcon width="63" height="25" />
@@ -96,19 +182,39 @@ export function StoreProfile() {
       <S.TextInfo>
         R. Santa Madalena, 31 - Liberdade, São Paulo - SP, 01322-020
       </S.TextInfo>
-
-      <Map />
+      <Map
+        latitude={Number(establishment.lat_location)}
+        longitude={Number(establishment.long_location)}
+        isEstablishmentProfile
+      />
       <S.SubTitle>Você também pode gostar de</S.SubTitle>
-      <S.CommerceContainer>
-        {/*
-      <InlineCard />
-      <InlineCard />
-      <InlineCard />
-      <InlineCard />
-      <InlineCard />
-      <InlineCard />
-        */}
-      </S.CommerceContainer>
+      {!isLoading && !recommendedEstablishments ? (
+        <S.LoadingContainer>
+          <Loading
+            icon={PulseLoader}
+            color={colors.mediumslateBlue}
+            size={20}
+          />
+          <h4>Carregando</h4>
+        </S.LoadingContainer>
+      ) : (
+        recommendedEstablishments?.establishment.map(
+          recommendedEstablishment => {
+            if (
+              recommendedEstablishment.id === establishment.id &&
+              recommendedEstablishments.info.totalEstablishment === 1
+            )
+              return (
+                <S.FallbackText>
+                  Nenhum estabelecimento para recomendar
+                </S.FallbackText>
+              );
+
+            return <InlineCard establishment={recommendedEstablishment} />;
+          },
+        )
+      )}
+      <S.CommerceContainer />
     </S.Container>
   );
 }
