@@ -49,7 +49,7 @@ export function Stores() {
   useEffect(() => {
     const observer = new IntersectionObserver(
       entries => {
-        if (entries[0].isIntersecting && !isLoading) {
+        if (entries[0].isIntersecting) {
           handleRefetch();
         }
       },
