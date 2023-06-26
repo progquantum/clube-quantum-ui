@@ -1,5 +1,5 @@
 import { PropsWithChildren, useState } from 'react';
-import { QueryClient, QueryClientProvider } from 'react-query';
+import { Hydrate, QueryClient, QueryClientProvider } from 'react-query';
 import { QueryParamProvider } from 'use-query-params';
 import { ReactQueryDevtools } from 'react-query/devtools';
 import { Toaster } from 'react-hot-toast';
@@ -16,7 +16,10 @@ import { AuthProvider } from './auth/AuthProvider';
 import { StyledProvider } from './styles';
 import { SubscriptionsProvider } from './subscriptions/SubscriptionsProvider';
 
-export function AppProvider({ children }: PropsWithChildren) {
+export function AppProvider({
+  children,
+  dehydratedState,
+}: PropsWithChildren<{ dehydratedState: any }>) {
   const [queryClient] = useState(
     () =>
       new QueryClient({
@@ -37,20 +40,22 @@ export function AppProvider({ children }: PropsWithChildren) {
       <DefaultSeo {...SEO} />
       <QueryParamProvider adapter={QueryParamsAdapter}>
         <QueryClientProvider client={queryClient}>
-          <ReactQueryDevtools initialIsOpen={false} />
-          <StyledProvider>
-            <AuthProvider>
-              <SubscriptionsProvider>
-                <Toaster />
-                <LocalizationProvider
-                  dateAdapter={AdapterDayjs}
-                  adapterLocale="pt-br"
-                >
-                  {children}
-                </LocalizationProvider>
-              </SubscriptionsProvider>
-            </AuthProvider>
-          </StyledProvider>
+          <Hydrate state={dehydratedState}>
+            <ReactQueryDevtools initialIsOpen={false} />
+            <StyledProvider>
+              <AuthProvider>
+                <SubscriptionsProvider>
+                  <Toaster />
+                  <LocalizationProvider
+                    dateAdapter={AdapterDayjs}
+                    adapterLocale="pt-br"
+                  >
+                    {children}
+                  </LocalizationProvider>
+                </SubscriptionsProvider>
+              </AuthProvider>
+            </StyledProvider>
+          </Hydrate>
         </QueryClientProvider>
       </QueryParamProvider>
     </>
