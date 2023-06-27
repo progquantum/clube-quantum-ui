@@ -7,6 +7,7 @@ export type Establishment = {
   contacts: Contacts;
   lat_location: string;
   long_location: string;
+  user: MainContact;
   MarketplaceImages: MarketplaceImage[];
   category: Category;
   establishment_pos_working_hours: EstablishmentPosWorkingHour[];
@@ -19,6 +20,10 @@ export type Contacts = {
   cel_phone: string;
   cel_phone_has_whatsapp: boolean;
   whatsapp_phone: string;
+};
+
+export type MainContact = {
+  phone: string;
 };
 
 export type MarketplaceImage = {
