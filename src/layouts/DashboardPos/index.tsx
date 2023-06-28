@@ -35,6 +35,10 @@ import { useSalesFilter } from 'hooks/dashboard-pos/useSalesFilter';
 
 import { formatDate } from 'utils/formatters/formatDate';
 
+import VISAEletronIcon from 'components/Illustrations/VisaEletron';
+
+import MasterCardMaestroIcon from 'components/Illustrations/MasterCardMaestro';
+
 import DraggableScrollContainer from './DraggableScrollContainer';
 import { PaymentMethodPieChart } from './PaymentMethodPieChart';
 import { SalesByClientPieChart } from './SalesByClientPieChart';
@@ -119,6 +123,15 @@ export function DashboardPos() {
     setInicialDate(undefined);
     setFinalDate(undefined);
     setFilter('especifica');
+  };
+
+  const cardsBrandsMap: { [key: string]: JSX.Element } = {
+    VISA: <VISAIcon width="37.16px" height="12px" />,
+    VISA_ELECTRON: <VISAEletronIcon width="38px" height="40px" />,
+    MASTER: <MasterCardIcon width="25.89px" height="16px" />,
+    MASTER_MAESTRO: <MasterCardMaestroIcon width="30px" height="20px" />,
+    ELO: <EloIcon width="41.76px" height="16px" />,
+    AMERICAN_EXPRESS: <AmericanExpressIcon width="16px" height="16px" />,
   };
   return (
     <DashboardLayout maxWidth="1736px">
@@ -323,66 +336,21 @@ export function DashboardPos() {
               <S.ValueFlag>Valor</S.ValueFlag>
             </S.TopTableSealsByFlag>
             <S.TableFlag>
-              <S.ContentCards>
-                <S.TableFlagRow>
-                  1 <VISAIcon width="37.16px" height="12px" />
-                </S.TableFlagRow>
-                <S.TableColumn4>
-                  <S.Font14>
-                    {formatPrice(
-                      sales?.card_brand.visa.total_amount.toString(),
-                    )}
-                  </S.Font14>
-                  <S.FontGray400>
-                    {sales?.card_brand.visa.total_sales} Vendas
-                  </S.FontGray400>
-                </S.TableColumn4>
-              </S.ContentCards>
-              <S.ContentCards>
-                <S.TableFlagRow>
-                  2 <MasterCardIcon width="25.89px" height="16px" />
-                </S.TableFlagRow>
-                <S.TableColumn4>
-                  <S.Font14>
-                    {' '}
-                    {formatPrice(
-                      sales?.card_brand.mastercard.total_amount.toString(),
-                    )}
-                  </S.Font14>
-                  <S.FontGray400>
-                    {sales?.card_brand.mastercard.total_sales} Vendas
-                  </S.FontGray400>
-                </S.TableColumn4>
-              </S.ContentCards>
-              <S.ContentCards>
-                <S.TableFlagRow>
-                  3 <EloIcon width="41.76px" height="16px" />
-                </S.TableFlagRow>
-                <S.TableColumn4>
-                  <S.Font14>
-                    {' '}
-                    {formatPrice(sales?.card_brand.elo.total_amount.toString())}
-                  </S.Font14>
-                  <S.FontGray400>
-                    {sales?.card_brand.elo.total_sales} Vendas
-                  </S.FontGray400>
-                </S.TableColumn4>
-              </S.ContentCards>
-              <S.ContentCards>
-                <S.TableFlagRow>
-                  4 <AmericanExpressIcon width="16px" height="16px" />
-                </S.TableFlagRow>
-                <S.TableColumn4>
-                  <S.Font14>
-                    {formatPrice(
-                      sales?.card_brand.american_express.total_amount.toString(),
-                    )}
-                  </S.Font14>
-                  <S.FontGray400>
-                    {sales?.card_brand.american_express.total_sales} Vendas
-                  </S.FontGray400>
-                </S.TableColumn4>
-              </S.ContentCards>
+              {sales?.card_brand.map((brand, index) => (
+                <S.ContentCards key={brand.brand}>
+                  <S.TableFlagRow>
+                    {index + 1} {cardsBrandsMap[brand.brand]}
+                  </S.TableFlagRow>
+                  <S.TableColumn4>
+                    <S.Font14>
+                      {formatPrice(brand.transactions.totalAmount.toString())}
+                    </S.Font14>
+                    <S.FontGray400>
+                      {brand.transactions.totalSales} Vendas
+                    </S.FontGray400>
+                  </S.TableColumn4>
+                </S.ContentCards>
+              ))}
             </S.TableFlag>
           </S.ContainerFlag>
         </S.ContentRow>

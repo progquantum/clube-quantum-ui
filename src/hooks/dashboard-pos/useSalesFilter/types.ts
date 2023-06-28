@@ -14,7 +14,7 @@ export type Filter = {
 export interface SalesProps {
   payment_method: PaymentMethod;
   sales_by_client: SalesByClient;
-  card_brand: CardBrand;
+  card_brand: CardBrand[];
   info: Info;
   transactions: Transaction[];
 }
@@ -32,30 +32,11 @@ export interface SalesByClient {
 }
 
 export interface CardBrand {
-  visa: Visa;
-  mastercard: Mastercard;
-  elo: Elo;
-  american_express: AmericanExpress;
-}
-
-export interface Visa {
-  total_amount: string;
-  total_sales: string;
-}
-
-export interface Mastercard {
-  total_amount: string;
-  total_sales: string;
-}
-
-export interface Elo {
-  total_amount: string;
-  total_sales: string;
-}
-
-export interface AmericanExpress {
-  total_amount: string;
-  total_sales: string;
+  brand: string;
+  transactions: {
+    totalAmount: number;
+    totalSales: number;
+  };
 }
 
 export interface Info {

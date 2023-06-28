@@ -328,7 +328,6 @@ export const ContainerFlag = styled.div`
   width: 100%;
   height: 100%;
   max-width: 505px;
-  max-height: 352px;
   display: flex;
   flex-direction: column;
   @media (max-width: 1775px) {
