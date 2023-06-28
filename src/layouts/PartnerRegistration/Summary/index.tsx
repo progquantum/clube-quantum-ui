@@ -14,10 +14,8 @@ import { formatNumber } from 'utils/formatters/formatNumber';
 
 import { DASHBOARD_ADM_PAGE } from 'constants/routesPath';
 
-import { PosUser } from 'hooks/user/usePosSubscriptions/types';
-
-import * as S from './styles';
 import DraggableScrollContainer from '../DraggableScrollContainer';
+import * as S from './styles';
 
 export function Summary() {
   const { colors } = useTheme();
@@ -25,30 +23,42 @@ export function Summary() {
 
   function getAbbreviatedDays(dates: string[]): string {
     const days = ['Seg', 'Ter', 'Qua', 'Qui', 'Sex', 'Sáb', 'Dom'];
+    const dayMapping = {
+      MONDAY: 'Seg',
+      TUESDAY: 'Ter',
+      WEDNESDAY: 'Qua',
+      THURSDAY: 'Qui',
+      FRIDAY: 'Sex',
+      SATURDAY: 'Sáb',
+      SUNDAY: 'Dom',
+    };
+
     const selectedDays = dates
-      .map(date => days.findIndex(day => day.startsWith(date.slice(0, 3))))
+      .map(date => days.find(day => day.startsWith(dayMapping[date])))
       .sort();
+
     const ranges: string[] = [];
     let currentRange: string[] = [];
+
     selectedDays.forEach((day, index) => {
       if (index === 0 || day !== selectedDays[index - 1] + 1) {
-        currentRange = [days[day]];
+        currentRange = [day];
         ranges.push(currentRange.join(''));
       } else if (currentRange.length === 1) {
         currentRange.push(' À ');
-        currentRange.push(days[day]);
+        currentRange.push(day);
         ranges.pop();
         ranges.push(currentRange.join(''));
       } else {
         currentRange.pop();
-        currentRange.push(days[day]);
+        currentRange.push(day);
         ranges.pop();
         ranges.push(currentRange.join(''));
       }
     });
+
     return ranges.join(' e ').toUpperCase();
   }
-
   const formattedScheduleCashBack = state.cashBackRules.map(schedule => {
     const abbreviatedDays = getAbbreviatedDays(schedule.selectDays);
     // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
@@ -74,8 +84,9 @@ export function Summary() {
     state.resetCashBackRules();
     state.resetMachinePos();
     state.setAbout('');
-    state.setUser({} as PosUser);
+    state.setUser(null);
     state.setFantasyName('');
+    state.setMainPhone('');
     state.setMainPhoneHasWhatsApp(false);
     state.setCellPhone('');
     state.setCellPhoneHasWhatsApp(false);
@@ -87,7 +98,6 @@ export function Summary() {
     state.setBanner('', {} as File);
     state.resetCurrentStep();
   };
-
   return (
     <S.Container>
       <S.Steps>

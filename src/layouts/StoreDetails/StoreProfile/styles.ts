@@ -28,15 +28,15 @@ export const Top = styled.div`
 
 export const TopContent = styled.div`
   display: flex;
-  align-items: center;
+  gap: 1rem;
+  width: 100%;
+`;
+
+export const TopInfo = styled.div`
+  display: flex;
   flex-wrap: wrap;
   gap: 12px;
   width: 100%;
-
-  @media (max-width: 572px) {
-    align-items: flex-start;
-    gap: 32px;
-  }
 `;
 
 export const Logo = styled.div`
@@ -48,11 +48,15 @@ export const Logo = styled.div`
   gap: 10px;
   width: 80px;
   height: 80px;
-  border-radius: 106px;
-  background: ${({ theme }) => theme.colors.ghostwhite};
+  flex: 1 0 auto;
+  position: relative;
+  & > img {
+    border-radius: 50%;
+    object-fit: cover;
+  }
 `;
 
-export const ContentColumm = styled.div`
+export const ContentColumn = styled.div`
   display: flex;
   flex-direction: column;
 `;
@@ -77,9 +81,9 @@ export const StoreName = styled.h2`
 
 export const StoreType = styled.p`
   font-style: normal;
-  font-weight: 500;
   font-size: 16px;
   line-height: 150%;
+  width: 100%;
   color: ${({ theme }) => theme.colors.gray[700]};
 
   @media (max-width: 414px) {
@@ -110,8 +114,10 @@ export const StoreOpeningHours = styled.p`
   font-weight: 500;
   font-size: 16px;
   line-height: 150%;
-  color: ${({ theme }) => theme.colors.gray[400]};
+  width: 100%;
 
+  color: ${({ theme }) => theme.colors.gray[400]};
+  margin-bottom: 0;
   @media (max-width: 414px) {
     font-size: 12px;
   }
@@ -195,22 +201,28 @@ export const SubTitle = styled.h2`
 `;
 
 export const ContainerInfo = styled(ContentRow)`
-  margin-top: 24px;
+  margin-top: 1.5rem;
   align-items: flex-start;
-  gap: 24px 45px;
-  margin-bottom: 48px;
+  justify-content: space-between;
+  margin-bottom: 2rem;
   flex-wrap: wrap;
 `;
 
-export const ContentInfo = styled(ContentColumm)`
-  max-width: 370px;
-  gap: 12px;
+export const ContentInfo = styled(ContentColumn)`
+  max-width: max-content;
+  gap: 0.3rem;
+  flex: 1 0 auto;
+
   h2 {
     margin-bottom: 12px;
   }
 `;
 
-export const TextInfo = styled(StoreOpeningHours)``;
+export const TextInfo = styled(StoreOpeningHours)`
+  max-width: 450px;
+  display: flex;
+  gap: 0.3rem;
+`;
 
 export const CommerceContainer = styled.div`
   display: grid;
@@ -230,4 +242,16 @@ export const CommerceContainer = styled.div`
     justify-content: center;
     align-items: center;
   }
+`;
+
+export const LoadingContainer = styled.div`
+  padding: 2rem 0;
+  text-align: center;
+  & > span {
+    font-size: 1rem;
+  }
+`;
+export const FallbackText = styled.h3`
+  text-align: center;
+  margin: 5rem 0 0;
 `;

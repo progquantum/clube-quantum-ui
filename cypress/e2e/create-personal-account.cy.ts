@@ -51,7 +51,8 @@ describe('CreatePersonalAccount', () => {
       new Intl.DateTimeFormat('pt-BR').format(birthDate),
     );
 
-    const email = faker.internet.email({ firstName: fullName });
+    // const email = faker.internet.email({ firstName: fullName });
+    const email = 'caiocastrofrs@gmail.com';
     cy.get('[data-cy="signup_email"]').type(email);
     cy.get('[data-cy="signup_confirmEmail"]').type(email);
 

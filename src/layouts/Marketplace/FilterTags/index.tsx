@@ -1,6 +1,6 @@
 import { MdOutlineNavigateBefore, MdOutlineNavigateNext } from 'react-icons/md';
 
-import { useLayoutEffect, useRef, useState } from 'react';
+import { useRef } from 'react';
 
 import { useWindowSize } from 'react-use';
 
@@ -20,19 +20,16 @@ function getIcon(iconName: string) {
   return <allIcons.MdFiberManualRecord size={24} />;
 }
 
-export function FilterTags() {
+export function FilterTags({
+  toggleSelectedCategory,
+  selectedCategory,
+}: {
+  toggleSelectedCategory?: (categoryId: string) => void;
+  selectedCategory?: string;
+}) {
   const { data: categories } = useGetFilterCategories();
   const { width } = useWindowSize();
   const containerRef = useRef(null);
-  const [isOverflowing, setIsOverflowing] = useState(false);
-
-  useLayoutEffect(() => {
-    if (containerRef.current.clientWidth < containerRef.current.scrollWidth) {
-      setIsOverflowing(true);
-    } else {
-      setIsOverflowing(false);
-    }
-  }, [containerRef.current]);
 
   function handleScrollToRight() {
     const { scrollWidth } = containerRef.current;
@@ -58,13 +55,17 @@ export function FilterTags() {
       <S.ScrollContainer ref={containerRef}>
         {categories &&
           categories.map((category: Category) => (
-            <S.TagButton key={category.id} isSelected={false}>
+            <S.TagButton
+              key={category.id}
+              isSelected={category.id === selectedCategory}
+              onClick={() => toggleSelectedCategory(category.id)}
+            >
               {getIcon(category.icon_name)}
               {category.name}
             </S.TagButton>
           ))}
       </S.ScrollContainer>
-      {isOverflowing && !isMobile && (
+      {!isMobile && (
         <>
           <S.RightButton onClick={() => handleScrollToRight()}>
             <MdOutlineNavigateBefore size={20} />

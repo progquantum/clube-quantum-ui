@@ -1,5 +1,7 @@
 import { useMutation } from 'react-query';
 
+import { AxiosError } from 'axios';
+
 import { quantumClientQueue } from 'config/client';
 import { error } from 'helpers/notify/error';
 
@@ -13,17 +15,14 @@ export async function subscriptionRequest(subscription: SubscriptionRequest) {
     );
 
     return data as SubscriptionPayload;
-  } catch (err) {
-    if (err.response.status === 400) {
-      error(
-        'Verifique se no seu cartão tem pelo menos R$1,00 para fazermos a verificação da autenticidade do mesmo.',
-        6000,
-      );
-    }
-    if (
-      err.response?.data.message[0] === 'This user already owns a bank account'
-    ) {
-      error('Este usuário já possui uma conta bancária cadastrada.');
+  } catch (err: unknown) {
+    if (err instanceof AxiosError) {
+      if (err.message === 'This user already has a subscription plan') {
+        error('Este usuário já tem um plano assinado');
+      }
+      if (err.message === 'This user already owns a bank account') {
+        error('Este usuário já possui uma conta bancária cadastrada.');
+      }
     }
 
     return Promise.reject(err);

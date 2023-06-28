@@ -1,7 +1,7 @@
 import Yup from 'settings/yup';
 
 export const schema = Yup.object().shape({
-  user_id: Yup.string(),
+  user: Yup.string().optional(),
   fantasy_name: Yup.string().required(),
   main_phone_has_whatsapp: Yup.boolean(),
   cell_phone: Yup.string(),

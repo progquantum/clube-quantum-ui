@@ -1,8 +1,9 @@
 export type InlineCardProps = {
-  name: string;
-  image: string;
-  distance_in_kms: string;
-  star_rate: string;
-  establishment_type: string;
-  cashback_percent: string;
+  establishment: {
+    corporate_name: string;
+    id: string;
+    category_name: string;
+    logo_url: string;
+    client_cashback: number;
+  };
 };

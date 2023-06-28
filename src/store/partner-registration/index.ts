@@ -286,13 +286,17 @@ export const usePartnerStore = create(
       resetCurrentStep: () => {
         set({ currentStep: 0 });
       },
-      user: {} as PosUser,
+      user: null,
       setUser: (user: PosUser) => {
         set(() => ({ user }));
       },
       fantasyName: '',
       setFantasyName: (name: string) => {
         set(() => ({ fantasyName: name }));
+      },
+      mainPhone: '',
+      setMainPhone: (phone: string) => {
+        set(() => ({ mainPhone: phone }));
       },
       mainPhoneHasWhatsApp: false,
       setMainPhoneHasWhatsApp: (event: boolean) => {

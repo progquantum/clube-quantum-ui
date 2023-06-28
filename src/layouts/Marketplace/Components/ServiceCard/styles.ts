@@ -9,8 +9,9 @@ export const Container = styled.div<Props>`
   width: ${({ height }) => height || '150px'};
   height: ${({ height }) => height || '150px'};
   padding: 21px;
-  border-radius: 25px;
   text-align: center;
   box-shadow: 0px 1px 4px rgba(0, 0, 0, 0.09);
   cursor: pointer;
+  position: relative;
+  border-radius: 25px;
 `;
