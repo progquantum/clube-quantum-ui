@@ -60,13 +60,18 @@ export const NavButton = styled.button<NavButtonProps>`
   color: ${({ theme }) => theme.colors.gray[700]};
   border-bottom: 0.5px solid ${({ theme }) => theme.colors.gray[100]};
   font-weight: 500;
+
   ${({ isExpanded }) =>
     !isExpanded
       ? css`
           & ${TitleBox} {
             display: none;
           }
-          border-bottom: 0.8px solid transparent;
+          border-bottom: 2px solid transparent;
+          &:hover {
+            border-bottom: 2px solid
+              ${({ theme }) => theme.colors.mediumslateBlue};
+          }
         `
       : css`
           min-width: 15rem;
@@ -123,4 +128,27 @@ export const SignOut = styled(Button)<IsExpanded>`
             display: block;
           }
         `}
+`;
+
+export const EstablishmentContainer = styled.div<{
+  hasEstablishment: boolean;
+  isExpanded: boolean;
+}>`
+  ${({ hasEstablishment, isExpanded, theme }) =>
+    !hasEstablishment &&
+    css`
+      & ${NavButton} {
+        color: ${theme.colors.gray[400]};
+        ${isExpanded &&
+        css`
+          background-color: ${theme.colors.gray[100]};
+        `}
+
+        border-radius: 0 0 0.5rem 0.5rem;
+        & svg {
+          color: ${theme.colors.gray[300]};
+        }
+        pointer-events: none;
+      }
+    `}
 `;

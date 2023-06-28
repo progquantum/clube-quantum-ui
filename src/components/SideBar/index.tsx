@@ -37,6 +37,8 @@ import { TokenPayload } from 'shared/types/apiSchema';
 
 import { roles } from 'constants/roles';
 
+import { useMe } from 'hooks/me/useMe';
+
 import { Skeleton } from './Skeleton';
 import { SideBarProps } from './types';
 import * as S from './styles';
@@ -45,7 +47,7 @@ export function SideBar({ loading }: SideBarProps) {
   const { signOut } = useAuthDispatch();
   const isExpanded = useSidebarStore(state => state.isExpanded);
   const setIsExpanded = useSidebarStore(state => state.setIsExpanded);
-
+  const { data } = useMe();
   if (loading) return <Skeleton />;
 
   const cookies = parseCookies();
@@ -104,14 +106,19 @@ export function SideBar({ loading }: SideBarProps) {
               <S.TitleBox>Meus Contratos</S.TitleBox>
             </S.NavButton>
           </Link>
-          <Link href={DASHBOARD_POS_PAGE}>
-            <S.NavButton isExpanded={isExpanded}>
-              <S.IconBox isExpanded={isExpanded}>
-                <FaShoppingBag />
-              </S.IconBox>
-              <S.TitleBox>Minhas Vendas</S.TitleBox>
-            </S.NavButton>
-          </Link>
+          <S.EstablishmentContainer
+            isExpanded={isExpanded}
+            hasEstablishment={data?.has_establishment}
+          >
+            <Link href={data?.has_establishment ? DASHBOARD_POS_PAGE : {}}>
+              <S.NavButton isExpanded={isExpanded}>
+                <S.IconBox isExpanded={isExpanded}>
+                  <FaShoppingBag />
+                </S.IconBox>
+                <S.TitleBox>Minhas Vendas</S.TitleBox>
+              </S.NavButton>
+            </Link>
+          </S.EstablishmentContainer>
         </>
       ) : (
         <>

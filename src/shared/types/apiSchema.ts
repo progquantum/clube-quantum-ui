@@ -30,6 +30,7 @@ export type User = {
   subscription?: Subscription;
   invite_code?: string;
   avatar_url: string;
+  has_establishment: boolean;
   address: {
     city: string;
     state: string;
