@@ -28,10 +28,17 @@ export interface LegalPerson {
 export interface EstablishmentPos {
   about: string;
   id: string;
+  contacts: Contact;
   corporate_name: string;
   lat_location: string;
   long_location: string;
 }
+export type Contact = {
+  main_phone_has_whatsapp: boolean;
+  cel_phone: string;
+  cel_phone_has_whatsapp: boolean;
+  whatsapp_phone: string;
+};
 
 export interface Category {
   id: string;
