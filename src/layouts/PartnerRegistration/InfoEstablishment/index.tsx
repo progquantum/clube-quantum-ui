@@ -267,6 +267,18 @@ export function InfoEstablishment() {
     setUser(e);
     setFantasyName(e.establishment_pos.corporate_name);
     setMainPhone(e.phone);
+    setMainPhoneHasWhatsApp(
+      e.establishment_pos.contacts.main_phone_has_whatsapp,
+    );
+    if (Object.hasOwn(e.establishment_pos.contacts, 'cel_phone')) {
+      setCellPhone(e.establishment_pos.contacts.cel_phone);
+    }
+    if (Object.hasOwn(e.establishment_pos.contacts, 'whatsapp_phone')) {
+      setWhatsAppPhone(e.establishment_pos.contacts.whatsapp_phone);
+    }
+    setCellPhoneHasWhatsApp(
+      e.establishment_pos.contacts.cel_phone_has_whatsapp,
+    );
     setCategoryName(e.category?.name);
     setCategoryId(e.category?.id);
     const lat = e.establishment_pos.lat_location;
