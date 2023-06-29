@@ -1,7 +1,5 @@
 import styled from 'styled-components';
 
-import { Button } from 'components/Button';
-
 export const Container = styled.div`
   margin: 2rem 0;
   display: grid;
@@ -60,6 +58,9 @@ export const AccessMarket = styled.div`
   @media (max-width: 1230px) {
     margin-left: 0;
   }
+  @media (max-width: 1000px) {
+    width: 100%;
+  }
 `;
 
 export const HeaderAccessMarket = styled.div`
@@ -80,14 +81,19 @@ export const MarketText = styled.p`
   color: ${({ theme }) => theme.colors.white};
 `;
 
-export const ButtonMarketplace = styled(Button)`
+export const ButtonMarketplace = styled.button`
+  margin-top: 1rem;
+  border-radius: 10px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
   background: ${({ theme }) => theme.colors.white};
   color: ${({ theme }) => theme.colors.midnightBlue};
   height: 2.5rem;
   padding: 1rem;
   width: 100%;
   align-self: center;
-  @media (max-width: 550px) {
+  @media (max-width: 1000px) {
     width: 100%;
   }
 
