@@ -16,7 +16,7 @@ export const Button = styled.button`
 export const CarouselContainer = styled.div`
   width: 100%;
   height: 300px;
-  margin: 4rem auto;
+  margin: 4rem auto 0;
   position: relative;
   display: flex;
   align-items: center;
@@ -33,9 +33,17 @@ export const Slides = styled.div`
   overflow-x: scroll;
   overflow-y: hidden;
   width: 100%;
-  height: 90%;
+  height: 100%;
   white-space: nowrap;
   transition: all 0.4s ease-in-out;
+  @media (max-width: 700px) {
+    height: 240px;
+  }
+
+  @media (max-width: 450px) {
+    height: 163px;
+  }
+
   &::-webkit-scrollbar {
     display: none;
   }
@@ -47,16 +55,38 @@ export const Slides = styled.div`
 export const Slide = styled.div`
   display: inline-block;
   margin: 0 1rem;
-  transition: transform 0.1s ease;
   width: 500px;
-  height: 270px;
+  height: 100%;
+  max-height: 321px;
+  min-height: 163px;
   position: relative;
   &:hover {
     transform: scale(1.02);
   }
+  transition: all 0.2s ease;
+
+  @media (max-width: 700px) {
+    width: 95%;
+    height: 240px;
+  }
+
+  @media (max-width: 600px) {
+    & img {
+      object-fit: contain;
+    }
+  }
+
+  @media (max-width: 450px) {
+    height: 163px;
+  }
 
   & img {
     object-fit: cover;
-    border-radius: 1.8rem;
+
+    border-radius: 0.31rem;
+
+    &:hover {
+      cursor: pointer;
+    }
   }
 `;

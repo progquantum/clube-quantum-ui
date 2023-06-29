@@ -13,6 +13,8 @@ import { useTheme } from 'styled-components';
 
 import { DatePicker } from '@mui/x-date-pickers';
 
+import { useRouter } from 'next/router';
+
 import { Select } from 'components/Select';
 
 import { VISAIcon } from 'components/Illustrations/Visa';
@@ -39,6 +41,10 @@ import VISAEletronIcon from 'components/Illustrations/VisaEletron';
 
 import MasterCardMaestroIcon from 'components/Illustrations/MasterCardMaestro';
 
+import { DASHBOARD_PAGE } from 'constants/routesPath';
+
+import { Loader } from 'components/Loader';
+
 import DraggableScrollContainer from './DraggableScrollContainer';
 import { PaymentMethodPieChart } from './PaymentMethodPieChart';
 import { SalesByClientPieChart } from './SalesByClientPieChart';
@@ -51,7 +57,11 @@ export function DashboardPos() {
   const [filter, setFilter] = useState<string>('período');
   const [inicialDate, setInicialDate] = useState<Date>();
   const [finalDate, setFinalDate] = useState<Date>();
-  const { data } = useGetEstablishment();
+  const { data, isLoading } = useGetEstablishment();
+  const router = useRouter();
+
+  if (!data) router.push(DASHBOARD_PAGE);
+
   const {
     data: sales,
     onPageChange,
@@ -135,226 +145,230 @@ export function DashboardPos() {
   };
   return (
     <DashboardLayout maxWidth="1736px">
-      <S.Container
-        as={Form}
-        ref={formRef}
-        onSubmit={handleSelect}
-        className="form"
-      >
-        <S.DivTop>
-          <S.DivColumn>
-            <S.Title>Você está no estabelecimento</S.Title>
-            <S.DivRow>
-              <S.PjName>{data?.corporate_name} -</S.PjName>
-              <S.StatePJ state={data?.is_active}>
-                {data?.is_active ? 'Habilitado' : 'Desabilitado'}
-              </S.StatePJ>
-            </S.DivRow>
-          </S.DivColumn>
-          <S.DivBalance>
-            <S.BalanceTitle>Vendas por período</S.BalanceTitle>
-            <S.BalanceValue>
-              {formatPrice(
-                data?.total_balance === null || undefined
-                  ? '0.0'
-                  : String(data?.total_balance),
-              )}
-            </S.BalanceValue>
-          </S.DivBalance>
-        </S.DivTop>
-        <S.DivCnpj>
-          <S.CNPJData>
-            {data?.document.length > 14 ? `CNPJ:` : `CPF:`} {data?.document}
-          </S.CNPJData>
-          <S.Hifen>-</S.Hifen>
-          <S.CNPJData>ID: {data?.id}</S.CNPJData>
-        </S.DivCnpj>
-        <S.DivRow>
-          {filter.toLowerCase() === 'período' ? (
-            <>
-              <S.ButtonUnderline
-                filter={filter === 'período'}
-                variant="transparent"
-                onClick={() => setFilter('período')}
-              >
-                Filtro por Período
-              </S.ButtonUnderline>
-              <S.ButtonUnderline
-                filter={filter === 'especifica'}
-                variant="transparent"
-                onClick={handleFilterDate}
-              >
-                por Data Específica
-              </S.ButtonUnderline>
-            </>
-          ) : (
-            <>
-              <S.ButtonUnderline
-                filter={filter === 'especifica'}
-                variant="transparent"
-                onClick={handleFilterDate}
-              >
-                Filtro por Data Específica
-              </S.ButtonUnderline>
-              <S.ButtonUnderline
-                filter={filter === 'período'}
-                variant="transparent"
-                onClick={() => setFilter('período')}
-              >
-                por Período
-              </S.ButtonUnderline>
-            </>
+      {isLoading ? (
+        <Loader />
+      ) : (
+        <S.Container
+          as={Form}
+          ref={formRef}
+          onSubmit={handleSelect}
+          className="form"
+        >
+          <S.DivTop>
+            <S.DivColumn>
+              <S.Title>Você está no estabelecimento</S.Title>
+              <S.DivRow>
+                <S.PjName>{data?.corporate_name} -</S.PjName>
+                <S.StatePJ state={data?.is_active}>
+                  {data?.is_active ? 'Habilitado' : 'Desabilitado'}
+                </S.StatePJ>
+              </S.DivRow>
+            </S.DivColumn>
+            <S.DivBalance>
+              <S.BalanceTitle>Vendas por período</S.BalanceTitle>
+              <S.BalanceValue>
+                {formatPrice(
+                  data?.total_balance === null || undefined
+                    ? '0.0'
+                    : String(data?.total_balance),
+                )}
+              </S.BalanceValue>
+            </S.DivBalance>
+          </S.DivTop>
+          <S.DivCnpj>
+            <S.CNPJData>
+              {data?.document.length > 14 ? `CNPJ:` : `CPF:`} {data?.document}
+            </S.CNPJData>
+            <S.Hifen>-</S.Hifen>
+            <S.CNPJData>ID: {data?.id}</S.CNPJData>
+          </S.DivCnpj>
+          <S.DivRow>
+            {filter.toLowerCase() === 'período' ? (
+              <>
+                <S.ButtonUnderline
+                  filter={filter === 'período'}
+                  variant="transparent"
+                  onClick={() => setFilter('período')}
+                >
+                  Filtro por Período
+                </S.ButtonUnderline>
+                <S.ButtonUnderline
+                  filter={filter === 'especifica'}
+                  variant="transparent"
+                  onClick={handleFilterDate}
+                >
+                  por Data Específica
+                </S.ButtonUnderline>
+              </>
+            ) : (
+              <>
+                <S.ButtonUnderline
+                  filter={filter === 'especifica'}
+                  variant="transparent"
+                  onClick={handleFilterDate}
+                >
+                  Filtro por Data Específica
+                </S.ButtonUnderline>
+                <S.ButtonUnderline
+                  filter={filter === 'período'}
+                  variant="transparent"
+                  onClick={() => setFilter('período')}
+                >
+                  por Período
+                </S.ButtonUnderline>
+              </>
+            )}
+          </S.DivRow>
+
+          {filter === 'período' && (
+            <div style={{ maxWidth: '424px' }}>
+              <Select
+                name="filtro"
+                placeholder="Selecione uma opção"
+                options={[
+                  { value: 'Hoje', label: 'Hoje' },
+                  { value: 'Ontem', label: 'Ontem' },
+                  { value: 'Essa semana', label: 'Essa semana' },
+                  { value: 'Semana passada', label: 'Semana passada' },
+                  { value: 'Mês passado', label: 'Mês passado' },
+                  { value: 'Até um ano', label: 'Até um ano' },
+                ]}
+                defaultValue="Hoje"
+                onChange={event => handleSelect(event.target.value)}
+              />
+            </div>
           )}
-        </S.DivRow>
+          {filter === 'especifica' && (
+            <S.ContainerDatePicker>
+              <DatePicker
+                label="Data Inicial"
+                value={inicialDate}
+                onChange={newValue => setInicialDate(newValue)}
+              />
+              <DatePicker
+                label="Data Final"
+                value={finalDate}
+                onChange={newValue => setFinalDate(newValue)}
+              />
+            </S.ContainerDatePicker>
+          )}
 
-        {filter === 'período' && (
-          <div style={{ maxWidth: '424px' }}>
-            <Select
-              name="filtro"
-              placeholder="Selecione uma opção"
-              options={[
-                { value: 'Hoje', label: 'Hoje' },
-                { value: 'Ontem', label: 'Ontem' },
-                { value: 'Essa semana', label: 'Essa semana' },
-                { value: 'Semana passada', label: 'Semana passada' },
-                { value: 'Mês passado', label: 'Mês passado' },
-                { value: 'Até um ano', label: 'Até um ano' },
-              ]}
-              defaultValue="Hoje"
-              onChange={event => handleSelect(event.target.value)}
-            />
-          </div>
-        )}
-        {filter === 'especifica' && (
-          <S.ContainerDatePicker>
-            <DatePicker
-              label="Data Inicial"
-              value={inicialDate}
-              onChange={newValue => setInicialDate(newValue)}
-            />
-            <DatePicker
-              label="Data Final"
-              value={finalDate}
-              onChange={newValue => setFinalDate(newValue)}
-            />
-          </S.ContainerDatePicker>
-        )}
-
-        <S.DivGraphics isSideBarExpanded={isSideBarExpanded}>
-          <PaymentMethodPieChart payment_method={sales?.payment_method} />
-          <SalesByClientPieChart sales_by_client={sales?.sales_by_client} />
-          <OverallSalesProgressionBarChart />
-        </S.DivGraphics>
-        <S.ContentRow isExpanded={isSideBarExpanded}>
-          <DraggableScrollContainer>
-            <S.ContainerTable>
-              <S.TopTable>
-                <S.TopParams>Data</S.TopParams>
-                <S.TopParams1>ID da transação</S.TopParams1>
-                <S.TopParams2>Status</S.TopParams2>
-                <S.TopParams3>Tipo</S.TopParams3>
-                <S.TopParams4>Valor</S.TopParams4>
-              </S.TopTable>
-              <S.Table>
-                {sales?.transactions.map(transaction => (
-                  <S.TableRow key={transaction.id}>
-                    <S.Date>{formatDate(transaction.created_at)}</S.Date>
-                    <S.ID>{transaction.id}</S.ID>
-                    <S.TableColumn>
-                      <S.StatusTrans>
-                        {transaction.status === 'APPROVED'
-                          ? 'Aprovada'
-                          : 'Recusada'}
-                      </S.StatusTrans>
-                    </S.TableColumn>
-                    <S.TableColumn2>
-                      <S.Font14>{transaction.card_brand}</S.Font14>
-                      <S.FontGray400>
-                        {transaction.payment_method === 'CREDIT'
-                          ? `Créd. ${
-                              transaction.installments > 1
-                                ? 'parcelado'
-                                : 'à vista'
-                            } - ${transaction.installments}x`
-                          : 'Débito'}
-                      </S.FontGray400>
-                    </S.TableColumn2>
-                    <S.TableColumn3>
+          <S.DivGraphics isSideBarExpanded={isSideBarExpanded}>
+            <PaymentMethodPieChart payment_method={sales?.payment_method} />
+            <SalesByClientPieChart sales_by_client={sales?.sales_by_client} />
+            <OverallSalesProgressionBarChart />
+          </S.DivGraphics>
+          <S.ContentRow isExpanded={isSideBarExpanded}>
+            <DraggableScrollContainer>
+              <S.ContainerTable>
+                <S.TopTable>
+                  <S.TopParams>Data</S.TopParams>
+                  <S.TopParams1>ID da transação</S.TopParams1>
+                  <S.TopParams2>Status</S.TopParams2>
+                  <S.TopParams3>Tipo</S.TopParams3>
+                  <S.TopParams4>Valor</S.TopParams4>
+                </S.TopTable>
+                <S.Table>
+                  {sales?.transactions.map(transaction => (
+                    <S.TableRow key={transaction.id}>
+                      <S.Date>{formatDate(transaction.created_at)}</S.Date>
+                      <S.ID>{transaction.id}</S.ID>
+                      <S.TableColumn>
+                        <S.StatusTrans>
+                          {transaction.status === 'APPROVED'
+                            ? 'Aprovada'
+                            : 'Recusada'}
+                        </S.StatusTrans>
+                      </S.TableColumn>
+                      <S.TableColumn2>
+                        <S.Font14>{transaction.card_brand}</S.Font14>
+                        <S.FontGray400>
+                          {transaction.payment_method === 'CREDIT'
+                            ? `Créd. ${
+                                transaction.installments > 1
+                                  ? 'parcelado'
+                                  : 'à vista'
+                              } - ${transaction.installments}x`
+                            : 'Débito'}
+                        </S.FontGray400>
+                      </S.TableColumn2>
+                      <S.TableColumn3>
+                        <S.Font14>
+                          {formatPrice(transaction.total_amount.toString())}
+                        </S.Font14>
+                        <S.FontGray400>
+                          {transaction.installments > 1
+                            ? `Parc -${formatPrice(
+                                String(
+                                  Number(transaction.total_amount) /
+                                    transaction.installments,
+                                ),
+                              )}`
+                            : ''}{' '}
+                        </S.FontGray400>
+                      </S.TableColumn3>
+                    </S.TableRow>
+                  ))}
+                  <S.PaginationContainer>
+                    {totalPages > 1 && (
+                      <ReactPaginate
+                        breakLabel="..."
+                        nextLabel={
+                          <IoIosArrowForward
+                            size={20}
+                            color={colors.mediumslateBlue}
+                          />
+                        }
+                        onPageChange={onPageChange}
+                        pageCount={totalPages}
+                        previousLabel={
+                          <IoIosArrowBack
+                            size={20}
+                            color={colors.mediumslateBlue}
+                          />
+                        }
+                        containerClassName="paginationContainer"
+                        pageLinkClassName="pageLink"
+                        activeLinkClassName="activeLink"
+                      />
+                    )}
+                  </S.PaginationContainer>
+                </S.Table>
+              </S.ContainerTable>
+            </DraggableScrollContainer>
+            <S.ContainerFlag>
+              <S.TopTableSealsByFlag>
+                <div
+                  style={{ display: 'flex', gap: '5px', alignItems: 'center' }}
+                >
+                  <S.TitleSealsByFlag>Maior volume de</S.TitleSealsByFlag>
+                  <S.SubTitleSealsByFlag>
+                    vendas por bandeira
+                  </S.SubTitleSealsByFlag>
+                </div>
+                <S.ValueFlag>Valor</S.ValueFlag>
+              </S.TopTableSealsByFlag>
+              <S.TableFlag>
+                {sales?.card_brand.map((brand, index) => (
+                  <S.ContentCards key={brand.brand}>
+                    <S.TableFlagRow>
+                      {index + 1} {cardsBrandsMap[brand.brand]}
+                    </S.TableFlagRow>
+                    <S.TableColumn4>
                       <S.Font14>
-                        {formatPrice(transaction.total_amount.toString())}
+                        {formatPrice(brand.transactions.totalAmount.toString())}
                       </S.Font14>
                       <S.FontGray400>
-                        {transaction.installments > 1
-                          ? `Parc -${formatPrice(
-                              String(
-                                Number(transaction.total_amount) /
-                                  transaction.installments,
-                              ),
-                            )}`
-                          : ''}{' '}
+                        {brand.transactions.totalSales} Vendas
                       </S.FontGray400>
-                    </S.TableColumn3>
-                  </S.TableRow>
+                    </S.TableColumn4>
+                  </S.ContentCards>
                 ))}
-                <S.PaginationContainer>
-                  {totalPages > 1 && (
-                    <ReactPaginate
-                      breakLabel="..."
-                      nextLabel={
-                        <IoIosArrowForward
-                          size={20}
-                          color={colors.mediumslateBlue}
-                        />
-                      }
-                      onPageChange={onPageChange}
-                      pageCount={totalPages}
-                      previousLabel={
-                        <IoIosArrowBack
-                          size={20}
-                          color={colors.mediumslateBlue}
-                        />
-                      }
-                      containerClassName="paginationContainer"
-                      pageLinkClassName="pageLink"
-                      activeLinkClassName="activeLink"
-                    />
-                  )}
-                </S.PaginationContainer>
-              </S.Table>
-            </S.ContainerTable>
-          </DraggableScrollContainer>
-          <S.ContainerFlag>
-            <S.TopTableSealsByFlag>
-              <div
-                style={{ display: 'flex', gap: '5px', alignItems: 'center' }}
-              >
-                <S.TitleSealsByFlag>Maior volume de</S.TitleSealsByFlag>
-                <S.SubTitleSealsByFlag>
-                  vendas por bandeira
-                </S.SubTitleSealsByFlag>
-              </div>
-              <S.ValueFlag>Valor</S.ValueFlag>
-            </S.TopTableSealsByFlag>
-            <S.TableFlag>
-              {sales?.card_brand.map((brand, index) => (
-                <S.ContentCards key={brand.brand}>
-                  <S.TableFlagRow>
-                    {index + 1} {cardsBrandsMap[brand.brand]}
-                  </S.TableFlagRow>
-                  <S.TableColumn4>
-                    <S.Font14>
-                      {formatPrice(brand.transactions.totalAmount.toString())}
-                    </S.Font14>
-                    <S.FontGray400>
-                      {brand.transactions.totalSales} Vendas
-                    </S.FontGray400>
-                  </S.TableColumn4>
-                </S.ContentCards>
-              ))}
-            </S.TableFlag>
-          </S.ContainerFlag>
-        </S.ContentRow>
-      </S.Container>
+              </S.TableFlag>
+            </S.ContainerFlag>
+          </S.ContentRow>
+        </S.Container>
+      )}
     </DashboardLayout>
   );
 }

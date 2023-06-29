@@ -2,38 +2,30 @@ import Link from 'next/link';
 
 import { FaShoppingBag } from 'react-icons/fa';
 
+import { User } from 'shared/types/apiSchema';
 import { useBalances } from 'hooks/me/useBalances';
-import { useUnsubscribe } from 'hooks/subscriptions/useUnsubscribe';
 
 import { generateDeadline } from 'utils/generateDeadline';
 import { formatCashback } from 'utils/formatters/formatCashback';
 
 import { InviteFriends } from 'components/InviteFriends';
 
-import { success } from 'helpers/notify/success';
+import { ManagePlans } from 'components/ManagePlans';
 
 import { AccountBalance } from '../AccountBalance';
 import * as S from './styles';
 import { PlanSummary } from '../PlanSummary';
 
-export function MainContent() {
-  const { mutateAsync: UnsubscribeRequest } = useUnsubscribe();
+export function MainContent({ data }: { data: User }) {
   const { data: balances } = useBalances();
 
-  const handleCancelPlan = () => {
-    UnsubscribeRequest(null, {
-      onSuccess: () => {
-        success('Plano cancelado com sucesso! Verifique seu e-mail.');
-      },
-    });
-  };
-
+  if (!data.subscription) return <ManagePlans />;
   return (
     <S.Container>
       <S.AccountBalanceContainer>
         <AccountBalance
           title="Saldo em conta"
-          description={`Será transferido em ${generateDeadline(15)}`}
+          description={`Será transferido em ${generateDeadline(10)}`}
           value={formatCashback(balances?.awaiting_deposit)}
         />
 
