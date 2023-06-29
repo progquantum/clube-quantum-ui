@@ -3,6 +3,8 @@ import dayjs from 'dayjs';
 
 import { useTheme } from 'styled-components';
 
+import { cpf } from 'cpf-cnpj-validator';
+
 import { Button } from 'components/Button';
 
 import { useMeOrderingData } from 'hooks/me/useOrderingData';
@@ -83,15 +85,22 @@ export function ConfirmRegistration({
                 <S.TextData>{OrderingData?.name}</S.TextData>
               </S.ContentRow>
               <S.ContentRow>
-                <S.TextStrong>CPF</S.TextStrong>
+                {cpf.isValid(OrderingData?.document) ? (
+                  <S.TextStrong>CPF</S.TextStrong>
+                ) : (
+                  <S.TextStrong>CNPJ</S.TextStrong>
+                )}
                 <S.TextData>{OrderingData?.document}</S.TextData>
               </S.ContentRow>
-              <S.ContentRow>
-                <S.TextStrong>Data de Nasc.</S.TextStrong>
-                <S.TextData>
-                  {dayjs(OrderingData?.birth_date).format('DD/MM/YYYY')}
-                </S.TextData>
-              </S.ContentRow>
+              {OrderingData?.birth_date && (
+                <S.ContentRow>
+                  <S.TextStrong>Data de Nasc.</S.TextStrong>
+                  <S.TextData>
+                    {dayjs(OrderingData?.birth_date).format('DD/MM/YYYY')}
+                  </S.TextData>
+                </S.ContentRow>
+              )}
+
               <S.ContentRow>
                 <S.TextStrong>Telefone Atual</S.TextStrong>
                 <S.TextData>{OrderingData?.phone}</S.TextData>
