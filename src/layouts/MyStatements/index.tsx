@@ -147,7 +147,9 @@ export function MyStatementsPage() {
             ) : (
               <>
                 <S.TotalEarningText>
-                  {formatPrice(String(data?.total_amount))}
+                  {formatPrice(
+                    data?.totalAmount ? String(data?.totalAmount) : '0,00',
+                  )}
                 </S.TotalEarningText>
                 <S.PartnerContainer>
                   {data?.commissions?.length === 0 && (
