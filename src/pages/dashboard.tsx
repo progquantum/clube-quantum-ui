@@ -15,7 +15,7 @@ export const getServerSideProps: GetServerSideProps = withSSRAuth(
 );
 
 export default function Dashboard() {
-  const { data } = useMe();
+  const { data, isLoading } = useMe();
 
-  return <DashboardPage data={data} />;
+  return <DashboardPage data={data} isLoading={isLoading} />;
 }
