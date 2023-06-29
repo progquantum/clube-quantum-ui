@@ -42,7 +42,7 @@ export function MainContent({ data }: { data: User }) {
             <FaShoppingBag />
             <S.MarketText>Marketplace Quantum</S.MarketText>
           </S.HeaderAccessMarket>
-          <Link href="/marketplace">
+          <Link style={{ width: '100%' }} href="/marketplace">
             <S.ButtonMarketplace>Acessar o marketplace</S.ButtonMarketplace>
           </Link>
         </S.AccessMarket>
