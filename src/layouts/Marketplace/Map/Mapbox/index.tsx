@@ -36,7 +36,7 @@ export function Mapbox({ lat, lng }: MapboxProps) {
       <div
         ref={mapContainer}
         className="map-container"
-        style={{ width: '100%' }}
+        style={{ width: '100%', height: '300px' }}
       />
     </div>
   );

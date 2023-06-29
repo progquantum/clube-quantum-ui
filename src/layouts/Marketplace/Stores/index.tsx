@@ -5,6 +5,8 @@ import { Form } from '@unform/web';
 import { PulseLoader } from 'react-spinners';
 import { useTheme } from 'styled-components';
 
+import { useMediaQuery } from '@mui/material';
+
 import { Loading } from 'components/Loading';
 import { Modal } from 'components/Modal';
 import { useBannersFindAll } from 'hooks/banners/useBannersFindAll';
@@ -37,6 +39,9 @@ export function Stores() {
   const [modalStatus, setModalStatus] = useState(false);
   const { data } = useBannersFindAll();
   const { colors } = useTheme();
+  const isMediumDevice = useMediaQuery(
+    'only screen and (min-width : 769px) and (max-width : 992px)',
+  );
 
   const handleRefetch = useCallback(() => {
     setFilterInput(prevState => ({
@@ -169,7 +174,7 @@ export function Stores() {
       <div ref={observerTarget} />
 
       {modalStatus && (
-        <Modal onClose={handleModalStatus}>
+        <Modal noDragBehavior onClose={handleModalStatus}>
           <FilterTags
             toggleSelectedCategory={toggleSelectedCategory}
             selectedCategory={filterInput.category_id}

@@ -147,7 +147,6 @@ export default createGlobalStyle`
 
   .map-container {
     height: 400px;
-    margin: 5rem 0;
   }
 
   .map-container canvas {
