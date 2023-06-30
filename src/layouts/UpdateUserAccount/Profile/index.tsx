@@ -13,7 +13,7 @@ export function Profile() {
   const [showModal, setShowModal] = useState(false);
 
   const { data } = useUserProfile();
-
+  console.log(data);
   const formattedBirthDate = data?.birth_date
     ?.slice(0, 10)
     .split('-')
@@ -39,8 +39,12 @@ export function Profile() {
         <h3>Nome</h3>
         <p>{data?.name}</p>
 
-        <h3>Data de Nascimento</h3>
-        <p>{formattedBirthDate}</p>
+        {formattedBirthDate && (
+          <>
+            <h3>Data de Nascimento</h3>
+            <p>{formattedBirthDate}</p>
+          </>
+        )}
 
         <h3>Telefone</h3>
         <p>{data?.phone}</p>
