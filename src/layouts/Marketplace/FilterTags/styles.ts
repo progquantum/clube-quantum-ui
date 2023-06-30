@@ -32,6 +32,10 @@ export const ScrollContainer = styled.div`
   }
   -ms-overflow-style: none; /* IE and Edge */
   scrollbar-width: none; /* Firefox */
+
+  @media (max-width: 450px) {
+    padding: 0;
+  }
 `;
 
 export const TagButton = styled.button<{ isSelected: boolean }>`
