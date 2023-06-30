@@ -51,7 +51,9 @@ export function FilterTags({
 
   return (
     <S.Container>
-      <SectionTitle>Filtrar</SectionTitle>
+      <div style={{ marginTop: '3rem' }}>
+        <SectionTitle>Filtrar</SectionTitle>
+      </div>
       <S.ScrollContainer ref={containerRef}>
         {categories &&
           categories.map((category: Category) => (

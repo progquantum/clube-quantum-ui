@@ -22,21 +22,25 @@ export function Services() {
   };
 
   return (
-    <S.ServiceContainer>
-      <SectionTitle>Serviços</SectionTitle>
-      {data?.partnerList.map(service => (
-        <Link key={service.id} href={link[service.name]}>
-          <ServiceCard>
-            <Image
-              src={image[service.name]}
-              alt={service.name}
-              width={90}
-              height={25}
-              objectFit="contain"
-            />
-          </ServiceCard>
-        </Link>
-      ))}
-    </S.ServiceContainer>
+    <>
+      <div style={{ marginTop: '3rem' }}>
+        <SectionTitle>Serviços</SectionTitle>
+      </div>
+      <S.ServiceContainer>
+        {data?.partnerList.map(service => (
+          <Link key={service.id} href={link[service.name]}>
+            <ServiceCard>
+              <Image
+                src={image[service.name]}
+                alt={service.name}
+                width={90}
+                height={25}
+                objectFit="contain"
+              />
+            </ServiceCard>
+          </Link>
+        ))}
+      </S.ServiceContainer>
+    </>
   );
 }

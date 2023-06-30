@@ -7,7 +7,4 @@ export const Title = styled.span`
   font-size: 1.25rem;
   color: ${({ theme }) => theme.colors.gray[700]};
   line-height: 150%;
-  @media (max-width: 600px) {
-    margin-left: 2rem;
-  }
 `;
