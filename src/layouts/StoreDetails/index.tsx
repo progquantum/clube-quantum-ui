@@ -44,6 +44,8 @@ export function StoreDetails({
                 src={establishment.MarketplaceImages[1].url}
                 title={establishment.corporate_name}
                 alt=""
+                sizes="100vw"
+                priority
               />
             </S.Container>
             <StoreProfile establishment={establishment} />

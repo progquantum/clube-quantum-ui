@@ -31,6 +31,7 @@ import { Map } from '../../Marketplace/Map';
 
 import * as S from './styles';
 import { DaysOfWeek } from './types';
+import { GoogleMap } from '../GoogleMap';
 
 export function StoreProfile({
   establishment,
@@ -192,7 +193,7 @@ export function StoreProfile({
           )}
           <S.SubTitle>Horário de funcionamento</S.SubTitle>
           {groupedOpeningHours.map(openingHours => (
-            <>
+            <div key={`openingHours-${Math.random() * 1000}`}>
               <S.TextInfo>
                 {DaysOfWeek[openingHours.first_day]} à{' '}
                 {DaysOfWeek[openingHours.last_day]}
@@ -200,7 +201,7 @@ export function StoreProfile({
               <S.TextInfo>
                 Das {openingHours.opening_time} às {openingHours.closing_time}
               </S.TextInfo>
-            </>
+            </div>
           ))}
         </S.ContentInfo>
         <S.ContentInfo>
@@ -217,10 +218,10 @@ export function StoreProfile({
       <S.TextInfo>
         R. Santa Madalena, 31 - Liberdade, São Paulo - SP, 01322-020
       </S.TextInfo>
-      <Map
-        latitude={Number(establishment.lat_location)}
-        longitude={Number(establishment.long_location)}
-        isEstablishmentProfile
+      <GoogleMap
+        corporateName={establishment.corporate_name}
+        lat={Number(establishment.lat_location)}
+        long={Number(establishment.long_location)}
       />
       <S.SubTitle>Você também pode gostar de</S.SubTitle>
       {!isLoading && !recommendedEstablishments ? (
@@ -240,12 +241,17 @@ export function StoreProfile({
               recommendedEstablishments.info.totalEstablishment === 1
             )
               return (
-                <S.FallbackText>
+                <S.FallbackText key={`fallbacktext${Math.random() * 1000}`}>
                   Nenhum estabelecimento para recomendar
                 </S.FallbackText>
               );
 
-            return <InlineCard establishment={recommendedEstablishment} />;
+            return (
+              <InlineCard
+                key={recommendedEstablishment.id}
+                establishment={recommendedEstablishment}
+              />
+            );
           },
         )
       )}
