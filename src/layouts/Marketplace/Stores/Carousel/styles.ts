@@ -78,6 +78,7 @@ export const Slide = styled.div`
 
   @media (max-width: 450px) {
     height: 163px;
+    margin-left: 0.5rem;
   }
 
   & img {
