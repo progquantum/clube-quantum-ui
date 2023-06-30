@@ -159,6 +159,7 @@ export function InfoEstablishment() {
                       success('Imagem enviada com sucesso');
                     },
                     onError: err => {
+                      console.log(err);
                       if (err instanceof AxiosError) {
                         error(err.message);
                       }
@@ -265,35 +266,39 @@ export function InfoEstablishment() {
 
   const handleEstablishments = (e: PosUser) => {
     setUser(e);
-    setFantasyName(e.establishment_pos.corporate_name);
     setMainPhone(e.phone);
-    setMainPhoneHasWhatsApp(
-      e.establishment_pos.contacts.main_phone_has_whatsapp,
-    );
-    if (Object.hasOwn(e.establishment_pos.contacts, 'cel_phone')) {
-      setCellPhone(e.establishment_pos.contacts.cel_phone);
-    }
-    if (Object.hasOwn(e.establishment_pos.contacts, 'whatsapp_phone')) {
-      setWhatsAppPhone(e.establishment_pos.contacts.whatsapp_phone);
-    }
-    setCellPhoneHasWhatsApp(
-      e.establishment_pos.contacts.cel_phone_has_whatsapp,
-    );
-    setCategoryName(e.category?.name);
-    setCategoryId(e.category?.id);
-    const lat = e.establishment_pos.lat_location;
-    const long = e.establishment_pos.long_location;
-    if (lat && long) {
-      setCoordinates(`${lat}, ${long}`);
+    console.log(e);
+    if (Object.keys(e.establishment_pos).length > 0) {
+      setFantasyName(e.establishment_pos.corporate_name);
+      setMainPhoneHasWhatsApp(
+        e.establishment_pos.contacts.main_phone_has_whatsapp,
+      );
+      if (Object.hasOwn(e.establishment_pos.contacts, 'cel_phone')) {
+        setCellPhone(e.establishment_pos.contacts.cel_phone);
+      }
+      if (Object.hasOwn(e.establishment_pos.contacts, 'whatsapp_phone')) {
+        setWhatsAppPhone(e.establishment_pos.contacts.whatsapp_phone);
+      }
+      setCellPhoneHasWhatsApp(
+        e.establishment_pos.contacts.cel_phone_has_whatsapp,
+      );
+      setCoordinates(
+        `${e.establishment_pos.lat_location}, ${e.establishment_pos.long_location}`,
+      );
+      setAbout(e.establishment_pos.about);
     }
 
-    if (e.MarketplaceImages) {
+    if (Object.keys(e.category).length > 0) {
+      setCategoryName(e.category?.name);
+      setCategoryId(e.category?.id);
+    }
+
+    if (e.MarketplaceImages.length > 0) {
       setLogo(e.MarketplaceImages[0].url, {} as File);
       setBanner(e.MarketplaceImages[1].url, {} as File);
     }
 
-    setAbout(e.establishment_pos.about);
-    if (e.establishment_pos_working_hours) {
+    if (e.establishment_pos_working_hours.length > 0) {
       e.establishment_pos_working_hours.map(item =>
         setOpenDays(item.id, item.day_of_week),
       );
@@ -325,7 +330,7 @@ export function InfoEstablishment() {
         ),
       );
     }
-    if (e.PosSerialNumber) {
+    if (e.PosSerialNumber.length > 0) {
       e.PosSerialNumber.map(item => setMachinePos(item.id, item.serial_number));
     }
   };

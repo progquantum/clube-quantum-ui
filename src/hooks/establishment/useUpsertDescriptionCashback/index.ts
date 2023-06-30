@@ -30,6 +30,15 @@ export async function upsertDescriptionCashback(props: DescriptionCashback) {
           'A soma do cashback do cliente e do adm cashback deve ser igual ao cashback total!',
         );
       }
+
+      if (
+        err.response.data.message[0] ===
+        'hours_opening.2.Invalid hour, follow pattern HH:MM, example: 14:30'
+      ) {
+        error(
+          'Horários de funcionamento precisam seguir o padrão HH:MM, exemplo 09:30',
+        );
+      }
     }
 
     return Promise.reject(error);
