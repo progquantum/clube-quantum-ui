@@ -13,7 +13,7 @@ export function Profile() {
   const [showModal, setShowModal] = useState(false);
 
   const { data } = useUserProfile();
-  console.log(data);
+
   const formattedBirthDate = data?.birth_date
     ?.slice(0, 10)
     .split('-')
