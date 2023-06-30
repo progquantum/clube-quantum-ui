@@ -8,6 +8,8 @@ import { useRef } from 'react';
 
 import { AxiosError } from 'axios';
 
+import { cpf } from 'cpf-cnpj-validator';
+
 import { Button } from 'components/Button';
 
 import { Input } from 'components/Input';
@@ -61,7 +63,7 @@ export function ConfirmPayment({
           } = orderingData;
 
           const requestBody = {
-            birthDate,
+            ...(cpf.isValid(orderingData.document) ? { birthDate } : {}),
             cep,
             uf,
             ...restAddress,
