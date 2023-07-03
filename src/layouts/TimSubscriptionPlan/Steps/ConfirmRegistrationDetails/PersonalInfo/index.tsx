@@ -1,12 +1,12 @@
+import { cpf } from 'cpf-cnpj-validator';
+
 import { FieldInfo } from 'layouts/TimSubscriptionPlan/Components/FieldInfo';
 
 import { GenericCard } from '../GenericCard';
 import { PersonalInfoProps } from './types';
 
 export function PersonalInfo({ loggedUser }: PersonalInfoProps) {
-  const regexCpf =
-    /([0-9]{2}[.]?[0-9]{3}[.]?[0-9]{3}[/]?[0-9]{4}[-]?[0-9]{2})|([0-9]{3}[.]?[0-9]{3}[.]?[0-9]{3}[-]?[0-9]{2})/;
-  const isCpf = regexCpf.test(loggedUser?.document);
+  const isCpf = cpf.isValid(loggedUser?.document);
 
   return (
     <GenericCard title="Informações pessoais">
@@ -18,15 +18,16 @@ export function PersonalInfo({ loggedUser }: PersonalInfoProps) {
         <span>{isCpf ? 'CPF' : 'CNPJ'}</span>
         <span>{loggedUser?.document}</span>
       </FieldInfo>
-      <FieldInfo>
-        <span>Data de Nasc.</span>
-        <span>
-          {loggedUser &&
-            new Intl.DateTimeFormat('pt-BR').format(
+      {loggedUser?.birth_date && (
+        <FieldInfo>
+          <span>Data de Nasc.</span>
+          <span>
+            {new Intl.DateTimeFormat('pt-BR').format(
               new Date(loggedUser?.birth_date),
             )}
-        </span>
-      </FieldInfo>
+          </span>
+        </FieldInfo>
+      )}
       <FieldInfo>
         <span>Telefone Atual</span>
         <span>{loggedUser?.phone}</span>
