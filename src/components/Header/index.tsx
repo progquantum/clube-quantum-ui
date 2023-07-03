@@ -38,7 +38,7 @@ export function Header({
                   />
                 </Link>
               </S.LogoContainer>
-              <div />
+              <div style={{ width: '50px', height: '50px' }} />
             </>
           ) : (
             <>

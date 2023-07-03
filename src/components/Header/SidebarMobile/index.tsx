@@ -5,11 +5,17 @@ import { FiLogOut } from 'react-icons/fi';
 
 import { useTheme } from 'styled-components';
 
+import { QueryClient } from 'react-query';
+
 import { useAuthDispatch } from 'contexts/auth/AuthContext';
 
 import { DROP_DOWN_ANIMATION } from 'components/Header/animation';
 
 import { MARKETPLACE_PAGE, SIGN_IN_PAGE } from 'constants/routesPath';
+
+import { QUERY_KEY_FIND_ME, useMe } from 'hooks/me/useMe';
+
+import { User } from 'shared/types/apiSchema';
 
 import * as S from './styles';
 import { AuthLink, GuestLink, SidebarMobileProps } from './types';
@@ -20,6 +26,7 @@ export function SideBarMobile({ isAuthed, links }: SidebarMobileProps) {
   const animatedContainerRef = useRef<HTMLDivElement>(null);
   const { signOut } = useAuthDispatch();
   const handleSidebarState = () => setIsSidebarOpen(prevState => !prevState);
+  const { data } = useMe();
 
   useEffect(() => {
     if (isSidebarOpen) {
@@ -48,14 +55,31 @@ export function SideBarMobile({ isAuthed, links }: SidebarMobileProps) {
                   <S.StyledButton href={MARKETPLACE_PAGE}>
                     <span>Acessar o Marketplace</span>
                   </S.StyledButton>
-                  {links.map((link: AuthLink) => (
-                    <S.MenuItem
-                      href={link.href}
-                      key={`item-${link.title}-${link.href}`}
-                    >
-                      {link.icon} <p>{link.title}</p>
-                    </S.MenuItem>
-                  ))}
+                  {links.map((link: AuthLink) => {
+                    if (link.title === 'Minhas vendas') {
+                      return (
+                        <S.EstablishmentContainer
+                          hasEstablishment={data?.has_establishment}
+                          key={`container${link.title}-${link.href}`}
+                        >
+                          <S.MenuItem
+                            href={data?.has_establishment ? link.href : {}}
+                            key={`item-${link.title}-${link.href}-2`}
+                          >
+                            {link.icon} <p>{link.title}</p>
+                          </S.MenuItem>
+                        </S.EstablishmentContainer>
+                      );
+                    }
+                    return (
+                      <S.MenuItem
+                        href={link.href}
+                        key={`item-${link.title}-${link.href}`}
+                      >
+                        {link.icon} <p>{link.title}</p>
+                      </S.MenuItem>
+                    );
+                  })}
                   <S.SignOutButton onClick={signOut}>
                     <p>Sair</p>
                     <FiLogOut size={20} />

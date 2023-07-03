@@ -1,4 +1,4 @@
-import styled from 'styled-components';
+import styled, { css } from 'styled-components';
 import Link from 'next/link';
 import { motion } from 'framer-motion';
 
@@ -12,7 +12,6 @@ export const SideBarMobileContainer = styled.div`
   padding-top: 1.5rem;
   display: flex;
   flex-direction: column;
-  gap: 1rem;
 `;
 
 export const Backdrop = styled.div`
@@ -35,9 +34,8 @@ export const Container = styled.div`
 
 export const MenuItem = styled(Link)`
   border-bottom: 1px solid ${({ theme }) => theme.colors.gray[100]};
-  padding: 1rem 0.2rem 0.6rem;
+  padding: 1rem 0.2rem 1rem;
   margin: 0 0.5rem;
-
   display: flex;
   align-items: center;
   gap: 1rem;
@@ -81,3 +79,18 @@ export const StyledButton = styled(Link)`
 `;
 
 export const AnimatedContainer = styled(motion.nav)``;
+
+export const EstablishmentContainer = styled.div<{
+  hasEstablishment: boolean;
+}>`
+  ${({ hasEstablishment, theme }) =>
+    !hasEstablishment &&
+    css`
+      background-color: ${theme.colors.gray[100]};
+      color: ${theme.colors.gray[300]};
+      border-radius: 0 0 0.2rem 0.2rem;
+      & svg {
+        color: ${theme.colors.gray[300]};
+      }
+    `}
+`;

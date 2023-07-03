@@ -126,15 +126,13 @@ export const StoreOpeningHours = styled.p`
 export const ContentCashBack = styled.div`
   display: flex;
   align-items: center;
-  width: 188px;
-  height: 32px;
+  width: max-content;
   font-size: 16px;
   background: ${({ theme }) => theme.gradients.midnightBlueToMediumsLateBlue};
   color: ${({ theme }) => theme.colors.ghostwhite};
   border-radius: 5px;
   padding: 4px 8px;
   gap: 10px;
-
   @media (max-width: 414px) {
     width: 141px;
     font-size: 12px;
@@ -211,8 +209,7 @@ export const ContainerInfo = styled(ContentRow)`
 export const ContentInfo = styled(ContentColumn)`
   max-width: max-content;
   gap: 0.3rem;
-  flex: 1 0 auto;
-
+  flex: 1 1 auto;
   h2 {
     margin-bottom: 12px;
   }

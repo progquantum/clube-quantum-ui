@@ -2,7 +2,7 @@ export type RequestBodyPos = {
   name: string;
   document: string;
   email: string;
-  birthDate: string;
+  birthDate?: string;
   country: string;
   uf: string;
   city: string;

@@ -60,7 +60,7 @@ export function DashboardPos() {
   const { data, isLoading } = useGetEstablishment();
   const router = useRouter();
 
-  if (!data) router.push(DASHBOARD_PAGE);
+  if (!data && !isLoading) router.push(DASHBOARD_PAGE);
 
   const {
     data: sales,

@@ -4,6 +4,8 @@ import { AxiosError } from 'axios';
 
 import { useRouter } from 'next/router';
 
+import { cpf } from 'cpf-cnpj-validator';
+
 import { FlowButton } from 'layouts/TimSubscriptionPlan/Components/FlowButton';
 import { PlanSectionTitle } from 'layouts/TimSubscriptionPlan/Components/PlanSectionTitle';
 import { SelectedPlan } from 'layouts/TimSubscriptionPlan/Components/SelectedPlan';
@@ -82,7 +84,7 @@ export function ConfirmPaymentsDetails() {
         } = orderingData;
 
         const requestBodyContract = {
-          birthDate,
+          ...(cpf.isValid(orderingData.document) ? { birthDate } : {}),
           cep,
           uf,
           isPortability,
