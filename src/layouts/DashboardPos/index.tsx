@@ -143,6 +143,10 @@ export function DashboardPos() {
     ELO: <EloIcon width="41.76px" height="16px" />,
     AMERICAN_EXPRESS: <AmericanExpressIcon width="16px" height="16px" />,
   };
+
+  const isByPeriodFilter = filter === 'período';
+  const isBySpecificDate = filter === 'específica';
+
   return (
     <DashboardLayout maxWidth="1736px">
       {isLoading ? (
@@ -183,17 +187,17 @@ export function DashboardPos() {
             <S.CNPJData>ID: {data?.id}</S.CNPJData>
           </S.DivCnpj>
           <S.DivRow>
-            {filter.toLowerCase() === 'período' ? (
+            {isByPeriodFilter ? (
               <>
                 <S.ButtonUnderline
-                  filter={filter === 'período'}
+                  filter={isByPeriodFilter}
                   variant="transparent"
                   onClick={() => setFilter('período')}
                 >
                   Filtro por Período
                 </S.ButtonUnderline>
                 <S.ButtonUnderline
-                  filter={filter === 'especifica'}
+                  filter={isBySpecificDate}
                   variant="transparent"
                   onClick={handleFilterDate}
                 >
@@ -203,14 +207,14 @@ export function DashboardPos() {
             ) : (
               <>
                 <S.ButtonUnderline
-                  filter={filter === 'especifica'}
+                  filter={isBySpecificDate}
                   variant="transparent"
                   onClick={handleFilterDate}
                 >
                   Filtro por Data Específica
                 </S.ButtonUnderline>
                 <S.ButtonUnderline
-                  filter={filter === 'período'}
+                  filter={isByPeriodFilter}
                   variant="transparent"
                   onClick={() => setFilter('período')}
                 >
