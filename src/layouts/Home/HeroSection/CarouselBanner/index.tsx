@@ -45,6 +45,7 @@ export function CarouselBanner() {
           <Link href={POS_PAGE}>
             <S.ImageContainer>
               <Image
+                onClick={() => setPreviousPage(POS_PAGE)}
                 src={banners.pos}
                 alt="Máquina Pos"
                 style={{ cursor: 'pointer', objectFit: 'fill' }}
