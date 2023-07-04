@@ -40,7 +40,7 @@ export function PaymentMethodPieChart({ payment_method }: PaymentMethodProps) {
     const y = cy + radius * Math.sin(-midAngle * RADIAN);
 
     return (
-      <text
+      <Text
         x={x}
         y={y}
         fill="white"
@@ -48,7 +48,7 @@ export function PaymentMethodPieChart({ payment_method }: PaymentMethodProps) {
         dominantBaseline="central"
       >
         {`${(percent * 100).toFixed(0)}%`}
-      </text>
+      </Text>
     );
   };
   return (
