@@ -12,6 +12,7 @@ export type Filter = {
 };
 
 export interface SalesProps {
+  salesPerPeriod: string;
   payment_method: PaymentMethod;
   sales_by_client: SalesByClient;
   card_brand: CardBrand[];
