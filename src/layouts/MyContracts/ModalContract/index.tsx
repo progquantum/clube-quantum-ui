@@ -6,9 +6,11 @@ import { useRouter } from 'next/router';
 
 import dayjs from 'dayjs';
 
-import { Modal } from 'components/Modal';
+import { PulseLoader } from 'react-spinners';
 
-import { colors } from 'styles/theme/colors';
+import { useTheme } from 'styled-components';
+
+import { Modal } from 'components/Modal';
 
 import { Button } from 'components/Button';
 
@@ -18,6 +20,8 @@ import { useGetContractByKey } from 'hooks/useContracts/useGetContractByKey';
 
 import { formatPrice } from 'utils/formatters/formatPrice';
 
+import { Loading } from 'components/Loading';
+
 import { Props } from './types';
 import * as S from './styles';
 
@@ -26,10 +30,10 @@ export function ModalContract({
   onRequestModalCancel,
   contract,
 }: Props) {
-  const { data: contractDetailedInfo } = useGetContractByKey(
+  const { data: contractDetailedInfo, isLoading } = useGetContractByKey(
     contract.document_key,
   );
-
+  const { colors } = useTheme();
   const handleOpenModalCancel = () => {
     onRequestClose();
     onRequestModalCancel();
@@ -46,84 +50,99 @@ export function ModalContract({
   return (
     <Modal data-cy="modalContract" onClose={onRequestClose}>
       <S.Container>
-        <S.Column>
-          <S.Text>
-            <MdAssignmentInd size={19.87} color={colors.mediumslateBlue} />
-            Informações pessoais
-          </S.Text>
-          <S.Title>
-            Contrato {contractDetailedInfo?.contract_information.plan_name}
-          </S.Title>
-          <S.Text>ID - {contract.id}</S.Text>
-          <S.ContentRow>
-            <S.TextStrong>Nome</S.TextStrong>
-            <S.TextData>
-              {contractDetailedInfo?.personal_information.name}
-            </S.TextData>
-          </S.ContentRow>
-          <S.ContentRow>
-            <S.TextStrong>Data de Nasc.</S.TextStrong>
-            <S.TextData>
-              {dayjs(contractDetailedInfo?.personal_information.birth_date)
-                .add(1, 'day')
-                .format('DD/MM/YYYY')}
-            </S.TextData>
-          </S.ContentRow>
-          <S.ContentRow>
-            <S.TextStrong>E-mail</S.TextStrong>
-            <S.TextData>
-              {contractDetailedInfo?.personal_information.email}
-            </S.TextData>
-          </S.ContentRow>
-        </S.Column>
-        <S.Column>
-          <S.Text>
-            <FaShoppingBag size={19.87} color={colors.mediumslateBlue} />
-            Informações de produto contratado
-          </S.Text>
-          <S.ContentRow>
-            <S.TextStrong>Produto</S.TextStrong>
-            <S.TextData>
-              Plano {contractDetailedInfo?.contract_information.plan_name}
-            </S.TextData>
-          </S.ContentRow>
-          {!isQuantumSmart && (
-            <>
+        {isLoading ? (
+          <S.LoadingContainer>
+            <Loading
+              icon={PulseLoader}
+              color={colors.mediumslateBlue}
+              size={12}
+            />
+          </S.LoadingContainer>
+        ) : (
+          <>
+            <S.Column>
+              <S.Text>
+                <MdAssignmentInd size={19.87} color={colors.mediumslateBlue} />
+                Informações pessoais
+              </S.Text>
+              <S.Title>
+                Contrato {contractDetailedInfo?.contract_information.plan_name}
+              </S.Title>
+              <S.Text>ID - {contract.id}</S.Text>
               <S.ContentRow>
-                <S.TextStrong>Número do telefone</S.TextStrong>
+                <S.TextStrong>Nome</S.TextStrong>
                 <S.TextData>
-                  {contractDetailedInfo?.contract_information.phone_number}
+                  {contractDetailedInfo?.personal_information.name}
                 </S.TextData>
               </S.ContentRow>
               <S.ContentRow>
-                <S.TextStrong>DDD</S.TextStrong>
+                <S.TextStrong>Data de Nasc.</S.TextStrong>
                 <S.TextData>
-                  {contractDetailedInfo?.contract_information.area_code}
+                  {dayjs(contractDetailedInfo?.personal_information.birth_date)
+                    .add(1, 'day')
+                    .format('DD/MM/YYYY')}
                 </S.TextData>
               </S.ContentRow>
-            </>
-          )}
-          <S.ContentRow>
-            <S.TextStrong>Valor da mensalidade</S.TextStrong>
-            <S.TextData>
-              {formatPrice(
-                String(contractDetailedInfo?.contract_information.monthly_fee),
+              <S.ContentRow>
+                <S.TextStrong>E-mail</S.TextStrong>
+                <S.TextData>
+                  {contractDetailedInfo?.personal_information.email}
+                </S.TextData>
+              </S.ContentRow>
+            </S.Column>
+            <S.Column>
+              <S.Text>
+                <FaShoppingBag size={19.87} color={colors.mediumslateBlue} />
+                Informações de produto contratado
+              </S.Text>
+              <S.ContentRow>
+                <S.TextStrong>Produto</S.TextStrong>
+                <S.TextData>
+                  Plano {contractDetailedInfo?.contract_information.plan_name}
+                </S.TextData>
+              </S.ContentRow>
+              {!isQuantumSmart && (
+                <>
+                  <S.ContentRow>
+                    <S.TextStrong>Número do telefone</S.TextStrong>
+                    <S.TextData>
+                      {contractDetailedInfo?.contract_information.phone_number}
+                    </S.TextData>
+                  </S.ContentRow>
+                  <S.ContentRow>
+                    <S.TextStrong>DDD</S.TextStrong>
+                    <S.TextData>
+                      {contractDetailedInfo?.contract_information.area_code}
+                    </S.TextData>
+                  </S.ContentRow>
+                </>
               )}
-            </S.TextData>
-          </S.ContentRow>
-          <S.ContentRow>
-            <S.TextStrong>Data da aquisição</S.TextStrong>
-            <S.TextData>
-              {contractDetailedInfo?.contract_information.date_of_acquisition &&
-                formatDate(
-                  String(
-                    contractDetailedInfo?.contract_information
-                      .date_of_acquisition,
-                  ),
-                )}
-            </S.TextData>
-          </S.ContentRow>
-        </S.Column>
+              <S.ContentRow>
+                <S.TextStrong>Valor da mensalidade</S.TextStrong>
+                <S.TextData>
+                  {formatPrice(
+                    String(
+                      contractDetailedInfo?.contract_information.monthly_fee,
+                    ),
+                  )}
+                </S.TextData>
+              </S.ContentRow>
+              <S.ContentRow>
+                <S.TextStrong>Data da aquisição</S.TextStrong>
+                <S.TextData>
+                  {contractDetailedInfo?.contract_information
+                    .date_of_acquisition &&
+                    formatDate(
+                      String(
+                        contractDetailedInfo?.contract_information
+                          .date_of_acquisition,
+                      ),
+                    )}
+                </S.TextData>
+              </S.ContentRow>
+            </S.Column>
+          </>
+        )}
         <S.ButtonContainer>
           <Button
             onClick={handleDownloadContract}
