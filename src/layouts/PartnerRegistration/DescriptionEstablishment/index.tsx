@@ -6,8 +6,6 @@ import { Form } from '@unform/web';
 import { FormHandles, SubmitHandler } from '@unform/core';
 import { useTheme } from 'styled-components';
 
-import { AxiosError } from 'axios';
-
 import { Button } from 'components/Button';
 
 import { TextArea } from 'components/TextArea';
@@ -308,9 +306,6 @@ export function DescriptionEstablishment() {
             {
               onSuccess: () => {
                 nextStep();
-              },
-              onError: (err: unknown) => {
-                console.log(err);
               },
             },
           );

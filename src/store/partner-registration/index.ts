@@ -83,7 +83,7 @@ export const usePartnerStore = create(
       },
       setRemoveOpenHours: (id: string) => {
         set(state => {
-          const nextState = produce(state.openHours, draft => {
+          const nextState = produce(state.openHours, () => {
             const newOpenHours = state.openHours.filter(item => item.id !== id);
             return newOpenHours;
           });
@@ -229,7 +229,7 @@ export const usePartnerStore = create(
       },
       setRemoveCashBackRules: (id: string) => {
         set(state => {
-          const nextState = produce(state.cashBackRules, draft => {
+          const nextState = produce(state.cashBackRules, () => {
             const newCashBackRule = state.cashBackRules.filter(
               item => item.id !== id,
             );

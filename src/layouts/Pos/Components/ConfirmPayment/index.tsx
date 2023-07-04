@@ -76,9 +76,6 @@ export function ConfirmPayment({
               handleGetContractData(data);
               onNextStep();
             },
-            onError: error => {
-              console.log(error);
-            },
           });
         },
 

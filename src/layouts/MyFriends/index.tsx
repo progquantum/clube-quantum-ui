@@ -3,7 +3,6 @@
 import ReactPaginate from 'react-paginate';
 
 import { IoIosArrowBack, IoIosArrowForward } from 'react-icons/io';
-import { RiUserStarLine } from 'react-icons/ri';
 import { BsFillPersonPlusFill, BsPersonBadge } from 'react-icons/bs';
 
 import Link from 'next/link';

@@ -29,8 +29,6 @@ import { Checkbox } from 'components/Checkbox';
 import { formatUF } from 'utils/formatters/formatUF';
 import { getZipCode } from 'services/resources';
 
-import { quantumClientQueue } from 'config/client';
-
 import {
   REFRESH_TOKEN_STORAGE_KEY,
   TOKEN_STORAGE_KEY,

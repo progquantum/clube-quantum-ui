@@ -2,8 +2,6 @@ import { RiBankCard2Line, RiBankLine, RiStackLine } from 'react-icons/ri';
 
 import { IoReturnDownBackSharp } from 'react-icons/io5';
 
-import { useCookie } from 'react-use';
-
 import { parseCookies } from 'nookies';
 
 import { useSubscription } from 'hooks/subscriptions/useSubscription';

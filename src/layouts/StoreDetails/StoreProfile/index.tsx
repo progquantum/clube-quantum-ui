@@ -27,8 +27,6 @@ import { Loading } from 'components/Loading';
 
 import { InlineCard } from 'layouts/Marketplace/Stores/InlineCard';
 
-import { Map } from '../../Marketplace/Map';
-
 import * as S from './styles';
 import { DaysOfWeek } from './types';
 import { GoogleMap } from '../GoogleMap';

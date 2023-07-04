@@ -29,7 +29,6 @@ export function SalesByClientPieChart({ sales_by_client }: SalesByClientProps) {
   const areAllValuesZero = data.every(item => Number(item.value) === 0);
   const isSidebarOpen = useSidebarStore(state => state.isExpanded);
 
-  console.log(data);
   const RADIAN = Math.PI / 180;
   const renderCustomizedLabel = ({
     cx,

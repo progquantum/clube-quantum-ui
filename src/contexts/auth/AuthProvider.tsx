@@ -18,7 +18,7 @@ import {
   REFRESH_TOKEN_STORAGE_KEY,
   REGISTER_USER_STORAGE_KEY,
 } from 'constants/storage';
-import { DASHBOARD_PAGE, SIGN_IN_PAGE } from 'constants/routesPath';
+import { SIGN_IN_PAGE } from 'constants/routesPath';
 import { quantumClientQueue } from 'config/client';
 import { logOut } from 'helpers/auth/logOut';
 

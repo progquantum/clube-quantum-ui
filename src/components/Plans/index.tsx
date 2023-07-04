@@ -13,8 +13,6 @@ import { formatFirstLetterToUppercase } from 'utils/formatters/formatFirstLetter
 
 import { useMe } from 'hooks/me/useMe';
 
-import { quantumClientQueue } from 'config/client';
-
 import {
   Periods,
   PlanDurationProps,

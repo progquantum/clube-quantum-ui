@@ -57,7 +57,6 @@ export function ModalCancel({ onRequestClose, contract }: Props) {
     });
   };
 
-  console.log(contract);
   return (
     <Modal data-cy="modalCancel" onClose={onRequestClose}>
       <S.Container

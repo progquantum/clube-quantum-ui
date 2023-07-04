@@ -64,16 +64,12 @@ const monthly_fee = {
   12: 'Anual',
 };
 
-const conditions =
-  'Utilização do Cartão BANCO UM VISA, em compras com transações totalizando(soma das transações) no valor mínimo de R$ 500,00 no mês anterior';
-
 export function PlanSummary() {
   const {
     data: { subscription },
   } = useMe();
 
   const [selectedAdvantage, setSelectedAdvantage] = useState(null);
-  const [seeMoreConditon, setSeeMoreConditon] = useState(false);
   const [maxLength, setMaxLength] = useState(29);
   const isExpanded = useSidebarStore(state => state.isExpanded);
 
