@@ -15,7 +15,6 @@ const nextConfig = {
       {
         protocol: 'https',
         hostname: 'clubequantum-assets.s3.amazonaws.com',
-        port: '',
         pathname: '/establishments/**',
       },
     ],
