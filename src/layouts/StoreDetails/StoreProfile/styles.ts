@@ -191,6 +191,7 @@ export const SubTitle = styled.h2`
   font-weight: 700;
   font-size: 20px;
   line-height: 150%;
+  margin-bottom: 15px;
   color: ${({ theme }) => theme.colors.gray[700]};
 
   @media (max-width: 414px) {
@@ -251,4 +252,22 @@ export const LoadingContainer = styled.div`
 export const FallbackText = styled.h3`
   text-align: center;
   margin: 5rem 0 0;
+`;
+
+export const ContainerInlineCard = styled.div`
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  column-gap: 2rem;
+  row-gap: 2rem;
+
+  @media (max-width: 1476px) {
+    grid-template-columns: repeat(2, 1fr);
+  }
+  @media (max-width: 767px) {
+    display: flex;
+    flex-direction: column;
+    gap: 2rem;
+    justify-content: center;
+    align-items: center;
+  }
 `;

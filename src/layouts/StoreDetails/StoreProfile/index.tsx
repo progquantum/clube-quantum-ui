@@ -30,6 +30,8 @@ import { Loading } from 'components/Loading';
 
 import { InlineCard } from 'layouts/Marketplace/Stores/InlineCard';
 
+import { loader } from 'utils/googleMapsLoader';
+
 import { DaysOfWeek } from './types';
 import { GoogleMap } from '../GoogleMap';
 import * as S from './styles';
@@ -98,13 +100,6 @@ export function StoreProfile({
     establishment.establishment_pos_working_hours,
   );
 
-  const apiKey = process.env.NEXT_PUBLIC_GOOGLE_MAPS_API_KEY;
-  const loader = new Loader({
-    apiKey,
-    version: 'weekly',
-    libraries: ['places'],
-  });
-
   const getAddressFromLatLng = async (
     lat: number,
     lng: number,
@@ -151,7 +146,7 @@ export function StoreProfile({
           <S.Logo>
             <Image
               fill
-              src={establishment.MarketplaceImages[0].url}
+              src={establishment.MarketplaceImages[0]?.url}
               alt={establishment.corporate_name}
               title={establishment.corporate_name}
             />
@@ -270,37 +265,40 @@ export function StoreProfile({
         long={Number(establishment.long_location)}
       />
       <S.SubTitle>Você também pode gostar de</S.SubTitle>
-      {!isLoading && !recommendedEstablishments ? (
-        <S.LoadingContainer>
-          <Loading
-            icon={PulseLoader}
-            color={colors.mediumslateBlue}
-            size={20}
-          />
-          <h4>Carregando</h4>
-        </S.LoadingContainer>
-      ) : (
-        recommendedEstablishments?.establishment.map(
-          recommendedEstablishment => {
-            if (
-              recommendedEstablishment.id === establishment.id &&
-              recommendedEstablishments.info.totalEstablishment === 1
-            )
-              return (
-                <S.FallbackText key={`fallbacktext${Math.random() * 1000}`}>
-                  Nenhum estabelecimento para recomendar
-                </S.FallbackText>
-              );
+      <S.ContainerInlineCard style={{ display: 'flex' }}>
+        {!isLoading && !recommendedEstablishments ? (
+          <S.LoadingContainer>
+            <Loading
+              icon={PulseLoader}
+              color={colors.mediumslateBlue}
+              size={20}
+            />
+            <h4>Carregando</h4>
+          </S.LoadingContainer>
+        ) : (
+          recommendedEstablishments?.establishment.map(
+            recommendedEstablishment => {
+              if (
+                recommendedEstablishment.id === establishment.id &&
+                recommendedEstablishments.info.totalEstablishment === 1
+              )
+                return (
+                  <S.FallbackText key={`fallbacktext${Math.random() * 1000}`}>
+                    Nenhum estabelecimento para recomendar
+                  </S.FallbackText>
+                );
 
-            return (
-              <InlineCard
-                key={recommendedEstablishment.id}
-                establishment={recommendedEstablishment}
-              />
-            );
-          },
-        )
-      )}
+              return (
+                <InlineCard
+                  key={recommendedEstablishment.id}
+                  establishment={recommendedEstablishment}
+                />
+              );
+            },
+          )
+        )}
+      </S.ContainerInlineCard>
+
       <S.CommerceContainer />
     </S.Container>
   );
