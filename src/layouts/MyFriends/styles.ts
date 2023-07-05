@@ -84,6 +84,7 @@ export const AmountFriends = styled.div`
   p {
     color: ${({ theme }) => theme.colors.mediumslateBlue};
     font-weight: 500;
+    margin-bottom: 0;
   }
 
   &::before {
