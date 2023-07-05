@@ -31,6 +31,7 @@ import { Loading } from 'components/Loading';
 import { InlineCard } from 'layouts/Marketplace/Stores/InlineCard';
 
 import { loader } from 'utils/googleMapsLoader';
+
 import { DaysOfWeek } from './types';
 import { GoogleMap } from '../GoogleMap';
 import * as S from './styles';
