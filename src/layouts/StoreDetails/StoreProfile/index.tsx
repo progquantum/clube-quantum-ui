@@ -1,5 +1,6 @@
 /* eslint-disable react/no-unescaped-entities */
 import Image from 'next/image';
+import { Loader } from '@googlemaps/js-api-loader';
 
 import { BiTimeFive } from 'react-icons/bi';
 
@@ -10,6 +11,8 @@ import { useTheme } from 'styled-components';
 import { getHours } from 'date-fns';
 
 import { PulseLoader } from 'react-spinners';
+
+import { useState } from 'react';
 
 import AmericanExpressIcon from 'components/Illustrations/AmericanExpress';
 import EloIcon from 'components/Illustrations/Elo';
@@ -27,17 +30,18 @@ import { Loading } from 'components/Loading';
 
 import { InlineCard } from 'layouts/Marketplace/Stores/InlineCard';
 
-import { Map } from '../../Marketplace/Map';
+import { loader } from 'utils/googleMapsLoader';
 
-import * as S from './styles';
 import { DaysOfWeek } from './types';
 import { GoogleMap } from '../GoogleMap';
+import * as S from './styles';
 
 export function StoreProfile({
   establishment,
 }: {
   establishment: Establishment;
 }) {
+  const [address, setAddress] = useState('');
   const { colors } = useTheme();
   const { data: recommendedEstablishments, isLoading } = useGetEstablishments({
     itemsPerPage: 6,
@@ -96,6 +100,45 @@ export function StoreProfile({
     establishment.establishment_pos_working_hours,
   );
 
+  const getAddressFromLatLng = async (
+    lat: number,
+    lng: number,
+  ): Promise<string | null> =>
+    loader
+      .load()
+      .then((google: any) => {
+        const geocoder = new google.maps.Geocoder();
+        const latLng = new google.maps.LatLng(lat, lng);
+        return new Promise<string | null>((resolve, reject) => {
+          geocoder.geocode({ location: latLng }, (results, status) => {
+            if (status === google.maps.GeocoderStatus.OK) {
+              if (results[0]) {
+                resolve(results[0].formatted_address);
+              } else {
+                resolve(null);
+              }
+            } else {
+              reject(new Error(`Geocoder failed due to: ${status}`));
+            }
+          });
+        });
+      })
+      .catch((err: any) => {
+        console.error(err);
+        return null;
+      }) as Promise<string | null>;
+
+  getAddressFromLatLng(
+    Number(establishment.lat_location),
+    Number(establishment.long_location),
+  )
+    .then(address => {
+      setAddress(address);
+    })
+    .catch(error => {
+      console.error('Erro ao obter o endereço:', error);
+    });
+
   return (
     <S.Container>
       <S.Top>
@@ -103,7 +146,7 @@ export function StoreProfile({
           <S.Logo>
             <Image
               fill
-              src={establishment.MarketplaceImages[0].url}
+              src={establishment.MarketplaceImages[0]?.url}
               alt={establishment.corporate_name}
               title={establishment.corporate_name}
             />
@@ -215,46 +258,47 @@ export function StoreProfile({
         </S.ContentInfo>
       </S.ContainerInfo>
       <S.SubTitle style={{ marginBottom: '24px' }}>Localização</S.SubTitle>
-      <S.TextInfo>
-        R. Santa Madalena, 31 - Liberdade, São Paulo - SP, 01322-020
-      </S.TextInfo>
+      <S.TextInfo>{address}</S.TextInfo>
       <GoogleMap
         corporateName={establishment.corporate_name}
         lat={Number(establishment.lat_location)}
         long={Number(establishment.long_location)}
       />
       <S.SubTitle>Você também pode gostar de</S.SubTitle>
-      {!isLoading && !recommendedEstablishments ? (
-        <S.LoadingContainer>
-          <Loading
-            icon={PulseLoader}
-            color={colors.mediumslateBlue}
-            size={20}
-          />
-          <h4>Carregando</h4>
-        </S.LoadingContainer>
-      ) : (
-        recommendedEstablishments?.establishment.map(
-          recommendedEstablishment => {
-            if (
-              recommendedEstablishment.id === establishment.id &&
-              recommendedEstablishments.info.totalEstablishment === 1
-            )
-              return (
-                <S.FallbackText key={`fallbacktext${Math.random() * 1000}`}>
-                  Nenhum estabelecimento para recomendar
-                </S.FallbackText>
-              );
+      <S.ContainerInlineCard style={{ display: 'flex' }}>
+        {!isLoading && !recommendedEstablishments ? (
+          <S.LoadingContainer>
+            <Loading
+              icon={PulseLoader}
+              color={colors.mediumslateBlue}
+              size={20}
+            />
+            <h4>Carregando</h4>
+          </S.LoadingContainer>
+        ) : (
+          recommendedEstablishments?.establishment.map(
+            recommendedEstablishment => {
+              if (
+                recommendedEstablishment.id === establishment.id &&
+                recommendedEstablishments.info.totalEstablishment === 1
+              )
+                return (
+                  <S.FallbackText key={`fallbacktext${Math.random() * 1000}`}>
+                    Nenhum estabelecimento para recomendar
+                  </S.FallbackText>
+                );
 
-            return (
-              <InlineCard
-                key={recommendedEstablishment.id}
-                establishment={recommendedEstablishment}
-              />
-            );
-          },
-        )
-      )}
+              return (
+                <InlineCard
+                  key={recommendedEstablishment.id}
+                  establishment={recommendedEstablishment}
+                />
+              );
+            },
+          )
+        )}
+      </S.ContainerInlineCard>
+
       <S.CommerceContainer />
     </S.Container>
   );
