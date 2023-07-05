@@ -41,7 +41,7 @@ export function StoreDetails({
             <S.Container>
               <Image
                 fill
-                src={establishment.MarketplaceImages[1].url}
+                src={establishment.MarketplaceImages[1]?.url}
                 title={establishment.corporate_name}
                 alt=""
                 sizes="100vw"
