@@ -1,4 +1,4 @@
-import styled from 'styled-components';
+import styled, { css } from 'styled-components';
 
 import { FilterButtonProps } from './types';
 
@@ -58,6 +58,7 @@ export const EarningsHistoryContainer = styled.div`
   padding: 1.5rem;
   display: flex;
   flex-direction: column;
+  width: 100%;
 `;
 export const EarningsHistoryByPartner = styled(EarningsHistoryContainer)`
   min-height: 511.98px;
@@ -142,16 +143,27 @@ export const PaginationButton = styled.div`
   border-radius: 0.5rem;
 `;
 
-export const MyStatementsContainer = styled.div`
+export const MyStatementsContainer = styled.div<{ isExpanded: boolean }>`
   flex: 1 1 auto;
   width: 100%;
-
   & > div:last-child {
     display: grid;
     grid-template-areas:
       'AccountBalance AccountBalance'
       'ByPartner ByIndication';
     grid-gap: 2rem;
+
+    ${({ isExpanded }) =>
+      isExpanded &&
+      css`
+        @media (max-width: 1450px) {
+          grid-template-areas:
+            'AccountBalance'
+            'ByPartner'
+            'ByIndication';
+        }
+      `}
+
     @media (max-width: 1140px) {
       grid-template-areas:
         'AccountBalance'

@@ -8,9 +8,8 @@ import { useMe } from 'hooks/me/useMe';
 import { formatSepareteNumbers } from 'utils/formatters/formatSepareteNumbers';
 
 import * as S from './styles';
-import { InviteFriendsProps } from './types';
 
-export function InviteFriends({ variant }: InviteFriendsProps) {
+export function InviteFriends() {
   const {
     data: { invite_code, invites_accepted },
   } = useMe();
@@ -30,7 +29,7 @@ export function InviteFriends({ variant }: InviteFriendsProps) {
   };
 
   return (
-    <S.DivInviteFriends variant={variant}>
+    <S.DivInviteFriends variant={totalFriends === limite ? 'limitReached' : ''}>
       <S.HeaderInviteFriends>
         <BsPersonBadge />
         <S.TitleFriends>Convidar amigos</S.TitleFriends>

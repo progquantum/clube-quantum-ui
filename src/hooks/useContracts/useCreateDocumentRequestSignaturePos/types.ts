@@ -9,7 +9,7 @@ export type RequestBodyPos = {
   neighborhood: string;
   street: string;
   number: string;
-  complement: string;
+  complement?: string;
   cep: string;
   phone: string;
   marketPlaceSubscriptionId: string;

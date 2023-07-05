@@ -99,9 +99,6 @@ export function ConfirmPaymentsDetails() {
             setContract(data.document);
             nextStep();
           },
-          onError: error => {
-            console.log('erro: ', error);
-          },
         });
       },
       onError: (error: unknown) => {

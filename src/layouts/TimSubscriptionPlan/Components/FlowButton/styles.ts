@@ -45,7 +45,6 @@ export const Button = styled.button<ButtonProps>`
   padding: 0.5rem 4rem;
   border-radius: 0.5rem;
   transition: all 0.1s ease;
-  margin-bottom: 2rem;
   ${({ variant }) => variant && variants[variant]}
 
   @media (max-width: 420px) {

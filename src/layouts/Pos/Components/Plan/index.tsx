@@ -16,6 +16,32 @@ import { Props } from './types';
 export function PLan({ onNextStep, smart }: Props) {
   const { colors } = useTheme();
 
+  const wordsToBold = [
+    ['CLUBE', 'QUANTUM'],
+    ['melhores', 'taxas'],
+    ['Dinheiro', 'em', '1', 'dia', 'útil'],
+    ['Conta', 'digital', 'inclusa'],
+    ['Link', 'de', 'pagamento'],
+  ];
+
+  function boldStrings(string: string, wordsToBold: string[]) {
+    const words = string.split(' ');
+
+    const formattedStrings = words.map((word: string) =>
+      wordsToBold.includes(word) ? (
+        <S.Bold key={word}> {word} </S.Bold>
+      ) : (
+        ` ${word} `
+      ),
+    );
+
+    return (
+      <S.Benefits>
+        {formattedStrings.map(formattedString => formattedString)}
+      </S.Benefits>
+    );
+  }
+
   return (
     <S.Container>
       <S.ContentTitle>
@@ -53,10 +79,13 @@ export function PLan({ onNextStep, smart }: Props) {
           </div>
           <div>
             {smart?.productList[0]?.details &&
-              Object.keys(smart?.productList[0]?.details).map(key => (
+              Object.keys(smart?.productList[0]?.details).map((key, index) => (
                 <S.ContentBenefits key={key}>
                   <BiCheck size={15} color={colors.mediumslateBlue} />
-                  <S.Benefits>{smart?.productList[0].details[key]}</S.Benefits>
+                  {boldStrings(
+                    smart?.productList[0].details[key],
+                    wordsToBold[index],
+                  )}
                 </S.ContentBenefits>
               ))}
           </div>

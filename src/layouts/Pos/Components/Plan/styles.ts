@@ -137,9 +137,9 @@ export const Benefits = styled.p`
   font-weight: 500;
   font-size: 14px;
   line-height: 150%;
-  color: ${({ theme }) => theme.colors.gray[700]};
   margin-bottom: 0;
 
+  color: ${({ theme }) => theme.colors.gray[700]};
   @media (max-width: 545px) {
     font-size: 10px;
   }
@@ -150,4 +150,8 @@ export const ContentBenefits = styled.div`
   align-items: center;
   gap: 15px;
   margin-bottom: 24px;
+`;
+
+export const Bold = styled.span`
+  font-weight: bold;
 `;

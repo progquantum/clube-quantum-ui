@@ -159,7 +159,6 @@ export function InfoEstablishment() {
                       success('Imagem enviada com sucesso');
                     },
                     onError: err => {
-                      console.log(err);
                       if (err instanceof AxiosError) {
                         error(err.message);
                       }
@@ -267,7 +266,6 @@ export function InfoEstablishment() {
   const handleEstablishments = (e: PosUser) => {
     setUser(e);
     setMainPhone(e.phone);
-    console.log(e);
     if (Object.keys(e.establishment_pos).length > 0) {
       setFantasyName(e.establishment_pos.corporate_name);
       setMainPhoneHasWhatsApp(

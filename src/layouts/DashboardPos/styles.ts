@@ -226,14 +226,14 @@ export const TopParams = styled.h2`
 `;
 
 export const TopParams1 = styled(TopParams)`
-  max-width: 320px;
+  max-width: 280px;
 `;
 
 export const TopParams2 = styled(TopParams)`
-  max-width: 161px;
+  max-width: 100px;
 `;
 export const TopParams3 = styled(TopParams)`
-  max-width: 120px;
+  max-width: 140px;
 `;
 
 export const TopParams4 = styled(TopParams)`
@@ -276,7 +276,7 @@ export const Date = styled.p`
 
 export const ID = styled.p`
   width: 100%;
-  max-width: 320px;
+  max-width: 280px;
   font-style: normal;
   font-weight: 500;
   font-size: 12px;
@@ -288,7 +288,7 @@ export const ID = styled.p`
 export const TableColumn = styled.div`
   display: flex;
   flex-direction: column;
-  max-width: 161px;
+  max-width: 100px;
   width: 100%;
 `;
 
@@ -320,7 +320,7 @@ export const FontGray400 = styled.p`
 `;
 
 export const TableColumn2 = styled(TableColumn)`
-  max-width: 120px;
+  max-width: 140px;
 `;
 
 export const TableColumn3 = styled(TableColumn)`
@@ -328,7 +328,7 @@ export const TableColumn3 = styled(TableColumn)`
 `;
 export const ContainerFlag = styled.div`
   width: 100%;
-  height: 100%;
+  height: max-content;
   max-width: 505px;
   display: flex;
   flex-direction: column;

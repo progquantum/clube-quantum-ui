@@ -34,7 +34,7 @@ export function PersonalInfo({ loggedUser }: PersonalInfoProps) {
       </FieldInfo>
       <FieldInfo>
         <span>E-mail</span>
-        <span>{loggedUser?.email}</span>
+        <span>representantes@claudioelarissafilmagensldta.com.br</span>
       </FieldInfo>
     </GenericCard>
   );

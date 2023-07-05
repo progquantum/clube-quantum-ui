@@ -6,13 +6,13 @@ import { Active } from './types';
 
 export const Container = styled.div`
   width: 100%;
-  max-width: 59.375rem;
+  max-width: 100%;
   display: flex;
   justify-content: center;
   align-items: center;
   flex-direction: column;
   margin: 0 auto;
-  margin-bottom: 30px;
+  margin-bottom: 10rem;
 
   section {
     width: 100%;
@@ -129,7 +129,7 @@ export const PlansContents = styled.section`
   margin-top: 3rem;
   display: flex;
   align-items: center;
-
+  justify-content: center;
   @media (max-width: 1320px) {
     flex-direction: column;
   }
@@ -145,6 +145,8 @@ export const PlanContentsWrapper = styled.div<Active>`
   display: flex;
   flex-direction: column;
 
+  max-width: 300px;
+  max-height: 620px;
   @media (max-width: 1320px) {
     width: 21.875rem;
   }
@@ -157,8 +159,7 @@ export const PlanContentsWrapper = styled.div<Active>`
     props.isActive &&
     css`
       background: ${({ theme }) => theme.colors.mediumslateBlue};
-      transform: scale(1.2);
-
+      transform: scale(1.15);
       margin: 0 1.25rem;
       transition: 0.3s ease-out;
 

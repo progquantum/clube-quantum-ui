@@ -10,6 +10,7 @@ import * as S from './styles';
 
 export function Success() {
   const phoneNumber = useTimPlanStore(state => state.phoneNumber);
+  const selectedDDD = useTimPlanStore(state => state.selectedDDD);
 
   const cleanStateFromLocalStorage = () => {
     window.location.reload();
@@ -27,7 +28,7 @@ export function Success() {
         </S.Message>
         <S.PhoneNumber>
           <span>Número de telefone</span>
-          <span>{formatPhoneNumber(phoneNumber.concat('55'))}</span>
+          <span>{formatPhoneNumber(selectedDDD.concat(phoneNumber))}</span>
         </S.PhoneNumber>
       </S.SuccessContainer>
       <S.FinishButton onClick={cleanStateFromLocalStorage}>

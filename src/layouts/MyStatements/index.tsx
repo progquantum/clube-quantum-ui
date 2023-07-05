@@ -25,6 +25,8 @@ import { formatTruncateText } from 'utils/formatters/formatTruncateText';
 
 import { Loader } from 'components/Loader';
 
+import { useSidebarStore } from 'store/sidebar';
+
 import * as S from './styles';
 
 const indication = {
@@ -37,6 +39,8 @@ const indications = [indication, indication, indication, indication];
 
 export function MyStatementsPage() {
   const { colors } = useTheme();
+  const isSidebarExpanded = useSidebarStore(state => state.isExpanded);
+
   const [whichFilterButton, setWhichFilterButton] = useState<
     'lastMonth' | 'lastWeek' | 'today'
   >('today');
@@ -97,7 +101,7 @@ export function MyStatementsPage() {
   };
   return (
     <DashboardLayout maxWidth="1168px">
-      <S.MyStatementsContainer>
+      <S.MyStatementsContainer isExpanded={isSidebarExpanded}>
         <S.MyStatementsHeader>
           Histórico de transações e cashback
         </S.MyStatementsHeader>

@@ -58,12 +58,13 @@ export function ConfirmPayment({
         onSuccess: data => {
           const {
             birth_date: birthDate,
-            address: { zip_code: cep, state: uf, ...restAddress },
+            address: { zip_code: cep, state: uf, complement, ...restAddress },
             ...restUser
           } = orderingData;
 
           const requestBody = {
             ...(cpf.isValid(orderingData.document) ? { birthDate } : {}),
+            ...(complement ? { complement } : {}),
             cep,
             uf,
             ...restAddress,
@@ -75,9 +76,6 @@ export function ConfirmPayment({
             onSuccess: data => {
               handleGetContractData(data);
               onNextStep();
-            },
-            onError: error => {
-              console.log(error);
             },
           });
         },
