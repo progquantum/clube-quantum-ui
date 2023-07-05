@@ -2,6 +2,8 @@
 import { useState } from 'react';
 import { useQuery } from 'react-query';
 
+import { AxiosError } from 'axios';
+
 import { quantumClientQueue } from 'config/client';
 
 import {
@@ -18,18 +20,25 @@ export async function findContractCancellation({
   itemsPerPage,
   searchName,
 }: ContractCancellationProps) {
-  const { data } = await quantumClientQueue.get(
-    '/contracts/find-request-cancellation',
-    {
-      params: {
-        ...(page ? { page } : {}),
-        ...(itemsPerPage ? { itemsPerPage } : { itemsPerPage: 3 }),
-        ...(searchName ? { searchName } : {}),
+  try {
+    const { data } = await quantumClientQueue.get(
+      '/contracts/find-request-cancellation',
+      {
+        params: {
+          ...(page ? { page } : {}),
+          ...(itemsPerPage ? { itemsPerPage } : { itemsPerPage: 3 }),
+          ...(searchName ? { searchName } : {}),
+        },
       },
-    },
-  );
+    );
 
-  return data as ContractsCancellation;
+    return data as ContractsCancellation;
+  } catch (error: unknown) {
+    if (error instanceof AxiosError) {
+      console.log(error);
+    }
+    return Promise.reject(error);
+  }
 }
 
 export function useFindContractCancellation({
