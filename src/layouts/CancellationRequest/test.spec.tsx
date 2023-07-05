@@ -10,14 +10,28 @@ describe('CancellationRequest', () => {
 
   it(' should render one request properly and show the correct color of status', () => {
     const mockedRequest: RequestType = {
-      name: 'Test User',
-      id: '123',
-      contractId: '456',
-      requestDate: '05/05/2023',
-      planName: 'Test Plan',
-      birthDate: '05/05/2023',
-      email: 'test@test.test',
-      requestStatus: 'verified',
+      admin_report: 'admin_report',
+      id: 'cdb057c7-0a08-408b-81b7-61ac48c66fc5',
+      cancelled_status: 'APPROVED',
+      contract: {
+        date_of_acquisition: '2023-05-16T14:40:09.415Z',
+        document_key: 'cdb057c7-0a08-408b-81b7-61ac48c66fc5',
+        marketplace_subscription: {
+          price_paid: '44.9',
+        },
+        plan_name: 'Quantum Smart',
+
+        user: {
+          phone: '+55 (71) 99171-3860',
+          email: 'log_junior@hotmail.com',
+          individual_person: {
+            name: 'Carlindo Junior',
+            birth_date: '1987-04-01T00:00:00.000Z',
+          },
+          legal_person: null,
+        },
+      },
+      justification: 'não quero mais',
     };
     render(
       <ProviderMock>
@@ -29,25 +43,35 @@ describe('CancellationRequest', () => {
       requestStatusComponent,
     );
 
-    expect(screen.getByText('Test Plan')).toBeInTheDocument();
+    expect(screen.getByText('Quantum Smart')).toBeInTheDocument();
     expect(requestStatusComponent).toBeInTheDocument();
     expect(stylesRequestStatusComponent.color).toBe('rgb(0, 200, 81)');
   });
 
   it(' should render the correct plan name and user name', () => {
     const mockedRequestInfo = {
-      userName: 'User Test',
-      contractName: 'Test Plan',
-      contractDocumentKey: '123',
-      contractType: 'Test Plan',
-      birthDate: '05/05/2023',
-      email: 'test@test.test',
-      productName: 'Generic Plan',
-      phoneNumber: '999999999',
-      areaCode: '99',
-      monthlyFee: 44.9,
-      acquisitionDate: '05/05/2023',
-      cancellationJustification: 'teste',
+      admin_report: 'admin_report',
+      id: 'cdb057c7-0a08-408b-81b7-61ac48c66fc5',
+      cancelled_status: 'APPROVED',
+      contract: {
+        date_of_acquisition: '2023-05-16T14:40:09.415Z',
+        document_key: 'cdb057c7-0a08-408b-81b7-61ac48c66fc5',
+        marketplace_subscription: {
+          price_paid: '44.9',
+        },
+        plan_name: 'Quantum Smart',
+
+        user: {
+          phone: '+55 (71) 99171-3860',
+          email: 'log_junior@hotmail.com',
+          individual_person: {
+            name: 'Carlindo Junior',
+            birth_date: '1987-04-01T00:00:00.000Z',
+          },
+          legal_person: null,
+        },
+      },
+      justification: 'não quero mais',
     };
 
     render(
@@ -59,7 +83,7 @@ describe('CancellationRequest', () => {
       </ProviderMock>,
     );
 
-    expect(screen.getByText('Generic Plan')).toBeInTheDocument();
-    expect(screen.getByText('User Test')).toBeInTheDocument();
+    expect(screen.getByText('Carlindo Junior')).toBeInTheDocument();
+    expect(screen.getByText('não quero mais')).toBeInTheDocument();
   });
 });
