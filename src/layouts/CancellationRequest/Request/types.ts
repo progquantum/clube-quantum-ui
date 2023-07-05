@@ -1,12 +1,27 @@
 export type Request = {
-  name: string;
+  admin_report: string;
+  cancelled_status: 'APPROVED' | 'DENIED' | 'PENDING';
+  contract: {
+    date_of_acquisition: string;
+    document_key: string;
+    marketplace_subscription: {
+      price_paid: string;
+    };
+    plan_name: string;
+    user: {
+      email: string;
+      individual_person: {
+        birth_date: string;
+        name: string;
+      };
+      legal_person: {
+        company_name: string;
+      };
+      phone: string;
+    };
+  };
+  justification: string;
   id: string;
-  contractId: string;
-  requestDate: string;
-  planName: string;
-  birthDate: string;
-  email: string;
-  requestStatus: 'verified' | 'canceled' | 'pending';
 };
 
 export type RequestProps = {
@@ -14,15 +29,15 @@ export type RequestProps = {
 };
 
 export enum RequestStatusEnum {
-  'verified' = 'Verificado',
-  'canceled' = 'Cancelado',
-  'pending' = 'Pendente',
+  'APPROVED' = 'Verificado',
+  'DENIED' = 'Cancelado',
+  'PENDING' = 'Pendente',
 }
 
 export enum RequestStatusStyleEnum {
-  'verified' = 'success',
-  'canceled' = 'danger',
-  'pending' = 'yellow',
+  'APPROVED' = 'success',
+  'DENIED' = 'danger',
+  'PENDING' = 'yellow',
 }
 
 export type RequestStatusProps = {
