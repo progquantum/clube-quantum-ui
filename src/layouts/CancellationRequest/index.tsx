@@ -33,12 +33,6 @@ export function CancellationRequestPage() {
   const { colors } = useTheme();
   const [name, setName] = useState('');
 
-  const handlerClick = () => {
-    if (name) {
-      setSearchName(name);
-    }
-  };
-
   const removeSelectedRequest = () => {
     setRequestInfo(null);
   };
@@ -62,7 +56,7 @@ export function CancellationRequestPage() {
                   placeholder="Pesquisar por nome do usuário"
                   value={name}
                   onChange={event => setName(event.target.value)}
-                  onRequestClick={handlerClick}
+                  onRequestClick={() => setSearchName(name)}
                 />
                 <S.RequestsContainer>
                   <S.Title>Solicitações de cancelamento</S.Title>
