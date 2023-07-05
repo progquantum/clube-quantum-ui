@@ -68,6 +68,7 @@
     "react-use": "^17.4.0",
     "recharts": "^2.5.0",
     "rsuite": "^5.13.1",
+    "sharp": "^0.32.1",
     "styled-components": "5.3.5",
     "sweetalert2": "^11.7.5",
     "use-query-params": "^2.1.2",

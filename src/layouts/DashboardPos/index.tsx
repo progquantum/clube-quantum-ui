@@ -168,16 +168,6 @@ export function DashboardPos() {
                 </S.StatePJ>
               </S.DivRow>
             </S.DivColumn>
-            <S.DivBalance>
-              <S.BalanceTitle>Vendas por período</S.BalanceTitle>
-              <S.BalanceValue>
-                {formatPrice(
-                  data?.total_balance === null || undefined
-                    ? '0.0'
-                    : String(data?.total_balance),
-                )}
-              </S.BalanceValue>
-            </S.DivBalance>
           </S.DivTop>
           <S.DivCnpj>
             <S.CNPJData>
@@ -186,6 +176,16 @@ export function DashboardPos() {
             <S.Hifen>-</S.Hifen>
             <S.CNPJData>ID: {data?.id}</S.CNPJData>
           </S.DivCnpj>
+          <S.DivBalance>
+            <S.BalanceTitle>Vendas por período</S.BalanceTitle>
+            <S.BalanceValue>
+              {formatPrice(
+                sales?.salesPerPeriod === null || undefined
+                  ? '0.0'
+                  : String(sales?.salesPerPeriod),
+              )}
+            </S.BalanceValue>
+          </S.DivBalance>
           <S.DivRow>
             {isByPeriodFilter ? (
               <>
