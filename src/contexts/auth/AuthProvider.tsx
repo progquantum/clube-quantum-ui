@@ -10,6 +10,8 @@ import { useLocalStorage } from '@rehooks/local-storage';
 import { setCookie, destroyCookie, parseCookies } from 'nookies';
 import decode from 'jwt-decode';
 
+import { useQueryClient } from 'react-query';
+
 import { useSignIn } from 'hooks/auth/useSignIn';
 import { TokenPayload, User } from 'shared/types/apiSchema';
 import {
@@ -33,6 +35,7 @@ let authChannel: BroadcastChannel;
 
 export function AuthProvider({ children }: PropsWithChildren<unknown>) {
   const [previousPage, setPreviousPage] = useState(null);
+  const queryClient = useQueryClient();
   const { mutateAsync: signIn, isLoading: loading } = useSignIn();
   const [registerUser, setRegisterUser] = useLocalStorage<SignUpData>(
     REGISTER_USER_STORAGE_KEY,
@@ -124,7 +127,7 @@ export function AuthProvider({ children }: PropsWithChildren<unknown>) {
     deleteUser();
     destroyCookie(undefined, TOKEN_STORAGE_KEY);
     destroyCookie(undefined, REFRESH_TOKEN_STORAGE_KEY);
-
+    queryClient.clear();
     router.push(SIGN_IN_PAGE);
   }, [deleteUser]);
 
