@@ -1,6 +1,7 @@
+/* eslint-disable react/jsx-no-useless-fragment */
 import ReactPaginate from 'react-paginate';
 
-import { IoIosArrowBack, IoIosArrowRoundForward } from 'react-icons/io';
+import { IoIosArrowBack, IoIosArrowForward } from 'react-icons/io';
 
 import { useTheme } from 'styled-components';
 
@@ -10,77 +11,37 @@ import { DashboardLayout } from 'layouts/DashboardLayout';
 
 import { InputSearch } from 'components/InputSearch';
 
-import * as S from './styles';
+import { useFindContractCancellation } from 'hooks/useContracts/useFindContractCancellation';
+
+import { Loader } from 'components/Loader';
+
 import { Request as RequestType } from './Request/types';
 import { Request } from './Request';
 import { RequestInfo as RequestInfoType } from './RequestInfo/types';
 import { RequestInfo } from './RequestInfo';
-
-const requestOne = {
-  name: 'Test User',
-  id: '123',
-  contractId: '456',
-  requestDate: '05/05/2023',
-  planName: 'Test Plan',
-  birthDate: '05/05/2023',
-  email: 'test@test.test',
-  requestStatus: 'pending',
-};
-
-const requestTwo = {
-  name: 'Test User',
-  id: '456',
-  contractId: '456',
-  requestDate: '05/05/2023',
-  planName: 'Test Plan',
-  birthDate: '05/05/2023',
-  email: 'test@test.test',
-  requestStatus: 'pending',
-};
-
-const requestThree = {
-  name: 'Test User',
-  id: '789',
-  contractId: '456',
-  requestDate: '05/05/2023',
-  planName: 'Test Plan',
-  birthDate: '05/05/2023',
-  email: 'test@test.test',
-  requestStatus: 'pending',
-};
-
-const requests = [requestOne, requestTwo, requestThree];
-
-const mockedRequestInfo = {
-  userName: 'Usuário Teste',
-  contractName: 'Test Plan',
-  contractDocumentKey: '123',
-  birthDate: '05/05/2023',
-  email: 'test@test.test',
-  productName: 'Test Plan',
-  phoneNumber: '999999999',
-  areaCode: '99',
-  monthlyFee: 44.9,
-  acquisitionDate: '05/05/2023',
-  cancellationJustification: 'teste',
-};
+import * as S from './styles';
 
 export function CancellationRequestPage() {
-  const [requestInfo, setRequestInfo] = useState<RequestInfoType | null>(
-    mockedRequestInfo,
-  );
+  const [searchName, setSearchName] = useState('');
+  const { data, onPageChange, totalPages, isLoading } =
+    useFindContractCancellation({
+      itemsPerPage: 3,
+      searchName,
+    });
+  const [requestInfo, setRequestInfo] = useState<RequestInfoType | null>(null);
 
   const { colors } = useTheme();
-  const totalPages = 1;
+  const [name, setName] = useState('');
 
-  const onPageChange = () => {
-    console.log('teste');
+  const handlerClick = () => {
+    if (name) {
+      setSearchName(name);
+    }
   };
 
   const removeSelectedRequest = () => {
     setRequestInfo(null);
   };
-
   return (
     <DashboardLayout>
       <S.MainContainer>
@@ -91,35 +52,53 @@ export function CancellationRequestPage() {
           />
         ) : (
           <>
-            <InputSearch placeholder="Pesquisar por nome do usuário" />
-            <S.RequestsContainer>
-              <S.Title>Solicitações de cancelamento</S.Title>
-              {requests.map((request: RequestType) => (
-                <S.ClickableContainer
-                  as="button"
-                  onClick={() => setRequestInfo(mockedRequestInfo)}
-                >
-                  <Request key={request.id} request={request} />
-                </S.ClickableContainer>
-              ))}
-              <ReactPaginate
-                breakLabel="..."
-                nextLabel={
-                  <IoIosArrowRoundForward
-                    size={20}
-                    color={colors.mediumslateBlue}
-                  />
-                }
-                onPageChange={onPageChange}
-                pageCount={totalPages}
-                previousLabel={
-                  <IoIosArrowBack size={20} color={colors.mediumslateBlue} />
-                }
-                containerClassName="paginationContainer"
-                pageLinkClassName="pageLink"
-                activeLinkClassName="activeLink"
-              />
-            </S.RequestsContainer>
+            {isLoading ? (
+              <Loader />
+            ) : (
+              <>
+                <InputSearch
+                  name="search"
+                  type="text"
+                  placeholder="Pesquisar por nome do usuário"
+                  value={name}
+                  onChange={event => setName(event.target.value)}
+                  onRequestClick={handlerClick}
+                />
+                <S.RequestsContainer>
+                  <S.Title>Solicitações de cancelamento</S.Title>
+                  {data?.requestCancellations?.map((request: RequestType) => (
+                    <S.ClickableContainer
+                      as="button"
+                      onClick={() => setRequestInfo(request)}
+                    >
+                      <Request key={request.id} request={request} />
+                    </S.ClickableContainer>
+                  ))}
+                  {totalPages > 1 && (
+                    <ReactPaginate
+                      breakLabel="..."
+                      nextLabel={
+                        <IoIosArrowForward
+                          size={20}
+                          color={colors.mediumslateBlue}
+                        />
+                      }
+                      onPageChange={onPageChange}
+                      pageCount={totalPages}
+                      previousLabel={
+                        <IoIosArrowBack
+                          size={20}
+                          color={colors.mediumslateBlue}
+                        />
+                      }
+                      containerClassName="paginationContainer"
+                      pageLinkClassName="pageLink"
+                      activeLinkClassName="activeLink"
+                    />
+                  )}
+                </S.RequestsContainer>
+              </>
+            )}
           </>
         )}
       </S.MainContainer>
