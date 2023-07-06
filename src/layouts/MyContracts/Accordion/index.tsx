@@ -18,7 +18,7 @@ const Accordion = ({
   contracts,
   getSelectedContract,
 }: Props) => {
-  const [isOpen, setIsOpen] = useState(false);
+  const [isOpen, setIsOpen] = useState(true);
   return (
     <div data-cy="accordion" data-testid="accordion">
       <motion.div
