@@ -10,48 +10,56 @@ import {
   Tooltip,
 } from 'recharts';
 
+import { ClientsPerPlan } from 'hooks/dashboard-adm/useGetDashboardADM/types';
+
 import * as S from './styles';
+import { ClientsPerPlanLabels } from './types';
 
-const data = [
-  { name: 'Quantum Free', value: 20 },
-  { name: 'Quantum Start', value: 30 },
-  { name: 'Quantum Select', value: 40 },
-  { name: 'Inativo', value: 10 },
-];
-const COLORS = ['#00C49F', '#F86624', '#0C61FF', '#BBBBBB'];
+export function ClientsByPlanPieChart({
+  clientsPerPlan,
+}: {
+  clientsPerPlan: ClientsPerPlan;
+}) {
+  const formattedData = Object.keys(clientsPerPlan).map(
+    key =>
+      key !== 'total_clients' && {
+        name: ClientsPerPlanLabels[key],
+        value: clientsPerPlan[key],
+      },
+  );
 
-const total = data.reduce((sum, entry) => sum + entry.value, 0);
-const CenterLabel = ({ children }) => (
-  <text
-    x="50%"
-    y="40%"
-    fill="black"
-    textAnchor="middle"
-    dominantBaseline="middle"
-  >
-    {children}
-  </text>
-);
+  formattedData.pop();
 
-const centerLabel = (
-  <CenterLabel>
-    <tspan x="50%">{total}</tspan>
-    <tspan x="50%" dy="1.2em" fontSize="14px">
-      Clientes
-    </tspan>
-  </CenterLabel>
-);
+  const COLORS = ['#00C49F', '#F86624', '#0C61FF', '#BBBBBB'];
 
-// ...
+  const CenterLabel = ({ children }) => (
+    <text
+      x="50%"
+      y="40%"
+      fill="black"
+      textAnchor="middle"
+      dominantBaseline="middle"
+    >
+      {children}
+    </text>
+  );
 
-export function ClientsByPlanPieChart() {
+  const centerLabel = (
+    <CenterLabel>
+      <tspan x="50%">{clientsPerPlan.total_clients}</tspan>
+      <tspan x="50%" dy="1.2em" fontSize="14px">
+        Clientes
+      </tspan>
+    </CenterLabel>
+  );
+
   return (
     <S.ChartContainer>
       <S.Title>Clientes por plano</S.Title>
       <ResponsiveContainer width="99%" height="100%">
         <PieChart width={800} height={400}>
           <Pie
-            data={data}
+            data={formattedData}
             innerRadius={65}
             outerRadius={80}
             fill="#8884d8"
@@ -60,7 +68,7 @@ export function ClientsByPlanPieChart() {
             label={centerLabel}
             labelLine={false}
           >
-            {data.map((_, index) => (
+            {formattedData.map((_, index) => (
               <Cell
                 key={`cell-${index}`}
                 fill={COLORS[index % COLORS.length]}

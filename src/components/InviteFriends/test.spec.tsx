@@ -4,7 +4,7 @@ import { useMe } from 'hooks/me/useMe';
 
 import { InviteFriends } from '.';
 import { ProviderMock } from '../../../__test__/__mocks__/provider';
-import { mockUser } from '../../../__test__/__mocks__/mockedData/data';
+import { mockUser } from '../../../__test__/__mocks__/mockedData/user';
 
 jest.mock('hooks/me/useMe');
 
