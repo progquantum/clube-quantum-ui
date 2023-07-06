@@ -1,6 +1,12 @@
 import { FormHandles, SubmitHandler } from '@unform/core';
 import { FaMapMarkerAlt } from 'react-icons/fa';
-import { useCallback, useEffect, useRef, useState } from 'react';
+import {
+  MutableRefObject,
+  useCallback,
+  useEffect,
+  useRef,
+  useState,
+} from 'react';
 import { Form } from '@unform/web';
 import { PulseLoader } from 'react-spinners';
 import { useTheme } from 'styled-components';
@@ -22,7 +28,11 @@ import { InlineCard } from './InlineCard';
 import { FilterTags } from '../FilterTags';
 import { Map } from '../Map';
 
-export function Stores() {
+export function Stores({
+  observerTargetRef,
+}: {
+  observerTargetRef: MutableRefObject<HTMLDivElement>;
+}) {
   const filterInitialState = {
     itemsPerPage: 6,
     page: 1,
@@ -32,7 +42,6 @@ export function Stores() {
   const { data: establishments, isLoading } = useGetEstablishments(filterInput);
   const currentCursor =
     establishments?.info.cursor && establishments.info.cursor;
-  const observerTarget = useRef(null);
   const formRef = useRef<FormHandles>(null);
   const [modalStatus, setModalStatus] = useState(false);
   const { data } = useBannersFindAll();
@@ -53,19 +62,19 @@ export function Stores() {
           handleRefetch();
         }
       },
-      { threshold: 1 },
+      { threshold: 0.9 },
     );
 
-    if (observerTarget.current) {
-      observer.observe(observerTarget.current);
+    if (observerTargetRef.current) {
+      observer.observe(observerTargetRef.current);
     }
 
     return () => {
-      if (observerTarget.current) {
-        observer.unobserve(observerTarget.current);
+      if (observerTargetRef.current) {
+        observer.unobserve(observerTargetRef.current);
       }
     };
-  }, [observerTarget]);
+  }, [observerTargetRef]);
 
   const toggleSelectedCategory = useCallback(
     (categoryId: string) => {
@@ -166,8 +175,6 @@ export function Stores() {
           </S.CommerceContainer>
         </>
       )}
-      <div ref={observerTarget} />
-
       {modalStatus && (
         <Modal noDragBehavior onClose={handleModalStatus}>
           <FilterTags

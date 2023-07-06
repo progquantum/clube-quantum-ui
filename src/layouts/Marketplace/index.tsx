@@ -2,6 +2,8 @@ import Image from 'next/legacy/image';
 
 import { useMediaQuery } from '@mui/material';
 
+import { MutableRefObject } from 'react';
+
 import { Header } from 'components/Header';
 
 import { CenterLayout } from 'components/CenterLayout';
@@ -20,7 +22,11 @@ import { Services } from './Services';
 import { Stores } from './Stores';
 import * as S from './styles';
 
-export function Marketplace() {
+export function Marketplace({
+  observerTargetRef,
+}: {
+  observerTargetRef: MutableRefObject<HTMLDivElement>;
+}) {
   const isMobile = useMediaQuery('@media (max-width: 600px)');
 
   return (
@@ -65,7 +71,7 @@ export function Marketplace() {
       )}
       <CenterLayout>
         <Services />
-        <Stores />
+        <Stores observerTargetRef={observerTargetRef} />
       </CenterLayout>
       <Footer />
     </>
