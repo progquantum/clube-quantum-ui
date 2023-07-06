@@ -154,10 +154,20 @@ export function ModalContract({
             data-cy="requestCancellationButton"
             style={{ marginTop: '0px', height: '50px' }}
             variant={
-              contract.cancelled_status !== null ? 'disabled' : 'danger_outline'
+              !(
+                contract.request_cancellation[0]?.cancelled_status === null ||
+                contract.request_cancellation[0]?.cancelled_status === undefined
+              )
+                ? 'disabled'
+                : 'danger_outline'
             }
             onClick={handleOpenModalCancel}
-            disabled={contract.cancelled_status !== null}
+            disabled={
+              !(
+                contract.request_cancellation[0]?.cancelled_status === null ||
+                contract.request_cancellation[0]?.cancelled_status === undefined
+              )
+            }
           >
             Solicitar cancelamento
           </Button>
