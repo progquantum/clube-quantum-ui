@@ -60,7 +60,7 @@ export const ContainerIcon = styled.div`
 export const CancellationStatus = styled.div<CancellationStatusProps>`
   width: 90%;
   padding: 0.5rem;
-  margin: 1rem 0;
+  margin-bottom: 1rem;
   background-color: ${({ theme, status }) =>
     (status === 'APPROVED' && theme.colors.success) ||
     (status === 'PENDING' && theme.colors.gray[400])};
