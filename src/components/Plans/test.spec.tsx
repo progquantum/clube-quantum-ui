@@ -7,7 +7,7 @@ import { useMe } from 'hooks/me/useMe';
 import { Plans } from '.';
 import { setup as login } from '../../../__test__/__mocks__/login';
 import { ProviderMock } from '../../../__test__/__mocks__/provider';
-import { mockUser } from '../../../__test__/__mocks__/mockedData/data';
+import { mockUser } from '../../../__test__/__mocks__/mockedData/user';
 
 jest.mock('hooks/helpers/usePlans');
 jest.mock('hooks/me/useMe');

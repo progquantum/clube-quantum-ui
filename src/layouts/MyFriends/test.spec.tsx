@@ -11,7 +11,7 @@ import { useIndirectGains } from 'hooks/me/useIndirectGains';
 import { setup as login } from '../../../__test__/__mocks__/login';
 import { ProviderMock } from '../../../__test__/__mocks__/provider';
 import { MyFriendsPage } from '.';
-import { mockUser } from '../../../__test__/__mocks__/mockedData/data';
+import { mockUser } from '../../../__test__/__mocks__/mockedData/user';
 
 jest.mock('hooks/me/useFriends');
 jest.mock('hooks/me/useIndirectFriends');
