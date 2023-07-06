@@ -3,6 +3,10 @@ import { MdOutlineAttachMoney } from 'react-icons/md';
 
 import { useSidebarStore } from 'store/sidebar';
 
+import { useGetDashboardADM } from 'hooks/dashboard-adm/useGetDashboardADM';
+
+import { ClientsPerPlan } from 'hooks/dashboard-adm/useGetDashboardADM/types';
+
 import * as S from './styles';
 import { SalesByRevenueTypeLineChart } from '../SalesByRevenueTypeLineChart';
 import { SmartQuantumSalesPieChart } from '../SmartQuantumSalesPieChart';
@@ -13,6 +17,19 @@ import { ClientsByDayBarChart } from '../ClientsByDayBarChart';
 export function Main() {
   const [underline, setUnderline] = useState('Geral');
   const isSideBarExpanded = useSidebarStore(state => state.isExpanded);
+  const { data: dashboard } = useGetDashboardADM();
+
+  const fallbackData = {
+    quantum_free: 0,
+    quantum_start: 0,
+    quantum_business: 0,
+    quantum_select: 0,
+    inactive: 0,
+    total_clients: 0,
+  };
+
+  const clientsPerPlan: ClientsPerPlan =
+    dashboard?.client_per_plan ?? fallbackData;
 
   return (
     <S.Container isSideBarExpanded={isSideBarExpanded}>
@@ -72,7 +89,7 @@ export function Main() {
       </S.Balance>
       <SalesByRevenueTypeLineChart />
       <SmartQuantumSalesPieChart />
-      <ClientsByPlanPieChart />
+      <ClientsByPlanPieChart clientsPerPlan={clientsPerPlan} />
       <DailyBillingChart />
       <ClientsByDayBarChart />
     </S.Container>
