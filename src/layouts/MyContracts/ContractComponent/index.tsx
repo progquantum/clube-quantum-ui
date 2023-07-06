@@ -32,11 +32,20 @@ export function ContractComponent({
       <S.ContainerIcon>
         <AiFillInfoCircle size={20} color={colors.mediumslateBlue} />
       </S.ContainerIcon>
-      {contract.cancelled_status && contract.cancelled_status !== 'DENIED' && (
-        <S.CancellationStatus status={contract.cancelled_status as Status}>
-          {cancellationStatusText[contract.cancelled_status as Status]}
-        </S.CancellationStatus>
-      )}
+      {contract.request_cancellation[0]?.cancelled_status &&
+        contract.request_cancellation[0]?.cancelled_status !== 'DENIED' && (
+          <S.CancellationStatus
+            status={
+              contract.request_cancellation[0]?.cancelled_status as Status
+            }
+          >
+            {
+              cancellationStatusText[
+                contract.request_cancellation[0]?.cancelled_status as Status
+              ]
+            }
+          </S.CancellationStatus>
+        )}
     </S.Container>
   );
 }

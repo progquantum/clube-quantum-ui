@@ -1,3 +1,4 @@
+/* eslint-disable react/jsx-no-useless-fragment */
 import { BsPersonBadge } from 'react-icons/bs';
 import Image from 'next/image';
 import { useState } from 'react';
@@ -10,13 +11,19 @@ import { Contract } from 'hooks/useContracts/useFindContractByUserId/types';
 
 import { InputSearch } from 'components/InputSearch';
 
+import { Loader } from 'components/Loader';
+
 import Accordion from './Accordion';
 import { ModalContract } from './ModalContract';
 import * as S from './styles';
 import { ModalCancel } from './ModalCancel';
 
 export function MyContracts() {
-  const { data: contracts } = useGetContractsLoggedUser();
+  const [name, setName] = useState('');
+  const [contractName, setContractName] = useState('');
+  const { data: contracts, isLoading } = useGetContractsLoggedUser({
+    contractName,
+  });
   const [showModalContract, setShowModalContract] = useState(false);
   const [showModalCancel, setShowModalCancel] = useState(false);
   const [contract, setContract] = useState<Contract>({} as Contract);
@@ -46,14 +53,25 @@ export function MyContracts() {
               justifyContent: 'center',
             }}
           >
-            <InputSearch placeholder="Pesquisar por contrato" />
+            <InputSearch
+              name="search"
+              type="text"
+              placeholder="Pesquisar por contrato"
+              value={name}
+              onChange={event => setName(event.target.value)}
+              onRequestClick={() => setContractName(name)}
+            />
           </div>
           <div>
-            <Accordion
-              getSelectedContract={getSelectedContract}
-              contracts={contracts}
-              onRequestModalContract={handleRequestModalContract}
-            />
+            {isLoading ? (
+              <Loader />
+            ) : (
+              <Accordion
+                getSelectedContract={getSelectedContract}
+                contracts={contracts}
+                onRequestModalContract={handleRequestModalContract}
+              />
+            )}
             {showModalContract && (
               <ModalContract
                 contract={contract}
@@ -71,19 +89,25 @@ export function MyContracts() {
           </div>
         </S.MyContractsContainer>
       ) : (
-        <S.FallbackComponent>
-          <div>
-            <BsPersonBadge size={24} />
-            <span>Amigos</span>
-          </div>
-          <Image
-            src="/images/my-contracts.svg"
-            alt="Nenhum contrato registrado"
-            width={180}
-            height={240}
-          />
-          <p>Você ainda não possui contratos ativos no Quantum Clube.</p>
-        </S.FallbackComponent>
+        <>
+          {isLoading ? (
+            <Loader />
+          ) : (
+            <S.FallbackComponent>
+              <div>
+                <BsPersonBadge size={24} />
+                <span>Amigos</span>
+              </div>
+              <Image
+                src="/images/my-contracts.svg"
+                alt="Nenhum contrato registrado"
+                width={180}
+                height={240}
+              />
+              <p>Você ainda não possui contratos ativos no Quantum Clube.</p>
+            </S.FallbackComponent>
+          )}
+        </>
       )}
     </DashboardLayout>
   );

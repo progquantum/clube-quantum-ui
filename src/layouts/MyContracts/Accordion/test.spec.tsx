@@ -17,9 +17,12 @@ describe('Accordion', () => {
       date_of_acquisition: '03/05/2023',
       file_name: 'test file name',
       marketplace_subscription_id: '1',
-      justification: 'teste',
+      request_cancellation: [
+        {
+          cancelled_status: 'PENDING',
+        },
+      ],
       cancelled_at: '31/05/2023',
-      cancelled_status: 'PENDING',
     };
 
     const contracts = [contract];
@@ -29,21 +32,21 @@ describe('Accordion', () => {
       </ProviderMock>,
     );
 
-    const accordion = screen.getByTestId('accordion');
-    const arrowDropDown = screen.getByTestId('arrowDropDown');
-
-    expect(arrowDropDown).toBeInTheDocument();
-
-    fireEvent.click(accordion);
-
     waitFor(() => {
       const arrowDropleft = screen.getByTestId('arrowDropleft');
       const contractComponent = screen.getByText('Test Plan');
+      const arrowDropDown = screen.getByTestId('arrowDropDown');
 
       expect(arrowDropleft).toBeInTheDocument();
       expect(arrowDropDown).not.toBeInTheDocument();
       expect(contractComponent).toBeInTheDocument();
       expect(screen.getByText('03/05/2023')).toBeInTheDocument();
+
+      const accordion = screen.getByTestId('accordion');
+
+      expect(arrowDropDown).toBeInTheDocument();
+
+      fireEvent.click(accordion);
     });
   });
 });
