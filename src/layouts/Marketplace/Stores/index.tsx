@@ -11,14 +11,15 @@ import { Form } from '@unform/web';
 import { PulseLoader } from 'react-spinners';
 import { useTheme } from 'styled-components';
 
-import { Loading } from 'components/Loading';
-import { Modal } from 'components/Modal';
-import { useBannersFindAll } from 'hooks/banners/useBannersFindAll';
-import { useGetEstablishments } from 'hooks/establishment/useGetEstablishments';
 import {
   Establishment,
   RequestBody,
 } from 'hooks/establishment/useGetEstablishments/types';
+
+import { Loading } from 'components/Loading';
+import { Modal } from 'components/Modal';
+import { useBannersFindAll } from 'hooks/banners/useBannersFindAll';
+import { useGetEstablishments } from 'hooks/establishment/useGetEstablishments';
 
 import { SectionTitle } from '../Components/SectionTitle';
 import { FilterInput } from './FilterInput';
@@ -34,15 +35,29 @@ export function Stores({
   observerTargetRef: MutableRefObject<HTMLDivElement>;
 }) {
   const filterInitialState = {
-    itemsPerPage: 6,
+    itemsPerPage: 1,
     page: 1,
   };
+  const formRef = useRef<FormHandles>(null);
   const [filterInput, setFilterInput] =
     useState<RequestBody>(filterInitialState);
+
   const { data: establishments, isLoading } = useGetEstablishments(filterInput);
-  const currentCursor =
-    establishments?.info.cursor && establishments.info.cursor;
-  const formRef = useRef<FormHandles>(null);
+  const [totalEstablishment, setTotalEstablishment] = useState<number>();
+
+  const totalEstablishmentRef = useRef<number>(totalEstablishment);
+  totalEstablishmentRef.current = totalEstablishment;
+
+  useEffect(() => {
+    if (
+      establishments &&
+      establishments.info &&
+      establishments.info.totalEstablishment > 0
+    ) {
+      setTotalEstablishment(establishments.info.totalEstablishment);
+    }
+  }, [establishments]);
+
   const [modalStatus, setModalStatus] = useState(false);
   const { data } = useBannersFindAll();
   const { colors } = useTheme();
@@ -50,10 +65,17 @@ export function Stores({
   const handleRefetch = useCallback(() => {
     setFilterInput(prevState => ({
       ...prevState,
-      id_cursor: currentCursor,
-      itemsPerPage: prevState.itemsPerPage + 3,
+      itemsPerPage: Math.min(
+        prevState.itemsPerPage + 1,
+        totalEstablishmentRef.current,
+      ),
     }));
-  }, [establishments]);
+  }, [
+    totalEstablishmentRef,
+    totalEstablishmentRef.current,
+    filterInput.itemsPerPage,
+    setFilterInput,
+  ]);
 
   useEffect(() => {
     const observer = new IntersectionObserver(
@@ -104,7 +126,7 @@ export function Stores({
     }));
   }, []);
 
-  const fallBackComponent = isLoading ? (
+  const FallBackComponent = isLoading ? (
     <S.LoadingContainer>
       <Loading icon={PulseLoader} color={colors.mediumslateBlue} size={10} />
       Carregando
@@ -170,7 +192,7 @@ export function Stores({
                 )}
               </>
             ) : (
-              fallBackComponent
+              FallBackComponent
             )}
           </S.CommerceContainer>
         </>

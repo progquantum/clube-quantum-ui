@@ -74,21 +74,24 @@ export const LoadingContainer = styled.div`
   margin: 2rem auto;
   animation: ${entry} 0.2s ease;
   text-align: center;
+  margin: 0 auto;
 `;
 
 export const SearchResultsContainer = styled.div`
   margin: 1rem 0;
 
   display: flex;
-  flex-direction: column;
+  flex-wrap: wrap;
   align-items: flex-start;
-
+  gap: 2rem;
   & ${CardContainer} {
     justify-content: flex-start;
   }
   & > p {
     color: ${({ theme }) => theme.colors.gray[400]};
     margin: 2rem 0;
+    flex: 1 0 auto;
+    width: 100%;
   }
 `;
 
