@@ -35,7 +35,7 @@ export function Stores({
   observerTargetRef: MutableRefObject<HTMLDivElement>;
 }) {
   const filterInitialState = {
-    itemsPerPage: 1,
+    itemsPerPage: 6,
     page: 1,
   };
   const formRef = useRef<FormHandles>(null);
@@ -66,7 +66,7 @@ export function Stores({
     setFilterInput(prevState => ({
       ...prevState,
       itemsPerPage: Math.min(
-        prevState.itemsPerPage + 1,
+        prevState.itemsPerPage + 3,
         totalEstablishmentRef.current,
       ),
     }));
