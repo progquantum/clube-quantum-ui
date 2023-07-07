@@ -39,9 +39,12 @@ describe('ModalContract', () => {
       date_of_acquisition: '03/05/2023',
       file_name: 'test file name',
       marketplace_subscription_id: '1',
-      justification: 'teste',
       cancelled_at: '31/05/2023',
-      cancelled_status: 'PENDING',
+      request_cancellation: [
+        {
+          cancelled_status: 'PENDING',
+        },
+      ],
     };
     render(
       <ProviderMock>
