@@ -1,6 +1,6 @@
 import { MdOutlineNavigateBefore, MdOutlineNavigateNext } from 'react-icons/md';
 
-import { useRef } from 'react';
+import React, { useRef } from 'react';
 
 import { useWindowSize } from 'react-use';
 
@@ -9,16 +9,8 @@ import { useGetFilterCategories } from 'hooks/establishment/useGetCategories';
 import { Category } from 'hooks/establishment/useGetCategories/types';
 
 import { SectionTitle } from '../Components/SectionTitle';
+import { iconMapping } from './icons';
 import * as S from './styles';
-import { allIcons } from './allIcons';
-
-function getIcon(iconName: string) {
-  const Icon = allIcons[iconName];
-  if (Icon) {
-    return <Icon size={24} />;
-  }
-  return <allIcons.MdFiberManualRecord size={24} />;
-}
 
 export function FilterTags({
   toggleSelectedCategory,
@@ -56,16 +48,19 @@ export function FilterTags({
       </div>
       <S.ScrollContainer ref={containerRef}>
         {categories &&
-          categories.map((category: Category) => (
-            <S.TagButton
-              key={category.id}
-              isSelected={category.id === selectedCategory}
-              onClick={() => toggleSelectedCategory(category.id)}
-            >
-              {getIcon(category.icon_name)}
-              {category.name}
-            </S.TagButton>
-          ))}
+          categories.map((category: Category) => {
+            const Icon: React.ComponentType = iconMapping[category.icon_name];
+            return (
+              <S.TagButton
+                key={category.id}
+                isSelected={category.id === selectedCategory}
+                onClick={() => toggleSelectedCategory(category.id)}
+              >
+                <Icon />
+                {category.name}
+              </S.TagButton>
+            );
+          })}
       </S.ScrollContainer>
       {!isMobile && (
         <>
