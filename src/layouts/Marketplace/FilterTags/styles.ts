@@ -50,6 +50,7 @@ export const TagButton = styled.button<{ isSelected: boolean }>`
   margin: 0.3rem 0;
   & svg {
     margin-right: 0.5rem;
+    font-size: 1.5rem;
   }
   ${({ isSelected }) =>
     isSelected &&
