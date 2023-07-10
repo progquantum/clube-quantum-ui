@@ -1,4 +1,4 @@
-import Image from 'next/legacy/image';
+import Image from 'next/image';
 
 import { RiStarFill } from 'react-icons/ri';
 
@@ -26,8 +26,8 @@ export function InlineCard({ establishment }: InlineCardProps) {
           src={establishment.logo_url}
           alt={establishment.corporate_name}
           title={establishment.corporate_name}
-          layout="fill"
-          style={{ borderRadius: '25px' }}
+          fill
+          style={{ borderRadius: '25px', objectFit: 'cover' }}
         />
       </ServiceCard>
 
