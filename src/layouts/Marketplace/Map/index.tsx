@@ -1,30 +1,36 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useMemo } from 'react';
+
+import { PulseLoader } from 'react-spinners';
+
+import { useTheme } from 'styled-components';
+
+import { useGetNearbyEstablishments } from 'hooks/establishment/useGetNearbyEstablishments';
+
+import { Loading } from 'components/Loading';
 
 import { Fallback } from './Fallback';
-import { Mapbox } from './Mapbox';
+import { FilterMap } from './FilterMap';
 
-export function Map({
-  latitude = -70.9,
-  longitude = 42.35,
-  isEstablishmentProfile,
-}: {
-  latitude?: number;
-  longitude?: number;
-  isEstablishmentProfile: boolean;
-}) {
-  const [isGeolocationOn, setIsGeolocationOn] = useState(
-    isEstablishmentProfile,
-  );
-  const [currentLat, setCurrentLat] = useState(latitude);
-  const [currentLng, setCurrentLng] = useState(longitude);
+export function Map() {
+  const [isGeolocationOn, setIsGeolocationOn] = useState(false);
+  const { colors } = useTheme();
+  const [currentLat, setCurrentLat] = useState<number | null>(null);
+  const [currentLng, setCurrentLng] = useState<number | null>(null);
+
+  const formattedCoordinates = useMemo(() => {
+    if (currentLat && currentLng) return `${currentLat},${currentLng}`;
+  }, [currentLat, currentLng]);
+
+  const { data: establishments, isLoading } =
+    useGetNearbyEstablishments(formattedCoordinates);
+
   const options = {
-    enableHighAccuracy: true,
+    enableHighAccuray: true,
     timeout: 5000,
     maximumAge: 0,
   };
 
   function success(pos: GeolocationPosition) {
-    if (isEstablishmentProfile) return;
     const crd = pos.coords;
     setCurrentLat(crd.latitude);
     setCurrentLng(crd.longitude);
@@ -41,9 +47,19 @@ export function Map({
     navigator.geolocation.getCurrentPosition(success, error, options);
   }, []);
 
-  return isGeolocationOn ? (
-    <Mapbox lat={currentLat} lng={currentLng} />
+  if (!isGeolocationOn) return <Fallback />;
+
+  return isLoading || !establishments ? (
+    <div style={{ padding: '4rem', textAlign: 'center' }}>
+      <Loading icon={PulseLoader} color={colors.mediumslateBlue} />
+    </div>
   ) : (
-    <Fallback />
+    <FilterMap
+      userLocation={{
+        latitude: String(currentLat),
+        longitude: String(currentLng),
+      }}
+      establishments={establishments}
+    />
   );
 }
