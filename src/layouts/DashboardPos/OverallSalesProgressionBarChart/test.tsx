@@ -4,8 +4,11 @@ import { useGetSalesProgression } from 'hooks/dashboard-pos/useSalesProgression'
 
 import { ProviderMock } from '../../../../__test__/__mocks__/provider';
 import { OverallSalesProgressionBarChart } from '.';
+import { MockResizeObserver } from '../../../../__test__/__mocks__/resizeObserver';
 
 jest.mock('hooks/dashboard-pos/useSalesProgression');
+
+window.ResizeObserver = MockResizeObserver as typeof ResizeObserver;
 
 describe('BarChart', () => {
   beforeEach(() => {

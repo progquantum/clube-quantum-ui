@@ -4,6 +4,9 @@ import DashboardPosPage from 'pages/dashboard-pos';
 
 import { setup as login } from '../../../__test__/__mocks__/login';
 import { ProviderMock } from '../../../__test__/__mocks__/provider';
+import { MockResizeObserver } from '../../../__test__/__mocks__/resizeObserver';
+
+window.ResizeObserver = MockResizeObserver as typeof ResizeObserver;
 
 describe('DashboardPos page', () => {
   beforeAll(async () => await login());
