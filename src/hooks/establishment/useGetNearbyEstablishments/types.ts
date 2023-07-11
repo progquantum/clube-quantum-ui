@@ -1,7 +1,3 @@
-export type RequestBody = {
-  userOrigin: string;
-};
-
 export type ResponseData = Localization[];
 
 export type Localization = {
