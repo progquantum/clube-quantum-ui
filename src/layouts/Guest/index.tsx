@@ -19,6 +19,7 @@ export function GuestPage() {
 
         <S.RightWrapper>
           <Image
+            data-testid="logo"
             alt="banco um logo"
             width={71}
             height={44}
