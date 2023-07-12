@@ -8,7 +8,6 @@ import { useGetFilterCategories } from 'hooks/establishment/useGetCategories';
 
 import { Category } from 'hooks/establishment/useGetCategories/types';
 
-import { SectionTitle } from '../Components/SectionTitle';
 import { iconMapping } from './icons';
 import * as S from './styles';
 
@@ -44,7 +43,7 @@ export function FilterTags({
   return (
     <S.Container>
       <div style={{ marginTop: '3rem' }}>
-        <SectionTitle>Filtrar</SectionTitle>
+        <S.Title>Filtrar</S.Title>
       </div>
       <S.ScrollContainer ref={containerRef}>
         {categories &&

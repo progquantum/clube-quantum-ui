@@ -64,3 +64,12 @@ export const TagButton = styled.button<{ isSelected: boolean }>`
 export const Container = styled.div`
   position: relative;
 `;
+
+export const Title = styled.span`
+  display: block;
+  width: 90%;
+  font-weight: 700;
+  font-size: 1.25rem;
+  color: ${({ theme }) => theme.colors.gray[700]};
+  line-height: 150%;
+`;
