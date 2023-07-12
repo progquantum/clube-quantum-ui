@@ -17,17 +17,16 @@ import {
 } from 'hooks/establishment/useGetEstablishments/types';
 
 import { Loading } from 'components/Loading';
-import { Modal } from 'components/Modal';
 import { useBannersFindAll } from 'hooks/banners/useBannersFindAll';
 import { useGetEstablishments } from 'hooks/establishment/useGetEstablishments';
+import { FilterTags } from 'components/FilterTags';
 
 import { SectionTitle } from '../Components/SectionTitle';
 import { FilterInput } from './FilterInput';
 import * as S from './styles';
 import { Carousel } from './Carousel';
 import { InlineCard } from './InlineCard';
-import { FilterTags } from '../FilterTags';
-import { Map } from '../Map';
+import { MapModal } from '../MapModal';
 
 export function Stores({
   observerTargetRef,
@@ -197,15 +196,7 @@ export function Stores({
           </S.CommerceContainer>
         </>
       )}
-      {modalStatus && (
-        <Modal noDragBehavior onClose={handleModalStatus}>
-          <FilterTags
-            toggleSelectedCategory={toggleSelectedCategory}
-            selectedCategory={filterInput.category_id}
-          />
-          <Map isEstablishmentProfile={false} />
-        </Modal>
-      )}
+      {modalStatus && <MapModal onClose={handleModalStatus} />}
     </S.StoresContainer>
   );
 }
