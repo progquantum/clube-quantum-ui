@@ -190,14 +190,14 @@ export function DashboardPos() {
             {isByPeriodFilter ? (
               <>
                 <S.ButtonUnderline
-                  filter={isByPeriodFilter}
+                  filter={isByPeriodFilter ? 1 : 0}
                   variant="transparent"
                   onClick={() => setFilter('período')}
                 >
                   Filtro por Período
                 </S.ButtonUnderline>
                 <S.ButtonUnderline
-                  filter={isBySpecificDate}
+                  filter={isBySpecificDate ? 1 : 0}
                   variant="transparent"
                   onClick={handleFilterDate}
                 >
@@ -207,14 +207,14 @@ export function DashboardPos() {
             ) : (
               <>
                 <S.ButtonUnderline
-                  filter={isBySpecificDate}
+                  filter={isBySpecificDate ? 1 : 0}
                   variant="transparent"
                   onClick={handleFilterDate}
                 >
                   Filtro por Data Específica
                 </S.ButtonUnderline>
                 <S.ButtonUnderline
-                  filter={isByPeriodFilter}
+                  filter={isByPeriodFilter ? 1 : 0}
                   variant="transparent"
                   onClick={() => setFilter('período')}
                 >

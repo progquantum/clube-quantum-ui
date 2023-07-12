@@ -9,8 +9,15 @@ import { MockResizeObserver } from '../../../__test__/__mocks__/resizeObserver';
 window.ResizeObserver = MockResizeObserver as typeof ResizeObserver;
 
 describe('DashboardPos page', () => {
-  beforeAll(async () => await login());
-
+  beforeAll(async () => {
+    await login();
+    jest
+      .spyOn(HTMLElement.prototype, 'clientHeight', 'get')
+      .mockReturnValue(100);
+    jest
+      .spyOn(HTMLElement.prototype, 'clientWidth', 'get')
+      .mockReturnValue(100);
+  });
   it('should render properly without errors or warnings', async () => {
     // Spy on console.error and console.warn
     const errorSpy = jest.spyOn(console, 'error');

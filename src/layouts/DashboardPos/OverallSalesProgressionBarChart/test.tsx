@@ -11,6 +11,14 @@ jest.mock('hooks/dashboard-pos/useSalesProgression');
 window.ResizeObserver = MockResizeObserver as typeof ResizeObserver;
 
 describe('BarChart', () => {
+  beforeAll(() => {
+    jest
+      .spyOn(HTMLElement.prototype, 'clientHeight', 'get')
+      .mockReturnValue(100);
+    jest
+      .spyOn(HTMLElement.prototype, 'clientWidth', 'get')
+      .mockReturnValue(100);
+  });
   beforeEach(() => {
     (useGetSalesProgression as jest.Mock).mockReturnValueOnce({
       data: [],

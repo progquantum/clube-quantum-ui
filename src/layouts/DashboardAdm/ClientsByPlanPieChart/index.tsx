@@ -91,6 +91,7 @@ export function ClientsByPlanPieChart({
                 >
                   {payload?.map((entry, index) => (
                     <div
+                      key={entry.id}
                       style={{
                         display: 'flex',
                         alignItems: 'center',
