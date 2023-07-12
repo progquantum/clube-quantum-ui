@@ -25,7 +25,7 @@ export function Map() {
     useGetNearbyEstablishments(formattedCoordinates);
 
   const options = {
-    enableHighAccuray: true,
+    enableHighAccuracy: true,
     timeout: 5000,
     maximumAge: 0,
   };
