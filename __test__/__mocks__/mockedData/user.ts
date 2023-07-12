@@ -10,6 +10,7 @@ export const mockUser = {
   invite_code: '123123',
   invites_accepted: '123',
   avatar_url: 'https://example.com/avatar.jpg',
+  has_establishment: false,
   address: {
     city: 'New York',
     state: 'NY',

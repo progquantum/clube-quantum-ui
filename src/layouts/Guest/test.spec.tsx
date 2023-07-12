@@ -5,7 +5,7 @@ import { ProviderMock } from '../../../__test__/__mocks__/provider';
 
 describe('GuestPage', () => {
   it('renders the guest page correctly', () => {
-    render(
+    const { getByTestId } = render(
       <ProviderMock>
         <GuestPage />
       </ProviderMock>,
@@ -37,7 +37,7 @@ describe('GuestPage', () => {
     );
 
     // Verifica se a imagem do logo está presente
-    const logoImage = screen.getByRole('img', { name: /banco um logo/i });
+    const logoImage = getByTestId('logo');
     expect(logoImage).toBeInTheDocument();
     expect(logoImage).toHaveAttribute('alt', 'banco um logo');
   });

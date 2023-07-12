@@ -8,6 +8,14 @@ import { MockResizeObserver } from '../../../../__test__/__mocks__/resizeObserve
 window.ResizeObserver = MockResizeObserver as typeof ResizeObserver;
 
 describe('Clients By Plan Pie Chart', () => {
+  beforeAll(() => {
+    jest
+      .spyOn(HTMLElement.prototype, 'clientHeight', 'get')
+      .mockReturnValue(100);
+    jest
+      .spyOn(HTMLElement.prototype, 'clientWidth', 'get')
+      .mockReturnValue(100);
+  });
   it(' should render the PieChart component', () => {
     const { getByText } = render(
       <ProviderMock>

@@ -1,4 +1,4 @@
-import { render, waitFor } from '@testing-library/react';
+import { act, render, screen } from '@testing-library/react';
 
 import { useFriends } from 'hooks/me/useFriends';
 
@@ -20,6 +20,7 @@ jest.mock('hooks/me/useIndirectGains');
 
 describe('MyFriends', () => {
   beforeAll(async () => await login());
+
   beforeEach(() => {
     const mockUseFriends = {
       current_page: 1,
@@ -38,7 +39,9 @@ describe('MyFriends', () => {
 
     (useFriends as jest.Mock).mockReturnValueOnce({
       data: mockUseFriends,
+      onPageChange: jest.fn(),
       isLoading: false,
+      loading: false,
       isError: false,
       isSuccess: true,
     });
@@ -56,7 +59,7 @@ describe('MyFriends', () => {
       isSuccess: true,
     });
 
-    (useMe as jest.Mock).mockReturnValueOnce({
+    (useMe as jest.Mock).mockReturnValue({
       data: mockUser,
       isLoading: false,
       isError: false,
@@ -77,21 +80,23 @@ describe('MyFriends', () => {
       isSuccess: true,
     });
   });
+
   afterEach(() => {
     jest.resetAllMocks();
   });
 
   it('should render the MyFriendsPage', async () => {
-    const { getByText } = render(
-      <ProviderMock>
-        <MyFriendsPage />
-      </ProviderMock>,
-    );
-    await waitFor(() => {
-      const friendName = getByText(/Tiago Silva/i);
-      expect(friendName).toBeInTheDocument();
-      const indirectFriendAmount = getByText(/150/i);
-      expect(indirectFriendAmount).toBeInTheDocument();
+    act(() => {
+      render(
+        <ProviderMock>
+          <MyFriendsPage />
+        </ProviderMock>,
+      );
     });
+
+    const friendName = screen.getByText(/Tiago Silva/i);
+    const indirectFriendAmount = screen.getByText(/150/i);
+    expect(friendName).toBeInTheDocument();
+    expect(indirectFriendAmount).toBeInTheDocument();
   });
 });

@@ -83,11 +83,4 @@ export const Slide = styled.div`
 
   & img {
     object-fit: cover;
-
-    border-radius: 0.31rem;
-
-    &:hover {
-      cursor: pointer;
-    }
-  }
 `;

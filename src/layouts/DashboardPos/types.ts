@@ -1,5 +1,5 @@
 export type ButtonProps = {
-  filter: boolean;
+  filter: number;
 };
 
 export type StateProps = {
