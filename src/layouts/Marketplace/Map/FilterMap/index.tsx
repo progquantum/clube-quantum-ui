@@ -14,10 +14,8 @@ export function FilterMap({ establishments, userLocation }: FilterMapProps) {
   const mapRef = useRef(null);
   const { colors } = useTheme();
 
-  const createMarkerIcon = () => {
-    const svgString = renderToStaticMarkup(
-      <HiLocationMarker color={colors.danger} />,
-    );
+  const createMarkerIcon = (color: string) => {
+    const svgString = renderToStaticMarkup(<HiLocationMarker color={color} />);
     const encodedSvg = encodeURIComponent(svgString);
     return `data:image/svg+xml;charset=UTF-8,${encodedSvg}`;
   };
@@ -30,16 +28,31 @@ export function FilterMap({ establishments, userLocation }: FilterMapProps) {
       },
       zoom: 16,
     }),
-    [userLocation.latitude, userLocation.longitude],
+    [userLocation],
   );
 
   useEffect(() => {
     loader.load().then(google => {
       const map = new google.maps.Map(mapRef.current, mapOptions);
+      const markerOptions = {
+        title: 'Você',
+        position: {
+          lat: Number(userLocation.latitude),
+          lng: Number(userLocation.longitude),
+        },
+        icon: {
+          url: createMarkerIcon(colors.mediumslateBlue),
+          scaledSize: new google.maps.Size(48, 48),
+          anchor: new google.maps.Point(24, 48),
+        },
+        map,
+      };
+
+      const marker = new google.maps.Marker(markerOptions);
 
       if (establishments.length > 0) {
         establishments.forEach((establishment: EstablishmentLocation) => {
-          const markerIcon = createMarkerIcon();
+          const markerIcon = createMarkerIcon(colors.danger);
           const markerOptions = {
             title: establishment.corporate_name,
             position: {
