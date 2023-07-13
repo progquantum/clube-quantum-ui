@@ -291,45 +291,53 @@ export function InfoEstablishment() {
       setCategoryId(e.category?.id);
     }
 
-    if (e.MarketplaceImages.length > 0) {
-      setLogo(e.MarketplaceImages[0].url, {} as File);
-      setBanner(e.MarketplaceImages[1].url, {} as File);
+    if (Array.isArray(e.MarketplaceImages)) {
+      if (e.MarketplaceImages.length > 0) {
+        setLogo(e.MarketplaceImages[0].url, {} as File);
+        setBanner(e.MarketplaceImages[1].url, {} as File);
+      }
     }
 
-    if (e.establishment_pos_working_hours.length > 0) {
-      e.establishment_pos_working_hours.map(item =>
-        setOpenDays(item.id, item.day_of_week),
-      );
-      e.establishment_pos_working_hours.map(item =>
-        setOpenHours(item.id, `${item.opening_time} AS ${item.closing_time}`),
-      );
+    if (Array.isArray(e.establishment_pos_working_hours)) {
+      if (e.establishment_pos_working_hours.length > 0) {
+        e.establishment_pos_working_hours.map(item =>
+          setOpenDays(item.id, item.day_of_week),
+        );
+        e.establishment_pos_working_hours.map(item =>
+          setOpenHours(item.id, `${item.opening_time} AS ${item.closing_time}`),
+        );
 
-      e.establishment_pos_working_hours.map(item =>
-        setCashBackDays(item.cashback_split.id, item.day_of_week),
-      );
+        e.establishment_pos_working_hours.map(item =>
+          setCashBackDays(item.cashback_split.id, item.day_of_week),
+        );
 
-      e.establishment_pos_working_hours.map(item =>
-        setRateCashBack(
-          item.cashback_split.id,
-          item.cashback_split.total_cashback,
-        ),
-      );
+        e.establishment_pos_working_hours.map(item =>
+          setRateCashBack(
+            item.cashback_split.id,
+            item.cashback_split.total_cashback,
+          ),
+        );
 
-      e.establishment_pos_working_hours.map(item =>
-        setRateCliente(
-          item.cashback_split.id,
-          item.cashback_split.client_cashback,
-        ),
-      );
-      e.establishment_pos_working_hours.map(item =>
-        setRateAdm(
-          item.cashback_split.id,
-          item.cashback_split.quantum_cashback,
-        ),
-      );
+        e.establishment_pos_working_hours.map(item =>
+          setRateCliente(
+            item.cashback_split.id,
+            item.cashback_split.client_cashback,
+          ),
+        );
+        e.establishment_pos_working_hours.map(item =>
+          setRateAdm(
+            item.cashback_split.id,
+            item.cashback_split.quantum_cashback,
+          ),
+        );
+      }
     }
-    if (e.PosSerialNumber.length > 0) {
-      e.PosSerialNumber.map(item => setMachinePos(item.id, item.serial_number));
+    if (Array.isArray(e.PosSerialNumber)) {
+      if (e.PosSerialNumber.length > 0) {
+        e.PosSerialNumber.map(item =>
+          setMachinePos(item.id, item.serial_number),
+        );
+      }
     }
   };
 

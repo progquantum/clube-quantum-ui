@@ -71,19 +71,24 @@ export const MapButton = styled.button`
 export const LoadingContainer = styled.div`
   font-weight: 700;
   color: ${({ theme }) => theme.colors.midnightBlue};
-  margin: 2rem auto;
+  margin: 4rem auto;
   animation: ${entry} 0.2s ease;
   text-align: center;
   margin: 0 auto;
+  display: flex;
+  justify-content: center;
+  padding: 2rem 0;
+  gap: 2rem;
+  font-size: 1.5rem;
+  grid-area: 1 / 1 / -1 / -1;
 `;
 
 export const SearchResultsContainer = styled.div`
   margin: 1rem 0;
-
   display: flex;
   flex-wrap: wrap;
   align-items: flex-start;
-  gap: 2rem;
+  gap: 3rem;
   & ${CardContainer} {
     justify-content: flex-start;
   }

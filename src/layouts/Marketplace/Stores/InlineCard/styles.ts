@@ -19,13 +19,12 @@ export const CardContainer = styled(Link)`
   cursor: pointer;
   flex: 1;
   max-width: 300px;
-
   text-decoration: none;
   color: ${({ theme }) => theme.colors.gray[700]};
   padding: 0.2rem;
   border-radius: 25px 0 0 25px;
   &:hover {
-    box-shadow: 0 0 1px ${({ theme }) => theme.colors.gray[700]};
+    transform: translateY(-0.2rem);
   }
 `;
 
