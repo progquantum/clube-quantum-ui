@@ -14,12 +14,15 @@ import { useTheme } from 'styled-components';
 import {
   Establishment,
   RequestBody,
+  ResponseData,
 } from 'hooks/establishment/useGetEstablishments/types';
 
 import { Loading } from 'components/Loading';
 import { useBannersFindAll } from 'hooks/banners/useBannersFindAll';
 import { useGetEstablishments } from 'hooks/establishment/useGetEstablishments';
 import { FilterTags } from 'components/FilterTags';
+
+import { FallbackComponent } from 'layouts/MyContracts/styles';
 
 import { SectionTitle } from '../Components/SectionTitle';
 import { FilterInput } from './FilterInput';
@@ -36,16 +39,22 @@ export function Stores({
   const filterInitialState = {
     itemsPerPage: 6,
     page: 1,
+    id_cursor: '',
+    category_id: '',
+    corporate_name: '',
   };
+
   const formRef = useRef<FormHandles>(null);
   const [filterInput, setFilterInput] =
     useState<RequestBody>(filterInitialState);
-
+  const [modalStatus, setModalStatus] = useState(false);
+  const { data } = useBannersFindAll();
+  const { colors } = useTheme();
   const { data: establishments, isLoading } = useGetEstablishments(filterInput);
-  const [totalEstablishment, setTotalEstablishment] = useState<number>();
+  const [responseData, setResponseData] = useState<ResponseData>();
 
-  const totalEstablishmentRef = useRef<number>(totalEstablishment);
-  totalEstablishmentRef.current = totalEstablishment;
+  const responseDataRef = useRef<ResponseData>();
+  responseDataRef.current = responseData;
 
   useEffect(() => {
     if (
@@ -53,25 +62,22 @@ export function Stores({
       establishments.info &&
       establishments.info.totalEstablishment > 0
     ) {
-      setTotalEstablishment(establishments.info.totalEstablishment);
+      setResponseData(establishments);
     }
   }, [establishments]);
 
-  const [modalStatus, setModalStatus] = useState(false);
-  const { data } = useBannersFindAll();
-  const { colors } = useTheme();
-
   const handleRefetch = useCallback(() => {
+    const {
+      info: { totalEstablishment },
+    } = responseDataRef.current;
+
     setFilterInput(prevState => ({
       ...prevState,
-      itemsPerPage: Math.min(
-        prevState.itemsPerPage + 3,
-        totalEstablishmentRef.current,
-      ),
+      itemsPerPage: Math.min(prevState.itemsPerPage + 3, totalEstablishment),
     }));
   }, [
-    totalEstablishmentRef,
-    totalEstablishmentRef.current,
+    responseDataRef,
+    responseDataRef.current,
     filterInput.itemsPerPage,
     setFilterInput,
   ]);
@@ -105,6 +111,7 @@ export function Stores({
         setFilterInput(prevState => ({
           ...prevState,
           category_id: categoryId,
+          id_cursor: '',
         }));
       }
     },
@@ -113,17 +120,17 @@ export function Stores({
 
   const handleModalStatus = () => setModalStatus(prevState => !prevState);
 
-  const handleFilter: SubmitHandler = useCallback(data => {
-    if (!data.filter) {
-      setFilterInput(filterInitialState);
-      return;
-    }
+  const handleFilter: SubmitHandler = useCallback(
+    data => {
+      if (!data.filter) {
+        setFilterInput(filterInitialState);
+        return;
+      }
 
-    setFilterInput(prevState => ({
-      ...prevState,
-      corporate_name: data.filter,
-    }));
-  }, []);
+      setFilterInput({ ...filterInitialState, corporate_name: data.filter });
+    },
+    [filterInput],
+  );
 
   const FallBackComponent = isLoading ? (
     <S.LoadingContainer>
@@ -155,21 +162,18 @@ export function Stores({
           <FaMapMarkerAlt size={24} /> Mapa
         </S.MapButton>
       </S.InlineContainer>
-      {Object.hasOwn(filterInput, 'corporate_name') ? (
+      {filterInput.corporate_name ? (
         <S.SearchResultsContainer>
           <p>Resultados da pesquisa feita</p>
-          {establishments?.info.totalEstablishment > 0 ? (
-            establishments.establishment.map((establishment: Establishment) => (
-              <InlineCard
-                establishment={establishment}
-                key={establishment.id}
-              />
-            ))
-          ) : (
-            <S.FallbackEstablishmentText>
-              Nenhum estabelecimento encontrado
-            </S.FallbackEstablishmentText>
-          )}
+          {establishments?.establishment.length > 0 &&
+            establishments?.establishment.map(
+              (establishment: Establishment) => (
+                <InlineCard
+                  establishment={establishment}
+                  key={establishment.id}
+                />
+              ),
+            )}
         </S.SearchResultsContainer>
       ) : (
         <>
@@ -179,7 +183,7 @@ export function Stores({
             selectedCategory={filterInput.category_id}
           />
           <S.CommerceContainer>
-            {establishments?.info.totalEstablishment > 0 ? (
+            {establishments?.establishment.length > 0 && (
               <>
                 {establishments.establishment.map(
                   (establishment: Establishment) => (
@@ -190,11 +194,24 @@ export function Stores({
                   ),
                 )}
               </>
-            ) : (
-              FallBackComponent
             )}
           </S.CommerceContainer>
         </>
+      )}
+      {isLoading && (
+        <S.LoadingContainer>
+          <Loading
+            icon={PulseLoader}
+            color={colors.mediumslateBlue}
+            size={10}
+          />
+          Carregando
+        </S.LoadingContainer>
+      )}
+      {establishments?.establishment.length === 0 && (
+        <S.FallbackEstablishmentText>
+          Nenhum estabelecimento encontrado
+        </S.FallbackEstablishmentText>
       )}
       {modalStatus && <MapModal onClose={handleModalStatus} />}
     </S.StoresContainer>
