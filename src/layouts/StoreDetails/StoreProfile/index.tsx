@@ -32,6 +32,8 @@ import { InlineCard } from 'layouts/Marketplace/Stores/InlineCard';
 
 import { loader } from 'utils/googleMapsLoader';
 
+import { formatPhoneNumber } from 'utils/formatters/formatPhoneNumber';
+
 import { DaysOfWeek } from './types';
 import { GoogleMap } from '../GoogleMap';
 import * as S from './styles';
@@ -181,10 +183,6 @@ export function StoreProfile({
         <S.TitleEvaluations>Avaliações de usuários</S.TitleEvaluations>
         <S.ContentStar>
           <FaStar size={24} color={colors.yellowStar} />
-          <FaStar size={24} color={colors.yellowStar} />
-          <FaStar size={24} color={colors.yellowStar} />
-          <FaStar size={24} color={colors.yellowStar} />
-          <FaStar size={24} color={colors.yellowStar} />
           <S.StoreGrade>0,0</S.StoreGrade>
           <S.QuantEvaluations>0 Avaliações</S.QuantEvaluations>
         </S.ContentStar>
@@ -198,7 +196,7 @@ export function StoreProfile({
         <S.ContentInfo>
           <S.SubTitle>Contato</S.SubTitle>
           <S.TextInfo>
-            <span>{establishment.user.phone}</span>
+            <span>{formatPhoneNumber(establishment.user.main_phone)}</span>
             {establishment.contacts.main_phone_has_whatsapp && (
               <Image
                 src="/images/whatsapp.svg"

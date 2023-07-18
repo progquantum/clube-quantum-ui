@@ -23,7 +23,7 @@ export type Contacts = {
 };
 
 export type MainContact = {
-  phone: string;
+  main_phone: string;
 };
 
 export type MarketplaceImage = {
