@@ -1,5 +1,3 @@
-/* eslint-disable react/no-array-index-key */
-/* eslint-disable react/no-unstable-nested-components */
 import {
   BarChart as BarChar,
   Bar,
@@ -11,28 +9,27 @@ import {
   Legend,
 } from 'recharts';
 
+import { useMemo } from 'react';
+
+import { ClientsPerDay } from 'hooks/dashboard-adm/useGetDashboardADM/types';
+
 import * as S from './styles';
+import { ClientsPerDayLabels } from './types';
 
-const data = [
-  {
-    name: 'Hoje',
-    faturamento: 12500,
-  },
-  {
-    name: 'Ontem',
-    faturamento: 15000,
-  },
-  {
-    name: 'Últimos 3 dias',
-    faturamento: 30000,
-  },
-  {
-    name: 'Última semana',
-    faturamento: 15000,
-  },
-];
+export function ClientsPerDayBarChart({
+  clientsPerDay,
+}: {
+  clientsPerDay: ClientsPerDay;
+}) {
+  const formattedData = useMemo(
+    () =>
+      Object.keys(clientsPerDay).map(key => ({
+        name: ClientsPerDayLabels[key],
+        faturamento: clientsPerDay[key],
+      })),
+    [clientsPerDay],
+  );
 
-export function ClientsByDayBarChart() {
   return (
     <S.ChartContainer>
       <S.Title>Clientes por dia</S.Title>
@@ -40,7 +37,7 @@ export function ClientsByDayBarChart() {
         <BarChar
           width={400}
           height={300}
-          data={data}
+          data={formattedData}
           margin={{
             top: 5,
             right: 30,
