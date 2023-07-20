@@ -5,21 +5,24 @@ import { useSidebarStore } from 'store/sidebar';
 
 import { useGetDashboardADM } from 'hooks/dashboard-adm/useGetDashboardADM';
 
-import { ClientsPerPlan } from 'hooks/dashboard-adm/useGetDashboardADM/types';
+import {
+  ClientsPerDay,
+  ClientsPerPlan,
+} from 'hooks/dashboard-adm/useGetDashboardADM/types';
 
 import * as S from './styles';
 import { SalesByRevenueTypeLineChart } from '../SalesByRevenueTypeLineChart';
 import { SmartQuantumSalesPieChart } from '../SmartQuantumSalesPieChart';
 import { ClientsByPlanPieChart } from '../ClientsByPlanPieChart';
 import { DailyBillingChart } from '../DailyBillingChart';
-import { ClientsByDayBarChart } from '../ClientsByDayBarChart';
+import { ClientsPerDayBarChart } from '../ClientsPerDayBarChart';
 
 export function Main() {
   const [underline, setUnderline] = useState('Geral');
   const isSideBarExpanded = useSidebarStore(state => state.isExpanded);
   const { data: dashboard } = useGetDashboardADM();
 
-  const fallbackData = {
+  const clientsPerPlanFallback = {
     quantum_free: 0,
     quantum_start: 0,
     quantum_business: 0,
@@ -28,8 +31,18 @@ export function Main() {
     total_clients: 0,
   };
 
+  const clientsPerDayFallback = {
+    today: 0,
+    yesterday: 0,
+    dayBeforeYesterday: 0,
+    lastSevenDays: 0,
+  };
+
   const clientsPerPlan: ClientsPerPlan =
-    dashboard?.client_per_plan ?? fallbackData;
+    dashboard?.client_per_plan ?? clientsPerPlanFallback;
+
+  const clientsPerDay: ClientsPerDay =
+    dashboard?.client_per_day ?? clientsPerDayFallback;
 
   return (
     <S.Container isSideBarExpanded={isSideBarExpanded}>
@@ -91,7 +104,7 @@ export function Main() {
       <SmartQuantumSalesPieChart />
       <ClientsByPlanPieChart clientsPerPlan={clientsPerPlan} />
       <DailyBillingChart />
-      <ClientsByDayBarChart />
+      <ClientsPerDayBarChart clientsPerDay={clientsPerDay} />
     </S.Container>
   );
 }
