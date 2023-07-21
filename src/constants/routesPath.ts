@@ -39,3 +39,5 @@ export const PARTNER_REGISTRATION_PAGE = '/partner-registration';
 export const MANAGE_BANNER_PAGE = '/manage-banner';
 
 export const CANCELLATION_REQUEST_PAGE = '/cancellation-request';
+
+export const SMART_QUANTUM_REQUESTS_PAGE = '/smart-quantum-requests';
