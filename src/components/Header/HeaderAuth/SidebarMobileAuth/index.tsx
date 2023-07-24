@@ -23,6 +23,7 @@ import {
   DASHBOARD_ADM_PAGE,
   MANAGE_BANNER_PAGE,
   PARTNER_REGISTRATION_PAGE,
+  SMART_QUANTUM_REQUESTS_PAGE,
 } from 'constants/routesPath';
 
 import { TOKEN_STORAGE_KEY } from 'constants/storage';
@@ -91,6 +92,11 @@ const adminUserLinks = [
     title: 'Solicitações de Cancelamento',
     icon: <AiFillFile size={20} />,
     href: CANCELLATION_REQUEST_PAGE,
+  },
+  {
+    title: 'Solicitações Smart',
+    icon: <AiFillFile size={20} />,
+    href: SMART_QUANTUM_REQUESTS_PAGE,
   },
 ];
 

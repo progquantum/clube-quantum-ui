@@ -26,6 +26,7 @@ import {
   MY_FRIENDS_PAGE,
   MY_STATEMENTS_PAGE,
   PARTNER_REGISTRATION_PAGE,
+  SMART_QUANTUM_REQUESTS_PAGE,
 } from 'constants/routesPath';
 import { useAuthDispatch } from 'contexts/auth/AuthContext';
 
@@ -161,6 +162,14 @@ export function SideBar({ loading }: SideBarProps) {
                 <AiFillFile />
               </S.IconBox>
               <S.TitleBox>Solicitações de Cancelamento</S.TitleBox>
+            </S.NavButton>
+          </Link>
+          <Link href={SMART_QUANTUM_REQUESTS_PAGE}>
+            <S.NavButton isExpanded={isExpanded}>
+              <S.IconBox isExpanded={isExpanded}>
+                <AiFillFile />
+              </S.IconBox>
+              <S.TitleBox>Solicitações Smart</S.TitleBox>
             </S.NavButton>
           </Link>
         </>
