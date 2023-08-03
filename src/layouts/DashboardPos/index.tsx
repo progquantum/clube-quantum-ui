@@ -139,14 +139,14 @@ export function DashboardPos() {
     VISA: <VISAIcon width="37.16px" height="12px" />,
     VISA_ELECTRON: <VISAEletronIcon width="38px" height="40px" />,
     MASTER: <MasterCardIcon width="25.89px" height="16px" />,
-    MASTER_MAESTRO: <MasterCardMaestroIcon width="30px" height="20px" />,
+    MAESTRO: <MasterCardMaestroIcon width="30px" height="20px" />,
     ELO: <EloIcon width="41.76px" height="16px" />,
     AMERICAN_EXPRESS: <AmericanExpressIcon width="16px" height="16px" />,
   };
 
   const isByPeriodFilter = filter === 'período';
   const isBySpecificDate = filter === 'específica';
-
+  console.log(sales?.card_brand);
   return (
     <DashboardLayout maxWidth="1736px">
       {isLoading ? (
