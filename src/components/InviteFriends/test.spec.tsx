@@ -2,6 +2,8 @@ import { fireEvent, render, screen, waitFor } from '@testing-library/react';
 
 import { useMe } from 'hooks/me/useMe';
 
+import { getCurrentNodeEnv } from 'utils/currentNodeEnv';
+
 import { InviteFriends } from '.';
 import { ProviderMock } from '../../../__test__/__mocks__/provider';
 import { mockUser } from '../../../__test__/__mocks__/mockedData/user';
@@ -17,10 +19,11 @@ describe('Invite clipboard', () => {
       isSuccess: true,
     });
     // Mock the navigator.clipboard API
+
     Object.defineProperty(window.navigator, 'clipboard', {
       value: {
         readText: jest.fn(() =>
-          Promise.resolve('quantum.com.vc/signup?invite-code=123123'),
+          Promise.resolve(`${getCurrentNodeEnv()}/signup?invite-code=123123`),
         ),
         writeText: jest.fn(),
       },
@@ -56,6 +59,8 @@ describe('Invite clipboard', () => {
     expect(window.navigator.clipboard.writeText).toHaveBeenCalled();
     expect(window.navigator.clipboard.readText).toHaveBeenCalled();
 
-    expect(clipBoardInvite).toEqual('quantum.com.vc/signup?invite-code=123123');
+    expect(clipBoardInvite).toEqual(
+      `${getCurrentNodeEnv()}/signup?invite-code=123123`,
+    );
   });
 });

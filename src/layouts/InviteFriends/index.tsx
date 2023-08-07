@@ -13,12 +13,14 @@ import { useMe } from 'hooks/me/useMe';
 
 import { HeaderAuth } from 'components/Header/HeaderAuth';
 
+import { getCurrentNodeEnv } from 'utils/currentNodeEnv';
+
 import * as S from './styles';
 
 export function InviteFriendsPage() {
   const { data: user } = useMe();
   const share = useShare();
-  const linkCode = `https://www.quantum.com.vc/signup?invite=${user?.invite_code}`;
+  const linkCode = `${getCurrentNodeEnv()}/signup?invite=${user?.invite_code}`;
   const hasInviteCode = user?.invite_code;
 
   const handleShare = () => {

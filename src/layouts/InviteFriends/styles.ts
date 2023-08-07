@@ -42,7 +42,7 @@ export const InviteCodeContainer = styled(Button)`
   align-items: flex-start;
   width: 100%;
   max-width: 28rem;
-  padding: 2.5rem 1rem;
+  padding: 3.5rem 1rem;
   text-align: start;
   line-height: 1.6;
   color: ${({ theme }) => theme.colors.midnightBlue};
