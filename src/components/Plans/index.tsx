@@ -9,6 +9,8 @@ import { PulseLoader } from 'react-spinners';
 
 import { useTheme } from 'styled-components';
 
+import { useRouter } from 'next/router';
+
 import { usePlans } from 'hooks/helpers/usePlans';
 import { useSubscriptionsDispatch } from 'contexts/subscriptions/SubscriptionsContext';
 import { formatPrice } from 'utils/formatters/formatPrice';
@@ -19,6 +21,8 @@ import { useMe } from 'hooks/me/useMe';
 
 import { Loading } from 'components/Loading';
 
+import { Button } from 'components/Button';
+
 import {
   Periods,
   PlanDurationProps,
@@ -28,7 +32,8 @@ import {
 } from './types';
 import * as S from './styles';
 
-export function Plans({ children, button }: PlansProps) {
+export function Plans({ children, button, onPreviousFormStep }: PlansProps) {
+  const { pathname } = useRouter();
   const [selectedPeriod, setSelectedPeriod] = useState<Periods>('semiannual');
   const [selectedPlan, setSelectedPlan] = useState<Plans>('start');
   const { data: plans, isLoading } = usePlans();
@@ -121,7 +126,6 @@ export function Plans({ children, button }: PlansProps) {
       {children}
       <S.Wrapper>
         <S.Title>Selecione o período de pagamento</S.Title>
-
         <S.PlansWrapper>
           {planDurationOptions.map((item: PlanDurationProps, index) => (
             <S.PlanType
@@ -138,7 +142,6 @@ export function Plans({ children, button }: PlansProps) {
         </S.PlansWrapper>
         <S.Subtitle>Renovação feita de forma automática</S.Subtitle>
       </S.Wrapper>
-
       <S.PlansContents>
         <S.PlanContentsWrapper
           data-cy="planFree"
@@ -168,7 +171,6 @@ export function Plans({ children, button }: PlansProps) {
               ? 'Plano Escolhido'
               : 'Escolher este plano'}
           </S.Button>
-
           <S.PlanItemsList isActive={selectedPlan === 'free'}>
             <li>
               <S.PlanItem>
@@ -212,7 +214,6 @@ export function Plans({ children, button }: PlansProps) {
             </li>
           </S.PlanItemsList>
         </S.PlanContentsWrapper>
-
         <S.PlanContentsWrapper
           data-cy="planStart"
           isActive={selectedPlan === 'start'}
@@ -232,7 +233,6 @@ export function Plans({ children, button }: PlansProps) {
           <S.Text>
             Plano com um custo acessível e que te dá mais benefícios.
           </S.Text>
-
           <S.Price>
             {isLoading ? (
               <Loading icon={PulseLoader} color={colors.gray[200]} size={10} />
@@ -244,13 +244,11 @@ export function Plans({ children, button }: PlansProps) {
               formatPrice(planStart.annual_price)
             )}
           </S.Price>
-
           <S.Button isActive={selectedPlan === 'start'}>
             {selectedPlan === 'start'
               ? 'Plano Escolhido'
               : 'Escolher este plano'}
           </S.Button>
-
           <S.PlanItemsList isActive={selectedPlan === 'start'}>
             <li>
               <S.PlanItem>
@@ -386,8 +384,14 @@ export function Plans({ children, button }: PlansProps) {
           </S.PlanItemsList>
         </S.PlanContentsWrapper>
       </S.PlansContents>
-
-      <section>{button}</section>
+      <S.ButtonContainer>
+        {button}
+        {pathname === '/signup/personal' && (
+          <Button variant="link" onClick={onPreviousFormStep}>
+            Voltar
+          </Button>
+        )}
+      </S.ButtonContainer>
     </S.Container>
   );
 }

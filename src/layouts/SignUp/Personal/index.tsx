@@ -57,7 +57,12 @@ export function PersonalSignUpPage() {
         onPreviousFormStep={previousStep}
       />
     ),
-    7: <Plans button={<SingUpButton onUpdateFormStep={() => nextStep()} />} />,
+    7: (
+      <Plans
+        onPreviousFormStep={previousStep}
+        button={<SingUpButton onUpdateFormStep={() => nextStep()} />}
+      />
+    ),
     8: (
       <Summary onUpdateFormStep={nextStep} onPreviousFormStep={previousStep} />
     ),
