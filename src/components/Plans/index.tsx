@@ -386,11 +386,12 @@ export function Plans({ children, button, onPreviousFormStep }: PlansProps) {
       </S.PlansContents>
       <S.ButtonContainer>
         {button}
-        {pathname === '/signup/personal' && (
-          <Button variant="link" onClick={onPreviousFormStep}>
-            Voltar
-          </Button>
-        )}
+        {pathname === '/signup/personal' ||
+          (pathname === '/signup/business' && (
+            <Button variant="link" onClick={onPreviousFormStep}>
+              Voltar
+            </Button>
+          ))}
       </S.ButtonContainer>
     </S.Container>
   );
