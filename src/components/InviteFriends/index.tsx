@@ -7,6 +7,8 @@ import { ImWhatsapp } from 'react-icons/im';
 import { useMe } from 'hooks/me/useMe';
 import { formatSepareteNumbers } from 'utils/formatters/formatSepareteNumbers';
 
+import { getCurrentNodeEnv } from 'utils/currentNodeEnv';
+
 import * as S from './styles';
 
 export function InviteFriends() {
@@ -16,7 +18,7 @@ export function InviteFriends() {
 
   const [totalFriends, limite] = formatSepareteNumbers(invites_accepted);
 
-  const inviteLink = `quantum.com.vc/signup?invite-code=${invite_code}`;
+  const inviteLink = `${getCurrentNodeEnv()}/signup?invite-code=${invite_code}`;
 
   const handleCopyOnClick = async () => {
     try {
