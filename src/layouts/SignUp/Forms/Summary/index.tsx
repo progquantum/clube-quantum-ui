@@ -4,6 +4,8 @@ import { IoReturnDownBackSharp } from 'react-icons/io5';
 
 import { parseCookies } from 'nookies';
 
+import { AxiosError } from 'axios';
+
 import { useSubscription } from 'hooks/subscriptions/useSubscription';
 
 import { formatFirstLetterToUppercase } from 'utils/formatters/formatFirstLetterToUppercase';
@@ -20,6 +22,10 @@ import { Button } from 'components/Button';
 import { TOKEN_STORAGE_KEY } from 'constants/storage';
 
 import { quantumClientQueue } from 'config/client';
+
+import { ErrorResponse } from 'services/httpServices';
+
+import { error } from 'helpers/notify/error';
 
 import { SummaryProps } from './types';
 import * as S from './styles';
@@ -60,6 +66,10 @@ export function Summary({
       },
       {
         onSuccess: () => onUpdateFormStep(),
+        onError: (data: AxiosError<ErrorResponse>) =>
+          data.response.data.message ===
+            'This bank account is already being used by another user' &&
+          error('Esta conta bancária já está em uso'),
       },
     );
   };
