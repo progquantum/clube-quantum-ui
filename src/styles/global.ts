@@ -278,4 +278,5 @@ export default createGlobalStyle`
       color: ${({ theme }) => theme.colors.white};
     }
   }
-  `;
+
+   `;
