@@ -42,6 +42,12 @@ export function LegalPerson({
           name="company_name"
           placeholder="Razão social"
           icon={FiUser}
+          onChange={e => {
+            formRef.current.setFieldValue(
+              'company_name',
+              e.target.value.toUpperCase(),
+            );
+          }}
         />
 
         <Input

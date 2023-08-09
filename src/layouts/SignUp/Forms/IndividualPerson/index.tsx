@@ -61,6 +61,9 @@ export function IndividualPerson({
           name="name"
           placeholder="Nome completo"
           icon={FiUser}
+          onChange={e => {
+            formRef.current.setFieldValue('name', e.target.value.toUpperCase());
+          }}
         />
 
         <Input
