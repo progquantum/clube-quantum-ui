@@ -16,8 +16,15 @@ import { ClientsPerDay } from 'hooks/dashboard-adm/useGetDashboardADM/types';
 import * as S from './styles';
 import { ClientsPerDayLabels } from './types';
 
+const clientsPerDayFallback = {
+  today: 0,
+  yesterday: 0,
+  dayBeforeYesterday: 0,
+  lastSevenDays: 0,
+};
+
 export function ClientsPerDayBarChart({
-  clientsPerDay,
+  clientsPerDay = clientsPerDayFallback,
 }: {
   clientsPerDay: ClientsPerDay;
 }) {
