@@ -10,55 +10,64 @@ import {
   Legend,
   ResponsiveContainer,
 } from 'recharts';
+import { v4 } from 'uuid';
+
+import { MonthlyRevenue } from 'hooks/dashboard-adm/useGetDashboardADM/types';
 
 import * as S from './styles';
+import { Months } from './types';
 
-const data = [
-  {
-    name: 'JAN',
-    Marketplace: 2400,
-    Cashback: 3000,
-    Planos: 2400,
+const monthlyRevenueFallback = {
+  subscriptions: {
+    '2023-3': 0,
+    '2023-4': 0,
+    '2023-5': 0,
+    '2023-6': 0,
+    '2023-7': 0,
+    '2023-8': 0,
   },
-  {
-    name: 'MAR',
-    Marketplace: 2300,
-    Cashback: 3150,
-    Planos: 2000,
+  commissions: {
+    '2023-3': 0,
+    '2023-4': 0,
+    '2023-5': 0,
+    '2023-6': 0,
+    '2023-7': 0,
+    '2023-8': 0,
   },
-  {
-    name: 'MAI',
-    Marketplace: 1900,
-    Cashback: 2000,
-    Planos: 1500,
+  marketplaceSubscriptions: {
+    '2023-3': 0,
+    '2023-4': 0,
+    '2023-5': 0,
+    '2023-6': 0,
+    '2023-7': 0,
+    '2023-8': 0,
   },
-  {
-    name: 'JUL',
-    Marketplace: 2000,
-    Cashback: 2150,
-    Planos: 1600,
-  },
-  {
-    name: 'SET',
-    Marketplace: 2100,
-    Cashback: 2200,
-    Planos: 1700,
-  },
-  {
-    name: 'NOV',
-    Marketplace: 2150,
-    Cashback: 2300,
-    Planos: 1800,
-  },
-];
+};
+export function SalesByRevenueTypeLineChart({
+  monthlyRevenue = monthlyRevenueFallback,
+}: {
+  monthlyRevenue: MonthlyRevenue;
+}) {
+  const formattedDashboardData = Object.keys(monthlyRevenue.subscriptions).map(
+    (key: string) => {
+      const [_, month] = key.split('-');
+      return {
+        name: Months[month],
+        Marketplace: parseFloat(
+          monthlyRevenue.marketplaceSubscriptions[key].toFixed(2),
+        ),
+        Cashback: parseFloat(monthlyRevenue.commissions[key].toFixed(2)),
+        Planos: parseFloat(monthlyRevenue.subscriptions[key].toFixed(2)),
+      };
+    },
+  );
 
-export function SalesByRevenueTypeLineChart() {
   return (
     <S.ChartContainer>
       <S.Title>Comparação de vendas por tipo de receita.</S.Title>
       <ResponsiveContainer width="99%" height="100%">
         <LineChar
-          data={data}
+          data={formattedDashboardData}
           margin={{
             top: 5,
             right: 30,
@@ -84,8 +93,8 @@ export function SalesByRevenueTypeLineChart() {
                   }}
                   className="custom-legend"
                 >
-                  {payload?.map((entry, index) => (
-                    <li key={`item-${index}`}>
+                  {payload?.map(entry => (
+                    <li key={v4()}>
                       <span
                         className="legend-color"
                         style={{ backgroundColor: entry.color }}
