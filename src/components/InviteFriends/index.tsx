@@ -30,8 +30,11 @@ export function InviteFriends() {
     }
   };
 
+  const isLimitReached =
+    totalFriends > 0 && limite > 0 && totalFriends === limite;
+
   return (
-    <S.DivInviteFriends variant={totalFriends === limite ? 'limitReached' : ''}>
+    <S.DivInviteFriends variant={isLimitReached ? 'limitReached' : ''}>
       <S.HeaderInviteFriends>
         <BsPersonBadge />
         <S.TitleFriends>Convidar amigos</S.TitleFriends>
