@@ -60,7 +60,7 @@ export function PersonalSignUpPage() {
     7: (
       <Plans
         onPreviousFormStep={previousStep}
-        button={<SingUpButton onUpdateFormStep={() => nextStep()} />}
+        button={<SignUpButton onUpdateFormStep={() => nextStep()} />}
       />
     ),
     8: (
