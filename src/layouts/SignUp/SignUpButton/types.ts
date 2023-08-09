@@ -1,3 +1,3 @@
-export type SingUpButtonProps = {
+export type SignUpButtonProps = {
   onUpdateFormStep: () => void;
 };
