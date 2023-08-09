@@ -9,7 +9,7 @@ import { LegalPerson } from '../Forms/LegalPerson';
 import { BusinessAddress } from '../Forms/BusinessAddress';
 import { CreditCard } from '../Forms/CreditCard';
 import { BankAccount } from '../Forms/BankAccount';
-import { SingUpButton } from '../SingUpButton';
+import { SignUpButton } from '../SignUpButton';
 import { Summary } from '../Forms/Summary';
 import { Successful } from '../Forms/Successful';
 
@@ -60,7 +60,7 @@ export function BusinessSignUpPage() {
     7: (
       <Plans
         onPreviousFormStep={previousStep}
-        button={<SingUpButton onUpdateFormStep={() => nextStep()} />}
+        button={<SignUpButton onUpdateFormStep={() => nextStep()} />}
       />
     ),
     8: (
