@@ -10,13 +10,23 @@ import {
   Tooltip,
 } from 'recharts';
 
+import { v4 } from 'uuid';
+
 import { ClientsPerPlan } from 'hooks/dashboard-adm/useGetDashboardADM/types';
 
 import * as S from './styles';
 import { ClientsPerPlanLabels } from './types';
 
+const clientsPerPlanFallback = {
+  quantum_free: 0,
+  quantum_start: 0,
+  quantum_business: 0,
+  quantum_select: 0,
+  inactive: 0,
+  total_clients: 0,
+};
 export function ClientsByPlanPieChart({
-  clientsPerPlan,
+  clientsPerPlan = clientsPerPlanFallback,
 }: {
   clientsPerPlan: ClientsPerPlan;
 }) {
@@ -69,10 +79,7 @@ export function ClientsByPlanPieChart({
             labelLine={false}
           >
             {formattedData.map((_, index) => (
-              <Cell
-                key={`cell-${index}`}
-                fill={COLORS[index % COLORS.length]}
-              />
+              <Cell key={v4()} fill={COLORS[index % COLORS.length]} />
             ))}
           </Pie>
           <Legend
@@ -91,7 +98,7 @@ export function ClientsByPlanPieChart({
                 >
                   {payload?.map((entry, index) => (
                     <div
-                      key={entry.id}
+                      key={v4()}
                       style={{
                         display: 'flex',
                         alignItems: 'center',

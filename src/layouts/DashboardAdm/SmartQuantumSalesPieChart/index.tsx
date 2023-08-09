@@ -10,6 +10,9 @@ import {
   Tooltip,
 } from 'recharts';
 
+import { uuid } from 'uuidv4';
+import { v4 } from 'uuid';
+
 import * as S from './styles';
 
 const data = [
@@ -35,10 +38,7 @@ export function SmartQuantumSalesPieChart() {
             dataKey="value"
           >
             {data?.map((_, index) => (
-              <Cell
-                key={`cell-${index}`}
-                fill={COLORS[index % COLORS.length]}
-              />
+              <Cell key={v4()} fill={COLORS[index % COLORS.length]} />
             ))}
           </Pie>
           <Legend
@@ -57,6 +57,7 @@ export function SmartQuantumSalesPieChart() {
                 >
                   {payload?.map((entry, index) => (
                     <div
+                      key={v4()}
                       style={{
                         display: 'flex',
                         alignItems: 'center',
