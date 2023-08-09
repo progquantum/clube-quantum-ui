@@ -7,10 +7,12 @@ import { Form } from '@unform/web';
 import { FormHandles, SubmitHandler } from '@unform/core';
 import Image from 'next/legacy/image';
 import { useTheme } from 'styled-components';
-
+import { styled } from '@mui/system';
 import { ValidationError } from 'yup';
 
 import { AxiosError } from 'axios';
+
+import { Autocomplete, TextField } from '@mui/material';
 
 import { formatPhoneNumber } from 'utils/formatters/formatPhoneNumber';
 
@@ -39,6 +41,22 @@ import { PosUser } from 'hooks/user/usePosSubscriptions/types';
 
 import { schema } from './schemas';
 import * as S from './styles';
+
+const StyledAutoComplete = styled(Autocomplete)(() => ({
+  border: '2px solid black',
+  borderRadius: '10px',
+  '&:focus': {
+    border: 'none',
+  },
+  '& .MuiInputLabel-shrink': {
+    backgroundColor: 'white',
+    color: 'black',
+    padding: '0 0.3rem',
+  },
+  '& .MuiOutlinedInput-root.Mui-focused .MuiOutlinedInput-notchedOutline': {
+    borderColor: 'transparent',
+  },
+}));
 
 export function InfoEstablishment() {
   const {
@@ -379,21 +397,30 @@ export function InfoEstablishment() {
         <S.Title>Cadastrar estabelecimento</S.Title>
       </S.HeadTitle>
       <S.Form as={Form} ref={formRef} onSubmit={handleSubmit} className="form">
-        <Select
-          name="user"
-          label="Pesquisar usuário"
-          placeholder="Pesquisar usuário cadastrado"
-          options={registeredUsers}
-          value={JSON.stringify(user) || 'default'}
+        <StyledAutoComplete
+          freeSolo
           disabled={user !== null}
-          onChange={e => {
-            if (e.target.value === 'default') {
+          placeholder="Pesquisar usuário cadastrado"
+          getOptionLabel={(option: { label: string; value: string }) =>
+            option.label
+          }
+          onChange={(_, option: { label: string; value: string }) => {
+            if (!option) return;
+            if (option.value === 'default') {
               clearUser();
               return;
             }
-
-            handleEstablishments(JSON.parse(e.target.value));
+            if (!option.value) {
+              error('Ocorreu um erro, tente novamente');
+            } else {
+              handleEstablishments(JSON.parse(option.value));
+            }
           }}
+          sx={{ width: '100%' }}
+          options={registeredUsers || [{ value: 'Default', label: 'Default' }]}
+          renderInput={params => (
+            <TextField {...params} label="Selecione um parceiro" />
+          )}
         />
         {user && Object.keys(user).length > 1 && (
           <S.SelectUser>
@@ -441,7 +468,7 @@ export function InfoEstablishment() {
               type="checkbox"
               name="main_phone_has_whatsapp"
               text="Este telefone possui WhatsApp"
-              checked={mainPhoneHasWhatsApp}
+              defaultChecked={mainPhoneHasWhatsApp}
               onChange={e => setMainPhoneHasWhatsApp(e.target.checked)}
             />
             <Input
@@ -459,7 +486,7 @@ export function InfoEstablishment() {
               type="checkbox"
               name="cell_phone_has_whatsapp"
               text="Este telefone possui WhatsApp"
-              checked={cellPhoneHasWhatsApp}
+              defaultChecked={cellPhoneHasWhatsApp}
               onChange={e => setCellPhoneHasWhatsApp(e.target.checked)}
             />
             <Input

@@ -15,17 +15,6 @@ export const Container = styled.div`
   margin-bottom: 10rem;
 
   section {
-    width: 100%;
-    display: flex;
-
-    &:last-of-type {
-      justify-content: center;
-      margin-top: 5rem;
-
-      @media (max-width: 500px) {
-        margin-top: 2rem;
-      }
-    }
   }
 
   @media (max-width: 1320px) {
@@ -270,4 +259,11 @@ export const CurrentPlan = styled.div`
   margin-bottom: 0.5rem;
   border-radius: 0.2rem;
   width: 7rem;
+`;
+export const ButtonContainer = styled.div`
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-top: 3rem;
 `;
