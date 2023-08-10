@@ -72,7 +72,7 @@ export function SubscriptionsPage() {
       <title>Gerenciamento de plano - Clube Quantum</title>
       <HeaderAuth />
       <S.Main>
-        {hasPlan ? (
+        {!hasPlan ? (
           <Plans
             button={
               <SubscriptionButton onOpenModalCvcRequest={handleRequestModal} />

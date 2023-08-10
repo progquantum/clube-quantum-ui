@@ -15,6 +15,17 @@ export const Container = styled.div`
   margin-bottom: 10rem;
 
   section {
+    width: 100%;
+    display: flex;
+
+    &:last-of-type {
+      justify-content: center;
+      margin-top: 5rem;
+
+      @media (max-width: 500px) {
+        margin-top: 2rem;
+      }
+    }
   }
 
   @media (max-width: 1320px) {
@@ -135,7 +146,7 @@ export const PlanContentsWrapper = styled.div<Active>`
   flex-direction: column;
 
   max-width: 300px;
-  max-height: 620px;
+  max-height: 650px;
   @media (max-width: 1320px) {
     width: 21.875rem;
   }
@@ -260,6 +271,7 @@ export const CurrentPlan = styled.div`
   border-radius: 0.2rem;
   width: 7rem;
 `;
+
 export const ButtonContainer = styled.div`
   width: 100%;
   display: flex;

@@ -6,6 +6,9 @@ export const Container = styled.div`
   display: flex;
   flex-direction: column;
   gap: 1.3rem;
+  overflow-y: auto;
+  max-height: 100vh;
+  margin: 0rem 0;
 `;
 
 export const Plan = styled.div`
@@ -26,7 +29,6 @@ export const Title = styled.p`
   gap: 0.5rem;
   font-weight: 700;
   font-size: 1rem;
-
   > svg {
     color: ${({ theme }) => theme.colors.mediumslateBlue};
   }
@@ -57,9 +59,11 @@ export const CreditCard = styled(Plan)`
 
 export const ConfirmButton = styled(Button)`
   width: 100%;
+  min-height: 60px;
 `;
 
 export const ReturnButton = styled(Button)`
   margin-top: 0;
   width: 100%;
+  min-height: 60px;
 `;
