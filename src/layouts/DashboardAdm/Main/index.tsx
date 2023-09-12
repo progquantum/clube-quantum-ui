@@ -80,7 +80,7 @@ export function Main() {
         posSalesPerCustomer={dashboard?.pos_sales_per_customer}
       />
       <ClientsByPlanPieChart clientsPerPlan={dashboard?.client_per_plan} />
-      <DailyBillingChart />
+      <DailyBillingChart dailyBilling={dashboard?.daily_billing} />
       <ClientsPerDayBarChart clientsPerDay={dashboard?.client_per_day} />
     </S.Container>
   );

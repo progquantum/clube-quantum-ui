@@ -11,9 +11,11 @@ import {
   Legend,
 } from 'recharts';
 
+import { DailyBilling } from 'hooks/dashboard-adm/useGetDashboardADM/types';
+
 import * as S from './styles';
 
-const data = [
+const dataFallback = [
   {
     name: 'Hoje',
     faturamento: 12500,
@@ -32,7 +34,25 @@ const data = [
   },
 ];
 
-export function DailyBillingChart() {
+export function DailyBillingChart({
+  dailyBilling,
+}: {
+  dailyBilling: DailyBilling;
+}) {
+  const mappedLabels = {
+    today: 'Hoje',
+    yesterday: 'Ontem',
+    lastThreeDays: 'Últimos 3 dias',
+    lastSevenDays: 'Última semana',
+  };
+
+  const formattedData = dailyBilling
+    ? Object.keys(dailyBilling).map(key => ({
+        name: mappedLabels[key],
+        faturamento: dailyBilling[key],
+      }))
+    : dataFallback;
+
   return (
     <S.ChartContainer>
       <S.Title>Faturamento diário</S.Title>
@@ -40,7 +60,7 @@ export function DailyBillingChart() {
         <BarChar
           width={400}
           height={300}
-          data={data}
+          data={formattedData}
           margin={{
             top: 5,
             right: 30,
