@@ -9,20 +9,36 @@ import {
   Surface,
   Tooltip,
 } from 'recharts';
-
-import { uuid } from 'uuidv4';
 import { v4 } from 'uuid';
+
+import { PosSalesPerCustomer } from 'hooks/dashboard-adm/useGetDashboardADM/types';
 
 import * as S from './styles';
 
-const data = [
+const dataFallback = [
   { name: 'Clientes não associados', value: 25 },
   { name: 'Clientes Quantum', value: 75 },
 ];
 
 const COLORS = ['#878787', '#0C61FF'];
 
-export function SmartQuantumSalesPieChart() {
+export function SmartQuantumSalesPieChart({
+  posSalesPerCustomer,
+}: {
+  posSalesPerCustomer: PosSalesPerCustomer;
+}) {
+  const mappedLabels = {
+    client_quantum: 'Clientes Quantum',
+    non_affiliated_client: 'Clientes não associados',
+  };
+
+  const formattedData = posSalesPerCustomer
+    ? Object.keys(posSalesPerCustomer).map(key => ({
+        name: mappedLabels[key],
+        value: posSalesPerCustomer[key],
+      }))
+    : dataFallback;
+
   return (
     <S.ChartContainer>
       <S.Title>Vendas Quantum Smart</S.Title>
@@ -30,14 +46,14 @@ export function SmartQuantumSalesPieChart() {
       <ResponsiveContainer width="99%" height="100%">
         <PieChar width={400} height={400}>
           <Pie
-            data={data}
+            data={formattedData}
             labelLine={false}
             label={false}
             outerRadius={80}
             fill="#8884d8"
             dataKey="value"
           >
-            {data?.map((_, index) => (
+            {formattedData.map((_, index) => (
               <Cell key={v4()} fill={COLORS[index % COLORS.length]} />
             ))}
           </Pie>

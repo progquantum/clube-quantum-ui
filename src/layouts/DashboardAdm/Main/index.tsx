@@ -5,12 +5,6 @@ import { useSidebarStore } from 'store/sidebar';
 
 import { useGetDashboardADM } from 'hooks/dashboard-adm/useGetDashboardADM';
 
-import {
-  ClientsPerDay,
-  ClientsPerPlan,
-  MonthlyRevenue,
-} from 'hooks/dashboard-adm/useGetDashboardADM/types';
-
 import * as S from './styles';
 import { SalesByRevenueTypeLineChart } from '../SalesByRevenueTypeLineChart';
 import { SmartQuantumSalesPieChart } from '../SmartQuantumSalesPieChart';
@@ -82,7 +76,9 @@ export function Main() {
       <SalesByRevenueTypeLineChart
         monthlyRevenue={dashboard?.monthly_revenue}
       />
-      <SmartQuantumSalesPieChart />
+      <SmartQuantumSalesPieChart
+        posSalesPerCustomer={dashboard?.pos_sales_per_customer}
+      />
       <ClientsByPlanPieChart clientsPerPlan={dashboard?.client_per_plan} />
       <DailyBillingChart />
       <ClientsPerDayBarChart clientsPerDay={dashboard?.client_per_day} />
