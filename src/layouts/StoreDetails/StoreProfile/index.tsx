@@ -30,12 +30,10 @@ import { Loading } from 'components/Loading';
 
 import { InlineCard } from 'layouts/Marketplace/Stores/InlineCard';
 
-import { loader } from 'utils/googleMapsLoader';
-
 import { formatPhoneNumber } from 'utils/formatters/formatPhoneNumber';
 
 import { DaysOfWeek } from './types';
-import { GoogleMap } from '../GoogleMap';
+import { StoreMap } from '../GoogleMap';
 import * as S from './styles';
 
 export function StoreProfile({
@@ -101,45 +99,6 @@ export function StoreProfile({
   const groupedOpeningHours = groupOpeningHours(
     establishment.establishment_pos_working_hours,
   );
-
-  const getAddressFromLatLng = async (
-    lat: number,
-    lng: number,
-  ): Promise<string | null> =>
-    loader
-      .load()
-      .then((google: any) => {
-        const geocoder = new google.maps.Geocoder();
-        const latLng = new google.maps.LatLng(lat, lng);
-        return new Promise<string | null>((resolve, reject) => {
-          geocoder.geocode({ location: latLng }, (results, status) => {
-            if (status === google.maps.GeocoderStatus.OK) {
-              if (results[0]) {
-                resolve(results[0].formatted_address);
-              } else {
-                resolve(null);
-              }
-            } else {
-              reject(new Error(`Geocoder failed due to: ${status}`));
-            }
-          });
-        });
-      })
-      .catch((err: any) => {
-        console.error(err);
-        return null;
-      }) as Promise<string | null>;
-
-  getAddressFromLatLng(
-    Number(establishment.lat_location),
-    Number(establishment.long_location),
-  )
-    .then(address => {
-      setAddress(address);
-    })
-    .catch(error => {
-      console.error('Erro ao obter o endereço:', error);
-    });
 
   return (
     <S.Container>
@@ -257,10 +216,10 @@ export function StoreProfile({
       </S.ContainerInfo>
       <S.SubTitle style={{ marginBottom: '24px' }}>Localização</S.SubTitle>
       <S.TextInfo>{address}</S.TextInfo>
-      <GoogleMap
+      <StoreMap
         corporateName={establishment.corporate_name}
         lat={Number(establishment.lat_location)}
-        long={Number(establishment.long_location)}
+        lng={Number(establishment.long_location)}
       />
       <S.SubTitle>Você também pode gostar de</S.SubTitle>
       <S.ContainerInlineCard style={{ display: 'flex' }}>

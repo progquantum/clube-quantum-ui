@@ -25,7 +25,7 @@ export function MapModal({ onClose }) {
         toggleSelectedCategory={toggleSelectedCategory}
         selectedCategory={categoryId}
       />
-      <Map />
+      <Map categoryId={categoryId} />
     </Modal>
   );
 }

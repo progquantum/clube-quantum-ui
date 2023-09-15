@@ -1,44 +1,56 @@
-import { useEffect, useMemo, useRef } from 'react';
+import React, { useMemo } from 'react';
+import { useLoadScript, GoogleMap, MarkerF } from '@react-google-maps/api';
 
-import { loader } from 'utils/googleMapsLoader';
-
-export function GoogleMap({
+export function StoreMap({
   corporateName,
   lat,
-  long,
+  lng,
 }: {
   corporateName: string;
   lat: number;
-  long: number;
+  lng: number;
 }) {
-  const mapRef = useRef(null);
+  const libraries = useMemo(() => ['places'], []);
 
-  const mapOptions = useMemo(
+  const mapCenter = useMemo(
     () => ({
-      center: { lat, lng: long },
-      zoom: 16,
+      lat,
+      lng,
     }),
-    [lat, long],
+    [],
   );
 
-  useEffect(() => {
-    loader.load().then(google => {
-      const map = new google.maps.Map(mapRef.current, mapOptions);
+  const mapOptions = useMemo<google.maps.MapOptions>(
+    () => ({
+      disableDefaultUI: true,
+      clickableIcons: true,
+      scrollwheel: false,
+    }),
+    [],
+  );
+  const { isLoaded } = useLoadScript({
+    googleMapsApiKey: process.env.NEXT_PUBLIC_GOOGLE_MAPS_API_KEY as string,
+    libraries: libraries as any,
+  });
 
-      const markerOptions = {
-        title: corporateName,
-        position: { lat, lng: long },
-        map,
-      };
-
-      const marker = new google.maps.Marker(markerOptions);
-    });
-  }, [lat, long]);
+  if (!isLoaded) {
+    return <p>Carregando...</p>;
+  }
 
   return (
-    <div
-      ref={mapRef}
-      style={{ width: '100%', height: '400px', marginBottom: '4rem' }}
-    />
+    <GoogleMap
+      options={mapOptions}
+      zoom={14}
+      center={mapCenter}
+      mapTypeId={google.maps.MapTypeId.ROADMAP}
+      mapContainerStyle={{
+        width: '1150px',
+        height: '400px',
+        marginBottom: '4rem',
+        borderRadius: '0.5rem',
+      }}
+    >
+      <MarkerF label={corporateName} position={mapCenter} />
+    </GoogleMap>
   );
 }
