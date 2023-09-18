@@ -1,6 +1,5 @@
 /* eslint-disable react/no-unescaped-entities */
 import Image from 'next/image';
-import { Loader } from '@googlemaps/js-api-loader';
 
 import { BiTimeFive } from 'react-icons/bi';
 
@@ -33,7 +32,7 @@ import { InlineCard } from 'layouts/Marketplace/Stores/InlineCard';
 import { formatPhoneNumber } from 'utils/formatters/formatPhoneNumber';
 
 import { DaysOfWeek } from './types';
-import { StoreMap } from '../GoogleMap';
+import { StoreMap } from '../StoreMap';
 import * as S from './styles';
 
 export function StoreProfile({
@@ -216,11 +215,13 @@ export function StoreProfile({
       </S.ContainerInfo>
       <S.SubTitle style={{ marginBottom: '24px' }}>Localização</S.SubTitle>
       <S.TextInfo>{address}</S.TextInfo>
-      <StoreMap
-        corporateName={establishment.corporate_name}
-        lat={Number(establishment.lat_location)}
-        lng={Number(establishment.long_location)}
-      />
+      <S.StoreMapContainer>
+        <StoreMap
+          corporateName={establishment.corporate_name}
+          lat={Number(establishment.lat_location)}
+          lng={Number(establishment.long_location)}
+        />
+      </S.StoreMapContainer>
       <S.SubTitle>Você também pode gostar de</S.SubTitle>
       <S.ContainerInlineCard style={{ display: 'flex' }}>
         {!isLoading && !recommendedEstablishments ? (

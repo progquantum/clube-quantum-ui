@@ -44,7 +44,7 @@ export function StoreMap({
       center={mapCenter}
       mapTypeId={google.maps.MapTypeId.ROADMAP}
       mapContainerStyle={{
-        width: '1150px',
+        width: '100%',
         height: '400px',
         marginBottom: '4rem',
         borderRadius: '0.5rem',

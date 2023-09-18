@@ -271,3 +271,5 @@ export const ContainerInlineCard = styled.div`
     align-items: center;
   }
 `;
+
+export const StoreMapContainer = styled.div``;

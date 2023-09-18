@@ -45,7 +45,7 @@ export function FilterMap({ establishments, userLocation }: FilterMapProps) {
       center={mapCenter}
       mapTypeId={google.maps.MapTypeId.ROADMAP}
       mapContainerStyle={{
-        width: '735px',
+        width: '100%',
         height: '400px',
         marginBottom: '4rem',
         borderRadius: '0.5rem',
