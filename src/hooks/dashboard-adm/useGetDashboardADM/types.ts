@@ -4,6 +4,12 @@ export type DashboardADM = {
   monthly_revenue: MonthlyRevenue;
   daily_billing: DailyBilling;
   pos_sales_per_customer: PosSalesPerCustomer;
+  quantum_billing: QuantumBilling;
+};
+
+export type QuantumBilling = {
+  quantumBillingToday: number;
+  quantumBillingTotal: number;
 };
 
 export type ClientsPerPlan = {

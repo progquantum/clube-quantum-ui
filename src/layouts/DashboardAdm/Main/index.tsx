@@ -5,6 +5,8 @@ import { useSidebarStore } from 'store/sidebar';
 
 import { useGetDashboardADM } from 'hooks/dashboard-adm/useGetDashboardADM';
 
+import { formatPrice } from 'utils/formatters/formatPrice';
+
 import * as S from './styles';
 import { SalesByRevenueTypeLineChart } from '../SalesByRevenueTypeLineChart';
 import { SmartQuantumSalesPieChart } from '../SmartQuantumSalesPieChart';
@@ -46,14 +48,22 @@ export function Main() {
               <MdOutlineAttachMoney size={19.87} />
               Faturamento Quantum
             </S.TitleBalance>
-            <S.ValueBalance>R$ 1.200.000,00</S.ValueBalance>
+            <S.ValueBalance>
+              {formatPrice(
+                String(dashboard.quantum_billing.quantumBillingTotal),
+              )}
+            </S.ValueBalance>
           </S.ContentBalance>
           <S.ContentBalance>
             <S.TitleBalance>
               <MdOutlineAttachMoney size={19.87} />
               Faturamento Diário
             </S.TitleBalance>
-            <S.ValueBalance>R$ 1.200.000,00</S.ValueBalance>
+            <S.ValueBalance>
+              {formatPrice(
+                String(dashboard.quantum_billing.quantumBillingToday),
+              )}
+            </S.ValueBalance>
           </S.ContentBalance>
         </S.RowContent>
         <S.RowContent>
@@ -62,14 +72,14 @@ export function Main() {
               <MdOutlineAttachMoney size={19.87} />
               Repasse ao cliente
             </S.TitleBalance>
-            <S.ValueBalance>R$ 1.200.000,00</S.ValueBalance>
+            <S.ValueBalance>{formatPrice(`0`)}</S.ValueBalance>
           </S.ContentBalance>
           <S.ContentBalance>
             <S.TitleBalance>
               <MdOutlineAttachMoney size={19.87} />
               Total de cliente
             </S.TitleBalance>
-            <S.ValueBalance>1.229 Clientes</S.ValueBalance>
+            <S.ValueBalance>0</S.ValueBalance>
           </S.ContentBalance>
         </S.RowContent>
       </S.Balance>
