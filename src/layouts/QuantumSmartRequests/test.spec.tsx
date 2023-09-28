@@ -40,7 +40,7 @@ describe('QuantumSmartRequests', () => {
     ];
     const { getAllByText } = render(
       <ProviderMock>
-        <QuantumSmartRequestsPage requests={mockedData} isLoading={false} />
+        <QuantumSmartRequestsPage />
       </ProviderMock>,
     );
 
@@ -52,7 +52,7 @@ describe('QuantumSmartRequests', () => {
   it(' should show the loading component when request is loading', () => {
     const { getByTestId } = render(
       <ProviderMock>
-        <QuantumSmartRequestsPage requests={[]} isLoading />
+        <QuantumSmartRequestsPage />
       </ProviderMock>,
     );
 
