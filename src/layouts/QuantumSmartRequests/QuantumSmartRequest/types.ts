@@ -1,9 +1,9 @@
 export enum StatusEnum {
-  'DENIED' = 'Compra Recusada',
-  'ACCEPTED' = 'Compra Aceita',
+  'REJECTED' = 'Compra Recusada',
+  'APPROVED' = 'Compra Aceita',
 }
 
 export enum StatusColorEnum {
-  'DENIED' = 'danger',
-  'ACCEPTED' = 'successLight',
+  'REJECTED' = 'danger',
+  'APPROVED' = 'successLight',
 }

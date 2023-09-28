@@ -1,103 +1,98 @@
 import ReactPaginate from 'react-paginate';
-
 import { IoIosArrowBack, IoIosArrowForward } from 'react-icons/io';
-
 import { useTheme } from 'styled-components';
-
 import { useState } from 'react';
 
 import { DashboardLayout } from 'layouts/DashboardLayout';
-
+import { useGetSubscriptionsQuantumSmart } from 'hooks/subscriptions/useSubscriptionQuantumSmartRequest';
+import { MarketplaceSubscription } from 'hooks/subscriptions/useSubscriptionQuantumSmartRequest/types';
 import { InputSearch } from 'components/InputSearch';
 import { Loader } from 'components/Loader';
 
 import * as S from './styles';
-import { Request } from './types';
 import { QuantumSmartRequest } from './QuantumSmartRequest';
 
-import { Contract } from './QuantumSmartDetails/types';
 import { QuantumSmartDetails } from './QuantumSmartDetails';
 
-const contract = {
-  name: 'Rafael Almeida',
-  contractId: '09S8G12',
-  birthDate: new Date(),
-  email: 'rafaelgaelteixeira@maptec.com.br',
-  requestStatus: '',
-  product: {
-    name: 'Plano TIM 10GB',
-    phoneNumber: '9 9921 8371',
-    areaCode: '44',
-    value: 44.9,
-    acquisitionDate: new Date(),
-  },
-};
-
-export function QuantumSmartRequestsPage({
-  requests,
-  isLoading,
-}: {
-  requests: Request[];
-  isLoading: boolean;
-}) {
+export function QuantumSmartRequestsPage() {
   const { colors } = useTheme();
-  const [selectedRequest, setSelectedRequest] = useState<Contract | null>(null);
-  const [totalPages, setTotalPages] = useState(1);
-  const onPageChange = () => console.log(totalPages);
+  const [searchName, setSearchName] = useState('');
+  const [name, setName] = useState('');
+  const {
+    data: requests,
+    loading,
+    onPageChange,
+  } = useGetSubscriptionsQuantumSmart(searchName);
 
-  const toggleSelectedContract = (contract: Contract) => {
+  const [selectedRequest, setSelectedRequest] =
+    useState<MarketplaceSubscription | null>(null);
+
+  const toggleSelectedContract = (contract: MarketplaceSubscription) => {
     if (selectedRequest) setSelectedRequest(null);
     else setSelectedRequest(contract);
   };
 
+  const totalPages = requests?.info.totalPages;
+
   return (
     <DashboardLayout>
       <S.Container>
-        {isLoading ? (
+        <S.InputSearchContainer>
+          <InputSearch
+            placeholder="Pesquisar por nome de usuário"
+            onChange={e => setName(e.target.value)}
+            onRequestClick={() => setSearchName(name)}
+          />
+        </S.InputSearchContainer>
+        <S.Title>Solicitações Smart</S.Title>
+        {loading ? (
           <Loader />
         ) : (
-          <>
-            <S.InputSearchContainer>
-              <InputSearch placeholder="Pesquisar por nome de usuário" />
-            </S.InputSearchContainer>
-            <S.List>
-              {selectedRequest ? (
-                <QuantumSmartDetails
-                  contract={selectedRequest}
-                  onRequestClose={toggleSelectedContract}
-                />
-              ) : (
-                <>
-                  <S.Title>Solicitações Smart</S.Title>
-                  {requests.map((request: Request) => (
+          <S.List>
+            {selectedRequest ? (
+              <QuantumSmartDetails
+                request={selectedRequest}
+                onRequestClose={toggleSelectedContract}
+              />
+            ) : (
+              <>
+                {requests.marketplaceSubscriptions.map(
+                  (request: MarketplaceSubscription) => (
                     <S.ClickableContainer
-                      key={request.requestId}
-                      onClick={() => toggleSelectedContract(contract)}
+                      key={request.id}
+                      onClick={() => toggleSelectedContract(request)}
                     >
                       <QuantumSmartRequest request={request} />
                     </S.ClickableContainer>
-                  ))}
-                </>
-              )}
-            </S.List>
-          </>
+                  ),
+                )}
+              </>
+            )}
+          </S.List>
         )}
-        <S.PaginateContainer>
-          <ReactPaginate
-            breakLabel="..."
-            nextLabel={
-              <IoIosArrowForward size={20} color={colors.mediumslateBlue} />
-            }
-            onPageChange={onPageChange}
-            pageCount={totalPages}
-            previousLabel={
-              <IoIosArrowBack size={20} color={colors.mediumslateBlue} />
-            }
-            containerClassName="paginationContainer"
-            pageLinkClassName="pageLink"
-            activeLinkClassName="activeLink"
-          />
-        </S.PaginateContainer>
+        {requests?.marketplaceSubscriptions.length === 0 && (
+          <S.EmptyData>Nenhuma solicitação encontrada</S.EmptyData>
+        )}
+        {requests?.marketplaceSubscriptions.length > 0 && (
+          <S.InvisibleContainer isRequestSelected={!!selectedRequest}>
+            <S.PaginateContainer>
+              <ReactPaginate
+                breakLabel="..."
+                nextLabel={
+                  <IoIosArrowForward size={20} color={colors.mediumslateBlue} />
+                }
+                onPageChange={onPageChange}
+                pageCount={totalPages}
+                previousLabel={
+                  <IoIosArrowBack size={20} color={colors.mediumslateBlue} />
+                }
+                containerClassName="paginationContainer"
+                pageLinkClassName="pageLink"
+                activeLinkClassName="activeLink"
+              />
+            </S.PaginateContainer>
+          </S.InvisibleContainer>
+        )}
       </S.Container>
     </DashboardLayout>
   );

@@ -19,7 +19,7 @@ export const List = styled.div`
 `;
 
 export const Title = styled.h4`
-  margin-bottom: 2rem;
+  margin: 2rem 6rem;
 `;
 
 export const PaginateContainer = styled.div`
@@ -30,4 +30,13 @@ export const PaginateContainer = styled.div`
 export const ClickableContainer = styled.button`
   all: unset;
   cursor: pointer;
+`;
+
+export const InvisibleContainer = styled.div<{ isRequestSelected: boolean }>`
+  visibility: ${({ isRequestSelected }) =>
+    isRequestSelected ? 'hidden' : 'none'};
+`;
+export const EmptyData = styled.h3`
+  text-align: center;
+  margin: 4rem 0;
 `;
