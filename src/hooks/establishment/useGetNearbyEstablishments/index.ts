@@ -4,15 +4,16 @@ import { useQuery } from 'react-query';
 
 import { quantumClientQueue } from 'config/client';
 
-import { ResponseData } from './types';
+import { GetNearbyEstablishmentsParams, ResponseData } from './types';
 
 const QUERY_KEY_GET_NEARBY_ESTABLISHMENTS = 'get-nearby-establishments';
 
-export async function getNearbyEstablishments({ queryKey }) {
-  const [_, userLocation] = queryKey;
-  if (!userLocation) return;
+export async function getNearbyEstablishments(
+  params: GetNearbyEstablishmentsParams,
+) {
+  if (!params.userOrigin) return;
 
-  const queryParams = new URLSearchParams({ userOrigin: userLocation });
+  const queryParams = new URLSearchParams(params);
 
   try {
     const { data } = await quantumClientQueue.get<ResponseData>(
@@ -29,10 +30,12 @@ export async function getNearbyEstablishments({ queryKey }) {
   }
 }
 
-export function useGetNearbyEstablishments(userLocation: string) {
+export function useGetNearbyEstablishments(
+  params: GetNearbyEstablishmentsParams,
+) {
   return useQuery(
-    [QUERY_KEY_GET_NEARBY_ESTABLISHMENTS, userLocation],
-    getNearbyEstablishments,
+    [QUERY_KEY_GET_NEARBY_ESTABLISHMENTS, params],
+    () => getNearbyEstablishments(params),
     { retryDelay: 4000 },
   );
 }

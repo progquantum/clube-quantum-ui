@@ -1,28 +1,42 @@
 import React, { useState, useEffect, useMemo } from 'react';
-
 import { PulseLoader } from 'react-spinners';
-
 import { useTheme } from 'styled-components';
+import { useQueryClient } from 'react-query';
 
 import { useGetNearbyEstablishments } from 'hooks/establishment/useGetNearbyEstablishments';
-
+import { Category } from 'hooks/establishment/useGetCategories/types';
 import { Loading } from 'components/Loading';
 
 import { Fallback } from './Fallback';
 import { FilterMap } from './FilterMap';
 
-export function Map() {
-  const [isGeolocationOn, setIsGeolocationOn] = useState(false);
+export function Map({ categoryId }: { categoryId: string }) {
   const { colors } = useTheme();
+  const [isGeolocationOn, setIsGeolocationOn] = useState(false);
   const [currentLat, setCurrentLat] = useState<number | null>(null);
   const [currentLng, setCurrentLng] = useState<number | null>(null);
+
+  const queryClient = useQueryClient();
+
+  const categories: Category[] = queryClient.getQueryData(
+    'get-pos-filter-categories',
+  );
 
   const formattedCoordinates = useMemo(() => {
     if (currentLat && currentLng) return `${currentLat},${currentLng}`;
   }, [currentLat, currentLng]);
 
+  const category = categories.find(
+    (category: Category) => category.id === categoryId && category.name,
+  );
+
+  const params = {
+    userOrigin: formattedCoordinates,
+    ...(category ? { category: category.name } : {}),
+  };
+
   const { data: establishments, isLoading } =
-    useGetNearbyEstablishments(formattedCoordinates);
+    useGetNearbyEstablishments(params);
 
   const options = {
     enableHighAccuracy: true,

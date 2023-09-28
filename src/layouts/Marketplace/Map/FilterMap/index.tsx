@@ -1,82 +1,89 @@
-import React, { useEffect, useMemo, useRef } from 'react';
+import React, { useMemo } from 'react';
+import { useLoadScript, GoogleMap, MarkerF } from '@react-google-maps/api';
 
-import { renderToStaticMarkup } from 'react-dom/server';
-
-import { useTheme } from 'styled-components';
-
-import { HiLocationMarker } from 'react-icons/hi';
-
-import { loader } from 'utils/googleMapsLoader';
-
-import { EstablishmentLocation, FilterMapProps } from './types';
+import mapStyles from './mapStyles.json';
+import { FilterMapProps, EstablishmentLocation } from './types';
 
 export function FilterMap({ establishments, userLocation }: FilterMapProps) {
-  const mapRef = useRef(null);
-  const { colors } = useTheme();
+  const libraries = useMemo(() => ['places'], []);
 
-  const createMarkerIcon = (color: string) => {
-    const svgString = renderToStaticMarkup(<HiLocationMarker color={color} />);
-    const encodedSvg = encodeURIComponent(svgString);
-    return `data:image/svg+xml;charset=UTF-8,${encodedSvg}`;
-  };
-
-  const mapOptions = useMemo(
+  const mapCenter = useMemo(
     () => ({
-      center: {
-        lat: Number(userLocation.latitude),
-        lng: Number(userLocation.longitude),
-      },
-      zoom: 16,
+      lat: Number(userLocation.latitude),
+      lng: Number(userLocation.longitude),
     }),
-    [userLocation],
+    [],
   );
 
-  useEffect(() => {
-    loader.load().then(google => {
-      const map = new google.maps.Map(mapRef.current, mapOptions);
-      const markerOptions = {
-        title: 'Você',
-        position: {
-          lat: Number(userLocation.latitude),
-          lng: Number(userLocation.longitude),
-        },
-        icon: {
-          url: createMarkerIcon(colors.mediumslateBlue),
-          scaledSize: new google.maps.Size(48, 48),
-          anchor: new google.maps.Point(24, 48),
-        },
-        map,
-      };
+  const mapOptions = useMemo<google.maps.MapOptions>(
+    () => ({
+      disableDefaultUI: true,
+      clickableIcons: true,
+      scrollwheel: false,
+      styles: mapStyles,
+    }),
+    [],
+  );
+  const { isLoaded } = useLoadScript({
+    googleMapsApiKey: process.env.NEXT_PUBLIC_GOOGLE_MAPS_API_KEY as string,
+    libraries: libraries as any,
+  });
 
-      const marker = new google.maps.Marker(markerOptions);
+  if (!isLoaded) {
+    return <p>Carregando...</p>;
+  }
 
-      if (establishments.length > 0) {
-        establishments.forEach((establishment: EstablishmentLocation) => {
-          const markerIcon = createMarkerIcon(colors.danger);
-          const markerOptions = {
-            title: establishment.corporate_name,
-            position: {
-              lat: Number(establishment.latitude),
-              lng: Number(establishment.longitude),
-            },
-            icon: {
-              url: markerIcon,
-              scaledSize: new google.maps.Size(48, 48),
-              anchor: new google.maps.Point(24, 48),
-            },
-            map,
-          };
-
-          const marker = new google.maps.Marker(markerOptions);
-        });
-      }
-    });
-  }, [establishments]);
+  const iconOptions = {
+    scaledSize: new google.maps.Size(30, 30),
+    labelOrigin: new google.maps.Point(50, 15),
+  };
 
   return (
-    <div
-      ref={mapRef}
-      style={{ width: '100%', height: '400px', marginBottom: '4rem' }}
-    />
+    <GoogleMap
+      options={mapOptions}
+      zoom={14}
+      center={mapCenter}
+      mapTypeId={google.maps.MapTypeId.ROADMAP}
+      mapContainerStyle={{
+        width: '100%',
+        height: '400px',
+        marginBottom: '4rem',
+        borderRadius: '0.5rem',
+      }}
+    >
+      <MarkerF
+        position={mapCenter}
+        options={{
+          label: { fontWeight: '700', text: 'Você' },
+          icon: {
+            ...iconOptions,
+            anchor: new google.maps.Point(mapCenter.lat, mapCenter.lng),
+            url: 'images/primary-marker.svg',
+          },
+        }}
+      />
+      {establishments.length > 0 &&
+        establishments.map((establishment: EstablishmentLocation) => (
+          <MarkerF
+            key={establishment.corporate_name}
+            position={{
+              lat: Number(establishment.latitude),
+              lng: Number(establishment.longitude),
+            }}
+            options={{
+              label: { fontWeight: '700', text: establishment.corporate_name },
+              icon: {
+                ...iconOptions,
+                labelOrigin: new google.maps.Point(15, -10),
+                anchor: new google.maps.Point(
+                  Number(establishment.latitude),
+                  Number(establishment.longitude),
+                ),
+                url: 'images/establishment-marker.svg',
+              },
+            }}
+          />
+        ))}
+    </GoogleMap>
   );
 }

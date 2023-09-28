@@ -14,3 +14,8 @@ export type Localization = {
   latitude: string;
   longitude: string;
 };
+
+export type GetNearbyEstablishmentsParams = {
+  userOrigin: string;
+  category?: string;
+};
