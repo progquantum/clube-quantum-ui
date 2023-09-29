@@ -19,6 +19,9 @@ export function Main() {
   const isSideBarExpanded = useSidebarStore(state => state.isExpanded);
   const { data: dashboard } = useGetDashboardADM();
 
+  const totalBilling = dashboard?.quantum_billing.quantumBillingTotal ?? '0';
+  const todayBilling = dashboard?.quantum_billing.quantumBillingToday ?? '0';
+
   return (
     <S.Container isSideBarExpanded={isSideBarExpanded}>
       <S.Head>
@@ -48,22 +51,14 @@ export function Main() {
               <MdOutlineAttachMoney size={19.87} />
               Faturamento Quantum
             </S.TitleBalance>
-            <S.ValueBalance>
-              {formatPrice(
-                String(dashboard.quantum_billing.quantumBillingTotal),
-              )}
-            </S.ValueBalance>
+            <S.ValueBalance>{formatPrice(String(totalBilling))}</S.ValueBalance>
           </S.ContentBalance>
           <S.ContentBalance>
             <S.TitleBalance>
               <MdOutlineAttachMoney size={19.87} />
               Faturamento Diário
             </S.TitleBalance>
-            <S.ValueBalance>
-              {formatPrice(
-                String(dashboard.quantum_billing.quantumBillingToday),
-              )}
-            </S.ValueBalance>
+            <S.ValueBalance>{formatPrice(String(todayBilling))}</S.ValueBalance>
           </S.ContentBalance>
         </S.RowContent>
         <S.RowContent>
