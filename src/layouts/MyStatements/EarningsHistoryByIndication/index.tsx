@@ -8,6 +8,8 @@ import { Loader } from 'components/Loader';
 
 import { Extract } from 'hooks/commissions/useGetCommissionsByReferral/types';
 
+import { formatPrice } from 'utils/formatters/formatPrice';
+
 import { Props } from './types';
 
 import * as S from './styles';
@@ -19,6 +21,8 @@ export function EarningsHistoryByIndication({
 }: Props) {
   const { colors } = useTheme();
   const totalPages = data?.TotalPaginas;
+
+  const totalAmount = data && data.total_amount ? data.total_amount : 0;
 
   return (
     <S.EarningsHistoryByIndication>
@@ -35,7 +39,9 @@ export function EarningsHistoryByIndication({
         </div>
       ) : (
         <>
-          <S.TotalEarningText>R$ 0,00</S.TotalEarningText>
+          <S.TotalEarningText>
+            {formatPrice(String(totalAmount))}
+          </S.TotalEarningText>
           <S.PartnerContainer>
             {data?.Extrato?.length === 0 && (
               <div

@@ -14,6 +14,8 @@ import { useSidebarStore } from 'store/sidebar';
 
 import { useGetExtractByReferral } from 'hooks/commissions/useGetCommissionsByReferral';
 
+import { formatPrice } from 'utils/formatters/formatPrice';
+
 import * as S from './styles';
 import { EarningsHistoryByPartner } from './EarningsHistoryByPartner';
 import { EarningsHistoryByIndication } from './EarningsHistoryByIndication';
@@ -46,6 +48,11 @@ export function MyStatementsPage() {
     startDate: dayjs(initialDate).format('YYYY-MM-DD[T00:00:00]'),
     endDate: dayjs(finalDate).format('YYYY-MM-DD[T23:59:00]'),
   });
+
+  const totalAccountBalance =
+    byReferralData && byPartnerData
+      ? byReferralData.total_amount + byPartnerData.totalAmount
+      : 0;
 
   const handleSelect = (option: string) => {
     const today = new Date();
@@ -129,7 +136,9 @@ export function MyStatementsPage() {
               <FaDollarSign size={30} />
               <span>Saldo em conta</span>
             </S.TitleContainer>
-            <S.AccountBalanceValue>R$ 1.200,00</S.AccountBalanceValue>
+            <S.AccountBalanceValue>
+              {formatPrice(String(totalAccountBalance))}
+            </S.AccountBalanceValue>
             <S.TransferDateText>
               Será transferido em 15/xx/xxxx
             </S.TransferDateText>

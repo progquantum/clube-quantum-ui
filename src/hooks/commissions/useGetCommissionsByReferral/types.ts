@@ -14,6 +14,7 @@ export type ResponseData = {
   PaginaAtual: string;
   TotalPaginas: number;
   ItemsPorPagina: string;
+  total_amount: number;
   Extrato: Extract[];
 };
 
