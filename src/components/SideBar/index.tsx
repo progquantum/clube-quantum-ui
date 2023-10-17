@@ -1,32 +1,44 @@
 import Link from 'next/link';
-import { useState } from 'react';
-import { BiUserPin } from 'react-icons/bi';
-import {
-  RiArrowDownSLine,
-  RiArrowUpSLine,
-  RiDraftLine,
-  RiHome6Line,
-  RiLock2Line,
-  // RiShoppingBasket2Line,
-  RiUserStarLine,
-} from 'react-icons/ri';
+import decode from 'jwt-decode';
+import { parseCookies } from 'nookies';
 import { FiLogOut } from 'react-icons/fi';
+import {
+  BsCreditCard2BackFill,
+  BsFillPersonFill,
+  BsPeopleFill,
+} from 'react-icons/bs';
 
-import { useRouter } from 'next/router';
+import { HiMenuAlt1 } from 'react-icons/hi';
+
+import { FaDollarSign, FaShoppingBag, FaUpload } from 'react-icons/fa';
+
+import { AiFillFile } from 'react-icons/ai';
+import { MdPeopleAlt } from 'react-icons/md';
 
 import {
+  CANCELLATION_REQUEST_PAGE,
+  DASHBOARD_ADM_PAGE,
   DASHBOARD_PAGE,
-  UPDATE_USER_ACCOUNT_PAGE,
-  INVITE_FRIENDS_PAGE,
-  SUBSCRIPTIONS_PAGE,
+  DASHBOARD_POS_PAGE,
+  MANAGE_BANNER_PAGE,
   MANAGE_PAYMENT_PAGE,
+  MY_CONTRACTS_PAGE,
   MY_FRIENDS_PAGE,
+  MY_STATEMENTS_PAGE,
+  PARTNER_REGISTRATION_PAGE,
+  SMART_QUANTUM_REQUESTS_PAGE,
 } from 'constants/routesPath';
 import { useAuthDispatch } from 'contexts/auth/AuthContext';
 
-import { Avatar } from 'components/Avatar';
+import { useSidebarStore } from 'store/sidebar';
 
-import { useUserProfile } from 'hooks/user/useUserProfile';
+import { TOKEN_STORAGE_KEY } from 'constants/storage';
+
+import { TokenPayload } from 'shared/types/apiSchema';
+
+import { roles } from 'constants/roles';
+
+import { useMe } from 'hooks/me/useMe';
 
 import { Skeleton } from './Skeleton';
 import { SideBarProps } from './types';
@@ -34,118 +46,139 @@ import * as S from './styles';
 
 export function SideBar({ loading }: SideBarProps) {
   const { signOut } = useAuthDispatch();
-  const { data: user } = useUserProfile();
-  const { pathname } = useRouter();
-  const myAccountRoutes = [
-    UPDATE_USER_ACCOUNT_PAGE,
-    MANAGE_PAYMENT_PAGE,
-    MY_FRIENDS_PAGE,
-  ];
-
-  const [showMyAccount, setShowMyAccount] = useState<boolean>(false);
-  // const [showMarketplace, setShowMarketplace] = useState<boolean>(false);
-
+  const isExpanded = useSidebarStore(state => state.isExpanded);
+  const setIsExpanded = useSidebarStore(state => state.setIsExpanded);
+  const { data } = useMe();
   if (loading) return <Skeleton />;
 
-  return (
-    <S.Container>
-      <Link href={DASHBOARD_PAGE}>
-        <S.NavButton activePath={pathname === DASHBOARD_PAGE}>
-          <div>
-            <RiHome6Line />
-            Dashboard
-          </div>
-        </S.NavButton>
-      </Link>
+  const cookies = parseCookies();
 
-      <S.NavButton
-        activePath={!!myAccountRoutes.includes(pathname)}
-        onClick={() => {
-          setShowMyAccount(prevState => !prevState);
-        }}
-      >
-        <div>
-          <BiUserPin />
-          Minha Conta
-        </div>
-        {showMyAccount ? <RiArrowUpSLine /> : <RiArrowDownSLine />}
-      </S.NavButton>
-      {showMyAccount && (
-        <S.SubMenu>
-          <Link href={UPDATE_USER_ACCOUNT_PAGE}>
-            <S.SubMenuLink activePath={pathname === UPDATE_USER_ACCOUNT_PAGE}>
-              Atualizar Cadastro
-            </S.SubMenuLink>
+  const token = cookies[TOKEN_STORAGE_KEY];
+
+  const { user_role } = decode<TokenPayload>(token);
+
+  return (
+    <S.Container isExpanded={isExpanded}>
+      <S.ToggleButtonBox isExpanded={isExpanded}>
+        <HiMenuAlt1 onClick={setIsExpanded} />
+      </S.ToggleButtonBox>
+      {user_role === roles.user.id ? (
+        <>
+          {/* SIDEBAR USER */}
+          <Link href={DASHBOARD_PAGE}>
+            <S.NavButton isExpanded={isExpanded}>
+              <S.IconBox isExpanded={isExpanded}>
+                <BsFillPersonFill />
+              </S.IconBox>
+              <S.TitleBox>Minha Conta</S.TitleBox>
+            </S.NavButton>
           </Link>
-          <Link href={SUBSCRIPTIONS_PAGE}>
-            <S.SubMenuLink activePath={pathname === SUBSCRIPTIONS_PAGE}>
-              Planos
-            </S.SubMenuLink>
-          </Link>
-          <Link href={MANAGE_PAYMENT_PAGE}>
-            <S.SubMenuLink activePath={pathname === MANAGE_PAYMENT_PAGE}>
-              Dados de Pagamento
-            </S.SubMenuLink>
+          <Link href={MY_STATEMENTS_PAGE}>
+            <S.NavButton isExpanded={isExpanded}>
+              <S.IconBox isExpanded={isExpanded}>
+                <FaDollarSign />
+              </S.IconBox>
+              <S.TitleBox>Extratos</S.TitleBox>
+            </S.NavButton>
           </Link>
           <Link href={MY_FRIENDS_PAGE}>
-            <S.SubMenuLink activePath={pathname === MY_FRIENDS_PAGE}>
-              Meus Amigos
-            </S.SubMenuLink>
+            <S.NavButton isExpanded={isExpanded}>
+              <S.IconBox isExpanded={isExpanded}>
+                <BsPeopleFill />
+              </S.IconBox>
+              <S.TitleBox>Meus Amigos</S.TitleBox>
+            </S.NavButton>
           </Link>
-          <S.SubMenuLink>Extratos</S.SubMenuLink>
-        </S.SubMenu>
+
+          <Link href={MANAGE_PAYMENT_PAGE}>
+            <S.NavButton isExpanded={isExpanded}>
+              <S.IconBox isExpanded={isExpanded}>
+                <BsCreditCard2BackFill />
+              </S.IconBox>
+              <S.TitleBox>Dados de Pagamento</S.TitleBox>
+            </S.NavButton>
+          </Link>
+
+          <Link href={MY_CONTRACTS_PAGE}>
+            <S.NavButton isExpanded={isExpanded} data-cy="sidebar_my-contracts">
+              <S.IconBox isExpanded={isExpanded}>
+                <AiFillFile />
+              </S.IconBox>
+              <S.TitleBox>Meus Contratos</S.TitleBox>
+            </S.NavButton>
+          </Link>
+          <S.EstablishmentContainer
+            isExpanded={isExpanded}
+            hasEstablishment={data?.has_establishment}
+          >
+            <Link href={data?.has_establishment ? DASHBOARD_POS_PAGE : {}}>
+              <S.NavButton isExpanded={isExpanded}>
+                <S.IconBox isExpanded={isExpanded}>
+                  <FaShoppingBag />
+                </S.IconBox>
+                <S.TitleBox>Minhas Vendas</S.TitleBox>
+              </S.NavButton>
+            </Link>
+          </S.EstablishmentContainer>
+        </>
+      ) : (
+        <>
+          {/* SIDEBAR ADM */}
+          <Link href={DASHBOARD_ADM_PAGE}>
+            <S.NavButton isExpanded={isExpanded}>
+              <S.IconBox isExpanded={isExpanded}>
+                <BsFillPersonFill />
+              </S.IconBox>
+              <S.TitleBox>Minha Conta</S.TitleBox>
+            </S.NavButton>
+          </Link>
+          <Link href={PARTNER_REGISTRATION_PAGE}>
+            <S.NavButton isExpanded={isExpanded}>
+              <S.IconBox isExpanded={isExpanded}>
+                <BsPeopleFill />
+              </S.IconBox>
+              <S.TitleBox>Parceiros Quantum</S.TitleBox>
+            </S.NavButton>
+          </Link>
+          <Link href={DASHBOARD_ADM_PAGE}>
+            <S.NavButton isExpanded={isExpanded}>
+              <S.IconBox isExpanded={isExpanded}>
+                <MdPeopleAlt />
+              </S.IconBox>
+              <S.TitleBox>Usuários Quantum</S.TitleBox>
+            </S.NavButton>
+          </Link>
+          <Link href={MANAGE_BANNER_PAGE}>
+            <S.NavButton isExpanded={isExpanded}>
+              <S.IconBox isExpanded={isExpanded}>
+                <FaUpload />
+              </S.IconBox>
+              <S.TitleBox>Gerenciar Banner</S.TitleBox>
+            </S.NavButton>
+          </Link>
+          <Link href={CANCELLATION_REQUEST_PAGE}>
+            <S.NavButton isExpanded={isExpanded}>
+              <S.IconBox isExpanded={isExpanded}>
+                <AiFillFile />
+              </S.IconBox>
+              <S.TitleBox>Solicitações de Cancelamento</S.TitleBox>
+            </S.NavButton>
+          </Link>
+          <Link href={SMART_QUANTUM_REQUESTS_PAGE}>
+            <S.NavButton isExpanded={isExpanded}>
+              <S.IconBox isExpanded={isExpanded}>
+                <AiFillFile />
+              </S.IconBox>
+              <S.TitleBox>Solicitações Smart</S.TitleBox>
+            </S.NavButton>
+          </Link>
+        </>
       )}
-
-      {/* <S.NavButton */}
-      {/*   onClick={() => { */}
-      {/*     setShowMarketplace(prevState => !prevState); */}
-      {/*   }} */}
-      {/* > */}
-      {/*   <div> */}
-      {/*     <RiShoppingBasket2Line /> */}
-      {/*     Marketplace */}
-      {/*   </div> */}
-      {/*   {showMarketplace ? <RiArrowUpSLine /> : <RiArrowDownSLine />} */}
-      {/* </S.NavButton> */}
-      {/* {showMarketplace && ( */}
-      {/*   <S.SubMenu> */}
-      {/*     <S.SubMenuLink>Meus Pedidos</S.SubMenuLink> */}
-      {/*     <S.SubMenuLink>Marketplace</S.SubMenuLink> */}
-      {/*   </S.SubMenu> */}
-      {/* )} */}
-      <Link href={INVITE_FRIENDS_PAGE}>
-        <S.NavButton>
-          <div>
-            <RiUserStarLine />
-            Convidar Amigos
-          </div>
-        </S.NavButton>
-      </Link>
-
-      <S.NavButton>
-        <div>
-          <RiDraftLine />
-          Licenças
-        </div>
-      </S.NavButton>
-
-      <S.NavButton>
-        <div>
-          <RiLock2Line /> Privacidade
-        </div>
-      </S.NavButton>
-
-      <S.User>
-        <Avatar width="35" height="35" />
-        <S.UserData>
-          <strong>{user?.name}</strong>
-          <p>{user?.email}</p>
-        </S.UserData>
-      </S.User>
-
-      <S.SignOut onClick={signOut}>
-        Sair
-        <FiLogOut />
+      <S.SignOut onClick={signOut} isExpanded={isExpanded}>
+        <S.IconBox isExpanded={isExpanded}>
+          <FiLogOut />
+        </S.IconBox>
+        <S.TitleBox>Sair</S.TitleBox>
       </S.SignOut>
     </S.Container>
   );

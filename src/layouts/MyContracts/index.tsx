@@ -1,0 +1,114 @@
+/* eslint-disable react/jsx-no-useless-fragment */
+import { BsPersonBadge } from 'react-icons/bs';
+import Image from 'next/image';
+import { useState } from 'react';
+
+import { DashboardLayout } from 'layouts/DashboardLayout';
+
+import { useGetContractsLoggedUser } from 'hooks/useContracts/useFindContractByUserId';
+
+import { Contract } from 'hooks/useContracts/useFindContractByUserId/types';
+
+import { InputSearch } from 'components/InputSearch';
+
+import { Loader } from 'components/Loader';
+
+import Accordion from './Accordion';
+import { ModalContract } from './ModalContract';
+import * as S from './styles';
+import { ModalCancel } from './ModalCancel';
+
+export function MyContracts() {
+  const [name, setName] = useState('');
+  const [contractName, setContractName] = useState('');
+  const { data: contracts, isLoading } = useGetContractsLoggedUser({
+    contractName,
+  });
+  const [showModalContract, setShowModalContract] = useState(false);
+  const [showModalCancel, setShowModalCancel] = useState(false);
+  const [contract, setContract] = useState<Contract>({} as Contract);
+
+  const getSelectedContract = (contract: Contract) => {
+    if (!contract) return;
+    setContract(contract);
+  };
+
+  const handleRequestModalContract = () => {
+    setShowModalContract(prevState => !prevState);
+  };
+
+  const handleRequestModalCancel = () => {
+    setShowModalCancel(prevState => !prevState);
+  };
+
+  return (
+    <DashboardLayout withServiceBank={false}>
+      {contracts && contracts.length > 0 ? (
+        <S.MyContractsContainer>
+          <div
+            style={{
+              display: 'flex',
+              alignItems: 'center',
+              width: '100%',
+              justifyContent: 'center',
+            }}
+          >
+            <InputSearch
+              name="search"
+              type="text"
+              placeholder="Pesquisar por contrato"
+              value={name}
+              onChange={event => setName(event.target.value)}
+              onRequestClick={() => setContractName(name)}
+            />
+          </div>
+          <div>
+            {isLoading ? (
+              <Loader />
+            ) : (
+              <Accordion
+                getSelectedContract={getSelectedContract}
+                contracts={contracts}
+                onRequestModalContract={handleRequestModalContract}
+              />
+            )}
+            {showModalContract && (
+              <ModalContract
+                contract={contract}
+                onRequestClose={handleRequestModalContract}
+                onRequestModalCancel={handleRequestModalCancel}
+              />
+            )}
+
+            {showModalCancel && (
+              <ModalCancel
+                contract={contract}
+                onRequestClose={handleRequestModalCancel}
+              />
+            )}
+          </div>
+        </S.MyContractsContainer>
+      ) : (
+        <>
+          {isLoading ? (
+            <Loader />
+          ) : (
+            <S.FallbackComponent>
+              <div>
+                <BsPersonBadge size={24} />
+                <span>Amigos</span>
+              </div>
+              <Image
+                src="/images/my-contracts.svg"
+                alt="Nenhum contrato registrado"
+                width={180}
+                height={240}
+              />
+              <p>Você ainda não possui contratos ativos no Quantum Clube.</p>
+            </S.FallbackComponent>
+          )}
+        </>
+      )}
+    </DashboardLayout>
+  );
+}

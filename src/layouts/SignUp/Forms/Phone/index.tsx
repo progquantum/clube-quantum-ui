@@ -9,7 +9,7 @@ import { useAuthDispatch } from 'contexts/auth/AuthContext';
 import { Input } from 'components/Input';
 import { Button } from 'components/Button';
 import { formatPhoneNumber } from 'utils/formatters/formatPhoneNumber';
-import { useSendPhoneCode } from 'hooks/useSendPhoneCode';
+import { useSendPhoneCode } from 'hooks/phones/useSendPhoneCode';
 import { performSchemaValidation } from 'utils/performSchemaValidation';
 import { AuthLayout } from 'layouts/Auth';
 import { success } from 'helpers/notify/success';
@@ -58,6 +58,7 @@ export function Phone({ onUpdateFormStep, onPreviousFormStep }: PhoneProps) {
     >
       <Form ref={formRef} onSubmit={handlePhoneCode} className="form">
         <Input
+          data-cy="phone-input"
           type="text"
           inputMode="tel"
           name="phone"
@@ -70,7 +71,11 @@ export function Phone({ onUpdateFormStep, onPreviousFormStep }: PhoneProps) {
             )
           }
         />
-        <Button type="submit" loading={isSendingPhoneCode}>
+        <Button
+          type="submit"
+          loading={isSendingPhoneCode}
+          data-cy="next-step-button"
+        >
           Continuar
         </Button>
       </Form>

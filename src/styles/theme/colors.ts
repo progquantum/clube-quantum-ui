@@ -1,9 +1,11 @@
 export const colors = {
   background: '#fff',
   light: '#eeeeee',
+  blue: '#1D5C9E',
   midnightBlue: '#001F80',
   mediumslateBlue: '#0C61FF',
   royalblue: '#0E5AE4',
+  primaryLight: '#99A5CC',
   lightsteelblue: '#B2C5FF',
   lightsteelblueice: '#C5D9FF',
   cornflowerblue: '#649AFF',
@@ -15,6 +17,7 @@ export const colors = {
   cherryPie: '#190252',
   white: '#ffffff',
   ghostwhite: '#F5F6FA',
+  orangeRed: '#F86624',
   gray: {
     50: '#E6E6E6',
     100: '#DBDBDB',
@@ -34,9 +37,11 @@ export const colors = {
   },
   black: '#000000',
   yellow: '#FFCA28',
+  yellowStar: '#E4CC37',
   warning: '#FFC107',
   danger: '#E12B2B',
   dangerLight: '#ffe7e3',
   dangerDark: '#B92626',
   success: '#00C851',
+  successLight: '#8fc93a',
 };

@@ -5,7 +5,6 @@ export const Terms = styled.div`
   display: flex;
   align-items: center;
   gap: 0.6rem;
-  margin-block: 24px !important;
 `;
 
 export const CheckBox = styled.input`
@@ -24,4 +23,12 @@ export const TextTerm = styled.span`
   font-weight: 500;
   font-size: 12px;
   text-align: start;
+`;
+
+export const Text = styled.span`
+  font-style: normal;
+  font-weight: 500;
+  font-size: 16px;
+  line-height: 150%;
+  color: ${({ theme }) => theme.colors.gray[700]};
 `;

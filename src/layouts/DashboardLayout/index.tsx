@@ -1,23 +1,19 @@
-import { PropsWithChildren } from 'react';
+import { SideBar } from 'components/SideBar';
+
+import { HeaderAuth } from 'components/Header/HeaderAuth';
 
 import { Footer } from 'components/Footer';
-import { Header } from 'components/Header';
 
-import { SideBar } from 'components/SideBar';
-import { ServicesBank } from 'components/ServicesBank';
-
+import { Props } from './types';
 import * as S from './styles';
 
-export function DashboardLayout({ children }: PropsWithChildren) {
+export function DashboardLayout({ children, maxWidth }: Props) {
   return (
     <>
-      <Header />
-      <S.Container>
+      <HeaderAuth />
+      <S.Container maxWidth={maxWidth}>
         <SideBar />
-        <S.RightWrapper>
-          <ServicesBank />
-          {children}
-        </S.RightWrapper>
+        <S.RightWrapper>{children}</S.RightWrapper>
       </S.Container>
       <Footer />
     </>

@@ -61,6 +61,7 @@ export function BankAccount({
           <S.BankData>0001</S.BankData>
         </S.Content>
         <Input
+          data-cy="signup_checkingAccount"
           type="text"
           inputMode="numeric"
           name="current_account"
@@ -74,6 +75,7 @@ export function BankAccount({
           }
         />
         <Input
+          data-cy="signup_holderName"
           type="text"
           name="holder_name"
           placeholder="Nome completo do titular"
@@ -84,7 +86,9 @@ export function BankAccount({
           informado anteriormente está vinculado.
         </S.BankInfo>
 
-        <Button type="submit">Continuar</Button>
+        <Button data-cy="next-step-button" type="submit">
+          Continuar
+        </Button>
       </Form>
       <button type="button" onClick={onPreviousFormStep}>
         <IoReturnDownBackSharp size={20} />

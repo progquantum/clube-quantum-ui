@@ -4,8 +4,8 @@ import { IoReturnDownBackSharp } from 'react-icons/io5';
 import { useAuthState } from 'contexts/auth/AuthContext';
 import { PinCodeGrid } from 'components/PinCodeGrid';
 import { Button } from 'components/Button';
-import { useCheckPhoneCode } from 'hooks/useCheckPhoneCode';
-import { useSendPhoneCode } from 'hooks/useSendPhoneCode';
+import { useCheckPhoneCode } from 'hooks/phones/useCheckPhoneCode';
+import { useSendPhoneCode } from 'hooks/phones/useSendPhoneCode';
 import { success } from 'helpers/notify/success';
 import { AuthLayout } from 'layouts/Auth';
 
@@ -93,6 +93,7 @@ export function PinCode({ onNextFormStep, onPreviousFormStep }: PinCodeProps) {
           type="submit"
           loading={isCheckingPhone}
           disabled={isButtonDisabled}
+          data-cy="next-step-button"
         >
           Confirmar
         </Button>

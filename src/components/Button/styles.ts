@@ -5,13 +5,13 @@ import { ButtonProps } from './types';
 const variants = {
   primary: css`
     color: ${({ theme }) => theme.colors.white};
-    background: ${({ theme }) => theme.colors.midnightBlue};
-    border: 0.1rem solid ${({ theme }) => theme.colors.midnightBlue};
+    background: ${({ theme }) => theme.colors.mediumslateBlue};
+    border: 0.1rem solid ${({ theme }) => theme.colors.mediumslateBlue};
 
     :hover {
-      background: ${({ theme }) => theme.colors.mediumslateBlue};
       color: ${({ theme }) => theme.colors.white};
-      border: 0.1rem solid ${({ theme }) => theme.colors.mediumslateBlue};
+      background: ${({ theme }) => theme.colors.midnightBlue};
+      border: 0.1rem solid ${({ theme }) => theme.colors.midnightBlue};
     }
   `,
 
@@ -47,9 +47,8 @@ const variants = {
     background: ${({ theme }) => theme.colors.gray['400']};
 
     &:hover {
-    color: ${({ theme }) => theme.colors.gray['700']};
-    background: ${({ theme }) => theme.colors.gray['400']};
-    }
+      color: ${({ theme }) => theme.colors.gray['700']};
+      background: ${({ theme }) => theme.colors.gray['400']};
     }
   `,
   transparent: css`
@@ -77,6 +76,39 @@ const variants = {
       background-color: ${({ theme }) => theme.colors.danger};
       border: 2px solid ${({ theme }) => theme.colors.danger};
       color: ${({ theme }) => theme.colors.white};
+    }
+  `,
+
+  degrade: css`
+    background: ${({ theme }) => theme.colors.white};
+    color: ${({ theme }) => theme.colors.royalblue};
+    border: 2px solid ${({ theme }) => theme.colors.royalblue};
+
+    &:hover {
+      color: ${({ theme }) => theme.colors.white};
+      background: ${({ theme }) =>
+        theme.gradients.midnightBlueToMediumsLateBlue};
+      border: 2px solid
+        ${({ theme }) => theme.gradients.midnightBlueToMediumsLateBlue};
+    }
+
+    &:active {
+      color: ${({ theme }) => theme.colors.white};
+      background: ${({ theme }) =>
+        theme.gradients.midnightBlueToMediumsLateBlue};
+      border: 2px solid
+        ${({ theme }) => theme.gradients.midnightBlueToMediumsLateBlue};
+    }
+  `,
+
+  link: css`
+    background: ${({ theme }) => theme.colors.white};
+    color: ${({ theme }) => theme.colors.midnightBlue};
+
+    &:hover {
+      background: ${({ theme }) => theme.colors.white};
+      color: ${({ theme }) => theme.colors.midnightBlue};
+      text-decoration-line: underline;
     }
   `,
 };

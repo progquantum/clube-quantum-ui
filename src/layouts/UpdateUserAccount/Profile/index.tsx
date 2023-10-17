@@ -2,7 +2,9 @@ import { useState } from 'react';
 
 // import { RiPencilLine } from 'react-icons/ri';
 
-import { useUserProfile } from 'hooks/user/useUserProfile';
+import { BsPersonBadge } from 'react-icons/bs';
+
+import { useUserProfile } from 'hooks/me/useUserProfile';
 
 import { Modal } from './Modal';
 import * as S from './styles';
@@ -25,6 +27,10 @@ export function Profile() {
   return (
     <>
       <S.Container>
+        <S.HeaderTitle>
+          <BsPersonBadge />
+          <span>Informações pessoais</span>
+        </S.HeaderTitle>
         <S.EditPersonalInformation>
           <h2>Informações Pessoais</h2>
           {/* <RiPencilLine /> */}
@@ -33,8 +39,12 @@ export function Profile() {
         <h3>Nome</h3>
         <p>{data?.name}</p>
 
-        <h3>Data de Nascimento</h3>
-        <p>{formattedBirthDate}</p>
+        {formattedBirthDate && (
+          <>
+            <h3>Data de Nascimento</h3>
+            <p>{formattedBirthDate}</p>
+          </>
+        )}
 
         <h3>Telefone</h3>
         <p>{data?.phone}</p>

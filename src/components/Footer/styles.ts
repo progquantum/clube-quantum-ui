@@ -8,7 +8,7 @@ export const Container = styled.footer`
   align-items: center;
   justify-content: center;
   gap: 40rem;
-  box-shadow: 0 -2px 20px 0px #00000012;
+  box-shadow: 0 -15px 20px 0px #00000012;
   padding: 3.125rem 0;
 
   * {

@@ -1,5 +1,14 @@
-import { BusinessSignUpPage } from 'layouts/SignUp/Business';
+import { GetServerSideProps } from 'next';
 
-export default function BusinessSignUp() {
+import { BusinessSignUpPage } from 'layouts/SignUp/Business';
+import { withSSRGuest } from 'helpers/auth/withSSRGuest';
+
+export const getServerSideProps: GetServerSideProps = withSSRGuest(
+  async () => ({
+    props: {},
+  }),
+);
+
+export default function PersonalSignUp() {
   return <BusinessSignUpPage />;
 }

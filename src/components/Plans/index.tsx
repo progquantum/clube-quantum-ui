@@ -5,13 +5,23 @@ import { FaCheck } from 'react-icons/fa';
 
 import { AiOutlineSelect } from 'react-icons/ai';
 
-import { usePlans } from 'hooks/usePlans';
+import { PulseLoader } from 'react-spinners';
+
+import { useTheme } from 'styled-components';
+
+import { useRouter } from 'next/router';
+
+import { usePlans } from 'hooks/helpers/usePlans';
 import { useSubscriptionsDispatch } from 'contexts/subscriptions/SubscriptionsContext';
 import { formatPrice } from 'utils/formatters/formatPrice';
 
 import { formatFirstLetterToUppercase } from 'utils/formatters/formatFirstLetterToUppercase';
 
-import { useMe } from 'hooks/user/useMe';
+import { useMe } from 'hooks/me/useMe';
+
+import { Loading } from 'components/Loading';
+
+import { Button } from 'components/Button';
 
 import {
   Periods,
@@ -22,14 +32,14 @@ import {
 } from './types';
 import * as S from './styles';
 
-export function Plans({ children, button }: PlansProps) {
+export function Plans({ children, button, onPreviousFormStep }: PlansProps) {
+  const { pathname } = useRouter();
   const [selectedPeriod, setSelectedPeriod] = useState<Periods>('semiannual');
   const [selectedPlan, setSelectedPlan] = useState<Plans>('start');
-
-  const { data: plans } = usePlans();
+  const { data: plans, isLoading } = usePlans();
   const { data } = useMe();
+  const { colors } = useTheme();
   const currentPlanName = data?.subscription?.plan_name;
-
   const planFree: PlansData = useMemo(() => (plans ? plans[0] : []), [plans]);
   const planStart: PlansData = useMemo(() => (plans ? plans[1] : []), [plans]);
   const planSelect: PlansData = useMemo(() => (plans ? plans[2] : []), [plans]);
@@ -111,12 +121,14 @@ export function Plans({ children, button }: PlansProps) {
     { period: 'yearly', title: 'Anual' },
   ];
 
+  const isSignupFlow =
+    pathname === '/signup/personal' || pathname === '/signup/business';
+
   return (
     <S.Container>
       {children}
       <S.Wrapper>
         <S.Title>Selecione o período de pagamento</S.Title>
-
         <S.PlansWrapper>
           {planDurationOptions.map((item: PlanDurationProps, index) => (
             <S.PlanType
@@ -133,9 +145,9 @@ export function Plans({ children, button }: PlansProps) {
         </S.PlansWrapper>
         <S.Subtitle>Renovação feita de forma automática</S.Subtitle>
       </S.Wrapper>
-
       <S.PlansContents>
         <S.PlanContentsWrapper
+          data-cy="planFree"
           isActive={selectedPlan === 'free'}
           onClick={() => {
             handleChoosePlan('free');
@@ -151,14 +163,17 @@ export function Plans({ children, button }: PlansProps) {
           </S.TitlePlan>
           <S.Text>Benefícios Quantum e Cashback sem pagar nada.</S.Text>
           <S.Price>
-            <span>R$</span> 0
+            {isLoading ? (
+              <Loading icon={PulseLoader} color={colors.gray[200]} size={10} />
+            ) : (
+              <span>R$ 0</span>
+            )}
           </S.Price>
           <S.Button isActive={selectedPlan === 'free'}>
             {selectedPlan === 'free'
               ? 'Plano Escolhido'
               : 'Escolher este plano'}
           </S.Button>
-
           <S.PlanItemsList isActive={selectedPlan === 'free'}>
             <li>
               <S.PlanItem>
@@ -202,8 +217,8 @@ export function Plans({ children, button }: PlansProps) {
             </li>
           </S.PlanItemsList>
         </S.PlanContentsWrapper>
-
         <S.PlanContentsWrapper
+          data-cy="planStart"
           isActive={selectedPlan === 'start'}
           onClick={() => {
             handleChoosePlan('start');
@@ -222,19 +237,21 @@ export function Plans({ children, button }: PlansProps) {
             Plano com um custo acessível e que te dá mais benefícios.
           </S.Text>
           <S.Price>
-            {selectedPeriod === 'semiannual'
-              ? formatPrice(planStart.semiannual_price)
-              : selectedPeriod === 'monthly'
-              ? formatPrice(planStart.monthly_price)
-              : formatPrice(planStart.annual_price)}
+            {isLoading ? (
+              <Loading icon={PulseLoader} color={colors.gray[200]} size={10} />
+            ) : selectedPeriod === 'semiannual' ? (
+              formatPrice(planStart.semiannual_price)
+            ) : selectedPeriod === 'monthly' ? (
+              formatPrice(planStart.monthly_price)
+            ) : (
+              formatPrice(planStart.annual_price)
+            )}
           </S.Price>
-
           <S.Button isActive={selectedPlan === 'start'}>
             {selectedPlan === 'start'
               ? 'Plano Escolhido'
               : 'Escolher este plano'}
           </S.Button>
-
           <S.PlanItemsList isActive={selectedPlan === 'start'}>
             <li>
               <S.PlanItem>
@@ -284,27 +301,32 @@ export function Plans({ children, button }: PlansProps) {
         </S.PlanContentsWrapper>
 
         <S.PlanContentsWrapper
+          data-cy="planSelect"
           isActive={selectedPlan === 'select'}
           onClick={() => {
             handleChoosePlan('select');
           }}
         >
-          {currentPlanName === 'QUANTUM SELECT' ? (
+          {currentPlanName === 'QUANTUM SELECT' && (
             <S.CurrentPlan>
               <AiOutlineSelect size={16} fontWeight={600} />
               Plano atual
             </S.CurrentPlan>
-          ) : null}
+          )}
           <S.TitlePlan>
             {formatFirstLetterToUppercase(planSelect.name)}
           </S.TitlePlan>
           <S.Text>Plano para que você aproveite o máximo do Quantum.</S.Text>
           <S.Price>
-            {selectedPeriod === 'semiannual'
-              ? formatPrice(planSelect.semiannual_price)
-              : selectedPeriod === 'monthly'
-              ? formatPrice(planSelect.monthly_price)
-              : formatPrice(planSelect.annual_price)}
+            {isLoading ? (
+              <Loading icon={PulseLoader} color={colors.gray[200]} size={10} />
+            ) : selectedPeriod === 'semiannual' ? (
+              formatPrice(planSelect.semiannual_price)
+            ) : selectedPeriod === 'monthly' ? (
+              formatPrice(planSelect.monthly_price)
+            ) : (
+              formatPrice(planSelect.annual_price)
+            )}
           </S.Price>
 
           <S.Button isActive={selectedPlan === 'select'}>
@@ -365,8 +387,14 @@ export function Plans({ children, button }: PlansProps) {
           </S.PlanItemsList>
         </S.PlanContentsWrapper>
       </S.PlansContents>
-
-      <section>{button}</section>
+      <S.ButtonContainer>
+        {button}
+        {isSignupFlow && (
+          <Button variant="link" onClick={onPreviousFormStep}>
+            Voltar
+          </Button>
+        )}
+      </S.ButtonContainer>
     </S.Container>
   );
 }

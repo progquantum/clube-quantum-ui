@@ -1,8 +1,8 @@
 import Head from 'next/head';
-import Image from 'next/image';
+import Image from 'next/legacy/image';
 import Link from 'next/link';
 
-import { Header } from 'layouts/Home/Header';
+import { HeaderGuest } from 'components/Header/HeaderGuest';
 import { Footer } from 'components/Footer';
 import { Button } from 'components/Button';
 
@@ -18,7 +18,7 @@ export function WorkWithUsPage() {
       <Head>
         <title>Trabalhe conosco</title>
       </Head>
-      <Header />
+      <HeaderGuest />
       <S.Container>
         <ToolTipContact />
         <S.ContentWrapper>
@@ -33,7 +33,7 @@ export function WorkWithUsPage() {
           </Link>
         </S.ContentWrapper>
         <S.ContentWrapper>
-          <Image src="/images/group.svg" width="450" height="400" />
+          <Image src="/images/group.svg" width={450} height={400} />
         </S.ContentWrapper>
       </S.Container>
       <Footer />

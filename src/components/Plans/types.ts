@@ -3,6 +3,7 @@ import { ReactElement, ReactNode } from 'react';
 export type PlansProps = {
   children?: ReactNode;
   button?: ReactElement;
+  onPreviousFormStep?: () => void;
 };
 
 export type Periods = 'monthly' | 'semiannual' | 'yearly';

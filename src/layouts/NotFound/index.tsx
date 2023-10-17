@@ -1,4 +1,4 @@
-import Image from 'next/image';
+import Image from 'next/legacy/image';
 import Link from 'next/link';
 import { IoReturnDownBackSharp } from 'react-icons/io5';
 
@@ -11,9 +11,7 @@ export function NotFoundPage() {
     <S.Container>
       <S.Info>
         <h2>Ops, página não encontrada</h2>
-        {/* Should wrap link component with element due to this
-        issue of next/link https://github.com/vercel/next.js/issues/127 */}
-        <Link href={HOMEPAGE_PAGE} prefetch>
+        <Link href={HOMEPAGE_PAGE} legacyBehavior>
           <a className="anchor">
             <IoReturnDownBackSharp size={20} />
             Voltar para homepage

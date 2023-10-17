@@ -6,13 +6,13 @@ import { Active } from './types';
 
 export const Container = styled.div`
   width: 100%;
-  max-width: 59.375rem;
+  max-width: 100%;
   display: flex;
   justify-content: center;
   align-items: center;
   flex-direction: column;
   margin: 0 auto;
-  margin-bottom: 30px;
+  margin-bottom: 10rem;
 
   section {
     width: 100%;
@@ -95,7 +95,7 @@ export const PlanType = styled.h4<Active>`
     css`
       background-color: ${({ theme }) => theme.colors.white};
       color: ${({ theme }) => theme.colors.gray['700']};
-      border: 2px solid ${({ theme }) => theme.colors.mediumslateBlue}; ;
+      border: 2px solid ${({ theme }) => theme.colors.mediumslateBlue};
     `}
 
   @media (max-width: 525px) {
@@ -129,7 +129,7 @@ export const PlansContents = styled.section`
   margin-top: 3rem;
   display: flex;
   align-items: center;
-
+  justify-content: center;
   @media (max-width: 1320px) {
     flex-direction: column;
   }
@@ -145,6 +145,8 @@ export const PlanContentsWrapper = styled.div<Active>`
   display: flex;
   flex-direction: column;
 
+  max-width: 300px;
+  max-height: 650px;
   @media (max-width: 1320px) {
     width: 21.875rem;
   }
@@ -157,8 +159,7 @@ export const PlanContentsWrapper = styled.div<Active>`
     props.isActive &&
     css`
       background: ${({ theme }) => theme.colors.mediumslateBlue};
-      transform: scale(1.2);
-
+      transform: scale(1.15);
       margin: 0 1.25rem;
       transition: 0.3s ease-out;
 
@@ -269,4 +270,12 @@ export const CurrentPlan = styled.div`
   margin-bottom: 0.5rem;
   border-radius: 0.2rem;
   width: 7rem;
+`;
+
+export const ButtonContainer = styled.div`
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-top: 3rem;
 `;

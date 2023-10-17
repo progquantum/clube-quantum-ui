@@ -1,4 +1,4 @@
-import Image from 'next/image';
+import Image from 'next/legacy/image';
 import Link from 'next/link';
 
 import { Footer } from 'components/Footer';
@@ -18,7 +18,13 @@ export function GuestPage() {
         </S.LeftWrapper>
 
         <S.RightWrapper>
-          <Image width={71} height={44} src="/images/banco-um-logo.svg" />
+          <Image
+            data-testid="logo"
+            alt="banco um logo"
+            width={71}
+            height={44}
+            src="/images/banco-um-logo.svg"
+          />
           <h2>Ainda não é um cliente Banco Um?</h2>
           <h3>Conheça as vantagens de ser um cliente Banco Um</h3>
           <Link href={ADVANTAGES_PAGE}>Saiba mais</Link>

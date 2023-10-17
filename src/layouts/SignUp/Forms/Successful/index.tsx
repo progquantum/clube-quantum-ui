@@ -21,8 +21,8 @@ export function Successful() {
         </p>
       </Container>
 
-      <Link href={SIGN_IN_PAGE} prefetch>
-        <Account>
+      <Link href={SIGN_IN_PAGE}>
+        <Account data-cy="signup_goToDashboard">
           <IoReturnDownBackSharp size={20} />
           Retornar para minha conta
         </Account>

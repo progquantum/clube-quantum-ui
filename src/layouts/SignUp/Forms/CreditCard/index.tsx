@@ -49,12 +49,14 @@ export function CreditCard({
     >
       <Form ref={formRef} onSubmit={handleSubmitCreditCard} className="form">
         <Input
+          data-cy="signup_fullName"
           type="text"
           name="card_name"
           placeholder="Nome completo do titular"
           icon={FiUser}
         />
         <Input
+          data-cy="signup_creditCardNumber"
           type="text"
           inputMode="numeric"
           name="card_number"
@@ -68,6 +70,7 @@ export function CreditCard({
           }
         />
         <Input
+          data-cy="signup_expirationDate"
           type="text"
           inputMode="numeric"
           name="expiration_date"
@@ -81,6 +84,7 @@ export function CreditCard({
           }
         />
         <Input
+          data-cy="signup_cvv"
           type="text"
           name="cvc"
           inputMode="numeric"
@@ -91,7 +95,9 @@ export function CreditCard({
           }
         />
 
-        <Button type="submit">Continuar</Button>
+        <Button data-cy="next-step-button" type="submit">
+          Continuar
+        </Button>
         <S.JumpStepButton onClick={onNavigateToSuccessfulSignUp}>
           Pular etapa
         </S.JumpStepButton>

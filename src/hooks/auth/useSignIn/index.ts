@@ -1,5 +1,7 @@
 import { useMutation } from 'react-query';
 
+import { AxiosError } from 'axios';
+
 import { Session } from 'shared/types/apiSchema';
 import { quantumClientBase } from 'config/client';
 import { error } from 'helpers/notify/error';
@@ -11,9 +13,11 @@ export async function signIn(credentials: SignInCredentials) {
     const { data } = await quantumClientBase.post('/sessions', credentials);
 
     return data as Session;
-  } catch (err) {
-    if (err.response.data.message === 'Cpf/Cnpj or password is incorrect') {
-      error('Usuário ou senha incorretos');
+  } catch (err: unknown) {
+    if (err instanceof AxiosError) {
+      if (err.response.data.message === 'Cpf/Cnpj or password is incorrect') {
+        error('Usuário ou senha incorretos');
+      }
     }
 
     return Promise.reject(err);

@@ -2,43 +2,97 @@ import styled, { css } from 'styled-components';
 
 import { Button } from 'components/Button';
 
-import { NavButtonProps } from './types';
+import { NavButtonProps, IsExpanded } from './types';
 
-export const Container = styled.nav`
+export const Container = styled.nav<IsExpanded>`
   display: flex;
   flex-direction: column;
-  gap: 1rem;
   box-shadow: 0rem 0rem 2rem rgba(41, 40, 40, 0.1);
   padding: 1rem;
-  border-radius: 0.625rem;
-  position: relative;
-  width: 280px;
-
+  border-radius: 0.5rem;
+  width: max-content;
+  margin-top: 2rem;
+  align-self: flex-start;
+  justify-content: center;
+  background-color: ${({ theme }) => theme.colors.white};
   @media (max-width: 780px) {
     display: none;
   }
 `;
 
+export const IconBox = styled.div<IsExpanded>`
+  ${({ isExpanded }) =>
+    !isExpanded &&
+    css`
+      margin: 0 auto;
+    `}
+`;
+
+export const ToggleButtonBox = styled(IconBox)`
+  margin: 1rem 0 0;
+  font-size: 1.8rem;
+  width: max-content;
+  padding: 0 0.4rem 0.3rem;
+  color: ${({ theme }) => theme.colors.mediumslateBlue};
+  cursor: pointer;
+  transition: all 0.1s ease;
+  border-radius: 0.3rem;
+  &:hover {
+    background-color: ${({ theme }) => theme.colors.mediumslateBlue};
+    color: ${({ theme }) => theme.colors.white};
+  }
+`;
+
+export const TitleBox = styled.span`
+  display: block;
+  width: 100%;
+  text-align: left;
+`;
+
 export const NavButton = styled.button<NavButtonProps>`
   display: flex;
   align-items: center;
-  justify-content: space-between;
+  gap: 1rem;
   background: none;
-  padding: 1rem;
-  color: ${({ theme }) => theme.colors.gray['400']};
+  padding: 1.3rem 0.2rem;
+  margin: 0 0.3rem;
+  max-width: 240px;
+  color: ${({ theme }) => theme.colors.gray[700]};
+  border-bottom: 0.5px solid ${({ theme }) => theme.colors.gray[100]};
+  font-weight: 500;
+
+  ${({ isExpanded }) =>
+    !isExpanded
+      ? css`
+          & ${TitleBox} {
+            display: none;
+          }
+          border-bottom: 2px solid transparent;
+          &:hover {
+            border-bottom: 2px solid
+              ${({ theme }) => theme.colors.mediumslateBlue};
+          }
+        `
+      : css`
+          min-width: 15rem;
+          & ${TitleBox} {
+            display: block;
+          }
+          &:hover {
+            background-color: ${({ theme }) => theme.colors.gray[100]};
+          }
+        `}
 
   > div {
     display: flex;
     align-items: center;
+    justify-content: center;
     gap: 0.5rem;
 
     > svg {
-      font-size: 1.3rem;
+      font-size: 1.8rem;
+      color: ${({ theme }) => theme.colors.mediumslateBlue};
     }
-  }
-
-  &:hover {
-    color: ${({ theme }) => theme.colors.mediumslateBlue};
   }
 
   ${props =>
@@ -50,97 +104,10 @@ export const NavButton = styled.button<NavButtonProps>`
     `}
 `;
 
-export const SubMenu = styled.div`
-  border-left: 2px solid ${({ theme }) => theme.colors.light};
-  margin-left: 25px;
-  position: relative;
-`;
-
-export const SubMenuLink = styled.button<NavButtonProps>`
-  display: flex;
-  align-items: center;
-  justify-content: flex-start;
-  background: none;
-  font-size: 0.9rem;
-  padding: 0.8rem 1rem;
-  transition: 0.3s all;
-
-  color: ${({ theme }) => theme.colors.gray['400']};
-
-  font-size: 0.9rem;
-
-  > svg {
-    font-size: 1rem;
-  }
-
-  ${props =>
-    props.activePath &&
-    css`
-      color: ${({ theme }) => theme.colors.mediumslateBlue};
-      width: 100%;
-
-      &::before {
-        content: '';
-        display: flex;
-        align-items: center;
-        width: 1.8px;
-        height: 20px;
-        background-color: ${({ theme }) => theme.colors.mediumslateBlue};
-        position: absolute;
-        left: 0;
-        padding: 0.7rem 0;
-        margin-left: -2px;
-      }
-    `}
-
-  &:hover {
-    color: ${({ theme }) => theme.colors.mediumslateBlue};
-    width: 100%;
-
-    &::before {
-      content: '';
-      display: flex;
-      align-items: center;
-      width: 1.8px;
-      height: 20px;
-      background-color: ${({ theme }) => theme.colors.mediumslateBlue};
-      position: absolute;
-      left: 0;
-      padding: 0.7rem 0;
-      margin-left: -2px;
-    }
-  }
-`;
-
-export const User = styled.div`
-  display: flex;
-  align-items: center;
-  width: 100%;
-  gap: 0.5rem;
-  border-top: 2px solid ${({ theme }) => theme.colors.light};
-  padding-top: 1.5rem;
-  padding: 1rem;
-  color: ${({ theme }) => theme.colors.gray['400']};
-`;
-
-export const UserData = styled.div`
-  width: 100%;
-  max-width: 11.8125rem;
-  strong {
-    font-size: 0.9rem;
-    color: ${({ theme }) => theme.colors.gray['700']};
-  }
-
-  p {
-    font-size: 0.6rem;
-    overflow-wrap: break-word;
-  }
-`;
-
-export const SignOut = styled(Button)`
-  background: ${({ theme }) => theme.colors.dangerLight};
-  justify-content: space-between;
-  margin-top: 0;
+export const SignOut = styled(Button)<IsExpanded>`
+  background: ${({ theme }) => theme.colors.white};
+  justify-content: space-around;
+  gap: 4rem;
   color: ${({ theme }) => theme.colors.danger};
   transition: 0.2s all;
 
@@ -148,4 +115,40 @@ export const SignOut = styled(Button)`
     background-color: ${({ theme }) => theme.colors.danger};
     color: ${({ theme }) => theme.colors.dangerLight};
   }
+
+  ${({ isExpanded }) =>
+    !isExpanded
+      ? css`
+          & ${TitleBox} {
+            display: none;
+          }
+        `
+      : css`
+          & ${TitleBox} {
+            display: block;
+          }
+        `}
+`;
+
+export const EstablishmentContainer = styled.div<{
+  hasEstablishment: boolean;
+  isExpanded: boolean;
+}>`
+  ${({ hasEstablishment, isExpanded, theme }) =>
+    !hasEstablishment &&
+    css`
+      & ${NavButton} {
+        color: ${theme.colors.gray[400]};
+        ${isExpanded &&
+        css`
+          background-color: ${theme.colors.gray[100]};
+        `}
+
+        border-radius: 0 0 0.5rem 0.5rem;
+        & svg {
+          color: ${theme.colors.gray[300]};
+        }
+        pointer-events: none;
+      }
+    `}
 `;

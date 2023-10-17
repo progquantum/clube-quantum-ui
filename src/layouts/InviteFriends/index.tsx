@@ -1,23 +1,26 @@
-import Image from 'next/image';
+import Image from 'next/legacy/image';
 
 import { useRouter } from 'next/router';
 
 import { Button } from 'components/Button';
 
 import { Footer } from 'components/Footer';
-import { Header } from 'components/Header';
 import { useShare } from 'hooks/useShare';
 
 import { SUBSCRIPTIONS_PAGE } from 'constants/routesPath';
 
-import { useMe } from 'hooks/user/useMe';
+import { useMe } from 'hooks/me/useMe';
+
+import { HeaderAuth } from 'components/Header/HeaderAuth';
+
+import { getCurrentNodeEnv } from 'utils/currentNodeEnv';
 
 import * as S from './styles';
 
 export function InviteFriendsPage() {
   const { data: user } = useMe();
   const share = useShare();
-  const linkCode = `https://www.quantum.com.vc/signup?invite=${user.invite_code}`;
+  const linkCode = `${getCurrentNodeEnv()}/signup?invite=${user?.invite_code}`;
   const hasInviteCode = user?.invite_code;
 
   const handleShare = () => {
@@ -38,7 +41,7 @@ export function InviteFriendsPage() {
     <>
       <title>Convidar Amigos</title>
 
-      <Header />
+      <HeaderAuth />
       <S.Container>
         {hasInviteCode ? (
           <>

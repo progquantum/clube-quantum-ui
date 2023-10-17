@@ -30,10 +30,12 @@ export type User = {
   subscription?: Subscription;
   invite_code?: string;
   avatar_url: string;
+  has_establishment: boolean;
   address: {
     city: string;
     state: string;
   };
+  invites_accepted: string;
 };
 
 export type Session = {
@@ -73,4 +75,12 @@ export type ZipCode = {
   state: string;
   street: string;
   country: string;
+};
+
+export type TokenPayload = {
+  sub: string;
+  user_type: string;
+  user_role: string;
+  iat: number;
+  exp: number;
 };

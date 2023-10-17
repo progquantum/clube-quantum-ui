@@ -1,15 +1,24 @@
-module.exports = {
+/** @type {import('next').NextConfig} */
+const nextConfig = {
   reactStrictMode: true,
   swcMinify: true,
   compiler: {
     styledComponents: true,
   },
-  webpack: (config, { isServer }) => {
-    if (isServer) {
-      // eslint-disable-next-line global-require
-      require('./src/scripts/sitemap-generator');
-    }
-
-    return config;
+  images: {
+    remotePatterns: [
+      {
+        protocol: 'http',
+        hostname: 'localhost',
+        port: '3333',
+      },
+      {
+        protocol: 'https',
+        hostname: 'clubequantum-assets.s3.amazonaws.com',
+        port: '',
+      },
+    ],
   },
 };
+
+module.exports = nextConfig;

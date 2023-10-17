@@ -9,7 +9,7 @@ import { PinCode } from '../Forms/PinCode';
 import { Phone } from '../Forms/Phone';
 import { CPF } from '../Forms/CPF';
 import { BankAccount } from '../Forms/BankAccount';
-import { SingUpButton } from '../SingUpButton';
+import { SignUpButton } from '../SignUpButton';
 import { Summary } from '../Forms/Summary';
 import { Successful } from '../Forms/Successful';
 
@@ -57,7 +57,12 @@ export function PersonalSignUpPage() {
         onPreviousFormStep={previousStep}
       />
     ),
-    7: <Plans button={<SingUpButton onUpdateFormStep={() => nextStep()} />} />,
+    7: (
+      <Plans
+        onPreviousFormStep={previousStep}
+        button={<SignUpButton onUpdateFormStep={() => nextStep()} />}
+      />
+    ),
     8: (
       <Summary onUpdateFormStep={nextStep} onPreviousFormStep={previousStep} />
     ),

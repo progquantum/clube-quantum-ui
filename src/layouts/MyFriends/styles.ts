@@ -4,19 +4,24 @@ import { BarProps } from './types';
 
 export const CardsContainer = styled.div`
   display: flex;
-  justify-content: space-between;
   margin: 2rem 0;
   gap: 1rem;
+  width: 100%;
+
+  @media (max-width: 1150px) {
+    flex-wrap: wrap;
+  }
 
   @media (max-width: 1024px) {
     justify-content: center;
+    align-items: center;
     gap: 1rem;
     flex-direction: column;
   }
 `;
 
 export const CardFriends = styled.div`
-  flex: 1;
+  flex: 1 1 auto;
   box-shadow: 0rem 0rem 2rem rgba(41, 40, 40, 0.1);
   width: 100%;
   border-radius: 0.625rem;
@@ -24,6 +29,7 @@ export const CardFriends = styled.div`
   display: flex;
   flex-direction: column;
   gap: 1.875rem;
+  max-width: 400px;
 `;
 
 export const CardTitle = styled.div`
@@ -33,7 +39,7 @@ export const CardTitle = styled.div`
 
   color: ${({ theme }) => theme.colors.gray['400']};
   font-weight: 500;
-  font-size: 0.625rem;
+  font-size: 0.8rem;
   line-height: 1.25rem;
   margin-bottom: 0.5rem;
 
@@ -85,6 +91,7 @@ export const AmountFriends = styled.div`
   p {
     color: ${({ theme }) => theme.colors.mediumslateBlue};
     font-weight: 500;
+    margin-bottom: 0;
   }
 
   &::before {
@@ -109,6 +116,7 @@ export const FlexCards = styled.div`
   display: flex;
   flex-direction: column;
   gap: 1rem;
+  max-width: 400px;
 `;
 
 export const IndirectFriends = styled.div`
@@ -202,4 +210,35 @@ export const TitleBar = styled.h3`
   line-height: 20px;
   color: ${({ theme }) => theme.colors.midnightBlue};
   transform: rotate(-45deg);
+`;
+
+export const InviteFriends = styled.div`
+  border-radius: 0.9rem;
+  box-shadow: 0rem 0rem 2rem rgba(41, 40, 40, 0.1);
+  padding: 1rem 1.5rem;
+`;
+
+export const InviteFriendsBody = styled.div`
+  & p {
+    margin: 1rem 0;
+    color: ${({ theme }) => theme.colors.gray[400]};
+  }
+`;
+
+export const InviteFriendsButton = styled.button`
+  all: unset;
+  background-color: ${({ theme }) => theme.colors.mediumslateBlue};
+  color: ${({ theme }) => theme.colors.white};
+  font-weight: 600;
+  padding: 0.7em 0;
+  width: 100%;
+  text-align: center;
+  border-radius: 0.5rem;
+
+  border: 2px solid ${({ theme }) => theme.colors.mediumslateBlue};
+  transition: background-color, color 0.1s ease;
+  &:hover {
+    background-color: transparent;
+    color: ${({ theme }) => theme.colors.mediumslateBlue};
+  }
 `;

@@ -1,13 +1,28 @@
-import { render } from '@testing-library/react';
+import { render, screen } from '@testing-library/react';
+import { RouterContext } from 'next/dist/shared/lib/router-context';
+
+import { AppProvider } from 'contexts';
+
+import createMockRouter from 'test-utils/createMockRouter';
+
+import { MockBroadcastChannel } from '../../../__test__/__mocks__/broadcast';
 
 import { HomePage } from '.';
 
-describe('Home page', () => {
-  it('should render a heading', () => {
-    const { getByRole } = render(<HomePage />);
+(global as any).BroadcastChannel = MockBroadcastChannel;
 
-    const heading = getByRole('heading', {
-      name: /home/i,
+describe('Home page', () => {
+  it('should render properly', () => {
+    render(
+      <RouterContext.Provider value={createMockRouter({})}>
+        <AppProvider dehydratedState={jest.fn()}>
+          <HomePage />
+        </AppProvider>
+      </RouterContext.Provider>,
+    );
+
+    const heading = screen.getByRole('heading', {
+      name: /Com o Quantum volta!/i,
     });
 
     expect(heading).toBeInTheDocument();

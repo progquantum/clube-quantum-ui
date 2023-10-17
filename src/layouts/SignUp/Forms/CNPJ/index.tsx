@@ -51,7 +51,7 @@ export function CNPJ({ onUpdateFormStep }: CNPJProps) {
 
       {/* Should wrap link component with element due to this 
       issue of next/link https://github.com/vercel/next.js/issues/127 */}
-      <Link href={SIGN_UP_PAGE} prefetch>
+      <Link href={SIGN_UP_PAGE} legacyBehavior>
         <a className="anchor">
           <IoReturnDownBackSharp size={20} />
           Voltar

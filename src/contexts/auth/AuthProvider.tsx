@@ -1,20 +1,32 @@
-import { useMemo, useCallback, PropsWithChildren, useEffect } from 'react';
+import {
+  useMemo,
+  useCallback,
+  PropsWithChildren,
+  useEffect,
+  useState,
+} from 'react';
 import { useRouter } from 'next/router';
 import { useLocalStorage } from '@rehooks/local-storage';
 import { setCookie, destroyCookie, parseCookies } from 'nookies';
+import decode from 'jwt-decode';
+
+import { useQueryClient } from 'react-query';
 
 import { useSignIn } from 'hooks/auth/useSignIn';
-import { User } from 'shared/types/apiSchema';
+import { TokenPayload, User } from 'shared/types/apiSchema';
 import {
   USER_STORAGE_KEY,
   TOKEN_STORAGE_KEY,
   REFRESH_TOKEN_STORAGE_KEY,
   REGISTER_USER_STORAGE_KEY,
 } from 'constants/storage';
-import { DASHBOARD_PAGE, SIGN_IN_PAGE } from 'constants/routesPath';
+import { SIGN_IN_PAGE } from 'constants/routesPath';
 import { quantumClientQueue } from 'config/client';
 import { logOut } from 'helpers/auth/logOut';
-import { getMe } from 'services/resources';
+
+import { getMe } from 'hooks/me/useMe';
+
+import { authRedirect } from 'helpers/auth/authRedirect';
 
 import { AuthStateProvider, AuthDispatchProvider } from './AuthContext';
 import { SignInCredentials, SignUpData } from './types';
@@ -22,6 +34,8 @@ import { SignInCredentials, SignUpData } from './types';
 let authChannel: BroadcastChannel;
 
 export function AuthProvider({ children }: PropsWithChildren<unknown>) {
+  const [previousPage, setPreviousPage] = useState(null);
+  const queryClient = useQueryClient();
   const { mutateAsync: signIn, isLoading: loading } = useSignIn();
   const [registerUser, setRegisterUser] = useLocalStorage<SignUpData>(
     REGISTER_USER_STORAGE_KEY,
@@ -50,7 +64,6 @@ export function AuthProvider({ children }: PropsWithChildren<unknown>) {
     async function getSession() {
       const cookies = parseCookies();
       const session = cookies[TOKEN_STORAGE_KEY];
-
       if (session) {
         const user = await getMe();
 
@@ -71,6 +84,8 @@ export function AuthProvider({ children }: PropsWithChildren<unknown>) {
           onSuccess: data => {
             const { token, refresh_token, user } = data;
 
+            const { user_role } = decode<TokenPayload>(token);
+
             setCookie(undefined, TOKEN_STORAGE_KEY, token, {
               maxAge: 60 * 60 * 24 * 30,
               path: `/`,
@@ -85,12 +100,17 @@ export function AuthProvider({ children }: PropsWithChildren<unknown>) {
 
             quantumClientQueue.defaults.headers.common.Authorization = `Bearer ${token}`;
 
-            router.push(DASHBOARD_PAGE);
+            if (previousPage !== null) {
+              router.push(previousPage);
+              setPreviousPage(null);
+            } else {
+              authRedirect(user_role);
+            }
           },
         },
       );
     },
-    [signIn, setUser],
+    [signIn, setUser, previousPage],
   );
 
   const handleSignUp = useCallback(
@@ -107,7 +127,7 @@ export function AuthProvider({ children }: PropsWithChildren<unknown>) {
     deleteUser();
     destroyCookie(undefined, TOKEN_STORAGE_KEY);
     destroyCookie(undefined, REFRESH_TOKEN_STORAGE_KEY);
-
+    queryClient.clear();
     router.push(SIGN_IN_PAGE);
   }, [deleteUser]);
 
@@ -116,6 +136,7 @@ export function AuthProvider({ children }: PropsWithChildren<unknown>) {
       user,
       loading,
       registerUser,
+      previousPage,
     }),
     [user, loading, registerUser],
   );
@@ -125,6 +146,7 @@ export function AuthProvider({ children }: PropsWithChildren<unknown>) {
       signIn: handleSignIn,
       signUp: handleSignUp,
       signOut,
+      setPreviousPage,
     }),
     [handleSignIn, handleSignUp, signOut],
   );
