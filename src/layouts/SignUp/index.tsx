@@ -16,7 +16,7 @@ import * as S from './styles';
 export function SignUpPage() {
   const { signUp } = useAuthDispatch();
   const router = useRouter();
-  const inviteCode = router.query.invite as string;
+  const inviteCode = router.query['invite-code'] as string;
   const handleSubmit = () => signUp({ invited_by: inviteCode });
 
   return (
@@ -27,12 +27,11 @@ export function SignUpPage() {
     >
       <S.Wrap>
         <Link
-          data-cy="personal-link"
           href={{
             pathname: SIGN_UP_PERSONAL_PAGE,
             query: inviteCode && { invite: inviteCode },
           }}
-          passHref
+          data-cy="personal-link"
         >
           <Button onClick={handleSubmit}>Pessoa Física</Button>
         </Link>
