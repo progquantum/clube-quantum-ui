@@ -3,7 +3,7 @@ import { cpf } from 'cpf-cnpj-validator';
 
 describe('CreatePersonalAccount', () => {
   it(' should create an personal account', () => {
-    cy.visit('http://localhost:3000/signup/?invite=UR4XXI');
+    cy.visit('http://localhost:3001/signup/?invite-code=CG5YUI');
 
     cy.get('[data-cy="personal-link"]').click();
 
