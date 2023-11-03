@@ -169,3 +169,10 @@ export const DivInviteFriends = styled.div<InviteFriendsPropsStyle>`
   @media (max-width: 380px) {
   }
 `;
+
+export const NoInviteText = styled.p`
+  line-height: 1.875rem;
+  color: ${({ theme }) => theme.colors.ghostwhite};
+  font-weight: 600;
+  font-size: 1.25rem;
+`;
