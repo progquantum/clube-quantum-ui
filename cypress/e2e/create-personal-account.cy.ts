@@ -3,7 +3,7 @@ import { cpf } from 'cpf-cnpj-validator';
 
 describe('CreatePersonalAccount', () => {
   it(' should create an personal account', () => {
-    cy.visit('http://localhost:3000');
+    cy.visit('http://localhost:3001');
 
     cy.get('[data-cy="signin-button"]').click();
 
@@ -51,8 +51,7 @@ describe('CreatePersonalAccount', () => {
       new Intl.DateTimeFormat('pt-BR').format(birthDate),
     );
 
-    // const email = faker.internet.email({ firstName: fullName });
-    const email = 'caiocastrofrs@gmail.com';
+    const email = faker.internet.email({ firstName: fullName });
     cy.get('[data-cy="signup_email"]').type(email);
     cy.get('[data-cy="signup_confirmEmail"]').type(email);
 
