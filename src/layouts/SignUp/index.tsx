@@ -2,21 +2,21 @@ import Link from 'next/link';
 import { useRouter } from 'next/router';
 import { FiLogIn } from 'react-icons/fi';
 
-import { AuthLayout } from 'layouts/Auth';
+import { Button } from 'components/Button';
 import {
-  SIGN_UP_BUSINESS_PAGE,
   SIGN_IN_PAGE,
+  SIGN_UP_BUSINESS_PAGE,
   SIGN_UP_PERSONAL_PAGE,
 } from 'constants/routesPath';
 import { useAuthDispatch } from 'contexts/auth/AuthContext';
-import { Button } from 'components/Button';
+import { AuthLayout } from 'layouts/Auth';
 
 import * as S from './styles';
 
 export function SignUpPage() {
   const { signUp } = useAuthDispatch();
   const router = useRouter();
-  const inviteCode = router.query['invite-code'] as string;
+  const inviteCode = router.query.invite as string;
   const handleSubmit = () => signUp({ invited_by: inviteCode });
 
   return (
@@ -41,7 +41,7 @@ export function SignUpPage() {
         </Link>
       </S.Wrap>
 
-      {/* Should wrap link component with element due to this 
+      {/* Should wrap link component with element due to this
       issue of next/link https://github.com/vercel/next.js/issues/127 */}
       <Link href={SIGN_IN_PAGE} legacyBehavior>
         <a className="anchor">
