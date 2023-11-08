@@ -40,13 +40,16 @@ export function CNPJ({ onUpdateFormStep }: CNPJProps) {
           inputMode="numeric"
           name="cnpj"
           placeholder="CNPJ"
+          data-cy="cnpj-input"
           icon={FiUser}
           onChange={e =>
             formRef.current.setFieldValue('cnpj', formatCNPJ(e.target.value))
           }
         />
 
-        <Button type="submit">Continuar</Button>
+        <Button type="submit" data-cy="next-step-button">
+          Continuar
+        </Button>
       </Form>
 
       {/* Should wrap link component with element due to this 
