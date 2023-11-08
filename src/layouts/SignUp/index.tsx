@@ -16,7 +16,7 @@ import * as S from './styles';
 export function SignUpPage() {
   const { signUp } = useAuthDispatch();
   const router = useRouter();
-  const inviteCode = router.query['invite-code'] as string;
+  const inviteCode = router.query.invite as string;
   const handleSubmit = () => signUp({ invited_by: inviteCode });
 
   return (
@@ -36,7 +36,13 @@ export function SignUpPage() {
           <Button onClick={handleSubmit}>Pessoa Física</Button>
         </Link>
 
-        <Link href={SIGN_UP_BUSINESS_PAGE} passHref>
+        <Link
+          href={{
+            pathname: SIGN_UP_BUSINESS_PAGE,
+            query: inviteCode && { invite: inviteCode },
+          }}
+          data-cy="business-link"
+        >
           <Button onClick={handleSubmit}>Pessoa Juridica</Button>
         </Link>
       </S.Wrap>
