@@ -1,33 +1,27 @@
 import Image from 'next/legacy/image';
-
 import { useRouter } from 'next/router';
 
 import { Button } from 'components/Button';
-
 import { Footer } from 'components/Footer';
 import { useShare } from 'hooks/useShare';
-
 import { SUBSCRIPTIONS_PAGE } from 'constants/routesPath';
-
 import { useMe } from 'hooks/me/useMe';
-
 import { HeaderAuth } from 'components/Header/HeaderAuth';
-
-import { getCurrentNodeEnv } from 'utils/currentNodeEnv';
+import { useGetInviteLink } from 'hooks/me/useInviteLink';
 
 import * as S from './styles';
 
 export function InviteFriendsPage() {
   const { data: user } = useMe();
+  const { data: inviteLink } = useGetInviteLink();
   const share = useShare();
-  const linkCode = `${getCurrentNodeEnv()}/signup?invite=${user?.invite_code}`;
   const hasInviteCode = user?.invite_code;
 
   const handleShare = () => {
     share({
       text: 'Seja um membro Clube Quantum!',
       title: 'Cadastre-se a partir do link de convite abaixo.',
-      url: linkCode,
+      url: inviteLink,
     });
   };
 
@@ -63,7 +57,7 @@ export function InviteFriendsPage() {
                 <p>
                   Seu link de convite é:
                   <br />
-                  <strong>{linkCode}</strong>
+                  <strong>{inviteLink}</strong>
                 </p>
               </S.InviteCodeContainer>
             </div>
