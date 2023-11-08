@@ -84,10 +84,6 @@ export function PinCode({ onNextFormStep, onPreviousFormStep }: PinCodeProps) {
             &nbsp;receber outro código&nbsp;
           </S.ButtonPinCode>
           <br />
-          ou
-          <S.ButtonPinCode type="button" onClick={onPreviousFormStep}>
-            &nbsp;digite outro número
-          </S.ButtonPinCode>
         </S.Paragraph>
         <Button
           type="submit"

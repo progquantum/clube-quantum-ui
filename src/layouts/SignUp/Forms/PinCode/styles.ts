@@ -29,8 +29,9 @@ export const Paragraph = styled.span`
   margin-top: -1.5rem;
 `;
 export const ButtonPinCode = styled.button`
-  font-weight: bold;
+  font-weight: 900;
   color: ${({ theme }) => theme.colors.gray[700]};
   background-color: transparent;
   line-height: 1.6;
+  text-transform: uppercase;
 `;
