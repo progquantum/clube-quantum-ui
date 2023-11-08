@@ -118,6 +118,7 @@ export function BusinessAddress({
           type="text"
           inputMode="numeric"
           name="zip_code"
+          data-cy="zip_code"
           placeholder="CEP"
           icon={FiMapPin}
           onChange={e => handleZipCode(e)}
@@ -126,6 +127,7 @@ export function BusinessAddress({
         <Input
           type="text"
           name="street"
+          data-cy="business_street"
           placeholder="Logradouro"
           icon={FiPackage}
         />
@@ -133,6 +135,7 @@ export function BusinessAddress({
         <Input
           type="text"
           name="neighborhood"
+          data-cy="neighborhood"
           placeholder="Bairro"
           icon={BiBuildingHouse}
         />
@@ -141,6 +144,7 @@ export function BusinessAddress({
           type="text"
           inputMode="numeric"
           name="number"
+          data-cy="number"
           placeholder="Número"
           icon={FiHome}
           onChange={e =>
@@ -153,6 +157,7 @@ export function BusinessAddress({
         <Input
           type="text"
           name="complement"
+          data-cy="complement"
           placeholder="Complemento"
           icon={FiInfo}
         />
@@ -180,9 +185,19 @@ export function BusinessAddress({
           }
         />
 
-        <Checkbox type="checkbox" name="terms" style={{ margin: '24px 0' }} />
+        <Checkbox
+          type="checkbox"
+          name="terms"
+          data-cy="terms"
+          style={{ margin: '24px 0' }}
+        />
 
-        <Button type="submit" loading={isSignuping} disabled={isSignuping}>
+        <Button
+          data-cy="next-step-button"
+          type="submit"
+          loading={isSignuping}
+          disabled={isSignuping}
+        >
           Continuar
         </Button>
       </Form>
