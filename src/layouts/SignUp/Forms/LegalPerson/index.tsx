@@ -40,6 +40,7 @@ export function LegalPerson({
         <Input
           type="text"
           name="company_name"
+          data-cy="company_name"
           placeholder="Razão social"
           icon={FiUser}
           onChange={e => {
@@ -53,6 +54,7 @@ export function LegalPerson({
         <Input
           type="email"
           name="email"
+          data-cy="email"
           placeholder="Email"
           icon={FiMail}
           inputMode="email"
@@ -61,6 +63,7 @@ export function LegalPerson({
         <Input
           type="email"
           name="email_confirmation"
+          data-cy="email_confirmation"
           placeholder="Confirmar email"
           icon={FiMail}
           onPaste={e => e.preventDefault()}
@@ -70,6 +73,7 @@ export function LegalPerson({
         <Input
           typePassword
           name="password"
+          data-cy="password"
           placeholder="Criar senha"
           icon={FiLock}
         />
@@ -77,12 +81,15 @@ export function LegalPerson({
         <Input
           typePassword
           name="password_confirmation"
+          data-cy="password_confirmation"
           placeholder="Confirmar senha"
           icon={FiLock}
           onPaste={e => e.preventDefault()}
         />
 
-        <Button type="submit">Continuar</Button>
+        <Button type="submit" data-cy="next-step-button">
+          Continuar
+        </Button>
       </Form>
       <button type="button" onClick={onPreviousFormStep}>
         <IoReturnDownBackSharp size={20} />

@@ -36,7 +36,13 @@ export function SignUpPage() {
           <Button onClick={handleSubmit}>Pessoa Física</Button>
         </Link>
 
-        <Link href={SIGN_UP_BUSINESS_PAGE} passHref>
+        <Link
+          href={{
+            pathname: SIGN_UP_BUSINESS_PAGE,
+            query: inviteCode && { invite: inviteCode },
+          }}
+          data-cy="business-link"
+        >
           <Button onClick={handleSubmit}>Pessoa Juridica</Button>
         </Link>
       </S.Wrap>
