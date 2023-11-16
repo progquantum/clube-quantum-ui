@@ -137,18 +137,18 @@ export function QuantumSmartDetails({
         </span>
       </S.Field>
       <Button
-        variant={!request.status ? 'danger_outline' : 'disabled'}
+        variant={request.status !== 'PENDING' ? 'disabled' : 'primary'}
         loading={isLoading}
         onClick={declineRequest}
-        disabled={!!request.status}
+        disabled={request.status !== 'PENDING'}
       >
         Recusar compra
       </Button>
       <Button
-        variant={!request.status ? 'primary' : 'disabled'}
+        variant={request.status !== 'PENDING' ? 'disabled' : 'primary'}
         loading={isLoading}
         onClick={acceptRequest}
-        disabled={!!request.status}
+        disabled={request.status !== 'PENDING'}
       >
         Aceitar compra
       </Button>
