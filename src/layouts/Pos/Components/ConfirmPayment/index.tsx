@@ -64,7 +64,7 @@ export function ConfirmPayment({
 
           const requestBody = {
             ...(cpf.isValid(orderingData.document) ? { birthDate } : {}),
-            ...(complement ? { complement } : {}),
+            ...(complement ? { complement } : { complement: '' }),
             cep,
             uf,
             ...restAddress,
