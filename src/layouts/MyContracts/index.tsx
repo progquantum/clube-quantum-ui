@@ -96,7 +96,7 @@ export function MyContracts() {
             <S.FallbackComponent>
               <div>
                 <BsPersonBadge size={24} />
-                <span>Amigos</span>
+                <span>Meus Contratos</span>
               </div>
               <Image
                 src="/images/my-contracts.svg"
