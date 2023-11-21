@@ -142,19 +142,16 @@ export function InfoEstablishment() {
             cell_phone_has_whatsapp,
             main_phone_has_whatsapp,
             whatsapp_phone,
-            user,
             category_id,
             // not needed on request body
-            // main_phone,
+            main_phone,
             ...rest
           } = data;
-
-          const parsedUser = JSON.parse(user);
 
           upsertEstablishment(
             {
               ...rest,
-              user_id: parsedUser.id,
+              user_id: user.id,
               category_id,
               contacts: {
                 main_phone_has_whatsapp,
@@ -168,7 +165,7 @@ export function InfoEstablishment() {
                 if (logo.logoFile instanceof File) {
                   const requestBody = {
                     image: logo.logoFile,
-                    user_id: parsedUser.id,
+                    user_id: user.id,
                     image_type: 'logo',
                   };
 
@@ -187,7 +184,7 @@ export function InfoEstablishment() {
                 if (banner.bannerFile instanceof File) {
                   const requestBody = {
                     image: banner.bannerFile,
-                    user_id: parsedUser.id,
+                    user_id: user.id,
                     image_type: 'cover',
                   };
 
