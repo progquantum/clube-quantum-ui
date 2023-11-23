@@ -1,19 +1,11 @@
-/* eslint-disable no-case-declarations */
-/* eslint-disable react/no-array-index-key */
 import { FaDollarSign } from 'react-icons/fa';
-
 import { useState } from 'react';
-
 import dayjs from 'dayjs';
 
 import { DashboardLayout } from 'layouts/DashboardLayout';
-
 import { useGetCommissions } from 'hooks/commissions/useGetCommissions';
-
 import { useSidebarStore } from 'store/sidebar';
-
 import { useGetExtractByReferral } from 'hooks/commissions/useGetCommissionsByReferral';
-
 import { formatPrice } from 'utils/formatters/formatPrice';
 
 import * as S from './styles';
@@ -24,7 +16,7 @@ export function MyStatementsPage() {
   const isSidebarExpanded = useSidebarStore(state => state.isExpanded);
 
   const [whichFilterButton, setWhichFilterButton] = useState<
-    'lastMonth' | 'lastWeek' | 'today'
+    'lastMonth' | 'currentMonth' | 'today'
   >('today');
 
   const [initialDate, setInitialDate] = useState(new Date());
@@ -36,7 +28,7 @@ export function MyStatementsPage() {
     loading: byPartnerLoading,
   } = useGetCommissions({
     startDate: dayjs(initialDate).format('YYYY-MM-DD[T00:00:00]'),
-    endDate: dayjs(finalDate).format('YYYY-MM-DD[T23:59:00]'),
+    endDate: dayjs(finalDate).format('YYYY-MM-DD[T23:59:59]'),
   });
 
   const {
@@ -64,24 +56,16 @@ export function MyStatementsPage() {
         byPartnerSetPage(1);
         byReferralSetPage(1);
         break;
-      case 'lastWeek':
-        const startOfLastWeek = dayjs(today)
-          .subtract(1, 'week')
-          .startOf('week')
-          .add(1, 'day')
-          .toDate();
-        const endOfLastWeek = dayjs(today)
-          .subtract(1, 'week')
-          .endOf('week')
-          .add(1, 'day')
-          .toDate();
-        setInitialDate(startOfLastWeek);
-        setFinalDate(endOfLastWeek);
-        setWhichFilterButton('lastWeek');
+      case 'currentMonth': {
+        const firstDayOfMonth = dayjs().startOf('month');
+        setInitialDate(firstDayOfMonth.toDate());
+        setFinalDate(today);
+        setWhichFilterButton('currentMonth');
         byPartnerSetPage(1);
         byReferralSetPage(1);
         break;
-      case 'lastMonth':
+      }
+      case 'lastMonth': {
         const startOfLastMonth = dayjs(today)
           .subtract(1, 'month')
           .startOf('month')
@@ -96,6 +80,7 @@ export function MyStatementsPage() {
         byPartnerSetPage(1);
         byReferralSetPage(1);
         break;
+      }
       default:
         setInitialDate(today);
         setFinalDate(today);
@@ -118,10 +103,10 @@ export function MyStatementsPage() {
             Último mês
           </S.FilterButton>
           <S.FilterButton
-            onClick={() => handleSelect('lastWeek')}
-            isSelected={whichFilterButton === 'lastWeek'}
+            onClick={() => handleSelect('currentMonth')}
+            isSelected={whichFilterButton === 'currentMonth'}
           >
-            Última semana
+            No mês
           </S.FilterButton>
           <S.FilterButton
             onClick={() => handleSelect('today')}
