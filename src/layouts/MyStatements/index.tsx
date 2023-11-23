@@ -1,4 +1,3 @@
-import { FaDollarSign } from 'react-icons/fa';
 import { useState } from 'react';
 import dayjs from 'dayjs';
 
@@ -6,7 +5,10 @@ import { DashboardLayout } from 'layouts/DashboardLayout';
 import { useGetCommissions } from 'hooks/commissions/useGetCommissions';
 import { useSidebarStore } from 'store/sidebar';
 import { useGetExtractByReferral } from 'hooks/commissions/useGetCommissionsByReferral';
-import { formatPrice } from 'utils/formatters/formatPrice';
+import { AccountBalance } from 'layouts/Dashboard/AccountBalance';
+import { generateDeadline } from 'utils/generateDeadline';
+import { useBalances } from 'hooks/me/useBalances';
+import { formatCashback } from 'utils/formatters/formatCashback';
 
 import * as S from './styles';
 import { EarningsHistoryByPartner } from './EarningsHistoryByPartner';
@@ -14,6 +16,7 @@ import { EarningsHistoryByIndication } from './EarningsHistoryByIndication';
 
 export function MyStatementsPage() {
   const isSidebarExpanded = useSidebarStore(state => state.isExpanded);
+  const { data: balances } = useBalances();
 
   const [whichFilterButton, setWhichFilterButton] = useState<
     'lastMonth' | 'currentMonth' | 'today'
@@ -43,7 +46,7 @@ export function MyStatementsPage() {
 
   const totalAccountBalance =
     byReferralData && byPartnerData
-      ? byReferralData.total_amount + byPartnerData.totalAmount
+      ? byReferralData.totalAmount + byPartnerData.totalAmount
       : 0;
 
   const handleSelect = (option: string) => {
@@ -117,16 +120,17 @@ export function MyStatementsPage() {
         </S.FilterContainer>
         <div>
           <S.AccountBalanceContainer>
-            <S.TitleContainer>
-              <FaDollarSign size={30} />
-              <span>Saldo em conta</span>
-            </S.TitleContainer>
-            <S.AccountBalanceValue>
-              {formatPrice(String(totalAccountBalance))}
-            </S.AccountBalanceValue>
-            <S.TransferDateText>
-              Será transferido em 15/xx/xxxx
-            </S.TransferDateText>
+            <AccountBalance
+              title="Saldo em conta"
+              description={`Será transferido em ${generateDeadline(10)}`}
+              value={formatCashback(totalAccountBalance)}
+            />
+
+            <AccountBalance
+              title="Aguardando liberação"
+              description={`Será transferido em ${generateDeadline(1)}`}
+              value={formatCashback(balances?.accumulated_month)}
+            />
           </S.AccountBalanceContainer>
           <EarningsHistoryByPartner
             loading={byPartnerLoading}
