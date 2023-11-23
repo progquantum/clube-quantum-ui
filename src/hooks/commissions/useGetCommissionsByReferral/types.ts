@@ -10,11 +10,13 @@ export type Params = {
   startDate: string;
 };
 export type ResponseData = {
-  Status: string;
-  PaginaAtual: string;
-  TotalPaginas: number;
-  ItemsPorPagina: string;
-  total_amount: number;
+  totalAmount: number;
+  info: {
+    itemsPerPage: number;
+    page: number;
+    totalPages: number;
+    totalTransactions: number;
+  };
   Extrato: Extract[];
 };
 
