@@ -89,8 +89,13 @@ export function queueInstance(
         error.response.status >= 400 &&
         error.response.status < 500;
       if (!expectedError && error.response.status !== 401) {
-        notifyError('Encontramos um problema por aqui.');
+        const isUserNotRegisteredError =
+          error.response.data.message === 'User not registered';
+        if (!isUserNotRegisteredError) {
+          notifyError('Encontramos um problema por aqui.');
+        }
       }
+
       if (error.response.status === 401) {
         if (
           error.response.data.message === 'Refresh token is expired' ||

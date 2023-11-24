@@ -3,7 +3,6 @@ import { AxiosError } from 'axios';
 import { useQuery } from 'react-query';
 
 import { quantumClientQueue } from 'config/client';
-import { error } from 'helpers/notify/error';
 
 const QUERY_KEY_GET_INVITE_LINK = 'get-invite-link';
 
@@ -13,9 +12,6 @@ export async function getInviteLink() {
     return data;
   } catch (err: unknown) {
     if (err instanceof AxiosError) {
-      if (err.response) {
-        error(err.response.data.message);
-      }
       return Promise.reject(err);
     }
   }
@@ -23,6 +19,6 @@ export async function getInviteLink() {
 
 export function useGetInviteLink() {
   return useQuery([QUERY_KEY_GET_INVITE_LINK], getInviteLink, {
-    retryDelay: attemptIndex => Math.min(1000 * 2 ** attemptIndex, 30000),
+    retry: false,
   });
 }
