@@ -277,7 +277,7 @@ export function DashboardPos() {
                   <S.TopParams4>Valor</S.TopParams4>
                 </S.TopTable>
                 <S.Table>
-                  {sales.transactions.length === 0 && (
+                  {sales?.transactions.length === 0 && (
                     <S.TableRow>
                       <div style={{ margin: '0 auto' }}>Nenhuma transação</div>
                     </S.TableRow>
