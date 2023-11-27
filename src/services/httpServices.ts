@@ -2,6 +2,8 @@ import { GetServerSidePropsContext } from 'next';
 import axios, { AxiosError } from 'axios';
 import { parseCookies, setCookie } from 'nookies';
 
+import { QueryClient, useQueryClient } from 'react-query';
+
 import { error as notifyError } from 'helpers/notify/error';
 
 import {
@@ -101,7 +103,8 @@ export function queueInstance(
           error.response.data.message === 'Refresh token is expired' ||
           error.response.data.message === 'Refresh token not found'
         ) {
-          logOut();
+          const queryClient = useQueryClient();
+          logOut(queryClient);
           return;
         }
 
@@ -142,7 +145,8 @@ export function queueInstance(
               failedRequestsQueue = [];
 
               if (typeof window !== 'undefined') {
-                logOut();
+                const queryClient = useQueryClient();
+                logOut(queryClient);
               }
             })
             .finally(() => {
