@@ -4,6 +4,7 @@ import { useCallback, useRef } from 'react';
 import { Form } from '@unform/web';
 import Link from 'next/link';
 import { IoReturnDownBackSharp } from 'react-icons/io5';
+import { useSearchParam } from 'react-use';
 
 import { useAuthDispatch } from 'contexts/auth/AuthContext';
 import { formatCNPJ } from 'utils/formatters/formatCNPJ';
@@ -18,6 +19,7 @@ import { schema } from './schemas';
 
 export function CNPJ({ onUpdateFormStep }: CNPJProps) {
   const { signUp } = useAuthDispatch();
+  const invite = useSearchParam('invite');
 
   const formRef = useRef<FormHandles>(null);
 
@@ -54,7 +56,7 @@ export function CNPJ({ onUpdateFormStep }: CNPJProps) {
 
       {/* Should wrap link component with element due to this 
       issue of next/link https://github.com/vercel/next.js/issues/127 */}
-      <Link href={SIGN_UP_PAGE} legacyBehavior>
+      <Link href={{ pathname: SIGN_UP_PAGE, query: { invite } }} legacyBehavior>
         <a className="anchor">
           <IoReturnDownBackSharp size={20} />
           Voltar
