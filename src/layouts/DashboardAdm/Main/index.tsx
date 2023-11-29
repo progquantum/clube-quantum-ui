@@ -74,7 +74,9 @@ export function Main() {
               <MdOutlineAttachMoney size={19.87} />
               Total de cliente
             </S.TitleBalance>
-            <S.ValueBalance>0</S.ValueBalance>
+            <S.ValueBalance>
+              {dashboard.client_per_plan.total_clients}
+            </S.ValueBalance>
           </S.ContentBalance>
         </S.RowContent>
       </S.Balance>
