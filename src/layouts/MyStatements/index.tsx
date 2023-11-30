@@ -1,20 +1,14 @@
-/* eslint-disable no-case-declarations */
-/* eslint-disable react/no-array-index-key */
-import { FaDollarSign } from 'react-icons/fa';
-
 import { useState } from 'react';
-
 import dayjs from 'dayjs';
 
 import { DashboardLayout } from 'layouts/DashboardLayout';
-
 import { useGetCommissions } from 'hooks/commissions/useGetCommissions';
-
 import { useSidebarStore } from 'store/sidebar';
-
 import { useGetExtractByReferral } from 'hooks/commissions/useGetCommissionsByReferral';
-
-import { formatPrice } from 'utils/formatters/formatPrice';
+import { AccountBalance } from 'layouts/Dashboard/AccountBalance';
+import { generateDeadline } from 'utils/generateDeadline';
+import { useBalances } from 'hooks/me/useBalances';
+import { formatCashback } from 'utils/formatters/formatCashback';
 
 import * as S from './styles';
 import { EarningsHistoryByPartner } from './EarningsHistoryByPartner';
@@ -22,9 +16,10 @@ import { EarningsHistoryByIndication } from './EarningsHistoryByIndication';
 
 export function MyStatementsPage() {
   const isSidebarExpanded = useSidebarStore(state => state.isExpanded);
+  const { data: balances } = useBalances();
 
   const [whichFilterButton, setWhichFilterButton] = useState<
-    'lastMonth' | 'lastWeek' | 'today'
+    'lastMonth' | 'currentMonth' | 'today'
   >('today');
 
   const [initialDate, setInitialDate] = useState(new Date());
@@ -36,7 +31,7 @@ export function MyStatementsPage() {
     loading: byPartnerLoading,
   } = useGetCommissions({
     startDate: dayjs(initialDate).format('YYYY-MM-DD[T00:00:00]'),
-    endDate: dayjs(finalDate).format('YYYY-MM-DD[T23:59:00]'),
+    endDate: dayjs(finalDate).format('YYYY-MM-DD[T23:59:59]'),
   });
 
   const {
@@ -51,7 +46,7 @@ export function MyStatementsPage() {
 
   const totalAccountBalance =
     byReferralData && byPartnerData
-      ? byReferralData.total_amount + byPartnerData.totalAmount
+      ? byReferralData.totalAmount + byPartnerData.totalAmount
       : 0;
 
   const handleSelect = (option: string) => {
@@ -64,24 +59,16 @@ export function MyStatementsPage() {
         byPartnerSetPage(1);
         byReferralSetPage(1);
         break;
-      case 'lastWeek':
-        const startOfLastWeek = dayjs(today)
-          .subtract(1, 'week')
-          .startOf('week')
-          .add(1, 'day')
-          .toDate();
-        const endOfLastWeek = dayjs(today)
-          .subtract(1, 'week')
-          .endOf('week')
-          .add(1, 'day')
-          .toDate();
-        setInitialDate(startOfLastWeek);
-        setFinalDate(endOfLastWeek);
-        setWhichFilterButton('lastWeek');
+      case 'currentMonth': {
+        const firstDayOfMonth = dayjs().startOf('month');
+        setInitialDate(firstDayOfMonth.toDate());
+        setFinalDate(today);
+        setWhichFilterButton('currentMonth');
         byPartnerSetPage(1);
         byReferralSetPage(1);
         break;
-      case 'lastMonth':
+      }
+      case 'lastMonth': {
         const startOfLastMonth = dayjs(today)
           .subtract(1, 'month')
           .startOf('month')
@@ -96,6 +83,7 @@ export function MyStatementsPage() {
         byPartnerSetPage(1);
         byReferralSetPage(1);
         break;
+      }
       default:
         setInitialDate(today);
         setFinalDate(today);
@@ -118,10 +106,10 @@ export function MyStatementsPage() {
             Último mês
           </S.FilterButton>
           <S.FilterButton
-            onClick={() => handleSelect('lastWeek')}
-            isSelected={whichFilterButton === 'lastWeek'}
+            onClick={() => handleSelect('currentMonth')}
+            isSelected={whichFilterButton === 'currentMonth'}
           >
-            Última semana
+            No mês
           </S.FilterButton>
           <S.FilterButton
             onClick={() => handleSelect('today')}
@@ -132,16 +120,17 @@ export function MyStatementsPage() {
         </S.FilterContainer>
         <div>
           <S.AccountBalanceContainer>
-            <S.TitleContainer>
-              <FaDollarSign size={30} />
-              <span>Saldo em conta</span>
-            </S.TitleContainer>
-            <S.AccountBalanceValue>
-              {formatPrice(String(totalAccountBalance))}
-            </S.AccountBalanceValue>
-            <S.TransferDateText>
-              Será transferido em 15/xx/xxxx
-            </S.TransferDateText>
+            <AccountBalance
+              title="Saldo em conta"
+              description={`Será transferido em ${generateDeadline(10)}`}
+              value={formatCashback(totalAccountBalance)}
+            />
+
+            <AccountBalance
+              title="Aguardando liberação"
+              description={`Será transferido em ${generateDeadline(1)}`}
+              value={formatCashback(balances?.accumulated_month)}
+            />
           </S.AccountBalanceContainer>
           <EarningsHistoryByPartner
             loading={byPartnerLoading}

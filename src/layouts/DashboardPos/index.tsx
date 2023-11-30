@@ -127,7 +127,11 @@ export function DashboardPos() {
   const isByPeriodFilter = filter === 'período';
   const isBySpecificDate = filter === 'específica';
 
-  console.log(sales?.transactions);
+  const totalAmountBrandSales = sales?.card_brand.reduce(
+    (accumulator, brand) => accumulator + brand.transactions.totalAmount,
+    0,
+  );
+
   return (
     <DashboardLayout maxWidth="1736px">
       {isLoading ? (
@@ -330,21 +334,30 @@ export function DashboardPos() {
                 <S.ValueFlag>Valor</S.ValueFlag>
               </S.TopTableSealsByFlag>
               <S.TableFlag>
-                {sales?.card_brand.map((brand, index) => (
-                  <S.ContentCards key={brand.brand}>
-                    <S.TableFlagRow>
-                      {index + 1} {cardsBrandsMap[brand.brand]}
-                    </S.TableFlagRow>
-                    <S.TableColumn4>
-                      <S.Font14>
-                        {formatPrice(brand.transactions.totalAmount.toString())}
-                      </S.Font14>
-                      <S.FontGray400>
-                        {brand.transactions.totalSales} Vendas
-                      </S.FontGray400>
-                    </S.TableColumn4>
-                  </S.ContentCards>
-                ))}
+                {sales?.card_brand.map((brand, index) => {
+                  if (brand.transactions.totalAmount === 0) return;
+
+                  return (
+                    <S.ContentCards key={brand.brand}>
+                      <S.TableFlagRow>
+                        {index + 1} {cardsBrandsMap[brand.brand]}
+                      </S.TableFlagRow>
+                      <S.TableColumn4>
+                        <S.Font14>
+                          {formatPrice(
+                            brand.transactions.totalAmount.toString(),
+                          )}
+                        </S.Font14>
+                        <S.FontGray400>
+                          {brand.transactions.totalSales} Vendas
+                        </S.FontGray400>
+                      </S.TableColumn4>
+                    </S.ContentCards>
+                  );
+                })}
+                {totalAmountBrandSales === 0 && (
+                  <div style={{ margin: '0 auto' }}>Nenhuma venda</div>
+                )}
               </S.TableFlag>
             </S.ContainerFlag>
           </S.ContentRow>

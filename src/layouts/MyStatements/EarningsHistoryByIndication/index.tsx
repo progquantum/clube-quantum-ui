@@ -20,9 +20,9 @@ export function EarningsHistoryByIndication({
   onPageChange,
 }: Props) {
   const { colors } = useTheme();
-  const totalPages = data?.TotalPaginas;
+  const totalPages = data?.info.totalPages;
 
-  const totalAmount = data && data.total_amount ? data.total_amount : 0;
+  const totalAmount = data && data.totalAmount ? data.totalAmount : 0;
 
   return (
     <S.EarningsHistoryByIndication>
