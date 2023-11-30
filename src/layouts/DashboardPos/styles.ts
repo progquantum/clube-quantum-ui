@@ -191,11 +191,6 @@ export const ButtonUnderline = styled(Button)<ButtonProps>`
 
 export const ContainerTable = styled.div`
   width: 100%;
-
-  box-shadow: 0px 1px 4px rgba(0, 0, 0, 0.09);
-  @media (max-width: 1765px) {
-    width: 1035px;
-  }
 `;
 
 export const TopTable = styled.div`
@@ -209,9 +204,6 @@ export const TopTable = styled.div`
   height: 40px;
   background: ${({ theme }) => theme.colors.ghostwhite};
   border-radius: 10px 10px 0 0;
-  @media (max-width: 1765px) {
-    width: 1035px;
-  }
 `;
 
 export const TopParams = styled.h2`
@@ -251,9 +243,6 @@ export const Table = styled.div`
   background: ${({ theme }) => theme.colors.background};
   box-shadow: 0px 1px 4px rgba(0, 0, 0, 0.09);
   border-radius: 0px 0px 10px 10px;
-  @media (max-width: 1765px) {
-    width: 1035px;
-  }
 `;
 
 export const TableRow = styled.div`
@@ -269,17 +258,6 @@ export const Date = styled.p`
   font-style: normal;
   font-weight: 500;
   font-size: 14px;
-  line-height: 150%;
-  color: ${({ theme }) => theme.colors.gray[700]};
-  margin-bottom: 0;
-`;
-
-export const ID = styled.p`
-  width: 100%;
-  max-width: 280px;
-  font-style: normal;
-  font-weight: 500;
-  font-size: 12px;
   line-height: 150%;
   color: ${({ theme }) => theme.colors.gray[700]};
   margin-bottom: 0;

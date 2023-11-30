@@ -1,48 +1,28 @@
 /* eslint-disable no-case-declarations */
 import { useRef, useState } from 'react';
 import dayjs from 'dayjs';
-
 import { FormHandles } from '@unform/core';
 import { Form } from '@unform/web';
-
 import ReactPaginate from 'react-paginate';
-
 import { IoIosArrowBack, IoIosArrowForward } from 'react-icons/io';
-
 import { useTheme } from 'styled-components';
-
 import { DatePicker } from '@mui/x-date-pickers';
-
 import { useRouter } from 'next/router';
 
 import { Select } from 'components/Select';
-
 import { VISAIcon } from 'components/Illustrations/Visa';
-
 import { MasterCardIcon } from 'components/Illustrations/MasterCard';
-
 import AmericanExpressIcon from 'components/Illustrations/AmericanExpress';
-
 import EloIcon from 'components/Illustrations/Elo';
-
 import { DashboardLayout } from 'layouts/DashboardLayout';
-
 import { useGetEstablishment } from 'hooks/dashboard-pos/useGetEstablishment';
-
 import { formatPrice } from 'utils/formatters/formatPrice';
-
 import { useSidebarStore } from 'store/sidebar';
-
 import { useSalesFilter } from 'hooks/dashboard-pos/useSalesFilter';
-
 import { formatDate } from 'utils/formatters/formatDate';
-
 import VISAEletronIcon from 'components/Illustrations/VisaEletron';
-
 import MasterCardMaestroIcon from 'components/Illustrations/MasterCardMaestro';
-
 import { DASHBOARD_PAGE } from 'constants/routesPath';
-
 import { Loader } from 'components/Loader';
 
 import DraggableScrollContainer from './DraggableScrollContainer';
@@ -151,6 +131,7 @@ export function DashboardPos() {
     (accumulator, brand) => accumulator + brand.transactions.totalAmount,
     0,
   );
+
   return (
     <DashboardLayout maxWidth="1736px">
       {isLoading ? (
@@ -267,88 +248,79 @@ export function DashboardPos() {
             <OverallSalesProgressionBarChart />
           </S.DivGraphics>
           <S.ContentRow isExpanded={isSideBarExpanded}>
-            <DraggableScrollContainer>
-              <S.ContainerTable>
-                <S.TopTable>
-                  <S.TopParams>Data</S.TopParams>
-                  <S.TopParams1>ID da transação</S.TopParams1>
-                  <S.TopParams2>Status</S.TopParams2>
-                  <S.TopParams3>Tipo</S.TopParams3>
-                  <S.TopParams4>Valor</S.TopParams4>
-                </S.TopTable>
-                <S.Table>
-                  {sales?.transactions.length === 0 && (
-                    <S.TableRow>
-                      <div style={{ margin: '0 auto' }}>Nenhuma transação</div>
-                    </S.TableRow>
+            <S.ContainerTable>
+              <S.TopTable>
+                <S.TopParams>Data</S.TopParams>
+                <S.TopParams2>Status</S.TopParams2>
+                <S.TopParams3>Tipo</S.TopParams3>
+                <S.TopParams4>Valor</S.TopParams4>
+              </S.TopTable>
+              <S.Table>
+                {sales?.transactions.map(transaction => (
+                  <S.TableRow key={transaction.id}>
+                    <S.Date>{formatDate(transaction.created_at)}</S.Date>
+                    <S.TableColumn>
+                      <S.StatusTrans>
+                        {transaction.status === 'APPROVED'
+                          ? 'Aprovada'
+                          : 'Recusada'}
+                      </S.StatusTrans>
+                    </S.TableColumn>
+                    <S.TableColumn2>
+                      <S.Font14>{transaction.card_brand}</S.Font14>
+                      <S.FontGray400>
+                        {transaction.payment_method === 'CREDIT'
+                          ? `Créd. ${
+                              transaction.installments > 1
+                                ? 'parcelado'
+                                : 'à vista'
+                            } - ${transaction.installments}x`
+                          : 'Débito'}
+                      </S.FontGray400>
+                    </S.TableColumn2>
+                    <S.TableColumn3>
+                      <S.Font14>
+                        {formatPrice(transaction.total_amount.toString())}
+                      </S.Font14>
+                      <S.FontGray400>
+                        {transaction.installments > 1
+                          ? `Parc -${formatPrice(
+                              String(
+                                Number(transaction.total_amount) /
+                                  transaction.installments,
+                              ),
+                            )}`
+                          : ''}{' '}
+                      </S.FontGray400>
+                    </S.TableColumn3>
+                  </S.TableRow>
+                ))}
+                <S.PaginationContainer>
+                  {totalPages > 1 && (
+                    <ReactPaginate
+                      breakLabel="..."
+                      nextLabel={
+                        <IoIosArrowForward
+                          size={20}
+                          color={colors.mediumslateBlue}
+                        />
+                      }
+                      onPageChange={onPageChange}
+                      pageCount={totalPages}
+                      previousLabel={
+                        <IoIosArrowBack
+                          size={20}
+                          color={colors.mediumslateBlue}
+                        />
+                      }
+                      containerClassName="paginationContainer"
+                      pageLinkClassName="pageLink"
+                      activeLinkClassName="activeLink"
+                    />
                   )}
-                  {sales?.transactions.map(transaction => (
-                    <S.TableRow key={transaction.id}>
-                      <S.Date>{formatDate(transaction.created_at)}</S.Date>
-                      <S.ID>{transaction.id}</S.ID>
-                      <S.TableColumn>
-                        <S.StatusTrans>
-                          {transaction.status === 'APPROVED'
-                            ? 'Aprovada'
-                            : 'Recusada'}
-                        </S.StatusTrans>
-                      </S.TableColumn>
-                      <S.TableColumn2>
-                        <S.Font14>{transaction.card_brand}</S.Font14>
-                        <S.FontGray400>
-                          {transaction.payment_method === 'CREDIT'
-                            ? `Créd. ${
-                                transaction.installments > 1
-                                  ? 'parcelado'
-                                  : 'à vista'
-                              } - ${transaction.installments}x`
-                            : 'Débito'}
-                        </S.FontGray400>
-                      </S.TableColumn2>
-                      <S.TableColumn3>
-                        <S.Font14>
-                          {formatPrice(transaction.total_amount.toString())}
-                        </S.Font14>
-                        <S.FontGray400>
-                          {transaction.installments > 1
-                            ? `Parc -${formatPrice(
-                                String(
-                                  Number(transaction.total_amount) /
-                                    transaction.installments,
-                                ),
-                              )}`
-                            : ''}{' '}
-                        </S.FontGray400>
-                      </S.TableColumn3>
-                    </S.TableRow>
-                  ))}
-                  <S.PaginationContainer>
-                    {totalPages > 1 && (
-                      <ReactPaginate
-                        breakLabel="..."
-                        nextLabel={
-                          <IoIosArrowForward
-                            size={20}
-                            color={colors.mediumslateBlue}
-                          />
-                        }
-                        onPageChange={onPageChange}
-                        pageCount={totalPages}
-                        previousLabel={
-                          <IoIosArrowBack
-                            size={20}
-                            color={colors.mediumslateBlue}
-                          />
-                        }
-                        containerClassName="paginationContainer"
-                        pageLinkClassName="pageLink"
-                        activeLinkClassName="activeLink"
-                      />
-                    )}
-                  </S.PaginationContainer>
-                </S.Table>
-              </S.ContainerTable>
-            </DraggableScrollContainer>
+                </S.PaginationContainer>
+              </S.Table>
+            </S.ContainerTable>
             <S.ContainerFlag>
               <S.TopTableSealsByFlag>
                 <div
