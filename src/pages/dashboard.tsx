@@ -1,5 +1,7 @@
 import { GetServerSideProps } from 'next';
 
+import { useEffect } from 'react';
+
 import { withSSRAuth } from 'helpers/auth/withSSRAuth';
 import { DashboardPage } from 'layouts/Dashboard';
 import { useMe } from 'hooks/me/useMe';
@@ -15,7 +17,11 @@ export const getServerSideProps: GetServerSideProps = withSSRAuth(
 );
 
 export default function Dashboard() {
-  const { data, isLoading } = useMe();
+  const { data, isLoading, refetch } = useMe();
+
+  useEffect(() => {
+    if (!data.subscription) refetch();
+  }, [data]);
 
   return <DashboardPage data={data} isLoading={isLoading} />;
 }
