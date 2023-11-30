@@ -1,6 +1,8 @@
-import { BsInstagram } from 'react-icons/bs';
+import { BsInstagram, BsPersonBadge } from 'react-icons/bs';
 import { FaFacebookF } from 'react-icons/fa';
 import { ImWhatsapp } from 'react-icons/im';
+
+import { useIndirectFriends } from 'hooks/me/useIndirectFriends';
 
 import * as S from '../styles';
 
@@ -13,6 +15,7 @@ export function InviteLink({
   totalFriends: number;
   limite: number;
 }) {
+  const { data } = useIndirectFriends();
   const handleCopyOnClick = async () => {
     try {
       await navigator.clipboard.writeText(invite);
@@ -52,23 +55,39 @@ export function InviteLink({
           <ImWhatsapp size={32} />
         </div>
       </S.SocialIconsBox>
-      <S.InvitationsAcceptedBox>
-        <div>
-          <span>Convites aceitos</span>
-          <span>
-            {totalFriends ?? 0}/{limite}
-          </span>
-        </div>
-        <S.ProgressBar
-          quantityFilledInPercent={
-            totalFriends > limite
-              ? '100%'
-              : String((totalFriends / limite) * 100).concat('%')
-          }
-        >
-          <div />
-        </S.ProgressBar>
-      </S.InvitationsAcceptedBox>
+      <S.IndirectGainsContainer>
+        <S.TitleContainer>
+          <BsPersonBadge />
+          <S.TitleFriends>Bônus por indicações indiretas</S.TitleFriends>
+        </S.TitleContainer>
+
+        <S.InvitationsAcceptedBox>
+          <div>
+            <span>Sua conexões indiretas</span>
+            <span>
+              {totalFriends ?? 0}/{limite}
+            </span>
+          </div>
+          <S.ProgressBar
+            quantityFilledInPercent={
+              totalFriends > limite
+                ? '100%'
+                : String((totalFriends / limite) * 100).concat('%')
+            }
+          >
+            <div />
+          </S.ProgressBar>
+          <S.BonusEarningContainer>
+            <span>Seu bônus com conexões indiretas esse mês foi de:</span>
+            <span>
+              {new Intl.NumberFormat('pt-br', {
+                style: 'currency',
+                currency: 'BRL',
+              }).format(data.total_cashback_this_month_by_indirect_friends)}
+            </span>
+          </S.BonusEarningContainer>
+        </S.InvitationsAcceptedBox>
+      </S.IndirectGainsContainer>
     </>
   );
 }
