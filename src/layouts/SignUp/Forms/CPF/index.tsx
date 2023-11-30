@@ -5,6 +5,7 @@ import { FormHandles, SubmitHandler } from '@unform/core';
 import noop from 'lodash.noop';
 import Link from 'next/link';
 import { IoReturnDownBackSharp } from 'react-icons/io5';
+import { useSearchParam } from 'react-use';
 
 import { useAuthDispatch } from 'contexts/auth/AuthContext';
 import { Input } from 'components/Input';
@@ -19,6 +20,7 @@ import { schema } from './schemas';
 
 export function CPF({ onUpdateFormStep }: CPFProps) {
   const { signUp } = useAuthDispatch();
+  const invite = useSearchParam('invite');
 
   const formRef = useRef<FormHandles>(null);
 
@@ -54,7 +56,7 @@ export function CPF({ onUpdateFormStep }: CPFProps) {
           Continuar
         </Button>
       </Form>
-      <Link href={SIGN_UP_PAGE} legacyBehavior>
+      <Link href={{ pathname: SIGN_UP_PAGE, query: { invite } }} legacyBehavior>
         <a className="anchor">
           <IoReturnDownBackSharp size={20} />
           Voltar
