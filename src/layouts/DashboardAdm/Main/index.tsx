@@ -21,7 +21,7 @@ export function Main() {
 
   const totalBilling = dashboard?.quantum_billing.quantumBillingTotal ?? '0';
   const todayBilling = dashboard?.quantum_billing.quantumBillingToday ?? '0';
-  const totalClients = dashboard?.client_per_plan.total_clients ?? '0';
+
   return (
     <S.Container isSideBarExpanded={isSideBarExpanded}>
       <S.Head>
@@ -74,7 +74,9 @@ export function Main() {
               <MdOutlineAttachMoney size={19.87} />
               Total de cliente
             </S.TitleBalance>
-            <S.ValueBalance>{totalClients}</S.ValueBalance>
+            <S.ValueBalance>
+              {dashboard.client_per_plan.total_clients}
+            </S.ValueBalance>
           </S.ContentBalance>
         </S.RowContent>
       </S.Balance>
