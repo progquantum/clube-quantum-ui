@@ -74,7 +74,7 @@ export function CreditCard({
           type="text"
           inputMode="numeric"
           name="expiration_date"
-          placeholder="Data de vencimento"
+          placeholder="Data de vencimento Ex: 11/2023"
           icon={FiCalendar}
           onChange={e =>
             formRef.current.setFieldValue(

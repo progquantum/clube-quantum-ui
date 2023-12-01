@@ -2,6 +2,8 @@ import { GetServerSidePropsContext } from 'next';
 import axios, { AxiosError } from 'axios';
 import { parseCookies, setCookie } from 'nookies';
 
+import { QueryClient, useQueryClient } from 'react-query';
+
 import { error as notifyError } from 'helpers/notify/error';
 
 import {
@@ -89,14 +91,20 @@ export function queueInstance(
         error.response.status >= 400 &&
         error.response.status < 500;
       if (!expectedError && error.response.status !== 401) {
-        notifyError('Encontramos um problema por aqui.');
+        const isUserNotRegisteredError =
+          error.response.data.message === 'User not registered';
+        if (!isUserNotRegisteredError) {
+          notifyError('Encontramos um problema por aqui.');
+        }
       }
+
       if (error.response.status === 401) {
         if (
           error.response.data.message === 'Refresh token is expired' ||
           error.response.data.message === 'Refresh token not found'
         ) {
-          logOut();
+          const queryClient = useQueryClient();
+          logOut(queryClient);
           return;
         }
 
@@ -137,7 +145,8 @@ export function queueInstance(
               failedRequestsQueue = [];
 
               if (typeof window !== 'undefined') {
-                logOut();
+                const queryClient = useQueryClient();
+                logOut(queryClient);
               }
             })
             .finally(() => {

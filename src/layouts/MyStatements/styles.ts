@@ -30,13 +30,21 @@ export const FilterButton = styled.button<FilterButtonProps>`
 
   font-weight: 700;
 `;
-
 export const AccountBalanceContainer = styled.div`
-  box-shadow: 0 0 1.3rem rgba(0, 0, 0, 0.1);
-  border-radius: 0.8rem;
-  padding: 1.5rem;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 2rem;
   grid-area: AccountBalance;
+
+  @media (max-width: 560px) {
+    gap: 1rem;
+  }
+
+  @media (max-width: 400px) {
+    gap: 0.5rem;
+  }
 `;
+
 export const AccountBalanceValue = styled.h4`
   color: ${({ theme }) => theme.colors.gray[700]};
   margin: 0.8rem 0;

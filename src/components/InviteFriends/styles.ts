@@ -84,12 +84,12 @@ export const SocialIconsBox = styled.div`
 
 export const InvitationsAcceptedBox = styled.div`
   width: 100%;
+  color: ${({ theme }) => theme.colors.midnightBlue};
   & div:first-child {
     margin: 0.5rem 0;
     display: flex;
     justify-content: space-between;
-    color: ${({ theme }) => theme.colors.white};
-    font-weight: 700;
+    font-weight: 600;
   }
 `;
 
@@ -97,10 +97,10 @@ export const ProgressBar = styled.div<{ quantityFilledInPercent: string }>`
   width: 100%;
   height: 15px;
   border-radius: 1rem;
-  background: ${({ theme }) => theme.colors.midnightBlue};
+  background: ${({ theme }) => theme.colors.lightsteelblue};
   & div {
     width: ${({ quantityFilledInPercent }) => quantityFilledInPercent};
-    background-color: ${({ theme }) => theme.colors.white};
+    background: ${({ theme }) => theme.gradients.midnightBlueToMediumsLateBlue};
     border-radius: inherit;
     height: inherit;
   }
@@ -175,4 +175,31 @@ export const NoInviteText = styled.p`
   color: ${({ theme }) => theme.colors.ghostwhite};
   font-weight: 600;
   font-size: 1.25rem;
+`;
+
+export const IndirectGainsContainer = styled.div`
+  background-color: ${({ theme }) => theme.colors.white};
+  border-radius: 0.9rem;
+  padding: 1rem;
+
+  & ${TitleFriends} {
+    color: ${({ theme }) => theme.colors.gray[400]};
+    font-weight: 500;
+  }
+`;
+
+export const TitleContainer = styled.div`
+  display: flex;
+  gap: 1rem;
+`;
+
+export const BonusEarningContainer = styled.div`
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin: 0.5rem 0;
+  font-weight: 600;
+  & > span:first-child {
+    max-width: 70%;
+  }
 `;

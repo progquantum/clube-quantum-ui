@@ -18,8 +18,7 @@ import { PlanSummary } from '../PlanSummary';
 
 export function MainContent({ data }: { data: User }) {
   const { data: balances } = useBalances();
-
-  if (!data.subscription) return <ManagePlans />;
+  if (!data?.subscription) return <ManagePlans />;
   return (
     <S.Container>
       <S.AccountBalanceContainer>
