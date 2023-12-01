@@ -83,7 +83,9 @@ export function InviteLink({
               {new Intl.NumberFormat('pt-br', {
                 style: 'currency',
                 currency: 'BRL',
-              }).format(data.total_cashback_this_month_by_indirect_friends)}
+              }).format(
+                data?.total_cashback_this_month_by_indirect_friends ?? 0,
+              )}
             </span>
           </S.BonusEarningContainer>
         </S.InvitationsAcceptedBox>
