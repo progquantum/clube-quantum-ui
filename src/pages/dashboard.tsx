@@ -20,7 +20,7 @@ export default function Dashboard() {
   const { data, isLoading, refetch } = useMe();
 
   useEffect(() => {
-    if (!data.subscription) refetch();
+    if (!data?.subscription) refetch();
   }, [data]);
 
   return <DashboardPage data={data} isLoading={isLoading} />;
