@@ -42,7 +42,6 @@ export function DashboardPos() {
 
   const isSmallDevice = useMediaQuery('only screen and (max-width : 768px)');
 
-  console.log(isSmallDevice);
   if (!data && !isLoading) router.push(DASHBOARD_PAGE);
 
   const {
