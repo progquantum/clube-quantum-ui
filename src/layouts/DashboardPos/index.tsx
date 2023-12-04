@@ -8,6 +8,7 @@ import { IoIosArrowBack, IoIosArrowForward } from 'react-icons/io';
 import { useTheme } from 'styled-components';
 import { DatePicker } from '@mui/x-date-pickers';
 import { useRouter } from 'next/router';
+import { useMediaQuery } from '@mui/material';
 
 import { Select } from 'components/Select';
 import { VISAIcon } from 'components/Illustrations/Visa';
@@ -25,7 +26,6 @@ import MasterCardMaestroIcon from 'components/Illustrations/MasterCardMaestro';
 import { DASHBOARD_PAGE } from 'constants/routesPath';
 import { Loader } from 'components/Loader';
 
-import DraggableScrollContainer from './DraggableScrollContainer';
 import { PaymentMethodPieChart } from './PaymentMethodPieChart';
 import { SalesByClientPieChart } from './SalesByClientPieChart';
 import { OverallSalesProgressionBarChart } from './OverallSalesProgressionBarChart';
@@ -39,6 +39,8 @@ export function DashboardPos() {
   const [finalDate, setFinalDate] = useState<Date>();
   const { data, isLoading } = useGetEstablishment();
   const router = useRouter();
+
+  const isSmallDevice = useMediaQuery('only screen and (max-width : 768px)');
 
   if (!data && !isLoading) router.push(DASHBOARD_PAGE);
 
@@ -251,14 +253,21 @@ export function DashboardPos() {
             <S.ContainerTable>
               <S.TopTable>
                 <S.TopParams>Data</S.TopParams>
+                {!isSmallDevice && <S.TopParams1>ID da transação</S.TopParams1>}
                 <S.TopParams2>Status</S.TopParams2>
                 <S.TopParams3>Tipo</S.TopParams3>
                 <S.TopParams4>Valor</S.TopParams4>
               </S.TopTable>
               <S.Table>
+                {sales?.transactions.length === 0 && (
+                  <S.TableRow>
+                    <S.Font14>Nenhuma transação</S.Font14>
+                  </S.TableRow>
+                )}
                 {sales?.transactions.map(transaction => (
                   <S.TableRow key={transaction.id}>
                     <S.Date>{formatDate(transaction.created_at)}</S.Date>
+                    {!isSmallDevice && <S.ID>{transaction.id}</S.ID>}
                     <S.TableColumn>
                       <S.StatusTrans>
                         {transaction.status === 'APPROVED'
