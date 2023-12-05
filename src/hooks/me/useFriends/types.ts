@@ -9,6 +9,7 @@ export type FriendsRequest = {
       amount_friends: number;
       inactivated_at: string;
       cashback: number;
+      planName: string;
     },
   ];
 };

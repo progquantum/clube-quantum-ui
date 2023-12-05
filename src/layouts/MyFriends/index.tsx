@@ -108,7 +108,7 @@ export function MyFriendsPage() {
                       Inativo(a) desde {formatDate(friend.inactivated_at)}
                     </span>
                   ) : (
-                    <div>
+                    <div style={{ display: 'flex', gap: '0.5rem' }}>
                       {friend.cashback !== 0 ? (
                         <S.Cashback>
                           {formatCashback(friend.cashback)}
@@ -116,6 +116,7 @@ export function MyFriendsPage() {
                       ) : (
                         <S.NoCashback>R$ 0,00</S.NoCashback>
                       )}
+                      <S.PlanName>{friend.planName ?? 'Sem plano'}</S.PlanName>
                     </div>
                   )}
                 </div>
