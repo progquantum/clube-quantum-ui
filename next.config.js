@@ -6,6 +6,7 @@ const nextConfig = {
     styledComponents: true,
   },
   images: {
+    domains: ['*.s3.amazonaws.com'],
     remotePatterns: [
       {
         protocol: 'http',
@@ -15,6 +16,16 @@ const nextConfig = {
       {
         protocol: 'https',
         hostname: 'clubequantum-assets.s3.amazonaws.com',
+        port: '',
+      },
+      {
+        protocol: 'https',
+        hostname: 'clubequantum.s3.amazonaws.com',
+        port: '',
+      },
+      {
+        protocol: 'https',
+        hostname: 'clubequantum.s3.us-east-2.amazonaws.com',
         port: '',
       },
     ],
