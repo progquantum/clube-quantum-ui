@@ -67,7 +67,7 @@ export const Friend = styled.div`
 export const Cashback = styled.p`
   font-weight: 600;
   font-size: 0.7rem;
-  color: #0a7003;
+  color: ${({ theme }) => theme.colors.success};
 `;
 
 export const NoCashback = styled.p`
@@ -241,4 +241,8 @@ export const InviteFriendsButton = styled.button`
     background-color: transparent;
     color: ${({ theme }) => theme.colors.mediumslateBlue};
   }
+`;
+
+export const PlanName = styled.span`
+  color: ${({ theme }) => theme.colors.gray[300]};
 `;
