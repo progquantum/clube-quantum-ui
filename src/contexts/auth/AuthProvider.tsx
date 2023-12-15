@@ -52,7 +52,7 @@ export function AuthProvider({ children }: PropsWithChildren<unknown>) {
     authChannel.onmessage = message => {
       switch (message.data) {
         case `logOut`:
-          logOut(queryClient);
+          logOut();
           break;
         default:
           break;
