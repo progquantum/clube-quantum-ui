@@ -143,7 +143,6 @@ export function InfoEstablishment() {
             main_phone_has_whatsapp,
             whatsapp_phone,
             category_id,
-            // not needed on request body
             main_phone,
             ...rest
           } = data;
@@ -296,7 +295,7 @@ export function InfoEstablishment() {
         e.establishment_pos.contacts.cel_phone_has_whatsapp,
       );
       setCoordinates(
-        `${e.establishment_pos.lat_location}, ${e.establishment_pos.long_location}`,
+        `${e.establishment_pos.lat_location},${e.establishment_pos.long_location}`,
       );
       setAbout(e.establishment_pos.about);
     }
