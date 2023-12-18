@@ -2,6 +2,7 @@ import { AxiosError } from 'axios';
 
 import { useMutation } from 'react-query';
 
+import { error } from 'helpers/notify/error';
 import { quantumClientQueue } from 'config/client';
 
 import { Establishment } from './types';
@@ -9,12 +10,18 @@ import { Establishment } from './types';
 export async function upsertEstablishment(establishment: Establishment) {
   try {
     await quantumClientQueue.post('/establishment/upsert', establishment);
-  } catch (error: unknown) {
-    if (error instanceof AxiosError) {
-      console.log(error);
+  } catch (err: unknown) {
+    if (err instanceof AxiosError) {
+      const invalidCoordinates =
+        'coordinates must be a latitude,longitude string';
+
+      console.log(err.response.data.message[0] === invalidCoordinates);
+      if (err.response.data.message[0] === invalidCoordinates) {
+        error('Coordenadas inválida');
+      }
     }
 
-    return Promise.reject(error);
+    return Promise.reject(err);
   }
 }
 
