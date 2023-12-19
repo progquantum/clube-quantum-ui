@@ -2,15 +2,11 @@ import { GetServerSidePropsContext } from 'next';
 import axios, { AxiosError } from 'axios';
 import { parseCookies, setCookie } from 'nookies';
 
-import { QueryClient, useQueryClient } from 'react-query';
-
 import { error as notifyError } from 'helpers/notify/error';
-
 import {
   REFRESH_TOKEN_STORAGE_KEY,
   TOKEN_STORAGE_KEY,
 } from 'constants/storage';
-
 import { logOut } from 'helpers/auth/logOut';
 
 export type ErrorResponse = {
@@ -99,19 +95,16 @@ export function queueInstance(
       }
 
       if (error.response.status === 401) {
+        cookies = parseCookies(ctx);
+        const { '@ClubeQuantum:refresh_token': refresh_token } = cookies;
+        const originalConfig = error.config;
+
         if (
           error.response.data.message === 'Refresh token is expired' ||
           error.response.data.message === 'Refresh token not found'
         ) {
-          const queryClient = useQueryClient();
-          logOut(queryClient);
-          return;
+          logOut();
         }
-
-        cookies = parseCookies(ctx);
-
-        const { '@ClubeQuantum:refresh_token': refresh_token } = cookies;
-        const originalConfig = error.config;
 
         if (!isRefreshing) {
           isRefreshing = true;
@@ -132,40 +125,32 @@ export function queueInstance(
                 maxAge: 60 * 60 * 24 * 30,
                 path: '/',
               });
-
               api.defaults.headers.common.Authorization = `Bearer ${token}`;
 
               failedRequestsQueue.forEach(request => request.onSuccess(token));
               failedRequestsQueue = [];
             })
             .catch((error: AxiosError) => {
-              isRefreshing = false;
-
               failedRequestsQueue.forEach(request => request.onFailure(error));
               failedRequestsQueue = [];
-
-              if (typeof window !== 'undefined') {
-                const queryClient = useQueryClient();
-                logOut(queryClient);
-              }
+              logOut();
             })
             .finally(() => {
               isRefreshing = false;
+              return new Promise((resolve, reject) => {
+                failedRequestsQueue.push({
+                  onSuccess: (token: string) => {
+                    originalConfig.headers.Authorization = `Bearer ${token}`;
+
+                    resolve(api(originalConfig));
+                  },
+                  onFailure: (error: AxiosError) => {
+                    reject(error);
+                  },
+                });
+              });
             });
         }
-
-        return new Promise((resolve, reject) => {
-          failedRequestsQueue.push({
-            onSuccess: (token: string) => {
-              originalConfig.headers.Authorization = `Bearer ${token}`;
-
-              resolve(api(originalConfig));
-            },
-            onFailure: (error: AxiosError) => {
-              reject(error);
-            },
-          });
-        });
       }
 
       return Promise.reject(error);
