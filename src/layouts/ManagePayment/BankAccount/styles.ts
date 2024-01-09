@@ -3,13 +3,12 @@ import styled from 'styled-components';
 export const Content = styled.div`
   box-shadow: 0px 0px 20px 0px #0000001a;
   width: 22rem;
-  height: 13.625rem;
+  height: 27.9481rem;
   padding: 1.25rem 1.5rem;
   display: flex;
+  gap: 10px;
   flex-direction: column;
-  gap: 1.5rem;
   border-radius: 0.9rem;
-  justify-content: space-around;
   & button {
     margin: 0;
     padding: 1.3rem 0;
@@ -65,6 +64,15 @@ export const TitleContent = styled.strong`
   }
 `;
 
+export const TitleApp = styled.strong`
+  color: ${({ theme }) => theme.colors.blue};
+  font-size: 0.9rem;
+  font-weight: 700;
+
+  @media (max-width: 460px) {
+    font-size: 0.8rem;
+  }
+`;
 export const TextContent = styled.p`
   color: ${({ theme }) => theme.colors.gray[400]};
   font-weight: 500;
@@ -90,4 +98,17 @@ export const BankingOwner = styled.div`
   display: flex;
   flex-direction: column;
   gap: 0.9rem;
+`;
+
+export const Links = styled.div`
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
+
+  a {
+    @media (max-width: 460px) {
+      font-size: 0.7rem;
+    }
+  }
 `;
