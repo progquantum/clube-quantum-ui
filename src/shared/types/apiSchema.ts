@@ -60,16 +60,6 @@ export type BankAccount = {
 };
 
 export type UserBilling = {
-  id: string;
-  email: string;
-  phone: string;
-  login: string;
-  password: string;
-  invited_by: string;
-  invite_code: string | null;
-  role_id: string | null;
-  created_at: Date;
-  updated_at: Date;
   individual_person: {
     name: string;
     cpf: string;
