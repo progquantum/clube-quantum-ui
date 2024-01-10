@@ -1,16 +1,16 @@
-import { useCallback, useRef } from 'react';
-import { FiUser, FiMail, FiLock, FiCalendar } from 'react-icons/fi';
 import { FormHandles, SubmitHandler } from '@unform/core';
 import { Form } from '@unform/web';
 import noop from 'lodash.noop';
+import { useCallback, useRef } from 'react';
+import { FiCalendar, FiLock, FiMail, FiUser } from 'react-icons/fi';
 import { IoReturnDownBackSharp } from 'react-icons/io5';
 
-import { useAuthDispatch } from 'contexts/auth/AuthContext';
-import { Input } from 'components/Input';
 import { Button } from 'components/Button';
+import { Input } from 'components/Input';
+import { useAuthDispatch } from 'contexts/auth/AuthContext';
+import { AuthLayout } from 'layouts/Auth';
 import { formatBirthDate } from 'utils/formatters/formatBirthDate';
 import { performSchemaValidation } from 'utils/performSchemaValidation';
-import { AuthLayout } from 'layouts/Auth';
 
 import { schema } from './schemas';
 import { IndividualPersonProps, SignUpFormValues } from './types';
@@ -51,7 +51,8 @@ export function IndividualPerson({
 
   return (
     <AuthLayout
-      backgroundImage="/images/signup.png"
+      backgroundImage="/images/signin.svg"
+      backgroundPosition="right"
       title="Insira seus dados pessoais"
     >
       <Form ref={formRef} onSubmit={handleSignUp} className="form">
@@ -121,7 +122,19 @@ export function IndividualPerson({
           Continuar
         </Button>
       </Form>
-      <button type="button" onClick={onPreviousFormStep}>
+      <button
+        style={{
+          display: 'flex',
+          width: '100%',
+          gap: '10px',
+          alignItems: 'center',
+          justifyContent: 'center',
+          textAlign: 'center',
+          background: 'transparent',
+        }}
+        type="button"
+        onClick={onPreviousFormStep}
+      >
         <IoReturnDownBackSharp size={20} />
         Voltar
       </button>

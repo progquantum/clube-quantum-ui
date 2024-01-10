@@ -1,21 +1,21 @@
-import { FiUser } from 'react-icons/fi';
 import { FormHandles, SubmitHandler } from '@unform/core';
-import { useCallback, useRef } from 'react';
 import { Form } from '@unform/web';
 import Link from 'next/link';
+import { useCallback, useRef } from 'react';
+import { FiUser } from 'react-icons/fi';
 import { IoReturnDownBackSharp } from 'react-icons/io5';
 import { useSearchParam } from 'react-use';
 
+import { Button } from 'components/Button';
+import { Input } from 'components/Input';
+import { SIGN_UP_PAGE } from 'constants/routesPath';
 import { useAuthDispatch } from 'contexts/auth/AuthContext';
+import { AuthLayout } from 'layouts/Auth';
 import { formatCNPJ } from 'utils/formatters/formatCNPJ';
 import { performSchemaValidation } from 'utils/performSchemaValidation';
-import { Input } from 'components/Input';
-import { Button } from 'components/Button';
-import { AuthLayout } from 'layouts/Auth';
-import { SIGN_UP_PAGE } from 'constants/routesPath';
 
-import { CNPJProps, FormValues } from './types';
 import { schema } from './schemas';
+import { CNPJProps, FormValues } from './types';
 
 export function CNPJ({ onUpdateFormStep }: CNPJProps) {
   const { signUp } = useAuthDispatch();
@@ -35,7 +35,11 @@ export function CNPJ({ onUpdateFormStep }: CNPJProps) {
   }, []);
 
   return (
-    <AuthLayout backgroundImage="/images/signup.png" title="Insira seu CNPJ">
+    <AuthLayout
+      backgroundImage="/images/signin.svg"
+      backgroundPosition="right"
+      title="Insira seu CNPJ"
+    >
       <Form ref={formRef} onSubmit={handleSignUp} className="form">
         <Input
           type="text"
@@ -54,10 +58,21 @@ export function CNPJ({ onUpdateFormStep }: CNPJProps) {
         </Button>
       </Form>
 
-      {/* Should wrap link component with element due to this 
+      {/* Should wrap link component with element due to this
       issue of next/link https://github.com/vercel/next.js/issues/127 */}
       <Link href={{ pathname: SIGN_UP_PAGE, query: { invite } }} legacyBehavior>
-        <a className="anchor">
+        <a
+          style={{
+            display: 'flex',
+            width: '100%',
+            gap: '10px',
+            alignItems: 'center',
+            justifyContent: 'center',
+            textAlign: 'center',
+            background: 'transparent',
+          }}
+          className="anchor"
+        >
           <IoReturnDownBackSharp size={20} />
           Voltar
         </a>
