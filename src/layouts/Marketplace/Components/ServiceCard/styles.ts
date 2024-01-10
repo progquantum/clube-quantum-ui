@@ -1,4 +1,4 @@
-import styled from 'styled-components';
+import styled, { css } from 'styled-components';
 
 import { Props } from './types';
 
@@ -14,4 +14,16 @@ export const Container = styled.div<Props>`
   cursor: pointer;
   position: relative;
   border-radius: 25px;
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+
+  ${({ isDisabled }) =>
+    isDisabled &&
+    css`
+      opacity: 0.6;
+      cursor: not-allowed;
+    `}
 `;
+
+export const InnerText = styled.h6``;

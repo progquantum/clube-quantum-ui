@@ -28,13 +28,26 @@ export function Services() {
       </div>
       <S.ServiceContainer>
         {data?.partnerList.map(service => (
-          <Link key={service.id} href={link[service.name]}>
-            <ServiceCard>
+          <Link
+            key={service.id}
+            href={link[service.name]}
+            onClick={event =>
+              service.name === 'Tim' ? event.preventDefault() : null
+            }
+          >
+            <ServiceCard
+              {...(service.name === 'Tim'
+                ? {
+                    isDisabled: true,
+                    innerText: 'Em Breve',
+                  }
+                : { isDisabled: false })}
+            >
               <Image
                 src={image[service.name]}
                 alt={service.name}
-                width={90}
-                height={25}
+                width={100}
+                height={30}
                 objectFit="contain"
               />
             </ServiceCard>
