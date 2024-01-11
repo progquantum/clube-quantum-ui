@@ -1,6 +1,6 @@
 import Image from 'next/legacy/image';
 
-import { PlanSectionTitle } from 'layouts/TimSubscriptionPlan/Components/PlanSectionTitle';
+import { PlanSectionTitle } from 'components/PlanSectionTitle';
 
 import * as S from './styles';
 

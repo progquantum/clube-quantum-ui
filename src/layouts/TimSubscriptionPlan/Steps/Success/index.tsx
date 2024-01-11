@@ -1,6 +1,6 @@
 import { FcCheckmark } from 'react-icons/fc';
 
-import { PlanSectionTitle } from 'layouts/TimSubscriptionPlan/Components/PlanSectionTitle';
+import { PlanSectionTitle } from 'components/PlanSectionTitle';
 
 import { useTimPlanStore } from 'store/tim';
 

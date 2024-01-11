@@ -5,6 +5,6 @@ import * as S from './styles';
 export function PlanSectionTitle({
   children,
   variant,
-}: PropsWithChildren<{ variant?: 'error' }>) {
+}: PropsWithChildren<{ variant?: 'error' | 'darkBlue' }>) {
   return <S.TitleContainer variant={variant}>{children}</S.TitleContainer>;
 }

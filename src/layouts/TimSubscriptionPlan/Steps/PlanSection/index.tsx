@@ -1,6 +1,6 @@
 import { useGetProductsOfPartnerById } from 'hooks/partners/usePartners';
 import { Plan } from 'hooks/partners/usePartners/types';
-import { PlanSectionTitle } from 'layouts/TimSubscriptionPlan/Components/PlanSectionTitle';
+import { PlanSectionTitle } from 'components/PlanSectionTitle';
 import { useTimPlanStore } from 'store/tim';
 
 import * as S from './styles';
