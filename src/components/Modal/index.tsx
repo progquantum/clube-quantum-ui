@@ -87,6 +87,7 @@ export function Modal({
         dragConstraints={DRAG_CONSTRAINTS_ANIMATION}
         ref={modalRef}
         key="modal"
+        maxWidth={maxWidth}
       >
         <>
           <S.CloseButton
