@@ -1,21 +1,21 @@
-import { useCallback, useRef } from 'react';
 import { FormHandles, SubmitHandler } from '@unform/core';
 import { Form } from '@unform/web';
-import { FiUser, FiLock, FiLogIn } from 'react-icons/fi';
-import Link from 'next/link';
-import Head from 'next/head';
 import noop from 'lodash.noop';
+import Head from 'next/head';
+import Link from 'next/link';
+import { useCallback, useRef } from 'react';
+import { FiLock, FiLogIn, FiUser } from 'react-icons/fi';
 
-import { Input } from 'components/Input';
-import { useAuthDispatch, useAuthState } from 'contexts/auth/AuthContext';
-import { FORGOT_PASSWORD_PAGE, SIGN_UP_PAGE } from 'constants/routesPath';
-import { performSchemaValidation } from 'utils/performSchemaValidation';
-import { AuthLayout } from 'layouts/Auth';
 import { Button } from 'components/Button';
+import { Input } from 'components/Input';
+import { FORGOT_PASSWORD_PAGE, SIGN_UP_PAGE } from 'constants/routesPath';
+import { useAuthDispatch, useAuthState } from 'contexts/auth/AuthContext';
+import { AuthLayout } from 'layouts/Auth';
 import { formatCPForCNPJ } from 'utils/formatters/formatCPForCNPJ';
+import { performSchemaValidation } from 'utils/performSchemaValidation';
 
-import { SignInFormValues } from './types';
 import { schema } from './schemas';
+import { SignInFormValues } from './types';
 
 export function SignInPage() {
   const { signIn } = useAuthDispatch();
@@ -46,7 +46,7 @@ export function SignInPage() {
 
       <AuthLayout
         title="Faça seu login"
-        backgroundImage="/images/signin.png"
+        backgroundImage="/images/signin.svg"
         backgroundPosition="right"
       >
         <Form ref={formRef} onSubmit={handleSignIn} className="form">
@@ -76,7 +76,7 @@ export function SignInPage() {
             Login
           </Button>
 
-          {/* Should wrap link component with element due to this 
+          {/* Should wrap link component with element due to this
           issue of next/link https://github.com/vercel/next.js/issues/127 */}
           <Link href={FORGOT_PASSWORD_PAGE} legacyBehavior>
             <a className="form-anchor">Esqueceu a sua senha?</a>
@@ -84,7 +84,18 @@ export function SignInPage() {
         </Form>
 
         <Link href={SIGN_UP_PAGE} legacyBehavior>
-          <a className="anchor" data-cy="signup-link">
+          <a
+            style={{
+              display: 'flex',
+              width: '100%',
+              gap: '10px',
+              alignItems: 'center',
+              justifyContent: 'center',
+              textAlign: 'center',
+            }}
+            className="anchor"
+            data-cy="signup-link"
+          >
             <FiLogIn />
             Criar uma conta
           </a>

@@ -1,18 +1,18 @@
-import { useCallback, useRef } from 'react';
-import { FiUser, FiMail, FiLock } from 'react-icons/fi';
 import { FormHandles, SubmitHandler } from '@unform/core';
 import { Form } from '@unform/web';
 import noop from 'lodash.noop';
+import { useCallback, useRef } from 'react';
+import { FiLock, FiMail, FiUser } from 'react-icons/fi';
 import { IoReturnDownBackSharp } from 'react-icons/io5';
 
-import { useAuthDispatch } from 'contexts/auth/AuthContext';
-import { Input } from 'components/Input';
 import { Button } from 'components/Button';
+import { Input } from 'components/Input';
+import { useAuthDispatch } from 'contexts/auth/AuthContext';
 import { AuthLayout } from 'layouts/Auth';
 import { performSchemaValidation } from 'utils/performSchemaValidation';
 
-import { LegalPersonProps, SignUpFormValues } from './types';
 import { schema } from './schemas';
+import { LegalPersonProps, SignUpFormValues } from './types';
 
 export function LegalPerson({
   onUpdateFormStep,
@@ -35,7 +35,11 @@ export function LegalPerson({
   }, []);
 
   return (
-    <AuthLayout backgroundImage="/images/signup.png" title="Insira seu CNPJ">
+    <AuthLayout
+      backgroundImage="/images/signin.svg"
+      backgroundPosition="right"
+      title="Insira os dados da empresa"
+    >
       <Form ref={formRef} onSubmit={handleSignUp} className="form">
         <Input
           type="text"
@@ -91,7 +95,19 @@ export function LegalPerson({
           Continuar
         </Button>
       </Form>
-      <button type="button" onClick={onPreviousFormStep}>
+      <button
+        style={{
+          display: 'flex',
+          width: '100%',
+          gap: '10px',
+          alignItems: 'center',
+          justifyContent: 'center',
+          textAlign: 'center',
+          background: 'transparent',
+        }}
+        type="button"
+        onClick={onPreviousFormStep}
+      >
         <IoReturnDownBackSharp size={20} />
         Voltar
       </button>

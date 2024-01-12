@@ -23,4 +23,5 @@ export type AuthDispatchContextData = {
   signOut: () => void;
   signUp: (updateRegisterUser: SignUpData) => void;
   setPreviousPage: Dispatch<any>;
+  deleteRegister: () => void;
 };

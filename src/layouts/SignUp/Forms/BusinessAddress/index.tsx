@@ -1,41 +1,41 @@
 import { ChangeEvent, useCallback, useRef } from 'react';
 
-import {
-  FiMapPin,
-  FiPackage,
-  FiHome,
-  FiMap,
-  FiGlobe,
-  FiInfo,
-} from 'react-icons/fi';
+import { FormHandles, SubmitHandler } from '@unform/core';
+import { Form } from '@unform/web';
 import { BiBuildingHouse } from 'react-icons/bi';
 import { BsPinMap } from 'react-icons/bs';
-import { Form } from '@unform/web';
-import { FormHandles, SubmitHandler } from '@unform/core';
+import {
+  FiGlobe,
+  FiHome,
+  FiInfo,
+  FiMap,
+  FiMapPin,
+  FiPackage,
+} from 'react-icons/fi';
 import { IoReturnDownBackSharp } from 'react-icons/io5';
 
 import { setCookie } from 'nookies';
 
-import { Input } from 'components/Input';
 import { Button } from 'components/Button';
-import { formatCEP } from 'utils/formatters/formatCEP';
-import { formatAddressNumber } from 'utils/formatters/formatAddressNumber';
-import { performSchemaValidation } from 'utils/performSchemaValidation';
-import { useLegalPersonSingUp } from 'hooks/auth/useLegalPersonSingUp';
-import { useAuthState } from 'contexts/auth/AuthContext';
-import { AuthLayout } from 'layouts/Auth';
-import { formatCountry } from 'utils/formatters/formatCountry';
 import { Checkbox } from 'components/Checkbox';
-import { formatUF } from 'utils/formatters/formatUF';
+import { Input } from 'components/Input';
+import { useAuthState } from 'contexts/auth/AuthContext';
+import { useLegalPersonSingUp } from 'hooks/auth/useLegalPersonSingUp';
+import { AuthLayout } from 'layouts/Auth';
 import { getZipCode } from 'services/resources';
+import { formatAddressNumber } from 'utils/formatters/formatAddressNumber';
+import { formatCEP } from 'utils/formatters/formatCEP';
+import { formatCountry } from 'utils/formatters/formatCountry';
+import { formatUF } from 'utils/formatters/formatUF';
+import { performSchemaValidation } from 'utils/performSchemaValidation';
 
 import {
   REFRESH_TOKEN_STORAGE_KEY,
   TOKEN_STORAGE_KEY,
 } from 'constants/storage';
 
-import { BusinessAddressProps, AddressFormValues } from './types';
 import { schema } from './schemas';
+import { AddressFormValues, BusinessAddressProps } from './types';
 
 export function BusinessAddress({
   onUpdateFormStep,
@@ -110,7 +110,8 @@ export function BusinessAddress({
 
   return (
     <AuthLayout
-      backgroundImage="/images/signup.png"
+      backgroundImage="/images/signin.svg"
+      backgroundPosition="right"
       title="Insira seu endereço"
     >
       <Form ref={formRef} onSubmit={handleSubmitAddress} className="form">
@@ -201,7 +202,19 @@ export function BusinessAddress({
           Continuar
         </Button>
       </Form>
-      <button type="button" onClick={onPreviousFormStep}>
+      <button
+        style={{
+          display: 'flex',
+          width: '100%',
+          gap: '10px',
+          alignItems: 'center',
+          justifyContent: 'center',
+          textAlign: 'center',
+          background: 'transparent',
+        }}
+        type="button"
+        onClick={onPreviousFormStep}
+      >
         <IoReturnDownBackSharp size={20} />
         Voltar
       </button>
