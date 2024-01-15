@@ -1,5 +1,5 @@
 export type IsExpanded = {
-  isExpanded: boolean;
+  isExpanded?: boolean;
 };
 export type NavButtonProps = {
   activePath?: boolean;
