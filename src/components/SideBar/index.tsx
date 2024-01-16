@@ -1,7 +1,7 @@
 import decode from 'jwt-decode';
 import { parseCookies } from 'nookies';
 import { FiLogOut } from 'react-icons/fi';
-import { HiMenuAlt1 } from 'react-icons/hi';
+import { HiMenu } from 'react-icons/hi';
 
 import { useAuthDispatch } from 'contexts/auth/AuthContext';
 import { useSidebarStore } from 'store/sidebar';
@@ -32,7 +32,7 @@ export function SideBar({ loading }: SideBarProps) {
   return (
     <S.Container isExpanded={isExpanded}>
       <S.ToggleButtonBox isExpanded={isExpanded}>
-        <HiMenuAlt1 onClick={setIsExpanded} />
+        <HiMenu onClick={setIsExpanded} />
       </S.ToggleButtonBox>
       {user_role === roles.user.id ? (
         <SidebarUser
