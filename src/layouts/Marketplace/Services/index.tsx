@@ -1,8 +1,13 @@
 import Image from 'next/image';
 import Link from 'next/link';
+import { useRouter } from 'next/router';
 
 import { usePartnersList } from 'hooks/partners/usePartnersList';
-import { WAITING_QUEUE_PAGE } from 'constants/routesPath';
+import {
+  PLAN_TIM_PAGE,
+  POS_PAGE,
+  WAITING_QUEUE_PAGE,
+} from 'constants/routesPath';
 
 import { SectionTitle } from '../Components/SectionTitle';
 import { ServiceCard } from '../Components/ServiceCard';
@@ -10,15 +15,18 @@ import * as S from './styles';
 
 export function Services() {
   const { data } = usePartnersList();
+  const { pathname } = useRouter();
 
   const image = {
-    Quantum: '/images/quantum-smart.svg',
-    Tim: '/images/tim-logo.svg',
+    Quantum: { src: '/images/quantum-smart.svg', width: 100, height: 40 },
+    Tim: { src: '/images/tim-logo.svg', width: 100, height: 30 },
+    'Banco um': { src: '/images/waiting-queue.svg', width: 150, height: 150 },
   };
 
   const link = {
-    Quantum: '/pos',
-    Tim: '/plano-tim',
+    Quantum: POS_PAGE,
+    Tim: PLAN_TIM_PAGE,
+    'Banco um': WAITING_QUEUE_PAGE,
   };
 
   return (
@@ -30,7 +38,7 @@ export function Services() {
         {data?.partnerList.map(service => (
           <Link
             key={service.id}
-            href={link[service.name]}
+            href={link[service.name] ? link[service.name] : pathname}
             onClick={event =>
               service.name === 'Tim' ? event.preventDefault() : null
             }
@@ -44,25 +52,15 @@ export function Services() {
                 : { isDisabled: false })}
             >
               <Image
-                src={image[service.name]}
+                src={image[service.name].src}
+                style={{ objectFit: 'contain' }}
                 alt={service.name}
-                width={100}
-                height={30}
+                width={image[service.name].width}
+                height={image[service.name].height}
               />
             </ServiceCard>
           </Link>
         ))}
-        <Link href={WAITING_QUEUE_PAGE}>
-          <ServiceCard definedTheme="darkBlue">
-            <Image
-              src="/images/waiting-queue.svg"
-              alt="Cartão de Crédito"
-              fill
-              style={{ objectFit: 'cover', borderRadius: '25px' }}
-              quality={100}
-            />
-          </ServiceCard>
-        </Link>
       </S.ServiceContainer>
     </>
   );
