@@ -49,6 +49,11 @@ export const TitleBox = styled.span`
   text-align: left;
 `;
 
+export const SublinkTitleBox = styled(TitleBox)`
+  text-align: right;
+  font-size: 13px;
+`;
+
 export const NavButton = styled.button<NavButtonProps>`
   display: flex;
   align-items: center;
