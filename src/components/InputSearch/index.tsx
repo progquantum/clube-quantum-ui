@@ -1,7 +1,4 @@
 import { BiSearchAlt } from 'react-icons/bi';
-
-import { useTheme } from 'styled-components';
-
 import { useRef } from 'react';
 
 import { InputSearchProps } from './types';
@@ -11,9 +8,9 @@ export function InputSearch({
   name,
   placeholder,
   onRequestClick,
+  variant = 'default',
   ...rest
 }: InputSearchProps) {
-  const { colors } = useTheme();
   const inputRef = useRef<HTMLInputElement>(null);
 
   const handleKeyDown = (key: string) => {
@@ -22,7 +19,7 @@ export function InputSearch({
     }
   };
   return (
-    <S.ContainerInput>
+    <S.ContainerInput variant={variant}>
       <S.InputSearch
         id={name}
         ref={inputRef}
@@ -31,7 +28,7 @@ export function InputSearch({
         {...rest}
       />
       <S.ContainerIcon onClick={onRequestClick}>
-        <BiSearchAlt size={25} color={colors.background} />
+        <BiSearchAlt size={25} />
       </S.ContainerIcon>
     </S.ContainerInput>
   );

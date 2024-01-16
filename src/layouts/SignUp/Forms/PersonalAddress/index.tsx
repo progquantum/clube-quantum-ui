@@ -1,33 +1,33 @@
-import { useCallback, useRef, ChangeEvent } from 'react';
-import { FiHome, FiPackage, FiMapPin, FiGlobe, FiMap } from 'react-icons/fi';
-import { FaRegAddressCard } from 'react-icons/fa';
+import { FormHandles, SubmitHandler } from '@unform/core';
+import { Form } from '@unform/web';
+import { setCookie } from 'nookies';
+import { ChangeEvent, useCallback, useRef } from 'react';
 import { BiBuildingHouse } from 'react-icons/bi';
 import { BsPinMap } from 'react-icons/bs';
-import { Form } from '@unform/web';
-import { FormHandles, SubmitHandler } from '@unform/core';
+import { FaRegAddressCard } from 'react-icons/fa';
+import { FiGlobe, FiHome, FiMap, FiMapPin, FiPackage } from 'react-icons/fi';
 import { IoReturnDownBackSharp } from 'react-icons/io5';
-import { setCookie } from 'nookies';
 
-import { Input } from 'components/Input';
 import { Button } from 'components/Button';
-import { formatCEP } from 'utils/formatters/formatCEP';
-import { formatAddressNumber } from 'utils/formatters/formatAddressNumber';
-import { useIndividualPersonSignUp } from 'hooks/auth/useIndividualPersonSignUp';
+import { Checkbox } from 'components/Checkbox';
+import { Input } from 'components/Input';
 import { useAuthState } from 'contexts/auth/AuthContext';
-import { performSchemaValidation } from 'utils/performSchemaValidation';
+import { useIndividualPersonSignUp } from 'hooks/auth/useIndividualPersonSignUp';
 import { AuthLayout } from 'layouts/Auth';
 import { getZipCode } from 'services/resources';
-import { Checkbox } from 'components/Checkbox';
+import { formatAddressNumber } from 'utils/formatters/formatAddressNumber';
+import { formatCEP } from 'utils/formatters/formatCEP';
 import { formatCountry } from 'utils/formatters/formatCountry';
 import { formatUF } from 'utils/formatters/formatUF';
+import { performSchemaValidation } from 'utils/performSchemaValidation';
 
 import {
   REFRESH_TOKEN_STORAGE_KEY,
   TOKEN_STORAGE_KEY,
 } from 'constants/storage';
 
-import { PersonalAddressProps, AddressFormValues } from './types';
 import { schema } from './schemas';
+import { AddressFormValues, PersonalAddressProps } from './types';
 
 export function PersonalAddress({
   onUpdateFormStep,
@@ -107,7 +107,8 @@ export function PersonalAddress({
 
   return (
     <AuthLayout
-      backgroundImage="/images/signup.png"
+      backgroundImage="/images/signin.svg"
+      backgroundPosition="right"
       title="Insira seu endereço"
     >
       <Form ref={formRef} onSubmit={handleAddressSubmit} className="form">
@@ -202,7 +203,19 @@ export function PersonalAddress({
           Continuar
         </Button>
       </Form>
-      <button type="button" onClick={onPreviousFormStep}>
+      <button
+        style={{
+          display: 'flex',
+          width: '100%',
+          gap: '10px',
+          alignItems: 'center',
+          justifyContent: 'center',
+          textAlign: 'center',
+          background: 'transparent',
+        }}
+        type="button"
+        onClick={onPreviousFormStep}
+      >
         <IoReturnDownBackSharp size={20} />
         Voltar
       </button>

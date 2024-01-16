@@ -3,13 +3,10 @@ import {
   BsFillPersonFill,
   BsPeopleFill,
 } from 'react-icons/bs';
-
 import decode from 'jwt-decode';
 import { FaDollarSign, FaShoppingBag, FaUpload } from 'react-icons/fa';
-
 import { AiFillFile } from 'react-icons/ai';
 import { MdPeopleAlt } from 'react-icons/md';
-
 import { parseCookies } from 'nookies';
 
 import {
@@ -24,14 +21,11 @@ import {
   MANAGE_BANNER_PAGE,
   PARTNER_REGISTRATION_PAGE,
   SMART_QUANTUM_REQUESTS_PAGE,
+  WAITING_QUEUE_PAGE,
 } from 'constants/routesPath';
-
 import { TOKEN_STORAGE_KEY } from 'constants/storage';
-
 import { TokenPayload } from 'shared/types/apiSchema';
-
 import { roles } from 'constants/roles';
-
 import { SideBarMobile } from 'components/Header/SidebarMobile';
 
 const normalUserLinks = [
@@ -97,6 +91,11 @@ const adminUserLinks = [
     title: 'Solicitações Smart',
     icon: <AiFillFile size={20} />,
     href: SMART_QUANTUM_REQUESTS_PAGE,
+  },
+  {
+    title: 'Relatórios',
+    icon: <AiFillFile size={20} />,
+    href: WAITING_QUEUE_PAGE,
   },
 ];
 
