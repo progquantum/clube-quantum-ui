@@ -108,6 +108,7 @@ export const ProgressBar = styled.div<{ quantityFilledInPercent: string }>`
 
 export const Bold = styled.span`
   font-weight: 700;
+  word-break: break-all;
 `;
 
 export const DivInviteFriends = styled.div<InviteFriendsPropsStyle>`
