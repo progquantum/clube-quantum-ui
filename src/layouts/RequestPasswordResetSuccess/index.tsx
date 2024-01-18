@@ -36,7 +36,7 @@ export function RequestPasswordResetSuccessPage() {
 
   return (
     <AuthLayout
-      backgroundImage="/images/reset-password.png"
+      backgroundImage="/images/signin.svg"
       backgroundPosition="right"
       title="O link para resetar sua senha foi enviado!"
       description="Procure por um email do Clube Quantum e clique no link para resetar a senha."
