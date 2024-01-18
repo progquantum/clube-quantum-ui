@@ -14,7 +14,7 @@ export const ServiceContainer = styled.div`
     align-items: center;
   }
 
-  & a:nth-child(3) img {
+  & a:nth-child(2) img {
     border-radius: 25px;
   }
 `;

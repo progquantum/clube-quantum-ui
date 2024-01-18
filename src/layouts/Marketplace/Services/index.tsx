@@ -40,11 +40,11 @@ export function Services() {
             key={service.id}
             href={link[service.name] ? link[service.name] : pathname}
             onClick={event =>
-              service.name === 'Tim' ? event.preventDefault() : null
+              service.inactivated ? event.preventDefault() : null
             }
           >
             <ServiceCard
-              {...(service.name === 'Tim'
+              {...(service.inactivated
                 ? {
                     isDisabled: true,
                     innerText: 'Em Breve',
