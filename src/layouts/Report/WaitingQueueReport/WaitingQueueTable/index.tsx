@@ -2,6 +2,10 @@
 import ReactPaginate from 'react-paginate';
 import { IoIosArrowBack, IoIosArrowForward } from 'react-icons/io';
 import { useTheme } from 'styled-components';
+import { BsFillPersonCheckFill } from 'react-icons/bs';
+import { ImBlocked } from 'react-icons/im';
+import { GrDeliver } from 'react-icons/gr';
+import { MdOutlineCreditCardOff } from 'react-icons/md';
 
 import * as S from './styles';
 
@@ -16,7 +20,8 @@ export function WaitingQueueTable() {
               <S.Label>Nome</S.Label>
               <S.Label>CPF</S.Label>
               <S.Label>Data do pedido</S.Label>
-              <S.Label>Recebimento de cartão</S.Label>
+              <S.Label>Status</S.Label>
+              <S.Label>Ação</S.Label>
             </S.TableLabelContainer>
           </thead>
           <S.ContentContainer>
@@ -30,10 +35,38 @@ export function WaitingQueueTable() {
               <td>29/03/2023</td>
             </S.Content>
             <S.Content>
-              <td>
-                <input type="checkbox" id="recebido" />
-                <S.CheckboxLabel htmlFor="recebido">Recebido</S.CheckboxLabel>
-              </td>
+              <td>Em espera</td>
+            </S.Content>
+            <S.Content>
+              <S.ActionsContainer>
+                <td>
+                  <GrDeliver
+                    size={23}
+                    color={colors.midnightBlue}
+                    style={{ cursor: 'pointer' }}
+                  />
+                </td>
+                <td>
+                  <BsFillPersonCheckFill
+                    size={23}
+                    color={colors.successDark}
+                    style={{ cursor: 'pointer' }}
+                  />
+                </td>
+                <td>
+                  <MdOutlineCreditCardOff
+                    size={23}
+                    style={{ cursor: 'pointer' }}
+                  />
+                </td>
+                <td>
+                  <ImBlocked
+                    size={23}
+                    color={colors.danger}
+                    style={{ cursor: 'pointer' }}
+                  />
+                </td>
+              </S.ActionsContainer>
             </S.Content>
           </S.ContentContainer>
         </S.Table>
