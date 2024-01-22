@@ -117,7 +117,7 @@ export function Summary({
           </S.Title>
 
           <S.CardDataContainer>
-            <S.CardDataTitle>Conta</S.CardDataTitle>
+            <S.CardDataTitle>Conta CPF/CNPJ</S.CardDataTitle>
             <S.CardDataText>{isIndividualPerson ? cpf : cnpj}</S.CardDataText>
           </S.CardDataContainer>
           <S.CardDataContainer>
