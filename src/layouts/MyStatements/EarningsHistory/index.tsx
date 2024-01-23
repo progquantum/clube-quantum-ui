@@ -1,54 +1,45 @@
-import { BsCart2, BsPersonBadge } from 'react-icons/bs';
-
-import { useState } from 'react';
-
+import { BsFillPersonFill, BsPersonBadge } from 'react-icons/bs';
+import { uuid } from 'uuidv4';
 import ReactPaginate from 'react-paginate';
-
 import { IoIosArrowBack, IoIosArrowForward } from 'react-icons/io';
-
 import { useTheme } from 'styled-components';
 
-import { uuid } from 'uuidv4';
-
 import { Loader } from 'components/Loader';
+
+import { Extract } from 'hooks/commissions/useGetCommissionsByReferral/types';
+
 import { formatPrice } from 'utils/formatters/formatPrice';
-import { formatTruncateText } from 'utils/formatters/formatTruncateText';
-import { formatDate } from 'utils/formatters/formatDate';
 
 import { Props } from './types';
+
 import * as S from './styles';
 
-export function EarningsHistoryByPartner({
-  loading,
-  data,
-  onPageChange,
-}: Props) {
-  const [seeFullName, setSeeFullName] = useState(null);
+export function EarningsHistory({ loading, data, onPageChange }: Props) {
   const { colors } = useTheme();
-
   const totalPages = data?.info.totalPages;
+
+  const totalAmount = data && data.totalAmount ? data.totalAmount : 0;
+
   return (
-    <S.EarningsHistoryByPartner>
+    <S.EarningsHistoryByIndication>
       <S.TitleContainer>
         <BsPersonBadge size={30} />
-        <span>Seu histórico de Ganhos por Parceiro</span>
+        <span>Seu histórico de Ganhos por Parceiro/Bônus indicação</span>
       </S.TitleContainer>
       <S.EarningsHistorySubtitle>
-        Saldo de cashback de compras por parceiro
+        Saldo de ganhos por parceiros/bônus por indicação
       </S.EarningsHistorySubtitle>
       {loading ? (
-        <div style={{ minWidth: '393px', height: '200px' }}>
+        <div style={{ minWidth: '393px', height: '' }}>
           <Loader />
         </div>
       ) : (
         <>
           <S.TotalEarningText>
-            {formatPrice(
-              data?.totalAmount ? String(data?.totalAmount) : '0,00',
-            )}
+            {formatPrice(String(totalAmount))}
           </S.TotalEarningText>
           <S.PartnerContainer>
-            {data?.commissions?.length === 0 && (
+            {data?.Extrato?.length === 0 && (
               <div
                 style={{
                   display: 'flex',
@@ -60,39 +51,30 @@ export function EarningsHistoryByPartner({
                 Sem histórico para esse período
               </div>
             )}
-            {data?.commissions?.map((partner, index) => (
+            {data?.Extrato?.map((extract: Extract) => (
               <S.PartnerRow key={uuid()}>
                 <S.IconBox>
-                  <BsCart2 size={20} />
+                  <BsFillPersonFill size={20} />
                 </S.IconBox>
                 <div>
-                  <S.PartnerName
-                    style={{ cursor: 'pointer' }}
-                    onClick={
-                      seeFullName === index
-                        ? () => setSeeFullName(null)
-                        : () => setSeeFullName(index)
-                    }
-                  >
-                    {seeFullName === index
-                      ? partner.cashback_name
-                      : formatTruncateText(partner.cashback_name, 34)}
-                  </S.PartnerName>
+                  <S.PartnerName>{extract.Titulo}</S.PartnerName>
                   <S.EarningDate>
-                    {formatDate(partner.created_at)}
+                    {new Intl.DateTimeFormat('pt-BR').format(
+                      new Date(extract.GeradoEm),
+                    )}
                   </S.EarningDate>
                 </div>
                 <S.QuantityGainedText>
                   {new Intl.NumberFormat('pt-BR', {
                     style: 'currency',
                     currency: 'BRL',
-                  }).format(partner.amount)}
+                  }).format(extract.Valor)}
                 </S.QuantityGainedText>
               </S.PartnerRow>
             ))}
           </S.PartnerContainer>
-          {totalPages > 1 && (
-            <S.PaginationContainer>
+          <S.PaginationContainer>
+            {totalPages > 1 && (
               <ReactPaginate
                 breakLabel="..."
                 nextLabel={
@@ -107,10 +89,10 @@ export function EarningsHistoryByPartner({
                 pageLinkClassName="pageLink"
                 activeLinkClassName="activeLink"
               />
-            </S.PaginationContainer>
-          )}
+            )}
+          </S.PaginationContainer>
         </>
       )}
-    </S.EarningsHistoryByPartner>
+    </S.EarningsHistoryByIndication>
   );
 }

@@ -158,7 +158,7 @@ export const MyStatementsContainer = styled.div<{ isExpanded: boolean }>`
     display: grid;
     grid-template-areas:
       'AccountBalance AccountBalance'
-      'ByPartner ByIndication';
+      'ByIndication ByIndication';
     grid-gap: 2rem;
 
     ${({ isExpanded }) =>

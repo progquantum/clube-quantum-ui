@@ -7,7 +7,7 @@ export const EarningsHistoryContainer = styled.div`
   display: flex;
   flex-direction: column;
   width: 100%;
-  max-width: 470px;
+  max-width: 100%;
 `;
 export const EarningsHistoryByIndication = styled(EarningsHistoryContainer)`
   grid-area: ByIndication;
@@ -37,7 +37,6 @@ export const TotalEarningText = styled.h4`
 export const PartnerContainer = styled.div`
   height: 100%;
   width: 100%;
-  max-width: 470px;
 `;
 
 export const PartnerRow = styled.div`
