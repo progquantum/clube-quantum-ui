@@ -43,7 +43,7 @@ export function BankAccount({
       <S.Container className="form">
         <S.BankingData>
           <S.BankingAccount>
-            <S.TitleContent>
+            <S.TitleContent data-cy="signup_bankAccountDocument">
               Conta {isIndividualPerson ? 'CPF' : 'CNPJ'}
             </S.TitleContent>
 
