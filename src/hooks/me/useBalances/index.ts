@@ -17,7 +17,7 @@ export async function getBalances() {
     return data as BalancesPayload;
   } catch (err: unknown) {
     if (err instanceof AxiosError) {
-      error(err.response.data.message);
+      return Promise.reject(err);
     }
   }
 }
