@@ -3,7 +3,7 @@ import { cpf } from 'cpf-cnpj-validator';
 
 describe('CreatePersonalAccount', () => {
   it(' should create an personal account', () => {
-    cy.visit('http://localhost:3001/signup/?invite-code=CG5YUI');
+    cy.visit('http://localhost:3001/signup/?invite-code=ZW1XWN');
 
     cy.get('[data-cy="personal-link"]').click();
 
@@ -89,11 +89,10 @@ describe('CreatePersonalAccount', () => {
 
     cy.get('@nextStepButton').click();
 
-    cy.get('[data-cy="signup_checkingAccount"]').type(
-      String(faker.number.bigInt({ min: 111111111, max: 999999999 })),
+    cy.get('[data-cy="signup_bankAccountDocument"]').should(
+      'have.text',
+      'Conta CPF',
     );
-
-    cy.get('[data-cy="signup_holderName"]').type(fullName);
 
     cy.get('@nextStepButton').click();
 
@@ -102,12 +101,12 @@ describe('CreatePersonalAccount', () => {
 
     cy.get('@nextStepButton').click();
 
-    // cy.get('[data-cy="signup_planName"]').should('have.text', 'Quantum Start');
+    cy.get('[data-cy="signup_planName"]').should('have.text', 'Quantum Start');
 
     cy.get('@nextStepButton').click();
 
-    // cy.get('[data-cy="signup_goToDashboard"]').click();
+    cy.get('[data-cy="signup_goToDashboard"]').click();
 
-    // cy.contains(/quantum start/i);
+    cy.contains(/quantum start/i);
   });
 });

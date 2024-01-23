@@ -3,7 +3,7 @@ import { cnpj } from 'cpf-cnpj-validator';
 
 describe('CreateBusinessAccount', () => {
   it(' should create an business account', () => {
-    cy.visit('http://localhost:3000/signup/?invite=CG5YUI');
+    cy.visit('http://localhost:3001/signup/?invite=ZW1XWN');
 
     // Seleciona o tipo de cadastro de Pessoa Jurídica
     cy.get('[data-cy="business-link"]').click();
@@ -79,11 +79,10 @@ describe('CreateBusinessAccount', () => {
 
     cy.get('@nextStepButton').click();
 
-    cy.get('[data-cy="signup_checkingAccount"]').type(
-      String(faker.number.bigInt({ min: 111111111, max: 999999999 })),
+    cy.get('[data-cy="signup_bankAccountDocument"]').should(
+      'have.text',
+      'Conta CNPJ',
     );
-
-    cy.get('[data-cy="signup_holderName"]').type(fullName);
 
     cy.get('@nextStepButton').click();
 
