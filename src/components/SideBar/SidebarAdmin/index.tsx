@@ -10,7 +10,7 @@ import {
   MANAGE_BANNER_PAGE,
   CANCELLATION_REQUEST_PAGE,
   SMART_QUANTUM_REQUESTS_PAGE,
-  WAITING_QUEUE_PAGE,
+  WAITING_QUEUE_REPORT_PAGE,
 } from 'constants/routesPath';
 
 import { AccordionLink } from 'components/AccordionLink';
@@ -70,7 +70,7 @@ export function SidebarAdmin({ isExpanded }: SidebarAdminProps) {
         </S.NavButton>
       </Link>
       <AccordionLink isExpanded={isExpanded} title="Relatórios">
-        <Link href={WAITING_QUEUE_PAGE}>
+        <Link href={WAITING_QUEUE_REPORT_PAGE}>
           <S.NavButton isExpanded={isExpanded}>
             <S.SublinkTitleBox>
               Lista de Espera Cartão de Crédito

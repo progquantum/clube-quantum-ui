@@ -21,7 +21,7 @@ import {
   MANAGE_BANNER_PAGE,
   PARTNER_REGISTRATION_PAGE,
   SMART_QUANTUM_REQUESTS_PAGE,
-  WAITING_QUEUE_PAGE,
+  WAITING_QUEUE_REPORT_PAGE,
 } from 'constants/routesPath';
 import { TOKEN_STORAGE_KEY } from 'constants/storage';
 import { TokenPayload } from 'shared/types/apiSchema';
@@ -95,7 +95,7 @@ const adminUserLinks = [
   {
     title: 'Relatórios',
     icon: <AiFillFile size={20} />,
-    href: WAITING_QUEUE_PAGE,
+    href: WAITING_QUEUE_REPORT_PAGE,
   },
 ];
 
