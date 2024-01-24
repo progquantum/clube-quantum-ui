@@ -2,10 +2,11 @@ import Image from 'next/image';
 import { useWindowSize } from 'react-use';
 import { BiCheck } from 'react-icons/bi';
 import { useTheme } from 'styled-components';
-
 import { useState } from 'react';
-
 import toast from 'react-hot-toast';
+import { useRouter } from 'next/router';
+
+import { AxiosError } from 'axios';
 
 import { Header } from 'components/Header';
 import { CenterLayout } from 'components/CenterLayout';
@@ -17,12 +18,16 @@ import { useMe } from 'hooks/me/useMe';
 import { PlanSectionTitle } from 'components/PlanSectionTitle';
 import { Button } from 'components/Button';
 import { Modal } from 'components/Modal';
+import { usePostCreditCardWaitingQueue } from 'hooks/useBancoUmCreditCard/usePostCreditCardWaitingQueue';
+import { MARKETPLACE_PAGE } from 'constants/routesPath';
 
 import * as S from './styles';
 import { SuccessToast } from './SuccessToast';
 
 export function WaitingQueuePage() {
   const { data: loggedUser } = useMe();
+  const { push } = useRouter();
+  const { mutate: postRequest, isLoading } = usePostCreditCardWaitingQueue();
   const [warningModalStatus, setWarningModalStatus] = useState(false);
 
   const toggleWarningModalStatus = () =>
@@ -32,18 +37,29 @@ export function WaitingQueuePage() {
   const { width } = useWindowSize();
 
   const handleWaitingQueue = () => {
-    const userPlan = loggedUser.subscription.plan_name;
+    const userPlan =
+      loggedUser.subscription && loggedUser.subscription.plan_name;
 
     const allowedPlans = ['QUANTUM START', 'QUANTUM SELECT'];
 
-    if (allowedPlans.includes(userPlan)) {
-      toast.custom(<SuccessToast />, {
-        duration: 1500,
-        position: 'bottom-center',
-      });
-    } else {
-      toggleWarningModalStatus();
-    }
+    // if (allowedPlans.includes(userPlan)) {
+    postRequest(null, {
+      onSuccess: () => {
+        toast.custom(<SuccessToast />, {
+          duration: 1500,
+          position: 'bottom-center',
+        });
+      },
+      onError: (err: unknown) => {
+        if (err instanceof AxiosError) {
+          if (
+            err.response.data.message === 'User does not have a subscription'
+          ) {
+            toggleWarningModalStatus();
+          }
+        }
+      },
+    });
   };
 
   const isMobile = width <= 780;
@@ -129,8 +145,15 @@ export function WaitingQueuePage() {
               </S.ListItem>
               <S.Label>Desejo me cadastrar na Lista de Espera</S.Label>
               <S.ButtonContainer>
-                <Button onClick={handleWaitingQueue}>Sim</Button>
-                <Button>Não</Button>
+                <Button onClick={handleWaitingQueue} loading={isLoading}>
+                  Sim
+                </Button>
+                <Button
+                  loading={isLoading}
+                  onClick={() => push(MARKETPLACE_PAGE)}
+                >
+                  Não
+                </Button>
               </S.ButtonContainer>
             </S.UnorderedList>
           </S.Card>
