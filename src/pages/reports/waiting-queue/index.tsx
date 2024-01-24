@@ -1,0 +1,19 @@
+import { GetServerSideProps } from 'next';
+
+import { WaitingQueueReportPage } from 'layouts/Report/WaitingQueueReport';
+
+import { roles } from 'constants/roles';
+import { withSSRAuth } from 'helpers/auth/withSSRAuth';
+
+export const getServerSideProps: GetServerSideProps = withSSRAuth(
+  async () => ({
+    props: {},
+  }),
+  {
+    roles: [roles.admin.id],
+  },
+);
+
+export default function CancellationRequest() {
+  return <WaitingQueueReportPage />;
+}

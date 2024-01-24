@@ -9,12 +9,11 @@ import { useMe } from 'hooks/me/useMe';
 
 import { HeaderAuth } from 'components/Header/HeaderAuth';
 
-import { ModalCVC } from './ModalCVC';
-import { SubscriptionButton } from './SubscriptionButton';
-import { ModalBankAccount } from './ModalBankAccount';
-import * as S from './styles';
-import { ModalCreditCard } from './ModalCreditCard';
 import { FinishedPage } from './Finished';
+import { ModalCVC } from './ModalCVC';
+import { ModalCreditCard } from './ModalCreditCard';
+import { SubscriptionButton } from './SubscriptionButton';
+import * as S from './styles';
 
 export function SubscriptionsPage() {
   const { data } = useMe();
@@ -37,19 +36,13 @@ export function SubscriptionsPage() {
 
   const stepsMapping = {
     0: (
-      <ModalBankAccount
-        onUpdateFormStep={nextStep}
-        onRequestClose={handleRequestModal}
-      />
-    ),
-    1: (
       <ModalCreditCard
         onUpdateFormStep={nextStep}
         onPreviousFormStep={previousStep}
         onRequestClose={handleRequestModal}
       />
     ),
-    2: (
+    1: (
       <FinishedPage
         onPreviousFormStep={previousStep}
         onRequestClose={handleRequestModal}

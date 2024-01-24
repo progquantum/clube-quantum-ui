@@ -1,18 +1,18 @@
-import { PropsWithChildren, useState } from 'react';
-import { Hydrate, QueryClient, QueryClientProvider } from 'react-query';
-import { QueryParamProvider } from 'use-query-params';
-import { ReactQueryDevtools } from 'react-query/devtools';
-import { Toaster } from 'react-hot-toast';
-import { DefaultSeo } from 'next-seo';
 import { LocalizationProvider } from '@mui/x-date-pickers';
 import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
 import 'dayjs/locale/pt-br';
+import { DefaultSeo } from 'next-seo';
+import { PropsWithChildren, useState } from 'react';
+import { Toaster } from 'react-hot-toast';
+import { Hydrate, QueryClient, QueryClientProvider } from 'react-query';
+import { ReactQueryDevtools } from 'react-query/devtools';
+import { QueryParamProvider } from 'use-query-params';
 
 import { useHasMounted } from 'hooks/useHasMounted';
 
 import SEO from '../../next-seo.config';
-import QueryParamsAdapter from './queryParams';
 import { AuthProvider } from './auth/AuthProvider';
+import QueryParamsAdapter from './queryParams';
 import { StyledProvider } from './styles';
 import { SubscriptionsProvider } from './subscriptions/SubscriptionsProvider';
 
@@ -40,8 +40,8 @@ export function AppProvider({
   return (
     <>
       <DefaultSeo {...SEO} />
-      <QueryParamProvider adapter={QueryParamsAdapter}>
-        <QueryClientProvider client={queryClient}>
+      <QueryClientProvider client={queryClient}>
+        <QueryParamProvider adapter={QueryParamsAdapter}>
           <Hydrate state={dehydratedState}>
             <ReactQueryDevtools initialIsOpen={false} />
             <StyledProvider>
@@ -58,8 +58,8 @@ export function AppProvider({
               </AuthProvider>
             </StyledProvider>
           </Hydrate>
-        </QueryClientProvider>
-      </QueryParamProvider>
+        </QueryParamProvider>
+      </QueryClientProvider>
     </>
   );
 }

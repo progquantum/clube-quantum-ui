@@ -1,17 +1,14 @@
 import { HiMenu } from 'react-icons/hi';
-
 import { useEffect, useRef, useState } from 'react';
 import { FiLogOut } from 'react-icons/fi';
-
 import { useTheme } from 'styled-components';
 
 import { useAuthDispatch } from 'contexts/auth/AuthContext';
-
 import { DROP_DOWN_ANIMATION } from 'components/Header/animation';
-
 import { MARKETPLACE_PAGE, SIGN_IN_PAGE } from 'constants/routesPath';
-
 import { useMe } from 'hooks/me/useMe';
+
+import { AccordionLink } from 'components/AccordionLink';
 
 import * as S from './styles';
 import { AuthLink, GuestLink, SidebarMobileProps } from './types';
@@ -67,6 +64,29 @@ export function SideBarMobile({ isAuthed, links }: SidebarMobileProps) {
                         </S.EstablishmentContainer>
                       );
                     }
+
+                    if (link.title === 'Relatórios') {
+                      return (
+                        <AccordionLink title="Relatórios" isMobile>
+                          <S.MenuItem
+                            href={link.href}
+                            key={`item-${link.title}-${link.href}`}
+                          >
+                            <span
+                              style={{
+                                textAlign: 'right',
+                                width: '100%',
+                                marginRight: '10px',
+                                fontSize: '12px',
+                              }}
+                            >
+                              Lista de Espera Cartão de Crédito
+                            </span>
+                          </S.MenuItem>
+                        </AccordionLink>
+                      );
+                    }
+
                     return (
                       <S.MenuItem
                         href={link.href}

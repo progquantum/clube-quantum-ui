@@ -15,17 +15,22 @@ const nextConfig = {
       },
       {
         protocol: 'https',
-        hostname: 'clubequantum-assets.s3.amazonaws.com',
+        hostname: 'clubequantum.*.amazonaws.com',
         port: '',
       },
       {
         protocol: 'https',
-        hostname: 'clubequantum.s3.amazonaws.com',
+        hostname: 'clubequantum.*.*.amazonaws.com',
         port: '',
       },
       {
         protocol: 'https',
-        hostname: 'clubequantum.s3.us-east-2.amazonaws.com',
+        hostname: 'clubequantum-assets.*.amazonaws.com',
+        port: '',
+      },
+      {
+        protocol: 'https',
+        hostname: 'clubequantum-assets.*.*.amazonaws.com',
         port: '',
       },
     ],

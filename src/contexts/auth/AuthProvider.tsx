@@ -1,34 +1,34 @@
+import { useLocalStorage } from '@rehooks/local-storage';
+import decode from 'jwt-decode';
+import { useRouter } from 'next/router';
+import { destroyCookie, parseCookies, setCookie } from 'nookies';
 import {
-  useMemo,
-  useCallback,
   PropsWithChildren,
+  useCallback,
   useEffect,
+  useMemo,
   useState,
 } from 'react';
-import { useRouter } from 'next/router';
-import { useLocalStorage } from '@rehooks/local-storage';
-import { setCookie, destroyCookie, parseCookies } from 'nookies';
-import decode from 'jwt-decode';
 
 import { useQueryClient } from 'react-query';
 
-import { useSignIn } from 'hooks/auth/useSignIn';
-import { TokenPayload, User } from 'shared/types/apiSchema';
+import { quantumClientQueue } from 'config/client';
+import { SIGN_IN_PAGE } from 'constants/routesPath';
 import {
-  USER_STORAGE_KEY,
-  TOKEN_STORAGE_KEY,
   REFRESH_TOKEN_STORAGE_KEY,
   REGISTER_USER_STORAGE_KEY,
+  TOKEN_STORAGE_KEY,
+  USER_STORAGE_KEY,
 } from 'constants/storage';
-import { SIGN_IN_PAGE } from 'constants/routesPath';
-import { quantumClientQueue } from 'config/client';
 import { logOut } from 'helpers/auth/logOut';
+import { useSignIn } from 'hooks/auth/useSignIn';
+import { TokenPayload, User } from 'shared/types/apiSchema';
 
 import { getMe } from 'hooks/me/useMe';
 
 import { authRedirect } from 'helpers/auth/authRedirect';
 
-import { AuthStateProvider, AuthDispatchProvider } from './AuthContext';
+import { AuthDispatchProvider, AuthStateProvider } from './AuthContext';
 import { SignInCredentials, SignUpData } from './types';
 
 let authChannel: BroadcastChannel;
@@ -37,10 +37,8 @@ export function AuthProvider({ children }: PropsWithChildren<unknown>) {
   const [previousPage, setPreviousPage] = useState(null);
   const queryClient = useQueryClient();
   const { mutateAsync: signIn, isLoading: loading } = useSignIn();
-  const [registerUser, setRegisterUser] = useLocalStorage<SignUpData>(
-    REGISTER_USER_STORAGE_KEY,
-    {} as SignUpData,
-  );
+  const [registerUser, setRegisterUser, deleteRegister] =
+    useLocalStorage<SignUpData>(REGISTER_USER_STORAGE_KEY, {} as SignUpData);
   const [user, setUser, deleteUser] = useLocalStorage<User>(
     USER_STORAGE_KEY,
     {} as User,
@@ -147,8 +145,9 @@ export function AuthProvider({ children }: PropsWithChildren<unknown>) {
       signUp: handleSignUp,
       signOut,
       setPreviousPage,
+      deleteRegister,
     }),
-    [handleSignIn, handleSignUp, signOut],
+    [handleSignIn, handleSignUp, signOut, deleteRegister],
   );
 
   return (

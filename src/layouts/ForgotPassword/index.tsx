@@ -54,7 +54,7 @@ export function ForgotPasswordPage() {
 
   return (
     <AuthLayout
-      backgroundImage="/images/forgot-password.png"
+      backgroundImage="/images/signin.svg"
       backgroundPosition="right"
       title="Esqueci minha senha"
       description="Digite seu endereço de email abaixo e nós lhe enviaremos um link de redefinição de senha."

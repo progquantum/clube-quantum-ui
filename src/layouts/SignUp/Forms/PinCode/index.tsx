@@ -1,16 +1,16 @@
-import { useState, FormEvent } from 'react';
+import { FormEvent, useState } from 'react';
 import { IoReturnDownBackSharp } from 'react-icons/io5';
 
-import { useAuthState } from 'contexts/auth/AuthContext';
-import { PinCodeGrid } from 'components/PinCodeGrid';
 import { Button } from 'components/Button';
+import { PinCodeGrid } from 'components/PinCodeGrid';
+import { useAuthState } from 'contexts/auth/AuthContext';
+import { success } from 'helpers/notify/success';
 import { useCheckPhoneCode } from 'hooks/phones/useCheckPhoneCode';
 import { useSendPhoneCode } from 'hooks/phones/useSendPhoneCode';
-import { success } from 'helpers/notify/success';
 import { AuthLayout } from 'layouts/Auth';
 
-import { PinCodeProps } from './types';
 import * as S from './styles';
+import { PinCodeProps } from './types';
 
 const PIN_LENGTH = 6;
 
@@ -64,7 +64,8 @@ export function PinCode({ onNextFormStep, onPreviousFormStep }: PinCodeProps) {
 
   return (
     <AuthLayout
-      backgroundImage="/images/signup.png"
+      backgroundImage="/images/signin.svg"
+      backgroundPosition="right"
       title="Código de verificação"
     >
       <form onSubmit={handlePhoneCodeVerification} className="form">
@@ -94,7 +95,19 @@ export function PinCode({ onNextFormStep, onPreviousFormStep }: PinCodeProps) {
           Confirmar
         </Button>
       </form>
-      <button type="button" onClick={onPreviousFormStep}>
+      <button
+        style={{
+          display: 'flex',
+          width: '100%',
+          gap: '10px',
+          alignItems: 'center',
+          justifyContent: 'center',
+          textAlign: 'center',
+          background: 'transparent',
+        }}
+        type="button"
+        onClick={onPreviousFormStep}
+      >
         <IoReturnDownBackSharp size={20} />
         Voltar
       </button>

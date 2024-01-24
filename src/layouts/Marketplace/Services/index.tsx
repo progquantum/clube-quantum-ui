@@ -1,6 +1,8 @@
 import Image from 'next/legacy/image';
 import Link from 'next/link';
 
+import { useRouter } from 'next/router';
+
 import { usePartnersList } from 'hooks/partners/usePartnersList';
 
 import { SectionTitle } from '../Components/SectionTitle';
@@ -10,6 +12,7 @@ import * as S from './styles';
 
 export function Services() {
   const { data } = usePartnersList();
+  const { pathname } = useRouter();
 
   const image = {
     Quantum: '/images/quantum-smart.svg',
@@ -30,19 +33,9 @@ export function Services() {
         {data?.partnerList.map(service => (
           <Link
             key={service.id}
-            href={link[service.name]}
-            onClick={event =>
-              service.name === 'Tim' ? event.preventDefault() : null
-            }
+            href={link[service.name] ? link[service.name] : pathname}
           >
-            <ServiceCard
-              {...(service.name === 'Tim'
-                ? {
-                    isDisabled: true,
-                    innerText: 'Em Breve',
-                  }
-                : { isDisabled: false })}
-            >
+            <ServiceCard>
               <Image
                 src={image[service.name]}
                 alt={service.name}

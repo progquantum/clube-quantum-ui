@@ -13,15 +13,15 @@ import { formatCreditCardRemoveSpace } from 'utils/formatters/formatCreditCardRe
 
 import { Modal } from 'components/Modal';
 
-import { success } from 'helpers/notify/success';
 import { error } from 'helpers/notify/error';
+import { success } from 'helpers/notify/success';
 
 import { DASHBOARD_PAGE } from 'constants/routesPath';
 
 import { useWallet } from 'hooks/me/useWallet';
 
-import { ModalProps } from './types';
 import * as S from './styles';
+import { ModalProps } from './types';
 
 export function FinishedPage({
   onRequestClose,
@@ -45,19 +45,13 @@ export function FinishedPage({
 
   const handleSubscription = () => {
     const { plan_id, plan_duration } = plan;
-    const { current_account, current_account_check_number, holder_name } =
-      bankAccount;
+
     const { card_name, card_number, expiration_date, cvc } = creditCard;
     creatSubscription(
       {
         plan: {
           plan_id,
           plan_duration,
-        },
-        bank_account: {
-          current_account,
-          current_account_check_number,
-          holder_name,
         },
         credit_card: {
           card_name,

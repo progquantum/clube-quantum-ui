@@ -27,22 +27,27 @@ import { ErrorResponse } from 'services/httpServices';
 
 import { error } from 'helpers/notify/error';
 
-import { SummaryProps } from './types';
+import { useAuthState } from 'contexts/auth/AuthContext';
+
 import * as S from './styles';
+import { SummaryProps } from './types';
 
 export function Summary({
   onUpdateFormStep,
   onPreviousFormStep,
 }: SummaryProps) {
+  const { registerUser } = useAuthState();
+
+  const { name, cpf, cnpj, company_name } = registerUser;
+
+  const isIndividualPerson = cpf !== undefined;
   const { mutate: creatSubscription, isLoading: isCreating } =
     useSubscription();
   const cookies = parseCookies();
-  const { plan, bankAccount, creditCard } = useSubscriptionsState();
+  const { plan, creditCard } = useSubscriptionsState();
 
   const handleSubscriptionSubmit = () => {
     const { plan_id, plan_duration } = plan;
-    const { current_account, current_account_check_number, holder_name } =
-      bankAccount;
     const { card_name, card_number, expiration_date, cvc } = creditCard;
 
     quantumClientQueue.defaults.headers.common.Authorization = `Bearer ${cookies[TOKEN_STORAGE_KEY]}`;
@@ -51,11 +56,6 @@ export function Summary({
         plan: {
           plan_id,
           plan_duration,
-        },
-        bank_account: {
-          current_account,
-          current_account_check_number,
-          holder_name,
         },
         credit_card: {
           card_name,
@@ -83,14 +83,14 @@ export function Summary({
       ? 'Mensal'
       : 'Anual';
   const formattedPrice = formatPrice(plan?.price);
-  const holderName = bankAccount?.holder_name;
+
   const cardName = creditCard?.card_name;
   const cardNumber = creditCard?.card_number;
   const cardCVC = creditCard?.cvc;
   const expirationDate = creditCard?.expiration_date;
-  const formattedBankAccount = `${bankAccount?.current_account}-${bankAccount?.current_account_check_number}`;
+
   return (
-    <AuthLayout backgroundImage="/images/signup.png">
+    <AuthLayout backgroundImage="/images/signin.svg" backgroundPosition="right">
       <S.Container className="form">
         <S.TitleFinished>Resumo da conta</S.TitleFinished>
         <S.Plan>
@@ -115,21 +115,16 @@ export function Summary({
             <RiBankLine />
             Sua conta do Banco Um
           </S.Title>
+
           <S.CardDataContainer>
-            <S.CardDataTitle>Cód. Banco</S.CardDataTitle>
-            <S.CardDataText>396 - Banco Um</S.CardDataText>
-          </S.CardDataContainer>
-          <S.CardDataContainer>
-            <S.CardDataTitle>Agência</S.CardDataTitle>
-            <S.CardDataText>0001</S.CardDataText>
-          </S.CardDataContainer>
-          <S.CardDataContainer>
-            <S.CardDataTitle>Conta</S.CardDataTitle>
-            <S.CardDataText>{formattedBankAccount}</S.CardDataText>
+            <S.CardDataTitle>Conta CPF/CNPJ</S.CardDataTitle>
+            <S.CardDataText>{isIndividualPerson ? cpf : cnpj}</S.CardDataText>
           </S.CardDataContainer>
           <S.CardDataContainer>
             <S.CardDataTitle>Titular</S.CardDataTitle>
-            <S.CardDataText>{holderName}</S.CardDataText>
+            <S.CardDataText>
+              {isIndividualPerson ? name : company_name}
+            </S.CardDataText>
           </S.CardDataContainer>
         </S.Bank>
         <S.CreditCard>

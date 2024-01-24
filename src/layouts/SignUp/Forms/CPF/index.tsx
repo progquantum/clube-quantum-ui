@@ -1,22 +1,22 @@
-import { useCallback, useRef } from 'react';
-import { FiUser } from 'react-icons/fi';
-import { Form } from '@unform/web';
 import { FormHandles, SubmitHandler } from '@unform/core';
+import { Form } from '@unform/web';
 import noop from 'lodash.noop';
 import Link from 'next/link';
+import { useCallback, useRef } from 'react';
+import { FiUser } from 'react-icons/fi';
 import { IoReturnDownBackSharp } from 'react-icons/io5';
 import { useSearchParam } from 'react-use';
 
-import { useAuthDispatch } from 'contexts/auth/AuthContext';
-import { Input } from 'components/Input';
-import { formatCPF } from 'utils/formatters/formatCPF';
 import { Button } from 'components/Button';
-import { AuthLayout } from 'layouts/Auth';
-import { performSchemaValidation } from 'utils/performSchemaValidation';
+import { Input } from 'components/Input';
 import { SIGN_UP_PAGE } from 'constants/routesPath';
+import { useAuthDispatch } from 'contexts/auth/AuthContext';
+import { AuthLayout } from 'layouts/Auth';
+import { formatCPF } from 'utils/formatters/formatCPF';
+import { performSchemaValidation } from 'utils/performSchemaValidation';
 
-import { CPFProps, FormValues } from './types';
 import { schema } from './schemas';
+import { CPFProps, FormValues } from './types';
 
 export function CPF({ onUpdateFormStep }: CPFProps) {
   const { signUp } = useAuthDispatch();
@@ -38,7 +38,11 @@ export function CPF({ onUpdateFormStep }: CPFProps) {
   }, []);
 
   return (
-    <AuthLayout backgroundImage="/images/signup.png" title="Insira seu CPF">
+    <AuthLayout
+      title="Insira seu CPF"
+      backgroundImage="/images/signin.svg"
+      backgroundPosition="right"
+    >
       <Form ref={formRef} onSubmit={handleCPFSubmit} className="form">
         <Input
           data-cy="cpf-input"
@@ -57,7 +61,17 @@ export function CPF({ onUpdateFormStep }: CPFProps) {
         </Button>
       </Form>
       <Link href={{ pathname: SIGN_UP_PAGE, query: { invite } }} legacyBehavior>
-        <a className="anchor">
+        <a
+          style={{
+            display: 'flex',
+            width: '100%',
+            gap: '10px',
+            alignItems: 'center',
+            justifyContent: 'center',
+            textAlign: 'center',
+          }}
+          className="anchor"
+        >
           <IoReturnDownBackSharp size={20} />
           Voltar
         </a>

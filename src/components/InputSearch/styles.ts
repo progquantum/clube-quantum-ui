@@ -1,6 +1,43 @@
-import styled from 'styled-components';
+import styled, { css } from 'styled-components';
 
-export const ContainerInput = styled.div`
+export const ContainerIcon = styled.button`
+  width: 106.82px;
+  height: 51px;
+  background: ${({ theme }) => theme.colors.mediumslateBlue};
+  border-radius: 0px 50px 50px 50px;
+  right: 0%;
+  top: 0%;
+  bottom: 0%;
+
+  @media (max-width: 340px) {
+    width: 80px;
+  }
+  @media (max-width: 300px) {
+    width: 60px;
+  }
+`;
+
+const variants = {
+  default: css`
+    border-radius: 0px 50px 50px 50px;
+    & > ${ContainerIcon} {
+      & > svg {
+        color: ${({ theme }) => theme.colors.background};
+      }
+    }
+  `,
+  secondary: css`
+    border-radius: 8px;
+    & > ${ContainerIcon} {
+      background: initial;
+      & > svg {
+        color: ${({ theme }) => theme.colors.midnightBlue};
+      }
+    }
+  `,
+};
+
+export const ContainerInput = styled.div<{ variant: string }>`
   display: flex;
   align-items: center;
   justify-content: center;
@@ -14,27 +51,10 @@ export const ContainerInput = styled.div`
   div > svg {
     font-size: 1.25rem;
     color: ${({ theme }) => theme.colors.input.icon};
-    margin-right: 44.15px;
     right: 0;
   }
-`;
 
-export const ContainerIcon = styled.button`
-  width: 106.82px;
-  height: 51px;
-  background: ${({ theme }) => theme.colors.mediumslateBlue};
-  border-radius: 0px 50px 50px 50px;
-  left: 86.14%;
-  right: 0%;
-  top: 0%;
-  bottom: 0%;
-
-  @media (max-width: 340px) {
-    width: 80px;
-  }
-  @media (max-width: 300px) {
-    width: 60px;
-  }
+  ${({ variant }) => variants[variant]}
 `;
 
 export const InputSearch = styled.input`

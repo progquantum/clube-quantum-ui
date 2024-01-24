@@ -4,4 +4,5 @@ export type InputSearchProps = InputHTMLAttributes<HTMLInputElement> & {
   name?: string;
   placeholder?: string;
   onRequestClick?: () => void;
+  variant?: string;
 };
