@@ -1,12 +1,13 @@
 import Image from 'next/image';
 import Link from 'next/link';
-import { useRouter } from 'next/router';
+import { useRouter, useRouter } from 'next/router';
 
 import { usePartnersList } from 'hooks/partners/usePartnersList';
 import {
   PLAN_TIM_PAGE,
   POS_PAGE,
   WAITING_QUEUE_PAGE,
+  POS_PAGE,
 } from 'constants/routesPath';
 
 import { SectionTitle } from '../Components/SectionTitle';

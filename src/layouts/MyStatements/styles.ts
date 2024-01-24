@@ -158,25 +158,37 @@ export const MyStatementsContainer = styled.div<{ isExpanded: boolean }>`
     display: grid;
     grid-template-areas:
       'AccountBalance AccountBalance'
-      'ByPartner ByIndication';
+      'ByIndication ByIndication';
     grid-gap: 2rem;
 
     ${({ isExpanded }) =>
       isExpanded &&
       css`
-        @media (max-width: 1450px) {
+        @media (max-width: 1150px) {
           grid-template-areas:
             'AccountBalance'
             'ByPartner'
             'ByIndication';
+
+          &:nth-child(3) {
+            & > *:not(:nth-child(1)) {
+              margin: 0 auto;
+            }
+          }
         }
       `}
 
-    @media (max-width: 1140px) {
+    @media (max-width: 950px) {
       grid-template-areas:
         'AccountBalance'
         'ByPartner'
         'ByIndication';
+
+      &:nth-child(3) {
+        & > *:not(:nth-child(1)) {
+          margin: 0 auto;
+        }
+      }
     }
   }
 `;

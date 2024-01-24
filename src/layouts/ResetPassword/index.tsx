@@ -54,8 +54,9 @@ export function ResetPasswordPage() {
 
   return (
     <AuthLayout
-      backgroundImage="/images/reset-password.png"
+      backgroundImage="/images/signin.svg"
       title="Redefinir senha"
+      backgroundPosition="right"
       description="Por favor, digite sua nova senha abaixo."
     >
       <Form ref={formRef} onSubmit={handleResetPassword} className="form">

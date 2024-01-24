@@ -14,16 +14,22 @@ import { AuthLayout } from 'layouts/Auth';
 import * as S from './styles';
 
 export function SignUpPage() {
-  const { signUp } = useAuthDispatch();
+  const { signUp, deleteRegister } = useAuthDispatch();
   const router = useRouter();
   const inviteCode = router.query.invite as string;
-  const handleSubmit = () => signUp({ invited_by: inviteCode });
+  const handleSubmit = () => {
+    deleteRegister();
+    if (inviteCode !== '') {
+      signUp({ invited_by: inviteCode });
+    }
+  };
 
   return (
     <AuthLayout
       title="Antes de prosseguirmos"
+      backgroundImage="/images/signin.svg"
+      backgroundPosition="right"
       description="Qual tipo de conta você deseja abrir?"
-      backgroundImage="/images/signup.png"
     >
       <S.Wrap>
         <Link
@@ -50,7 +56,17 @@ export function SignUpPage() {
       {/* Should wrap link component with element due to this
       issue of next/link https://github.com/vercel/next.js/issues/127 */}
       <Link href={SIGN_IN_PAGE} legacyBehavior>
-        <a className="anchor">
+        <a
+          style={{
+            display: 'flex',
+            width: '100%',
+            gap: '10px',
+            alignItems: 'center',
+            justifyContent: 'center',
+            textAlign: 'center',
+          }}
+          className="anchor"
+        >
           <FiLogIn />
           Já possuo uma conta
         </a>

@@ -1,10 +1,12 @@
 import Image from 'next/legacy/image';
 import { useRouter } from 'next/router';
 
+import Head from 'next/head';
+
 import { Button } from 'components/Button';
 import { Footer } from 'components/Footer';
 import { useShare } from 'hooks/useShare';
-import { SUBSCRIPTIONS_PAGE } from 'constants/routesPath';
+import { DASHBOARD_PAGE, SUBSCRIPTIONS_PAGE } from 'constants/routesPath';
 import { useMe } from 'hooks/me/useMe';
 import { HeaderAuth } from 'components/Header/HeaderAuth';
 import { useGetInviteLink } from 'hooks/me/useInviteLink';
@@ -13,6 +15,7 @@ import * as S from './styles';
 
 export function InviteFriendsPage() {
   const { data: user } = useMe();
+  const { push } = useRouter();
   const { data: inviteLink } = useGetInviteLink();
   const share = useShare();
   const hasInviteCode = user?.invite_code;
@@ -25,18 +28,21 @@ export function InviteFriendsPage() {
     });
   };
 
-  const { push } = useRouter();
-
   const handleRedirectPage = () => {
     push(SUBSCRIPTIONS_PAGE);
   };
 
   return (
     <>
-      <title>Convidar Amigos</title>
-
+      <Head>
+        <title>Convidar Amigos</title>
+      </Head>
       <HeaderAuth />
       <S.Container>
+        <S.ButtonContainer>
+          <Button onClick={() => push(DASHBOARD_PAGE)}>Voltar</Button>
+        </S.ButtonContainer>
+
         {hasInviteCode ? (
           <>
             <div>

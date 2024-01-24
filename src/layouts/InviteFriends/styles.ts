@@ -4,14 +4,18 @@ import { Button } from 'components/Button';
 
 export const Container = styled.main`
   max-width: 72.125rem;
-  min-height: 800px;
   width: 100%;
   margin: 5rem auto;
-  gap: 1rem;
   display: flex;
+  gap: 5rem;
   align-items: center;
   justify-content: space-between;
   padding: 0 2rem;
+  flex-wrap: wrap;
+
+  @media (max-width: 1015px) {
+    justify-content: center;
+  }
 `;
 
 export const Heading = styled.h1`
@@ -42,6 +46,8 @@ export const InviteCodeContainer = styled(Button)`
   align-items: flex-start;
   width: 100%;
   max-width: 28rem;
+  height: 100%;
+  max-height: 200px;
   padding: 3.5rem 1rem;
   text-align: start;
   line-height: 1.6;
@@ -66,11 +72,7 @@ export const InviteCodeContainer = styled(Button)`
   }
 `;
 
-export const ImageDiv = styled.div`
-  @media (max-width: 600px) {
-    display: none;
-  }
-`;
+export const ImageDiv = styled.div``;
 
 export const ContainerWrapper = styled.div`
   width: 100%;
@@ -94,4 +96,11 @@ export const Text = styled.p`
   font-weight: 500;
   line-height: 1.6;
   margin-bottom: 2.5rem;
+`;
+
+export const ButtonContainer = styled.div`
+  width: 100%;
+  & > button {
+    max-width: 200px;
+  }
 `;

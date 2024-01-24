@@ -6,12 +6,13 @@ import { SIGN_IN_PAGE } from 'constants/routesPath';
 
 import { AuthLayout } from 'layouts/Auth';
 
-import { Container, Account } from './styles';
+import { Account, Container } from './styles';
 
 export function Successful() {
   return (
     <AuthLayout
-      backgroundImage="/images/signup.png"
+      backgroundImage="/images/signin.svg"
+      backgroundPosition="right"
       title="Tudo certo seja bem vindo!"
     >
       <Container>

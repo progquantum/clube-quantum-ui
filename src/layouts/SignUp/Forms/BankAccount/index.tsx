@@ -1,96 +1,117 @@
-import { useCallback, useRef } from 'react';
-import { AiOutlineBank } from 'react-icons/ai';
-import { FiUser } from 'react-icons/fi';
-import { Form } from '@unform/web';
-import { FormHandles, SubmitHandler } from '@unform/core';
-import noop from 'lodash.noop';
+/* eslint-disable react/no-unescaped-entities */
+import Image from 'next/legacy/image';
+import Link from 'next/link';
 import { IoReturnDownBackSharp } from 'react-icons/io5';
 
-import { Input } from 'components/Input';
+import { FaAppStoreIos } from 'react-icons/fa';
+
 import { Button } from 'components/Button';
-import { formatBankAccount } from 'utils/formatters/formatBankAccount';
-import { performSchemaValidation } from 'utils/performSchemaValidation';
 import { AuthLayout } from 'layouts/Auth';
 
-import { useSubscriptionsDispatch } from 'contexts/subscriptions/SubscriptionsContext';
+import { useAuthState } from 'contexts/auth/AuthContext';
 
-import { BankAccountProps, FormValues } from './types';
-import { schema } from './schemas';
 import * as S from './styles';
+import { BankAccountProps } from './types';
 
 export function BankAccount({
   onUpdateFormStep,
   onPreviousFormStep,
 }: BankAccountProps) {
-  const { registerBankAccount } = useSubscriptionsDispatch();
-  const formRef = useRef<FormHandles>(null);
+  const { registerUser } = useAuthState();
 
-  const handleBankAccountSubmit: SubmitHandler<FormValues> = useCallback(
-    data => {
-      performSchemaValidation({
-        formRef,
-        data,
-        schema,
-      })
-        .then(() => {
-          registerBankAccount({
-            current_account: data.current_account.slice(0, -2),
-            current_account_check_number: data.current_account.slice(-1),
-            holder_name: data.holder_name,
-          });
-          onUpdateFormStep();
-        })
+  const { name, cpf, cnpj, company_name } = registerUser;
 
-        .catch(noop);
-    },
-    [],
-  );
+  const isIndividualPerson = cpf !== undefined;
+
+  const styleLink = {
+    display: 'flex',
+    padding: '5px',
+    justifyContent: 'center',
+    alignItems: 'center',
+    gap: '8px',
+    flex: '1 0 0',
+    borderRadius: '28px',
+    boxShadow: '0px 1px 4px 0px rgba(0, 0, 0, 0.25)',
+  };
 
   return (
     <AuthLayout
-      backgroundImage="/images/signup.png"
-      title="Insira uma conta bancária"
+      backgroundImage="/images/signin.svg"
+      backgroundPosition="right"
+      bancoUm
     >
-      <Form ref={formRef} onSubmit={handleBankAccountSubmit} className="form">
-        <S.Content>
-          <S.BankDataTitle>Cod. Banco</S.BankDataTitle>
-          <S.BankDataTitle>Agência</S.BankDataTitle>
-        </S.Content>
-        <S.Content>
-          <S.BankData>396 - Banco Um</S.BankData>
-          <S.BankData>0001</S.BankData>
-        </S.Content>
-        <Input
-          data-cy="signup_checkingAccount"
-          type="text"
-          inputMode="numeric"
-          name="current_account"
-          placeholder="Conta corrente"
-          icon={AiOutlineBank}
-          onChange={e =>
-            formRef.current.setFieldValue(
-              'current_account',
-              formatBankAccount(e.target.value),
-            )
-          }
-        />
-        <Input
-          data-cy="signup_holderName"
-          type="text"
-          name="holder_name"
-          placeholder="Nome completo do titular"
-          icon={FiUser}
-        />
-        <S.BankInfo>
-          A conta a ser cadastrada deve ser a conta Banco Um na qual o CPF/CNPJ,
-          informado anteriormente está vinculado.
-        </S.BankInfo>
+      <S.Container className="form">
+        <S.BankingData>
+          <S.BankingAccount>
+            <S.TitleContent data-cy="signup_bankAccountDocument">
+              Conta {isIndividualPerson ? 'CPF' : 'CNPJ'}
+            </S.TitleContent>
 
-        <Button data-cy="next-step-button" type="submit">
+            <S.TextContent>{isIndividualPerson ? cpf : cnpj}</S.TextContent>
+          </S.BankingAccount>
+        </S.BankingData>
+
+        <S.BankingOwner>
+          <S.TitleContent>Titular</S.TitleContent>
+          <S.TextContent>
+            {isIndividualPerson ? name : company_name}
+          </S.TextContent>
+        </S.BankingOwner>
+        <S.BankingOwner>
+          <S.TitleApp>Baixe seu app agora</S.TitleApp>
+          <S.TextContent>
+            "Sua conta bancária será aberta em até 48 horas para receber seu
+            cashback automaticamente. Cadastre seu cartão Visa Banco Um Flex nas
+            Wallet/carteira Digital, Google PAY, Apple PAY Samsung PAY e //
+            eslint-disable-next-line react/no-unescaped-entities facilite a sua
+            utilização."
+          </S.TextContent>
+        </S.BankingOwner>
+        <S.Links>
+          <Link
+            style={styleLink}
+            href="https://play.google.com/store/apps/details?id=br.com.biz.mobile.id42342994000174"
+            target="_blank"
+            rel="noopener noreferrer"
+          >
+            Google Play
+            <Image
+              data-testid="google play logo"
+              alt="google play logo"
+              width={29}
+              height={29}
+              src="/images/google_play.png"
+            />
+          </Link>
+
+          <Link
+            style={styleLink}
+            href="https://apps.apple.com/br/app/banco-um-flex-multibeneficios/id6474634196"
+            target="_blank"
+            rel="noopener noreferrer"
+          >
+            App Store
+            <FaAppStoreIos size={29} />
+          </Link>
+        </S.Links>
+
+        <Button data-cy="next-step-button" onClick={onUpdateFormStep}>
           Continuar
         </Button>
-      </Form>
-      <button type="button" onClick={onPreviousFormStep}>
+      </S.Container>
+      <button
+        style={{
+          display: 'flex',
+          width: '100%',
+          gap: '10px',
+          alignItems: 'center',
+          justifyContent: 'center',
+          textAlign: 'center',
+          background: 'transparent',
+        }}
+        type="button"
+        onClick={onPreviousFormStep}
+      >
         <IoReturnDownBackSharp size={20} />
         Voltar
       </button>

@@ -92,11 +92,10 @@ describe('CreatePersonalAccount', () => {
 
     cy.get('@nextStepButton').click();
 
-    cy.get('[data-cy="signup_checkingAccount"]').type(
-      String(faker.number.bigInt({ min: 111111111, max: 999999999 })),
+    cy.get('[data-cy="signup_bankAccountDocument"]').should(
+      'have.text',
+      'Conta CPF',
     );
-
-    cy.get('[data-cy="signup_holderName"]').type(fullName);
 
     cy.get('@nextStepButton').click();
 

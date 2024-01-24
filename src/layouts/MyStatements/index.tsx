@@ -2,7 +2,6 @@ import { useState } from 'react';
 import dayjs from 'dayjs';
 
 import { DashboardLayout } from 'layouts/DashboardLayout';
-import { useGetCommissions } from 'hooks/commissions/useGetCommissions';
 import { useSidebarStore } from 'store/sidebar';
 import { useGetExtractByReferral } from 'hooks/commissions/useGetCommissionsByReferral';
 import { AccountBalance } from 'layouts/Dashboard/AccountBalance';
@@ -11,8 +10,7 @@ import { useBalances } from 'hooks/me/useBalances';
 import { formatCashback } from 'utils/formatters/formatCashback';
 
 import * as S from './styles';
-import { EarningsHistoryByPartner } from './EarningsHistoryByPartner';
-import { EarningsHistoryByIndication } from './EarningsHistoryByIndication';
+import { EarningsHistory } from './EarningsHistory';
 
 export function MyStatementsPage() {
   const isSidebarExpanded = useSidebarStore(state => state.isExpanded);
@@ -24,15 +22,6 @@ export function MyStatementsPage() {
 
   const [initialDate, setInitialDate] = useState(new Date());
   const [finalDate, setFinalDate] = useState(new Date());
-  const {
-    data: byPartnerData,
-    onPageChange: byPartnerOnPageChange,
-    setPage: byPartnerSetPage,
-    loading: byPartnerLoading,
-  } = useGetCommissions({
-    startDate: dayjs(initialDate).format('YYYY-MM-DD[T00:00:00]'),
-    endDate: dayjs(finalDate).format('YYYY-MM-DD[T23:59:59]'),
-  });
 
   const {
     data: byReferralData,
@@ -44,10 +33,7 @@ export function MyStatementsPage() {
     endDate: dayjs(finalDate).format('YYYY-MM-DD[T23:59:00]'),
   });
 
-  const totalAccountBalance =
-    byReferralData && byPartnerData
-      ? byReferralData.totalAmount + byPartnerData.totalAmount
-      : 0;
+  const totalAccountBalance = byReferralData ? byReferralData.totalAmount : 0;
 
   const handleSelect = (option: string) => {
     const today = new Date();
@@ -56,7 +42,6 @@ export function MyStatementsPage() {
         setInitialDate(today);
         setFinalDate(today);
         setWhichFilterButton('today');
-        byPartnerSetPage(1);
         byReferralSetPage(1);
         break;
       case 'currentMonth': {
@@ -64,7 +49,6 @@ export function MyStatementsPage() {
         setInitialDate(firstDayOfMonth.toDate());
         setFinalDate(today);
         setWhichFilterButton('currentMonth');
-        byPartnerSetPage(1);
         byReferralSetPage(1);
         break;
       }
@@ -80,7 +64,6 @@ export function MyStatementsPage() {
         setInitialDate(startOfLastMonth);
         setFinalDate(endOfLastMonth);
         setWhichFilterButton('lastMonth');
-        byPartnerSetPage(1);
         byReferralSetPage(1);
         break;
       }
@@ -132,12 +115,7 @@ export function MyStatementsPage() {
               value={formatCashback(balances?.accumulated_month)}
             />
           </S.AccountBalanceContainer>
-          <EarningsHistoryByPartner
-            loading={byPartnerLoading}
-            onPageChange={byPartnerOnPageChange}
-            data={byPartnerData}
-          />
-          <EarningsHistoryByIndication
+          <EarningsHistory
             loading={byReferralLoading}
             data={byReferralData}
             onPageChange={byReferralOnPageChange}
