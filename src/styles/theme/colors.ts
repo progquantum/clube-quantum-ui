@@ -44,4 +44,5 @@ export const colors = {
   dangerDark: '#B92626',
   success: '#00C851',
   successLight: '#8fc93a',
+  successDark: '#0A7003',
 };
