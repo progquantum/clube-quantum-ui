@@ -5,6 +5,8 @@ import { useRouter } from 'next/router';
 
 import { usePartnersList } from 'hooks/partners/usePartnersList';
 
+import { POS_PAGE } from 'constants/routesPath';
+
 import { SectionTitle } from '../Components/SectionTitle';
 
 import { ServiceCard } from '../Components/ServiceCard';
@@ -20,8 +22,8 @@ export function Services() {
   };
 
   const link = {
-    Quantum: '/pos',
-    Tim: '/plano-tim',
+    Quantum: POS_PAGE,
+    Tim: undefined,
   };
 
   return (
