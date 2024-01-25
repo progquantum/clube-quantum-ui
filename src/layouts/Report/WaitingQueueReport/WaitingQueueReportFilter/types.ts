@@ -6,6 +6,7 @@ export type FilterValues = {
   endDate: string | null;
   searchName: string | null;
   status: string | null;
+  itemsPerPage: string | null;
 };
 
 export type WaitingQueueReportFilterProps = {

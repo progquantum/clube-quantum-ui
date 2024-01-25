@@ -9,6 +9,7 @@ import * as S from './styles';
 import { WaitingQueueReportFilter } from './WaitingQueueReportFilter';
 import { FilterValues } from './WaitingQueueReportFilter/types';
 import { WaitingQueueTable } from './WaitingQueueTable';
+import { CSVDownloaderButton } from './CSVDownloaderButton';
 
 export function WaitingQueueReportPage() {
   const [filterValues, setFilterValues] = useState<FilterValues>(
@@ -29,10 +30,14 @@ export function WaitingQueueReportPage() {
       <S.ContentContainer>
         <S.TitleContainer>
           <S.Title>Lista de espera do cartão de crédito</S.Title>
-          <Button>
-            Download lista
-            <FiDownload size={17} style={{ marginLeft: '0.5rem' }} />
-          </Button>
+          {data ? (
+            <CSVDownloaderButton totalItems={data.info.totalItems} />
+          ) : (
+            <Button>
+              Download lista
+              <FiDownload size={17} style={{ marginLeft: '0.5rem' }} />
+            </Button>
+          )}
         </S.TitleContainer>
         <WaitingQueueReportFilter
           filterValues={filterValues}
