@@ -1,12 +1,32 @@
 import styled from 'styled-components';
 
 export const HeroContainer = styled.div`
+  position: relative;
   width: 100%;
-  height: 870px;
-
+  height: 673px;
   & img {
-    height: 100%;
     max-width: 100%;
+    object-fit: cover;
+  }
+
+  @media (max-width: 1333px) {
+    height: 500px;
+  }
+
+  @media (max-width: 1000px) {
+    height: 400px;
+  }
+
+  @media (max-width: 750px) {
+    height: 300px;
+  }
+
+  @media (max-width: 600px) {
+    height: 200px;
+  }
+
+  @media (max-width: 450px) {
+    height: 150px;
   }
 `;
 
