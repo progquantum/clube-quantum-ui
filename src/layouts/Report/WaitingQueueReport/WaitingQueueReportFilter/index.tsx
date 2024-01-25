@@ -3,6 +3,8 @@ import { DatePicker } from '@mui/x-date-pickers';
 import InputLabel from '@mui/material/InputLabel';
 import _ from 'lodash';
 
+import { useRef } from 'react';
+
 import { InputSearch } from 'components/InputSearch';
 
 import * as S from './styles';
@@ -24,7 +26,7 @@ export function WaitingQueueReportFilter({
           variant="secondary"
           onChange={e =>
             debouncedHandler({
-              clientName: e.target.value,
+              searchName: e.target.value,
             })
           }
         />
@@ -38,21 +40,21 @@ export function WaitingQueueReportFilter({
         <DatePicker
           label="Data início"
           sx={{ marginRight: '1.5rem' }}
-          value={dayjs(filterValues.initialDate)}
+          value={dayjs(filterValues.startDate)}
           disableFuture
           onChange={newValue =>
             debouncedHandler({
-              initialDate: newValue,
+              startDate: newValue.toISOString(),
             })
           }
         />
         <DatePicker
           label="Data final"
-          value={dayjs(filterValues.finalDate)}
+          value={dayjs(filterValues.endDate)}
           disableFuture
           onChange={newValue =>
             debouncedHandler({
-              finalDate: newValue,
+              endDate: newValue.toISOString(),
             })
           }
         />

@@ -3,6 +3,7 @@ import { useState } from 'react';
 
 import { DashboardLayout } from 'layouts/DashboardLayout';
 import { Button } from 'components/Button';
+import { useGetCreditCardWaitingQueue } from 'hooks/useBancoUmCreditCard/useGetCreditCardWaitingQueue';
 
 import * as S from './styles';
 import { WaitingQueueReportFilter } from './WaitingQueueReportFilter';
@@ -10,11 +11,12 @@ import { FilterValues } from './WaitingQueueReportFilter/types';
 import { WaitingQueueTable } from './WaitingQueueTable';
 
 export function WaitingQueueReportPage() {
-  const [filterValues, setFilterValues] = useState<FilterValues>({
-    clientName: '',
-    initialDate: null,
-    finalDate: null,
-  });
+  const [filterValues, setFilterValues] = useState<FilterValues>(
+    {} as FilterValues,
+  );
+
+  const { data, handlePageChange, isLoading } =
+    useGetCreditCardWaitingQueue(filterValues);
 
   const handleFilterValues = (filterValue: Record<string, string>) => {
     if (filterValue) {
@@ -22,7 +24,6 @@ export function WaitingQueueReportPage() {
     }
   };
 
-  console.log(filterValues);
   return (
     <DashboardLayout maxWidth="1436px">
       <S.ContentContainer>
@@ -37,7 +38,11 @@ export function WaitingQueueReportPage() {
           filterValues={filterValues}
           handleFilterValues={handleFilterValues}
         />
-        <WaitingQueueTable />
+        <WaitingQueueTable
+          data={data}
+          onPageChange={handlePageChange}
+          isLoading={isLoading}
+        />
       </S.ContentContainer>
     </DashboardLayout>
   );
