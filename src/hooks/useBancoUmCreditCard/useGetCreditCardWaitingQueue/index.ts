@@ -1,4 +1,3 @@
-import { AxiosError } from 'axios';
 import { useQuery } from 'react-query';
 import { useState } from 'react';
 
@@ -27,10 +26,7 @@ export async function getCreditCardWaitingQueue(
 }
 
 export function useGetCreditCardWaitingQueue(
-  paramValues: Omit<
-    GetCreditCardWaitingQueueParamValues,
-    'page' | 'itemsPerPage'
-  >,
+  paramValues: Omit<GetCreditCardWaitingQueueParamValues, 'page'>,
 ) {
   const [page, setPage] = useState(1);
 
@@ -40,7 +36,7 @@ export function useGetCreditCardWaitingQueue(
       getCreditCardWaitingQueue({
         ...paramValues,
         page: String(page),
-        itemsPerPage: '10',
+        itemsPerPage: paramValues.itemsPerPage ?? '10',
       }),
   );
 
