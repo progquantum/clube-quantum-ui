@@ -37,12 +37,6 @@ export function WaitingQueuePage() {
   const { width } = useWindowSize();
 
   const handleWaitingQueue = () => {
-    const userPlan =
-      loggedUser.subscription && loggedUser.subscription.plan_name;
-
-    const allowedPlans = ['QUANTUM START', 'QUANTUM SELECT'];
-
-    // if (allowedPlans.includes(userPlan)) {
     postRequest(null, {
       onSuccess: () => {
         toast.custom(<SuccessToast />, {
@@ -93,9 +87,8 @@ export function WaitingQueuePage() {
 
       <S.HeroContainer>
         <Image
-          src="/images/hero-waiting-queue.svg"
-          width={1920}
-          height={873}
+          src="/images/banner-waiting-queue.svg"
+          fill
           alt="Imagem de um cartão de crédito"
         />
       </S.HeroContainer>
