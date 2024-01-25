@@ -1,4 +1,7 @@
+import Link from 'next/link';
 import styled from 'styled-components';
+
+import { Container } from '../Components/ServiceCard/styles';
 
 export const ServiceContainer = styled.div`
   display: flex;
@@ -9,5 +12,9 @@ export const ServiceContainer = styled.div`
   @media (max-width: 447px) {
     justify-content: center;
     align-items: center;
+  }
+
+  & a:nth-child(2) img {
+    border-radius: 25px;
   }
 `;

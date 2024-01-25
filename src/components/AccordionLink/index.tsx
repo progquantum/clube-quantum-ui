@@ -5,7 +5,7 @@ import { AiFillFile } from 'react-icons/ai';
 import { useTheme } from 'styled-components';
 import { useRouter } from 'next/router';
 
-import { WAITING_QUEUE_PAGE } from 'constants/routesPath';
+import { WAITING_QUEUE_REPORT_PAGE } from 'constants/routesPath';
 
 import { NavButton, IconBox, TitleBox } from '../SideBar/styles';
 import * as S from './styles';
@@ -74,7 +74,7 @@ export function AccordionLink({
         onClick={
           isExpanded
             ? handleAccordionStatus
-            : () => router.push(WAITING_QUEUE_PAGE)
+            : () => router.push(WAITING_QUEUE_REPORT_PAGE)
         }
         key="waiting-queue-link"
       >

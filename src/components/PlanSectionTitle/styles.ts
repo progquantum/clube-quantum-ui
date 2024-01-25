@@ -1,7 +1,13 @@
 import styled from 'styled-components';
 
 type TitleContainerProps = {
-  variant: 'error';
+  variant: 'error' | 'darkBlue';
+};
+
+const colorThemes: Record<'error' | 'darkBlue' | 'default', string> = {
+  error: 'dangerGradient',
+  darkBlue: 'midnightBlueToMediumsLateBlue',
+  default: 'lightgreenToGreen',
 };
 
 export const TitleContainer = styled.div<TitleContainerProps>`
@@ -9,10 +15,8 @@ export const TitleContainer = styled.div<TitleContainerProps>`
   justify-content: center;
   font-size: 1.75rem;
   font-weight: 600;
-  background-image: ${({ variant, theme }) =>
-    variant === 'error'
-      ? theme.gradients.dangerGradient
-      : theme.gradients.lightgreenToGreen};
+  background-image: ${({ variant = 'default', theme }) =>
+    theme.gradients[colorThemes[variant]]};
   -webkit-background-clip: text;
   background-clip: text;
   -webkit-text-fill-color: transparent;
@@ -35,10 +39,8 @@ export const TitleContainer = styled.div<TitleContainerProps>`
     display: block;
     width: 1.8rem;
     height: 100%;
-    background: ${({ variant, theme }) =>
-      variant === 'error'
-        ? theme.gradients.dangerGradient
-        : theme.gradients.lightgreenToGreen};
+    background-image: ${({ variant = 'default', theme }) =>
+      theme.gradients[colorThemes[variant]]};
     border-radius: 0.4rem 0.8rem 0.8rem 0.4rem;
     position: absolute;
     top: 0;

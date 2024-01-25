@@ -2,9 +2,10 @@ import { Dayjs } from 'dayjs';
 import _ from 'lodash';
 
 export type FilterValues = {
-  initialDate: Dayjs | null;
-  finalDate: Dayjs | null;
-  clientName: string;
+  startDate: string | null;
+  endDate: string | null;
+  searchName: string | null;
+  status: string | null;
 };
 
 export type WaitingQueueReportFilterProps = {

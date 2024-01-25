@@ -16,6 +16,7 @@ export function Modal({
   children,
   onClose,
   noDragBehavior,
+  maxWidth = 800,
 }: PropsWithChildren<ModalProps>) {
   const modalRef = useRef<HTMLDivElement>(null);
 
@@ -52,6 +53,7 @@ export function Modal({
           exit="hidden"
           transition={DEFAULT_TRANSITION}
           key="modal"
+          maxWidth={maxWidth}
         >
           <>
             <S.CloseButton
@@ -85,6 +87,7 @@ export function Modal({
         dragConstraints={DRAG_CONSTRAINTS_ANIMATION}
         ref={modalRef}
         key="modal"
+        maxWidth={maxWidth}
       >
         <>
           <S.CloseButton

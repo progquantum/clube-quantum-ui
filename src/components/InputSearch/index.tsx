@@ -24,7 +24,7 @@ export function InputSearch({
         id={name}
         ref={inputRef}
         placeholder={placeholder || ''}
-        onKeyDown={e => handleKeyDown(e.key)}
+        onKeyDown={e => onRequestClick && handleKeyDown(e.key)}
         {...rest}
       />
       <S.ContainerIcon onClick={onRequestClick}>

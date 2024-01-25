@@ -1,17 +1,19 @@
 import { GetServerSideProps } from 'next';
 
+import { WaitingQueuePage } from 'layouts/WaitingQueue';
+
 import { withSSRAuth } from 'helpers/auth/withSSRAuth';
-import { TimSubscriptionPlan } from 'layouts/TimSubscriptionPlan';
+import { roles } from 'constants/roles';
 
 export const getServerSideProps: GetServerSideProps = withSSRAuth(
   async () => ({
     props: {},
   }),
   {
-    roles: [],
+    roles: [roles.user.id, roles.admin.id],
   },
 );
 
-export default function MyFriends() {
-  return <TimSubscriptionPlan />;
+export default function WaitingQueue() {
+  return <WaitingQueuePage />;
 }
