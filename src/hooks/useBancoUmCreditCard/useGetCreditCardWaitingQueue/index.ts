@@ -40,7 +40,7 @@ export function useGetCreditCardWaitingQueue(
       getCreditCardWaitingQueue({
         ...paramValues,
         page: String(page),
-        itemsPerPage: '1',
+        itemsPerPage: '10',
       }),
   );
 
