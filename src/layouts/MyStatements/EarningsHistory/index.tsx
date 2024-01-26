@@ -1,12 +1,10 @@
 import { BsFillPersonFill, BsPersonBadge } from 'react-icons/bs';
-import { uuid } from 'uuidv4';
-import ReactPaginate from 'react-paginate';
 import { IoIosArrowBack, IoIosArrowForward } from 'react-icons/io';
+import ReactPaginate from 'react-paginate';
 import { useTheme } from 'styled-components';
+import { uuid } from 'uuidv4';
 
 import { Loader } from 'components/Loader';
-
-import { Extract } from 'hooks/commissions/useGetCommissionsByReferral/types';
 
 import { formatPrice } from 'utils/formatters/formatPrice';
 
@@ -39,7 +37,7 @@ export function EarningsHistory({ loading, data, onPageChange }: Props) {
             {formatPrice(String(totalAmount))}
           </S.TotalEarningText>
           <S.PartnerContainer>
-            {data?.Extrato?.length === 0 && (
+            {data?.commissions?.length === 0 && (
               <div
                 style={{
                   display: 'flex',
@@ -51,16 +49,16 @@ export function EarningsHistory({ loading, data, onPageChange }: Props) {
                 Sem histórico para esse período
               </div>
             )}
-            {data?.Extrato?.map((extract: Extract) => (
+            {data?.commissions?.map(extract => (
               <S.PartnerRow key={uuid()}>
                 <S.IconBox>
                   <BsFillPersonFill size={20} />
                 </S.IconBox>
                 <div>
-                  <S.PartnerName>{extract.Titulo}</S.PartnerName>
+                  <S.PartnerName>{extract.cashback_name}</S.PartnerName>
                   <S.EarningDate>
                     {new Intl.DateTimeFormat('pt-BR').format(
-                      new Date(extract.GeradoEm),
+                      new Date(extract.created_at),
                     )}
                   </S.EarningDate>
                 </div>
@@ -68,7 +66,7 @@ export function EarningsHistory({ loading, data, onPageChange }: Props) {
                   {new Intl.NumberFormat('pt-BR', {
                     style: 'currency',
                     currency: 'BRL',
-                  }).format(extract.Valor)}
+                  }).format(extract.amount)}
                 </S.QuantityGainedText>
               </S.PartnerRow>
             ))}

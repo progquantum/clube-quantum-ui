@@ -1,7 +1,7 @@
-import { ResponseData } from 'hooks/commissions/useGetCommissionsByReferral/types';
+import { CommissionsExtract } from 'hooks/commissions/useGetCommissions/types';
 
 export type Props = {
   loading: boolean;
-  data: ResponseData;
+  data: CommissionsExtract;
   onPageChange: (selectedItem: { selected: number }) => void;
 };

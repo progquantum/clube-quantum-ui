@@ -1,16 +1,17 @@
-import { useState } from 'react';
 import dayjs from 'dayjs';
+import { useState } from 'react';
 
+import { useBalances } from 'hooks/me/useBalances';
+import { AccountBalance } from 'layouts/Dashboard/AccountBalance';
 import { DashboardLayout } from 'layouts/DashboardLayout';
 import { useSidebarStore } from 'store/sidebar';
-import { useGetExtractByReferral } from 'hooks/commissions/useGetCommissionsByReferral';
-import { AccountBalance } from 'layouts/Dashboard/AccountBalance';
-import { generateDeadline } from 'utils/generateDeadline';
-import { useBalances } from 'hooks/me/useBalances';
 import { formatCashback } from 'utils/formatters/formatCashback';
+import { generateDeadline } from 'utils/generateDeadline';
 
-import * as S from './styles';
+import { useGetCommissions } from 'hooks/commissions/useGetCommissions';
+
 import { EarningsHistory } from './EarningsHistory';
+import * as S from './styles';
 
 export function MyStatementsPage() {
   const isSidebarExpanded = useSidebarStore(state => state.isExpanded);
@@ -28,7 +29,7 @@ export function MyStatementsPage() {
     onPageChange: byReferralOnPageChange,
     setPage: byReferralSetPage,
     loading: byReferralLoading,
-  } = useGetExtractByReferral({
+  } = useGetCommissions({
     startDate: dayjs(initialDate).format('YYYY-MM-DD[T00:00:00]'),
     endDate: dayjs(finalDate).format('YYYY-MM-DD[T23:59:00]'),
   });
