@@ -15,7 +15,7 @@ export async function getCommissions({
   startDate,
 }: GetCommissionsProps) {
   try {
-    const { data } = await quantumClientQueue.get('commissions/extract', {
+    const { data } = await quantumClientQueue.get('commissions/all-extracts', {
       params: {
         ...(page ? { page } : {}),
         ...(itemsPerPage ? { itemsPerPage } : { itemsPerPage: 4 }),
