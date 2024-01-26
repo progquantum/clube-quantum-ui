@@ -8,7 +8,8 @@ import {
   GetCreditCardWaitingQueueResponseData,
 } from './types';
 
-const QUERY_KEY_GET_CREDIT_CARD_WAITING_QUEUE = 'get-credit-card-waiting-queue';
+export const QUERY_KEY_GET_CREDIT_CARD_WAITING_QUEUE =
+  'get-credit-card-waiting-queue';
 
 export async function getCreditCardWaitingQueue(
   paramValues: GetCreditCardWaitingQueueParamValues,
