@@ -1,4 +1,4 @@
-export type MasterCardProps = {
+export type BrandIconProps = {
   width: string;
   height: string;
 };

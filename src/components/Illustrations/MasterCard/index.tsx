@@ -1,8 +1,8 @@
 import React from 'react';
 
-import { MasterCardProps } from './types';
+import { BrandIconProps } from '../types';
 
-export function MasterCardIcon({ width, height }: MasterCardProps) {
+export function MasterCardIcon({ width, height }: BrandIconProps) {
   return (
     <svg
       width={width}
@@ -10,6 +10,7 @@ export function MasterCardIcon({ width, height }: MasterCardProps) {
       viewBox="0 0 40 25"
       fill="none"
       xmlns="http://www.w3.org/2000/svg"
+      xmlnsXlink="http://www.w3.org/1999/xlink"
     >
       <path
         d="M24.9795 2.69629H14.4795V21.5651H24.9795V2.69629Z"
