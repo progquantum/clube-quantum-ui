@@ -332,25 +332,24 @@ export function DashboardPos() {
             </S.ContainerTable>
             <S.ContainerFlag>
               <S.TopTableSealsByFlag>
-                <div
-                  style={{ display: 'flex', gap: '5px', alignItems: 'center' }}
-                >
-                  <S.TitleSealsByFlag>Maior volume de</S.TitleSealsByFlag>
-                  <S.SubTitleSealsByFlag>
-                    vendas por bandeira
-                  </S.SubTitleSealsByFlag>
-                </div>
+                <S.TitleSealsByFlag>
+                  Maior volume de <span>vendas por bandeira</span>
+                </S.TitleSealsByFlag>
+                <S.PaymentMethodLabel>Formas de pagamento</S.PaymentMethodLabel>
                 <S.ValueFlag>Valor</S.ValueFlag>
               </S.TopTableSealsByFlag>
               <S.TableFlag>
-                {sales?.card_brand.map((brand, index) => {
+                {sales?.card_brand.map(brand => {
                   if (brand.transactions.totalAmount === 0) return;
 
                   return (
                     <S.ContentCards key={brand.brand}>
                       <S.TableFlagRow>
-                        {index + 1} {cardsBrandsMap[brand.brand]}
+                        {cardsBrandsMap[brand.brand]}
                       </S.TableFlagRow>
+                      <S.TableColumn4>
+                        <strong>Crédito</strong>
+                      </S.TableColumn4>
                       <S.TableColumn4>
                         <S.Font14>
                           {formatPrice(
