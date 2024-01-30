@@ -13,8 +13,8 @@ import { PulseLoader } from 'react-spinners';
 
 import { useState } from 'react';
 
-import AmericanExpressIcon from 'components/Illustrations/AmericanExpress';
-import EloIcon from 'components/Illustrations/Elo';
+import { AmericanExpressIcon } from 'components/Illustrations/AmericanExpress';
+import { EloIcon } from 'components/Illustrations/Elo';
 import { MasterCardIcon } from 'components/Illustrations/MasterCard';
 import { VISAIcon } from 'components/Illustrations/Visa';
 

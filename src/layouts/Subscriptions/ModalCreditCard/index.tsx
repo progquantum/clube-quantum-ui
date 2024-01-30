@@ -18,8 +18,8 @@ import { formatCVV } from 'utils/formatters/formatCVV';
 
 import { VISAIcon } from 'components/Illustrations/Visa';
 import { MasterCardIcon } from 'components/Illustrations/MasterCard';
-import EloIcon from 'components/Illustrations/Elo';
-import AmericanExpressIcon from 'components/Illustrations/AmericanExpress';
+import { EloIcon } from 'components/Illustrations/Elo';
+import { AmericanExpressIcon } from 'components/Illustrations/AmericanExpress';
 
 import { Input } from 'components/Input';
 import { Modal } from 'components/Modal';
