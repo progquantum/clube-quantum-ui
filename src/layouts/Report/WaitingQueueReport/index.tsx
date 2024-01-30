@@ -12,9 +12,13 @@ import { WaitingQueueTable } from './WaitingQueueTable';
 import { CSVDownloaderButton } from './CSVDownloaderButton';
 
 export function WaitingQueueReportPage() {
-  const [filterValues, setFilterValues] = useState<FilterValues>(
-    {} as FilterValues,
-  );
+  const initialValues = {
+    startDate: null,
+    endDate: null,
+    searchName: '',
+  } as FilterValues;
+
+  const [filterValues, setFilterValues] = useState<FilterValues>(initialValues);
 
   const { data, handlePageChange, isLoading } =
     useGetCreditCardWaitingQueue(filterValues);
@@ -24,6 +28,8 @@ export function WaitingQueueReportPage() {
       setFilterValues(prevState => ({ ...prevState, ...filterValue }));
     }
   };
+
+  const resetForm = () => setFilterValues(initialValues);
 
   return (
     <DashboardLayout maxWidth="1436px">
@@ -42,6 +48,7 @@ export function WaitingQueueReportPage() {
         <WaitingQueueReportFilter
           filterValues={filterValues}
           handleFilterValues={handleFilterValues}
+          resetForm={resetForm}
         />
         <WaitingQueueTable
           data={data}
