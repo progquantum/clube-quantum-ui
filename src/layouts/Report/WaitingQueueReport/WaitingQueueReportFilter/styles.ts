@@ -1,10 +1,10 @@
 import styled from 'styled-components';
 
-export const FilterContainer = styled.div`
+export const FilterContainer = styled.form`
   display: flex;
   align-items: flex-end;
   padding: 1rem;
-  gap: 2rem;
+  gap: 1rem;
   flex-wrap: wrap;
 
   & input {
@@ -31,6 +31,7 @@ export const DatePickerContainer = styled.div`
   display: flex;
   flex-shrink: 1;
   flex-wrap: wrap;
+  max-width: 500px;
   & > div {
     max-width: 250px;
     width: 100%;
