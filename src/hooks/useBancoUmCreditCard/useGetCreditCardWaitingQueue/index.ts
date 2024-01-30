@@ -1,7 +1,10 @@
 import { useQuery } from 'react-query';
 import { useState } from 'react';
+import { AxiosError } from 'axios';
+import dayjs from 'dayjs';
 
 import { quantumClientQueue } from 'config/client';
+import { error } from 'helpers/notify/error';
 
 import {
   GetCreditCardWaitingQueueParamValues,
@@ -14,6 +17,17 @@ export const QUERY_KEY_GET_CREDIT_CARD_WAITING_QUEUE =
 export async function getCreditCardWaitingQueue(
   paramValues: GetCreditCardWaitingQueueParamValues,
 ) {
+  const { endDate, startDate } = paramValues;
+
+  if (endDate && startDate) {
+    const isEndDateBeforeStartDate = dayjs(endDate).isBefore(startDate, 'day');
+
+    if (isEndDateBeforeStartDate) {
+      error('Data final precisa ser uma data após a Data Início');
+      return;
+    }
+  }
+
   try {
     const { data } =
       await quantumClientQueue.get<GetCreditCardWaitingQueueResponseData>(
@@ -22,6 +36,18 @@ export async function getCreditCardWaitingQueue(
       );
     return data;
   } catch (err: unknown) {
+    if (err instanceof AxiosError) {
+      if (err.response) {
+        if (
+          err.response.data.message ===
+          'You also need to send the startDate date when filtering by endDate'
+        ) {
+          error(
+            'Você também precisa selecionar uma Data Início para filtrar por data',
+          );
+        }
+      }
+    }
     return Promise.reject(err);
   }
 }
@@ -39,6 +65,7 @@ export function useGetCreditCardWaitingQueue(
         page: String(page),
         itemsPerPage: paramValues.itemsPerPage ?? '10',
       }),
+    { retry: false },
   );
 
   const handlePageChange = (page: { selected: number }) => {
