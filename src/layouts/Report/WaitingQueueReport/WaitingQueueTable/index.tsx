@@ -73,7 +73,7 @@ export function WaitingQueueTable({
                   <S.Content>{item.doc}</S.Content>
                   <S.Content>
                     {new Intl.DateTimeFormat('pt-br').format(
-                      new Date(item.updated_at),
+                      new Date(item.created_at),
                     )}
                   </S.Content>
                   <S.Content>{StatusBancoUmCreditCard[item.status]}</S.Content>
