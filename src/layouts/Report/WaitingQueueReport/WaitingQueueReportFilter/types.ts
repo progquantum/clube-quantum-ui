@@ -1,5 +1,4 @@
 import { Dayjs } from 'dayjs';
-import _ from 'lodash';
 
 export type FilterValues = {
   startDate: string | null;
@@ -11,5 +10,6 @@ export type FilterValues = {
 
 export type WaitingQueueReportFilterProps = {
   filterValues: FilterValues;
+  resetForm: () => void;
   handleFilterValues: (filterValue: Record<string, string | Dayjs>) => void;
 };
