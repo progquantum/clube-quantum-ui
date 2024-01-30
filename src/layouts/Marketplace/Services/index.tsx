@@ -18,7 +18,7 @@ export function Services() {
   const { pathname } = useRouter();
 
   const image = {
-    Quantum: { src: '/images/quantum-smart.svg', width: 100, height: 40 },
+    Quantum: { src: '/images/quantum-smart.svg', width: 158, height: 159 },
     Tim: { src: '/images/tim-logo.svg', width: 100, height: 30 },
     'Banco um': { src: '/images/waiting-queue.svg', width: 150, height: 150 },
   };
