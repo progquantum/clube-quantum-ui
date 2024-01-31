@@ -1,6 +1,6 @@
 export interface CommissionsExtract {
   info: Info;
-  totalAmount: number;
+  totalAmount: string;
   commissions: Commissions[];
 }
 
