@@ -44,9 +44,6 @@ export const ScrollableContainer = styled.div`
 export const PaginationContainer = styled.div`
   margin: 2rem auto 1rem;
   width: 250px;
-  & * {
-    box-shadow: none;
-  }
 `;
 
 export const ActionsContainer = styled.div`
