@@ -34,7 +34,9 @@ export function MyStatementsPage() {
     endDate: dayjs(finalDate).format('YYYY-MM-DD[T23:59:00]'),
   });
 
-  const totalAccountBalance = byReferralData ? byReferralData.totalAmount : 0;
+  const totalAccountBalance = byReferralData
+    ? byReferralData.totalAmount
+    : 'R$ 0,00';
 
   const handleSelect = (option: string) => {
     const today = new Date();
@@ -107,7 +109,7 @@ export function MyStatementsPage() {
             <AccountBalance
               title="Saldo em conta"
               description={`Será transferido em ${generateDeadline(10)}`}
-              value={formatCashback(totalAccountBalance)}
+              value={totalAccountBalance}
             />
 
             <AccountBalance
