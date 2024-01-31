@@ -372,7 +372,6 @@ export function DashboardPos() {
                   return (
                     <S.ContentCards key={brand.brand}>
                       <S.TableFlagRow>
-                        {index + 1}
                         {cardsBrandsMap[brand.brand] ? (
                           cardsBrandsMap[brand.brand]
                         ) : (
