@@ -1,8 +1,8 @@
 import React from 'react';
 
-import { EloProps } from './types';
+import { BrandIconProps } from '../types';
 
-function EloIcon({ width, height }: EloProps) {
+export function EloIcon({ width, height }: BrandIconProps) {
   return (
     <svg
       width={width}
@@ -10,6 +10,7 @@ function EloIcon({ width, height }: EloProps) {
       viewBox="0 0 63 25"
       fill="none"
       xmlns="http://www.w3.org/2000/svg"
+      xmlnsXlink="http://www.w3.org/1999/xlink"
     >
       <path
         d="M9.90801 5.43111C10.6133 5.19603 11.3655 5.07065 12.146 5.07065C15.5624 5.07065 18.4147 7.49667 19.0667 10.722L23.9093 9.73462C22.7997 4.25571 17.954 0.130859 12.146 0.130859C10.8138 0.130859 9.53816 0.347132 8.34082 0.748333L9.90801 5.43111Z"
@@ -30,5 +31,3 @@ function EloIcon({ width, height }: EloProps) {
     </svg>
   );
 }
-
-export default EloIcon;

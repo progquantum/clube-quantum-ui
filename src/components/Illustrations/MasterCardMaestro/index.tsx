@@ -1,8 +1,8 @@
 import React from 'react';
 
-import { MasterCardProps } from '../MasterCard/types';
+import { BrandIconProps } from '../types';
 
-function MasterCardMaestroIcon({ width, height }: MasterCardProps) {
+export function MasterCardMaestroIcon({ width, height }: BrandIconProps) {
   return (
     <svg
       xmlns="http://www.w3.org/2000/svg"
@@ -13,6 +13,7 @@ function MasterCardMaestroIcon({ width, height }: MasterCardProps) {
       version="1.1"
       viewBox="0 0 200 155.6"
       xmlSpace="preserve"
+      xmlnsXlink="http://www.w3.org/1999/xlink"
     >
       <path
         fill="#00A2E5"
@@ -33,5 +34,3 @@ function MasterCardMaestroIcon({ width, height }: MasterCardProps) {
     </svg>
   );
 }
-
-export default MasterCardMaestroIcon;

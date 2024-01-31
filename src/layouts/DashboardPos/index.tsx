@@ -9,27 +9,63 @@ import { useTheme } from 'styled-components';
 import { DatePicker } from '@mui/x-date-pickers';
 import { useRouter } from 'next/router';
 import { useMediaQuery } from '@mui/material';
+import { FaRegCreditCard } from 'react-icons/fa';
 
-import { Select } from 'components/Select';
-import { VISAIcon } from 'components/Illustrations/Visa';
-import { MasterCardIcon } from 'components/Illustrations/MasterCard';
-import AmericanExpressIcon from 'components/Illustrations/AmericanExpress';
-import EloIcon from 'components/Illustrations/Elo';
 import { DashboardLayout } from 'layouts/DashboardLayout';
 import { useGetEstablishment } from 'hooks/dashboard-pos/useGetEstablishment';
 import { formatPrice } from 'utils/formatters/formatPrice';
 import { useSidebarStore } from 'store/sidebar';
 import { useSalesFilter } from 'hooks/dashboard-pos/useSalesFilter';
 import { formatDate } from 'utils/formatters/formatDate';
-import VISAEletronIcon from 'components/Illustrations/VisaEletron';
-import MasterCardMaestroIcon from 'components/Illustrations/MasterCardMaestro';
+import { Select } from 'components/Select';
 import { DASHBOARD_PAGE } from 'constants/routesPath';
 import { Loader } from 'components/Loader';
 
-import { PaymentMethodPieChart } from './PaymentMethodPieChart';
-import { SalesByClientPieChart } from './SalesByClientPieChart';
-import { OverallSalesProgressionBarChart } from './OverallSalesProgressionBarChart';
+import { BanriComprasIcon } from 'components/Illustrations/BanriCompras';
+import { AmericanExpressIcon } from 'components/Illustrations/AmericanExpress';
+import { EloIcon } from 'components/Illustrations/Elo';
+import { MasterCardIcon } from 'components/Illustrations/MasterCard';
+import { MasterCardMaestroIcon } from 'components/Illustrations/MasterCardMaestro';
+import { VISAIcon } from 'components/Illustrations/Visa';
+import { VISAEletronIcon } from 'components/Illustrations/VisaEletron';
+import { HiperCardIcon } from 'components/Illustrations/HiperCard';
+import { CabalIcon } from 'components/Illustrations/Cabal';
+import { JCBIcon } from 'components/Illustrations/JCB';
+import { CredSystemIcon } from 'components/Illustrations/CredSystem';
+import { DinersClubIcon } from 'components/Illustrations/DinersClub';
+import { DiscoverIcon } from 'components/Illustrations/Discover';
+import { AuraIcon } from 'components/Illustrations/Aura';
+import { AgiplanIcon } from 'components/Illustrations/Agiplan';
+import { SorocredIcon } from 'components/Illustrations/Sorocred';
+import { BanesCardIcon } from 'components/Illustrations/BanesCard';
+
+import { CredzIcon } from 'components/Illustrations/Credz';
+
 import * as S from './styles';
+import { OverallSalesProgressionBarChart } from './OverallSalesProgressionBarChart';
+import { SalesByClientPieChart } from './SalesByClientPieChart';
+import { PaymentMethodPieChart } from './PaymentMethodPieChart';
+
+const cardsBrandsMap: { [key: string]: JSX.Element } = {
+  VISA: <VISAIcon width="37.16px" height="12px" />,
+  VISA_ELECTRON: <VISAEletronIcon width="38px" height="40px" />,
+  MASTER: <MasterCardIcon width="25.89px" height="16px" />,
+  MAESTRO: <MasterCardMaestroIcon width="30px" height="20px" />,
+  ELO: <EloIcon width="41.76px" height="16px" />,
+  AMERICAN_EXPRESS: <AmericanExpressIcon width="16px" height="16px" />,
+  HIPER_CARD: <HiperCardIcon width="32px" height="32px" />,
+  BANRI_COMPRAS: <BanriComprasIcon width="32px" height="32px" />,
+  CABAL: <CabalIcon width="32px" height="32px" />,
+  JCB: <JCBIcon width="42px" height="32px" />,
+  CRED_SYSTEM: <CredSystemIcon width="100px" height="32px" />,
+  DINERS_CLUB: <DinersClubIcon width="100px" height="32px" />,
+  DISCOVER: <DiscoverIcon width="60px" height="42px" />,
+  AURA: <AuraIcon width="48px" height="38px" />,
+  AGIPLAN: <AgiplanIcon width="48px" height="38px" />,
+  SOROCRED: <SorocredIcon width="48px" height="48px" />,
+  BANES_CARD: <BanesCardIcon width="50px" height="35px" />,
+  CREDZ: <CredzIcon width="60px" height="35px" />,
+};
 
 export function DashboardPos() {
   const { colors } = useTheme();
@@ -115,15 +151,6 @@ export function DashboardPos() {
     setInicialDate(undefined);
     setFinalDate(undefined);
     setFilter('especifica');
-  };
-
-  const cardsBrandsMap: { [key: string]: JSX.Element } = {
-    VISA: <VISAIcon width="37.16px" height="12px" />,
-    VISA_ELECTRON: <VISAEletronIcon width="38px" height="40px" />,
-    MASTER: <MasterCardIcon width="25.89px" height="16px" />,
-    MAESTRO: <MasterCardMaestroIcon width="30px" height="20px" />,
-    ELO: <EloIcon width="41.76px" height="16px" />,
-    AMERICAN_EXPRESS: <AmericanExpressIcon width="16px" height="16px" />,
   };
 
   const isByPeriodFilter = filter === 'período';
@@ -345,7 +372,14 @@ export function DashboardPos() {
                   return (
                     <S.ContentCards key={brand.brand}>
                       <S.TableFlagRow>
-                        {cardsBrandsMap[brand.brand]}
+                        {cardsBrandsMap[brand.brand] ? (
+                          cardsBrandsMap[brand.brand]
+                        ) : (
+                          <FaRegCreditCard
+                            size={32}
+                            color={colors.mediumslateBlue}
+                          />
+                        )}
                       </S.TableFlagRow>
                       <S.TableColumn4>
                         <strong>Crédito</strong>

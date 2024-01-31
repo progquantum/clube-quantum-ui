@@ -1,16 +1,13 @@
 import { useState } from 'react';
 import { RiBankCard2Line } from 'react-icons/ri';
 import { useRouter } from 'next/router';
-
 import { IoCard } from 'react-icons/io5';
 
 import { Button } from 'components/Button';
-
 import { VISAIcon } from 'components/Illustrations/Visa';
 import { MasterCardIcon } from 'components/Illustrations/MasterCard';
-import AmericanExpressIcon from 'components/Illustrations/AmericanExpress';
-import EloIcon from 'components/Illustrations/Elo';
-
+import { AmericanExpressIcon } from 'components/Illustrations/AmericanExpress';
+import { EloIcon } from 'components/Illustrations/Elo';
 import { SUBSCRIPTIONS_PAGE } from 'constants/routesPath';
 
 import { Modal } from './Modal';
