@@ -263,7 +263,7 @@ export const usePartnerStore = create(
       },
       setRemoveMachinePos: (id: string) => {
         set(state => {
-          const nextState = produce(state.machinePos, draft => {
+          const nextState = produce(state.machinePos, () => {
             const newMachinePos = state.machinePos.filter(
               item => item.id !== id,
             );

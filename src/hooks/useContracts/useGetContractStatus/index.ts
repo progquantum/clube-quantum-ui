@@ -1,5 +1,3 @@
-import { AxiosError } from 'axios';
-
 import { useQuery } from 'react-query';
 
 import { quantumClientQueue } from 'config/client';
@@ -7,6 +5,7 @@ import { quantumClientQueue } from 'config/client';
 const QUERY_KEY_GET_CONTRACT_STATUS = 'get-contract-status';
 
 export async function getContractStatus({ queryKey }) {
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const [_, documentKey] = queryKey;
   try {
     const { data } = await quantumClientQueue.get<string>(
@@ -14,9 +13,6 @@ export async function getContractStatus({ queryKey }) {
     );
     return data;
   } catch (error: unknown) {
-    if (error instanceof AxiosError) {
-      console.log(error);
-    }
     return Promise.reject(error);
   }
 }

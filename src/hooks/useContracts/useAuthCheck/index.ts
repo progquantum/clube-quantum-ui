@@ -1,5 +1,4 @@
 import { useQuery } from 'react-query';
-import { AxiosError } from 'axios';
 
 import { quantumClientQueue } from 'config/client';
 
@@ -9,9 +8,6 @@ export async function getAuthCheck() {
   try {
     await quantumClientQueue.get('/contracts/auth-check');
   } catch (error: unknown) {
-    if (error instanceof AxiosError) {
-      console.log(error);
-    }
     return Promise.reject(error);
   }
 }

@@ -55,7 +55,6 @@ export function RequestInfo({
           queryClient.invalidateQueries(QUERY_KEY_FIND_CONTRACT_CANCELLATION);
           removeSelectedRequest();
         },
-        onError: err => console.log(err),
       });
     } else {
       information('Preencha o relatório');

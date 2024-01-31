@@ -1,5 +1,3 @@
-import { AxiosError } from 'axios';
-
 import { useMutation } from 'react-query';
 
 import { quantumClientQueue } from 'config/client';
@@ -17,9 +15,6 @@ export async function createDocumentRequestSignaturePos(
 
     return data;
   } catch (error: unknown) {
-    if (error instanceof AxiosError) {
-      console.log(error);
-    }
     return Promise.reject(error);
   }
 }

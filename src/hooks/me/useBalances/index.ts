@@ -1,10 +1,6 @@
 import { useQuery } from 'react-query';
 
-import { AxiosError } from 'axios';
-
 import { quantumClientQueue } from 'config/client';
-
-import { error } from 'helpers/notify/error';
 
 import { BalancesPayload } from './types';
 
@@ -16,9 +12,7 @@ export async function getBalances() {
 
     return data as BalancesPayload;
   } catch (err: unknown) {
-    if (err instanceof AxiosError) {
-      return Promise.reject(err);
-    }
+    return Promise.reject(err);
   }
 }
 

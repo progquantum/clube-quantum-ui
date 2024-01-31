@@ -1,5 +1,3 @@
-import { AxiosError } from 'axios';
-
 import { useQuery } from 'react-query';
 
 import { quantumClientQueue } from 'config/client';
@@ -16,9 +14,6 @@ export async function getEstablishment() {
     );
     return data as Establishiment;
   } catch (error: unknown) {
-    if (error instanceof AxiosError) {
-      console.log(error);
-    }
     return Promise.reject(error);
   }
 }

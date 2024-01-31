@@ -1,5 +1,4 @@
 import { AxiosError } from 'axios';
-
 import { useMutation } from 'react-query';
 
 import { error } from 'helpers/notify/error';
@@ -15,7 +14,6 @@ export async function upsertEstablishment(establishment: Establishment) {
       const invalidCoordinates =
         'coordinates must be a latitude,longitude string';
 
-      console.log(err.response.data.message[0] === invalidCoordinates);
       if (err.response.data.message[0] === invalidCoordinates) {
         error('Coordenadas inválida');
       }

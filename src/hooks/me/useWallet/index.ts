@@ -1,7 +1,5 @@
 import { useQuery } from 'react-query';
 
-import { AxiosError } from 'axios';
-
 import { Wallet } from 'shared/types/apiSchema';
 import { quantumClientQueue } from 'config/client';
 
@@ -13,9 +11,6 @@ export async function getWallet() {
 
     return data as Wallet;
   } catch (error: unknown) {
-    if (error instanceof AxiosError) {
-      console.log(error);
-    }
     return Promise.reject(error);
   }
 }

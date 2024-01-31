@@ -5,7 +5,6 @@ import { useTheme } from 'styled-components';
 import { useState } from 'react';
 import toast from 'react-hot-toast';
 import { useRouter } from 'next/router';
-
 import { AxiosError } from 'axios';
 
 import { Header } from 'components/Header';
@@ -14,7 +13,6 @@ import { Footer } from 'components/Footer';
 import { HeaderAuth } from 'components/Header/HeaderAuth';
 import { ShowOffers } from 'components/ShowOffers';
 import { AccountCard } from 'components/AccountCard';
-import { useMe } from 'hooks/me/useMe';
 import { PlanSectionTitle } from 'components/PlanSectionTitle';
 import { Button } from 'components/Button';
 import { Modal } from 'components/Modal';
