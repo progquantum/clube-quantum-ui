@@ -6,10 +6,7 @@ import { uuid } from 'uuidv4';
 
 import { Loader } from 'components/Loader';
 
-import { formatPrice } from 'utils/formatters/formatPrice';
-
 import { Props } from './types';
-
 import * as S from './styles';
 
 export function EarningsHistory({ loading, data, onPageChange }: Props) {
@@ -33,9 +30,7 @@ export function EarningsHistory({ loading, data, onPageChange }: Props) {
         </div>
       ) : (
         <>
-          <S.TotalEarningText>
-            {formatPrice(String(totalAmount))}
-          </S.TotalEarningText>
+          <S.TotalEarningText>{totalAmount}</S.TotalEarningText>
           <S.PartnerContainer>
             {data?.commissions?.length === 0 && (
               <div
@@ -62,12 +57,7 @@ export function EarningsHistory({ loading, data, onPageChange }: Props) {
                     )}
                   </S.EarningDate>
                 </div>
-                <S.QuantityGainedText>
-                  {new Intl.NumberFormat('pt-BR', {
-                    style: 'currency',
-                    currency: 'BRL',
-                  }).format(extract.amount)}
-                </S.QuantityGainedText>
+                <S.QuantityGainedText>{extract.amount}</S.QuantityGainedText>
               </S.PartnerRow>
             ))}
           </S.PartnerContainer>
