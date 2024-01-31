@@ -25,7 +25,6 @@ import * as S from './styles';
 import { SuccessToast } from './SuccessToast';
 
 export function WaitingQueuePage() {
-  const { data: loggedUser } = useMe();
   const { push } = useRouter();
   const { mutate: postRequest, isLoading } = usePostCreditCardWaitingQueue();
   const [warningModalStatus, setWarningModalStatus] = useState(false);
@@ -47,7 +46,9 @@ export function WaitingQueuePage() {
       onError: (err: unknown) => {
         if (err instanceof AxiosError) {
           if (
-            err.response.data.message === 'User does not have a subscription'
+            err.response.data.message === 'User does not have a subscription' ||
+            err.response.data.message ===
+              'You need to be ACTIVE on a Start or Select plan'
           ) {
             toggleWarningModalStatus();
           }
