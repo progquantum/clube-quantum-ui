@@ -316,16 +316,18 @@ export const ContainerFlag = styled.div`
 `;
 export const TopTableSealsByFlag = styled.div`
   max-width: 505px;
-  padding: 0px 10px;
+  padding: 10px 10px;
   gap: 10px;
   display: flex;
   align-items: center;
   justify-content: space-between;
   width: 100%;
   height: 100%;
-  height: 40px;
   background: ${({ theme }) => theme.colors.ghostwhite};
   border-radius: 10px 10px 0 0;
+  & > * {
+    flex: 1;
+  }
   @media (max-width: 1775px) {
     max-width: 1035px;
   }
@@ -337,21 +339,20 @@ export const TitleSealsByFlag = styled.h2`
   font-size: 14px;
   line-height: 150%;
   margin-bottom: 0;
+  max-width: 200px;
   color: ${({ theme }) => theme.colors.gray[300]};
+
   @media (max-width: 600px) {
-    display: none;
+    max-width: 120px;
+  }
+  & > span {
+    color: ${({ theme }) => theme.colors.mediumslateBlue};
+    font-weight: 700;
   }
 `;
 
-export const SubTitleSealsByFlag = styled.h2`
-  font-style: normal;
-  font-weight: 700;
-  font-size: 14px;
-  margin-bottom: 0;
-  color: ${({ theme }) => theme.colors.mediumslateBlue};
-`;
-
-export const ValueFlag = styled.p`
+export const SealsByFlagLabel = styled.span`
+  display: block;
   width: 100%;
   max-width: 90px;
   font-style: normal;
@@ -361,6 +362,9 @@ export const ValueFlag = styled.p`
   color: ${({ theme }) => theme.colors.gray[400]};
   margin-bottom: 0;
 `;
+export const PaymentMethodLabel = styled(SealsByFlagLabel)``;
+
+export const ValueFlag = styled(SealsByFlagLabel)``;
 
 export const TableFlag = styled.div`
   display: flex;
@@ -380,6 +384,9 @@ export const TableFlag = styled.div`
 export const ContentCards = styled.div`
   display: flex;
   justify-content: space-between;
+  & > * {
+    flex: 1;
+  }
 `;
 
 export const TableFlagRow = styled.div`
@@ -387,6 +394,7 @@ export const TableFlagRow = styled.div`
   align-items: center;
   gap: 21px;
   font-style: normal;
+  flex: 2;
   font-weight: 600;
   font-size: 14px;
   line-height: 150%;
