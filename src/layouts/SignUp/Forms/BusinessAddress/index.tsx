@@ -1,4 +1,4 @@
-import { ChangeEvent, useCallback, useRef } from 'react';
+import { ChangeEvent, useCallback, useEffect, useRef } from 'react';
 
 import { FormHandles, SubmitHandler } from '@unform/core';
 import { Form } from '@unform/web';
@@ -14,13 +14,10 @@ import {
 } from 'react-icons/fi';
 import { IoReturnDownBackSharp } from 'react-icons/io5';
 
-import { setCookie } from 'nookies';
-
 import { Button } from 'components/Button';
-import { Checkbox } from 'components/Checkbox';
 import { Input } from 'components/Input';
-import { useAuthState } from 'contexts/auth/AuthContext';
-import { useLegalPersonSingUp } from 'hooks/auth/useLegalPersonSingUp';
+import { useAuthDispatch, useAuthState } from 'contexts/auth/AuthContext';
+
 import { AuthLayout } from 'layouts/Auth';
 import { getZipCode } from 'services/resources';
 import { formatAddressNumber } from 'utils/formatters/formatAddressNumber';
@@ -29,11 +26,6 @@ import { formatCountry } from 'utils/formatters/formatCountry';
 import { formatUF } from 'utils/formatters/formatUF';
 import { performSchemaValidation } from 'utils/performSchemaValidation';
 
-import {
-  REFRESH_TOKEN_STORAGE_KEY,
-  TOKEN_STORAGE_KEY,
-} from 'constants/storage';
-
 import { schema } from './schemas';
 import { AddressFormValues, BusinessAddressProps } from './types';
 
@@ -41,10 +33,33 @@ export function BusinessAddress({
   onUpdateFormStep,
   onPreviousFormStep,
 }: BusinessAddressProps) {
-  const { mutate: signUp, isLoading: isSignuping } = useLegalPersonSingUp();
+  const { signUp } = useAuthDispatch();
   const { registerUser } = useAuthState();
 
   const formRef = useRef<FormHandles>(null);
+
+  useEffect(() => {
+    if (registerUser) {
+      const fields = [
+        'zip_code',
+        'street',
+        'neighborhood',
+        'city',
+        'state',
+        'country',
+        'number',
+        'complement',
+      ];
+
+      fields.forEach((field: string) => {
+        const fieldValue = registerUser[field];
+
+        if (fieldValue) {
+          formRef.current.setFieldValue(field, fieldValue);
+        }
+      });
+    }
+  }, []);
 
   const handleZipCode = useCallback(
     async (e: ChangeEvent<HTMLInputElement>) => {
@@ -72,37 +87,8 @@ export function BusinessAddress({
         data,
         schema,
       }).then(() => {
-        const { company_name, phone, cnpj, email, password, invited_by } =
-          registerUser;
-
-        signUp(
-          {
-            company_name,
-            phone,
-            cnpj,
-            email,
-            password,
-            invited_by,
-            address: {
-              ...data,
-            },
-          },
-          {
-            onSuccess: ({ token, refresh_token }) => {
-              setCookie(undefined, TOKEN_STORAGE_KEY, token, {
-                maxAge: 60 * 60 * 24 * 30,
-                path: `/`,
-              });
-
-              setCookie(undefined, REFRESH_TOKEN_STORAGE_KEY, refresh_token, {
-                maxAge: 60 * 60 * 24 * 30,
-                path: `/`,
-              });
-
-              onUpdateFormStep();
-            },
-          },
-        );
+        signUp(data);
+        onUpdateFormStep();
       });
     },
     [signUp, registerUser],
@@ -185,20 +171,7 @@ export function BusinessAddress({
             )
           }
         />
-
-        <Checkbox
-          type="checkbox"
-          name="terms"
-          data-cy="terms"
-          style={{ margin: '24px 0' }}
-        />
-
-        <Button
-          data-cy="next-step-button"
-          type="submit"
-          loading={isSignuping}
-          disabled={isSignuping}
-        >
+        <Button data-cy="next-step-button" type="submit">
           Continuar
         </Button>
       </Form>
