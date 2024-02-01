@@ -1,5 +1,6 @@
 import { FormEvent, useState } from 'react';
 import { IoReturnDownBackSharp } from 'react-icons/io5';
+import { AxiosError } from 'axios';
 
 import { Button } from 'components/Button';
 import { PinCodeGrid } from 'components/PinCodeGrid';
@@ -8,6 +9,7 @@ import { success } from 'helpers/notify/success';
 import { useCheckPhoneCode } from 'hooks/phones/useCheckPhoneCode';
 import { useSendPhoneCode } from 'hooks/phones/useSendPhoneCode';
 import { AuthLayout } from 'layouts/Auth';
+import { error } from 'helpers/notify/error';
 
 import * as S from './styles';
 import { PinCodeProps } from './types';
@@ -45,6 +47,15 @@ export function PinCode({ onNextFormStep, onPreviousFormStep }: PinCodeProps) {
       },
       {
         onSuccess: () => onNextFormStep(),
+        onError: (err: unknown) => {
+          if (err instanceof AxiosError) {
+            const errorMessage = err.response.data.message;
+
+            if (errorMessage === 'Invalid code') {
+              error('Código inserido inválido');
+            }
+          }
+        },
       },
     );
   };
