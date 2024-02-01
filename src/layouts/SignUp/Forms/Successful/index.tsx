@@ -1,14 +1,17 @@
 import Link from 'next/link';
-
 import { IoReturnDownBackSharp } from 'react-icons/io5';
+import { useEffect } from 'react';
 
 import { SIGN_IN_PAGE } from 'constants/routesPath';
-
 import { AuthLayout } from 'layouts/Auth';
+import { useAuthDispatch } from 'contexts/auth/AuthContext';
 
 import { Account, Container } from './styles';
 
 export function Successful() {
+  const { deleteUserRegister } = useAuthDispatch();
+
+  useEffect(() => deleteUserRegister(), []);
   return (
     <AuthLayout
       backgroundImage="/images/signin.svg"
