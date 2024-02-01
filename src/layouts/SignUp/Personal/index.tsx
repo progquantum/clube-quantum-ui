@@ -33,13 +33,13 @@ export function PersonalSignUpPage() {
     1: <Phone onUpdateFormStep={nextStep} onPreviousFormStep={previousStep} />,
     2: <PinCode onNextFormStep={nextStep} onPreviousFormStep={previousStep} />,
     3: (
-      <IndividualPerson
+      <PersonalAddress
         onUpdateFormStep={nextStep}
         onPreviousFormStep={previousStep}
       />
     ),
     4: (
-      <PersonalAddress
+      <IndividualPerson
         onUpdateFormStep={nextStep}
         onPreviousFormStep={previousStep}
       />
