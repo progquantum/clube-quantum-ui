@@ -143,6 +143,7 @@ export function InfoEstablishment() {
             main_phone_has_whatsapp,
             whatsapp_phone,
             category_id,
+            // eslint-disable-next-line @typescript-eslint/no-unused-vars
             main_phone,
             ...rest
           } = data;

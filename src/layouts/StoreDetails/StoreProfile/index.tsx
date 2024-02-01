@@ -1,17 +1,9 @@
-/* eslint-disable react/no-unescaped-entities */
 import Image from 'next/image';
-
 import { BiTimeFive } from 'react-icons/bi';
-
 import { FaStar } from 'react-icons/fa';
-
 import { useTheme } from 'styled-components';
-
 import { getHours } from 'date-fns';
-
 import { PulseLoader } from 'react-spinners';
-
-import { useState } from 'react';
 
 import { AmericanExpressIcon } from 'components/Illustrations/AmericanExpress';
 import { EloIcon } from 'components/Illustrations/Elo';
@@ -40,7 +32,6 @@ export function StoreProfile({
 }: {
   establishment: Establishment;
 }) {
-  const [address, setAddress] = useState('');
   const { colors } = useTheme();
   const { data: recommendedEstablishments, isLoading } = useGetEstablishments({
     itemsPerPage: 6,
@@ -214,7 +205,7 @@ export function StoreProfile({
         </S.ContentInfo>
       </S.ContainerInfo>
       <S.SubTitle style={{ marginBottom: '24px' }}>Localização</S.SubTitle>
-      <S.TextInfo>{address}</S.TextInfo>
+      <S.TextInfo> </S.TextInfo>
       <S.StoreMapContainer>
         <StoreMap
           corporateName={establishment.corporate_name}

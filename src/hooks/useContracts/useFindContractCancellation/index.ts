@@ -2,8 +2,6 @@
 import { useState } from 'react';
 import { useQuery } from 'react-query';
 
-import { AxiosError } from 'axios';
-
 import { quantumClientQueue } from 'config/client';
 
 import {
@@ -34,9 +32,6 @@ export async function findContractCancellation({
 
     return data as ContractsCancellation;
   } catch (error: unknown) {
-    if (error instanceof AxiosError) {
-      console.log(error);
-    }
     return Promise.reject(error);
   }
 }

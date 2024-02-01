@@ -1,5 +1,3 @@
-import { AxiosError } from 'axios';
-
 import { useQuery } from 'react-query';
 
 import { quantumClientQueue } from 'config/client';
@@ -9,6 +7,7 @@ import { ResponseData } from './types';
 export const QUERY_KEY_GET_ESTABLISHMENT_PROFILE = 'get-establishment-profile';
 
 export async function getEstablishmentProfile({ queryKey }) {
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const [_, establishmentId] = queryKey;
 
   try {
@@ -16,11 +15,8 @@ export async function getEstablishmentProfile({ queryKey }) {
       `/establishment/profile/${establishmentId}`,
     );
     return data;
-  } catch (err: unknown) {
-    if (err instanceof AxiosError) {
-      console.log(err);
-    }
-    return Promise.reject(err);
+  } catch (error: unknown) {
+    return Promise.reject(error);
   }
 }
 

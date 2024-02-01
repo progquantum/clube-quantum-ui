@@ -14,10 +14,6 @@ export async function getLoggedUser() {
 
     return data;
   } catch (error: unknown) {
-    if (error instanceof Error) {
-      console.log(error);
-      return Promise.reject(error);
-    }
     return Promise.reject(error);
   }
 }

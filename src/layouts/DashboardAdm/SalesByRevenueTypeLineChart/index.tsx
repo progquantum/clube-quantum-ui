@@ -50,6 +50,7 @@ export function SalesByRevenueTypeLineChart({
 }) {
   const formattedDashboardData = Object.keys(monthlyRevenue.subscriptions).map(
     (key: string) => {
+      // eslint-disable-next-line @typescript-eslint/no-unused-vars
       const [_, month] = key.split('-');
       return {
         name: Months[month],

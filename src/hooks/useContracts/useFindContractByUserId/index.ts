@@ -1,5 +1,3 @@
-import { AxiosError } from 'axios';
-
 import { useQuery } from 'react-query';
 
 import { quantumClientQueue } from 'config/client';
@@ -23,9 +21,6 @@ export async function getContractsLoggedUser({
 
     return data;
   } catch (error: unknown) {
-    if (error instanceof AxiosError) {
-      console.log(error);
-    }
     return Promise.reject(error);
   }
 }

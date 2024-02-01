@@ -7,6 +7,7 @@ import { TimNumber } from './types';
 export const QUERY_KEY_GET_TIM_NUMBERS = 'get-tim-numbers';
 
 export async function getTimNumbers({ queryKey }) {
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const [_, code] = queryKey;
   if (!code) return;
   try {
@@ -16,10 +17,7 @@ export async function getTimNumbers({ queryKey }) {
 
     return data;
   } catch (err: unknown) {
-    if (err instanceof Error) {
-      console.log(err);
-      return Promise.reject(err);
-    }
+    return Promise.reject(err);
   }
 }
 

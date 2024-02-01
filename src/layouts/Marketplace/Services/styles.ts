@@ -1,7 +1,4 @@
-import Link from 'next/link';
 import styled from 'styled-components';
-
-import { Container } from '../Components/ServiceCard/styles';
 
 export const ServiceContainer = styled.div`
   display: flex;
