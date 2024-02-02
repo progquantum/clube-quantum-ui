@@ -105,7 +105,13 @@ export function Summary({
 
           <S.CardDataContainer>
             <S.CardDataTitle>Conta CPF/CNPJ</S.CardDataTitle>
-            <S.CardDataText>{isIndividualPerson ? cpf : cnpj}</S.CardDataText>
+            <S.CardDataText>
+              {isIndividualPerson ? (
+                cpf
+              ) : (
+                <span style={{ fontSize: '0.9rem' }}>{cnpj}</span>
+              )}
+            </S.CardDataText>
           </S.CardDataContainer>
           <S.CardDataContainer>
             <S.CardDataTitle>Titular</S.CardDataTitle>
