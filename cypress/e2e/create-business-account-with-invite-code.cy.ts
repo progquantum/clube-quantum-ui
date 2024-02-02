@@ -3,7 +3,7 @@ import { cnpj } from 'cpf-cnpj-validator';
 
 describe('CreateBusinessAccount', () => {
   it(' should create an business account', () => {
-    cy.visit('http://localhost:3001/signup/?invite=ZW1XWN');
+    cy.visit('http://localhost:3001/signup/?invite=YCQTEV');
 
     // Seleciona o tipo de cadastro de Pessoa Jurídica
     cy.get('[data-cy="business-link"]').click();
@@ -39,19 +39,6 @@ describe('CreateBusinessAccount', () => {
 
     cy.wait('@checkCode');
 
-    // Formulário de informações pessoais
-    const companyName = faker.company.name();
-    cy.get('[data-cy="company_name"]').type(companyName);
-
-    const email = faker.internet.email({ firstName: companyName });
-    cy.get('[data-cy="email"]').type(email);
-    cy.get('[data-cy="email_confirmation"]').type(email);
-
-    cy.get('[data-cy="password"]').type('12345678');
-    cy.get('[data-cy="password_confirmation"]').type('12345678');
-
-    cy.get('@nextStepButton').click();
-
     // Formulário de endereço
     cy.get('[data-cy="zip_code"]').type('38413-246');
     cy.get('[data-cy="business_street"]').should('not.equal', '');
@@ -64,9 +51,21 @@ describe('CreateBusinessAccount', () => {
 
     cy.get('[data-cy="complement"]').type('12B');
 
+    cy.get('@nextStepButton').click();
+
+    // Formulário de informações pessoais
+    const companyName = faker.company.name();
+    cy.get('[data-cy="company_name"]').type(companyName);
+
+    const email = faker.internet.email({ firstName: companyName });
+    cy.get('[data-cy="email"]').type(email);
+    cy.get('[data-cy="email_confirmation"]').type(email);
+    cy.get('[data-cy="password"]').type('12345678');
+    cy.get('[data-cy="password_confirmation"]').type('12345678');
     cy.get('[data-cy="terms"]').check();
     cy.get('@nextStepButton').click();
 
+    // Formulário de Cartão de Crédito
     const fullName = faker.person.fullName();
     cy.get('[data-cy="signup_fullName"]').type(fullName);
 

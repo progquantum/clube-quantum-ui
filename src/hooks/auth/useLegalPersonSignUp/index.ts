@@ -4,9 +4,9 @@ import { quantumClientBase } from 'config/client';
 import { Session } from 'shared/types/apiSchema';
 import { error } from 'helpers/notify/error';
 
-import { LegalPersonSingRequest } from './types';
+import { LegalPersonSignRequest } from './types';
 
-async function legalPersonSingUpResquest(credentials: LegalPersonSingRequest) {
+async function legalPersonSignUpResquest(credentials: LegalPersonSignRequest) {
   try {
     const { data } = await quantumClientBase.post(
       '/users/legal-persons',
@@ -31,6 +31,6 @@ async function legalPersonSingUpResquest(credentials: LegalPersonSingRequest) {
   }
 }
 
-export function useLegalPersonSingUp() {
-  return useMutation(legalPersonSingUpResquest);
+export function useLegalPersonSignUp() {
+  return useMutation(legalPersonSignUpResquest);
 }

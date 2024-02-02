@@ -16,7 +16,6 @@ import { quantumClientQueue } from 'config/client';
 import { SIGN_IN_PAGE } from 'constants/routesPath';
 import {
   REFRESH_TOKEN_STORAGE_KEY,
-  REGISTER_USER_STORAGE_KEY,
   TOKEN_STORAGE_KEY,
   USER_STORAGE_KEY,
 } from 'constants/storage';
@@ -37,12 +36,15 @@ export function AuthProvider({ children }: PropsWithChildren<unknown>) {
   const [previousPage, setPreviousPage] = useState(null);
   const queryClient = useQueryClient();
   const { mutateAsync: signIn, isLoading: loading } = useSignIn();
-  const [registerUser, setRegisterUser, deleteRegister] =
-    useLocalStorage<SignUpData>(REGISTER_USER_STORAGE_KEY, {} as SignUpData);
+  const [registerUser, setRegisterUser] = useState<SignUpData>(
+    {} as SignUpData,
+  );
   const [user, setUser, deleteUser] = useLocalStorage<User>(
     USER_STORAGE_KEY,
     {} as User,
   );
+
+  const deleteUserRegister = () => setRegisterUser({} as SignUpData);
 
   useEffect(() => {
     authChannel = new BroadcastChannel(`auth`);
@@ -113,10 +115,7 @@ export function AuthProvider({ children }: PropsWithChildren<unknown>) {
 
   const handleSignUp = useCallback(
     (updateRegisterUser: SignUpData) => {
-      setRegisterUser({
-        ...registerUser,
-        ...updateRegisterUser,
-      });
+      setRegisterUser(prevState => ({ ...prevState, ...updateRegisterUser }));
     },
     [registerUser],
   );
@@ -145,9 +144,9 @@ export function AuthProvider({ children }: PropsWithChildren<unknown>) {
       signUp: handleSignUp,
       signOut,
       setPreviousPage,
-      deleteRegister,
+      deleteUserRegister,
     }),
-    [handleSignIn, handleSignUp, signOut, deleteRegister],
+    [handleSignIn, handleSignUp, signOut],
   );
 
   return (

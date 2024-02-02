@@ -1,13 +1,13 @@
 import { FormHandles, SubmitHandler } from '@unform/core';
 import { Form } from '@unform/web';
 import noop from 'lodash.noop';
-import { useCallback, useRef } from 'react';
+import { useCallback, useEffect, useRef } from 'react';
 import { FiPhone } from 'react-icons/fi';
 import { IoReturnDownBackSharp } from 'react-icons/io5';
 
 import { Button } from 'components/Button';
 import { Input } from 'components/Input';
-import { useAuthDispatch } from 'contexts/auth/AuthContext';
+import { useAuthDispatch, useAuthState } from 'contexts/auth/AuthContext';
 import { success } from 'helpers/notify/success';
 import { useSendPhoneCode } from 'hooks/phones/useSendPhoneCode';
 import { AuthLayout } from 'layouts/Auth';
@@ -19,11 +19,24 @@ import { PhoneFormValues, PhoneProps } from './types';
 
 export function Phone({ onUpdateFormStep, onPreviousFormStep }: PhoneProps) {
   const { signUp } = useAuthDispatch();
+  const { registerUser } = useAuthState();
 
   const formRef = useRef<FormHandles>(null);
 
   const { mutate: sendPhoneCodeRequest, isLoading: isSendingPhoneCode } =
     useSendPhoneCode();
+
+  useEffect(() => {
+    if (registerUser) {
+      const { phone } = registerUser;
+
+      if (phone) {
+        const rawPhone = phone.slice(4, phone.length);
+
+        formRef.current.setFieldValue('phone', rawPhone);
+      }
+    }
+  }, []);
 
   const handlePhoneCode: SubmitHandler<PhoneFormValues> = useCallback(
     data => {

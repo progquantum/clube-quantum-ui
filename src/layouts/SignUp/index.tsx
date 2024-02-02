@@ -14,11 +14,10 @@ import { AuthLayout } from 'layouts/Auth';
 import * as S from './styles';
 
 export function SignUpPage() {
-  const { signUp, deleteRegister } = useAuthDispatch();
+  const { signUp } = useAuthDispatch();
   const router = useRouter();
   const inviteCode = router.query.invite as string;
   const handleSubmit = () => {
-    deleteRegister();
     if (inviteCode !== '') {
       signUp({ invited_by: inviteCode });
     }

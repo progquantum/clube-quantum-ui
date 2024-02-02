@@ -1,6 +1,6 @@
 import { Address } from 'shared/types/apiSchema';
 
-export type LegalPersonSingRequest = {
+export type LegalPersonSignRequest = {
   company_name: string;
   phone: string;
   cnpj: string;

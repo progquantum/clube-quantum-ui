@@ -2,7 +2,7 @@ import { FormHandles, SubmitHandler } from '@unform/core';
 import { Form } from '@unform/web';
 import noop from 'lodash.noop';
 import Link from 'next/link';
-import { useCallback, useRef } from 'react';
+import { useCallback, useEffect, useRef } from 'react';
 import { FiUser } from 'react-icons/fi';
 import { IoReturnDownBackSharp } from 'react-icons/io5';
 import { useSearchParam } from 'react-use';
@@ -10,7 +10,7 @@ import { useSearchParam } from 'react-use';
 import { Button } from 'components/Button';
 import { Input } from 'components/Input';
 import { SIGN_UP_PAGE } from 'constants/routesPath';
-import { useAuthDispatch } from 'contexts/auth/AuthContext';
+import { useAuthDispatch, useAuthState } from 'contexts/auth/AuthContext';
 import { AuthLayout } from 'layouts/Auth';
 import { formatCPF } from 'utils/formatters/formatCPF';
 import { performSchemaValidation } from 'utils/performSchemaValidation';
@@ -20,9 +20,21 @@ import { CPFProps, FormValues } from './types';
 
 export function CPF({ onUpdateFormStep }: CPFProps) {
   const { signUp } = useAuthDispatch();
+  const { registerUser } = useAuthState();
+
   const invite = useSearchParam('invite');
 
   const formRef = useRef<FormHandles>(null);
+
+  useEffect(() => {
+    if (registerUser) {
+      const { cpf } = registerUser;
+
+      if (cpf) {
+        formRef.current.setFieldValue('cpf', cpf);
+      }
+    }
+  }, []);
 
   const handleCPFSubmit: SubmitHandler<FormValues> = useCallback(data => {
     performSchemaValidation({

@@ -1,15 +1,22 @@
 import { FormHandles, SubmitHandler } from '@unform/core';
 import { Form } from '@unform/web';
 import noop from 'lodash.noop';
-import { useCallback, useRef } from 'react';
+import { useCallback, useEffect, useRef } from 'react';
 import { FiLock, FiMail, FiUser } from 'react-icons/fi';
 import { IoReturnDownBackSharp } from 'react-icons/io5';
+import { setCookie } from 'nookies';
 
 import { Button } from 'components/Button';
 import { Input } from 'components/Input';
-import { useAuthDispatch } from 'contexts/auth/AuthContext';
+import { useAuthDispatch, useAuthState } from 'contexts/auth/AuthContext';
 import { AuthLayout } from 'layouts/Auth';
 import { performSchemaValidation } from 'utils/performSchemaValidation';
+import { useLegalPersonSignUp } from 'hooks/auth/useLegalPersonSignUp';
+import {
+  REFRESH_TOKEN_STORAGE_KEY,
+  TOKEN_STORAGE_KEY,
+} from 'constants/storage';
+import { Checkbox } from 'components/Checkbox';
 
 import { schema } from './schemas';
 import { LegalPersonProps, SignUpFormValues } from './types';
@@ -18,8 +25,47 @@ export function LegalPerson({
   onUpdateFormStep,
   onPreviousFormStep,
 }: LegalPersonProps) {
-  const { signUp } = useAuthDispatch();
+  const { registerUser } = useAuthState();
+  const { signUp: signUpState } = useAuthDispatch();
+  const { mutate: signUp, isLoading: isSignuping } = useLegalPersonSignUp();
   const formRef = useRef<FormHandles>(null);
+
+  useEffect(() => {
+    if (registerUser) {
+      const fields = ['company_name', 'email', 'password'];
+
+      fields.forEach((field: string) => {
+        const fieldValue = registerUser[field];
+        if (fieldValue) {
+          if (field === 'email' || field === 'password') {
+            formRef.current.setFieldValue(field, fieldValue);
+            formRef.current.setFieldValue(`${field}_confirmation`, fieldValue);
+          } else {
+            formRef.current.setFieldValue(field, fieldValue);
+          }
+        }
+      });
+    }
+  }, []);
+
+  const handlePreviousStep = () => {
+    const formData = formRef.current.getData();
+    let dataToSaveOnState = {};
+
+    Object.keys(formData).forEach((key: string) => {
+      if (key === 'email_confirmation' || key === 'password_confirmation')
+        return;
+
+      const fieldValue = formData[key];
+
+      if (fieldValue) {
+        dataToSaveOnState = { ...dataToSaveOnState, [key]: fieldValue };
+      }
+    });
+
+    signUpState(dataToSaveOnState);
+    onPreviousFormStep();
+  };
 
   const handleSignUp: SubmitHandler<SignUpFormValues> = useCallback(data => {
     performSchemaValidation({
@@ -28,8 +74,54 @@ export function LegalPerson({
       schema,
     })
       .then(() => {
-        signUp(data);
-        onUpdateFormStep();
+        // eslint-disable-next-line @typescript-eslint/no-unused-vars
+        const { password_confirmation, email_confirmation, ...rest } = data;
+        const {
+          // eslint-disable-next-line @typescript-eslint/no-unused-vars
+          terms,
+          city,
+          cnpj,
+          complement,
+          country,
+          neighborhood,
+          number,
+          phone,
+          state,
+          street,
+          zip_code,
+        } = registerUser;
+
+        const requestBody = {
+          cnpj,
+          phone,
+          address: {
+            street,
+            number,
+            complement,
+            neighborhood,
+            zip_code,
+            city,
+            state,
+            country,
+          },
+          ...rest,
+        };
+
+        signUp(requestBody, {
+          onSuccess: ({ token, refresh_token }) => {
+            setCookie(undefined, TOKEN_STORAGE_KEY, token, {
+              maxAge: 60 * 60 * 24 * 30,
+              path: `/`,
+            });
+
+            setCookie(undefined, REFRESH_TOKEN_STORAGE_KEY, refresh_token, {
+              maxAge: 60 * 60 * 24 * 30,
+              path: `/`,
+            });
+
+            onUpdateFormStep();
+          },
+        });
       })
       .catch(noop);
   }, []);
@@ -54,7 +146,6 @@ export function LegalPerson({
             );
           }}
         />
-
         <Input
           type="email"
           name="email"
@@ -63,7 +154,6 @@ export function LegalPerson({
           icon={FiMail}
           inputMode="email"
         />
-
         <Input
           type="email"
           name="email_confirmation"
@@ -73,27 +163,38 @@ export function LegalPerson({
           onPaste={e => e.preventDefault()}
           inputMode="email"
         />
-
         <Input
           typePassword
           name="password"
           data-cy="password"
           placeholder="Criar senha"
+          autoComplete="on"
           icon={FiLock}
         />
-
         <Input
           typePassword
           name="password_confirmation"
           data-cy="password_confirmation"
           placeholder="Confirmar senha"
           icon={FiLock}
+          autoComplete="on"
           onPaste={e => e.preventDefault()}
         />
 
-        <Button type="submit" data-cy="next-step-button">
+        <Button
+          type="submit"
+          data-cy="next-step-button"
+          loading={isSignuping}
+          disabled={isSignuping}
+        >
           Continuar
         </Button>
+        <Checkbox
+          type="checkbox"
+          name="terms"
+          data-cy="terms"
+          style={{ margin: '24px 0' }}
+        />
       </Form>
       <button
         style={{
@@ -105,8 +206,9 @@ export function LegalPerson({
           textAlign: 'center',
           background: 'transparent',
         }}
+        disabled={isSignuping}
         type="button"
-        onClick={onPreviousFormStep}
+        onClick={handlePreviousStep}
       >
         <IoReturnDownBackSharp size={20} />
         Voltar
