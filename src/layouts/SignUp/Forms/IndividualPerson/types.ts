@@ -10,4 +10,5 @@ export type SignUpFormValues = {
   email_confirmation: string;
   password: string;
   password_confirmation: string;
+  terms: boolean;
 };

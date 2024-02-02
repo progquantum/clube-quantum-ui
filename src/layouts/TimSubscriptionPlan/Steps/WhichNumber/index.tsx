@@ -1,4 +1,5 @@
-import { PlanSectionTitle } from 'layouts/TimSubscriptionPlan/Components/PlanSectionTitle';
+import { PlanSectionTitle } from 'components/PlanSectionTitle';
+
 import { useTimPlanStore } from 'store/tim';
 
 import { Default } from './Default';

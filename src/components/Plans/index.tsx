@@ -1,26 +1,17 @@
 /* eslint-disable no-nested-ternary */
 import { useEffect, useMemo, useState } from 'react';
-
 import { FaCheck } from 'react-icons/fa';
-
 import { AiOutlineSelect } from 'react-icons/ai';
-
 import { PulseLoader } from 'react-spinners';
-
 import { useTheme } from 'styled-components';
-
 import { useRouter } from 'next/router';
 
 import { usePlans } from 'hooks/helpers/usePlans';
 import { useSubscriptionsDispatch } from 'contexts/subscriptions/SubscriptionsContext';
 import { formatPrice } from 'utils/formatters/formatPrice';
-
 import { formatFirstLetterToUppercase } from 'utils/formatters/formatFirstLetterToUppercase';
-
 import { useMe } from 'hooks/me/useMe';
-
 import { Loading } from 'components/Loading';
-
 import { Button } from 'components/Button';
 
 import {

@@ -7,9 +7,7 @@ export type SignInCredentials = {
   password: string;
 };
 
-export type SignUpData = {
-  [string: string]: string;
-};
+export type SignUpData = Record<string, string>;
 
 export type AuthStateContextData = {
   user: User;
@@ -23,5 +21,5 @@ export type AuthDispatchContextData = {
   signOut: () => void;
   signUp: (updateRegisterUser: SignUpData) => void;
   setPreviousPage: Dispatch<any>;
-  deleteRegister: () => void;
+  deleteUserRegister: () => void;
 };

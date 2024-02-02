@@ -27,4 +27,8 @@ export const schema = Yup.object().shape({
     .required()
     .min(8)
     .oneOf([null, Yup.ref('password')]),
+  terms: Yup.boolean().oneOf(
+    [true],
+    'Para prosseguir você precisa aceitar os termos',
+  ),
 });

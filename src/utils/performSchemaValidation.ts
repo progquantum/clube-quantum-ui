@@ -7,7 +7,7 @@ import { getValidationErrors } from 'components/Input/utils';
 type PerfomSchemaValidationParameter = {
   formRef: RefObject<FormHandles>;
   schema: ObjectSchema<Shape<any, any>>;
-  data: Record<string, string>;
+  data: Record<string, string | boolean>;
 };
 
 export const performSchemaValidation = async ({

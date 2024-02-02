@@ -1,7 +1,7 @@
 import { FormHandles, SubmitHandler } from '@unform/core';
 import { Form } from '@unform/web';
 import Link from 'next/link';
-import { useCallback, useRef } from 'react';
+import { useCallback, useEffect, useRef } from 'react';
 import { FiUser } from 'react-icons/fi';
 import { IoReturnDownBackSharp } from 'react-icons/io5';
 import { useSearchParam } from 'react-use';
@@ -9,7 +9,7 @@ import { useSearchParam } from 'react-use';
 import { Button } from 'components/Button';
 import { Input } from 'components/Input';
 import { SIGN_UP_PAGE } from 'constants/routesPath';
-import { useAuthDispatch } from 'contexts/auth/AuthContext';
+import { useAuthDispatch, useAuthState } from 'contexts/auth/AuthContext';
 import { AuthLayout } from 'layouts/Auth';
 import { formatCNPJ } from 'utils/formatters/formatCNPJ';
 import { performSchemaValidation } from 'utils/performSchemaValidation';
@@ -19,9 +19,20 @@ import { CNPJProps, FormValues } from './types';
 
 export function CNPJ({ onUpdateFormStep }: CNPJProps) {
   const { signUp } = useAuthDispatch();
+  const { registerUser } = useAuthState();
   const invite = useSearchParam('invite');
 
   const formRef = useRef<FormHandles>(null);
+
+  useEffect(() => {
+    if (registerUser) {
+      const { cnpj } = registerUser;
+
+      if (cnpj) {
+        formRef.current.setFieldValue('cnpj', cnpj);
+      }
+    }
+  }, []);
 
   const handleSignUp: SubmitHandler<FormValues> = useCallback(data => {
     performSchemaValidation({

@@ -10,10 +10,10 @@ export const getServerSideProps: GetServerSideProps = withSSRAuth(
     props: {},
   }),
   {
-    roles: [roles.admin.id],
+    roles: [roles.admin.id, roles.user.id],
   },
 );
 
-export default function CancellationRequest() {
+export default function WaitingQueueReport() {
   return <WaitingQueueReportPage />;
 }

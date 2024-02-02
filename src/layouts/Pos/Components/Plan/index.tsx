@@ -3,8 +3,8 @@ import { BiCheck } from 'react-icons/bi';
 import { useTheme } from 'styled-components';
 
 import { Button } from 'components/Button';
-import AmericanExpressIcon from 'components/Illustrations/AmericanExpress';
-import EloIcon from 'components/Illustrations/Elo';
+import { AmericanExpressIcon } from 'components/Illustrations/AmericanExpress';
+import { EloIcon } from 'components/Illustrations/Elo';
 import { MasterCardIcon } from 'components/Illustrations/MasterCard';
 import { VISAIcon } from 'components/Illustrations/Visa';
 

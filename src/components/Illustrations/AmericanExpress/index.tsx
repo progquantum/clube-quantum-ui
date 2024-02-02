@@ -1,8 +1,8 @@
 import React from 'react';
 
-import { AmericanExpressProps } from './types';
+import { BrandIconProps } from '../types';
 
-function AmericanExpressIcon({ width, height }: AmericanExpressProps) {
+export function AmericanExpressIcon({ width, height }: BrandIconProps) {
   return (
     <svg
       width={width}
@@ -10,6 +10,7 @@ function AmericanExpressIcon({ width, height }: AmericanExpressProps) {
       viewBox="0 0 25 25"
       fill="none"
       xmlns="http://www.w3.org/2000/svg"
+      xmlnsXlink="http://www.w3.org/1999/xlink"
     >
       <path
         d="M24.7812 24.1309H12.8533H0.78125V12.0118V0.130859H12.6924H24.7812V12.1299V24.1309Z"
@@ -22,5 +23,3 @@ function AmericanExpressIcon({ width, height }: AmericanExpressProps) {
     </svg>
   );
 }
-
-export default AmericanExpressIcon;

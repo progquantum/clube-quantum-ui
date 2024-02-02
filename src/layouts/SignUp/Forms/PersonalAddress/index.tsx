@@ -1,7 +1,6 @@
 import { FormHandles, SubmitHandler } from '@unform/core';
 import { Form } from '@unform/web';
-import { setCookie } from 'nookies';
-import { ChangeEvent, useCallback, useRef } from 'react';
+import { useCallback, useEffect, useRef } from 'react';
 import { BiBuildingHouse } from 'react-icons/bi';
 import { BsPinMap } from 'react-icons/bs';
 import { FaRegAddressCard } from 'react-icons/fa';
@@ -9,10 +8,8 @@ import { FiGlobe, FiHome, FiMap, FiMapPin, FiPackage } from 'react-icons/fi';
 import { IoReturnDownBackSharp } from 'react-icons/io5';
 
 import { Button } from 'components/Button';
-import { Checkbox } from 'components/Checkbox';
 import { Input } from 'components/Input';
-import { useAuthState } from 'contexts/auth/AuthContext';
-import { useIndividualPersonSignUp } from 'hooks/auth/useIndividualPersonSignUp';
+import { useAuthDispatch, useAuthState } from 'contexts/auth/AuthContext';
 import { AuthLayout } from 'layouts/Auth';
 import { getZipCode } from 'services/resources';
 import { formatAddressNumber } from 'utils/formatters/formatAddressNumber';
@@ -21,11 +18,6 @@ import { formatCountry } from 'utils/formatters/formatCountry';
 import { formatUF } from 'utils/formatters/formatUF';
 import { performSchemaValidation } from 'utils/performSchemaValidation';
 
-import {
-  REFRESH_TOKEN_STORAGE_KEY,
-  TOKEN_STORAGE_KEY,
-} from 'constants/storage';
-
 import { schema } from './schemas';
 import { AddressFormValues, PersonalAddressProps } from './types';
 
@@ -33,18 +25,16 @@ export function PersonalAddress({
   onUpdateFormStep,
   onPreviousFormStep,
 }: PersonalAddressProps) {
-  const { registerUser } = useAuthState();
-  const { mutate: signUp, isLoading: isSignuping } =
-    useIndividualPersonSignUp();
-
   const formRef = useRef<FormHandles>(null);
+  const { signUp } = useAuthDispatch();
+  const { registerUser } = useAuthState();
 
   const handleZipCode = useCallback(
-    async (e: ChangeEvent<HTMLInputElement>) => {
-      formRef.current.setFieldValue('zip_code', formatCEP(e.target.value));
+    async (zip_code: string) => {
+      formRef.current.setFieldValue('zip_code', formatCEP(zip_code));
 
-      if (e.target.value.length === 10) {
-        const formattedCep = e.target.value.replace('.', '').replace('-', '');
+      if (zip_code.length === 10) {
+        const formattedCep = zip_code.replace('.', '').replace('-', '');
 
         await getZipCode(formattedCep).then(data => {
           formRef.current.setFieldValue('street', data?.street);
@@ -58,6 +48,32 @@ export function PersonalAddress({
     [formRef],
   );
 
+  useEffect(() => {
+    if (registerUser) {
+      const fields = [
+        'street',
+        'neighborhood',
+        'city',
+        'state',
+        'country',
+        'zip_code',
+        'complement',
+        'number',
+      ];
+
+      fields.forEach((field: string) => {
+        const fieldValue = registerUser[field];
+        if (fieldValue) {
+          if (field === 'zip_code') {
+            formRef.current.setFieldValue(field, formatCEP(fieldValue));
+          } else {
+            formRef.current.setFieldValue(field, fieldValue);
+          }
+        }
+      });
+    }
+  }, []);
+
   const handleAddressSubmit: SubmitHandler<AddressFormValues> = useCallback(
     data => {
       performSchemaValidation({
@@ -65,44 +81,13 @@ export function PersonalAddress({
         data,
         schema,
       }).then(() => {
-        const { name, phone, cpf, email, password, invited_by, birth_date } =
-          registerUser;
+        const formattedNeighborhood = data.neighborhood.replace('-', '');
 
-        const formatedNeighborhood = data.neighborhood.replace('-', '');
-
-        signUp(
-          {
-            name,
-            phone,
-            cpf,
-            email,
-            password,
-            invited_by,
-            birth_date,
-            address: {
-              ...data,
-              neighborhood: formatedNeighborhood,
-            },
-          },
-          {
-            onSuccess: ({ token, refresh_token }) => {
-              setCookie(undefined, TOKEN_STORAGE_KEY, token, {
-                maxAge: 60 * 60 * 24 * 30,
-                path: `/`,
-              });
-
-              setCookie(undefined, REFRESH_TOKEN_STORAGE_KEY, refresh_token, {
-                maxAge: 60 * 60 * 24 * 30,
-                path: `/`,
-              });
-
-              onUpdateFormStep();
-            },
-          },
-        );
+        signUp({ ...data, neighborhood: formattedNeighborhood });
+        onUpdateFormStep();
       });
     },
-    [signUp, registerUser],
+    [signUp],
   );
 
   return (
@@ -119,7 +104,7 @@ export function PersonalAddress({
           name="zip_code"
           placeholder="CEP"
           icon={FiMapPin}
-          onChange={e => handleZipCode(e)}
+          onChange={e => handleZipCode(e.target.value)}
         />
         <Input
           data-cy="signup_street"
@@ -186,20 +171,7 @@ export function PersonalAddress({
             )
           }
         />
-
-        <Checkbox
-          data-cy="signup_terms"
-          type="checkbox"
-          name="terms"
-          style={{ margin: '24px 0' }}
-        />
-
-        <Button
-          data-cy="next-step-button"
-          type="submit"
-          loading={isSignuping}
-          disabled={isSignuping}
-        >
+        <Button data-cy="next-step-button" type="submit">
           Continuar
         </Button>
       </Form>

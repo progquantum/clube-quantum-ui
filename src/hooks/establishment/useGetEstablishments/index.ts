@@ -1,7 +1,5 @@
 import { useQuery } from 'react-query';
 
-import { AxiosError } from 'axios';
-
 import { quantumClientQueue } from 'config/client';
 
 import { RequestBody, ResponseData } from './types';
@@ -9,6 +7,7 @@ import { RequestBody, ResponseData } from './types';
 export const QUERY_KEY_GET_ESTABLISHMENTS = 'get-establishments';
 
 export async function getEstablishments({ queryKey }) {
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const [_, requestBody] = queryKey;
   const params = new URLSearchParams();
 
@@ -24,9 +23,6 @@ export async function getEstablishments({ queryKey }) {
 
     return data;
   } catch (error: unknown) {
-    if (error instanceof AxiosError) {
-      console.log(error);
-    }
     return Promise.reject(error);
   }
 }

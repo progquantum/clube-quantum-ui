@@ -1,32 +1,19 @@
 import { RiBankCard2Line, RiBankLine, RiStackLine } from 'react-icons/ri';
-
 import { IoReturnDownBackSharp } from 'react-icons/io5';
-
 import { parseCookies } from 'nookies';
-
 import { AxiosError } from 'axios';
 
 import { useSubscription } from 'hooks/subscriptions/useSubscription';
-
 import { formatFirstLetterToUppercase } from 'utils/formatters/formatFirstLetterToUppercase';
 import { formatPrice } from 'utils/formatters/formatPrice';
-
 import { useSubscriptionsState } from 'contexts/subscriptions/SubscriptionsContext';
-
 import { formatCreditCardRemoveSpace } from 'utils/formatters/formatCreditCardRemoveSpace';
-
 import { AuthLayout } from 'layouts/Auth';
-
 import { Button } from 'components/Button';
-
 import { TOKEN_STORAGE_KEY } from 'constants/storage';
-
 import { quantumClientQueue } from 'config/client';
-
 import { ErrorResponse } from 'services/httpServices';
-
 import { error } from 'helpers/notify/error';
-
 import { useAuthState } from 'contexts/auth/AuthContext';
 
 import * as S from './styles';
@@ -117,8 +104,14 @@ export function Summary({
           </S.Title>
 
           <S.CardDataContainer>
-            <S.CardDataTitle>Conta</S.CardDataTitle>
-            <S.CardDataText>{isIndividualPerson ? cpf : cnpj}</S.CardDataText>
+            <S.CardDataTitle>Conta CPF/CNPJ</S.CardDataTitle>
+            <S.CardDataText>
+              {isIndividualPerson ? (
+                cpf
+              ) : (
+                <span style={{ fontSize: '0.9rem' }}>{cnpj}</span>
+              )}
+            </S.CardDataText>
           </S.CardDataContainer>
           <S.CardDataContainer>
             <S.CardDataTitle>Titular</S.CardDataTitle>

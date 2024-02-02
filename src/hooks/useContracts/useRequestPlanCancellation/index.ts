@@ -1,5 +1,3 @@
-import { AxiosError } from 'axios';
-
 import { useMutation } from 'react-query';
 
 import { quantumClientQueue } from 'config/client';
@@ -14,9 +12,6 @@ export async function postPlanCancellation(requestBody: RequestBody) {
       requestBody,
     );
   } catch (error: unknown) {
-    if (error instanceof AxiosError) {
-      console.log(error);
-    }
     return Promise.reject(error);
   }
 }

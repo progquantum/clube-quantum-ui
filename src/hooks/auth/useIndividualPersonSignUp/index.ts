@@ -17,13 +17,22 @@ async function individualPersonSignUpRequest(
 
     return data as Session;
   } catch (err) {
-    if (err.response.data.message === 'Email already in use') {
+    const emailAlreadyInUseError = 'Email already in use';
+    const CPFAlreadyInUseError = 'CPF already in use';
+    const YouMustBeOver18Error = 'you must be over 18 years of age';
+
+    if (err.response.data.message === emailAlreadyInUseError) {
       error('Este email já está em uso');
     }
 
-    if (err.response.data.message === 'CPF already in use') {
+    if (err.response.data.message === CPFAlreadyInUseError) {
       error('Este CPF já está em uso');
     }
+
+    if (err.response.data.message[0] === YouMustBeOver18Error) {
+      error('Você precisa ser maior de 18 anos');
+    }
+
     return Promise.reject(err);
   }
 }

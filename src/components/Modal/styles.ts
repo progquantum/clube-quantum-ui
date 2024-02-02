@@ -1,13 +1,13 @@
 import { motion } from 'framer-motion';
 import styled from 'styled-components';
 
-export const AnimatedContainer = styled(motion.div)`
+export const AnimatedContainer = styled(motion.div)<{ maxWidth: number }>`
   position: fixed;
   inset: 0;
   z-index: 99999;
   background-color: ${({ theme }) => theme.colors.background};
   width: 100%;
-  max-width: 50rem;
+  max-width: ${({ maxWidth }) => `${maxWidth}px`};
   height: max-content;
   margin: auto auto;
   padding: 2rem;

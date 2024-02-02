@@ -5,7 +5,8 @@ export interface Data {
 export interface PartnerList {
   id: string;
   name: string;
-  logo_url: string;
+  order_by: number;
+  inactivated: string | null;
   created_at: string;
   updated_at: string;
 }

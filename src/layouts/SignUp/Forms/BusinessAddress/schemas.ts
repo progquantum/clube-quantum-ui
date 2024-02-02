@@ -9,8 +9,4 @@ export const schema = Yup.object().shape({
   city: Yup.string().required(),
   state: Yup.string().required(),
   country: Yup.string().required(),
-  terms: Yup.boolean().oneOf(
-    [true],
-    'Para prosseguir você precisa aceitar os termos',
-  ),
 });

@@ -42,24 +42,6 @@ describe('CreatePersonalAccount', () => {
 
     cy.wait('@checkCode');
 
-    // Formulário de informações pessoais
-    const fullName = faker.person.fullName();
-    cy.get('[data-cy="signup_name"]').type(fullName);
-
-    const birthDate = faker.date.birthdate({ min: 18, max: 65, mode: 'age' });
-    cy.get('[data-cy="signup_birthDate"]').type(
-      new Intl.DateTimeFormat('pt-BR').format(birthDate),
-    );
-
-    const email = faker.internet.email({ firstName: fullName });
-    cy.get('[data-cy="signup_email"]').type(email);
-    cy.get('[data-cy="signup_confirmEmail"]').type(email);
-
-    cy.get('[data-cy="signup_password"]').type('12345678');
-    cy.get('[data-cy="signup_confirmPassword"]').type('12345678');
-
-    cy.get('@nextStepButton').click();
-
     // Formulário de endereço
     const zipCode = '29065580';
     cy.get('[data-cy="signup_zipCode"]').type(zipCode);
@@ -78,13 +60,29 @@ describe('CreatePersonalAccount', () => {
     cy.get('[data-cy="signup_city"]').should('have.value', 'Vitória');
     cy.get('[data-cy="signup_state"]').should('have.value', 'ES');
     cy.get('[data-cy="signup_country"]').should('have.value', 'Brasil');
+
+    cy.get('@nextStepButton').click();
+
+    // Formulário de informações pessoais
+    const fullName = faker.person.fullName();
+    cy.get('[data-cy="signup_name"]').type(fullName);
+
+    const birthDate = faker.date.birthdate({ min: 18, max: 65, mode: 'age' });
+    cy.get('[data-cy="signup_birthDate"]').type(
+      new Intl.DateTimeFormat('pt-BR').format(birthDate),
+    );
+
+    const email = faker.internet.email({ firstName: fullName });
+    cy.get('[data-cy="signup_email"]').type(email);
+    cy.get('[data-cy="signup_confirmEmail"]').type(email);
+
+    cy.get('[data-cy="signup_password"]').type('12345678');
+    cy.get('[data-cy="signup_confirmPassword"]').type('12345678');
     cy.get('[data-cy="signup_terms"]').check();
     cy.get('@nextStepButton').click();
 
     cy.get('[data-cy="signup_fullName"]').type(fullName);
-
     cy.get('[data-cy="signup_creditCardNumber"]').type('4916069268475522');
-
     cy.get('[data-cy="signup_expirationDate"]').type('122030');
 
     const cvv = faker.finance.creditCardCVV();
@@ -92,11 +90,10 @@ describe('CreatePersonalAccount', () => {
 
     cy.get('@nextStepButton').click();
 
-    cy.get('[data-cy="signup_checkingAccount"]').type(
-      String(faker.number.bigInt({ min: 111111111, max: 999999999 })),
+    cy.get('[data-cy="signup_bankAccountDocument"]').should(
+      'have.text',
+      'Conta CPF',
     );
-
-    cy.get('[data-cy="signup_holderName"]').type(fullName);
 
     cy.get('@nextStepButton').click();
 

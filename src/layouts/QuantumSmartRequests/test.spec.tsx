@@ -9,6 +9,7 @@ describe('QuantumSmartRequests', () => {
     await login();
   });
   it(' should render the items given by props', () => {
+    // eslint-disable-next-line @typescript-eslint/no-unused-vars
     const mockedData = [
       {
         name: 'Rafael Almeida',

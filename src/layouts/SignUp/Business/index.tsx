@@ -33,13 +33,13 @@ export function BusinessSignUpPage() {
     1: <Phone onUpdateFormStep={nextStep} onPreviousFormStep={previousStep} />,
     2: <PinCode onNextFormStep={nextStep} onPreviousFormStep={previousStep} />,
     3: (
-      <LegalPerson
+      <BusinessAddress
         onUpdateFormStep={nextStep}
         onPreviousFormStep={previousStep}
       />
     ),
     4: (
-      <BusinessAddress
+      <LegalPerson
         onUpdateFormStep={nextStep}
         onPreviousFormStep={previousStep}
       />

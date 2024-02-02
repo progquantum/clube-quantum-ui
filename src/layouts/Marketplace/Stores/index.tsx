@@ -16,13 +16,10 @@ import {
   RequestBody,
   ResponseData,
 } from 'hooks/establishment/useGetEstablishments/types';
-
 import { Loading } from 'components/Loading';
 import { useBannersFindAll } from 'hooks/banners/useBannersFindAll';
 import { useGetEstablishments } from 'hooks/establishment/useGetEstablishments';
 import { FilterTags } from 'components/FilterTags';
-
-import { FallbackComponent } from 'layouts/MyContracts/styles';
 
 import { SectionTitle } from '../Components/SectionTitle';
 import { FilterInput } from './FilterInput';
@@ -130,17 +127,6 @@ export function Stores({
       setFilterInput({ ...filterInitialState, corporate_name: data.filter });
     },
     [filterInput],
-  );
-
-  const FallBackComponent = isLoading ? (
-    <S.LoadingContainer>
-      <Loading icon={PulseLoader} color={colors.mediumslateBlue} size={10} />
-      Carregando
-    </S.LoadingContainer>
-  ) : (
-    <S.FallbackEstablishmentText>
-      Nenhum estabelecimento encontrado
-    </S.FallbackEstablishmentText>
   );
 
   return (

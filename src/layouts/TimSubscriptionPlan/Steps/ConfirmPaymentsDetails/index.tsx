@@ -1,24 +1,16 @@
 import { useState } from 'react';
-
 import { AxiosError } from 'axios';
-
 import { useRouter } from 'next/router';
-
 import { cpf } from 'cpf-cnpj-validator';
 
 import { FlowButton } from 'layouts/TimSubscriptionPlan/Components/FlowButton';
-import { PlanSectionTitle } from 'layouts/TimSubscriptionPlan/Components/PlanSectionTitle';
+import { PlanSectionTitle } from 'components/PlanSectionTitle';
 import { SelectedPlan } from 'layouts/TimSubscriptionPlan/Components/SelectedPlan';
 import { useTimPlanStore } from 'store/tim';
-
 import { usePostSubscriptionMarketplace } from 'hooks/subscriptions/useSubscriptionMarketplace';
-
 import { useWallet } from 'hooks/me/useWallet';
-
 import { information } from 'helpers/notify/information';
-
 import { useCreateDocumentRequestSignatureTim } from 'hooks/useContracts/useCreateDocumentRequestSignatureTim';
-
 import { useMeOrderingData } from 'hooks/me/useOrderingData';
 import { ResponseData as SubscriptionResponseData } from 'hooks/subscriptions/useSubscriptionMarketplace/types';
 

@@ -3,7 +3,7 @@ import { cnpj } from 'cpf-cnpj-validator';
 
 describe('CreateBusinessAccount', () => {
   it(' should create an business account', () => {
-    cy.visit('http://localhost:3000');
+    cy.visit('http://localhost:3001');
 
     cy.get('[data-cy="signin-button"]').click();
 
@@ -42,19 +42,6 @@ describe('CreateBusinessAccount', () => {
 
     cy.wait('@checkCode');
 
-    // Formulário de informações pessoais
-    const companyName = faker.company.name();
-    cy.get('[data-cy="company_name"]').type(companyName);
-
-    const email = faker.internet.email({ firstName: companyName });
-    cy.get('[data-cy="email"]').type(email);
-    cy.get('[data-cy="email_confirmation"]').type(email);
-
-    cy.get('[data-cy="password"]').type('12345678');
-    cy.get('[data-cy="password_confirmation"]').type('12345678');
-
-    cy.get('@nextStepButton').click();
-
     // Formulário de endereço
     cy.get('[data-cy="zip_code"]').type('38413-246');
     cy.get('[data-cy="business_street"]').should('not.equal', '');
@@ -67,10 +54,22 @@ describe('CreateBusinessAccount', () => {
 
     cy.get('[data-cy="complement"]').type('12B');
 
+    cy.get('@nextStepButton').click();
+
+    // Formulário de informações pessoais
+    const companyName = faker.company.name();
+    cy.get('[data-cy="company_name"]').type(companyName);
+
+    const email = faker.internet.email({ firstName: companyName });
+    cy.get('[data-cy="email"]').type(email);
+    cy.get('[data-cy="email_confirmation"]').type(email);
+
+    cy.get('[data-cy="password"]').type('12345678');
+    cy.get('[data-cy="password_confirmation"]').type('12345678');
     cy.get('[data-cy="terms"]').check();
     cy.get('@nextStepButton').click();
 
-    const fullName = faker.person.fullName();
+    // Formulário de Cartão de Crédito
     cy.get('[data-cy="signup_fullName"]').type(companyName);
 
     cy.get('[data-cy="signup_creditCardNumber"]').type('4916069268475522');
@@ -82,11 +81,10 @@ describe('CreateBusinessAccount', () => {
 
     cy.get('@nextStepButton').click();
 
-    cy.get('[data-cy="signup_checkingAccount"]').type(
-      String(faker.number.bigInt({ min: 111111111, max: 999999999 })),
+    cy.get('[data-cy="signup_bankAccountDocument"]').should(
+      'have.text',
+      'Conta CNPJ',
     );
-
-    cy.get('[data-cy="signup_holderName"]').type(fullName);
 
     cy.get('@nextStepButton').click();
 

@@ -1,6 +1,6 @@
-import { VISAIconProps } from '../Visa/types';
+import { BrandIconProps } from '../types';
 
-function VISAEletronIcon({ width, height }: VISAIconProps) {
+export function VISAEletronIcon({ width, height }: BrandIconProps) {
   return (
     <svg
       width={width}
@@ -11,6 +11,7 @@ function VISAEletronIcon({ width, height }: VISAIconProps) {
       strokeMiterlimit="1.414"
       clipRule="evenodd"
       viewBox="0 0 900 575"
+      xmlnsXlink="http://www.w3.org/1999/xlink"
     >
       <g fillRule="nonzero" transform="scale(4.16667)">
         <path fill="#fff" d="M0 0.792H215.998V138H0z" />
@@ -29,5 +30,3 @@ function VISAEletronIcon({ width, height }: VISAIconProps) {
     </svg>
   );
 }
-
-export default VISAEletronIcon;

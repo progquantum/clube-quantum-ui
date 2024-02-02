@@ -43,7 +43,7 @@ export function BankAccount({
       <S.Container className="form">
         <S.BankingData>
           <S.BankingAccount>
-            <S.TitleContent>
+            <S.TitleContent data-cy="signup_bankAccountDocument">
               Conta {isIndividualPerson ? 'CPF' : 'CNPJ'}
             </S.TitleContent>
 
@@ -62,8 +62,7 @@ export function BankAccount({
           <S.TextContent>
             "Sua conta bancária será aberta em até 48 horas para receber seu
             cashback automaticamente. Cadastre seu cartão Visa Banco Um Flex nas
-            Wallet/carteira Digital, Google PAY, Apple PAY Samsung PAY e //
-            eslint-disable-next-line react/no-unescaped-entities facilite a sua
+            Wallet/carteira Digital, Google PAY, Apple PAY Samsung PAY e a sua
             utilização."
           </S.TextContent>
         </S.BankingOwner>

@@ -10,4 +10,8 @@ export const ServiceContainer = styled.div`
     justify-content: center;
     align-items: center;
   }
+
+  & a:nth-child(2) img {
+    border-radius: 25px;
+  }
 `;
