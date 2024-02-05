@@ -30,13 +30,16 @@ export function BankAccount({ user }: BankAccountProps) {
   return (
     <S.Content>
       <S.YourAccount>
-        <Image
-          data-testid="logo"
-          alt="banco um logo"
-          width={20}
-          height={20}
-          src="/images/banco-um-gray-logo.svg"
-        />
+        <S.ContainerImage>
+          <Image
+            data-testid="logo"
+            alt="banco um logo"
+            width={20}
+            height={20}
+            src="/images/banco-um-logo-azul-dark.svg"
+          />
+        </S.ContainerImage>
+
         <S.ContentTitle>Sua conta Banco Um Flex Multibenefícios</S.ContentTitle>
       </S.YourAccount>
 

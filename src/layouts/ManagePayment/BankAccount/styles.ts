@@ -27,11 +27,19 @@ export const Content = styled.div`
   }
 `;
 
+export const ContainerImage = styled.div`
+  display: flex;
+  align-items: center;
+  border-radius: 5px;
+  background-color: ${({ theme }) => theme.colors.royalPurple};
+  padding: 6px;
+`;
+
 export const ContentTitle = styled.h2`
   font-size: 0.75rem;
-  color: ${({ theme }) => theme.colors.gray[400]};
-  font-weight: 500;
-  line-height: 1.25rem;
+  color: ${({ theme }) => theme.colors.royalPurple};
+  font-weight: 600;
+  line-height: 1.5rem;
 `;
 
 export const YourAccount = styled.div`
