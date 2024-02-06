@@ -34,10 +34,6 @@ export function MyStatementsPage() {
     endDate: dayjs(finalDate).format('YYYY-MM-DD[T23:59:00]'),
   });
 
-  const totalAccountBalance = byReferralData
-    ? byReferralData.totalAmount
-    : 'R$ 0,00';
-
   const handleSelect = (option: string) => {
     const today = new Date();
     switch (option) {
@@ -81,6 +77,19 @@ export function MyStatementsPage() {
   return (
     <DashboardLayout maxWidth="1168px">
       <S.MyStatementsContainer isExpanded={isSidebarExpanded}>
+        <S.AccountBalanceContainer style={{ marginTop: '32px' }}>
+          <AccountBalance
+            title="Saldo em conta"
+            description={`Será transferido em ${generateDeadline(10)}`}
+            value={formatCashback(balances?.awaiting_deposit)}
+          />
+
+          <AccountBalance
+            title="Aguardando liberação"
+            description={`Será transferido em ${generateDeadline(1)}`}
+            value={formatCashback(balances?.accumulated_month)}
+          />
+        </S.AccountBalanceContainer>
         <S.MyStatementsHeader>
           Histórico de transações e cashback
         </S.MyStatementsHeader>
@@ -105,19 +114,6 @@ export function MyStatementsPage() {
           </S.FilterButton>
         </S.FilterContainer>
         <div>
-          <S.AccountBalanceContainer>
-            <AccountBalance
-              title="Saldo em conta"
-              description={`Será transferido em ${generateDeadline(10)}`}
-              value={totalAccountBalance}
-            />
-
-            <AccountBalance
-              title="Aguardando liberação"
-              description={`Será transferido em ${generateDeadline(1)}`}
-              value={formatCashback(balances?.accumulated_month)}
-            />
-          </S.AccountBalanceContainer>
           <EarningsHistory
             loading={byReferralLoading}
             data={byReferralData}
