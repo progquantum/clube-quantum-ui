@@ -5,7 +5,7 @@ import { FilterButtonProps } from './types';
 export const MyStatementsHeader = styled.h5`
   color: ${({ theme }) => theme.colors.gray[700]};
   font-weight: 900;
-  margin: 1.3rem 0;
+  margin: 20px 0 20px 0;
   text-align: center;
 `;
 
