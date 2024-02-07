@@ -1,31 +1,31 @@
-import Image from 'next/image';
-import { useWindowSize } from 'react-use';
-import { BiCheck } from 'react-icons/bi';
-import { useTheme } from 'styled-components';
-import { useState } from 'react';
-import toast from 'react-hot-toast';
-import { useRouter } from 'next/router';
 import { AxiosError } from 'axios';
+import Image from 'next/image';
+import { useRouter } from 'next/router';
+import { useState } from 'react';
+import { BiCheck } from 'react-icons/bi';
+import { useWindowSize } from 'react-use';
+import { useTheme } from 'styled-components';
 
-import { Header } from 'components/Header';
+import { AccountCard } from 'components/AccountCard';
+import { Button } from 'components/Button';
 import { CenterLayout } from 'components/CenterLayout';
 import { Footer } from 'components/Footer';
+import { Header } from 'components/Header';
 import { HeaderAuth } from 'components/Header/HeaderAuth';
-import { ShowOffers } from 'components/ShowOffers';
-import { AccountCard } from 'components/AccountCard';
-import { PlanSectionTitle } from 'components/PlanSectionTitle';
-import { Button } from 'components/Button';
 import { Modal } from 'components/Modal';
-import { usePostCreditCardWaitingQueue } from 'hooks/useBancoUmCreditCard/usePostCreditCardWaitingQueue';
+import { PlanSectionTitle } from 'components/PlanSectionTitle';
+import { ShowOffers } from 'components/ShowOffers';
 import { MARKETPLACE_PAGE } from 'constants/routesPath';
+import { usePostCreditCardWaitingQueue } from 'hooks/useBancoUmCreditCard/usePostCreditCardWaitingQueue';
 
+import { ModalSuccess } from './ModalSuccess';
 import * as S from './styles';
-import { SuccessToast } from './SuccessToast';
 
 export function WaitingQueuePage() {
   const { push } = useRouter();
   const { mutate: postRequest, isLoading } = usePostCreditCardWaitingQueue();
   const [warningModalStatus, setWarningModalStatus] = useState(false);
+  const [showModalSuccess, setShowModalSuccess] = useState(false);
 
   const toggleWarningModalStatus = () =>
     setWarningModalStatus(prevState => !prevState);
@@ -36,10 +36,7 @@ export function WaitingQueuePage() {
   const handleWaitingQueue = () => {
     postRequest(null, {
       onSuccess: () => {
-        toast.custom(<SuccessToast />, {
-          duration: 1500,
-          position: 'bottom-center',
-        });
+        setShowModalSuccess(true);
       },
       onError: (err: unknown) => {
         if (err instanceof AxiosError) {
@@ -59,6 +56,10 @@ export function WaitingQueuePage() {
 
   return (
     <>
+      <ModalSuccess
+        isOpen={showModalSuccess}
+        onRequestClose={() => setShowModalSuccess(false)}
+      />
       {warningModalStatus && (
         <Modal onClose={toggleWarningModalStatus} noDragBehavior maxWidth={500}>
           <S.ModalContentContainer>
