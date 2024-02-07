@@ -1,50 +1,50 @@
 /* eslint-disable no-case-declarations */
-import { useRef, useState } from 'react';
-import dayjs from 'dayjs';
+import { useMediaQuery } from '@mui/material';
+import { DatePicker } from '@mui/x-date-pickers';
 import { FormHandles } from '@unform/core';
 import { Form } from '@unform/web';
-import ReactPaginate from 'react-paginate';
-import { IoIosArrowBack, IoIosArrowForward } from 'react-icons/io';
-import { useTheme } from 'styled-components';
-import { DatePicker } from '@mui/x-date-pickers';
+import dayjs from 'dayjs';
 import { useRouter } from 'next/router';
-import { useMediaQuery } from '@mui/material';
+import { useRef, useState } from 'react';
 import { FaRegCreditCard } from 'react-icons/fa';
+import { IoIosArrowBack, IoIosArrowForward } from 'react-icons/io';
+import ReactPaginate from 'react-paginate';
+import { useTheme } from 'styled-components';
 
-import { DashboardLayout } from 'layouts/DashboardLayout';
-import { useGetEstablishment } from 'hooks/dashboard-pos/useGetEstablishment';
-import { formatPrice } from 'utils/formatters/formatPrice';
-import { useSidebarStore } from 'store/sidebar';
-import { useSalesFilter } from 'hooks/dashboard-pos/useSalesFilter';
-import { formatDate } from 'utils/formatters/formatDate';
+import { Loader } from 'components/Loader';
 import { Select } from 'components/Select';
 import { DASHBOARD_PAGE } from 'constants/routesPath';
-import { Loader } from 'components/Loader';
+import { useGetEstablishment } from 'hooks/dashboard-pos/useGetEstablishment';
+import { useSalesFilter } from 'hooks/dashboard-pos/useSalesFilter';
+import { DashboardLayout } from 'layouts/DashboardLayout';
+import { useSidebarStore } from 'store/sidebar';
+import { formatDate } from 'utils/formatters/formatDate';
+import { formatPrice } from 'utils/formatters/formatPrice';
 
-import { BanriComprasIcon } from 'components/Illustrations/BanriCompras';
+import { AgiplanIcon } from 'components/Illustrations/Agiplan';
 import { AmericanExpressIcon } from 'components/Illustrations/AmericanExpress';
-import { EloIcon } from 'components/Illustrations/Elo';
-import { MasterCardIcon } from 'components/Illustrations/MasterCard';
-import { MasterCardMaestroIcon } from 'components/Illustrations/MasterCardMaestro';
-import { VISAIcon } from 'components/Illustrations/Visa';
-import { VISAEletronIcon } from 'components/Illustrations/VisaEletron';
-import { HiperCardIcon } from 'components/Illustrations/HiperCard';
+import { AuraIcon } from 'components/Illustrations/Aura';
+import { BanesCardIcon } from 'components/Illustrations/BanesCard';
+import { BanriComprasIcon } from 'components/Illustrations/BanriCompras';
 import { CabalIcon } from 'components/Illustrations/Cabal';
-import { JCBIcon } from 'components/Illustrations/JCB';
 import { CredSystemIcon } from 'components/Illustrations/CredSystem';
 import { DinersClubIcon } from 'components/Illustrations/DinersClub';
 import { DiscoverIcon } from 'components/Illustrations/Discover';
-import { AuraIcon } from 'components/Illustrations/Aura';
-import { AgiplanIcon } from 'components/Illustrations/Agiplan';
+import { EloIcon } from 'components/Illustrations/Elo';
+import { HiperCardIcon } from 'components/Illustrations/HiperCard';
+import { JCBIcon } from 'components/Illustrations/JCB';
+import { MasterCardIcon } from 'components/Illustrations/MasterCard';
+import { MasterCardMaestroIcon } from 'components/Illustrations/MasterCardMaestro';
 import { SorocredIcon } from 'components/Illustrations/Sorocred';
-import { BanesCardIcon } from 'components/Illustrations/BanesCard';
+import { VISAIcon } from 'components/Illustrations/Visa';
+import { VISAEletronIcon } from 'components/Illustrations/VisaEletron';
 
 import { CredzIcon } from 'components/Illustrations/Credz';
 
-import * as S from './styles';
 import { OverallSalesProgressionBarChart } from './OverallSalesProgressionBarChart';
-import { SalesByClientPieChart } from './SalesByClientPieChart';
 import { PaymentMethodPieChart } from './PaymentMethodPieChart';
+import { SalesByClientPieChart } from './SalesByClientPieChart';
+import * as S from './styles';
 
 const cardsBrandsMap: { [key: string]: JSX.Element } = {
   VISA: <VISAIcon width="37.16px" height="12px" />,
@@ -382,7 +382,11 @@ export function DashboardPos() {
                         )}
                       </S.TableFlagRow>
                       <S.TableColumn4>
-                        <strong>Crédito</strong>
+                        <strong>
+                          {brand.payment_method === 'DEBIT'
+                            ? 'Débito'
+                            : 'Crédito'}
+                        </strong>
                       </S.TableColumn4>
                       <S.TableColumn4>
                         <S.Font14>
