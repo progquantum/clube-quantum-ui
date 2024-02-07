@@ -15,6 +15,7 @@ export const colors = {
   paleturquoise: '#B1FFE8',
   stratos: '#100037',
   cherryPie: '#190252',
+  royalPurple: '#1A0254',
   white: '#ffffff',
   ghostwhite: '#F5F6FA',
   orangeRed: '#F86624',
