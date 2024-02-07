@@ -34,6 +34,7 @@ export interface SalesByClient {
 
 export interface CardBrand {
   brand: string;
+  payment_method: string;
   transactions: {
     totalAmount: number;
     totalSales: number;
