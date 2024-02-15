@@ -1,22 +1,22 @@
 import { FormHandles, SubmitHandler } from '@unform/core';
 import { Form } from '@unform/web';
 import noop from 'lodash.noop';
+import { setCookie } from 'nookies';
 import { useCallback, useEffect, useRef } from 'react';
 import { FiLock, FiMail, FiUser } from 'react-icons/fi';
 import { IoReturnDownBackSharp } from 'react-icons/io5';
-import { setCookie } from 'nookies';
 
 import { Button } from 'components/Button';
+import { Checkbox } from 'components/Checkbox';
 import { Input } from 'components/Input';
-import { useAuthDispatch, useAuthState } from 'contexts/auth/AuthContext';
-import { AuthLayout } from 'layouts/Auth';
-import { performSchemaValidation } from 'utils/performSchemaValidation';
-import { useLegalPersonSignUp } from 'hooks/auth/useLegalPersonSignUp';
 import {
   REFRESH_TOKEN_STORAGE_KEY,
   TOKEN_STORAGE_KEY,
 } from 'constants/storage';
-import { Checkbox } from 'components/Checkbox';
+import { useAuthDispatch, useAuthState } from 'contexts/auth/AuthContext';
+import { useLegalPersonSignUp } from 'hooks/auth/useLegalPersonSignUp';
+import { AuthLayout } from 'layouts/Auth';
+import { performSchemaValidation } from 'utils/performSchemaValidation';
 
 import { schema } from './schemas';
 import { LegalPersonProps, SignUpFormValues } from './types';
@@ -89,11 +89,13 @@ export function LegalPerson({
           state,
           street,
           zip_code,
+          invited_by,
         } = registerUser;
 
         const requestBody = {
           cnpj,
           phone,
+          invited_by: invited_by || null,
           address: {
             street,
             number,
