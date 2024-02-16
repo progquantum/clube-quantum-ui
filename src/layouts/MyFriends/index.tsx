@@ -2,21 +2,23 @@
 /* eslint-disable no-octal */
 import ReactPaginate from 'react-paginate';
 
-import { IoIosArrowBack, IoIosArrowForward } from 'react-icons/io';
 import { BsFillPersonPlusFill, BsPersonBadge } from 'react-icons/bs';
+import { IoIosArrowBack, IoIosArrowForward } from 'react-icons/io';
 
 import Link from 'next/link';
+
+import { useEffect, useState } from 'react';
 
 import { formatCashback } from 'utils/formatters/formatCashback';
 import { formatDate } from 'utils/formatters/formatDate';
 
 import { useFriends } from 'hooks/me/useFriends';
 import { useIndirectFriends } from 'hooks/me/useIndirectFriends';
-import { useMe } from 'hooks/me/useMe';
 import { useIndirectGains } from 'hooks/me/useIndirectGains';
+import { useMe } from 'hooks/me/useMe';
 
-import { Loader } from 'components/Loader';
 import { getUserImagePlaceholder } from 'components/Avatar/utils';
+import { Loader } from 'components/Loader';
 import { NoFriends } from 'components/NoFriends';
 
 import { DashboardLayout } from 'layouts/DashboardLayout';
@@ -50,6 +52,12 @@ export function MyFriendsPage() {
     '11': 'Nov',
     '12': 'Dez',
   };
+  const [dataLoaded, setDataLoaded] = useState(false);
+  useEffect(() => {
+    if (data && data.friends) {
+      setDataLoaded(true);
+    }
+  }, [data]);
 
   if (isLoading && loading) {
     return (
@@ -58,12 +66,13 @@ export function MyFriendsPage() {
       </DashboardLayout>
     );
   }
-
-  if (!hasFriends || isError || !hasPlan) {
-    return <NoFriends />;
+  if (dataLoaded) {
+    if (!hasFriends || isError || !hasPlan) {
+      return <NoFriends />;
+    }
   }
 
-  const formattedIndirectGains = indirectGains.map(item => {
+  const formattedIndirectGains = indirectGains?.map(item => {
     const m = item.date.split('-')[1];
 
     return {
@@ -72,12 +81,12 @@ export function MyFriendsPage() {
     };
   });
 
-  const max = formattedIndirectGains.reduce(
+  const max = formattedIndirectGains?.reduce(
     (a, b) => Math.max(a, b.total),
     -Infinity,
   );
 
-  const graphInformation = formattedIndirectGains.map(item => ({
+  const graphInformation = formattedIndirectGains?.map(item => ({
     total: item.total,
     percentage: ((item.total / max) * 100).toFixed(2),
     month: item.month,
@@ -183,7 +192,7 @@ export function MyFriendsPage() {
               <BsPersonBadge size={24} /> Ganhos por indicações indiretas
             </S.CardTitle>
             <S.GraphicBar>
-              {graphInformation.map((item, index) => (
+              {graphInformation?.map((item, index) => (
                 <S.BarItem key={index} title={String(item.total)}>
                   <S.Bar percentage={item.percentage} />
                   <S.TitleBar>{item.month}</S.TitleBar>
