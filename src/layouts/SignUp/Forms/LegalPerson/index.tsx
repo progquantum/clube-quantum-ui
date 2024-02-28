@@ -75,7 +75,13 @@ export function LegalPerson({
     })
       .then(() => {
         // eslint-disable-next-line @typescript-eslint/no-unused-vars
-        const { password_confirmation, email_confirmation, ...rest } = data;
+        const {
+          password_confirmation,
+          email_confirmation,
+          company_name,
+          ...rest
+        } = data;
+        signUpState({ company_name });
         const {
           // eslint-disable-next-line @typescript-eslint/no-unused-vars
           terms,
@@ -95,6 +101,7 @@ export function LegalPerson({
         const requestBody = {
           cnpj,
           phone,
+          company_name,
           invited_by: invited_by || null,
           address: {
             street,
