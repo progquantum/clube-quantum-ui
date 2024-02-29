@@ -1,6 +1,7 @@
 export type IndirectGainsPayload = [
   {
-    date: string;
+    year: string;
+    month: string;
     total: number;
   },
 ];

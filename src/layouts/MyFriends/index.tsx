@@ -26,6 +26,8 @@ import { colors } from 'styles/theme/colors';
 
 import { INVITE_FRIENDS_PAGE } from 'constants/routesPath';
 
+import { formatPrice } from 'utils/formatters/formatPrice';
+
 import * as S from './styles';
 
 export function MyFriendsPage() {
@@ -39,15 +41,15 @@ export function MyFriendsPage() {
   const hasFriends = data?.friends.length > 0;
 
   const months = {
-    '01': 'Jan',
-    '02': 'Fev',
-    '03': 'Mar',
-    '04': 'Abr',
-    '05': 'Mai',
-    '06': 'Jun',
-    '07': 'Jul',
-    '08': 'Ago',
-    '09': 'Set',
+    '1': 'Jan',
+    '2': 'Fev',
+    '3': 'Mar',
+    '4': 'Abr',
+    '5': 'Mai',
+    '6': 'Jun',
+    '7': 'Jul',
+    '8': 'Ago',
+    '9': 'Set',
     '10': 'Out',
     '11': 'Nov',
     '12': 'Dez',
@@ -71,15 +73,10 @@ export function MyFriendsPage() {
       return <NoFriends />;
     }
   }
-
-  const formattedIndirectGains = indirectGains?.map(item => {
-    const m = item.date.split('-')[1];
-
-    return {
-      total: item.total,
-      month: months[m],
-    };
-  });
+  const formattedIndirectGains = indirectGains?.map(item => ({
+    total: item.total,
+    month: months[item.month],
+  }));
 
   const max = formattedIndirectGains?.reduce(
     (a, b) => Math.max(a, b.total),
@@ -193,7 +190,7 @@ export function MyFriendsPage() {
             </S.CardTitle>
             <S.GraphicBar>
               {graphInformation?.map((item, index) => (
-                <S.BarItem key={index} title={String(item.total)}>
+                <S.BarItem key={index} title={formatPrice(String(item.total))}>
                   <S.Bar percentage={item.percentage} />
                   <S.TitleBar>{item.month}</S.TitleBar>
                 </S.BarItem>
