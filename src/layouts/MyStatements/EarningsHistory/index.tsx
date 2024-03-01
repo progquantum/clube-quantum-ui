@@ -6,6 +6,8 @@ import { uuid } from 'uuidv4';
 
 import { Loader } from 'components/Loader';
 
+import { formatDateToDDMMYYYY } from 'utils/formatters/formatDateToDDMMYYYY';
+
 import { Props } from './types';
 import * as S from './styles';
 
@@ -52,9 +54,7 @@ export function EarningsHistory({ loading, data, onPageChange }: Props) {
                 <div>
                   <S.PartnerName>{extract.cashback_name}</S.PartnerName>
                   <S.EarningDate>
-                    {new Intl.DateTimeFormat('pt-BR').format(
-                      new Date(extract.created_at),
-                    )}
+                    {formatDateToDDMMYYYY(extract.created_at)}
                   </S.EarningDate>
                 </div>
                 <S.QuantityGainedText>{extract.amount}</S.QuantityGainedText>
