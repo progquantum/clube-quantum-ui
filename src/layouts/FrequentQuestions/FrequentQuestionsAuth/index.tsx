@@ -5,14 +5,14 @@ import { MdKeyboardArrowDown, MdKeyboardArrowUp } from 'react-icons/md';
 import { BsHeadphones } from 'react-icons/bs';
 
 import { ToolTipContact } from 'components/ToolTipContact';
-import { HeaderGuest } from 'components/Header/HeaderGuest';
 
 import { Footer } from 'components/Footer';
+import { HeaderAuth } from 'components/Header/HeaderAuth';
 
-import { data } from './questions';
-import * as S from './styles';
+import { data } from '../questions';
+import * as S from '../styles';
 
-export function FrequentQuestionsPage() {
+export function FrequentQuestionsAuthPage() {
   const [questions, setQuestions] = useState(data);
 
   const setIsShow = (id: number) => {
@@ -30,7 +30,7 @@ export function FrequentQuestionsPage() {
       <Head>
         <title>Perguntas Frequentes</title>
       </Head>
-      <HeaderGuest />
+      <HeaderAuth />
       <S.Container>
         <ToolTipContact />
         <h1>Perguntas Frequentes</h1>
