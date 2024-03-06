@@ -6,8 +6,6 @@ import { uuid } from 'uuidv4';
 
 import { useSearchParams } from 'next/navigation';
 
-import { useEffect } from 'react';
-
 import Skeleton from 'react-loading-skeleton';
 
 import { Loader } from 'components/Loader';
@@ -30,11 +28,6 @@ export function EarningsHistory({
 
   const searchParams = useSearchParams();
   const page = searchParams.get('page');
-
-  useEffect(() => {
-    console.log(loading);
-    console.log(isFetching);
-  }, [loading, isFetching]);
 
   const showWhenComplete = (value?: string, width = '100%') => {
     if (isFetching) {
