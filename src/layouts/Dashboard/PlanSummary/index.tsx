@@ -18,6 +18,8 @@ import { formatTruncateText } from 'utils/formatters/formatTruncateText';
 
 import { useSidebarStore } from 'store/sidebar';
 
+import { compareISODates } from 'utils/compareISODates';
+
 import * as S from './styles';
 
 const quantumFreeAdvantages = [
@@ -102,8 +104,16 @@ export function PlanSummary() {
     updateMaxLength();
   }, [isExpanded]);
 
+  const [isPlanExpired, setPlanExpired] = useState(false);
+  useEffect(() => {
+    const today = new Date();
+    const expiredDate = new Date(subscription.expires_in);
+    expiredDate.setDate(expiredDate.getDate() + 1);
+    setPlanExpired(compareISODates(today, expiredDate));
+  }, [subscription]);
+
   return (
-    <S.PlanContainer isActive={subscription.is_active}>
+    <S.PlanContainer isActive={!isPlanExpired}>
       <S.PlanHeaderOutline>
         Não perca seus BÔNUS, mantenha-se ativo!
       </S.PlanHeaderOutline>
@@ -119,15 +129,13 @@ export function PlanSummary() {
             }).format(subscription.price_paid)}
           </span>
         </div>
-        <S.PlanCheckMark>
-          {subscription.is_active ? (
-            <BsCheck2 size={20} />
-          ) : (
+        <S.PlanCheckMark isActive={!isPlanExpired}>
+          {isPlanExpired ? (
             <AiOutlineClose size={20} />
+          ) : (
+            <BsCheck2 size={20} />
           )}
-          <span>
-            {subscription.is_active ? 'Plano Ativo' : 'Plano inativo'}
-          </span>
+          <span>{isPlanExpired ? 'Plano Inativo' : 'Plano Ativo'}</span>
         </S.PlanCheckMark>
       </S.PlanHeaderBox>
       {advantages[subscription.plan_name]?.map(
@@ -146,14 +154,17 @@ export function PlanSummary() {
                 ? advantage
                 : formatTruncateText(advantage, maxLength)}
             </div>
-            {}
-            <S.PlanCheckMark>
-              {subscription.is_active ? (
-                <BsCheck2 size={20} />
-              ) : (
+
+            {!advantages['QUANTUM GRATUITO'].includes(advantage) &&
+            isPlanExpired ? (
+              <S.PlanCheckMark key={advantage} isActive={false}>
                 <AiOutlineClose size={20} />
-              )}
-            </S.PlanCheckMark>
+              </S.PlanCheckMark>
+            ) : (
+              <S.PlanCheckMark key={advantage} isActive>
+                <BsCheck2 size={20} />
+              </S.PlanCheckMark>
+            )}
           </S.AdvantageBox>
         ),
       )}
