@@ -50,6 +50,12 @@ export const PartnerRow = styled.div`
   }
 `;
 
+export const PartnerColumn = styled.div`
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+`;
+
 export const IconBox = styled.div`
   background-color: ${({ theme }) => theme.colors.mediumslateBlue};
   border-radius: 50%;
@@ -66,7 +72,7 @@ export const PartnerName = styled.h6`
   font-size: 90%;
 `;
 
-export const EarningDate = styled.span`
+export const EarningDate = styled.h1`
   font-size: 0.8rem;
   color: ${({ theme }) => theme.colors.gray[400]};
 `;
