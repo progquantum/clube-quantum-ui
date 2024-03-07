@@ -28,4 +28,5 @@ export type Filter = {
   itemsPerPage?: number;
   endDate?: string;
   startDate?: string;
+  page?: number;
 };

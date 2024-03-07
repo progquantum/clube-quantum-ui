@@ -4,6 +4,10 @@ import ReactPaginate from 'react-paginate';
 import { useTheme } from 'styled-components';
 import { uuid } from 'uuidv4';
 
+import { useSearchParams } from 'next/navigation';
+
+import Skeleton from 'react-loading-skeleton';
+
 import { Loader } from 'components/Loader';
 
 import { formatDateToDDMMYYYY } from 'utils/formatters/formatDateToDDMMYYYY';
@@ -11,11 +15,27 @@ import { formatDateToDDMMYYYY } from 'utils/formatters/formatDateToDDMMYYYY';
 import { Props } from './types';
 import * as S from './styles';
 
-export function EarningsHistory({ loading, data, onPageChange }: Props) {
+export function EarningsHistory({
+  loading,
+  data,
+  onPageChange,
+  isFetching,
+}: Props) {
   const { colors } = useTheme();
   const totalPages = data?.info.totalPages;
 
   const totalAmount = data && data.totalAmount ? data.totalAmount : 0;
+
+  const searchParams = useSearchParams();
+  const page = searchParams.get('page');
+
+  const showWhenComplete = (value?: string, width = '100%') => {
+    if (isFetching) {
+      return <Skeleton style={{ width }} />;
+    }
+
+    return value;
+  };
 
   return (
     <S.EarningsHistoryByIndication>
@@ -32,7 +52,9 @@ export function EarningsHistory({ loading, data, onPageChange }: Props) {
         </div>
       ) : (
         <>
-          <S.TotalEarningText>{totalAmount}</S.TotalEarningText>
+          <S.TotalEarningText>
+            {showWhenComplete(totalAmount.toString(), '20%')}
+          </S.TotalEarningText>
           <S.PartnerContainer>
             {data?.commissions?.length === 0 && (
               <div
@@ -51,12 +73,17 @@ export function EarningsHistory({ loading, data, onPageChange }: Props) {
                 <S.IconBox>
                   <BsFillPersonFill size={20} />
                 </S.IconBox>
-                <div>
-                  <S.PartnerName>{extract.cashback_name}</S.PartnerName>
+                <S.PartnerColumn>
+                  <S.PartnerName>
+                    {showWhenComplete(extract.cashback_name, '70%')}
+                  </S.PartnerName>
                   <S.EarningDate>
-                    {formatDateToDDMMYYYY(extract.created_at)}
+                    {showWhenComplete(
+                      formatDateToDDMMYYYY(extract.created_at),
+                      '20%',
+                    )}
                   </S.EarningDate>
-                </div>
+                </S.PartnerColumn>
                 <S.QuantityGainedText>{extract.amount}</S.QuantityGainedText>
               </S.PartnerRow>
             ))}
@@ -68,6 +95,7 @@ export function EarningsHistory({ loading, data, onPageChange }: Props) {
                 nextLabel={
                   <IoIosArrowForward size={20} color={colors.mediumslateBlue} />
                 }
+                forcePage={Number(page) - 1}
                 onPageChange={onPageChange}
                 pageCount={totalPages}
                 previousLabel={
