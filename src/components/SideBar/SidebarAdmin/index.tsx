@@ -1,7 +1,7 @@
 import Link from 'next/link';
 import { AiFillFile } from 'react-icons/ai';
 import { BsFillPersonFill, BsPeopleFill } from 'react-icons/bs';
-import { FaUpload } from 'react-icons/fa';
+import { FaDollarSign, FaUpload } from 'react-icons/fa';
 import { MdPeopleAlt } from 'react-icons/md';
 
 import {
@@ -11,6 +11,7 @@ import {
   CANCELLATION_REQUEST_PAGE,
   SMART_QUANTUM_REQUESTS_PAGE,
   WAITING_QUEUE_REPORT_PAGE,
+  AFFLIALTE_PAYMENTS_PAGE,
 } from 'constants/routesPath';
 
 import { AccordionLink } from 'components/AccordionLink';
@@ -75,6 +76,20 @@ export function SidebarAdmin({ isExpanded }: SidebarAdminProps) {
             <S.SublinkTitleBox>
               Lista de Espera Cartão de Crédito
             </S.SublinkTitleBox>
+          </S.NavButton>
+        </Link>
+      </AccordionLink>
+      <AccordionLink
+        isExpanded={isExpanded}
+        title="Financeiro"
+        icon={FaDollarSign}
+      >
+        <Link href={AFFLIALTE_PAYMENTS_PAGE}>
+          <S.NavButton isExpanded={isExpanded}>
+            <S.IconBox isExpanded={isExpanded}>
+              <FaDollarSign />
+            </S.IconBox>
+            <S.TitleBox>Pagamentos Afiliados</S.TitleBox>
           </S.NavButton>
         </Link>
       </AccordionLink>

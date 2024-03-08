@@ -22,6 +22,7 @@ import {
   PARTNER_REGISTRATION_PAGE,
   SMART_QUANTUM_REQUESTS_PAGE,
   WAITING_QUEUE_REPORT_PAGE,
+  AFFLIALTE_PAYMENTS_PAGE,
 } from 'constants/routesPath';
 import { TOKEN_STORAGE_KEY } from 'constants/storage';
 import { TokenPayload } from 'shared/types/apiSchema';
@@ -96,6 +97,11 @@ const adminUserLinks = [
     title: 'Relatórios',
     icon: <AiFillFile size={20} />,
     href: WAITING_QUEUE_REPORT_PAGE,
+  },
+  {
+    title: 'Financeiro',
+    icon: <FaDollarSign size={20} />,
+    href: AFFLIALTE_PAYMENTS_PAGE,
   },
 ];
 

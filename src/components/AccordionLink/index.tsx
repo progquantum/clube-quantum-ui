@@ -5,6 +5,8 @@ import { AiFillFile } from 'react-icons/ai';
 import { useTheme } from 'styled-components';
 import { useRouter } from 'next/router';
 
+import { IconType } from 'react-icons';
+
 import { WAITING_QUEUE_REPORT_PAGE } from 'constants/routesPath';
 
 import { NavButton, IconBox, TitleBox } from '../SideBar/styles';
@@ -15,10 +17,12 @@ export function AccordionLink({
   isExpanded,
   isMobile,
   title,
+  icon: Icon = AiFillFile,
 }: PropsWithChildren<{
   isExpanded?: boolean;
   isMobile?: boolean;
   title: string;
+  icon?: IconType;
 }>) {
   const { colors } = useTheme();
   const router = useRouter();
@@ -37,7 +41,7 @@ export function AccordionLink({
           key="waiting-queue-link"
         >
           <IconBox isExpanded>
-            <AiFillFile
+            <Icon
               size={20}
               color={colors.midnightBlue}
               style={{ flexShrink: 0, marginLeft: '0.4rem' }}
@@ -79,7 +83,7 @@ export function AccordionLink({
         key="waiting-queue-link"
       >
         <IconBox isExpanded={isExpanded}>
-          <AiFillFile
+          <Icon
             size={isExpanded ? 25 : 28}
             color={colors.midnightBlue}
             style={{ flexShrink: 0, marginLeft: isExpanded ? '0.4rem' : 0 }}

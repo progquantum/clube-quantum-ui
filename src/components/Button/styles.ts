@@ -78,6 +78,17 @@ const variants = {
       color: ${({ theme }) => theme.colors.white};
     }
   `,
+  secondary_outline: css`
+    background: ${({ theme }) => theme.colors.white};
+    color: ${({ theme }) => theme.colors.midnightBlue};
+    border: 2px solid ${({ theme }) => theme.colors.midnightBlue};
+
+    &:hover {
+      background-color: ${({ theme }) => theme.colors.midnightBlue};
+      border: 2px solid ${({ theme }) => theme.colors.midnightBlue};
+      color: ${({ theme }) => theme.colors.white};
+    }
+  `,
 
   degrade: css`
     background: ${({ theme }) => theme.colors.white};

@@ -3,6 +3,8 @@ import { useEffect, useRef, useState } from 'react';
 import { FiLogOut } from 'react-icons/fi';
 import { useTheme } from 'styled-components';
 
+import { FaDollarSign } from 'react-icons/fa';
+
 import { useAuthDispatch } from 'contexts/auth/AuthContext';
 import { DROP_DOWN_ANIMATION } from 'components/Header/animation';
 import { MARKETPLACE_PAGE, SIGN_IN_PAGE } from 'constants/routesPath';
@@ -81,6 +83,32 @@ export function SideBarMobile({ isAuthed, links }: SidebarMobileProps) {
                               }}
                             >
                               Lista de Espera Cartão de Crédito
+                            </span>
+                          </S.MenuItem>
+                        </AccordionLink>
+                      );
+                    }
+
+                    if (link.title === 'Financeiro') {
+                      return (
+                        <AccordionLink
+                          title="Financeiro"
+                          icon={FaDollarSign}
+                          isMobile
+                        >
+                          <S.MenuItem
+                            href={link.href}
+                            key={`item-${link.title}-${link.href}`}
+                          >
+                            <span
+                              style={{
+                                textAlign: 'right',
+                                width: '100%',
+                                marginRight: '10px',
+                                fontSize: '12px',
+                              }}
+                            >
+                              Pagamentos Afiliados
                             </span>
                           </S.MenuItem>
                         </AccordionLink>
