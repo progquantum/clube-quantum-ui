@@ -20,6 +20,8 @@ import { useSidebarStore } from 'store/sidebar';
 
 import { compareISODates } from 'utils/compareISODates';
 
+import { isAfterDate } from 'utils/isAfterDate';
+
 import * as S from './styles';
 
 const quantumFreeAdvantages = [
@@ -106,10 +108,9 @@ export function PlanSummary() {
 
   const [isPlanExpired, setPlanExpired] = useState(false);
   useEffect(() => {
-    const today = new Date();
     const expiredDate = new Date(subscription.expires_in);
     expiredDate.setDate(expiredDate.getDate() + 1);
-    setPlanExpired(compareISODates(today, expiredDate));
+    setPlanExpired(isAfterDate(expiredDate));
   }, [subscription]);
 
   return (
