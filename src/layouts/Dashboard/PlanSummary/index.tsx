@@ -18,8 +18,6 @@ import { formatTruncateText } from 'utils/formatters/formatTruncateText';
 
 import { useSidebarStore } from 'store/sidebar';
 
-import { compareISODates } from 'utils/compareISODates';
-
 import { isAfterDate } from 'utils/isAfterDate';
 
 import * as S from './styles';
