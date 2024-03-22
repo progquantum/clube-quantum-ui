@@ -188,7 +188,7 @@ export function CashBackRules({ id, handleRemoveCashBackRules }: Props) {
           <Input
             type="text"
             name={`cashBack[${index}].rate_cash_back`}
-            placeholder="5,00%"
+            placeholder="5"
             label="Taxa de cashback total"
             onChange={e =>
               setRateCashBack(id, formatNumber.addDot(e.target.value))
@@ -200,7 +200,7 @@ export function CashBackRules({ id, handleRemoveCashBackRules }: Props) {
           <Input
             type="text"
             name={`cashBack[${index}].rate_cash_back_client`}
-            placeholder="4,00%"
+            placeholder="4"
             label="Cashback para o cliente"
             onChange={e =>
               setRateCliente(id, formatNumber.addDot(e.target.value))
@@ -213,7 +213,7 @@ export function CashBackRules({ id, handleRemoveCashBackRules }: Props) {
         <Input
           type="text"
           name={`cashBack[${index}].rate_adm_quantum`}
-          placeholder="1,00%"
+          placeholder="1"
           label="Taxa de adm. Quantum"
           onChange={e => setRateAdm(id, formatNumber.addDot(e.target.value))}
           defaultValue={valueRateAdm ? formatNumber.format(valueRateAdm) : ''}
