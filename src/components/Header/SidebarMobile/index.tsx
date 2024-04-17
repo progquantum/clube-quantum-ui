@@ -8,7 +8,7 @@ import { DROP_DOWN_ANIMATION } from 'components/Header/animation';
 import { MARKETPLACE_PAGE, SIGN_IN_PAGE } from 'constants/routesPath';
 import { useMe } from 'hooks/me/useMe';
 
-import { AccordionLink } from 'components/AccordionLink';
+import { AccordionLinkReports } from 'components/AccordionLinkReports';
 
 import * as S from './styles';
 import { AuthLink, GuestLink, SidebarMobileProps } from './types';
@@ -67,7 +67,7 @@ export function SideBarMobile({ isAuthed, links }: SidebarMobileProps) {
 
                     if (link.title === 'Relatórios') {
                       return (
-                        <AccordionLink title="Relatórios" isMobile>
+                        <AccordionLinkReports title="Relatórios" isMobile>
                           <S.MenuItem
                             href={link.href}
                             key={`item-${link.title}-${link.href}`}
@@ -83,7 +83,7 @@ export function SideBarMobile({ isAuthed, links }: SidebarMobileProps) {
                               Lista de Espera Cartão de Crédito
                             </span>
                           </S.MenuItem>
-                        </AccordionLink>
+                        </AccordionLinkReports>
                       );
                     }
 
