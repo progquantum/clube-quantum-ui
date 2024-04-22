@@ -1,8 +1,8 @@
 import { useState, useEffect } from 'react';
 
-import { useAffiliatePayments } from '../../../hooks/affiliate-payments';
 import { Button } from '../styles';
 import * as S from './styles';
+import { useAffiliatePayments } from '../../../hooks/affiliate-payments/get-affiliate-payments';
 
 const downloadCSV = async (
   data: any,
