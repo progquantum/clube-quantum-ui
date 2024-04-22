@@ -1,7 +1,7 @@
 import { useQuery } from 'react-query';
 
-import { quantumClientQueue } from '../../config/client';
 import { Data } from './types';
+import { quantumClientQueue } from '../../../config/client';
 
 export const QUERY_KEY_AFFILIATE_PAYMENTS = 'QUERY_KEY_AFFILIATE_PAYMENTS';
 
