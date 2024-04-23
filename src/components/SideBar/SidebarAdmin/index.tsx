@@ -11,12 +11,14 @@ import {
   CANCELLATION_REQUEST_PAGE,
   SMART_QUANTUM_REQUESTS_PAGE,
   WAITING_QUEUE_REPORT_PAGE,
+  AFFILIATE_PAYMENTS_PAGE,
 } from 'constants/routesPath';
 
-import { AccordionLink } from 'components/AccordionLink';
+import { AccordionLinkReports } from 'components/AccordionLinkReports';
 
 import { SidebarAdminProps } from './types';
 import * as S from '../styles';
+import { AccordionLinkFinance } from '../../AccordionLinkFinance';
 
 export function SidebarAdmin({ isExpanded }: SidebarAdminProps) {
   return (
@@ -69,7 +71,7 @@ export function SidebarAdmin({ isExpanded }: SidebarAdminProps) {
           <S.TitleBox>Solicitações Smart</S.TitleBox>
         </S.NavButton>
       </Link>
-      <AccordionLink isExpanded={isExpanded} title="Relatórios">
+      <AccordionLinkReports isExpanded={isExpanded} title="Relatórios">
         <Link href={WAITING_QUEUE_REPORT_PAGE}>
           <S.NavButton isExpanded={isExpanded}>
             <S.SublinkTitleBox>
@@ -77,7 +79,14 @@ export function SidebarAdmin({ isExpanded }: SidebarAdminProps) {
             </S.SublinkTitleBox>
           </S.NavButton>
         </Link>
-      </AccordionLink>
+      </AccordionLinkReports>
+      <AccordionLinkFinance isExpanded={isExpanded} title="Financeiro">
+        <Link href={AFFILIATE_PAYMENTS_PAGE}>
+          <S.NavButton isExpanded={isExpanded}>
+            <S.TitleBox>Pagamentos Afiliados</S.TitleBox>
+          </S.NavButton>
+        </Link>
+      </AccordionLinkFinance>
     </>
   );
 }
