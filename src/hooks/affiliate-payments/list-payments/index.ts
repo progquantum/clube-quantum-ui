@@ -41,16 +41,19 @@ export function useListPayments({ itemsPerPage }: Filter) {
     isError,
     isLoading: loading,
     isFetching,
+    refetch,
   } = useQuery(
     [QUERY_KEY_LIST_PAYMENTS, Number(page), itemsPerPage],
     () => listPayments({ page: Number(page), itemsPerPage }),
     {
-      keepPreviousData: true,
+      keepPreviousData: false,
+      refetchOnWindowFocus: false,
     },
   );
 
   const onPageChange = (selectedItem: { selected: number }) => {
     setPageQuery(selectedItem.selected + 1);
+    refetch();
   };
 
   return {
@@ -59,5 +62,6 @@ export function useListPayments({ itemsPerPage }: Filter) {
     isError,
     loading,
     isFetching,
+    refetch,
   };
 }
