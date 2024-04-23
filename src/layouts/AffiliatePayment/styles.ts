@@ -114,3 +114,26 @@ export const TableColumnAction = styled(TableColumn)`
     background-image: linear-gradient(45deg, #0c61ff, #001f80);
   }
 `;
+
+export const PaginationContainer = styled.div`
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-top: 20px;
+`;
+
+export const PaginationButton = styled.button`
+  background: transparent;
+  color: ${({ theme }) => theme.colors.midnightBlue};
+  border: none;
+  cursor: pointer;
+  padding: 5px;
+  outline: none;
+  opacity: ${({ disabled }) => (disabled ? '0.5' : '1')};
+`;
+
+export const PageNumber = styled.span`
+  margin: 0 10px;
+  font-weight: bold;
+  color: ${({ theme }) => theme.colors.midnightBlue};
+`;

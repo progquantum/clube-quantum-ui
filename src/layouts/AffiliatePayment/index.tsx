@@ -1,26 +1,24 @@
-import { IoIosArrowForward } from 'react-icons/io';
-import { useTheme } from 'styled-components';
+import React, { useState, useRef, useEffect } from 'react';
+import { IoIosArrowForward, IoIosArrowBack } from 'react-icons/io';
 import { FiDownload } from 'react-icons/fi';
-import { useState, useRef } from 'react';
-
+import { useTheme } from 'styled-components';
 import { useQueryClient } from 'react-query';
-
 import toast from 'react-hot-toast';
 
 import { Modal } from '../../components/Modal';
 import { ModalContent } from './ModalContent';
 import { useUploadFileCsv } from '../../hooks/affiliate-payments/upload-file-csv';
-
 import { useListPayments } from '../../hooks/affiliate-payments/list-payments';
-
 import * as S from './styles';
 
 export function AffliatePaymentLayout() {
   const queryClient = useQueryClient();
   const { gradients, colors } = useTheme();
   const { mutateAsync } = useUploadFileCsv();
-  const [modalOpen, setModalOpen] = useState(false);
   const fileInputRef = useRef(null);
+
+  const [modalOpen, setModalOpen] = useState(false);
+  const [currentPage, setCurrentPage] = useState(1);
 
   const openModal = () => {
     setModalOpen(true);
@@ -51,13 +49,26 @@ export function AffliatePaymentLayout() {
     data: paymentsData,
     loading,
     isError,
-  } = useListPayments({ page: 1, itemsPerPage: 8 });
+    onPageChange,
+  } = useListPayments({ page: currentPage, itemsPerPage: 10 });
+
+  const handleNextPage = () => {
+    setCurrentPage(currentPage + 1);
+  };
+
+  const handlePreviousPage = () => {
+    setCurrentPage(currentPage - 1);
+  };
+
+  useEffect(() => {
+    onPageChange({ selected: currentPage - 1 });
+  }, [currentPage]);
 
   let content;
   if (loading) {
     content = (
       <S.TableRow>
-        <S.TableColumn>Loading...</S.TableColumn>
+        <S.TableColumn>Carregando...</S.TableColumn>
       </S.TableRow>
     );
   } else if (isError) {
@@ -72,7 +83,6 @@ export function AffliatePaymentLayout() {
         <S.TableColumn title={payment.key}>
           {payment.key.substring(payment.key.indexOf('lote'))}
         </S.TableColumn>
-
         <S.TableColumnDate>
           {new Date(payment.createAt).toLocaleDateString()}
         </S.TableColumnDate>
@@ -112,6 +122,23 @@ export function AffliatePaymentLayout() {
           {content}
         </S.Table>
       </S.TableContainer>
+
+      <S.PaginationContainer>
+        <S.PaginationButton
+          onClick={handlePreviousPage}
+          disabled={currentPage === 1}
+        >
+          <IoIosArrowBack size={20} />
+        </S.PaginationButton>
+        <S.PageNumber>{currentPage}</S.PageNumber>
+        <S.PaginationButton
+          onClick={handleNextPage}
+          disabled={paymentsData && paymentsData.balancesFiles.length < 8}
+        >
+          <IoIosArrowForward size={20} />
+        </S.PaginationButton>
+      </S.PaginationContainer>
+
       <S.UploadButtonContainer>
         <input
           type="file"
