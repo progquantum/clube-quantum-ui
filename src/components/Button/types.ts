@@ -10,6 +10,7 @@ export type ButtonVariants =
   | 'danger'
   | 'danger_outline'
   | 'degrade'
+  | 'secondary_outline'
   | 'link';
 
 export type ButtonProps = ButtonHTMLAttributes<HTMLButtonElement> & {

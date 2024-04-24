@@ -1,6 +1,8 @@
-import { useState } from 'react';
-
 import { useQuery } from 'react-query';
+
+import { useRouter } from 'next/router';
+
+import { useSearchParams } from 'next/navigation';
 
 import { quantumClientQueue } from 'config/client';
 
@@ -35,22 +37,37 @@ export function useGetCommissions({
   endDate,
   startDate,
 }: Filter) {
-  const [page, setPage] = useState(1);
+  const router = useRouter();
+  const { pathname } = router;
+  const searchParams = useSearchParams();
+  const page = searchParams.get('page');
+
+  const setPageQuery = (page: number) => {
+    router.push(`${pathname}?page=${page}`, undefined, { scroll: false });
+  };
 
   const {
     data,
     isError,
     isLoading: loading,
+    isFetching,
   } = useQuery(
-    [QUERY_KEY_COMMISSIONS_EXTRACT, page, itemsPerPage, endDate, startDate],
-    () => getCommissions({ page, itemsPerPage, endDate, startDate }),
+    [
+      QUERY_KEY_COMMISSIONS_EXTRACT,
+      Number(page),
+      itemsPerPage,
+      endDate,
+      startDate,
+    ],
+    () =>
+      getCommissions({ page: Number(page), itemsPerPage, endDate, startDate }),
     {
       keepPreviousData: true,
     },
   );
 
   const onPageChange = (selectedItem: { selected: number }) => {
-    setPage(selectedItem.selected + 1);
+    setPageQuery(selectedItem.selected + 1);
   };
 
   return {
@@ -58,6 +75,6 @@ export function useGetCommissions({
     onPageChange,
     isError,
     loading,
-    setPage,
+    isFetching,
   };
 }

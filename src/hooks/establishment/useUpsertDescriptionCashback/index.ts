@@ -1,11 +1,14 @@
 import { AxiosError } from 'axios';
-
 import { useMutation } from 'react-query';
 
 import { quantumClientQueue } from 'config/client';
 import { error } from 'helpers/notify/error';
 
 import { DescriptionCashback } from './types';
+import {
+  cashbackRulesErrorMessages,
+  generalErrorMessages,
+} from './errorMessages';
 
 export async function upsertDescriptionCashback(props: DescriptionCashback) {
   try {
@@ -15,29 +18,17 @@ export async function upsertDescriptionCashback(props: DescriptionCashback) {
     );
   } catch (err: unknown) {
     if (err instanceof AxiosError) {
-      if (
-        err.response.data.message ===
-        'Days of week in hour opening is invalid, is necessary all days of week'
-      ) {
-        error('Selecione regras de cashback para todos os dias!');
-      }
+      const errorMessage = Array.isArray(err.response.data.message)
+        ? err.response.data.message[0]
+        : err.response.data.message;
 
-      if (
-        err.response.data.message ===
-        'The sum of the client cashback and adm cashback must be equal to the total cashback'
-      ) {
-        error(
-          'A soma do cashback do cliente e do adm cashback deve ser igual ao cashback total!',
-        );
-      }
-
-      if (
-        err.response.data.message[0] ===
-        'hours_opening.2.Invalid hour, follow pattern HH:MM, example: 14:30'
-      ) {
-        error(
-          'Horários de funcionamento precisam seguir o padrão HH:MM, exemplo 09:30',
-        );
+      if (errorMessage) {
+        if (cashbackRulesErrorMessages.includes(errorMessage)) {
+          error('Valor do cashback precisa ser um número válido');
+        } else if (generalErrorMessages[errorMessage]) {
+          const translatedErrorMessage = generalErrorMessages[errorMessage];
+          error(translatedErrorMessage);
+        }
       }
     }
 

@@ -175,7 +175,7 @@ export function OpeningHours({ id, handleRemoveOpenHours }: Props) {
         <Input
           type="text"
           name={`openingHours[${index}].opening_hours`}
-          placeholder="EX: 08:00 ÀS 18:00"
+          placeholder="EX: 08:00 AS 18:00"
           label="Horário de funcionamento"
           onChange={e => setOpenHours(id, e.target.value)}
           defaultValue={inputValueOpeningHours || ''}

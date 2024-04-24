@@ -40,7 +40,7 @@ export function PosMachine({ id, handleRemovePosMachine }: Props) {
       <Input
         type="text"
         name={`machinePos[${index}].machine_pos_serie`}
-        placeholder="Digite o número de série da sua pos"
+        placeholder="Digite o número de série da sua POS"
         label="Número de série"
         onChange={e => state.setMachinePos(id, e.target.value)}
         defaultValue={inputDefaultValue || ''}

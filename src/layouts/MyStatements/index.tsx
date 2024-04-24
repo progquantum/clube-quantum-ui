@@ -1,6 +1,10 @@
 import dayjs from 'dayjs';
 import { useState } from 'react';
 
+import { useRouter } from 'next/router';
+
+import { useQueryClient } from 'react-query';
+
 import { useBalances } from 'hooks/me/useBalances';
 import { AccountBalance } from 'layouts/Dashboard/AccountBalance';
 import { DashboardLayout } from 'layouts/DashboardLayout';
@@ -23,35 +27,42 @@ export function MyStatementsPage() {
 
   const [initialDate, setInitialDate] = useState(new Date());
   const [finalDate, setFinalDate] = useState(new Date());
-
   const {
     data: byReferralData,
     onPageChange: byReferralOnPageChange,
-    setPage: byReferralSetPage,
     loading: byReferralLoading,
+    isFetching,
   } = useGetCommissions({
     startDate: dayjs(initialDate).format('YYYY-MM-DD[T00:00:00]'),
     endDate: dayjs(finalDate).format('YYYY-MM-DD[T23:59:00]'),
   });
 
+  const router = useRouter();
+  const { pathname } = router;
+
+  const setPageQuery = (page: number) => {
+    router.push(`${pathname}?page=${page}`, undefined, { scroll: false });
+  };
+
   const handleSelect = (option: string) => {
     const today = new Date();
     switch (option) {
       case 'today':
+        setPageQuery(1);
         setInitialDate(today);
         setFinalDate(today);
         setWhichFilterButton('today');
-        byReferralSetPage(1);
         break;
       case 'currentMonth': {
+        setPageQuery(1);
         const firstDayOfMonth = dayjs().startOf('month');
         setInitialDate(firstDayOfMonth.toDate());
         setFinalDate(today);
         setWhichFilterButton('currentMonth');
-        byReferralSetPage(1);
         break;
       }
       case 'lastMonth': {
+        setPageQuery(1);
         const startOfLastMonth = dayjs(today)
           .subtract(1, 'month')
           .startOf('month')
@@ -63,7 +74,6 @@ export function MyStatementsPage() {
         setInitialDate(startOfLastMonth);
         setFinalDate(endOfLastMonth);
         setWhichFilterButton('lastMonth');
-        byReferralSetPage(1);
         break;
       }
       default:
@@ -116,6 +126,7 @@ export function MyStatementsPage() {
         <div>
           <EarningsHistory
             loading={byReferralLoading}
+            isFetching={isFetching}
             data={byReferralData}
             onPageChange={byReferralOnPageChange}
           />

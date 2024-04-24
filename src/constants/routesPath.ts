@@ -45,3 +45,5 @@ export const SMART_QUANTUM_REQUESTS_PAGE = '/smart-quantum-requests';
 export const WAITING_QUEUE_REPORT_PAGE = '/reports/waiting-queue';
 
 export const WAITING_QUEUE_PAGE = '/waiting-queue';
+
+export const AFFILIATE_PAYMENTS_PAGE = '/affiliate-payments';

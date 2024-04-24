@@ -54,17 +54,24 @@ export const PlanHeaderOutline = styled.div`
   }
 `;
 
-export const PlanCheckMark = styled.div`
+export const PlanCheckMark = styled.div<{
+  isActive: boolean;
+}>`
   color: ${({ theme }) => theme.colors.white};
-  background: ${({ theme }) => theme.gradients.lightgreenToGreen};
+  background: ${({ isActive, theme }) =>
+    isActive ? theme.gradients.lightgreenToGreen : theme.colors.white};
+  border: ${({ isActive, theme }) =>
+    isActive ? 'none' : `2px solid ${theme.colors.danger}`};
   font-weight: 600;
   border-radius: 0.5rem;
   display: flex;
   gap: 1rem;
   padding: 0.6rem 0.8rem;
-  & span {
+  & span,
+  svg {
     width: max-content;
-    color: ${({ theme }) => theme.colors.white};
+    color: ${({ isActive, theme }) =>
+      isActive ? theme.colors.white : theme.colors.danger};
   }
 `;
 
@@ -130,14 +137,6 @@ export const PlanContainer = styled.div<{ isActive: boolean }>`
           -webkit-background-clip: initial;
           background-clip: initial;
           -webkit-text-fill-color: initial;
-        }
-      }
-      & ${PlanCheckMark} {
-        border: 2px solid ${({ theme }) => theme.colors.danger};
-        background: initial;
-        & span,
-        svg {
-          color: ${({ theme }) => theme.colors.danger};
         }
       }
 
