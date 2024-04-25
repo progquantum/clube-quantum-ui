@@ -332,28 +332,26 @@ export function DashboardPos() {
                   </S.TableRow>
                 ))}
                 <S.PaginationContainer>
-                  {totalPages > 1 && (
-                    <ReactPaginate
-                      breakLabel="..."
-                      nextLabel={
-                        <IoIosArrowForward
-                          size={20}
-                          color={colors.mediumslateBlue}
-                        />
-                      }
-                      onPageChange={onPageChange}
-                      pageCount={totalPages}
-                      previousLabel={
-                        <IoIosArrowBack
-                          size={20}
-                          color={colors.mediumslateBlue}
-                        />
-                      }
-                      containerClassName="paginationContainer"
-                      pageLinkClassName="pageLink"
-                      activeLinkClassName="activeLink"
-                    />
-                  )}
+                  <ReactPaginate
+                    breakLabel="..."
+                    nextLabel={
+                      <IoIosArrowForward
+                        size={20}
+                        color={colors.mediumslateBlue}
+                      />
+                    }
+                    onPageChange={onPageChange}
+                    pageCount={totalPages}
+                    previousLabel={
+                      <IoIosArrowBack
+                        size={20}
+                        color={colors.mediumslateBlue}
+                      />
+                    }
+                    containerClassName="paginationContainer"
+                    pageLinkClassName="pageLink"
+                    activeLinkClassName="activeLink"
+                  />
                 </S.PaginationContainer>
               </S.Table>
             </S.ContainerTable>
