@@ -34,7 +34,7 @@ export function useSalesFilter({ itemsPerPage, endDate, startDate }: Filter) {
     () => getSalesFilter({ page, itemsPerPage, endDate, startDate }),
     { keepPreviousData: true },
   );
-  const totalPages = data?.info?.totalPages;
+  const totalPages = data?.info?.totalPages || 0;
   const onPageChange = (selectedItem: { selected: number }) => {
     setPage(selectedItem.selected + 1);
   };
