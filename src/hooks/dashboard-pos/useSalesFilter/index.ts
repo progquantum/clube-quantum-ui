@@ -32,9 +32,9 @@ export function useSalesFilter({ itemsPerPage, endDate, startDate }: Filter) {
   const { data } = useQuery(
     [QUERY_SALES_FILTER_KEY, page, endDate, startDate],
     () => getSalesFilter({ page, itemsPerPage, endDate, startDate }),
-    { keepPreviousData: false },
+    { keepPreviousData: true },
   );
-  const totalPages = data?.info?.totalPages;
+  const totalPages = data?.info?.totalPages || 0;
   const onPageChange = (selectedItem: { selected: number }) => {
     setPage(selectedItem.selected + 1);
   };
