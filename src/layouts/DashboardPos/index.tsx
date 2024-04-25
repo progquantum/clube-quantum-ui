@@ -11,6 +11,8 @@ import { IoIosArrowBack, IoIosArrowForward } from 'react-icons/io';
 import ReactPaginate from 'react-paginate';
 import { useTheme } from 'styled-components';
 
+import { v4 } from 'uuid';
+
 import { Loader } from 'components/Loader';
 import { Select } from 'components/Select';
 import { DASHBOARD_PAGE } from 'constants/routesPath';
@@ -20,7 +22,6 @@ import { DashboardLayout } from 'layouts/DashboardLayout';
 import { useSidebarStore } from 'store/sidebar';
 import { formatDate } from 'utils/formatters/formatDate';
 import { formatPrice } from 'utils/formatters/formatPrice';
-
 import { AgiplanIcon } from 'components/Illustrations/Agiplan';
 import { AmericanExpressIcon } from 'components/Illustrations/AmericanExpress';
 import { AuraIcon } from 'components/Illustrations/Aura';
@@ -38,7 +39,6 @@ import { MasterCardMaestroIcon } from 'components/Illustrations/MasterCardMaestr
 import { SorocredIcon } from 'components/Illustrations/Sorocred';
 import { VISAIcon } from 'components/Illustrations/Visa';
 import { VISAEletronIcon } from 'components/Illustrations/VisaEletron';
-
 import { CredzIcon } from 'components/Illustrations/Credz';
 
 import { OverallSalesProgressionBarChart } from './OverallSalesProgressionBarChart';
@@ -332,28 +332,26 @@ export function DashboardPos() {
                   </S.TableRow>
                 ))}
                 <S.PaginationContainer>
-                  {totalPages > 1 && (
-                    <ReactPaginate
-                      breakLabel="..."
-                      nextLabel={
-                        <IoIosArrowForward
-                          size={20}
-                          color={colors.mediumslateBlue}
-                        />
-                      }
-                      onPageChange={onPageChange}
-                      pageCount={totalPages}
-                      previousLabel={
-                        <IoIosArrowBack
-                          size={20}
-                          color={colors.mediumslateBlue}
-                        />
-                      }
-                      containerClassName="paginationContainer"
-                      pageLinkClassName="pageLink"
-                      activeLinkClassName="activeLink"
-                    />
-                  )}
+                  <ReactPaginate
+                    breakLabel="..."
+                    nextLabel={
+                      <IoIosArrowForward
+                        size={20}
+                        color={colors.mediumslateBlue}
+                      />
+                    }
+                    onPageChange={onPageChange}
+                    pageCount={totalPages}
+                    previousLabel={
+                      <IoIosArrowBack
+                        size={20}
+                        color={colors.mediumslateBlue}
+                      />
+                    }
+                    containerClassName="paginationContainer"
+                    pageLinkClassName="pageLink"
+                    activeLinkClassName="activeLink"
+                  />
                 </S.PaginationContainer>
               </S.Table>
             </S.ContainerTable>
@@ -368,9 +366,9 @@ export function DashboardPos() {
               <S.TableFlag>
                 {sales?.card_brand.map(brand => {
                   if (brand.transactions.totalAmount === 0) return;
-
+                  const key = v4();
                   return (
-                    <S.ContentCards key={brand.brand}>
+                    <S.ContentCards key={key}>
                       <S.TableFlagRow>
                         {cardsBrandsMap[brand.brand] ? (
                           cardsBrandsMap[brand.brand]
