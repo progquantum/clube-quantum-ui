@@ -60,7 +60,12 @@ export function useGetCommissions({
       startDate,
     ],
     () =>
-      getCommissions({ page: Number(page), itemsPerPage, endDate, startDate }),
+      getCommissions({
+        page: Number(page) || 1,
+        itemsPerPage,
+        endDate,
+        startDate,
+      }),
     {
       keepPreviousData: true,
     },
