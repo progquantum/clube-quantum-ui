@@ -1,9 +1,6 @@
 import dayjs from 'dayjs';
 import { useState } from 'react';
-
 import { useRouter } from 'next/router';
-
-import { useQueryClient } from 'react-query';
 
 import { useBalances } from 'hooks/me/useBalances';
 import { AccountBalance } from 'layouts/Dashboard/AccountBalance';
@@ -11,7 +8,6 @@ import { DashboardLayout } from 'layouts/DashboardLayout';
 import { useSidebarStore } from 'store/sidebar';
 import { formatCashback } from 'utils/formatters/formatCashback';
 import { generateDeadline } from 'utils/generateDeadline';
-
 import { useGetCommissions } from 'hooks/commissions/useGetCommissions';
 
 import { EarningsHistory } from './EarningsHistory';
