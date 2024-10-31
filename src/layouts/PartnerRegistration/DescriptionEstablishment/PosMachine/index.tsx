@@ -23,13 +23,14 @@ export function PosMachine({ id, handleRemovePosMachine }: Props) {
       ? state.machinePos.findIndex(item => item.id === id)
       : Number(id);
 
-  const inputDefaultValue = state.machinePos[index]?.serie;
+  const inputSerialNumberDefaultValue = state.machinePos[index]?.serie;
+  const inputSecretTokenDefaultValue = state.machinePos[index]?.secret_token;
 
   useEffect(() => {
     if (serie && secretToken) {
       state.setMachinePos(id, serie, secretToken);
     }
-  }, [serie, secretToken, id, state]);
+  }, [serie, secretToken, id]);
 
   return (
     <S.Container>
@@ -51,18 +52,20 @@ export function PosMachine({ id, handleRemovePosMachine }: Props) {
         type="text"
         name={`machinePos[${index}].pos_serial_number`}
         placeholder="Digite o número de série da sua POS"
+        required
         label="Número de série"
         onChange={e => setSerie(e.target.value)}
-        defaultValue={inputDefaultValue || ''}
+        defaultValue={inputSerialNumberDefaultValue || ''}
       />
 
       <Input
         type="text"
-        name={`machinePos[${index}].secretToken`}
+        name={`machinePos[${index}].secret_token`}
         placeholder="Digite o token de registro da sua POS"
         label="Token de Registro"
+        required
         onChange={e => setSecretToken(e.target.value)}
-        defaultValue={inputDefaultValue || ''}
+        defaultValue={inputSecretTokenDefaultValue || ''}
       />
     </S.Container>
   );
