@@ -17,6 +17,7 @@ export type CashBackRules = {
 export type MachinePos = {
   id: string;
   serie: string;
+  secretToken: string;
 }[];
 
 export type Logo = {
@@ -44,7 +45,7 @@ export type PartnerStore = {
   setRemoveCashBackRules: (id: string) => void;
   machinePos: MachinePos;
   resetMachinePos: () => void;
-  setMachinePos: (id: string, serie: string) => void;
+  setMachinePos: (id: string, serie: string, secretToken: string) => void;
   setRemoveMachinePos: (id: string) => void;
   aboutEstablishment: string;
   setAbout: (text: string) => void;
