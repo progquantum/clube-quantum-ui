@@ -1,7 +1,7 @@
 interface MachinePos {
   id: string;
   serie: string;
-  secretToken: string;
+  secret_token: string;
 }
 
 export const convertMachinePosToPosSerialNumbers = (
@@ -10,7 +10,7 @@ export const convertMachinePosToPosSerialNumbers = (
   pos_serial_number: string;
   secretToken: string;
 }[] =>
-  machinePos.map(({ serie, secretToken }) => ({
+  machinePos.map(({ serie, secret_token }) => ({
     pos_serial_number: serie,
-    secretToken,
+    secretToken: secret_token,
   }));
