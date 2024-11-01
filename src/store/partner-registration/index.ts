@@ -242,7 +242,7 @@ export const usePartnerStore = create(
       resetMachinePos: () => {
         set({ machinePos: [] as MachinePos });
       },
-      setMachinePos: (id: string, serie: string) => {
+      setMachinePos: (id: string, serie: string, secret_token: string) => {
         set(state => {
           const nextState = produce(state.machinePos, draft => {
             const index = draft.findIndex(machinePos => id === machinePos?.id);
@@ -250,6 +250,7 @@ export const usePartnerStore = create(
             const newMachinePos = {
               id,
               serie,
+              secret_token,
             };
             if (index === -1) {
               draft.push(newMachinePos);
