@@ -300,7 +300,7 @@ export function DescriptionEstablishment() {
               about: aboutEstablishment,
               hours_opening: hoursOpening,
               closed_days_of_week: closedDaysOfWeek,
-              pos_serial_numbers,
+              pos_serials: pos_serial_numbers,
               rules_cashback,
             },
             {
