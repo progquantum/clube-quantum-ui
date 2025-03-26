@@ -13,15 +13,6 @@ import { useTheme } from 'styled-components';
 
 import { v4 } from 'uuid';
 
-import { Loader } from 'components/Loader';
-import { Select } from 'components/Select';
-import { DASHBOARD_PAGE } from 'constants/routesPath';
-import { useGetEstablishment } from 'hooks/dashboard-pos/useGetEstablishment';
-import { useSalesFilter } from 'hooks/dashboard-pos/useSalesFilter';
-import { DashboardLayout } from 'layouts/DashboardLayout';
-import { useSidebarStore } from 'store/sidebar';
-import { formatDate } from 'utils/formatters/formatDate';
-import { formatPrice } from 'utils/formatters/formatPrice';
 import { AgiplanIcon } from 'components/Illustrations/Agiplan';
 import { AmericanExpressIcon } from 'components/Illustrations/AmericanExpress';
 import { AuraIcon } from 'components/Illustrations/Aura';
@@ -29,6 +20,7 @@ import { BanesCardIcon } from 'components/Illustrations/BanesCard';
 import { BanriComprasIcon } from 'components/Illustrations/BanriCompras';
 import { CabalIcon } from 'components/Illustrations/Cabal';
 import { CredSystemIcon } from 'components/Illustrations/CredSystem';
+import { CredzIcon } from 'components/Illustrations/Credz';
 import { DinersClubIcon } from 'components/Illustrations/DinersClub';
 import { DiscoverIcon } from 'components/Illustrations/Discover';
 import { EloIcon } from 'components/Illustrations/Elo';
@@ -39,7 +31,15 @@ import { MasterCardMaestroIcon } from 'components/Illustrations/MasterCardMaestr
 import { SorocredIcon } from 'components/Illustrations/Sorocred';
 import { VISAIcon } from 'components/Illustrations/Visa';
 import { VISAEletronIcon } from 'components/Illustrations/VisaEletron';
-import { CredzIcon } from 'components/Illustrations/Credz';
+import { Loader } from 'components/Loader';
+import { Select } from 'components/Select';
+import { DASHBOARD_PAGE } from 'constants/routesPath';
+import { useGetEstablishment } from 'hooks/dashboard-pos/useGetEstablishment';
+import { useSalesFilter } from 'hooks/dashboard-pos/useSalesFilter';
+import { DashboardLayout } from 'layouts/DashboardLayout';
+import { useSidebarStore } from 'store/sidebar';
+import { formatDate } from 'utils/formatters/formatDate';
+import { formatPrice } from 'utils/formatters/formatPrice';
 
 import { OverallSalesProgressionBarChart } from './OverallSalesProgressionBarChart';
 import { PaymentMethodPieChart } from './PaymentMethodPieChart';
@@ -49,6 +49,7 @@ import * as S from './styles';
 const cardsBrandsMap: { [key: string]: JSX.Element } = {
   VISA: <VISAIcon width="37.16px" height="12px" />,
   VISA_ELECTRON: <VISAEletronIcon width="38px" height="40px" />,
+  'VISA ELECTRON': <VISAEletronIcon width="38px" height="40px" />,
   MASTERCARD: <MasterCardIcon width="25.89px" height="16px" />,
   MAESTRO: <MasterCardMaestroIcon width="30px" height="20px" />,
   ELO: <EloIcon width="41.76px" height="16px" />,
@@ -303,15 +304,25 @@ export function DashboardPos() {
                       </S.StatusTrans>
                     </S.TableColumn>
                     <S.TableColumn2>
-                      <S.Font14>{transaction.card_brand}</S.Font14>
+                      <S.Font14>
+                        {transaction.payment_method === 'PIX'
+                          ? 'PIX'
+                          : transaction.card_brand}
+                      </S.Font14>
                       <S.FontGray400>
-                        {transaction.payment_method === 'CREDIT'
-                          ? `Créd. ${
+                        {(() => {
+                          if (transaction.payment_method === 'CREDIT') {
+                            const installmentType =
                               transaction.installments > 1
                                 ? 'parcelado'
-                                : 'à vista'
-                            } - ${transaction.installments}x`
-                          : 'Débito'}
+                                : 'à vista';
+                            return `Créd. ${installmentType} - ${transaction.installments}x`;
+                          }
+                          if (transaction.payment_method === 'PIX') {
+                            return 'Pix à vista';
+                          }
+                          return 'Débito';
+                        })()}
                       </S.FontGray400>
                     </S.TableColumn2>
                     <S.TableColumn3>
