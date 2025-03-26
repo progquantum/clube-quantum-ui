@@ -1,11 +1,13 @@
+import React from 'react';
+
 import {
   Cell,
-  Legend,
   Pie,
   PieChart,
   ResponsiveContainer,
-  Text,
   Tooltip,
+  Legend,
+  Text,
 } from 'recharts';
 
 import { useSidebarStore } from 'store/sidebar';
@@ -18,13 +20,12 @@ export function PaymentMethodPieChart({ payment_method }: PaymentMethodProps) {
     { name: 'Crédito Parcelado', value: payment_method?.installment_credit },
     { name: 'Débito', value: payment_method?.debit },
     { name: 'Crédito à Vista', value: payment_method?.credit },
-    { name: 'PIX', value: payment_method?.qr_code },
   ];
   const areAllValuesZero = data.every(item => item.value === 0);
 
   const isSidebarOpen = useSidebarStore(state => state.isExpanded);
 
-  const COLORS = ['#0C61FF', '#3CD2A2', '#F86624', '#9747FF'];
+  const COLORS = ['#0C61FF', '#3CD2A2', '#F86624'];
   const RADIAN = Math.PI / 180;
   const renderCustomizedLabel = ({
     cx,
