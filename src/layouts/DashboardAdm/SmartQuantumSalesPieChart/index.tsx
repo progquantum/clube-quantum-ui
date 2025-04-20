@@ -1,10 +1,10 @@
 /* eslint-disable react/no-array-index-key */
 /* eslint-disable react/no-unstable-nested-components */
 import {
-  PieChart as PieChar,
-  Pie,
   Cell,
   Legend,
+  Pie,
+  PieChart as PieChar,
   ResponsiveContainer,
   Surface,
   Tooltip,
@@ -12,32 +12,54 @@ import {
 import { v4 } from 'uuid';
 
 import { PosSalesPerCustomer } from 'hooks/dashboard-adm/useGetDashboardADM/types';
+import { formatPrice } from 'utils/formatters/formatPrice';
 
 import * as S from './styles';
-
-const dataFallback = [
-  { name: 'Clientes não associados', value: 25 },
-  { name: 'Clientes Quantum', value: 75 },
-];
 
 const COLORS = ['#878787', '#0C61FF'];
 
 export function SmartQuantumSalesPieChart({
   posSalesPerCustomer,
 }: {
-  posSalesPerCustomer: PosSalesPerCustomer;
+  posSalesPerCustomer?: PosSalesPerCustomer;
 }) {
+  // Se não tiver dados, mostra um componente de carregamento
+  if (!posSalesPerCustomer) {
+    return (
+      <S.ChartContainer>
+        <S.Title>Vendas Smart Quantum</S.Title>
+        <S.LoadingContainer>Carregando dados...</S.LoadingContainer>
+      </S.ChartContainer>
+    );
+  }
+
+  // Verificar se há dados para exibir
+  const totalValue =
+    posSalesPerCustomer.client_quantum +
+    posSalesPerCustomer.non_affiliated_client;
+  if (totalValue === 0) {
+    return (
+      <S.ChartContainer>
+        <S.Title>Vendas Smart Quantum</S.Title>
+        <S.EmptyDataContainer>Não há dados disponíveis</S.EmptyDataContainer>
+      </S.ChartContainer>
+    );
+  }
   const mappedLabels = {
     client_quantum: 'Clientes Quantum',
     non_affiliated_client: 'Clientes não associados',
   };
 
-  const formattedData = posSalesPerCustomer
-    ? Object.keys(posSalesPerCustomer).map(key => ({
-        name: mappedLabels[key],
-        value: posSalesPerCustomer[key],
-      }))
-    : dataFallback;
+  const formattedData = [
+    {
+      name: mappedLabels.non_affiliated_client,
+      value: Number(posSalesPerCustomer.non_affiliated_client || 0),
+    },
+    {
+      name: mappedLabels.client_quantum,
+      value: Number(posSalesPerCustomer.client_quantum || 0),
+    },
+  ];
 
   return (
     <S.ChartContainer>
@@ -99,7 +121,7 @@ export function SmartQuantumSalesPieChart({
               );
             }}
           />
-          <Tooltip />
+          <Tooltip formatter={value => [formatPrice(String(value || 0)), '']} />
         </PieChar>
       </ResponsiveContainer>
     </S.ChartContainer>

@@ -106,18 +106,30 @@ export const TitleBalance = styled.h2`
 
 export const ValueBalance = styled.p`
   font-style: normal;
-  font-weight: 700;
+  font-weight: 500;
   font-size: 18px;
   line-height: 150%;
   color: ${({ theme }) => theme.colors.gray[700]};
 `;
 
-export const DivRow = styled.div`
-  width: 100%;
-  max-width: 497.5px;
+export const ContainerDatePicker = styled.div`
   display: flex;
+  flex-direction: row;
+  gap: 16px;
+  margin-bottom: 24px;
+  max-width: 424px;
+
+  @media (max-width: 768px) {
+    flex-direction: column;
+  }
+`;
+
+export const DivRow = styled.div`
+  display: flex;
+  flex-direction: row;
   align-items: center;
-  gap: 12px;
+  gap: 16px;
+  margin-bottom: 16px;
 `;
 
 export const ButtonUnderline = styled(Button)<ButtonProps>`
@@ -130,15 +142,10 @@ export const ButtonUnderline = styled(Button)<ButtonProps>`
     line-height: 17px;
     display: flex;
     align-items: center;
-    text-align: center;
-    text-decoration-line: ${underline ? 'underline' : 'none'};
-    background: transparent;
-    &:hover {
-      background: transparent;
-      color: ${({ theme }) => theme.colors.midnightBlue};
-      opacity: 0.7;
-    }
-
+    justify-content: center;
+    color: ${underline ? '#0C61FF' : '#4A4A4A'};
+    border-bottom: ${underline ? '2px solid #0C61FF' : 'none'};
+    border-radius: 0;
     color: ${({ theme }) => theme.colors.midnightBlue};
   `}
 `;
@@ -149,4 +156,19 @@ export const TitleAdm = styled.h2`
   font-size: 14px;
   line-height: 150%;
   color: ${({ theme }) => theme.colors.gray[700]};
+`;
+
+export const ErrorMessage = styled.div`
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  padding: 20px;
+  margin-top: 20px;
+  background-color: #fff;
+  border-radius: 8px;
+  box-shadow: 0px 0px 20px rgba(0, 0, 0, 0.1);
+  color: #e74c3c;
+  font-size: 16px;
+  font-weight: 500;
 `;
