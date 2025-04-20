@@ -1,12 +1,12 @@
 /* eslint-disable react/no-array-index-key */
 /* eslint-disable react/no-unstable-nested-components */
 import {
-  PieChart,
-  Pie,
-  Surface,
   Cell,
   Legend,
+  Pie,
+  PieChart,
   ResponsiveContainer,
+  Surface,
   Tooltip,
 } from 'recharts';
 
@@ -17,28 +17,56 @@ import { ClientsPerPlan } from 'hooks/dashboard-adm/useGetDashboardADM/types';
 import * as S from './styles';
 import { ClientsPerPlanLabels } from './types';
 
-const clientsPerPlanFallback = {
-  quantum_free: 0,
-  quantum_start: 0,
-  quantum_business: 0,
-  quantum_select: 0,
-  inactive: 0,
-  total_clients: 0,
-};
 export function ClientsByPlanPieChart({
-  clientsPerPlan = clientsPerPlanFallback,
+  clientsPerPlan,
 }: {
-  clientsPerPlan: ClientsPerPlan;
+  clientsPerPlan?: ClientsPerPlan;
 }) {
-  const formattedData = Object.keys(clientsPerPlan).map(
-    key =>
-      key !== 'total_clients' && {
-        name: ClientsPerPlanLabels[key],
-        value: clientsPerPlan[key],
-      },
-  );
+  // Se não tiver dados, mostra um componente de carregamento
+  if (!clientsPerPlan) {
+    return (
+      <S.ChartContainer>
+        <S.Title>Clientes por plano</S.Title>
+        <S.LoadingContainer>Carregando dados...</S.LoadingContainer>
+      </S.ChartContainer>
+    );
+  }
+  // Verificar se há dados para exibir
+  if (Object.keys(clientsPerPlan).length === 0) {
+    return (
+      <S.ChartContainer>
+        <S.Title>Clientes por plano</S.Title>
+        <S.EmptyDataContainer>Não há dados disponíveis</S.EmptyDataContainer>
+      </S.ChartContainer>
+    );
+  }
 
-  formattedData.pop();
+  // Verificar se todos os valores de planos são zero
+  const hasNonZeroValues = Object.keys(clientsPerPlan)
+    .filter(key => key !== 'total_clients')
+    .some(key => clientsPerPlan[key] > 0);
+
+  if (!hasNonZeroValues) {
+    return (
+      <S.ChartContainer>
+        <S.Title>Clientes por plano</S.Title>
+        <S.EmptyDataContainer>
+          Não há clientes cadastrados em nenhum plano
+        </S.EmptyDataContainer>
+      </S.ChartContainer>
+    );
+  }
+
+  // Processar os dados para o gráfico
+  // Garantir que todos os valores sejam strings ou números primitivos
+  const formattedData = Object.keys(clientsPerPlan)
+    .filter(key => key !== 'total_clients')
+    .map(key => ({
+      // Converter nome para string para evitar problemas de renderização
+      name: String(ClientsPerPlanLabels[key] || key),
+      // Garantir que o valor seja um número
+      value: Number(clientsPerPlan[key]),
+    }));
 
   const COLORS = ['#00C49F', '#F86624', '#0C61FF', '#BBBBBB'];
 
@@ -56,7 +84,7 @@ export function ClientsByPlanPieChart({
 
   const centerLabel = (
     <CenterLabel>
-      <tspan x="50%">{clientsPerPlan.total_clients}</tspan>
+      <tspan x="50%">{String(clientsPerPlan.total_clients)}</tspan>
       <tspan x="50%" dy="1.2em" fontSize="14px">
         Clientes
       </tspan>
@@ -75,11 +103,17 @@ export function ClientsByPlanPieChart({
             fill="#8884d8"
             paddingAngle={5}
             dataKey="value"
+            nameKey="name"
             label={centerLabel}
             labelLine={false}
+            isAnimationActive={false}
           >
-            {formattedData.map((_, index) => (
-              <Cell key={v4()} fill={COLORS[index % COLORS.length]} />
+            {formattedData.map((item, index) => (
+              <Cell
+                key={`cell-${index}-${v4()}`}
+                fill={COLORS[index % COLORS.length]}
+                name={String(item.name)}
+              />
             ))}
           </Pie>
           <Legend
@@ -113,7 +147,7 @@ export function ClientsByPlanPieChart({
                         style={{ marginLeft: '5px', fontFamily: 'Montserrat' }}
                         className="custom-legend-text"
                       >
-                        {entry.value}
+                        {String(entry.value)}
                       </span>
                     </div>
                   ))}
@@ -121,7 +155,11 @@ export function ClientsByPlanPieChart({
               );
             }}
           />
-          <Tooltip />
+          <Tooltip
+            formatter={value => [String(value || 0), '']}
+            labelFormatter={label => String(label || '')}
+            isAnimationActive={false}
+          />
         </PieChart>
       </ResponsiveContainer>
     </S.ChartContainer>

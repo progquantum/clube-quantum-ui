@@ -22,3 +22,23 @@ export const Title = styled.h2`
   color: ${({ theme }) => theme.colors.gray[700]};
   margin-bottom: 10px;
 `;
+
+export const LoadingContainer = styled.div`
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  height: 100%;
+  font-size: 16px;
+  color: ${({ theme }) => theme.colors.gray[500]};
+`;
+
+export const EmptyDataContainer = styled.div`
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  height: 100%;
+  font-size: 16px;
+  color: ${({ theme }) => theme.colors.gray[500]};
+`;
