@@ -194,7 +194,7 @@ export function Main() {
           <S.ContentBalance>
             <S.TitleBalance>
               <MdOutlineAttachMoney size={19.87} />
-              Faturamento Diário
+              Faturamento Por Período
             </S.TitleBalance>
             <S.ValueBalance>
               {formatPrice(String(billingInDateRange))}
