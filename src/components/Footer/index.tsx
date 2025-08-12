@@ -20,15 +20,13 @@ export function Footer() {
 
       <S.Contact>
         <S.SocialNetworks>
-          <Link href="https://www.instagram.com/banco.um">
+          <Link href="https://www.instagram.com/clubequantum">
             <S.Instagram />
           </Link>
-          <S.Facebook />
-          <S.Twitter />
         </S.SocialNetworks>
 
         <S.HeadingContact>Nossa central de atendimento</S.HeadingContact>
-        <S.HeadingNumber>0800 000 0000</S.HeadingNumber>
+        <S.HeadingNumber>(11) 96443-8721</S.HeadingNumber>
       </S.Contact>
     </S.Container>
   );
