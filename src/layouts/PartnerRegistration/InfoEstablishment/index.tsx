@@ -350,7 +350,7 @@ export function InfoEstablishment() {
     if (Array.isArray(e.PosSerialNumber)) {
       if (e.PosSerialNumber.length > 0) {
         e.PosSerialNumber.map(item =>
-          setMachinePos(item.id, item.serial_number),
+          setMachinePos(item.id, item.serial_number, item.secret_token),
         );
       }
     }

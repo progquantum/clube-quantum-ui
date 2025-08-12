@@ -55,6 +55,7 @@ export interface MarketplaceImage {
 export interface PosSerialNumber {
   id: string;
   serial_number: string;
+  secret_token?: string;
 }
 
 export interface EstablishmentPosWorkingHour {

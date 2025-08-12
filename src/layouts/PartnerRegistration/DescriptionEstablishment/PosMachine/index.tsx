@@ -1,4 +1,5 @@
 /* eslint-disable jsx-a11y/label-has-associated-control */
+import { useEffect, useState } from 'react';
 import { AiOutlineClose } from 'react-icons/ai';
 
 import { useTheme } from 'styled-components';
@@ -14,12 +15,24 @@ export function PosMachine({ id, handleRemovePosMachine }: Props) {
   const { colors } = useTheme();
   const state = usePartnerStore(state => state);
 
+  const [serie, setSerie] = useState(state.machinePos[id]?.serie || '');
+  const [secretToken, setSecretToken] = useState(
+    state.machinePos[id]?.secret_token || '',
+  );
+
   const index =
     state.machinePos.findIndex(item => item.id === id) !== -1
       ? state.machinePos.findIndex(item => item.id === id)
       : Number(id);
 
-  const inputDefaultValue = state.machinePos[index]?.serie;
+  const inputSerialNumberDefaultValue = state.machinePos[index]?.serie;
+  const inputSecretTokenDefaultValue = state.machinePos[index]?.secret_token;
+
+  useEffect(() => {
+    if (serie && secretToken) {
+      state.setMachinePos(id, serie, secretToken);
+    }
+  }, [serie, secretToken, id]);
 
   return (
     <S.Container>
@@ -39,11 +52,22 @@ export function PosMachine({ id, handleRemovePosMachine }: Props) {
 
       <Input
         type="text"
-        name={`machinePos[${index}].machine_pos_serie`}
+        name={`machinePos[${index}].pos_serial_number`}
         placeholder="Digite o número de série da sua POS"
+        required
         label="Número de série"
-        onChange={e => state.setMachinePos(id, e.target.value)}
-        defaultValue={inputDefaultValue || ''}
+        onChange={e => setSerie(e.target.value)}
+        defaultValue={inputSerialNumberDefaultValue || ''}
+      />
+
+      <Input
+        type="text"
+        name={`machinePos[${index}].secret_token`}
+        placeholder="Digite o token de registro da sua POS"
+        label="Token de Registro"
+        required
+        onChange={e => setSecretToken(e.target.value)}
+        defaultValue={inputSecretTokenDefaultValue || ''}
       />
     </S.Container>
   );

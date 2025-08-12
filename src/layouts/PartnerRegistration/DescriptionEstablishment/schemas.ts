@@ -15,7 +15,8 @@ const openingHoursSchema = Yup.array().of(
 
 const machinePosSchema = Yup.array().of(
   Yup.object().shape({
-    machine_pos_serie: Yup.string().required(),
+    pos_serial_number: Yup.string().required(),
+    secret_token: Yup.string().required(),
   }),
 );
 export const schema = Yup.object().shape({
