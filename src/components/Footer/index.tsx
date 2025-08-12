@@ -26,6 +26,7 @@ export function Footer() {
         </S.SocialNetworks>
 
         <S.HeadingContact>Nossa central de atendimento</S.HeadingContact>
+
         <S.HeadingNumber>(11) 96443-8721</S.HeadingNumber>
       </S.Contact>
     </S.Container>
