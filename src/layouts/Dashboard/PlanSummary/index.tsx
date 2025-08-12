@@ -1,8 +1,8 @@
 /* eslint-disable no-restricted-globals */
 /* eslint-disable jsx-a11y/click-events-have-key-events */
 /* eslint-disable jsx-a11y/no-static-element-interactions */
-import { BsCheck2 } from 'react-icons/bs';
 import { AiOutlineClose } from 'react-icons/ai';
+import { BsCheck2 } from 'react-icons/bs';
 
 import Link from 'next/link';
 
@@ -29,7 +29,6 @@ const quantumFreeAdvantages = [
 ];
 
 const quantumStartAdvantages = [
-  'Condições: Utilização do Cartão BANCO UM VISA, em compras com transações totalizando(soma das transações) no valor mínimo de R$ 500,00 no mês anterior.',
   'Ganhará R$ 5,00 por toda indicação DIRETA que se ativar no QUANTUM CLUBE E BANCO UM, sem limites de indicação.',
   'Receberá CashBack 0,20% sobre as transações com o Cartão VISA de sua conta corrente INDIVIDUAL APENAS.',
   'Participar Programa de Fidelidade Quantum com Diversos CashBAck oferecidos pelos parceiros comerciais.',
@@ -37,12 +36,11 @@ const quantumStartAdvantages = [
   'Receberá por suas indicações DIRETAS X R$ 1,00 recorrente mensal, por clientes ATIVO NO PLANO REMUNERADO, sem limite de indicação.',
   'Receberá comissões de R$ 1,00 por produto comprado no MarketPlace, por seu Indicado DIRETO sem limites da indicação.',
   'Receberá 1% de comissão sobre os ganhos na CARTEIRA DIGITAL QUANTUM de seus Indicados DIRETO, referente ao fechamento mensal de cada ciclo .',
-  'Renovação ANUAL do Plano, no 13o. Mês, para se manter no Clube de Beneficios no valor de R$ 199,00, mais as mensalidades subsequentes.',
+  'Renovação ANUAL do Plano, no 13o Mês.',
 ];
 
 const quantumSelectAdvantages = [
   'Condições: Ter UM Produto QUANTUM Adquirido/Ativo do MarketPlace  do mês anterior.',
-  'Condições: Utilização do Cartão BANCO UM VISA, em compras com transações totalizando(soma das transações) no valor mínimo de R$ 2.000,00 no mês anterior.',
   'Ganhará R$ 5,00 por toda indicação DIRETA que se ativar no QUANTUM CLUBE E BANCO UM, sem limites de indicação.',
   'Receberá CashBack 0,20% sobre as transações com o Cartão VISA de sua conta corrente INDIVIDUAL APENAS.',
   'Participar Programa de Fidelidade Quantum com Diversos CashBAck oferecidos pelos parceiros comerciais.',
@@ -51,7 +49,7 @@ const quantumSelectAdvantages = [
   'Receberá comissões de R$ 1,00 por produto comprado no MarketPlace, por seu Indicado DIRETO sem limites da indicação.',
   'Receberá 2% de comissão sobre os ganhos na CARTEIRA DIGITAL QUANTUM de seus Indicados DIRETO, referente ao fechamento mensal de cada ciclo.',
   'Receberá comissões de R$ 10,00 mensal por POS Credenciado e Ativo com mensalidade no Quantum ou Locação Simples, recorrente mensal, sem limites de vendas enquanto o EC estiver Ativo.',
-  'Renovação ANUAL do Plano, no 13o. Mês, para se manter no Clube de Beneficios no valor de R$ 499,00, mais as mensalidades subsequentes.',
+  'Renovação ANUAL do Plano, no 13o Mês.',
 ];
 
 const advantages = {
