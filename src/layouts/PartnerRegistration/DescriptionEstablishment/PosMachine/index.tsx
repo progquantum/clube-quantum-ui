@@ -8,17 +8,15 @@ import { Input } from 'components/Input';
 
 import { usePartnerStore } from 'store/partner-registration';
 
-import { Props } from './types';
 import * as S from './styles';
+import { Props } from './types';
 
 export function PosMachine({ id, handleRemovePosMachine }: Props) {
   const { colors } = useTheme();
   const state = usePartnerStore(state => state);
 
   const [serie, setSerie] = useState(state.machinePos[id]?.serie || '');
-  const [secretToken, setSecretToken] = useState(
-    state.machinePos[id]?.secret_token || '',
-  );
+  const [secretToken] = useState(state.machinePos[id]?.secret_token || '');
 
   const index =
     state.machinePos.findIndex(item => item.id === id) !== -1
@@ -26,7 +24,6 @@ export function PosMachine({ id, handleRemovePosMachine }: Props) {
       : Number(id);
 
   const inputSerialNumberDefaultValue = state.machinePos[index]?.serie;
-  const inputSecretTokenDefaultValue = state.machinePos[index]?.secret_token;
 
   useEffect(() => {
     if (serie && secretToken) {
@@ -58,16 +55,6 @@ export function PosMachine({ id, handleRemovePosMachine }: Props) {
         label="Número de série"
         onChange={e => setSerie(e.target.value)}
         defaultValue={inputSerialNumberDefaultValue || ''}
-      />
-
-      <Input
-        type="text"
-        name={`machinePos[${index}].secret_token`}
-        placeholder="Digite o token de registro da sua POS"
-        label="Token de Registro"
-        required
-        onChange={e => setSecretToken(e.target.value)}
-        defaultValue={inputSecretTokenDefaultValue || ''}
       />
     </S.Container>
   );
